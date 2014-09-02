@@ -98,11 +98,11 @@
 	<!-- :location:admin-2 -->
 	<!-- :location:admin-3 -->
 	<!-- :location:locality -->
-	<!-- :location:elevation:min -->
-	<!-- :location:elevation:max -->
-	<!-- :location:datum -->
-	<!-- :location:latitude -->
-	<!-- :location:longitude -->
+	<!-- :location:site:elevation:min -->
+	<!-- :location:site:elevation:max -->
+	<!-- :location:site:datum -->
+	<!-- :location:site:latitude -->
+	<!-- :location:site:longitude -->
 	
 	<!-- fcu:unit:area -->
 	<META>
@@ -585,8 +585,9 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:list</item>
-				<item>:type:full-text-06</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>UnitSpecies</item>
@@ -599,6 +600,39 @@
 			</item>
 		</TAG>
 		<NODE tag="fcu:unit:species">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Population -->
+	
+	<!-- fcu:population -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:taxon:epithet</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unit populations]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information on population target species growing in the unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

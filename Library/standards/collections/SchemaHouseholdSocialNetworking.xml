@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	HOUSEHOLD SOCIAL NETWORKING SCHEMA
+	SchemaHouseholdSocialNetworking.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema:abdh:social:networking -->
+	<META>
+		<NODE term="abdh:social:networking" pid="schema:abdh:social:networking">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties specific to household social networking.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- abdh:Q6.18a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.18a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.18b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.18b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.18c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.18c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.19a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.19a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.19b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.19b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.19c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.19c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.20a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.20a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.20b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.20b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.20c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.20c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.21a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.21a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.21b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.21b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.21c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.21c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.22a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.22a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.22b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.22b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.22c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.22c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.23a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.23a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.23b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.23b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.23c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.23c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.24a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.24a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.24b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.24b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.24c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.24c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.25a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.25a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.25b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.25b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.25c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.25c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.26a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.26a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.26b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.26b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.26c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.26c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.27a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.27a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.27b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.27b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.27c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.27c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.28a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.28a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.28b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.28b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.28c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.28c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.29a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.29a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.29b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.29b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.29c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.29c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.30a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.30a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.30b  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.30b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.30c  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.30c</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.31a  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.31a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.31  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.31</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:PROGR  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:PROGR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

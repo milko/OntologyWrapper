@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	HOUSEHOLD OTHER LAND SCHEMA
+	SchemaHouseholdLandOther.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema:abdh:economy:land-other -->
+	<META>
+		<NODE term="abdh:economy:land-other" pid="schema:abdh:economy:land-other">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties specific to household other land owned and cultivated.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- abdh:HUSB_FAL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_FAL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_WASTE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_WASTE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_GRAZING -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_GRAZING</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_TREE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_TREE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_OTHERS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_OTHERS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_TOT_UNCULT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_TOT_UNCULT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_FAL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_FAL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_WASTE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_WASTE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_GRAZING -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_GRAZING</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_TREE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_TREE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_OTHERS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_OTHERS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_TOT_UNCULT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_TOT_UNCULT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_FAL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_FAL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_WASTE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_WASTE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_GRAZING -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_GRAZING</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_TREE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_TREE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_OTHERS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_OTHERS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_TOT_UNCULT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_TOT_UNCULT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	COLLECTED SAMPLE STRUCTURE
+	StructureCollectedSample.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Collected sample structure -->
+	
+	<!-- struct::domain:sample:collected -->
+	<META>
+		<NODE term=":domain:sample:collected" pid="struct::domain:sample:collected">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a germplasm sample collected in the wild.]]></item>
+				</item>
+			</item>
+		</NODE>
+
+		<!-- :collecting:mission -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:mission</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :collecting:mission:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- schema::collecting:event -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::collecting:event</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+
+		<!-- schema::taxon -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:distribution -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :collecting:entities -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:entities</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::location -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:site -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:site</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	
+		<!-- :environment -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :germplasm:mt -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :collecting:samples:accessions -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:samples:accessions</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

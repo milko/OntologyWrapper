@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ACCESSION COLLECTING EVENT STRUCT
+	StructAccessionCollecting.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Accession collecting event struct -->
+	
+	<!-- :domain:accession:collecting -->
+	<META>
+		<TERM ns=":domain:accession" lid="collecting">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collecting event</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:domain:accession:collecting</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information about the collecting of the accession.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":domain:accession:collecting">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+
+		<!-- schema::collecting:event -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::collecting:event</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	
+		<!-- :collecting:entities -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:entities</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::location -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:site -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:site</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	
+		<!-- :environment -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

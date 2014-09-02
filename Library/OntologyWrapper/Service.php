@@ -3959,7 +3959,7 @@ class Service extends ContainerObject
 		//
 		$param = $this->offsetGet( kAPI_PARAM_ID );
 		$this->mFilter = ( is_array( $param ) )
-					   ? array( kTAG_CONN_USER => array_shift( $param ),
+					   ? array( kTAG_CONN_CODE => array_shift( $param ),
 					   			kTAG_CONN_PASS => array_shift( $param ) )
 					   : array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) );
 		

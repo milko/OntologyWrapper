@@ -11,23 +11,14 @@
 	
 	<!-- :environment -->
 	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:environment</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:struct</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Environmental data.</item>
-				</item>
-			</item>
-		</TAG>
-		<NODE tag=":environment">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
+		<!-- Environment data source -->
+		
+		<!-- :environment:source -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:source</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
+		</EDGE>
 	
 		<!-- Environment tiles -->
 		
@@ -35,6 +26,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:tiles</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	
 		<!-- Environment distance -->
@@ -43,16 +35,19 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:distance-min</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 		<!-- :environment:distance-mean -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:distance-mean</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 		<!-- :environment:distance-max -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:distance-max</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	
 		<!-- Environment elevation -->
@@ -61,16 +56,19 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:elevation-min</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 		<!-- :environment:elevation-mean -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:elevation-mean</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 		<!-- :environment:elevation-max -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:elevation-max</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	
 		<!-- Monthly temperature -->
@@ -79,6 +77,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:temperature</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	
 		<!-- Monthly precipitation -->
@@ -87,6 +86,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	
 		<!-- Bioclimatic values -->
@@ -95,6 +95,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:bio</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	
 		<!-- Global environment stratification -->
@@ -103,18 +104,21 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">gens</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 		
 		<!-- gens:clim -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">gens:clim</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 		
 		<!-- gens:zone -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">gens:zone</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	
 		<!-- Global land cover -->
@@ -123,6 +127,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">globcov</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	
 		<!-- Hanmonised world soil -->
@@ -131,6 +136,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">hwsd</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	
 		<!-- Global human footprint -->
@@ -139,6 +145,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment:ghf</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment</item>
 		</EDGE>
 	</META>
 </METADATA>

@@ -25,7 +25,7 @@ use OntologyWrapper\Individual;
  * The class adds a series of default attributes which characterise users:
  *
  * <ul>
- *	<li><tt>{@link kTAG_CONN_USER}</tt>: <em>User code</em>. This optional attribute can be
+ *	<li><tt>{@link kTAG_CONN_CODE}</tt>: <em>User code</em>. This optional attribute can be
  *		set if the individual is also a user of the system, in that case this attribute can
  *		hold the user code credentials.
  *	<li><tt>{@link kTAG_CONN_PASS}</tt>: <em>User password</em>. This optional attribute can
@@ -80,7 +80,7 @@ class User extends Individual
 	 * In this class we index the following offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_CONN_USER}</tt>: User code.
+	 *	<li><tt>{@link kTAG_CONN_CODE}</tt>: User code.
 	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: User password.
 	 * </ul>
 	 *
@@ -99,7 +99,7 @@ class User extends Individual
 		//
 		// Set first name index.
 		//
-		$collection->createIndex( array( kTAG_CONN_USER => 1 ),
+		$collection->createIndex( array( kTAG_CONN_CODE => 1 ),
 								  array( "name" => "USER_CODE" ) );
 		
 		//
@@ -132,7 +132,7 @@ class User extends Individual
 	 * In this class we return:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_CONN_USER}</tt>: User code.
+	 *	<li><tt>{@link kTAG_CONN_CODE}</tt>: User code.
 	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: User password.
 	 * </ul>
 	 *
@@ -142,7 +142,7 @@ class User extends Individual
 	static function DefaultOffsets()
 	{
 		return array_merge( parent::DefaultOffsets(),
-							array( kTAG_CONN_USER, kTAG_CONN_PASS, kTAG_ROLES ) );	// ==>
+							array( kTAG_CONN_CODE, kTAG_CONN_PASS, kTAG_ROLES ) );	// ==>
 	
 	} // DefaultOffsets.
 
@@ -200,7 +200,7 @@ class User extends Individual
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_CONN_USER kTAG_CONN_PASS
+	 * @see kTAG_CONN_CODE kTAG_CONN_PASS
 	 *
 	 * @uses TermCount()
 	 */
@@ -214,7 +214,7 @@ class User extends Individual
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_CONN_USER ) &&
+		$this->isInited( \ArrayObject::offsetExists( kTAG_CONN_CODE ) &&
 						 \ArrayObject::offsetExists( kTAG_CONN_PASS ) );
 	
 	} // postOffsetSet.
@@ -233,7 +233,7 @@ class User extends Individual
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_CONN_USER kTAG_CONN_PASS
+	 * @see kTAG_CONN_CODE kTAG_CONN_PASS
 	 *
 	 * @uses TermCount()
 	 */
@@ -247,7 +247,7 @@ class User extends Individual
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_CONN_USER ) &&
+		$this->isInited( \ArrayObject::offsetExists( kTAG_CONN_CODE ) &&
 						 \ArrayObject::offsetExists( kTAG_CONN_PASS ) );
 	
 	} // postOffsetUnset.
@@ -291,7 +291,7 @@ class User extends Individual
 		// Check user code.
 		//
 		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
-			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( kTAG_CONN_USER ) );
+			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( kTAG_CONN_CODE ) );
 		
 		//
 		// Call parent method.

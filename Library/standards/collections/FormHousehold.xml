@@ -9,7 +9,7 @@
 	
 	<!-- FORM -->
 	
-    <!-- :domain:hh-assessment -->
+	<!-- :domain:hh-assessment -->
 	<META>
 		<NODE term=":domain:hh-assessment" pid="form::domain:hh-assessment">
 			<item const="kTAG_NODE_TYPE">
@@ -27,7 +27,7 @@
 	
 	<!-- Household -->
 	
-    <!-- abdh:household -->
+	<!-- abdh:household -->
 	<META>
 		<TERM ns="abdh" lid="household">
 			<item const="kTAG_LABEL">
@@ -77,7 +77,7 @@
 	
 	<!-- Respondent -->
 	
-    <!-- abdh:interview -->
+	<!-- abdh:interview -->
 	<META>
 		<NODE term="abdh:interview" pid="form:abdh:interview">
 			<item const="kTAG_LABEL">
@@ -149,7 +149,7 @@
 	
 	<!-- Species -->
 	
-    <!-- abdh:species -->
+	<!-- abdh:species -->
 	<META>
 		<NODE term="abdh:species" pid="form:abdh:species">
 			<item const="kTAG_LABEL">
@@ -201,16 +201,8 @@
 		</EDGE>
 	</META>
 	
-    <!-- abdh:cultivated -->
+	<!-- abdh:cultivated -->
 	<META>
-		<TERM ns="abdh" lid="cultivated">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Cultivated plants]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:cultivated" pid="form:abdh:cultivated">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -309,16 +301,8 @@
 		</EDGE>
 	</META>
 	
-    <!-- abdh:annual -->
+	<!-- abdh:annual -->
 	<META>
-		<TERM ns="abdh" lid="annual">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Annual plants]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:annual" pid="form:abdh:annual">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -477,16 +461,8 @@
 		</EDGE>
 	</META>
 	
-    <!-- abdh:perennial -->
+	<!-- abdh:perennial -->
 	<META>
-		<TERM ns="abdh" lid="perennial">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Perennial plants]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:perennial" pid="form:abdh:perennial">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -579,16 +555,8 @@
 		</EDGE>
 	</META>
 	
-    <!-- abdh:wild -->
+	<!-- abdh:wild -->
 	<META>
-		<TERM ns="abdh" lid="wild">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Wild plants]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:wild" pid="form:abdh:wild">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -609,16 +577,8 @@
 		</EDGE>
 	</META>
 	
-    <!-- abdh:animal -->
+	<!-- abdh:animal -->
 	<META>
-		<TERM ns="abdh" lid="animal">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Animal species]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:animal" pid="form:abdh:animal">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -785,7 +745,7 @@
 	
 	<!-- Socio-economic information -->
 	
-    <!-- abdh:economy -->
+	<!-- abdh:economy -->
 	<META>
 		<NODE term="abdh:economy" pid="form:abdh:economy">
 			<item const="kTAG_DESCRIPTION">
@@ -803,7 +763,7 @@
 	
 	<!-- Family size -->
 	
-    <!-- abdh:economy:family -->
+	<!-- abdh:economy:family -->
 	<META>
 		<NODE term="abdh:economy:family" pid="form:abdh:economy:family">
 			<item const="kTAG_DESCRIPTION">
@@ -905,7 +865,7 @@
 	
 	<!-- Land owned and cultivated -->
 	
-    <!-- abdh:economy:land -->
+	<!-- abdh:economy:land -->
 	<META>
 		<NODE term="abdh:economy:land" pid="form:abdh:economy:land">
 			<item const="kTAG_DESCRIPTION">
@@ -1049,7 +1009,7 @@
 	
 	<!-- Other owned land, land use/land cover -->
 	
-    <!-- abdh:economy:land-other -->
+	<!-- abdh:economy:land-other -->
 	<META>
 		<NODE term="abdh:economy:land-other" pid="form:abdh:economy:land-other">
 			<item const="kTAG_DESCRIPTION">
@@ -1175,7 +1135,7 @@
 	
 	<!-- Acess, quality, quantity, and management of water resources -->
 	
-    <!-- abdh:economy:water -->
+	<!-- abdh:economy:water -->
 	<META>
 		<NODE term="abdh:economy:water" pid="form:abdh:economy:water">
 			<item const="kTAG_DESCRIPTION">
@@ -1319,7 +1279,7 @@
 	
 	<!-- Housing -->
 	
-    <!-- abdh:economy:housing -->
+	<!-- abdh:economy:housing -->
 	<META>
 		<NODE term="abdh:economy:housing" pid="form:abdh:economy:housing">
 			<item const="kTAG_DESCRIPTION">
@@ -1391,7 +1351,7 @@
 	
 	<!-- Ownership of consumer goods -->
 	
-    <!-- abdh:economy:ownership -->
+	<!-- abdh:economy:ownership -->
 	<META>
 		<NODE term="abdh:economy:ownership" pid="form:abdh:economy:ownership">
 			<item const="kTAG_DESCRIPTION">
@@ -1541,7 +1501,7 @@
 	
 	<!-- Household sources of income -->
 	
-    <!-- abdh:economy:income -->
+	<!-- abdh:economy:income -->
 	<META>
 		<NODE term="abdh:economy:income" pid="form:abdh:economy:income">
 			<item const="kTAG_DESCRIPTION">
@@ -1973,7 +1933,7 @@
 	
 	<!-- Caste, social network & programmes information -->
 	
-    <!-- abdh:social -->
+	<!-- abdh:social -->
 	<META>
 		<NODE term="abdh:social" pid="form:abdh:social">
 			<item const="kTAG_DESCRIPTION">
@@ -2177,7 +2137,7 @@
 	
 	<!-- Household food security & risk attitudes -->
 	
-    <!-- abdh:risk -->
+	<!-- abdh:risk -->
 	<META>
 		<NODE term="abdh:risk" pid="form:abdh:risk">
 			<item const="kTAG_DESCRIPTION">

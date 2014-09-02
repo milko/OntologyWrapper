@@ -11,7 +11,7 @@
 	
 	<!-- _terms -->
 	<META>
-		 <TERM lid="_terms">
+		<TERM lid="_terms">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

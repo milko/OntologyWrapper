@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	HOUSEHOLD INTERVIEW SCHEMA
+	SchemaHouseholdInterview.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema:abdh:interview -->
+	<META>
+		<NODE term="abdh:interview" pid="schema:abdh:interview">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties specific to household interview respondents.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- abdh:ID_ENUMERATOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ID_ENUMERATOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:ENUMERATOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ENUMERATOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NOM_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NOM_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:GENDER_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GENDER_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:EDUC_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:EDUC_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:EDUC_HHH_NOTES -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:EDUC_HHH_NOTES</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGE_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGE_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:MARIT_STAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARIT_STAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPOUSE_STAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPOUSE_STAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPOUSE_EDUC -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPOUSE_EDUC</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPOUSE_EDUC_NOTES -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPOUSE_EDUC_NOTES</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REL_RESP_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REL_RESP_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:DATE_INT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:DATE_INT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

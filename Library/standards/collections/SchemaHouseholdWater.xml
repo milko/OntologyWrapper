@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	HOUSEHOLD WATER SCHEMA
+	SchemaHouseholdWater.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema:abdh:economy:water -->
+	<META>
+		<NODE term="abdh:economy:water" pid="schema:abdh:economy:water">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties specific to household acess, quality, quantity, and management of water resources.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- abdh:CAN_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CAN_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CAN_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CAN_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CAN_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CAN_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OWELL_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OWELL_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OWELL_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OWELL_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OWELL_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OWELL_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BWELL_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BWELL_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BWELL_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BWELL_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BWELL_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BWELL_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:KHADIN_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:KHADIN_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:KHADIN_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:KHADIN_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:KHADIN_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:KHADIN_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:TAANKA_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:TAANKA_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:TAANKA_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:TAANKA_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:TAANKA_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:TAANKA_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NAADI_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NAADI_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NAADI_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NAADI_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NAADI_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NAADI_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:GLR_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GLR_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:GLR_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GLR_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:GLR_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GLR_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

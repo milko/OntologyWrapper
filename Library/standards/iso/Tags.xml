@@ -9,7 +9,7 @@
 	
 	<!-- iso:date_withdrawn -->
 	<META>
-		 <TERM ns="iso" lid="date_withdrawn">
+		<TERM ns="iso" lid="date_withdrawn">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

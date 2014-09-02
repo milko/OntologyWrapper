@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :taxon -->
+	<!-- schema::taxon -->
 	<META>
 		<NODE term=":taxon" pid="schema::taxon">
 			<item const="kTAG_NODE_TYPE">
@@ -23,7 +23,7 @@
 			</item>
 		</NODE>
 	
-		<!-- Reference -->
+		<!-- :taxon:url -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:url</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -31,271 +31,271 @@
 		
 		<!-- RANKS -->
 		
-		<!-- Rank -->
+		<!-- :taxon:rank -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:rank</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Domain -->
+		<!-- :taxon:superregnum -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:superregnum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Kingdom -->
+		<!-- :taxon:regnum -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:regnum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Subkingdom -->
+		<!-- :taxon:subregnum -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:subregnum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Infrakingdom -->
+		<!-- :taxon:infraregnum -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:infraregnum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Superphylum -->
+		<!-- :taxon:superphylum -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:superphylum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Phylum -->
+		<!-- :taxon:phylum -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:phylum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Subphylum -->
+		<!-- :taxon:subphylum -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:subphylum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Infraphylum -->
+		<!-- :taxon:infraphylum -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:infraphylum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Microphylum -->
+		<!-- :taxon:microphylum -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:microphylum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Superclass -->
+		<!-- :taxon:superclassis -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:superclassis</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Class -->
+		<!-- :taxon:classis -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:classis</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Subclass -->
+		<!-- :taxon:subclassis -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:subclassis</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Infraclass -->
+		<!-- :taxon:infraclassis -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:infraclassis</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Parvclass -->
+		<!-- :taxon:parvclassis -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:parvclassis</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Legion -->
+		<!-- :taxon:legio -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:legio</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Cohort -->
+		<!-- :taxon:cohors -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:cohors</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Magnorder -->
+		<!-- :taxon:magnordo -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:magnordo</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Superorder -->
+		<!-- :taxon:superordo -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:superordo</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Grandorder -->
+		<!-- :taxon:grandordo -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:grandordo</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Mirorder -->
+		<!-- :taxon:mirordo -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:mirordo</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Order -->
+		<!-- :taxon:ordo -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:ordo</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Suborder -->
+		<!-- :taxon:subordo -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:subordo</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Infraorder -->
+		<!-- :taxon:infraordo -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:infraordo</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Parvorder -->
+		<!-- :taxon:parvordo -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:parvordo</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Superfamily -->
+		<!-- :taxon:superfamilia -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:superfamilia</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Family -->
+		<!-- :taxon:familia -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:familia</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		<!-- Family authority -->
+		<!-- :taxon:familia:author -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:familia:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Subfamily -->
+		<!-- :taxon:subfamilia -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:subfamilia</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Supertribe -->
+		<!-- :taxon:supertribus -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:supertribus</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Tribe -->
+		<!-- :taxon:tribus -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:tribus</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Subtribe -->
+		<!-- :taxon:subtribus -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:subtribus</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Genus -->
+		<!-- :taxon:genus -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:genus</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		<!-- Genus authority -->
+		<!-- :taxon:genus:author -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:genus:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Subgenus -->
+		<!-- :taxon:subgenus -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:subgenus</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Section -->
+		<!-- :taxon:sectio -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:sectio</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Series -->
+		<!-- :taxon:series -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:series</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Superspecies -->
+		<!-- :taxon:superspecies -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:superspecies</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Species -->
+		<!-- :taxon:species -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:species</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		<!-- Species authority -->
+		<!-- :taxon:species:author -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:species:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Subspecies -->
+		<!-- :taxon:subspecies -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:subspecies</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		<!-- Subspecies authority -->
+		<!-- :taxon:subspecies:author -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:subspecies:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Variety -->
+		<!-- :taxon:varietas -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:varietas</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		<!-- Variety authority -->
+		<!-- :taxon:varietas:author -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:varietas:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Form -->
+		<!-- :taxon:forma -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:forma</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		<!-- Form authority -->
+		<!-- :taxon:forma:author -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:forma:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -303,47 +303,233 @@
 	
 		<!-- NAMES -->
 		
-		<!-- Scientific name -->
+		<!-- :taxon:epithet -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Scientific name authority -->
+		<!-- :taxon:author -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Valid scientific name -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:valid</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Infraspecies epithet -->
+		<!-- :taxon:infraspecies -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Infraspecies author -->
+		<!-- :taxon:infraspecies:author -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Common taxon names -->
+		<!-- :taxon:valid -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:valid</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:synonym -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:synonym</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:names -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:names</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:crop -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:crop</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:annex-1 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:annex-1</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
 		<!-- REFERENCE -->
 		
-		<!-- Reference -->
+		<!-- :taxon:id -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:id</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:reference -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:reference</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:synref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:synref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- GROUPS -->
+		
+		<!-- :taxon:chromosome-number -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:chromosome-number</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:genepool -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:genepool</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:genepool-ref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:genepool-ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:group -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:group</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:group-ref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:group-ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:sub-group -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:sub-group</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:sub-group-ref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:sub-group-ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:designation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:designation:ref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:designation:national -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:national</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:designation:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:occurrence-status -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-status</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:rel-crop -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:rel-crop</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:rel-crop:taxa -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:rel-crop:taxa</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:rel-crop:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:rel-crop:names</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:designation:use -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:use</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- ECONOMY -->
+		
+		<!-- :taxon:ecovalue -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:ecovalue-ref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue-ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- BIOLOGY -->
+		
+		<!-- :taxon:repsystem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:repsystem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:bredsystem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:bredsystem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:sexstructure -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:sexstructure</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:pollination -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:pollination</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:lifeform -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:lifeform</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:lifespan -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:lifespan</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:seed-dispersal -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:seed-dispersal</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

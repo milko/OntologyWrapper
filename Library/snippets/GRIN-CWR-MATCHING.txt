@@ -1,0 +1,27 @@
+Genus							:taxon:genus
+CWR_WUS_common_name				:taxon:names
+Family							:taxon:family
+Type							:taxon:designation
+Priority						cwr:in:PRIORITY-LEVEL
+Relation_to_crop				:taxon:rel-crop
+GP_TG							:taxon:genepool
+GP_TG_citation					:taxon:genepool-ref
+Occurrence general				:taxon:occurrence
+Occurrence specific				:taxon:occurrence
+Distribution_states				:taxon:distribution (struct)
+Nox_weed						:taxon:designation:national
+Occurrence_notes				:taxon:designation:notes
+GRIN_ACCES_TOTAL
+GRIN_WILDACC
+GRIN_WILDUSACC
+US_ESA							:taxon:threat:national
+NatServe						natserve:threat:code
+IUCN_RL							iucn:criteria-citation
+CWR_WUS_citation				:taxon:designation:ref
+Associated_crop_taxon			:taxon:rel-crop:taxa
+Associated_crop_common name		:taxon:rel-crop:names
+Crop or WUS use_very general	
+Crop or WUS use_general
+Crop or WUS use_1				:taxon:designation:use
+Crop or WUS use_2				:taxon:designation:use
+Crop or WUS use_3				:taxon:designation:use

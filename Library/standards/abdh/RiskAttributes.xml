@@ -19,6 +19,17 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:risk</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE tag="abdh:risk">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 	
 	<!-- Household food security -->

@@ -7,11 +7,44 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
+	<!-- Population -->
+		
+	<!-- cwr:population -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:population</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">cwr:population:NUMB</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Populations]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Details about the crop wild relative populations in the field.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Population attributes -->
 		
-	<!-- cwr:pp:RECDATE -->
+	<!-- cwr:population:RECDATE -->
 	<META>
-		<TERM ns="cwr:pp" lid="RECDATE">
+		<TERM ns="cwr:population" lid="RECDATE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -21,7 +54,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:RECDATE</item>
+				<item>cwr:population:RECDATE</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:date</item>
 			<item const="kTAG_DATA_KIND">
@@ -37,16 +70,16 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:RECDATE">
+		<NODE tag="cwr:population:RECDATE">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:NUMB -->
+	<!-- cwr:population:NUMB -->
 	<META>
-		<TERM ns="cwr:pp" lid="NUMB">
+		<TERM ns="cwr:population" lid="NUMB">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -56,7 +89,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:NUMB</item>
+				<item>cwr:population:NUMB</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -72,16 +105,16 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:NUMB">
+		<NODE tag="cwr:population:NUMB">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:MONIT -->
+	<!-- cwr:population:MONIT -->
 	<META>
-		<TERM ns="cwr:pp" lid="MONIT">
+		<TERM ns="cwr:population" lid="MONIT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -91,7 +124,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:MONIT</item>
+				<item>cwr:population:MONIT</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
@@ -108,26 +141,26 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:MONIT">
+		<NODE tag="cwr:population:MONIT">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<NODE term="cwr:pp:MONIT">
+		<NODE term="cwr:population:MONIT">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
 				<item>:kind:enumerated-node</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">cwr:pp:MONIT</item>
+			<item const="kTAG_SUBJECT" node="term">cwr:population:MONIT</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">cwr:pp:MONIT</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population:MONIT</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:MONIT:0 -->
+	<!-- cwr:population:MONIT:0 -->
 	<META>
-		<TERM ns="cwr:pp:MONIT" lid="0">
+		<TERM ns="cwr:population:MONIT" lid="0">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -142,12 +175,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:MONIT</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:MONIT</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:MONIT:1 -->
+	<!-- cwr:population:MONIT:1 -->
 	<META>
-		<TERM ns="cwr:pp:MONIT" lid="1">
+		<TERM ns="cwr:population:MONIT" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -162,13 +195,13 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:MONIT</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:MONIT</item>
 		</EDGE>
 	</META>
 		
-	<!-- cwr:pp:MONITRESP -->
+	<!-- cwr:population:MONITRESP -->
 	<META>
-		<TERM ns="cwr:pp" lid="MONITRESP">
+		<TERM ns="cwr:population" lid="MONITRESP">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -178,7 +211,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:MONITRESP</item>
+				<item>cwr:population:MONITRESP</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -195,16 +228,16 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:MONITRESP">
+		<NODE tag="cwr:population:MONITRESP">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:MONINT -->
+	<!-- cwr:population:MONINT -->
 	<META>
-		<TERM ns="cwr:pp" lid="MONINT">
+		<TERM ns="cwr:population" lid="MONINT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -214,7 +247,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:MONINT</item>
+				<item>cwr:population:MONINT</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -230,7 +263,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:MONINT">
+		<NODE tag="cwr:population:MONINT">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
@@ -239,9 +272,9 @@
 		
 	<!-- :taxon:names -->
 		
-	<!-- cwr:pp:AREA -->
+	<!-- cwr:population:AREA -->
 	<META>
-		<TERM ns="cwr:pp" lid="AREA">
+		<TERM ns="cwr:population" lid="AREA">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -251,7 +284,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:AREA</item>
+				<item>cwr:population:AREA</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -267,16 +300,16 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:AREA">
+		<NODE tag="cwr:population:AREA">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:INDIVNUMB -->
+	<!-- cwr:population:INDIVNUMB -->
 	<META>
-		<TERM ns="cwr:pp" lid="INDIVNUMB">
+		<TERM ns="cwr:population" lid="INDIVNUMB">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -286,7 +319,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:INDIVNUMB</item>
+				<item>cwr:population:INDIVNUMB</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -296,16 +329,16 @@
 				<item>INDIVNUMB</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:INDIVNUMB">
+		<NODE tag="cwr:population:INDIVNUMB">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:MATURENUMB -->
+	<!-- cwr:population:MATURENUMB -->
 	<META>
-		<TERM ns="cwr:pp" lid="MATURENUMB">
+		<TERM ns="cwr:population" lid="MATURENUMB">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -315,7 +348,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:MATURENUMB</item>
+				<item>cwr:population:MATURENUMB</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -331,16 +364,16 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:MATURENUMB">
+		<NODE tag="cwr:population:MATURENUMB">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:JUVENNUMB -->
+	<!-- cwr:population:JUVENNUMB -->
 	<META>
-		<TERM ns="cwr:pp" lid="JUVENNUMB">
+		<TERM ns="cwr:population" lid="JUVENNUMB">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -350,7 +383,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:JUVENNUMB</item>
+				<item>cwr:population:JUVENNUMB</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -366,16 +399,16 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:JUVENNUMB">
+		<NODE tag="cwr:population:JUVENNUMB">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:SEEDLINGSTATUS -->
+	<!-- cwr:population:SEEDLINGSTATUS -->
 	<META>
-		<TERM ns="cwr:pp" lid="SEEDLINGSTATUS">
+		<TERM ns="cwr:population" lid="SEEDLINGSTATUS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -385,7 +418,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:SEEDLINGSTATUS</item>
+				<item>cwr:population:SEEDLINGSTATUS</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
@@ -397,26 +430,26 @@
 				<item>SEEDLINGSTATUS</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:SEEDLINGSTATUS">
+		<NODE tag="cwr:population:SEEDLINGSTATUS">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<NODE term="cwr:pp:SEEDLINGSTATUS">
+		<NODE term="cwr:population:SEEDLINGSTATUS">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
 				<item>:kind:enumerated-node</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_SUBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:SEEDLINGSTATUS:0 -->
+	<!-- cwr:population:SEEDLINGSTATUS:0 -->
 	<META>
-		<TERM ns="cwr:pp:SEEDLINGSTATUS" lid="0">
+		<TERM ns="cwr:population:SEEDLINGSTATUS" lid="0">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -431,12 +464,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:SEEDLINGSTATUS:1 -->
+	<!-- cwr:population:SEEDLINGSTATUS:1 -->
 	<META>
-		<TERM ns="cwr:pp:SEEDLINGSTATUS" lid="1">
+		<TERM ns="cwr:population:SEEDLINGSTATUS" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -451,12 +484,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:SEEDLINGSTATUS:2 -->
+	<!-- cwr:population:SEEDLINGSTATUS:2 -->
 	<META>
-		<TERM ns="cwr:pp:SEEDLINGSTATUS" lid="2">
+		<TERM ns="cwr:population:SEEDLINGSTATUS" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -471,12 +504,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:SEEDLINGSTATUS:3 -->
+	<!-- cwr:population:SEEDLINGSTATUS:3 -->
 	<META>
-		<TERM ns="cwr:pp:SEEDLINGSTATUS" lid="3">
+		<TERM ns="cwr:population:SEEDLINGSTATUS" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -491,12 +524,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:SEEDLINGSTATUS:4 -->
+	<!-- cwr:population:SEEDLINGSTATUS:4 -->
 	<META>
-		<TERM ns="cwr:pp:SEEDLINGSTATUS" lid="4">
+		<TERM ns="cwr:population:SEEDLINGSTATUS" lid="4">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -511,12 +544,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:SEEDLINGSTATUS:5 -->
+	<!-- cwr:population:SEEDLINGSTATUS:5 -->
 	<META>
-		<TERM ns="cwr:pp:SEEDLINGSTATUS" lid="5">
+		<TERM ns="cwr:population:SEEDLINGSTATUS" lid="5">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -531,13 +564,13 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
 		
-	<!-- cwr:pp:POPDENSI -->
+	<!-- cwr:population:POPDENSI -->
 	<META>
-		<TERM ns="cwr:pp" lid="POPDENSI">
+		<TERM ns="cwr:population" lid="POPDENSI">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -547,7 +580,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:POPDENSI</item>
+				<item>cwr:population:POPDENSI</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -563,16 +596,16 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:POPDENSI">
+		<NODE tag="cwr:population:POPDENSI">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:RANKFOLCOVER -->
+	<!-- cwr:population:RANKFOLCOVER -->
 	<META>
-		<TERM ns="cwr:pp" lid="RANKFOLCOVER">
+		<TERM ns="cwr:population" lid="RANKFOLCOVER">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -582,7 +615,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:RANKFOLCOVER</item>
+				<item>cwr:population:RANKFOLCOVER</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -598,16 +631,16 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:RANKFOLCOVER">
+		<NODE tag="cwr:population:RANKFOLCOVER">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:RAKSCALE -->
+	<!-- cwr:population:RAKSCALE -->
 	<META>
-		<TERM ns="cwr:pp" lid="RAKSCALE">
+		<TERM ns="cwr:population" lid="RAKSCALE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -617,7 +650,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:RAKSCALE</item>
+				<item>cwr:population:RAKSCALE</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -634,7 +667,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:RAKSCALE">
+		<NODE tag="cwr:population:RAKSCALE">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
@@ -644,9 +677,9 @@
 	<!-- iucn:threat -->
 	<!-- :taxon:threat:period -->
 		
-	<!-- cwr:pp:EXSECURE -->
+	<!-- cwr:population:EXSECURE -->
 	<META>
-		<TERM ns="cwr:pp" lid="EXSECURE">
+		<TERM ns="cwr:population" lid="EXSECURE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -656,7 +689,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:EXSECURE</item>
+				<item>cwr:population:EXSECURE</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
@@ -673,26 +706,26 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:EXSECURE">
+		<NODE tag="cwr:population:EXSECURE">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<NODE term="cwr:pp:EXSECURE">
+		<NODE term="cwr:population:EXSECURE">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
 				<item>:kind:enumerated-node</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">cwr:pp:EXSECURE</item>
+			<item const="kTAG_SUBJECT" node="term">cwr:population:EXSECURE</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">cwr:pp:EXSECURE</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population:EXSECURE</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:EXSECURE:0 -->
+	<!-- cwr:population:EXSECURE:0 -->
 	<META>
-		<TERM ns="cwr:pp:EXSECURE" lid="0">
+		<TERM ns="cwr:population:EXSECURE" lid="0">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -707,12 +740,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:EXSECURE:1 -->
+	<!-- cwr:population:EXSECURE:1 -->
 	<META>
-		<TERM ns="cwr:pp:EXSECURE" lid="1">
+		<TERM ns="cwr:population:EXSECURE" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -727,12 +760,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
-	<!-- cwr:pp:EXSECURE:2 -->
+	<!-- cwr:population:EXSECURE:2 -->
 	<META>
-		<TERM ns="cwr:pp:EXSECURE" lid="2">
+		<TERM ns="cwr:population:EXSECURE" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -747,16 +780,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_OBJECT" node="term">cwr:population:SEEDLINGSTATUS</item>
 		</EDGE>
 	</META>
 	
 	<!-- mcpd:DUPLSITE -->
 	<!-- mcpd:ACCENUMB -->
 		
-	<!-- cwr:pp:INSTNAMEDESCR -->
+	<!-- cwr:population:INSTNAMEDESCR -->
 	<META>
-		<TERM ns="cwr:pp" lid="INSTNAMEDESCR">
+		<TERM ns="cwr:population" lid="INSTNAMEDESCR">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -766,7 +799,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:INSTNAMEDESCR</item>
+				<item>cwr:population:INSTNAMEDESCR</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -777,16 +810,16 @@
 				<item>INSTNAMEDESCR</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:INSTNAMEDESCR">
+		<NODE tag="cwr:population:INSTNAMEDESCR">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>
 		
-	<!-- cwr:pp:INSTADDRESSDESCR -->
+	<!-- cwr:population:INSTADDRESSDESCR -->
 	<META>
-		<TERM ns="cwr:pp" lid="INSTADDRESSDESCR">
+		<TERM ns="cwr:population" lid="INSTADDRESSDESCR">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -796,7 +829,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:pp:INSTADDRESSDESCR</item>
+				<item>cwr:population:INSTADDRESSDESCR</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -807,7 +840,7 @@
 				<item>INSTADDRESSDESCR</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:pp:INSTADDRESSDESCR">
+		<NODE tag="cwr:population:INSTADDRESSDESCR">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

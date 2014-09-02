@@ -572,9 +572,9 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_CONN_USER => array
+		kTAG_CONN_CODE => array
 		(
-			kTAG_NID	=> ':connection:user',
+			kTAG_NID	=> ':connection:code',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTAG_PRIVATE_SEARCH,
@@ -1500,6 +1500,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @return PersistentObject		The imported object.
 	 *
 	 * @throws Exception
+	 * @return array				List of imported objects.
 	 */
 	static function Import( Wrapper $theWrapper, $theContainer )
 	{
@@ -1529,57 +1530,74 @@ abstract class PersistentObject extends OntologyObject
 	 * @param SimpleXMLElement		$theContainer		Export container.
 	 *
 	 * @static
-	 * @return PersistentObject		The imported object.
+	 * @return array				List of imported objects.
 	 *
 	 * @throws Exception
 	 */
 	static function ImportXML( Wrapper $theWrapper, \SimpleXMLElement $theContainer )
 	{
 		//
-		// Parse by root node.
+		// Init local storage.
 		//
-		switch( $tmp = $theContainer->getName() )
+		$objects = Array();
+		
+		//
+		// Iterate unit nodes.
+		//
+		foreach( $theContainer as $unit )
 		{
-			case kIO_XML_META_TAG:
-				$object = new Tag( $theWrapper );
-				break;
+			//
+			// Parse unit node.
+			//
+			switch( $tmp = $unit->getName() )
+			{
+				case kIO_XML_META_TAG:
+					$object = new Tag( $theWrapper );
+					break;
 		
-			case kIO_XML_META_TERM:
-				$object = new Term( $theWrapper );
-				break;
+				case kIO_XML_META_TERM:
+					$object = new Term( $theWrapper );
+					break;
 		
-			case kIO_XML_META_NODE:
-				$object = new Node( $theWrapper );
-				break;
+				case kIO_XML_META_NODE:
+					$object = new Node( $theWrapper );
+					break;
 		
-			case kIO_XML_META_EDGE:
-				$object = new Edge( $theWrapper );
-				break;
+				case kIO_XML_META_EDGE:
+					$object = new Edge( $theWrapper );
+					break;
 		
-			case kIO_XML_TRANS_UNITS:
-			case kIO_XML_TRANS_USERS:
-				$class = (string) $theContainer[ kIO_XML_ATTR_QUAL_CLASS ];
-				if( strlen( $class ) )
-					$object = new $class( $theWrapper );
-				else
+				case kIO_XML_TRANS_UNITS:
+				case kIO_XML_TRANS_USERS:
+					$class = (string) $unit[ kIO_XML_ATTR_QUAL_CLASS ];
+					if( strlen( $class ) )
+						$object = new $class( $theWrapper );
+					else
+						throw new \Exception(
+							"Unable to import: "
+						   ."missing object class." );							// !@! ==>
+					break;
+			
+				default:
 					throw new \Exception(
 						"Unable to import: "
-					   ."missing object class." );								// !@! ==>
-				break;
+					   ."invalid root node [$tmp]." );							// !@! ==>
+		
+			} // Parsed root node.
+		
+			//
+			// Load data.
+			//
+			$object->loadXML( $unit );
 			
-			default:
-				throw new \Exception(
-					"Unable to import: "
-				   ."invalid root node [$tmp]." );								// !@! ==>
+			//
+			// Add object.
+			//
+			$objects[] = $object;
 		
-		} // Parsed root node.
+		} // Iterating unit elements.
 		
-		//
-		// Load data.
-		//
-		$object->loadXML( $theContainer );
-		
-		return $object;																// ==>
+		return $objects;															// ==>
 	
 	} // ImportXML.
 
@@ -2475,7 +2493,7 @@ abstract class PersistentObject extends OntologyObject
 	 *		<li><tt>{@link preCommitFinalise()}</tt>: Load the dynamic object properties and
 	 *			compute the eventual object identifiers.
 	 *	 </ul>
-	 *	<li>We check whether the object already exists, if that is the case we exit.:
+	 *	<li>We check whether the object already exists, if that is the case we exit.
 	 *	<li>We pass the current object to the collection's
 	 *		{@link CollectionObject::commit()} method and recuperate the identifier.
 	 *	<li>We call the <tt>{@link postInsert()}</tt> method that is responsible of:
@@ -5870,7 +5888,7 @@ MILKO - Need to check.
 	 * Load from XML
 	 *
 	 * This method will load the object with the data contained in the provided XML
-	 * container.
+	 * container, the container must be pointing to the unit node.
 	 *
 	 * In this class the method will process all the {@link kIO_XML_DATA} element of the
 	 * root node, derived classes should overload this method to handle root level
@@ -5878,26 +5896,35 @@ MILKO - Need to check.
 	 *
 	 * The object is expected to have its wrapper set.
 	 *
-	 * @param SimpleXMLElement		$theContainer		Export container.
+	 * @param SimpleXMLElement		$theElement			XML element.
 	 *
 	 * @access protected
 	 */
-	protected function loadXML( \SimpleXMLElement $theContainer )
+	protected function loadXML( \SimpleXMLElement $theElement )
 	{
 		//
-		// Iterate nodes.
+		// Handle root attributes here.
 		//
-		foreach( $theContainer->{kIO_XML_DATA} as $element )
+		
+		//
+		// Iterate elements.
+		//
+		foreach( $theElement->{kIO_XML_DATA} as $element )
 		{
 			//
-			// Init loop storage.
+			// Init value container.
 			//
 			$value = NULL;
-			
+		
 			//
-			// parse XML element.
+			// Parse XML element.
 			//
-			$this->parseXMLElement( $element, $value );
+			$offset = $this->parseXMLElement( $element, $value );
+		
+			//
+			// Set container value.
+			//
+			$this->offsetSet( (string) $offset, $value );
 		
 		} // Iterating root elements.
 	
@@ -5915,80 +5942,87 @@ MILKO - Need to check.
 	 * value in the provided container reference and the element offset as the result.
 	 *
 	 * @param SimpleXMLElement		$theElement			XML element.
-	 * @param mixed					$theContainer		Value container.
+	 * @param mixed					$theValue			Value container.
 	 *
 	 * @access protected
 	 * @return string				Offset.
 	 *
 	 * @throws Exception
 	 */
-	protected function parseXMLElement( \SimpleXMLElement $theElement, &$theContainer )
+	protected function parseXMLElement( \SimpleXMLElement $theElement, &$theValue )
 	{
 		//
-		// Parse element offset.
+		// Parse offset.
 		//
 		$offset = $this->parseXMLElementOffset( $theElement );
-		
+	
 		//
-		// Parse element value.
+		// Handle scalars.
 		//
-		$value = $this->parseXMLElementValue( $theElement, $theContainer );
-		
-		//
-		// Handle sub-structure.
-		//
-		if( is_array( $theContainer ) )
-			$theContainer[ $offset ] = $value;
-		
-		//
-		// Handle property.
-		//
-		else
-			$this->offsetSet( $offset, $value );
-		
-		
-		
-		//
-		// Get offset from tag reference.
-		//
-		if( $theElement[ kIO_XML_ATTR_REF_TAG ] !== NULL )
-			$offset = $this->resolveOffset(
-				(string) $theElement[ kIO_XML_ATTR_REF_TAG ], TRUE );
-		
-		//
-		// Get offset from tag sequence number.
-		//
-		elseif( $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ] !== NULL )
-			$offset = (int) $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ];
-		
-		//
-		// Get offset from constant.
-		//
-		elseif( $theElement[ kIO_XML_ATTR_QUAL_CONST ] !== NULL )
-			$offset = constant( (string) $theElement[ kIO_XML_ATTR_QUAL_CONST ] );
-		
-		//
-		// Get offset from key.
-		//
-		elseif( $theElement[ kIO_XML_ATTR_QUAL_KEY ] !== NULL )
-			$offset = constant( (string) $theElement[ kIO_XML_ATTR_QUAL_KEY ] );
-		
-		//
-		// Handle array.
-		//
-		elseif( ! count( $theElement->attributes() ) )
+		if( ! count( $theElement->{kIO_XML_DATA} ) )
 		{
-		}
+			//
+			// Handle scalar.
+			//
+			if( $theValue === NULL )
+				$theValue = (string) $theElement;
+			
+			//
+			// Handle array element.
+			//
+			elseif( $offset === NULL )
+				$theValue[] = (string) $theElement;
+			
+			//
+			// Handle structure element.
+			//
+			else
+				$theValue[ $offset ] = (string) $theElement;
 		
+		} // Scalar.
+		
+		//
+		// Handle structures.
+		//
 		else
-			throw new \Exception(
-				"Unable to load XML element: "
-			   ."missing tag reference." );										// !@! ==>
+		{
+			//
+			// Allocate and reference value.
+			//
+			if( $offset === NULL )
+			{
+				if( $theValue === NULL )
+				{
+					$theValue = Array();
+					$value = & $theValue;
+				}
+				else
+				{
+					$theValue[] = Array();
+					$value = & $theValue[ count( $theValue ) - 1 ];
+				}
+			}
+			else
+			{
+				if( $theValue === NULL )
+				{
+					$theValue = Array();
+					$value = & $theValue;
+				}
+				else
+				{
+					$theValue[ (string) $offset ] = Array();
+					$value = & $theValue[ (string) $offset ];
+				}
+			}
+			
+			//
+			// Traverse structure.
+			//
+			foreach( $theElement->{kIO_XML_DATA} as $element )
+				$this->parseXMLElement( $element, $value );
 		
-		//
-		// Handle value.
-		//
-		$theContainer = $this->parseXMLItem( $theElement, $offset );
+		} // Structure.
 		
 		return $offset;																// ==>
 	
@@ -5996,107 +6030,70 @@ MILKO - Need to check.
 
 	 
 	/*===================================================================================
-	 *	parseXMLItem																	*
+	 *	parseXMLElementOffset															*
 	 *==================================================================================*/
 
 	/**
-	 * Parse XML item
+	 * Parse XML element offset
 	 *
-	 * The duty of this method is to parse the provided XML element and return the element
-	 * value in the provided reference parameter and the element offset as the result.
+	 * The duty of this method is to parse the provided XML element and return the
+	 * element offset.
+	 *
+	 * The method will return:
+	 *
+	 * <ul>
+	 *	<li><tt>integer</tt>: The element references a tag.
+	 *	<li><tt>string</tt>: The element references an object key.
+	 *	<li><tt>NULL</tt>: The element is an array element.
+	 * </ul>
 	 *
 	 * @param SimpleXMLElement		$theElement			XML element.
-	 * @param string				$theOffset			Property offset.
 	 *
 	 * @access protected
-	 * @return mixed				Property value.
+	 * @return mixed				Offset or <tt>NULL</tt> for array elements.
 	 *
 	 * @throws Exception
 	 */
-	protected function parseXMLItem( \SimpleXMLElement $theElement, $theOffset )
+	protected function parseXMLElementOffset( \SimpleXMLElement $theElement )
 	{
 		//
-		// Handle node reference.
+		// Get offset from tag reference.
 		//
-		if( ($tmp = $theElement[ kIO_XML_ATTR_REF_NODE ]) !== NULL )
-			return $this->parseXMLNodeReference( $theElement, (string) $tmp );		// ==>
-	
-	} // parseXMLItem.
-
-	 
-	/*===================================================================================
-	 *	parseXMLNodeReference															*
-	 *==================================================================================*/
-
-	/**
-	 * Parse XML node reference
-	 *
-	 * The duty of this method is to parse the provided XML node reference element and
-	 * return the reference value.
-	 *
-	 * The method expects the XML element and the reference type.
-	 *
-	 * @param SimpleXMLElement		$theElement			XML element.
-	 * @param string				$theType			Reference type.
-	 *
-	 * @access protected
-	 * @return mixed				Node reference.
-	 *
-	 * @throws Exception
-	 */
-	protected function parseXMLNodeReference( \SimpleXMLElement $theElement, $theType )
-	{
+		if( $theElement[ kIO_XML_ATTR_REF_TAG ] !== NULL )
+			return $this->resolveOffset(
+						(string) $theElement[ kIO_XML_ATTR_REF_TAG ], TRUE );		// ==>
+		
 		//
-		// Parse reference type.
+		// Get offset from tag sequence number.
 		//
-		switch( $theType )
-		{
-			case kIO_XML_ATTR_NODE_TAG:
-				return
-					Node::GetTagMaster(
-						$this->mDictionary,
-						(string) $theElement,
-						kQUERY_ASSERT | kQUERY_NID )
-							[ kTAG_NID ];											// ==>
+		elseif( $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ] !== NULL )
+			return (int) (string) $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ];			// ==>
 		
-			case kIO_XML_ATTR_NODE_SEQ:
-				return
-					Node::GetTagMaster(
-						$this->mDictionary,
-						(int) (string) $theElement,
-						kQUERY_ASSERT | kQUERY_NID )
-							[ kTAG_NID ];											// ==>
-				break;
+		//
+		// Get offset from constant.
+		//
+		elseif( $theElement[ kIO_XML_ATTR_QUAL_CONST ] !== NULL )
+			return constant( (string) $theElement[ kIO_XML_ATTR_QUAL_CONST ] );		// ==>
 		
-			case kIO_XML_ATTR_NODE_TERM:
-				return
-					Node::GetTermMaster(
-						$this->mDictionary,
-						(string) $theElement,
-						kQUERY_ASSERT | kQUERY_NID )
-							[ kTAG_NID ];											// ==>
-				break;
+		//
+		// Get offset from key.
+		//
+		elseif( $theElement[ kIO_XML_ATTR_QUAL_KEY ] !== NULL )
+			return (string) $theElement[ kIO_XML_ATTR_QUAL_KEY ];					// ==>
 		
-			case kIO_XML_ATTR_NODE_PID:
-				return
-					Node::GetPidNode(
-						$this->mDictionary,
-						(string) $theElement,
-						kQUERY_ASSERT | kQUERY_NID )
-							[ kTAG_NID ];											// ==>
-				break;
-		
-			case kIO_XML_ATTR_NODE_ID:
-				return (int) (string) $theElement;									// ==>
-				break;
-		
-		} // Parsed node reference type.
+		//
+		// Handle array.
+		//
+		elseif( ($theElement[ kIO_XML_ATTR_STRUCT_REF ] === NULL)
+			 && ($theElement[ kIO_XML_ATTR_STRUCT_IDX ] === NULL)
+			 && ($theElement[ kIO_XML_ATTR_STRUCT_VAL ] === NULL) )
+			return NULL;															// ==>
 		
 		throw new \Exception(
-			"Unable to set property: "
-		   ."invalid node reference type [$tmp]." );							// !@! ==>
+			"Unable to load XML element: "
+		   ."missing tag or key reference." );									// !@! ==>
 	
-	} // parseXMLNodeReference.
+	} // parseXMLElementOffset.
 
 		
 

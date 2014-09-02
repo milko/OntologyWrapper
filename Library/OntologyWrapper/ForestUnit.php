@@ -201,11 +201,11 @@ class ForestUnit extends UnitObject
 		// Set elevation index.
 		//
 		$collection->createIndex(
-			array( $this->resolveOffset( ':location:elevation:min' ) => 1 ),
+			array( $this->resolveOffset( ':location:site:elevation:min' ) => 1 ),
 			array( "name" => "ELEVATION_MIN",
 				   "sparse" => TRUE ) );
 		$collection->createIndex(
-			array( $this->resolveOffset( ':location:elevation:max' ) => 1 ),
+			array( $this->resolveOffset( ':location:site:elevation:max' ) => 1 ),
 			array( "name" => "ELEVATION_MAX",
 				   "sparse" => TRUE ) );
 		
@@ -385,13 +385,13 @@ class ForestUnit extends UnitObject
 			//
 			// Check coordinates.
 			//
-			if( $this->offsetExists( ':location:latitude' )
-			 && $this->offsetExists( ':location:longitude' ) )
+			if( $this->offsetExists( ':location:site:latitude' )
+			 && $this->offsetExists( ':location:site:longitude' ) )
 				$this->offsetSet( kTAG_GEO_SHAPE,
 								  array( kTAG_TYPE => 'Point',
 								  		 kTAG_GEOMETRY => array(
-								  		 	$this->offsetGet( ':location:longitude' ),
-								  		 	$this->offsetGet( ':location:latitude' ) ) ) );
+								  		 	$this->offsetGet( ':location:site:longitude' ),
+								  		 	$this->offsetGet( ':location:site:latitude' ) ) ) );
 		
 		} // Shape not yet set.
 	
@@ -408,18 +408,18 @@ class ForestUnit extends UnitObject
 			//
 			// Handle elevation range.
 			//
-			if( $this->offsetExists( ':location:elevation:min' )
-			 && $this->offsetExists( ':location:elevation:max' ) )
+			if( $this->offsetExists( ':location:site:elevation:min' )
+			 && $this->offsetExists( ':location:site:elevation:max' ) )
 			{
 				//
 				// Reorder range.
 				//
-				$min = $this->offsetGet( ':location:elevation:min' );
-				$max = $this->offsetGet( ':location:elevation:max' );
+				$min = $this->offsetGet( ':location:site:elevation:min' );
+				$max = $this->offsetGet( ':location:site:elevation:max' );
 				if( $min > $max )
 				{
-					$this->offsetSet( ':location:elevation:min', $max );
-					$this->offsetSet( ':location:elevation:max', $min );
+					$this->offsetSet( ':location:site:elevation:min', $max );
+					$this->offsetSet( ':location:site:elevation:max', $min );
 					$tmp = $min;
 					$min = $max;
 					$max = $tmp;

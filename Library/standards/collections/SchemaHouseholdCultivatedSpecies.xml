@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	HOUSEHOLD CULTIVATED PLANT SPECIES SCHEMA
+	SchemaHouseholdCultivatedSpecies.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- abdh:cultivated -->
+	<META>
+		<NODE term="abdh:cultivated" pid="schema:abdh:cultivated">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties common to all cultivated household species.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- abdh:Q1a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q1a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q1b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q1b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q2a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q2a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q2b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q2b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q4a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q4a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q4b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q4b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q5a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q5a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q5b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q5b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q6a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q6b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q7a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q7b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q8a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q8a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q8b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q8b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -1072,18 +1072,18 @@
 			</item>
 		</TERM>
 	
-		<!-- kTAG_CONN_USER -->
-		<TERM ns=":connection" lid="user">
+		<!-- kTAG_CONN_CODE -->
+		<TERM ns=":connection" lid="code">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">User code</item>
+					<item const="kTAG_TEXT">Authentication code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Authentication credentials user code.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Authentication credentials identifier.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1093,13 +1093,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">User password</item>
+					<item const="kTAG_TEXT">Authentication password</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Authentication credentials user password.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Authentication credentials password.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1156,6 +1156,22 @@
 	<!-- Entity attributes -->
 	
 	<META>
+		<!-- kTAG_ENTITY_IDENT -->
+		<TERM ns=":entity" lid="identifier">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity identifier</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The entity identification code.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
 		<!-- kTAG_ENTITY_FNAME -->
 		<TERM ns=":entity" lid="fname">
 			<item const="kTAG_LABEL">

@@ -9,9 +9,9 @@
 	
 	<!-- Inventory form -->
 	
-	<!-- :domain:cwr-inventory -->
+	<!-- :domain:inventory -->
 	<META>
-		<NODE term=":domain:cwr-inventory" pid="form::domain:cwr-inventory">
+		<NODE term=":domain:inventory" pid="form::domain:inventory">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>
@@ -39,6 +39,12 @@
 		<!-- cwr:in:METHCRITPRIORI -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:in:METHCRITPRIORI</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- cwr:in:PRIORITY-LEVEL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:in:PRIORITY-LEVEL</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

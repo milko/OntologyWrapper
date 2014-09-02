@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	HOUSEHOLD SOCIAL STATUS SCHEMA
+	SchemaHouseholdSocialStatus.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema:abdh:social:status -->
+	<META>
+		<NODE term="abdh:social:status" pid="schema:abdh:social:status">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties specific to household social status.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- abdh:CASTE  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CASTE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SC  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SC</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:ST  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ST</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BC  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BC</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OC  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OC</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:COMM_ROLE  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:COMM_ROLE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LEAD_ROLE  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LEAD_ROLE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SOC_ACTIV  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SOC_ACTIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:ENV_ACTIV  -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ENV_ACTIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

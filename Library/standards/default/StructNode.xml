@@ -11,7 +11,7 @@
 	
 	<!-- _nodes -->
 	<META>
-		 <TERM lid="_nodes">
+		<TERM lid="_nodes">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

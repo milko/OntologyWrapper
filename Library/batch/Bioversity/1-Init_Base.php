@@ -148,6 +148,11 @@ try
 	$wrapper->loadIUCNStandards( TRUE );
 	
 	//
+	// Load NaturalServe Standards.
+	//
+	$wrapper->loadNatServeStandards( TRUE );
+	
+	//
 	// Load FAO Standards.
 	//
 	$wrapper->loadFAOStandards( TRUE );

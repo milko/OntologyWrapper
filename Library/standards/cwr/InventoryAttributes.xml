@@ -2509,6 +2509,40 @@
 		</NODE>
 	</META>
 	
+	<!-- cwr:in:PRIORITY-LEVEL -->
+	<META>
+		<TERM ns="cwr:in" lid="PRIORITY-LEVEL">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Priority level]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:PRIORITY-LEVEL</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text-03</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Priority level of crop wild relative or wild utilised species.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:in:PRIORITY-LEVEL">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- :taxon:regnum -->
 	<!-- :taxon:phylum -->
 	<!-- :taxon:classis -->
@@ -2543,5 +2577,5 @@
 	<!-- :taxon:conservation -->
 	<!-- :taxon:threat -->
 	
-	<!-- cwr:pp -->
+	<!-- cwr:population -->
 </METADATA>

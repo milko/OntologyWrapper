@@ -1003,25 +1003,25 @@ define( "kTAG_CONN_HOST",				61 );
 define( "kTAG_CONN_PORT",				62 );
 
 /**
- * Connection user code (<code>:connection:user</code)
+ * Connection credentials code (<code>:connection:code</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
  * </ul>
  *
- * This tag holds a <em>string</em> which identifies a specific <em>user code</em> used to
+ * This tag holds a <em>string</em> which identifies a specific <em>code</em> used to
  * <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_USER",				63 );
+define( "kTAG_CONN_CODE",				63 );
 
 /**
- * Connection user password (<code>:connection:password</code)
+ * Connection credentials password (<code>:connection:password</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
  * </ul>
  *
- * This tag holds a <em>string</em> which identifies a specific <em>user password</em> which
+ * This tag holds a <em>string</em> which identifies a specific <em>password</em> which
  * allows to <em>authenticate with a service</em>.
  */
 define( "kTAG_CONN_PASS",				64 );
@@ -1067,6 +1067,19 @@ define( "kTAG_CONN_OPTS",				67 );
  *======================================================================================*/
 
 /**
+ * Entity identifier (<code>:entity:identifier</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ * </ul>
+ *
+ * This tag holds a <em>string</em> representing the <em>identifier</em> of an entity, this
+ * code should hold the most specific piece of information that can be used to identify an
+ * entity.
+ */
+define( "kTAG_ENTITY_IDENT",			68 );
+
+/**
  * Entity first name (<code>:entity:fname</code)
  *
  * <ul>
@@ -1076,7 +1089,7 @@ define( "kTAG_CONN_OPTS",				67 );
  * This tag holds a <em>string</em> representing the <em>first name</em> of an entity, this
  * implies that the entity is an individual.
  */
-define( "kTAG_ENTITY_FNAME",			68 );
+define( "kTAG_ENTITY_FNAME",			69 );
 
 /**
  * Entity last name (<code>:entity:lname</code)
@@ -1088,7 +1101,7 @@ define( "kTAG_ENTITY_FNAME",			68 );
  * This tag holds a <em>string</em> representing the <em>surname</em> of an entity, this
  * implies that the entity is an individual.
  */
-define( "kTAG_ENTITY_LNAME",			69 );
+define( "kTAG_ENTITY_LNAME",			70 );
 
 /**
  * Entity type (<code>:type:entity</code)
@@ -1100,7 +1113,7 @@ define( "kTAG_ENTITY_LNAME",			69 );
  * This tag holds an <em>enumerated set</em> which describes the <em>types of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_TYPE",				70 );
+define( "kTAG_ENTITY_TYPE",				71 );
 
 /**
  * Entity kind (<code>:kind:entity</code)
@@ -1112,7 +1125,7 @@ define( "kTAG_ENTITY_TYPE",				70 );
  * This tag holds an <em>enumerated set</em> which describes the <em>kinds of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_KIND",				71 );
+define( "kTAG_ENTITY_KIND",				72 );
 
 /**
  * Entity acronym (<code>:entity:acronym</code)
@@ -1125,7 +1138,7 @@ define( "kTAG_ENTITY_KIND",				71 );
  * This tag holds a a <em>list of strings</em> representing the entity <em>acronyms</em> or
  * <em>abbreviations</em>.
  */
-define( "kTAG_ENTITY_ACRONYM",			72 );
+define( "kTAG_ENTITY_ACRONYM",			73 );
 
 /**
  * Entity mail (<code>:entity:mail</code)
@@ -1137,7 +1150,7 @@ define( "kTAG_ENTITY_ACRONYM",			72 );
  * This tag holds a <em>list of mailing addresses discriminated by their type</em>. Each
  * element of the list represents an address which should be used according to its type.
  */
-define( "kTAG_ENTITY_MAIL",				73 );
+define( "kTAG_ENTITY_MAIL",				74 );
 
 /**
  * Entity e-mail (<code>:entity:email</code)
@@ -1149,7 +1162,7 @@ define( "kTAG_ENTITY_MAIL",				73 );
  * This tag holds a <em>list of e-mail addresses discriminated by their type</em>. Each
  * element of the list represents an e-mail which should be used according to its type.
  */
-define( "kTAG_ENTITY_EMAIL",			74 );
+define( "kTAG_ENTITY_EMAIL",			75 );
 
 /**
  * Entity link (<code>:entity:url</code)
@@ -1162,7 +1175,7 @@ define( "kTAG_ENTITY_EMAIL",			74 );
  * element of the list represents an internet link which can be categorised according to its
  * type.
  */
-define( "kTAG_ENTITY_LINK",				75 );
+define( "kTAG_ENTITY_LINK",				76 );
 
 /**
  * Entity phone (<code>:entity:phone</code)
@@ -1174,7 +1187,7 @@ define( "kTAG_ENTITY_LINK",				75 );
  * This tag holds a <em>list of telephone numbers discriminated by their type</em>. Each
  * element of the list represents a phone number which should be used according to its type.
  */
-define( "kTAG_ENTITY_PHONE",			76 );
+define( "kTAG_ENTITY_PHONE",			77 );
 
 /**
  * Entity fax (<code>:entity:fax</code)
@@ -1186,7 +1199,7 @@ define( "kTAG_ENTITY_PHONE",			76 );
  * This tag holds a <em>list of telefax numbers discriminated by their type</em>. Each
  * element of the list represents a fax number which should be used according to its type.
  */
-define( "kTAG_ENTITY_FAX",				77 );
+define( "kTAG_ENTITY_FAX",				78 );
 
 /**
  * Entity affiliation (<code>:entity:affiliation</code)
@@ -1203,7 +1216,7 @@ define( "kTAG_ENTITY_FAX",				77 );
  * stored in the entities collection exist solely for the purpose of providing a container
  * for system users.</em>
  */
-define( "kTAG_ENTITY_AFFILIATION",		78 );
+define( "kTAG_ENTITY_AFFILIATION",		79 );
 
 /**
  * Entity mationality (<code>:entity:nationality</code)
@@ -1214,7 +1227,7 @@ define( "kTAG_ENTITY_AFFILIATION",		78 );
  *
  * This tag holds an <em>enumerated value representing the nationality of the entity</em>.
  */
-define( "kTAG_ENTITY_NATIONALITY",		79 );
+define( "kTAG_ENTITY_NATIONALITY",		80 );
 
 /**
  * Valid entity (<code>:entity:valid</code)
@@ -1227,7 +1240,7 @@ define( "kTAG_ENTITY_NATIONALITY",		79 );
  * attribute is used by obsolete or defunct entities for referring to the current substitute
  * or valid entity.
  */
-define( "kTAG_ENTITY_VALID",			80 );
+define( "kTAG_ENTITY_VALID",			81 );
 
 /**
  * Entity PGP public key (<code>:entity:pgp-key</code)
@@ -1238,8 +1251,7 @@ define( "kTAG_ENTITY_VALID",			80 );
  *
  * This tag holds the <em>PGP public key</em> which identifies a specific <em>user</em>.
  */
-//define( "kTAG_ENTITY_PGP_KEY",			304 );
-define( "kTAG_ENTITY_PGP_KEY",			81 );
+define( "kTAG_ENTITY_PGP_KEY",			82 );
 
 /**
  * Entity PGP fingerprint (<code>:entity:pgp-fingerprint</code)
@@ -1250,8 +1262,7 @@ define( "kTAG_ENTITY_PGP_KEY",			81 );
  *
  * This tag holds the <em>PGP fingerprint</em> which identifies a specific <em>user</em>.
  */
-//define( "kTAG_ENTITY_PGP_FINGERPRINT",	305 );
-define( "kTAG_ENTITY_PGP_FINGERPRINT",	82 );
+define( "kTAG_ENTITY_PGP_FINGERPRINT",	83 );
 
 /*=======================================================================================
  *	MANAGEMENT OFFSETS																	*
@@ -1264,8 +1275,7 @@ define( "kTAG_ENTITY_PGP_FINGERPRINT",	82 );
  * value is a set of string values which are defined and managed by the user interface
  * system.
  */
-//define( "kTAG_ROLES",					303 );
-define( "kTAG_ROLES",					83 );
+define( "kTAG_ROLES",					84 );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

@@ -9,20 +9,6 @@
 	
 	<!-- Market integration information -->
 	
-	<!-- abdh:market -->
-	<META>
-		<TERM ns="abdh" lid="market">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Market integration]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- Market integration attributes -->
-	
 	<!-- abdh:NAME_MARKET -->
 	<META>
 		<TERM ns="abdh" lid="NAME_MARKET">
@@ -53,6 +39,35 @@
 			</item>
 		</NODE>
 	</META>
+	
+	<!-- abdh:market -->
+	<META>
+		<TERM ns="abdh" lid="market">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Market integration]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:market</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">abdh:NAME_MARKET</item>
+		</TAG>
+		<NODE tag="abdh:market">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Market integration attributes -->
 	
 	<!-- abdh:MARKET_FOOD -->
 	<META>

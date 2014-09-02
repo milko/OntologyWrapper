@@ -1062,11 +1062,11 @@ abstract class UnitObject extends PersistentObject
 							  ':location:country', ':location:admin-1',
 							  ':location:admin-2', ':location:admin-3' );			// ==>
 		
-			case kDOMAIN_CWR_CHECKLIST:
+			case kDOMAIN_CHECKLIST:
 				return array( ':taxon:epithet', 'cwr:ck:TYPE', 'cwr:ck:CWRCODE',
 							  'cwr:ck:NUMB', ':location:admin' );									// ==>
 		
-			case kDOMAIN_CWR_INVENTORY:
+			case kDOMAIN_INVENTORY:
 				return array( ':taxon:epithet', ':inventory:NICODE',
 							  'cwr:in:NIENUMB', ':unit:version' );					// ==>
 		

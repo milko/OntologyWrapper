@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ENTITY SCHEMA
+	SchemaEntity.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- kDOMAIN_ENTITY -->
+	<META>
+		<NODE term=":domain:entity" pid="schema::domain:entity">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all properties common to all entity types.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- PROPERTIES -->
+	
+	<!-- kTAG_ENTITY_IDENT -->
+	<META>
+		<NODE tag=":entity:identifier" pid="_entities::entity:identifier">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute represents the identification code of the entity.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_NAME -->
+	<META>
+		<NODE tag=":name" pid="_entities::name">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This required attribute represents the name of the entity.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ENTITY_TYPE -->
+	<META>
+		<NODE tag=":type:entity" pid="_entities::type:entity">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the type of entity, this enumerated set indicates what the entity is.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum::type:entity</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ENTITY_KIND -->
+	<META>
+		<NODE tag=":kind:entity" pid="_entities::kind:entity">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the kind of entity, this enumerated set indicates entity activities.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum::kind:entity</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ENTITY_MAIL -->
+	<META>
+		<NODE tag=":entity:mail" pid="_entities::entity:mail">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the mailing addresses of the entity, it is a list of addresses discriminated by their type.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ENTITY_EMAIL -->
+	<META>
+		<NODE tag=":entity:email" pid="_entities::entity:email">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the e-mail addresses of the entity, it is a list of e-mails discriminated by their type.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ENTITY_PHONE -->
+	<META>
+		<NODE tag=":entity:phone" pid="_entities::entity:phone">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the telephone numbers of the entity, it is a list of phones discriminated by their type.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ENTITY_FAX -->
+	<META>
+		<NODE tag=":entity:fax" pid="_entities::entity:fax">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the telefax numbers of the entity, it is a list of faxes discriminated by their type.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ENTITY_AFFILIATION -->
+	<META>
+		<NODE tag=":entity:affiliation" pid="_entities::entity:affiliation">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This optional attribute contains the list of entities to which the current entity is affiliated. The attribute is a list of elements each containing two items: the type of affiliation and the affiliated entity native identifier.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ENTITY_VALID -->
+	<META>
+		<NODE tag=":entity:valid" pid="_entities::entity:valid">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents a reference to the entity that is currently in use or that is preferred. This attribute is featured by obsolete or replaced entities and points to the entity which currently replaces them. This is used to maintain a historical record of entities: objects derived from this class should never be deleted.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::domain:entity</item>
+		</EDGE>
+	</META>
+</METADATA>

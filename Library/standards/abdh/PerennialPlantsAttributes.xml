@@ -7,6 +7,20 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
+	<!-- Perennial plants species -->
+	
+	<!-- abdh:perennial -->
+	<META>
+		<TERM ns="abdh" lid="perennial">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Perennial plants]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
 	<!-- Perennial plants species attributes -->
 	
 	<!-- abdh:Q1a -->

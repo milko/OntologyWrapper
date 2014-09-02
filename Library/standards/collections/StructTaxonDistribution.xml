@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON DISTRIBUTION STRUCTURE
+	StructTaxonDistribution.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Taxon distribution structure -->
+	
+	<!-- :taxon:distribution -->
+	<META>
+		<!-- schema::location -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:distribution</item>
+		</EDGE>
+		
+		<!-- :taxon:distribution:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:distribution</item>
+		</EDGE>
+	</META>
+</METADATA>

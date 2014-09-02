@@ -9,9 +9,9 @@
 	
 	<!-- Population form -->
 	
-	<!-- cwr:pp -->
+	<!-- cwr:population -->
 	<META>
-		<NODE term="cwr:pp" pid="form:cwr:pp">
+		<NODE term="cwr:population" pid="form:cwr:population">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>
@@ -24,81 +24,81 @@
 			</item>
 		</NODE>
 	
-		<!-- cwr:pp:RECDATE -->
+		<!-- cwr:population:RECDATE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:RECDATE</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:RECDATE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:NUMB -->
+		<!-- cwr:population:NUMB -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:NUMB</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:NUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:MONIT -->
+		<!-- cwr:population:MONIT -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:MONIT</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:MONIT</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:MONITRESP -->
+		<!-- cwr:population:MONITRESP -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:MONITRESP</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:MONITRESP</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:MONINT -->
+		<!-- cwr:population:MONINT -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:MONINT</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:MONINT</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:AREA -->
+		<!-- cwr:population:AREA -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:AREA</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:AREA</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:INDIVNUMB -->
+		<!-- cwr:population:INDIVNUMB -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:INDIVNUMB</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:INDIVNUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:MATURENUMB -->
+		<!-- cwr:population:MATURENUMB -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:MATURENUMB</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:MATURENUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:JUVENNUMB -->
+		<!-- cwr:population:JUVENNUMB -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:JUVENNUMB</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:JUVENNUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:SEEDLINGSTATUS -->
+		<!-- cwr:population:SEEDLINGSTATUS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:SEEDLINGSTATUS</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:POPDENSI -->
+		<!-- cwr:population:POPDENSI -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:POPDENSI</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:POPDENSI</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:RANKFOLCOVER -->
+		<!-- cwr:population:RANKFOLCOVER -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:RANKFOLCOVER</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:RANKFOLCOVER</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:RAKSCALE -->
+		<!-- cwr:population:RAKSCALE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:RAKSCALE</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:RAKSCALE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -108,21 +108,15 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:EXSECURE -->
+		<!-- cwr:population:EXSECURE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:EXSECURE</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:EXSECURE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp:INSTNAMEDESCR -->
+		<!-- cwr:population:INSTNAMEDESCR -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp:INSTNAMEDESCR</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- mcpd:MLSSTAT -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:MLSSTAT</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:INSTNAMEDESCR</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

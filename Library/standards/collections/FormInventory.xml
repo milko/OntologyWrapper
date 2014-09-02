@@ -35,17 +35,5 @@
 			<item const="kTAG_SUBJECT" node="tag">:inventory:NICODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-	
-		<!-- :inventory:INSTCODE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- :inventory:DUPLSITE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:DUPLSITE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
 	</META>
 </METADATA>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	HOUSEHOLD FAMILY SIZE SCHEMA
+	SchemaHouseholdFamily.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema:abdh:economy:family -->
+	<META>
+		<NODE term="abdh:economy:family" pid="schema:abdh:economy:family">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties specific to household family size.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- abdh:M_6MONTHS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_6MONTHS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_6_59MONTHS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_6_59MONTHS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_5_6YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_5_6YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_7_9YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_7_9YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_10_15YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_10_15YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_16_60YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_16_60YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_60MORE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_60MORE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_6MONTHS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_6MONTHS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_6_59MONTHS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_6_59MONTHS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_5_6YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_5_6YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_7_9YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_7_9YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_10_15YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_10_15YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_16_60YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_16_60YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_60MORE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_60MORE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

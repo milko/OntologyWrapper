@@ -176,11 +176,11 @@ try
 				  ':location:admin-2' => NULL,
 				  ':location:admin-3' => NULL,
 				  ':location:locality' => NULL,
-				  ':location:longitude' => NULL,
-				  ':location:latitude' => NULL,
-				  ':location:elevation:min' => NULL,
-				  ':location:elevation:max' => NULL,
-				  ':location:datum' => NULL,
+				  ':location:site:longitude' => NULL,
+				  ':location:site:latitude' => NULL,
+				  ':location:site:elevation:min' => NULL,
+				  ':location:site:elevation:max' => NULL,
+				  ':location:site:datum' => NULL,
 				  ':location:restricted' => NULL,
 				  'fcu:unit:data-collection' => NULL,
 				  'fcu:unit:area' => NULL,
@@ -293,34 +293,34 @@ try
 			
 					case 'UnitLongitudeD':
 						if( ! $record[ 'UnitCoordinatesRestriction' ] )
-							$object[ $dd[ ':location:longitude' ] ] = $value;
+							$object[ $dd[ ':location:site:longitude' ] ] = $value;
 						break;
 			
 					case 'UnitLongitudeMap':
 						if( $record[ 'UnitCoordinatesRestriction' ] )
-							$object[ $dd[ ':location:longitude' ] ] = $value;
+							$object[ $dd[ ':location:site:longitude' ] ] = $value;
 						break;
 			
 					case 'UnitLatitudeD':
 						if( ! $record[ 'UnitCoordinatesRestriction' ] )
-							$object[ $dd[ ':location:latitude' ] ] = $value;
+							$object[ $dd[ ':location:site:latitude' ] ] = $value;
 						break;
 			
 					case 'UnitLatitudeMap':
 						if( $record[ 'UnitCoordinatesRestriction' ] )
-							$object[ $dd[ ':location:latitude' ] ] = $value;
+							$object[ $dd[ ':location:site:latitude' ] ] = $value;
 						break;
 			
 					case 'UnitMinimumElevation':
-						$object[ $dd[ ':location:elevation:min' ] ] = $value;
+						$object[ $dd[ ':location:site:elevation:min' ] ] = $value;
 						break;
 			
 					case 'UnitMaximumElevation':
-						$object[ $dd[ ':location:elevation:max' ] ] = $value;
+						$object[ $dd[ ':location:site:elevation:max' ] ] = $value;
 						break;
 			
 					case 'UnitGeodeticDatum':
-						$object[ $dd[ ':location:datum' ] ] = ":location:datum:$value";
+						$object[ $dd[ ':location:site:datum' ] ] = ":location:site:datum:$value";
 						break;
 			
 					case 'UnitCoordinatesRestriction':
@@ -372,23 +372,23 @@ try
 		//
 		// Set shape.
 		//
-		if( $object->offsetExists( ':location:longitude' )
-		 && $object->offsetExists( ':location:latitude' ) )
+		if( $object->offsetExists( ':location:site:longitude' )
+		 && $object->offsetExists( ':location:site:latitude' ) )
 			$object->offsetSet(
 				':shape',
 				array( kTAG_TYPE => 'Point',
 					   kTAG_GEOMETRY => array(
-					   		$object->offsetGet( ':location:longitude' ),
-					   		$object->offsetGet( ':location:latitude' ) ) ) );
+					   		$object->offsetGet( ':location:site:longitude' ),
+					   		$object->offsetGet( ':location:site:latitude' ) ) ) );
 		
 		//
 		// Set average elevation.
 		//
-		if( $object->offsetExists( ':location:elevation:min' )
-		 && $object->offsetExists( ':location:elevation:max' ) )
-			$object->offsetSet( ':location:elevation',
-								(int) (($this->offsetGet( ':location:elevation:max' )
-									-	$this->offsetGet( ':location:elevation:min' ))
+		if( $object->offsetExists( ':location:site:elevation:min' )
+		 && $object->offsetExists( ':location:site:elevation:max' ) )
+			$object->offsetSet( ':location:site:elevation',
+								(int) (($this->offsetGet( ':location:site:elevation:max' )
+									-	$this->offsetGet( ':location:site:elevation:min' ))
 									/	2) );
 		
 		//

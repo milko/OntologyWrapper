@@ -9,9 +9,9 @@
 	
 	<!-- Checklist form -->
 	
-	<!-- :domain:cwr-checklist -->
+	<!-- :domain:inventory:checklist -->
 	<META>
-		<NODE term=":domain:cwr-checklist" pid="form::domain:cwr-checklist">
+		<NODE term=":domain:inventory:checklist" pid="form::domain:inventory:checklist">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>
@@ -33,12 +33,6 @@
 		<!-- cwr:ck:NUMB -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:ck:NUMB</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :inventory:INSTCODE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

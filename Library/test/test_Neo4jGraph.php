@@ -403,7 +403,7 @@ try
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
 		$params = array( kTAG_CONN_PROTOCOL => "protocol",
-						 kTAG_CONN_USER => "user",
+						 kTAG_CONN_CODE => "user",
 						 kTAG_CONN_PASS => "pass",
 						 kTAG_CONN_HOST => "host",
 						 kTAG_CONN_PORT => 80,

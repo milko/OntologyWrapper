@@ -93,6 +93,24 @@ define( "kDOMAIN_SPECIMEN",						':domain:specimen' );
 define( "kDOMAIN_TAXON",						':domain:taxon' );
 
 /**
+ * Inventory.
+ *
+ * An inventory.
+ *
+ * This represents the domain of taxa inventories.
+ */
+define( "kDOMAIN_INVENTORY",					':domain:inventory' );
+
+/**
+ * Crop wild relative checklist unit.
+ *
+ * A crop wild relative checklist unit.
+ *
+ * This represents a crop wild relative checklist unit.
+ */
+define( "kDOMAIN_CHECKLIST",					':domain:inventory:checklist' );
+
+/**
  * Person.
  *
  * A person.
@@ -120,6 +138,33 @@ define( "kDOMAIN_ORGANISATION",					':domain:organisation' );
 define( "kDOMAIN_ACCESSION",					':domain:accession' );
 
 /**
+ * Sample.
+ *
+ * A collected or breeding sample.
+ *
+ * This represents the domain of units describing a germplasm sample.
+ */
+define( "kDOMAIN_SAMPLE",						':domain:sample' );
+
+/**
+ * Collected sample.
+ *
+ * A collected sample.
+ *
+ * This represents the domain of units describing a collected germplasm sample.
+ */
+define( "kDOMAIN_SAMPLE_COLLECTED",				':domain:sample:collected' );
+
+/**
+ * Bred sample.
+ *
+ * A breeding sample.
+ *
+ * This represents the domain of units describing a breeding germplasm sample.
+ */
+define( "kDOMAIN_SAMPLE_BREEDING",				':domain:sample:breeding' );
+
+/**
  * Trial.
  *
  * An experiment or trial.
@@ -131,7 +176,7 @@ define( "kDOMAIN_TRIAL",						':domain:trial' );
 /**
  * Collecting.
  *
- * A collecting event.
+ * A collecting mission or event.
  *
  * This represents the collecting of samples in the field.
  */
@@ -154,24 +199,6 @@ define( "kDOMAIN_FOREST",						':domain:forest' );
  * This represents a landrace unit.
  */
 define( "kDOMAIN_LANDRACE",						':domain:landrace' );
-
-/**
- * Crop wild relative checklist unit.
- *
- * A crop wild relative checklist unit.
- *
- * This represents a crop wild relative checklist unit.
- */
-define( "kDOMAIN_CWR_CHECKLIST",				':domain:cwr-checklist' );
-
-/**
- * Crop wild relative inventory unit.
- *
- * A crop wild relative inventory unit.
- *
- * This represents a crop wild relative inventory unit.
- */
-define( "kDOMAIN_CWR_INVENTORY",				':domain:cwr-inventory' );
 
 /**
  * Household assessment unit.

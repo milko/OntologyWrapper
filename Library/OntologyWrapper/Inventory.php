@@ -29,7 +29,7 @@ use OntologyWrapper\CollectionObject;
  *
  * <ul>
  *	<li><tt>{@link kTAG_DOMAIN}</tt>: By default the class sets the
- *		{@link kDOMAIN_CWR_INVENTORY} constant.
+ *		{@link kDOMAIN_INVENTORY} constant.
  *	<li><tt>{@link kTAG_AUTHORITY}</tt>: The authority is set with the institute code,
  *		<tt>:inventory:INSTCODE</tt> tag.
  *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier is set with the
@@ -53,7 +53,7 @@ class Inventory extends UnitObject
 	 *
 	 * @var string
 	 */
-	const kDEFAULT_DOMAIN = kDOMAIN_CWR_INVENTORY;
+	const kDEFAULT_DOMAIN = kDOMAIN_INVENTORY;
 
 		
 

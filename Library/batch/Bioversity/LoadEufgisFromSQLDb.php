@@ -78,25 +78,31 @@ require_once( "/Library/WebServer/Library/adodb/adodb-exceptions.inc.php" );
 // Parse arguments.
 //
 if( $argc < 3 )
-	exit( "Usage: "
-		 ."script.php "
-		 ."[SQL database DSN] "		// MySQLi://WEB-SERVICES:webservicereader@localhost/bioversity?socket=/tmp/mysql.sock&persist
-		 ."[mongo database DSN] "	// mongodb://localhost:27017/BIOVERSITY
-		 ."[graph DSN].\n" );		// neo4j://localhost:7474						// ==>
+	exit( "Usage: <script.php> "
+	// MySQLi://WEB-user:pass@localhost/bioversity?socket=/tmp/mysql.sock&persist
+				."<Input SQL database DSN> "
+	// mongodb://localhost:27017/BIOVERSITY
+				."<mongo database DSN> "
+	// neo4j://localhost:7474 or ""
+				."[graph DSN]"
+	// "'last identifier'"
+				."[last ID (including quotes if string)]\n" );						// ==>
 
 //
 // Init local storage.
 //
 $start = 0;
 $limit = 100;
-$db = $rs = NULL;
+$dc = $dc_out = $rs = NULL;
+$class = 'OntologyWrapper\ForestUnit';
 
 //
 // Load arguments.
 //
-$database = $argv[ 1 ];
+$db = $argv[ 1 ];
 $mongo = $argv[ 2 ];
-$graph = ( $argc > 3 ) ? $argv[ 3 ] : NULL;
+$graph = ( ($argc > 3) && strlen( $argv[ 3 ] ) ) ? $argv[ 3 ] : NULL;
+$last = ( $argc > 4 ) ? $argv[ 4 ] : NULL;
 
 //
 // Inform.
@@ -173,19 +179,23 @@ try
 		$wrapper->loadTagCache();
 	
 	//
-	// Connect to database.
+	// Connect to input database.
 	//
-	echo( "  • Connecting to SQL\n" );
-	echo( "    - $database\n" );
-	$db = NewADOConnection( $database );
-	$db->Execute( "SET CHARACTER SET 'utf8'" );
-	$db->SetFetchMode( ADODB_FETCH_ASSOC );
+	echo( "  • Connecting to input SQL\n" );
+	echo( "    - $db\n" );
+	$dc = NewADOConnection( $db );
+	$dc->Execute( "SET CHARACTER SET 'utf8'" );
+	$dc->SetFetchMode( ADODB_FETCH_ASSOC );
 	
 	//
 	// Import.
 	//
 	echo( "  • Importing\n" );
-	$rs = $db->execute( "SELECT * FROM `fcu_unit` limit $start,$limit" );
+	$query = "SELECT * FROM `fcu_unit` ";
+	if( $last !== NULL )
+		$query .= "WHERE( `UnitID` > $last ) ";
+	$query .= "ORDER BY `UnitID` LIMIT $start,$limit";
+	$rs = $dc->execute( $query );
 	while( $rs->RecordCount() )
 	{
 		//
@@ -216,12 +226,12 @@ try
 			//
 			// Instantiate object.
 			//
-			$object = new OntologyWrapper\ForestUnit( $wrapper );
+			$object = new $class( $wrapper );
 			
 			//
 			// Load unit.
 			//
-			loadUnit( $object, $data, $wrapper, $db );
+			loadUnit( $object, $data, $wrapper, $dc );
 			
 			//
 			// Save record.
@@ -245,7 +255,11 @@ try
 		// Read next.
 		//
 		$start += $limit;
-		$rs = $db->execute( "SELECT * FROM `fcu_unit` limit $start,$limit" );
+		$query = "SELECT * FROM `fcu_unit` ";
+		if( $last !== NULL )
+			$query .= "WHERE( `UnitID` > $last ) ";
+		$query .= "ORDER BY `UnitID` LIMIT $start,$limit";
+		$rs = $dc->execute( $query );
 	
 	} // Records left.
 
@@ -270,8 +284,8 @@ finally
 {
 	if( $rs instanceof ADORecordSet )
 		$rs->Close();
-	if( $db instanceof ADOConnection )
-		$db->Close();
+	if( $dc instanceof ADOConnection )
+		$dc->Close();
 
 } // FINALLY BLOCK.
 
@@ -348,22 +362,22 @@ finally
 		// Set minimum elevation.
 		//
 		if( array_key_exists( 'UnitMinimumElevation', $theData ) )
-			$theObject->offsetSet( ':location:elevation:min',
+			$theObject->offsetSet( ':location:site:elevation:min',
 								   (int) $theData[ 'UnitMinimumElevation' ] );
 		
 		//
 		// Set maximum elevation.
 		//
 		if( array_key_exists( 'UnitMaximumElevation', $theData ) )
-			$theObject->offsetSet( ':location:elevation:max',
+			$theObject->offsetSet( ':location:site:elevation:max',
 								   (int) $theData[ 'UnitMaximumElevation' ] );
 		
 		//
 		// Set datum.
 		//
 		if( array_key_exists( 'UnitGeodeticDatum', $theData ) )
-			$theObject->offsetSet( ':location:datum',
-								   ':location:datum:'.$theData[ 'UnitGeodeticDatum' ] );
+			$theObject->offsetSet( ':location:site:datum',
+								   ':location:site:datum:'.$theData[ 'UnitGeodeticDatum' ] );
 		
 		//
 		// Set coordinates restriction.
@@ -376,43 +390,44 @@ finally
 		//
 		// Set coordinates.
 		//
-		if( ! $this->offsetGet( ':location:restricted' ) )
+		if( (! array_key_exists( 'UnitCoordinatesRestriction', $theData ))
+		 || (! $theData[ 'UnitCoordinatesRestriction' ]) )
 		{
 			if( array_key_exists( 'UnitLatitudeD', $theData ) )
-				$theObject->offsetSet( ':location:latitude',
+				$theObject->offsetSet( ':location:site:latitude',
 									   $theData[ 'UnitLatitudeD' ] );
 			if( array_key_exists( 'UnitLatitude', $theData ) )
 			{
 				if( $count = count( $tmp = ParseCoordinate( $theData[ 'UnitLatitude' ] ) ) )
 				{
-					$theObject->offsetSet( ':location:latitude:deg', $tmp[ 'D' ] );
-					$theObject->offsetSet( ':location:latitude:hem', $tmp[ 'H' ] );
+					$theObject->offsetSet( ':location:site:latitude:deg', $tmp[ 'D' ] );
+					$theObject->offsetSet( ':location:site:latitude:hem', $tmp[ 'H' ] );
 					switch( $count )
 					{
 						case 4:
-							$theObject->offsetSet( ':location:latitude:sec', $tmp[ 'S' ] );
+							$theObject->offsetSet( ':location:site:latitude:sec', $tmp[ 'S' ] );
 						case 3:
-							$theObject->offsetSet( ':location:latitude:min', $tmp[ 'M' ] );
+							$theObject->offsetSet( ':location:site:latitude:min', $tmp[ 'M' ] );
 							break;
 					}
 				}
 			}
 									   
 			if( array_key_exists( 'UnitLongitudeD', $theData ) )
-				$theObject->offsetSet( ':location:longitude',
+				$theObject->offsetSet( ':location:site:longitude',
 									   $theData[ 'UnitLongitudeD' ] );
 			if( array_key_exists( 'UnitLongitude', $theData ) )
 			{
 				if( $count = count( $tmp = ParseCoordinate( $theData[ 'UnitLongitude' ] ) ) )
 				{
-					$theObject->offsetSet( ':location:longitude:deg', $tmp[ 'D' ] );
-					$theObject->offsetSet( ':location:longitude:hem', $tmp[ 'H' ] );
+					$theObject->offsetSet( ':location:site:longitude:deg', $tmp[ 'D' ] );
+					$theObject->offsetSet( ':location:site:longitude:hem', $tmp[ 'H' ] );
 					switch( $count )
 					{
 						case 4:
-							$theObject->offsetSet( ':location:longitude:sec', $tmp[ 'S' ] );
+							$theObject->offsetSet( ':location:site:longitude:sec', $tmp[ 'S' ] );
 						case 3:
-							$theObject->offsetSet( ':location:longitude:min', $tmp[ 'M' ] );
+							$theObject->offsetSet( ':location:site:longitude:min', $tmp[ 'M' ] );
 							break;
 					}
 				}

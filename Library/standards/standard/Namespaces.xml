@@ -105,5 +105,37 @@
 				</item>
 			</item>
 		</TERM>
+
+		<!-- Breeding -->
+		<TERM ns="" lid="breeding">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Breeding</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information regarding samples breeding.]]></item>
+				</item>
+			</item>
+		</TERM>
+
+		<!-- Cooperator -->
+		<TERM ns="" lid="cooperator">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Cooperator</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information regarding cooperating entities not formally defined in the system.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 </METADATA>

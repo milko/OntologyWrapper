@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	GERMPLASM NEIGHBOURHOOD STRUCTURE
+	StructGermplasmNeighbourhood.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Germplasm neighbourhood structure -->
+	
+	<!-- :collecting:samples:accessions -->
+	<META>
+		<!-- :germplasm:accession -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:accession</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+		</EDGE>
+	
+		<!-- :germplasm:accession-id -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:accession-id</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+		</EDGE>
+	
+		<!-- :inventory:INSTCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+		</EDGE>
+		
+		<!-- mcpd:INSTCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:INSTCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+		</EDGE>
+
+		<!-- mcpd:ACCENUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+		</EDGE>
+	</META>
+</METADATA>

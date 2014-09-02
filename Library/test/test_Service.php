@@ -1829,7 +1829,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-		kAPI_PARAM_OBJECT => array( kTAG_CONN_USER => 'test',
+		kAPI_PARAM_OBJECT => array( kTAG_CONN_CODE => 'test',
 									kTAG_CONN_PASS => 'testpass',
 									kTAG_NAME => 'Test',
 									kTAG_ENTITY_FNAME => 'First',

@@ -129,7 +129,7 @@ abstract class ServerObject extends ConnectionObject
 	 * Return default offsets
 	 *
 	 * In this class we return {@link kTAG_CONN_PROTOCOL}, {@link kTAG_CONN_HOST},
-	 * {@link kTAG_CONN_PORT}, {@link kTAG_CONN_USER}, {@link kTAG_CONN_PASS} and
+	 * {@link kTAG_CONN_PORT}, {@link kTAG_CONN_CODE}, {@link kTAG_CONN_PASS} and
 	 * {@link kTAG_CONN_OPTS}.
 	 *
 	 * @static
@@ -140,7 +140,7 @@ abstract class ServerObject extends ConnectionObject
 		return array_merge( parent::DefaultOffsets(),
 							array( kTAG_CONN_PROTOCOL,
 								   kTAG_CONN_HOST, kTAG_CONN_PORT,
-								   kTAG_CONN_USER, kTAG_CONN_PASS,
+								   kTAG_CONN_CODE, kTAG_CONN_PASS,
 								   kTAG_CONN_OPTS ) );								// ==>
 	
 	} // DefaultOffsets;

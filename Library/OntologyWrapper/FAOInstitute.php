@@ -791,21 +791,21 @@ class FAOInstitute extends Institution
 		//
 		// Check shape.
 		//
-		if( $this->offsetExists( ':location:latitude' )
-		 && $this->offsetExists( ':location:longitude' ) )
+		if( $this->offsetExists( ':location:site:latitude' )
+		 && $this->offsetExists( ':location:site:longitude' ) )
 		{
-			if( ($this->offsetGet( ':location:latitude' ) != 0)
-			 || ($this->offsetGet( ':location:longitude' ) != 0) )
+			if( ($this->offsetGet( ':location:site:latitude' ) != 0)
+			 || ($this->offsetGet( ':location:site:longitude' ) != 0) )
 				$this->offsetSet( kTAG_GEO_SHAPE,
 								  array( kTAG_TYPE => 'Point',
 										 kTAG_GEOMETRY => array(
-											$this->offsetGet( ':location:longitude' ),
-											$this->offsetGet( ':location:latitude' ) ) ) );
+											$this->offsetGet( ':location:site:longitude' ),
+											$this->offsetGet( ':location:site:latitude' ) ) ) );
 			else
 			{
 				$this->offsetUnset( kTAG_GEO_SHAPE );
-				$this->offsetUnset( ':location:latitude' );
-				$this->offsetUnset( ':location:longitude' );
+				$this->offsetUnset( ':location:site:latitude' );
+				$this->offsetUnset( ':location:site:longitude' );
 			}
 		}
 		else
@@ -1062,21 +1062,21 @@ class FAOInstitute extends Institution
 				// LATITUDE.
 				//
 				case 'LATITUDE':
-					$this->offsetSet( ':location:latitude', (double) $theValue / 100 );
+					$this->offsetSet( ':location:site:latitude', (double) $theValue / 100 );
 					break;
 			
 				//
 				// LONGITUDE.
 				//
 				case 'LONGITUDE':
-					$this->offsetSet( ':location:longitude', (double) $theValue / 100 );
+					$this->offsetSet( ':location:site:longitude', (double) $theValue / 100 );
 					break;
 			
 				//
 				// ALTITUDE.
 				//
 				case 'ALTITUDE':
-					$this->offsetSet( ':location:elevation', (int) $theValue );
+					$this->offsetSet( ':location:site:elevation', (int) $theValue );
 					break;
 			
 			} // Parsed offset.

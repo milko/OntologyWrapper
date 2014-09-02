@@ -33,7 +33,7 @@
 	
 	<!-- wbi:group -->
 	<META>
-		 <TERM ns="wbi" lid="group">
+		<TERM ns="wbi" lid="group">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

@@ -579,27 +579,27 @@ finally
 					$sub[ $tag ] = $data[ 'LAT' ];
 					if( array_key_exists( 'LATITUDE', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:latitude' );
 						$sub[ $tag ] = (double) $data[ 'LATITUDE' ];
 					}
 					if( array_key_exists( 'LAT_DEG', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude:deg' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:latitude:deg' );
 						$sub[ $tag ] = (int) $data[ 'LAT_DEG' ];
 					}
 					if( array_key_exists( 'LAT_MIN', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude:min' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:latitude:min' );
 						$sub[ $tag ] = (int) $data[ 'LAT_MIN' ];
 					}
 					if( array_key_exists( 'LAT_SEC', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude:sec' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:latitude:sec' );
 						$sub[ $tag ] = (double) $data[ 'LAT_SEC' ];
 					}
 					if( array_key_exists( 'LAT_HEM', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude:hem' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:latitude:hem' );
 						$sub[ $tag ] = $data[ 'LAT_HEM' ];
 					}
 				}
@@ -613,27 +613,27 @@ finally
 					$sub[ $tag ] = $data[ 'LONG' ];
 					if( array_key_exists( 'LONGITUDE', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:longitude' );
 						$sub[ $tag ] = (double) $data[ 'LONGITUDE' ];
 					}
 					if( array_key_exists( 'LONG_DEG', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude:deg' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:longitude:deg' );
 						$sub[ $tag ] = (int) $data[ 'LONG_DEG' ];
 					}
 					if( array_key_exists( 'LONG_MIN', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude:min' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:longitude:min' );
 						$sub[ $tag ] = (int) $data[ 'LONG_MIN' ];
 					}
 					if( array_key_exists( 'LONG_SEC', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude:sec' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:longitude:sec' );
 						$sub[ $tag ] = (double) $data[ 'LONG_SEC' ];
 					}
 					if( array_key_exists( 'LONG_HEM', $data ) )
 					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude:hem' );
+						$tag = (string) $theWrapper->getSerial( ':location:site:longitude:hem' );
 						$sub[ $tag ] = $data[ 'LONG_HEM' ];
 					}
 				}
@@ -645,7 +645,7 @@ finally
 				{
 					$tag = (string) $theWrapper->getSerial( 'abdh:ELEV' );
 					$sub[ $tag ] = (int) $data[ 'ELEV' ];
-					$tag = (string) $theWrapper->getSerial( ':location:elevation' );
+					$tag = (string) $theWrapper->getSerial( ':location:site:elevation' );
 					$sub[ $tag ] = (int) $data[ 'ELEV' ];
 				}
 		

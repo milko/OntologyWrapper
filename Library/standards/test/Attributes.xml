@@ -10,7 +10,7 @@
 	<!-- Features -->
 	<META>
 		<!-- :test:struct1 -->
-		 <TERM ns=":test" lid="struct1">
+		<TERM ns=":test" lid="struct1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -20,7 +20,7 @@
 		</TERM>
 		
 		<!-- :test:struct2 -->
-		 <TERM ns=":test" lid="struct2">
+		<TERM ns=":test" lid="struct2">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -30,7 +30,7 @@
 		</TERM>
 		
 		<!-- :test:struct3 -->
-		 <TERM ns=":test" lid="struct3">
+		<TERM ns=":test" lid="struct3">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -40,7 +40,7 @@
 		</TERM>
 		
 		<!-- :test:feature1 -->
-		 <TERM ns=":test" lid="feature1">
+		<TERM ns=":test" lid="feature1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -50,7 +50,7 @@
 		</TERM>
 		
 		<!-- :test:feature2 -->
-		 <TERM ns=":test" lid="feature2">
+		<TERM ns=":test" lid="feature2">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -60,7 +60,7 @@
 		</TERM>
 		
 		<!-- :test:feature3 -->
-		 <TERM ns=":test" lid="feature3">
+		<TERM ns=":test" lid="feature3">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -70,7 +70,7 @@
 		</TERM>
 		
 		<!-- :test:feature4 -->
-		 <TERM ns=":test" lid="feature4">
+		<TERM ns=":test" lid="feature4">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -80,7 +80,7 @@
 		</TERM>
 		
 		<!-- :test:feature5 -->
-		 <TERM ns=":test" lid="feature5">
+		<TERM ns=":test" lid="feature5">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -90,7 +90,7 @@
 		</TERM>
 		
 		<!-- :test:feature6 -->
-		 <TERM ns=":test" lid="feature6">
+		<TERM ns=":test" lid="feature6">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -103,7 +103,7 @@
 	<!-- Scales -->
 	<META>
 		<!-- :test:scale1 -->
-		 <TERM ns=":test" lid="scale1">
+		<TERM ns=":test" lid="scale1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -113,7 +113,7 @@
 		</TERM>
 		
 		<!-- :test:scale2 -->
-		 <TERM ns=":test" lid="scale2">
+		<TERM ns=":test" lid="scale2">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -123,7 +123,7 @@
 		</TERM>
 		
 		<!-- :test:scale3 -->
-		 <TERM ns=":test" lid="scale3">
+		<TERM ns=":test" lid="scale3">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

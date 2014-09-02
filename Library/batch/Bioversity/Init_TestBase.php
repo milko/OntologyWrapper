@@ -148,6 +148,11 @@ try
 	$wrapper->loadIUCNStandards( TRUE );
 	
 	//
+	// Load NaturalServe Standards.
+	//
+	$wrapper->loadNatServeStandards( TRUE );
+	
+	//
 	// Load FAO Standards.
 	//
 	$wrapper->loadFAOStandards( TRUE );
@@ -186,8 +191,7 @@ try
 	// Load FCU standards.
 	//
 	$wrapper->loadFCUStandards( TRUE );
-
-/*	
+	
 	//
 	// Load CWR standards.
 	//
@@ -197,7 +201,7 @@ try
 	// Load ABDH standards.
 	//
 	$wrapper->loadABDHStandards( TRUE );
-	
+/*	
 	//
 	// Load collections.
 	//
@@ -212,8 +216,7 @@ try
 	// Reset entities.
 	//
 	$wrapper->resetEntities( TRUE );
-*/
-	
+*/	
 	//
 	// Reset dictionary.
 	//

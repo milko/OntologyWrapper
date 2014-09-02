@@ -41,7 +41,13 @@
 		<!-- schema::location -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:site -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:site</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	
 		<!-- :environment -->

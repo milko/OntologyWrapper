@@ -36,12 +36,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- :taxon:cross:references -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:references</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
 		<!-- :taxon:cross:success -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:success</item>

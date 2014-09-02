@@ -9,9 +9,9 @@
 	
 	<!-- Inventory structure -->
 	
-	<!-- :domain:cwr-inventory -->
+	<!-- :domain:inventory -->
 	<META>
-		<NODE term=":domain:cwr-inventory" pid="struct::domain:cwr-inventory">
+		<NODE term=":domain:inventory" pid="struct::domain:inventory">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:struct</item>
@@ -33,7 +33,7 @@
 		<!-- schema::inventory -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::inventory</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	
 		<!-- cwr:in:CRITPRIORI -->
@@ -47,34 +47,28 @@
 			<item const="kTAG_SUBJECT" node="tag">cwr:in:METHCRITPRIORI</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- schema::taxon -->
+	
+		<!-- cwr:in:PRIORITY-LEVEL -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:cross -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:cross</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:in:PRIORITY-LEVEL</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :taxon:conservation -->
+		<!-- cwr:REF -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:conservation</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:REF</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :taxon:threat -->
+		<!-- cwr:URL -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:threat</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:URL</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:pp -->
+		<!-- cwr:occurrence -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:pp</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:occurrence</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

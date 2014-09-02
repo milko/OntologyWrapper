@@ -1407,10 +1407,10 @@
 		</TAG>
 	
 		<!-- 63 -->
-		<!-- kTAG_CONN_USER -->
+		<!-- kTAG_CONN_CODE -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:connection:user</item>
+				<item>:connection:code</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -1418,16 +1418,10 @@
 				<item>:type:private-search</item>
 				<item>:type:private-display</item>
 			</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Connection user</item>
-				</item>
-			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the user code used to authenticate with the service.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the entity credentials used to authenticate with the service.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -1444,16 +1438,10 @@
 				<item>:type:private-search</item>
 				<item>:type:private-display</item>
 			</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Connection password</item>
-				</item>
-			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the user password used to authenticate with the service.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which validates the entity credentials used to authenticate with the service.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -1535,6 +1523,25 @@
 	
 	<META>
 		<!-- 68 -->
+		<!-- kTAG_ENTITY_IDENT -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:identifier</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-10</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string representing the identification code of the entity.]]></item>
+				</item>
+			</item>
+		</TAG>
+	
+		<!-- 69 -->
 		<!-- kTAG_ENTITY_FNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1553,7 +1560,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 69 -->
+		<!-- 70 -->
 		<!-- kTAG_ENTITY_LNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1572,7 +1579,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 70 -->
+		<!-- 71 -->
 		<!-- kTAG_ENTITY_TYPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1592,7 +1599,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 71 -->
+		<!-- 72 -->
 		<!-- kTAG_ENTITY_KIND -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1612,7 +1619,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 72 -->
+		<!-- 73 -->
 		<!-- kTAG_ENTITY_ACRONYM -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1638,7 +1645,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 73 -->
+		<!-- 74 -->
 		<!-- kTAG_ENTITY_MAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1662,7 +1669,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 74 -->
+		<!-- 75 -->
 		<!-- kTAG_ENTITY_EMAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1686,7 +1693,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 75 -->
+		<!-- 76 -->
 		<!-- kTAG_ENTITY_LINK -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1710,7 +1717,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 76 -->
+		<!-- 77 -->
 		<!-- kTAG_ENTITY_PHONE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1734,7 +1741,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 77 -->
+		<!-- 78 -->
 		<!-- kTAG_ENTITY_FAX -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1758,7 +1765,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 78 -->
+		<!-- 79 -->
 		<!-- kTAG_ENTITY_AFFILIATION -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1776,7 +1783,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 79 -->
+		<!-- 80 -->
 		<!-- kTAG_ENTITY_NATIONALITY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1802,7 +1809,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 80 -->
+		<!-- 81 -->
 		<!-- kTAG_ENTITY_VALID -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1820,7 +1827,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 81 -->
+		<!-- 82 -->
 		<!-- kTAG_ENTITY_PGP_KEY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1838,7 +1845,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 82 -->
+		<!-- 83 -->
 		<!-- kTAG_ENTITY_PGP_FINGERPRINT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1860,7 +1867,7 @@
 	<!-- Management attributes -->
 	
 	<META>
-		<!-- 83 -->
+		<!-- 84 -->
 		<!-- kTAG_ROLES -->
 		<TAG>
 			<item const="kTAG_TERMS">

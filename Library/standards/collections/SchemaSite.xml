@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	SITE SCHEMA
+	SchemaSite.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Site schema -->
+	
+	<!-- schema::location:site -->
+	<META>
+		<NODE term=":location:site" pid="schema::location:site">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard common properties describing a site.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Site identification -->
+	
+		<!-- :location:site:id -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:id</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Site monitoring -->
+	
+		<!-- :location:site:monitored -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:monitored</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:monitor -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:monitor</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:monitor:interval -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:monitor:interval</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Site habitat -->
+	
+		<!-- :location:site:unit-code -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:unit-code</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:unit-descr -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:unit-descr</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:unit-file -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:unit-file</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:unit-file-vers -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:unit-file-vers</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Site protection -->
+	
+		<!-- :location:site:protected -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:protected</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:WDPA -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:WDPA</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Site legal -->
+	
+		<!-- :location:site:legislation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:legislation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:ownership -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:ownership</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Site land -->
+	
+		<!-- fao:landuse -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">fao:landuse</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- eec:CORINE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">eec:CORINE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- eec:EUNIS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">eec:EUNIS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- iucn:habitat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:habitat</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- iucn:habitat-score -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:habitat-score</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:position -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:position</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:slope -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:slope</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:aspect -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:aspect</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:texture -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:texture</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:moisture -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:moisture</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:ph -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:ph</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:ph:value -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:ph:value</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:ph:depth -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:ph:depth</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:salt -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:salt</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:salt:value -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:salt:value</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:salt:depth -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:salt:depth</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Site coordinates -->
+	
+		<!-- :location:site:elevation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:elevation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:elevation:min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:elevation:min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:elevation:max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:elevation:max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:elevation:error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:elevation:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:datum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:datum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:latitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:latitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:latitude:provided -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:latitude:provided</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:latitude:deg -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:latitude:deg</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:latitude:min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:latitude:min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:latitude:sec -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:latitude:sec</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:latitude:hem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:latitude:hem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:latitude:error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:latitude:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:longitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:longitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:longitude:provided -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:longitude:provided</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:longitude:deg -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:longitude:deg</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:longitude:min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:longitude:min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:longitude:sec -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:longitude:sec</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:longitude:hem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:longitude:hem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:longitude:error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:longitude:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-date -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-date</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-contact -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-contact</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-method -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-method</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-source -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-source</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :shape -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:shape</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:coordinates-restricted -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:coordinates-restricted</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Notes and comments -->
+	
+		<!-- :location:site:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

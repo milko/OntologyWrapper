@@ -168,7 +168,7 @@ SELECT
 					LEFT( `LATITUDE`, 2 ),
 					UNSIGNED ),
 				NULL ) ),
-		NULL ) AS `:location:latitude:deg`,
+		NULL ) AS `:location:site:latitude:deg`,
 	IF( `LATITUDE` IS NOT NULL AND
 		`LATITUDED` IS NOT NULL,
 		IF( `LATITUDE` LIKE '%°%',
@@ -188,7 +188,7 @@ SELECT
 						DECIMAL( 8, 6 ) ),
 					NULL ),
 				NULL ) ),
-		NULL ) AS `:location:latitude:min`,
+		NULL ) AS `:location:site:latitude:min`,
 	IF( `LATITUDE` IS NOT NULL AND
 		`LATITUDED` IS NOT NULL,
 		IF( `LATITUDE` LIKE '%°%',
@@ -208,7 +208,7 @@ SELECT
 						DECIMAL( 8, 6 ) ),
 					NULL ),
 				NULL ) ),
-		NULL ) AS `:location:latitude:sec`,
+		NULL ) AS `:location:site:latitude:sec`,
 	IF( `LATITUDE` IS NOT NULL AND
 		`LATITUDED` IS NOT NULL,
 		IF( `LATITUDE` LIKE '%°%',
@@ -217,8 +217,8 @@ SELECT
 		IF( `LATITUDE` LIKE '%N%' OR
 			`LATITUDE` LIKE '%S%',
 			RIGHT( `LATITUDE`, 1 ),
-			NULL ) ) AS `:location:latitude:hem`,
-	`LATITUDED` AS `:location:latitude`,
+			NULL ) ) AS `:location:site:latitude:hem`,
+	`LATITUDED` AS `:location:site:latitude`,
 	`LONGITUDE` AS `mcpd:LONGITUDE`,
 	IF( `LONGITUDE` IS NOT NULL AND
 		`LONGITUDED` IS NOT NULL,
@@ -233,7 +233,7 @@ SELECT
 					LEFT( `LONGITUDE`, 3 ),
 					UNSIGNED ),
 				NULL ) ),
-		NULL ) AS `:location:longitude:deg`,
+		NULL ) AS `:location:site:longitude:deg`,
 	IF( `LONGITUDE` IS NOT NULL AND
 		`LONGITUDED` IS NOT NULL,
 		IF( `LONGITUDE` LIKE '%°%',
@@ -253,7 +253,7 @@ SELECT
 						DECIMAL( 8, 6 ) ),
 					NULL ),
 				NULL ) ),
-		NULL ) AS `:location:longitude:min`,
+		NULL ) AS `:location:site:longitude:min`,
 	IF( `LONGITUDE` IS NOT NULL AND
 		`LONGITUDED` IS NOT NULL,
 		IF( `LONGITUDE` LIKE '%°%',
@@ -273,7 +273,7 @@ SELECT
 						DECIMAL( 8, 6 ) ),
 					NULL ),
 				NULL ) ),
-		NULL ) AS `:location:longitude:sec`,
+		NULL ) AS `:location:site:longitude:sec`,
 	IF( `LONGITUDE` IS NOT NULL AND
 		`LONGITUDED` IS NOT NULL,
 		IF( `LONGITUDE` LIKE '%°%',
@@ -282,9 +282,9 @@ SELECT
 		IF( `LONGITUDE` LIKE '%E%' OR
 			`LONGITUDE` LIKE '%W%',
 			RIGHT( `LONGITUDE`, 1 ),
-			NULL ) ) AS `:location:longitude:hem`,
-	`LONGITUDED` AS `:location:longitude`,
-	CONVERT( `ELEVATION`, SIGNED ) AS `:location:elevation`,
+			NULL ) ) AS `:location:site:longitude:hem`,
+	`LONGITUDED` AS `:location:site:longitude`,
+	CONVERT( `ELEVATION`, SIGNED ) AS `:location:site:elevation`,
 	IF( `DONORCODE` IS NOT NULL,
 		REPLACE(
 			REPLACE( `DONORCODE`, ':', '' ),
@@ -463,17 +463,17 @@ try
 						case 'mcpd:COLLDATE':
 						case ':location:locality':
 						case 'mcpd:LATITUDE':
-						case ':location:latitude:deg':
-						case ':location:latitude:min':
-						case ':location:latitude:sec':
-						case ':location:latitude:hem':
-						case ':location:latitude':
+						case ':location:site:latitude:deg':
+						case ':location:site:latitude:min':
+						case ':location:site:latitude:sec':
+						case ':location:site:latitude:hem':
+						case ':location:site:latitude':
 						case 'mcpd:LONGITUDE':
-						case ':location:longitude:deg':
-						case ':location:longitude:min':
-						case ':location:longitude:sec':
-						case ':location:longitude:hem':
-						case ':location:longitude':
+						case ':location:site:longitude:deg':
+						case ':location:site:longitude:min':
+						case ':location:site:longitude:sec':
+						case ':location:site:longitude:hem':
+						case ':location:site:longitude':
 						case 'mcpd:DONORDESCR':
 						case 'mcpd:DONORNUMB':
 						case 'mcpd:BREDDESCR':
@@ -485,9 +485,9 @@ try
 							$object[ $key ] = $value;
 							break;
 			
-						case ':location:elevation':
-							$object[ ':location:elevation:min' ] = $value;
-							$object[ ':location:elevation:max' ] = $value;
+						case ':location:site:elevation':
+							$object[ ':location:site:elevation:min' ] = $value;
+							$object[ ':location:site:elevation:max' ] = $value;
 							break;
 			
 						case ':taxon:names':
@@ -586,14 +586,14 @@ try
 			//
 			// Set shape.
 			//
-			if( $object->offsetExists( ':location:longitude' )
-			 && $object->offsetExists( ':location:latitude' ) )
+			if( $object->offsetExists( ':location:site:longitude' )
+			 && $object->offsetExists( ':location:site:latitude' ) )
 				$object->offsetSet(
 					':shape',
 					array( kTAG_TYPE => 'Point',
 						   kTAG_GEOMETRY => array(
-								$object->offsetGet( ':location:longitude' ),
-								$object->offsetGet( ':location:latitude' ) ) ) );
+								$object->offsetGet( ':location:site:longitude' ),
+								$object->offsetGet( ':location:site:latitude' ) ) ) );
 		
 			//
 			// Store record.

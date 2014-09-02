@@ -1363,7 +1363,7 @@ try
 			(
 				-3 => array
 				(
-					kTAG_CONN_USER => 444,
+					kTAG_CONN_CODE => 444,
 					kTAG_LABEL => array
 					(
 						array( kTAG_LANGUAGE => "en",

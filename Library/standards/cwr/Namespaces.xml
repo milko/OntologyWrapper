@@ -7,65 +7,65 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-    <!-- Namespaces -->
+	<!-- Namespaces -->
 	
-    <!-- cwr -->
-    <META>
-        <TERM lid="cwr">
+	<!-- cwr -->
+	<META>
+		<TERM lid="cwr">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Crop wild relative]]></item>
 				</item>
 			</item>
-    	</TERM>
-    </META>
+		</TERM>
+	</META>
 	
-    <!-- cwr:ck -->
-    <META>
-        <TERM ns="cwr" lid="ck">
+	<!-- cwr:ck -->
+	<META>
+		<TERM ns="cwr" lid="ck">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Crop wild relative checklist]]></item>
 				</item>
 			</item>
-    	</TERM>
-    </META>
+		</TERM>
+	</META>
 	
-    <!-- cwr:in -->
-    <META>
-        <TERM ns="cwr" lid="in">
+	<!-- cwr:in -->
+	<META>
+		<TERM ns="cwr" lid="in">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Crop wild relative inventory]]></item>
 				</item>
 			</item>
-    	</TERM>
-    </META>
+		</TERM>
+	</META>
 	
-    <!-- cwr:pp -->
-    <META>
-        <TERM ns="cwr" lid="pp">
+	<!-- cwr:population -->
+	<META>
+		<TERM ns="cwr" lid="population">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Crop wild relative population]]></item>
 				</item>
 			</item>
-    	</TERM>
-    </META>
+		</TERM>
+	</META>
 	
-    <!-- cwr:st -->
-    <META>
-        <TERM ns="cwr" lid="st">
+	<!-- cwr:st -->
+	<META>
+		<TERM ns="cwr" lid="st">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Crop wild relative site]]></item>
 				</item>
 			</item>
-    	</TERM>
-    </META>
+		</TERM>
+	</META>
 </METADATA>

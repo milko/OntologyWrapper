@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	COLLECTING FORM
+	FormCollecting.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- FORM -->
+	
+	<!-- :collecting -->
+	<META>
+		<NODE term=":collecting" pid="form::collecting">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common collecting event search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- :collecting:mission:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :collecting:event:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:event:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLDATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDATE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :collecting:event:start -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:event:start</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :collecting:event:end -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:event:end</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :germplasm:sample-id -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample-id</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :collecting:event:other-identification -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:event:other-identification</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :collecting:samples:count -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:samples:count</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	HOUSEHOLD INCOME SCHEMA
+	SchemaHouseholdIncome.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema:abdh:economy:income -->
+	<META>
+		<NODE term="abdh:economy:income" pid="schema:abdh:economy:income">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties specific to household sources of income.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- abdh:CROP_MAIN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_MAIN_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_MAIN_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_MAIN_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_MAIN_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

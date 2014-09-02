@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE POPULATION STRUCTURE
+	SchemaCwrPopulation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema:cwr:population -->
+	<META>
+		<NODE term="cwr:population" pid="schema:cwr:population">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all specific properties describing crop wild relative populations.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- cwr:population:RECDATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:RECDATE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:NUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:NUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:MONIT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:MONIT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:MONITRESP -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:MONITRESP</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:MONINT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:MONINT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:AREA -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:AREA</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:INDIVNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:INDIVNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:MATURENUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:MATURENUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:JUVENNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:JUVENNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:SEEDLINGSTATUS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:SEEDLINGSTATUS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:POPDENSI -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:POPDENSI</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:RANKFOLCOVER -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:RANKFOLCOVER</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:RAKSCALE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:RAKSCALE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:EXSECURE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:EXSECURE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- mcpd:DUPLSITE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLSITE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- :inventory:DUPLSITE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:DUPLSITE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- mcpd:ACCENUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:INSTNAMEDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:INSTNAMEDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- cwr:population:INSTADDRESSDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:population:INSTADDRESSDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- mcpd:ACCEURL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCEURL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+		
+		<!-- mcpd:MLSSTAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:MLSSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
+		</EDGE>
+	</META>
+</METADATA>

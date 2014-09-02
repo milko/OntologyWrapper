@@ -107,21 +107,6 @@ try
 	} // Use graph database.
 	
 	//
-	// Load CWR standards.
-	//
-	$wrapper->loadCWRStandards( TRUE );
-	
-	//
-	// Load ABDH standards.
-	//
-	$wrapper->loadABDHStandards( TRUE );
-	
-	//
-	// Load collections.
-	//
-	$wrapper->loadCollections( TRUE );
-	
-	//
 	// Reset units.
 	//
 	$wrapper->resetUnits( TRUE );

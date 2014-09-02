@@ -28,7 +28,7 @@
 	<!-- Reference -->
 
 	<META>
-    	<!-- :environment:reference -->
+		<!-- :environment:reference -->
 		<TERM ns=":environment" lid="reference">
 			<item const="kTAG_LABEL">
 				<item>
@@ -42,7 +42,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Environmental data reference.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::environment:reference" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -89,7 +89,7 @@
 	<!-- Stratification -->
 
 	<META>
-    	<!-- :environment:stratification -->
+		<!-- :environment:stratification -->
 		<TERM ns=":environment" lid="stratification">
 			<item const="kTAG_LABEL">
 				<item>
@@ -103,7 +103,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Environmental stratification.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::environment:stratification" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -144,7 +144,7 @@
 	<!-- Bioclimatic variables -->
 
 	<META>
-    	<!-- :environment:bio -->
+		<!-- :environment:bio -->
 		<NODE term=":environment:bio" pid="form::environment:bio" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -269,7 +269,7 @@
 	<!-- Monthly temperature -->
 
 	<META>
-    	<!-- :environment:temperature -->
+		<!-- :environment:temperature -->
 		<NODE term=":environment:temperature" pid="form::environment:temperature" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -856,7 +856,7 @@
 	<!-- Monthly precipitation -->
 
 	<META>
-    	<!-- :environment:precipitation -->
+		<!-- :environment:precipitation -->
 		<NODE term=":environment:precipitation" pid="form::environment:precipitation" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -1060,7 +1060,7 @@
 	
 	<!-- :environment:landuse -->
 	<META>
-    	<!-- :environment:landuse -->
+		<!-- :environment:landuse -->
 		<TERM ns=":environment" lid="landuse">
 			<item const="kTAG_LABEL">
 				<item>
@@ -1068,7 +1068,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Land use]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::environment:landuse" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>

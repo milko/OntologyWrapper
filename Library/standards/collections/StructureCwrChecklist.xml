@@ -9,9 +9,9 @@
 	
 	<!-- Checklist structure -->
 	
-	<!-- :domain:cwr-checklist -->
+	<!-- :domain:inventory:checklist -->
 	<META>
-		<NODE term=":domain:cwr-checklist" pid="struct::domain:cwr-checklist">
+		<NODE term=":domain:inventory:checklist" pid="struct::domain:inventory:checklist">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:struct</item>
@@ -39,7 +39,7 @@
 		<!-- schema::inventory -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::inventory</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- cwr:ck:TYPE -->
@@ -60,39 +60,15 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- schema::taxon -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:cross -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:cross</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:threat -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:threat</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:ecovalue -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:ecovalue-ref -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue-ref</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- cwr:ck:REMARKS -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REMARKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:occurrence -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:occurrence</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

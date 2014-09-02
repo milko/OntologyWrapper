@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	MATERIAL TRANSFERS STRUCT
+	StructMaterialTransfers.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Material transfers structure -->
+	
+	<!-- :germplasm:mt -->
+	<META>
+		<!-- :germplasm:mt:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+	
+		<!-- :germplasm:sample-id -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample-id</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+	
+		<!-- :germplasm:mt:date -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:date</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+	
+		<!-- :germplasm:mt:smta -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:smta</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+	
+		<!-- :germplasm:mt:smta:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:smta:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+	
+		<!-- :germplasm:mt:samples -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:samples</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+	
+		<!-- :germplasm:mt:samples:received -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:samples:received</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+		
+		<!-- schema::cooperator -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::cooperator</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+	</META>
+</METADATA>

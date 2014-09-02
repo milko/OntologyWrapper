@@ -28,7 +28,7 @@
    	<!-- :taxon:rank -->
 
 	<META>
-    	<!-- :taxon:rank -->
+		<!-- :taxon:rank -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:rank</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -39,7 +39,7 @@
 	<!-- Kingdom epithets -->
 
 	<META>
-    	<!-- :taxon:kingdom-epithets -->
+		<!-- :taxon:kingdom-epithets -->
 		<TERM ns=":taxon" lid="kingdom-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -53,7 +53,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Kingdom rank epithets.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:kingdom-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -88,7 +88,7 @@
 	<!-- Phylum & Division epithets -->
 
 	<META>
-    	<!-- :taxon:phylum-epithets -->
+		<!-- :taxon:phylum-epithets -->
 		<TERM ns=":taxon" lid="phylum-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -102,7 +102,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Phylum or Division rank epithets.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:phylum-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -143,7 +143,7 @@
 	<!-- Class epithets -->
 
 	<META>
-    	<!-- :taxon:class-epithets -->
+		<!-- :taxon:class-epithets -->
 		<TERM ns=":taxon" lid="class-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -157,7 +157,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Class rank epithets.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:class-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -198,7 +198,7 @@
 	<!-- Legion epithets -->
 
 	<META>
-    	<!-- :taxon:legio-epithets -->
+		<!-- :taxon:legio-epithets -->
 		<TERM ns=":taxon" lid="legio-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -212,7 +212,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Legion rank epithets.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:legio-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -235,7 +235,7 @@
 	<!-- Order epithets -->
 
 	<META>
-    	<!-- :taxon:ordo-epithets -->
+		<!-- :taxon:ordo-epithets -->
 		<TERM ns=":taxon" lid="ordo-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -249,7 +249,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Order rank epithets.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:ordo-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -308,7 +308,7 @@
 	<!-- Family epithets -->
 
 	<META>
-    	<!-- :taxon:familia-epithets -->
+		<!-- :taxon:familia-epithets -->
 		<TERM ns=":taxon" lid="familia-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -322,7 +322,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Family rank epithets.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:familia-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -356,7 +356,7 @@
 	<!-- Tribe epithets -->
 
 	<META>
-    	<!-- :taxon:tribus-epithets -->
+		<!-- :taxon:tribus-epithets -->
 		<TERM ns=":taxon" lid="tribus-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -370,7 +370,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Tribe rank epithets.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:tribus-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -399,7 +399,7 @@
 	<!-- Genus epithets -->
 
 	<META>
-    	<!-- :taxon:genus-epithets -->
+		<!-- :taxon:genus-epithets -->
 		<TERM ns=":taxon" lid="genus-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -413,7 +413,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Genus rank epithets.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:genus-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -453,7 +453,7 @@
 	<!-- Species epithets -->
 
 	<META>
-    	<!-- :taxon:species-epithets -->
+		<!-- :taxon:species-epithets -->
 		<TERM ns=":taxon" lid="species-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -467,7 +467,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Species and lower rank epithets.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:species-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -528,7 +528,7 @@
 	<!-- Aggregated scientific names -->
 
 	<META>
-    	<!-- :taxon:aggregated-epithets -->
+		<!-- :taxon:aggregated-epithets -->
 		<TERM ns=":taxon" lid="aggregated-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -542,7 +542,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Aggregated scientific names.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:aggregated-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -587,7 +587,7 @@
 	<!-- Vernacular names -->
 
 	<META>
-    	<!-- :taxon:vernacular-epithets -->
+		<!-- :taxon:vernacular-epithets -->
 		<TERM ns=":taxon" lid="vernacular-epithets">
 			<item const="kTAG_LABEL">
 				<item>
@@ -601,7 +601,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Vernacular names and categories.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:vernacular-epithets" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -630,7 +630,7 @@
 	<!-- Gene pools & groups -->
 
 	<META>
-    	<!-- :taxon:genepool-attributes -->
+		<!-- :taxon:genepool-attributes -->
 		<TERM ns=":taxon" lid="genepool-attributes">
 			<item const="kTAG_LABEL">
 				<item>
@@ -644,7 +644,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Gene pool and group attributes.]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:genepool-attributes" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -668,12 +668,54 @@
 			<item const="kTAG_SUBJECT" node="tag">:taxon:group</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+		
+		<!-- :taxon:designation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:designation:national -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:national</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:occurrence-status -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-status</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:rel-crop -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:rel-crop</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:rel-crop:taxa -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:rel-crop:taxa</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:rel-crop:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:rel-crop:names</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:designation:use -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:use</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	</META>
 
 	<!-- Economic attributes -->
 
 	<META>
-    	<!-- :taxon:economic-attributes -->
+		<!-- :taxon:economic-attributes -->
 		<TERM ns=":taxon" lid="economic-attributes">
 			<item const="kTAG_LABEL">
 				<item>
@@ -681,7 +723,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Economic attributes]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:economic-attributes" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -698,7 +740,7 @@
 	<!-- Biological attributes -->
 
 	<META>
-    	<!-- :taxon:biological-attributes -->
+		<!-- :taxon:biological-attributes -->
 		<TERM ns=":taxon" lid="biological-attributes">
 			<item const="kTAG_LABEL">
 				<item>
@@ -706,7 +748,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Biological attributes]]></item>
 				</item>
 			</item>
-    	</TERM>
+		</TERM>
 		<NODE pid="form::taxon:biological-attributes" />
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>

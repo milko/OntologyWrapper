@@ -7,7 +7,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Bioclimatic variables -->
+	<!-- Bioclimatic namespace -->
 	
 	<!-- :environment:bio -->
 	<META>
@@ -19,6 +19,23 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:bio</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Bioclimatic values of location.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:bio">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 	
 	<!-- Environment bioclimatic variables -->

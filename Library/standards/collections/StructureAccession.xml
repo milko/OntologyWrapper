@@ -9,7 +9,7 @@
 	
 	<!-- Accession structure -->
 	
-	<!-- :domain:accession -->
+	<!-- struct::domain:accession -->
 	<META>
 		<NODE term=":domain:accession" pid="struct::domain:accession">
 			<item const="kTAG_NODE_TYPE">
@@ -19,17 +19,23 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This form contains all specific accession descriptor search fields.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of an accession.]]></item>
 				</item>
 			</item>
 		</NODE>
 
+		<!-- :germplasm:accession-id -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:accession-id</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- schema::inventory -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::inventory</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
-		
+	
 		<!-- mcpd:INSTCODE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:INSTCODE</item>
@@ -57,7 +63,13 @@
 		<!-- schema::taxon -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:distribution -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
 		<!-- mcpd:MLSSTAT -->
@@ -78,6 +90,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- mcpd:REMARKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:REMARKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :domain:accession:collecting -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:domain:accession:collecting</item>
@@ -90,15 +108,21 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :domain:accession:management -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:domain:accession:management</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :domain:accession:source -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:domain:accession:source</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- :domain:accession:management -->
+	
+		<!-- :germplasm:mt -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:domain:accession:management</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

@@ -9,7 +9,7 @@
 	
 	<!-- Household assessment structure -->
 	
-    <!-- :domain:hh-assessment -->
+	<!-- :domain:hh-assessment -->
 	<META>
 		<NODE term=":domain:hh-assessment" pid="struct::domain:hh-assessment">
 			<item const="kTAG_NODE_TYPE">

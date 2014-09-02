@@ -539,4 +539,39 @@
 			<item const="kTAG_OBJECT" node="term">cwr:USEOFTAXON</item>
 		</EDGE>
 	</META>
+	
+	<!-- Crop wild relative occurrences -->
+	
+	<!-- cwr:occurrence -->
+	<META>
+		<TERM ns="cwr" lid="occurrence">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Occurrences]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:occurrence</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:taxon:epithet</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of crop wild relative occurrences.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:occurrence">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 </METADATA>

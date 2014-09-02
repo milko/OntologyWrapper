@@ -11,128 +11,25 @@
 	
 	<!-- fcu:population -->
 	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>fcu:population</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:struct</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_TAG_STRUCT_IDX">:taxon:epithet</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Unit populations]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Information on population target species growing in the unit.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	
 		<!-- schema::taxon -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
-		<!-- fcu:population:number -->
+		<!-- :taxon:distribution -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:number</item>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
-		<!-- fcu:population:establishment -->
+		<!-- schema:fcu:population -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:establishment</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:last-visit -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:last-visit</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:status -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:status</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:situ -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:situ</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:origin -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:origin</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:system -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:system</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:management -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:management</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:justification -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:justification</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:reproducing -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:reproducing</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:sex-ratio -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:sex-ratio</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:regeneration -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:regeneration</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:distribution -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:distribution</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:share -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:share</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:population:remarks -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:remarks</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema:fcu:population</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 	</META>
 </METADATA>
