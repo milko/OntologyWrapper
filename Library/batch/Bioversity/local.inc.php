@@ -89,7 +89,7 @@ define( "kCLIMATE_MIN_DIST",		925 );
 /**
  * Maximum average distance.
  *
- * This token represents the efault maximum average tile distance from the provided
+ * This token represents the default maximum average tile distance from the provided
  * geometry in meters (10km.).
  */
 define( "kCLIMATE_MAX_DIST",		111325 );

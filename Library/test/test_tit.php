@@ -28,80 +28,61 @@ try
 	// Connect.
 	//
 	$m = new MongoClient( 'mongodb://localhost:27017' );
-	$d = $m->selectDB( 'PGRDG' );
-	$c = $d->selectCollection( '_units' );
+	$d = $m->selectDB( 'scrap' );
+	$c = $d->selectCollection( 'planets' );
+	$c->drop();
 	
 	//
-	// Match.
+	// Load records.
 	//
-	$match = array( '$and' => array(
-		array( '47' => 173 ),
-		array( '47' => 163 ),
-		array( '47' => 255 ) ) );
+	$c->insert(array("name" => "Mercury", "color" => "blue", "desc" => "Mercury is the smallest and closest to the Sun"));
+	$c->insert(array("name" => "Venus", "color" => "green", "desc" => "Venus is the second planet from the Sun, orbiting it every 224.7 Earth days."));
+	$c->insert(array("name" => "Earth", "color" => "blue", "desc" => "Earth is the densest of the eight planets in the Solar System."));
+	$c->insert(array("name" => "Mars", "color" => "red", "desc" => "Mars is named after the Roman god of war."));
 	
 	//
-	// Project.
+	// index.
 	//
-	$project = array(
-		'163' => '$242.163',
-		'255' => '$242.255',
-		'7' => '$7' );
-	
-	$pipeline
-		= array(
-			array( '$match' => $match ),
-			array( '$project' => $project ),
-			array( '$unwind' => '$255' ),
-			array( '$unwind' => '$255' ),
-			array( '$unwind' => '$163' ),
-			
-			array( '$group' => array(
-				'_id' => array(
-					'163' => '$163',
-					'255' => '$255',
-					'7' => '$7' ),
-				'count' => array( '$sum' => 1 ) ) ),
-/*			
-			array( '$group' => array(
-				'_id' => array(
-					'id' => '$id',
-					'7' => '$7',
-					'255' => '$163' ),
-				'count' => array( '$sum' => 1 ) ) ),
-*/
-			array( '$sort' => array( '_id.163' => 1,
-									 '_id.255' => 1,
-									 '_id.7' => 1 ) )
-		);
-				
-			
-var_dump( $pipeline );
-	$rs = $c->aggregate( $pipeline, Array() );
-var_dump( $rs );
-exit;
-		   
+	$c->ensureIndex(array('desc' => 'text'));
 	
 	//
-	// Unwind.
+	// Search.
 	//
-	$unwind = array( '$241.163' );
+	$r = $d->command(array("text" => "planets", 'search' => "sun" ));
+	
+	echo( 'db.command();<pre>' );
+	var_dump( gettype( $r ) );
+	print_r($r);
+	echo( '</pre>' );
 	
 	//
-	// Group.
+	// Aggregate.
 	//
-	$group = array( '_id' => '$_id', '163' => array( '$push' => '$241.163' ) );
+	$p = array( array( '$match' => array( '$text' => array( '$search' => 'sun' ) ) ),
+				array( '$sort' => array( 'score' => array( '$meta' => "textScore" ) ) ),
+				array( '$project' => array( 'score' => array( '$meta' => "textScore" ) ) ) );
+	$r = $c->aggregate($p);
+	
+	echo( 'aggregate();<pre>' );
+	var_dump( gettype( $r ) );
+	var_dump( $p );
+	print_r($r);
+	echo( '</pre>' );
 	
 	//
-	// Pipeline.
+	// Database command aggregate.
 	//
-	$pipeline = array( array( '$match' => $match ),
-					   array( '$project' => $project ) );
+	$p = array( array( '$match' => array( '$text' => array( '$search' => 'sun' ) ) ),
+				array( '$sort' => array( 'score' => array( '$meta' => "textScore" ) ) ) );
+	$r = $d->command( array( "aggregate" => "planets",
+						   	 'pipeline' => $p ),
+					   array( 'allowDiskUse' => TRUE ) );
 	
-	//
-	// Execite.
-	//
-	$rs = $c->aggregate( $pipeline );
-var_dump( $rs );
+	echo( 'db.command(aggregate);<pre>' );
+	var_dump( gettype( $r ) );
+	var_dump( $p );
+	print_r($r);
+	echo( '</pre>' );
 }
 
 //

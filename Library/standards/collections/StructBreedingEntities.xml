@@ -15,21 +15,21 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:collecting:entities</item>
+			<item const="kTAG_OBJECT" node="tag">:breeding:entities</item>
 		</EDGE>
 		
 		<!-- mcpd:BREDDESCR -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDESCR</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:collecting:entities</item>
+			<item const="kTAG_OBJECT" node="tag">:breeding:entities</item>
 		</EDGE>
 		
 		<!-- schema::cooperator -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::cooperator</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:collecting:entities</item>
+			<item const="kTAG_OBJECT" node="tag">:breeding:entities</item>
 		</EDGE>
 	</META>
 </METADATA>

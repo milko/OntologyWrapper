@@ -6534,6 +6534,33 @@
 		</NODE>
 	</META>
 	
+	<!-- :location:site:georeference-source -->
+	<META>
+		<TERM ns=":location:site" lid="georeference-source">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Georeference source</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:site:georeference-source</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:site:georeference-source">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- :location:site:georeference-method -->
 	<META>
 		<TERM ns=":location:site" lid="georeference-method">
@@ -6665,33 +6692,138 @@
 		</EDGE>
 	</META>
 	
-	<!-- :location:site:georeference-source -->
+	<!-- :location:site:georeference-latitude -->
 	<META>
-		<TERM ns=":location:site" lid="georeference-source">
+		<TERM ns=":location:site" lid="georeference-latitude">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Georeference source</item>
+					<item const="kTAG_TEXT">Georeference latitude</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Source of georeference.</item>
+					<item const="kTAG_TEXT">Georeference latitude in decimal degrees.</item>
 				</item>
 			</item>
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:location:site:georeference-source</item>
+				<item>:location:site:georeference-latitude</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location georeference latitude in decimal degrees.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">-90</item>
+			<item const="kTAG_MAX_RANGE">90</item>
+		</TAG>
+		<NODE tag=":location:site:georeference-latitude">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :location:site:georeference-longitude -->
+	<META>
+		<TERM ns=":location:site" lid="georeference-longitude">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Georeference longitude</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Georeference longitude in decimal degrees.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:site:georeference-longitude</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location georeference longitude in decimal degrees.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">-180</item>
+			<item const="kTAG_MAX_RANGE">180</item>
+		</TAG>
+		<NODE tag=":location:site:georeference-longitude">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :location:site:georeference-error -->
+	<META>
+		<TERM ns=":location:site" lid="georeference-error">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Georeference error</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">The upper limit of the distance (in meters) from the given latitude and longitude describing a circle within which the whole of the described locality must lie (Radius).</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:site:georeference-error</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:site:georeference-error">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :location:site:georeference-old -->
+	<META>
+		<TERM ns=":location:site" lid="georeference-old">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Georeference original coordinate</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:site:georeference-old</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
-		<NODE tag=":location:site:georeference-source">
+		<NODE tag=":location:site:georeference-old">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

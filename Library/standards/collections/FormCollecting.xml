@@ -42,15 +42,15 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:event:start -->
+		<!-- :collecting:mission:start -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:event:start</item>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:start</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:event:end -->
+		<!-- :collecting:mission:end -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:event:end</item>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:end</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

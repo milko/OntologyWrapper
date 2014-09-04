@@ -4981,26 +4981,112 @@ $rs_units = & $rs_units[ 'result' ];
 	protected function executeTableUnits( &$theContainer, $theCollection )
 	{
 		//
-		// Execute request.
+		// Get paging.
 		//
-		$iterator
-			= PersistentObject::ResolveCollectionByName(
-				$this->mWrapper, $theCollection )
-					->matchAll(
-						$this->mFilter, kQUERY_OBJECT );
+		$skip  = ( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+			   ? (int) $tmp
+			   : NULL;
+		$limit = ( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
+			   ? (int) $tmp
+			   : NULL;
+		
+		//
+		// Determine full-text search.
+		//
+		$full_text = array_key_exists( '$text', $this->mFilter );
+		if( (! $full_text)
+		 && array_key_exists( '$and', $this->mFilter ) )
+		{
+			foreach( $this->mFilter[ '$and' ] as $tmp )
+			{
+				if( $full_text = array_key_exists( '$text', $tmp ) )
+					break;													// =>
+			}
+		}
+		
+		//
+		// Handle full-text search.
+		//
+		if( $full_text )
+		{
+			//
+			// Set pipeline.
+			//
+			$pipeline = Array();
+			$pipeline[] = array( '$match' => $this->mFilter );
+			$pipeline[] = array( '$sort' => array(
+							'score' => array(
+								'$meta' => 'textScore' ) ) );
+			if( $skip !== NULL )
+				$pipeline[] = array( '$skip' => $skip );
+			if( $limit !== NULL )
+				$pipeline[] = array( '$limit' => $limit );
+			
+			//
+			// Project pipeline.
+			//
+			$offsets = array( 'score' => array( '$meta' => "textScore" ) );
+			foreach( UnitObject::ListOffsets( $this->offsetGet( kAPI_PARAM_DOMAIN ) )
+						as $offset )
+				$offsets[ (string) $this->mWrapper->getSerial( $offset ) ] = TRUE;
+			$pipeline[] = array( '$project' => $offsets );
+			
+			//
+			// Execute request.
+			//
+			$results
+				= new \ArrayObject(
+					PersistentObject::ResolveCollectionByName(
+						$this->mWrapper, $theCollection )
+							->aggregate( $pipeline,
+										 array( 'allowDiskUse' => TRUE ) ) );
+			
+			//
+			// Instantiate iterator.
+			//
+			$iterator
+				= new ArrayCursorIterator(
+					new \ArrayIterator( $results[ 'result' ] ),
+					PersistentObject::ResolveCollectionByName(
+						$this->mWrapper, $theCollection ),
+					$this->mFilter );
+			
+			//
+			// Set limits.
+			//
+			$iterator->skip( $skip );
+			$iterator->limit( $limit );
+			
+		} // Full text search.
+		
+		//
+		// Handle property- only search.
+		//
+		else
+		{
+			//
+			// Execute request.
+			//
+			$iterator
+				= PersistentObject::ResolveCollectionByName(
+					$this->mWrapper, $theCollection )
+						->matchAll(
+							$this->mFilter, kQUERY_OBJECT );
+
+			//
+			// Skip records.
+			//
+			if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+				$iterator->skip( (int) $tmp );
 	
-		//
-		// Skip records.
-		//
-		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
-			$iterator->skip( (int) $tmp );
+			//
+			// Set cursor limit.
+			//
+			if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
+				$iterator->limit( (int) $tmp );
 		
-		//
-		// Set cursor limit.
-		//
-		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
-			$iterator->limit( (int) $tmp );
-		
+		} // No full text search.
+	
 		//
 		// Instantiate results formatter.
 		//
@@ -5011,24 +5097,24 @@ $rs_units = & $rs_units[ 'result' ];
 					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
 					$this->offsetGet( kAPI_PARAM_DOMAIN ),			// Domain.
 					$this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) );	// Shape.
-		
+	
 		//
 		// Serialise iterator.
 		//
 		$formatter->serialise();
-		
+	
 		//
 		// Set paging.
 		//
 		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
-		
+	
 		//
 		// Set dictionary.
 		//
 		$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
 						[ kAPI_DICTIONARY_LIST_COLS ]
 			= $formatter->dictionary()[ kAPI_DICTIONARY_LIST_COLS ];
-		
+	
 		//
 		// Set data.
 		//

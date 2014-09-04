@@ -91,21 +91,21 @@
 		<!-- kDOMAIN_ENTITY -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:entity</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 		
 		<!-- kDOMAIN_INDIVIDUAL -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:individual</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 		
 		<!-- kDOMAIN_ORGANISATION -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:organisation</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>

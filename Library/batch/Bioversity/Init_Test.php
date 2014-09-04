@@ -105,6 +105,11 @@ try
 				"neo4j://localhost:7474" ) );
 	
 	} // Use graph database.
+
+	//
+	// Reset dictionary.
+	//
+	$wrapper->loadTagCache();
 	
 	//
 	// Load collections.
@@ -120,11 +125,6 @@ try
 	// Reset entities.
 	//
 	$wrapper->resetEntities( TRUE );
-
-	//
-	// Reset dictionary.
-	//
-	$wrapper->loadTagCache();
 }
 
 //

@@ -383,7 +383,7 @@ finally
 		// Set coordinates restriction.
 		//
 		if( array_key_exists( 'UnitCoordinatesRestriction', $theData ) )
-			$theObject->offsetSet( ':location:restricted',
+			$theObject->offsetSet( ':location:site:coordinates-restricted',
 								   ( $theData[ 'UnitCoordinatesRestriction' ] ) ? TRUE
 								   												: FALSE );
 		

@@ -508,10 +508,10 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_1 = MetadataObject::XMLRootElement();
-			$xml_2 = MetadataObject::XMLRootElement();
-			$xml_3 = MetadataObject::XMLRootElement();
-			$xml_xref = MetadataObject::XMLRootElement();
+			$xml_1 = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_2 = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_3 = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_xref = OntologyWrapper\MetadataObject::XMLRootElement();
 			
 			//
 			// Set target files name.
@@ -1040,8 +1040,8 @@ if( kOPTION_VERBOSE )
 			// Open XML structures.
 			//
 			$xml_1 = simplexml_load_file( $file_1 );
-			$xml_2b = MetadataObject::XMLRootElement();
-			$xml_2t = MetadataObject::XMLRootElement();
+			$xml_2b = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_2t = OntologyWrapper\MetadataObject::XMLRootElement();
 			$xml_xref = simplexml_load_file( $file_xref );
 			
 			//
@@ -1513,7 +1513,7 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_5 = MetadataObject::XMLRootElement();
+			$xml_5 = OntologyWrapper\MetadataObject::XMLRootElement();
 			
 			//
 			// Set target files name.
@@ -1740,12 +1740,12 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_2 = MetadataObject::XMLRootElement();
-			$xml_3 = MetadataObject::XMLRootElement();
-			$xml_n = MetadataObject::XMLRootElement();
-			$xml_sub = MetadataObject::XMLRootElement();
-			$xml_xref = MetadataObject::XMLRootElement();
-			$xml_location = MetadataObject::XMLRootElement();
+			$xml_2 = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_3 = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_n = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_sub = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_xref = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_location = OntologyWrapper\MetadataObject::XMLRootElement();
 			
 			//
 			// Load counry subsets file.
@@ -2333,9 +2333,9 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_3 = MetadataObject::XMLRootElement();
-			$xml_4 = MetadataObject::XMLRootElement();
-			$xml_n = MetadataObject::XMLRootElement();
+			$xml_3 = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_4 = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_n = OntologyWrapper\MetadataObject::XMLRootElement();
 			$xml_xref = simplexml_load_file( $file_xref );
 			$xml_location = simplexml_load_file( $file_location );
 			
@@ -2853,9 +2853,9 @@ if( kOPTION_VERBOSE )
 			// Open XML structures.
 			//
 			$xml_2 = simplexml_load_file( $file_2 );
-			$xml_sub = MetadataObject::XMLRootElement();
+			$xml_sub = OntologyWrapper\MetadataObject::XMLRootElement();
 			$xml_xref = simplexml_load_file( $file_xref );
-			$xml_location = MetadataObject::XMLRootElement();
+			$xml_location = OntologyWrapper\MetadataObject::XMLRootElement();
 			
 			//
 			// Iterate XML file.
@@ -3522,11 +3522,11 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_al = MetadataObject::XMLRootElement();
-			$xml_an = MetadataObject::XMLRootElement();
-			$xml_hl = MetadataObject::XMLRootElement();
-			$xml_hn = MetadataObject::XMLRootElement();
-			$xml_xref = MetadataObject::XMLRootElement();
+			$xml_al = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_an = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_hl = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_hn = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_xref = OntologyWrapper\MetadataObject::XMLRootElement();
 			
 			//
 			// Iterate active entries.
@@ -4001,9 +4001,9 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_4 = MetadataObject::XMLRootElement();
-			$xml_n = MetadataObject::XMLRootElement();
-			$xml_xref = MetadataObject::XMLRootElement();
+			$xml_4 = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_n = OntologyWrapper\MetadataObject::XMLRootElement();
+			$xml_xref = OntologyWrapper\MetadataObject::XMLRootElement();
 			
 			//
 			// Iterate XML file.
@@ -4345,7 +4345,7 @@ if( kOPTION_VERBOSE )
 		$xml_in = simplexml_load_file( $file_in );
 		$xml_3 = simplexml_load_file( $file_3 );
 		$xml_33 = simplexml_load_file( $file_33 );
-		$xml_xref = MetadataObject::XMLRootElement();
+		$xml_xref = OntologyWrapper\MetadataObject::XMLRootElement();
 		
 		//
 		// Iterate terms.

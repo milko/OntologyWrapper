@@ -612,5 +612,38 @@
 		
 	} // CollectOffsetValues.
 
+	 
+	/*===================================================================================
+	 *	SetAsCDATA																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set CDATA element
+	 *
+	 * This function will set the provided XML element with the provided value as a CDATA
+	 * section.
+	 *
+	 * @param SimpleXMLElement		$theElement			XML element.
+	 * @param mixed					$theValue			Value to set.
+	 */
+	function SetAsCDATA( SimpleXMLElement $theElement, $theValue )
+	{
+		//
+		// Import element in DOM.
+		//
+		$node = dom_import_simplexml( $theElement );
+		
+		//
+		// Get ownerDocument.
+		//
+		$owner = $node->ownerDocument;
+		
+		//
+		// Set CDATA section.
+		//
+		$node->appendChild( $owner->createCDATASection( (string) $theValue ) );
+		
+	} // SetAsCDATA.
+
 
 ?>

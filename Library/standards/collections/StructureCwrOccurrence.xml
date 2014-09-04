@@ -52,14 +52,6 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:occurrence</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">cwr:occurrence</item>
-		</EDGE>
-		
-		<!-- cwr:population -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:population</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">cwr:occurrence</item>
 		</EDGE>
 	</META>
 </METADATA>

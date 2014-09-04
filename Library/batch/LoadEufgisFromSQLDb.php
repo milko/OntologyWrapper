@@ -181,7 +181,7 @@ try
 				  ':location:site:elevation:min' => NULL,
 				  ':location:site:elevation:max' => NULL,
 				  ':location:site:datum' => NULL,
-				  ':location:restricted' => NULL,
+				  ':location:site:coordinates-restricted' => NULL,
 				  'fcu:unit:data-collection' => NULL,
 				  'fcu:unit:area' => NULL,
 				  'fcu:unit:ownership/:predicate:SCALE-OF/eufgis:UnitOwnership' => NULL,
@@ -324,7 +324,7 @@ try
 						break;
 			
 					case 'UnitCoordinatesRestriction':
-						$object[ $dd[ ':location:restricted' ] ] = (boolean) $value;
+						$object[ $dd[ ':location:site:coordinates-restricted' ] ] = (boolean) $value;
 						break;
 			
 					case 'UnitArea':

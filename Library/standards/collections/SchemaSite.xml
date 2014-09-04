@@ -337,15 +337,39 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
+		<!-- :location:site:georeference-source -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-source</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
 		<!-- :location:site:georeference-method -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-method</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- :location:site:georeference-source -->
+		<!-- :location:site:georeference-latitude -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-source</item>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-latitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-longitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-longitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-old -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-old</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	

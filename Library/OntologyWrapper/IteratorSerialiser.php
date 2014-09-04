@@ -835,10 +835,20 @@ class IteratorSerialiser
 			foreach( $cols as $col )
 			{
 				//
+				// Convert object.
+				//
+				$object = (array) $object;
+				
+				//
 				// Handle value.
 				//
-				if( ($value = $object[ $col ]) !== NULL )
+				if( array_key_exists( $col, $object ) )
 				{
+					//
+					// Save value.
+					//
+					$value = $object[ $col ];
+					
 					//
 					// Allocate value.
 					//

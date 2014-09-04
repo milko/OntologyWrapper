@@ -1202,22 +1202,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve wrapper.
 		//
-		if( $theWrapper === NULL )
-		{
-			//
-			// Get current object's wrapper.
-			//
-			$theWrapper = $this->mDictionary;
-			
-			//
-			// Check wrapper.
-			//
-			if( ! ($theWrapper instanceof Wrapper) )
-				throw new \Exception(
-					"Unable to resolve referenced: "
-				   ."missing wrapper." );										// !@! ==>
-		
-		} // Wrapper not provided.
+		$this->resolveWrapper( $theWrapper );
 	
 		//
 		// Resolve collection.
@@ -1335,6 +1320,53 @@ abstract class PersistentObject extends OntologyObject
 		} // Reset status.
 	
 	} // setAlias.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC VALIDATION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	validate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Validate object
+	 *
+	 * This method will validate the object by:
+	 *
+	 * <ul>
+	 *	<li>validating properties data structures,
+	 *	<li>casting all properties to their tag related data type,
+	 *	<li>validating all references.
+	 * </ul>
+	 *
+	 * The object is expected to have its dictionary set.
+	 *
+	 * If any error occurs, the method will raise an exception.
+	 *
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text tags.
+	 *
+	 * @access public
+	 */
+	public function validate( $doText = FALSE )
+	{
+		//
+		// Init local storage.
+		//
+		$tags = $refs = Array();
+		
+		//
+		// Validate.
+		//
+		$this->parseObject( $tags, $refs, TRUE, $doText );
+	
+	} // validate.
 
 	
 
@@ -3085,7 +3117,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Parse object.
 		//
-		$this->parseObject( $theTags, $theRefs, $doValidate );
+		$this->parseObject( $theTags, $theRefs, $doValidate, TRUE );
 	
 	} // preCommitTraverse.
 
@@ -3903,17 +3935,22 @@ abstract class PersistentObject extends OntologyObject
 	 *		objects held by the collection.
 	 *	<li><b>$doValidate</b>: If this parameter is <tt>TRUE</tt>, the object's properties
 	 *		will be validated and cast to their correct type.
+	 *	<li><b>$doText</b>: If this parameter is <tt>TRUE</tt>, the object will be filled
+	 *		with the full-text properties, if <tt>FALSE</tt>, these properties will be
+	 *		left untouched.
 	 * </ul>
 	 *
 	 * @param array					$theTags			Receives tag information.
 	 * @param array					$theRefs			Receives references information.
 	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text search.
 	 *
 	 * @access protected
 	 *
 	 * @uses parseStructure()
 	 */
-	protected function parseObject( &$theTags, &$theRefs, $doValidate = TRUE )
+	protected function parseObject( &$theTags, &$theRefs, $doValidate = TRUE,
+														  $doText = TRUE )
 	{
 		//
 		// Init local storage.
@@ -3929,12 +3966,12 @@ abstract class PersistentObject extends OntologyObject
 		// Iterate properties.
 		//
 		$this->parseStructure(
-			$object, $path, $theTags, $theRefs, $doValidate );
+			$object, $path, $theTags, $theRefs, $doValidate, $doText );
 		
 		//
-		// Update object.
+		// Update object full-text search properties.
 		//
-		if( $doValidate )
+		if( $doText )
 		{
 			//
 			// Save full-text properties.
@@ -4025,6 +4062,8 @@ abstract class PersistentObject extends OntologyObject
 	 *	 </ul>
 	 *	<li><b>$doValidate</b>: This boolean flag indicates whether the method should
 	 *		validate and cast the structure elements.
+	 *	<li><b>$doText</b>: If this parameter is <tt>TRUE</tt>, the full-text search
+	 *		properties will be updated.
 	 * </ul>
 	 *
 	 * @param array					$theStructure		Structure.
@@ -4032,6 +4071,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @param array					$theTags			Receives the tag information.
 	 * @param array					$theRefs			Receives the object references.
 	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text search.
 	 *
 	 * @access protected
 	 *
@@ -4045,7 +4085,8 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses loadReferenceInformation()
 	 */
 	protected function parseStructure( &$theStructure, &$thePath, &$theTags, &$theRefs,
-										$doValidate )
+										$doValidate = TRUE,
+										$doText = TRUE )
 	{
 		//
 		// Init local storage.
@@ -4151,7 +4192,7 @@ abstract class PersistentObject extends OntologyObject
 							//
 							$this->parseStructure(
 								$element_ref,
-								$thePath, $theTags, $theRefs, $doValidate );
+								$thePath, $theTags, $theRefs, $doValidate, $doText );
 						
 						} // Structure.
 						
@@ -4168,7 +4209,7 @@ abstract class PersistentObject extends OntologyObject
 									$element_ref,
 									$type, $kind,
 									$min, $max, $pattern,
-									$offset, $doValidate );
+									$offset, $doValidate, $doText );
 						
 							//
 							// Load tag information.
@@ -4209,7 +4250,7 @@ abstract class PersistentObject extends OntologyObject
 					//
 					$this->parseStructure(
 						$property_ref,
-						$thePath, $theTags, $theRefs, $doValidate );
+						$thePath, $theTags, $theRefs, $doValidate, $doText );
 				
 				} // Structure.
 				
@@ -4226,7 +4267,7 @@ abstract class PersistentObject extends OntologyObject
 							$property_ref,
 							$type, $kind,
 							$min, $max, $pattern,
-							$offset, $doValidate );
+							$offset, $doValidate, $doText );
 				
 					//
 					// Load tag information.
@@ -4284,6 +4325,9 @@ abstract class PersistentObject extends OntologyObject
 	 *	<li><b>$thePath</b>: The property offset path.
 	 *	<li><b>$doValidate</b>: This boolean flag indicates whether the method should
 	 *		validate and cast the structure elements.
+	 *	<li><b>$doText</b>: If this parameter is <tt>TRUE</tt>, the object will be filled
+	 *		with the full-text properties, if <tt>FALSE</tt>, these properties will be
+	 *		left untouched.
 	 * </ul>
 	 *
 	 * @param mixed					$theProperty		Property.
@@ -4294,6 +4338,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @param string				$thePattern			Data pattern.
 	 * @param string				$thePath			Offset path.
 	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text search.
 	 *
 	 * @access protected
 	 * @return string				Eventual property class name.
@@ -4307,7 +4352,7 @@ abstract class PersistentObject extends OntologyObject
 	protected function parseProperty( &$theProperty,
 									   $theType, $theKind,
 									   $theMin, $theMax, $thePattern,
-									   $thePath, $doValidate )
+									   $thePath, $doValidate, $doText = TRUE )
 	{
 		//
 		// Validate scalar.
@@ -4343,14 +4388,15 @@ abstract class PersistentObject extends OntologyObject
 			// Cast value.
 			//
 			$this->castProperty(
-				$theProperty, $theType, $thePath );
+				$theProperty, $theType, $thePath, $doValidate, $doText );
 		
 		} // Validate.
 		
 		//
 		// Add to full-text index.
 		//
-		$this->addToFullText( $theProperty, kSTANDARDS_LANGUAGE, $theType, $theKind );
+		if( $doText )
+			$this->addToFullText( $theProperty, kSTANDARDS_LANGUAGE, $theType, $theKind );
 		
 		return $class;																// ==>
 		
@@ -4675,6 +4721,8 @@ MILKO - Need to check.
 	 * @param mixed					$theProperty		Property.
 	 * @param string				$theType			Data type.
 	 * @param string				$thePath			Offset path.
+	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text search.
 	 *
 	 * @access protected
 	 *
@@ -4683,8 +4731,8 @@ MILKO - Need to check.
 	 * @uses parseStructure()
 	 * @uses CastScalar()
 	 */
-	protected function castProperty( &$theProperty,
-									  $theType, $thePath )
+	protected function castProperty( &$theProperty, $theType, $thePath, $doValidate = TRUE,
+																		$doText = TRUE )
 	{
 		//
 		// Cast property.
@@ -5743,9 +5791,7 @@ MILKO - Need to check.
 					{
 						$tmp1 = $tmp0->addChild( kIO_XML_DATA );
 						$tmp1->addAttribute( kIO_XML_ATTR_QUAL_KEY, $key );
-						$node = dom_import_simplexml( $tmp1 );
-						$tmp = $node->ownerDocument;
-						$node->appendChild( $tmp->createCDATASection( $value ) );
+						SetAsCDATA( $tmp1, $value );
 					}
 				}
 				break;
@@ -5791,9 +5837,7 @@ MILKO - Need to check.
 			case kTYPE_REF_ENTITY:
 			case kTYPE_REF_UNIT:
 			case kTYPE_REF_SELF:
-				$node = dom_import_simplexml( $theContainer );
-				$tmp = $node->ownerDocument;
-				$node->appendChild( $tmp->createCDATASection( $theProperty ) );
+				SetAsCDATA( $theContainer, $theProperty );
 				break;
 			
 			case kTYPE_MIXED:
@@ -5828,15 +5872,23 @@ MILKO - Need to check.
 		if( is_array( $theProperty ) )
 		{
 			//
-			// Create element.
-			//
-			$node = $theContainer->addChild( kIO_XML_DATA );
-			
-			//
 			// Iterate array.
 			//
-			foreach( $theProperty as $element )
-				$this->exportXMLArray( $element, $node );
+			foreach( $theProperty as $value )
+			{
+				//
+				// Create element.
+				//
+				$node = $theContainer->addChild( kIO_XML_DATA );
+				
+				//
+				// Set value.
+				//
+				if( is_array( $value ) )
+					$this->exportXMLArray( $value, $node );
+				else
+					SetAsCDATA( $node, $value );
+			}
 		
 		} // Array.
 		

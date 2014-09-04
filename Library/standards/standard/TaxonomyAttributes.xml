@@ -2469,6 +2469,132 @@
 		</NODE>
 	</META>
 	
+	<!-- Other ranks -->
+	
+	<!-- :taxon:convarietas -->
+	<META>
+		<TERM ns=":taxon" lid="convarietas">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Convariety</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">convarietas</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A group of cultivars. These can be roughly comparable to cultivar groups, but convarieties, unlike cultivar groups, do not necessarily contain named varieties, and convarieties are members of traditional "Linnaean" ranks.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>convarietas</item>
+				<item>cultivar-group</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:convarietas</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:group-rank -->
+	<META>
+		<TERM ns=":taxon" lid="group-rank">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Group</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>group</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:group-rank</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:group-rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:cultivar -->
+	<META>
+		<TERM ns=":taxon" lid="cultivar">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Cultivar</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A cultivar is a plant or grouping of plants selected for desirable characteristics that can be maintained by propagation.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>cultivar</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:cultivar</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:cultivar-group -->
+	<META>
+		<TERM ns=":taxon" lid="cultivar-group">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Cultivar group</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A group of cultivars]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>cultivar</item>
+				<item>cultivar-group</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:cultivar-group</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
 	<!-- Taxonomic aggregation attributes -->
 	
 	<!-- :taxon:epithet -->
@@ -3528,7 +3654,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Taxon identifier or published link.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Taxon identifier.]]></item>
 				</item>
 			</item>
 		</TERM>

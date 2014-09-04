@@ -23,12 +23,6 @@
 			</item>
 		</NODE>
 		
-		<!-- :entity:identifier -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:entity:identifier</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
 		<!-- :inventory:INSTCODE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>

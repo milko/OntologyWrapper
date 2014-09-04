@@ -37,12 +37,6 @@
 			</item>
 		</NODE>
 
-		<!-- mcpd:ANCEST -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:ANCEST</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
 		<!-- :breeding:entities -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:breeding:entities</item>
