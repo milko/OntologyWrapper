@@ -3166,6 +3166,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_RESPONSE_TYPE_OBJECT" ] = kAPI_PARAM_RESPONSE_TYPE_OBJECT;
 		$ref[ "kAPI_PARAM_RESPONSE_TYPE_SHAPE" ] = kAPI_PARAM_RESPONSE_TYPE_SHAPE;
 		$ref[ "kAPI_PARAM_RESPONSE_TYPE_STRUCT" ] = kAPI_PARAM_RESPONSE_TYPE_STRUCT;
+		$ref[ "kAPI_PARAM_RESPONSE_TYPE_SCORE" ] = kAPI_PARAM_RESPONSE_TYPE_SCORE;
 		
 		//
 		// Load enumeration element parameters.
@@ -5114,6 +5115,10 @@ $rs_units = & $rs_units[ 'result' ];
 		$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
 						[ kAPI_DICTIONARY_LIST_COLS ]
 			= $formatter->dictionary()[ kAPI_DICTIONARY_LIST_COLS ];
+		if( array_key_exists( kAPI_PARAM_RESPONSE_TYPE_SCORE, $formatter->dictionary() ) )
+			$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
+							[ kAPI_PARAM_RESPONSE_TYPE_SCORE ]
+				= $formatter->dictionary()[ kAPI_PARAM_RESPONSE_TYPE_SCORE ];
 	
 		//
 		// Set data.

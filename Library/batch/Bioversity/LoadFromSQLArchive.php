@@ -174,7 +174,7 @@ try
 	//
 	// Load data dictionary.
 	//
-	if( ! $wrapper->dictionaryFilled() )
+//	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
 	
 	//

@@ -111,7 +111,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-		kAPI_PAGING_LIMIT => 3,
+		kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_CRITERIA => array

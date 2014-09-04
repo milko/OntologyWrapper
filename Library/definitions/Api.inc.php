@@ -1786,6 +1786,13 @@ define( "kAPI_PARAM_RESPONSE_TYPE_SHAPE",		'shape' );
  */
 define( "kAPI_PARAM_RESPONSE_TYPE_STRUCT",		'struct' );
 
+/**
+ * Score (float).
+ *
+ * This tag indicates a search relevance score.
+ */
+define( "kAPI_PARAM_RESPONSE_TYPE_SCORE",		'score' );
+
 /*=======================================================================================
  *	ENUMERATION LIST PARAMETERS															*
  *======================================================================================*/

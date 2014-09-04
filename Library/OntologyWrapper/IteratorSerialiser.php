@@ -855,12 +855,23 @@ class IteratorSerialiser
 					$data[ $col ] = Array();
 					
 					//
-					// Format value.
+					// Handle score.
 					//
-					$this->setDataValue(
-						$data[ $col ],
-						$value,
-						$this->mCache[ Tag::kSEQ_NAME ][ $col ] );
+					if( $col == kAPI_PARAM_RESPONSE_TYPE_SCORE )
+						$data[ $col ]
+							= array( kAPI_PARAM_RESPONSE_FRMT_TYPE
+									=> kAPI_PARAM_RESPONSE_TYPE_SCORE,
+									 kAPI_PARAM_RESPONSE_FRMT_DISP
+									=> $value );
+					
+					//
+					// Handle value.
+					//
+					else
+						$this->setDataValue(
+							$data[ $col ],
+							$value,
+							$this->mCache[ Tag::kSEQ_NAME ][ $col ] );
 				
 				} // Has column.
 			
@@ -1068,6 +1079,39 @@ class IteratorSerialiser
 		$this->mDictionary[ kAPI_DICTIONARY_LIST_COLS ] = Array();
 		$dict = & $this->mDictionary[ kAPI_DICTIONARY_LIST_COLS ];
 		$wrapper = $this->mIterator->collection()->dictionary();
+		
+		//
+		// Determine full-text search.
+		//
+		$full_text = array_key_exists( '$text', $this->mIterator->criteria() );
+		if( (! $full_text)
+		 && array_key_exists( '$and', $this->mIterator->criteria() ) )
+		{
+			foreach( $this->mIterator->criteria()[ '$and' ] as $tmp )
+			{
+				if( $full_text = array_key_exists( '$text', $tmp ) )
+					break;													// =>
+			}
+		}
+		
+		//
+		// Add full text header and top score.
+		//
+		if( $full_text )
+		{
+			//
+			// Set top score.
+			//
+			$this->mDictionary[ kAPI_PARAM_RESPONSE_TYPE_SCORE ]
+				= $this->mIterator->current()[ kAPI_PARAM_RESPONSE_TYPE_SCORE ];
+			
+			//
+			// Set score column.
+			//
+			$dict[ kAPI_PARAM_RESPONSE_TYPE_SCORE ]
+				= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Score',
+						 kAPI_PARAM_RESPONSE_FRMT_INFO => 'Result relevance score.' );
+		}
 		
 		//
 		// Set table columns.
