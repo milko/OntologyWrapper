@@ -222,9 +222,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :germplasm:last-gen-date -->
+		<!-- :germplasm:last-gen -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:last-gen-date</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:last-gen</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

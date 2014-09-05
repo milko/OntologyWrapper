@@ -213,6 +213,179 @@ class Accession extends UnitObject
 	
 	} // getName.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC CLIMATE MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setClimateData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set climate data
+	 *
+	 * This method can be used to set the climate data according to the provided parameters.
+	 *
+	 * This method is called automatically at commit time, but you may want to provide
+	 * custom parameters when setting it.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theDefDist</b>: Default error distance. This represents the default value
+	 *		of the coordinate uncertainty expressed as the radius of a circle originating
+	 *		from the object coordinates in meters. When providing climate data for an
+	 *		elevation range, the coordinate uncertainty must be provided, if this value is
+	 *		not available, it will be set with this parameter. The default value is taken
+	 *		from the constant {@link kCLIMATE_DEF_DIST}.
+	 *	<li><b>$theMinElev</b>: Minimum elevation range. This represents the minimum
+	 *		elevation range. If the range is smaller than this value, it will be adjusted
+	 *		to this value. The default value is taken from the constant
+	 *		{@link kCLIMATE_DELTA_ELEV}.
+	 * </ul>
+	 *
+	 * The method expects the object's data dictionary to have been set and will create the
+	 * shape property if not yet set.
+	 *
+	 * @param integer				$theDefDist			Default coordinate uncertainty.
+	 * @param integer				$theMinElev			Minimum elevation range.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> if the climate was set.
+	 */
+	public function setClimateData( $theDefDist = kCLIMATE_DEF_DIST,
+									$theMinElev = kCLIMATE_DELTA_ELEV )
+	{
+		//
+		// Create shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Check coordinates.
+			//
+			if( $this->offsetExists( ':domain:accession:collecting' ) )
+			{
+				//
+				// Get event and offsets.
+				//
+				$event = $this->offsetGet( ':domain:accession:collecting' );
+				$olat = $this->mDictionary->getSerial( ':location:site:latitude' );
+				$olon = $this->mDictionary->getSerial( ':location:site:longitude' );
+				
+				//
+				// Check coordinates.
+				//
+				if( array_key_exists( $olat, $event )
+				 && array_key_exists( $olon, $event ) )
+					$this->offsetSet(
+						kTAG_GEO_SHAPE,
+						array( kTAG_TYPE => 'Point',
+							   kTAG_GEOMETRY => array(
+								   (double) $event[ $olon ],
+								   (double) $event[ $olat ] ) ) );
+				else
+					return FALSE;													// ==>
+			
+			} // Has collecting event.
+			
+			else
+				return FALSE;														// ==>
+		
+		} // Shape not yet set.
+		
+		//
+		// Init local storage.
+		//
+		$range = $dist = NULL;
+		
+		//
+		// Handle elevation range.
+		//
+		if( $this->offsetExists( ':location:site:elevation' ) )
+		{
+			//
+			// Set range.
+			//
+			$tmp = $this->offsetGet( ':location:site:elevation' );
+			$range = array( $tmp - $theMinElev, $tmp + $theMinElev );
+		
+		} // Has elevation range.
+		
+		//
+		// Handle distance range.
+		//
+		if( $this->offsetExists( 'CollectingSiteGeoreferenceError' )
+		 || $this->offsetExists( 'CollectingSiteLatitudePrecision' ) )
+		{
+			//
+			// Get value.
+			//
+			$tmp = ( $this->offsetExists( 'CollectingSiteGeoreferenceError' ) )
+				 ? $this->offsetGet( 'CollectingSiteGeoreferenceError' )
+				 : $this->offsetGet( 'CollectingSiteLatitudePrecision' );
+			
+			//
+			// Handle value.
+			//
+			if( $tmp )
+			{
+				//
+				// Handle error overflow.
+				//
+				if( $tmp > kCLIMATE_MAX_DIST )
+					return FALSE;													// ==>
+			
+				//
+				// Handle error underflow.
+				//
+				if( $tmp < $theDefDist )
+					$dist = $theDefDist;
+			
+				//
+				// Set value.
+				//
+				else
+					$dist = $tmp;
+			}
+		}
+		
+		//
+		// Enforce distance.
+		//
+		if( ($dist === NULL)
+		 && ($range !== NULL) )
+			$dist = $theDefDist;
+		
+		//
+		// Get climate data.
+		//
+		$climate = static::GetClimateData( $this->mDictionary,
+										   $this->offsetGet( kTAG_GEO_SHAPE ),
+										   $range,
+										   $dist );
+		
+		//
+		// Set climate data.
+		//
+		if( count( $climate ) )
+		{
+			$this->offsetSet( ':environment', $climate );
+			
+			return TRUE;															// ==>
+		
+		} // Climate set.
+		
+		return FALSE;																// ==>
+	
+	} // setClimateData.
+
 		
 
 /*=======================================================================================
@@ -385,6 +558,44 @@ class Accession extends UnitObject
 			} // Has genus.
 		
 		} // Taxon not yet set.
+		
+		//
+		// Create shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Check coordinates.
+			//
+			if( $this->offsetExists( ':domain:accession:collecting' ) )
+			{
+				//
+				// Get event and offsets.
+				//
+				$event = $this->offsetGet( ':domain:accession:collecting' );
+				$olat = $this->mDictionary->getSerial( ':location:site:latitude' );
+				$olon = $this->mDictionary->getSerial( ':location:site:longitude' );
+				
+				//
+				// Check coordinates.
+				//
+				if( array_key_exists( $olat, $event )
+				 && array_key_exists( $olon, $event ) )
+					$this->offsetSet(
+						kTAG_GEO_SHAPE,
+						array( kTAG_TYPE => 'Point',
+							   kTAG_GEOMETRY => array(
+								   (double) $event[ $olon ],
+								   (double) $event[ $olat ] ) ) );
+			
+			} // Has collecting event.
+		
+		} // Shape not yet set.
+		
+		//
+		// Set climate data.
+		//
+		$this->SetClimateData();
 		
 		//
 		// Call parent method.

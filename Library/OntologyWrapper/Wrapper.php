@@ -2462,6 +2462,10 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading XML accession sub-structure files.\n" );
 		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructSafetyDuplicates.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		$file = kPATH_STANDARDS_ROOT.'/collections/StructMaterialTransfers.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );

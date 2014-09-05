@@ -67,6 +67,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- schema::cooperator -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::cooperator</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
 		<!-- mcpd:DONORNUMB -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:DONORNUMB</item>

@@ -43,9 +43,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :germplasm:last-gen-date -->
+		<!-- :germplasm:last-gen -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:last-gen-date</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:last-gen</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -55,21 +55,15 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :inventory:DUPLSITE -->
+		<!-- mcpd:STORAGE:NOTES -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:DUPLSITE</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:STORAGE:NOTES</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- mcpd:DUPLSITE -->
+		<!-- :germplasm:safety -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLSITE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- mcpd:DUPLDESCR -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLDESCR</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:safety</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

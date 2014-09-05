@@ -7,6 +7,6 @@
 #
 # Run command.
 #
-mongorestore --directoryperdb '/Library/WebServer/Library/OntologyWrapper/Library/backup/data/PGRDG/'
+mongorestore --directoryperdb --drop '/Library/WebServer/Library/OntologyWrapper/Library/backup/data/PGRDG/'
 
 exit

@@ -73,7 +73,7 @@ require_once( "/Library/WebServer/Library/adodb/adodb-exceptions.inc.php" );
 /**
  * Settings.
  */
-define( 'kDO_CLIMATE',	FALSE );
+define( 'kDO_CLIMATE', TRUE );
 
 
 /*=======================================================================================
@@ -103,6 +103,7 @@ if( $argc < 5 )
 //
 $start = 0;
 $limit = 100;
+$page = 50000;
 $dc_in = $dc_out = $rs = NULL;
 $class = 'OntologyWrapper\Accession';
 
@@ -195,7 +196,7 @@ try
 	$collection
 		= OntologyWrapper\UnitObject::ResolveCollection(
 			OntologyWrapper\UnitObject::ResolveDatabase(
-				$mWrapper ) );
+				$wrapper ) );
 	
 	//
 	// Connect to input database.
@@ -218,11 +219,12 @@ try
 	//
 	// Import.
 	//
+	$pages = $page;
 	echo( "  • Exporting\n" );
 	$query = "SELECT * FROM `singer_acc` ";
 	if( $last !== NULL )
-		$query .= "WHERE( `AccessionID` > $last ) ";
-	$query .= "ORDER BY `AccessionID` LIMIT $start,$limit";
+		$query .= "WHERE( `ID` > $last ) ";
+	$query .= "ORDER BY `ID` LIMIT $start,$limit";
 	$rs = $dc_in->execute( $query );
 	while( $rs->RecordCount() )
 	{
@@ -275,19 +277,13 @@ try
 			//
 			// Save record.
 			//
-if( $object->offsetExists( ':domain:accession:collecting' ) )
-{
-print_r( $object->getArrayCopy() );
-}
 			$xml = $object->export( 'xml' );
-/*
 			$insert = "REPLACE INTO `$table`( "
 					 ."`id`, `class`, `xml` ) VALUES( "
-					 .'0x'.bin2hex( (string) $record[ 'UnitID' ] ).', '
+					 .'0x'.bin2hex( (string) $record[ 'ID' ] ).', '
 					 .'0x'.bin2hex( get_class( $object ) ).', '
 					 .'0x'.bin2hex( $xml->asXML() ).' )';
 			$dc_out->Execute( $insert );
-*/
 			
 		} // Iterating page.
 		
@@ -300,7 +296,13 @@ print_r( $object->getArrayCopy() );
 		//
 		// Inform.
 		//
-		echo( '.' );
+		if( ! $pages-- )
+		{
+			echo( $start + $limit );
+			$pages = $page;
+		}
+		else
+			echo( '.' );
 		
 		//
 		// Read next.
@@ -308,8 +310,8 @@ print_r( $object->getArrayCopy() );
 		$start += $limit;
 		$query = "SELECT * FROM `singer_acc` ";
 		if( $last !== NULL )
-			$query .= "WHERE( `AccessionID` > $last ) ";
-		$query .= "ORDER BY `AccessionID` LIMIT $start,$limit";
+			$query .= "WHERE( `ID` > $last ) ";
+		$query .= "ORDER BY `ID` LIMIT $start,$limit";
 		$rs = $dc_in->execute( $query );
 	
 	} // Records left.
@@ -374,7 +376,7 @@ finally
 		//
 		// Set dataset.
 		//
-		$theObject->offsetSet( ':inventory:dataset', 'SINGER' );
+		$theObject->offsetSet( getTag( ':inventory:dataset' ), 'SINGER' );
 		
 		//
 		// Set holding institute.
@@ -581,10 +583,9 @@ finally
 						$theData,
 						$theWrapper,
 						$theDatabase );
-		if( count( $sub )
-		 && array_key_exists( ':collecting:entities', $sub ) )
+		if( count( $sub ) )
 			$theObject->offsetSet( ':domain:accession:collecting', $sub );
-/*		
+
 		//
 		// Load breeding event.
 		//
@@ -628,7 +629,7 @@ finally
 						$theDatabase );
 		if( count( $sub ) )
 			$theObject->offsetSet( ':germplasm:mt', $sub );
-*/
+
 	} // loadUnit.
 	
 
@@ -804,10 +805,11 @@ finally
 		//
 		// Select collectors.
 		//
-		$rs = $theDatabase->execute( "SELECT * FROM `singer_collectors` "
-									."WHERE( `AccessionID` = "
-									.'0x'.bin2hex( $theUnit[ 'AccessionID' ] )." ) "
-									."LIMIT $start,$limit" );
+		$query = "SELECT * FROM `singer_collectors` "
+				."WHERE( `AccessionID` = "
+				.'0x'.bin2hex( $theUnit[ 'AccessionID' ] )." ) "
+				."LIMIT $start,$limit";
+		$rs = $theDatabase->execute( $query );
 		while( $rs->RecordCount() )
 		{
 			//
@@ -868,10 +870,11 @@ finally
 				// Set :inventory:INSTCODE.
 				//
 				if( array_key_exists( 'CooperatorInstituteFAOCode', $data ) )
-					$sub[ ':inventory:INSTCODE' ]
+					$sub[ getTag( ':inventory:INSTCODE' ) ]
 						= kDOMAIN_ORGANISATION
 						 .'://http://fao.org/wiews:'
-						 .$data[ 'CooperatorInstituteFAOCode' ];
+						 .$data[ 'CooperatorInstituteFAOCode' ]
+						 .kTOKEN_END_TAG;
 		
 				//
 				// Set :name.
@@ -894,22 +897,22 @@ finally
 					 				 $tmp )) )
 						$tmp[] = ':type:entity:'.$data[ 'CooperatorEntityType' ];
 					if( count( $tmp ) )
-						$sub[ ':type:entity' ] = $tmp;
+						$sub[ getTag( ':type:entity' ) ] = $tmp;
 				}
 		
 				//
 				// Set :entity:mail.
 				//
 				if( array_key_exists( 'CooperatorAddress', $data ) )
-					$sub[ getTag( ':entity:mail' ) ]
-						= $data[ 'CooperatorAddress' ];
+					$sub[ getTag( ':entity:mail' ) ][]
+						= array( kTAG_TEXT => $data[ 'CooperatorAddress' ] );
 		
 				//
 				// Set :entity:email.
 				//
 				if( array_key_exists( 'CooperatorEmail', $data ) )
-					$sub[ getTag( ':entity:email' ) ]
-						= $data[ 'CooperatorEmail' ];
+					$sub[ getTag( ':entity:email' ) ][]
+						= array( kTAG_TEXT => $data[ 'CooperatorEmail' ] );
 								
 				//
 				// Set country.
@@ -926,7 +929,11 @@ finally
 				// Load record.
 				//
 				if( count( $sub ) )
-					$theContainer[ getTag( ':collecting:entities' ) ] = $sub;
+				{
+					if( ! array_key_exists( getTag( ':collecting:entities' ), $theContainer ) )
+						$theContainer[ getTag( ':collecting:entities' ) ] = Array();
+					$theContainer[ getTag( ':collecting:entities' ) ][] = $sub;
+				}
 			
 			} // Iterating page.
 		
@@ -954,6 +961,476 @@ finally
 			$rs->Close();
 
 	} // loadCollecting.
+	
+
+	/**
+	 * Load breeding event.
+	 *
+	 * This function will load the breeding data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadBreeding( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set country.
+		//
+		if( array_key_exists( 'BreedingSiteCountryCode', $theUnit ) )
+		{
+			if( $tmp
+					= OntologyWrapper\Term::ResolveCountryCode(
+							$theWrapper, $theUnit[ 'BreedingSiteCountryCode' ] ) )
+				$theContainer[ getTag( ':location:country' ) ] = $tmp;
+		}
+
+	} // loadBreeding.
+	
+
+	/**
+	 * Load management information.
+	 *
+	 * This function will load the management data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadManagement( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set acquisition date.
+		//
+		if( array_key_exists( 'AcquisitionDate', $theUnit ) )
+			$theContainer[ getTag( 'mcpd:ACQDATE' ) ]
+				= $theUnit[ 'AcquisitionDate' ];
+								
+		//
+		// Set last regeneration.
+		//
+		if( array_key_exists( 'LastRegenerationDate', $theUnit ) )
+			$theContainer[ getTag( ':germplasm:last-gen' ) ]
+				= $theUnit[ 'LastRegenerationDate' ];
+								
+		//
+		// Set storage.
+		//
+		if( array_key_exists( 'GermplasmStorageTypes', $theUnit ) )
+		{
+			$tmp = Array();
+			foreach( explode( ',', $theUnit[ 'GermplasmStorageTypes' ] ) as $item )
+			{
+				$item = trim( $item );
+				if( strlen( $item ) )
+				{
+					if( $item != '99' )
+						$tmp[] = "mcpd:STORAGE:$item";
+				}
+			}
+			if( count( $tmp ) )
+				$theContainer[ getTag( 'mcpd:STORAGE' ) ]
+					= $tmp;
+		}
+								
+		//
+		// Set storage notes.
+		//
+		if( array_key_exists( 'GermplasmStorageTypeNotes', $theUnit ) )
+			$theContainer[ getTag( 'mcpd:STORAGE:NOTES' ) ]
+				= $theUnit[ 'GermplasmStorageTypeNotes' ];
+								
+		//
+		// Set safety duplicates.
+		//
+		if( array_key_exists( 'SafetyDuplicateInstitutesFAOCodes', $theUnit )
+		 || array_key_exists( 'SafetyDuplicateInstitutesNames', $theUnit ) )
+		{
+			$list = Array();
+			if( array_key_exists( 'SafetyDuplicateInstitutesFAOCodes', $theUnit ) )
+			{
+				foreach( explode( ',', $theUnit[ 'SafetyDuplicateInstitutesFAOCodes' ] )
+							as $item )
+				{
+					$tmp = Array();
+					$item = trim( $item );
+					if( strlen( $item ) )
+					{
+						$tmp[ getTag( ':germplasm:safety:tag' ) ] = $item;
+						$tmp[ getTag( 'mcpd:DUPLSITE' ) ] = $item;
+						$tmp[ getTag( ':inventory:DUPLSITE' ) ]
+							= kDOMAIN_ORGANISATION
+							 .'://http://fao.org/wiews:'
+							 .$item
+							 .kTOKEN_END_TAG;
+						$list[] = $tmp;
+					}
+				}
+			}
+			else
+			{
+				$tmp = Array();
+				$item = trim( $theUnit[ 'SafetyDuplicateInstitutesNames' ] );
+				if( strlen( $item ) )
+				{
+					$tmp[ getTag( ':germplasm:safety:tag' ) ] = $item;
+					$tmp[ getTag( 'mcpd:DUPLDESCR' ) ] = $item;
+					$list[] = $tmp;
+				}
+			}
+			if( count( $list ) )
+				$theContainer[ getTag( ':germplasm:safety' ) ]
+					= $list;
+		}
+
+	} // loadManagement.
+	
+
+	/**
+	 * Load source information.
+	 *
+	 * This function will load the source data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadSource( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set source code.
+		//
+		if( array_key_exists( 'AcquisitionSourceCode', $theUnit )
+		 && ($theUnit[ 'AcquisitionSourceCode' ] != '99') )
+			$theContainer[ getTag( 'mcpd:COLLSRC' ) ]
+				= 'mcpd:COLLSRC:'.$theUnit[ 'AcquisitionSourceCode' ];
+								
+		//
+		// Set status code.
+		//
+		if( array_key_exists( 'BiologicalStatusCode', $theUnit )
+		 && ($theUnit[ 'BiologicalStatusCode' ] != '999') )
+			$theContainer[ getTag( 'mcpd:SAMPSTAT' ) ]
+				= 'mcpd:SAMPSTAT:'.$theUnit[ 'BiologicalStatusCode' ];
+		
+		//
+		// Set donor.
+		//
+		if( array_key_exists( 'DonorCode', $theUnit ) )
+		{
+			//
+			// Select donors.
+			//
+			$query = "SELECT * FROM `singer_donors` "
+					."WHERE( `CooperatorCode` = "
+					.'0x'.bin2hex( $theUnit[ 'DonorCode' ] )." )";
+			$tmp = $theDatabase->GetRow( $query );
+			
+			//
+			// Scan record.
+			//
+			$data = Array();
+			foreach( $tmp as $key => $value )
+			{
+				//
+				// Normalise value.
+				//
+				if( strlen( trim( $value ) ) )
+					$data[ $key ] = trim( $value );
+		
+			} // Scanning record.
+		
+			//
+			// Skip empty records.
+			//
+			if( count( $data ) )
+			{
+				//
+				// Set DONORCODE.
+				//
+				if( array_key_exists( 'CooperatorInstituteFAOCode', $data ) )
+				{
+					//
+					// :inventory:INSTCODE
+					//
+					$theContainer[ getTag( ':inventory:INSTCODE' ) ]
+						= kDOMAIN_ORGANISATION
+						 .'://http://fao.org/wiews:'
+						 .$data[ 'CooperatorInstituteFAOCode' ]
+						 .kTOKEN_END_TAG;
+					 
+					//
+					// mcpd:DONORCODE
+					//
+					$theContainer[ getTag( 'mcpd:DONORCODE' ) ]
+						= $data[ 'CooperatorInstituteFAOCode' ];
+				}
+				else
+				{
+					//
+					// mcpd:DONORDESCR
+					//
+					if( array_key_exists( 'CooperatorInstituteName', $theUnit ) )
+						$theContainer[ getTag( 'mcpd:DONORDESCR' ) ]
+							= $theUnit[ 'CooperatorInstituteName' ];
+	
+					//
+					// Set :name.
+					//
+					if( array_key_exists( 'CooperatorName', $data ) )
+						$theContainer[ getTag( ':name' ) ]
+							= $data[ 'CooperatorName' ];
+	
+					//
+					// Set :type:entity.
+					//
+					if( array_key_exists( 'CooperatorType', $data )
+					 || array_key_exists( 'CooperatorEntityType', $data ) )
+					{
+						$tmp = Array();
+						if( array_key_exists( 'CooperatorType', $data ) )
+							$tmp[] = ':type:entity:'.$data[ 'CooperatorType' ];
+						if( array_key_exists( 'CooperatorEntityType', $data )
+						 && (! in_array( ':type:entity:'.$data[ 'CooperatorEntityType' ],
+										 $tmp )) )
+							$tmp[] = ':type:entity:'.$data[ 'CooperatorEntityType' ];
+						if( count( $tmp ) )
+							$theContainer[ getTag( ':type:entity' ) ] = $tmp;
+					}
+	
+					//
+					// Set :entity:mail.
+					//
+					if( array_key_exists( 'CooperatorAddress', $data ) )
+						$theContainer[ getTag( ':entity:mail' ) ][]
+							= array( kTAG_TEXT => $data[ 'CooperatorAddress' ] );
+	
+					//
+					// Set :entity:email.
+					//
+					if( array_key_exists( 'CooperatorEmail', $data ) )
+						$theContainer[ getTag( ':entity:email' ) ][]
+							= array( kTAG_TEXT => $data[ 'CooperatorEmail' ] );
+							
+					//
+					// Set country.
+					//
+					if( array_key_exists( 'CooperatorCountryCode', $theUnit ) )
+					{
+						if( $tmp
+								= OntologyWrapper\Term::ResolveCountryCode(
+										$theWrapper, $data[ 'CooperatorCountryCode' ] ) )
+							$theContainer[ getTag( ':entity:nationality' ) ] = $tmp;
+					}
+				}
+			}
+		}
+								
+		//
+		// Set donor accession number.
+		//
+		if( array_key_exists( 'DonorAccessionNumber', $theUnit ) )
+			$theContainer[ getTag( 'mcpd:DONORNUMB' ) ]
+				= $theUnit[ 'DonorAccessionNumber' ];
+
+	} // loadSource.
+	
+
+	/**
+	 * Load material transfers.
+	 *
+	 * This function will load the material transfers related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadTransfers( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Init local storage.
+		//
+		$start = 0;
+		$limit = 100;
+		
+		//
+		// Select transfers.
+		//
+		$query = "SELECT * FROM `singer_trans` "
+				."WHERE( `AccessionID` = "
+				.'0x'.bin2hex( $theUnit[ 'AccessionID' ] )." ) "
+				."ORDER BY `TransferDate` ASC "
+				."LIMIT $start,$limit";
+		$rs = $theDatabase->execute( $query );
+		while( $rs->RecordCount() )
+		{
+			//
+			// Iterate page.
+			//
+			foreach( $rs as $record )
+			{
+				//
+				// Scan record.
+				//
+				$data = Array();
+				foreach( $record as $key => $value )
+				{
+					//
+					// Normalise value.
+					//
+					if( strlen( trim( $value ) ) )
+						$data[ $key ] = trim( $value );
+			
+				} // Scanning record.
+			
+				//
+				// Skip empty records.
+				//
+				if( ! count( $data ) )
+					continue;													// =>
+				
+				//
+				// Init sub.
+				//
+				$sub = Array();
+		
+				//
+				// Set :germplasm:mt:date.
+				//
+				if( array_key_exists( 'TransferDate', $data ) )
+					$sub[ getTag( ':germplasm:mt:date' ) ]
+						= $data[ 'TransferDate' ];
+		
+				//
+				// Set :germplasm:mt:smta.
+				//
+				if( array_key_exists( 'TransferSMTA', $data )
+				 && ($data[ 'TransferSMTA' ] != '99') )
+					$sub[ getTag( ':germplasm:mt:smta' ) ]
+						= ':germplasm:mt:smta:'.$data[ 'TransferSMTA' ];
+		
+				//
+				// Set :germplasm:mt:smta:notes.
+				//
+				if( array_key_exists( 'TransferSMTANotes', $data ) )
+					$sub[ getTag( ':germplasm:mt:smta:notes' ) ]
+						= $data[ 'TransferSMTANotes' ];
+		
+				//
+				// Set :germplasm:mt:samples.
+				//
+				if( array_key_exists( 'Samples', $data ) )
+					$sub[ getTag( ':germplasm:mt:samples' ) ]
+						= $data[ 'Samples' ];
+		
+				//
+				// Set :entity:identifier.
+				//
+				if( array_key_exists( 'CooperatorCode', $data ) )
+					$sub[ getTag( ':entity:identifier' ) ]
+						= $data[ 'CooperatorCode' ];
+		
+				//
+				// Set :inventory:INSTCODE.
+				//
+				if( array_key_exists( 'CooperatorInstituteFAOCode', $data ) )
+					$sub[ getTag( ':inventory:INSTCODE' ) ]
+						= kDOMAIN_ORGANISATION
+						 .'://http://fao.org/wiews:'
+						 .$data[ 'CooperatorInstituteFAOCode' ]
+						 .kTOKEN_END_TAG;
+		
+				//
+				// Set :name.
+				//
+				if( array_key_exists( 'CooperatorName', $data ) )
+					$sub[ getTag( ':name' ) ]
+						= $data[ 'CooperatorName' ];
+		
+				//
+				// Set :type:entity.
+				//
+				if( array_key_exists( 'CooperatorType', $data )
+				 || array_key_exists( 'CooperatorEntityType', $data ) )
+				{
+					$tmp = Array();
+					if( array_key_exists( 'CooperatorType', $data ) )
+						$tmp[] = ':type:entity:'.$data[ 'CooperatorType' ];
+					if( array_key_exists( 'CooperatorEntityType', $data )
+					 && (! in_array( ':type:entity:'.$data[ 'CooperatorEntityType' ],
+					 				 $tmp )) )
+						$tmp[] = ':type:entity:'.$data[ 'CooperatorEntityType' ];
+					if( count( $tmp ) )
+						$sub[ getTag( ':type:entity' ) ] = $tmp;
+				}
+		
+				//
+				// Set :entity:mail.
+				//
+				if( array_key_exists( 'CooperatorAddress', $data ) )
+					$sub[ getTag( ':entity:mail' ) ][]
+						= array( kTAG_TEXT => $data[ 'CooperatorAddress' ] );
+		
+				//
+				// Set :entity:email.
+				//
+				if( array_key_exists( 'CooperatorEmail', $data ) )
+					$sub[ getTag( ':entity:email' ) ][]
+						= array( kTAG_TEXT => $data[ 'CooperatorEmail' ] );
+								
+				//
+				// Set country.
+				//
+				if( array_key_exists( 'CooperatorCountryCode', $theUnit ) )
+				{
+					if( $tmp
+							= OntologyWrapper\Term::ResolveCountryCode(
+									$theWrapper, $data[ 'CooperatorCountryCode' ] ) )
+						$sub[ getTag( ':entity:nationality' ) ] = $tmp;
+				}
+		
+				//
+				// Load record.
+				//
+				if( count( $sub ) )
+					$theContainer[] = $sub;
+			
+			} // Iterating page.
+		
+			//
+			// Close recordset.
+			//
+			$rs->Close();
+			$rs = NULL;
+		
+			//
+			// Read next.
+			//
+			$start += $limit;
+			$query = "SELECT * FROM `singer_trans` "
+					."WHERE( `AccessionID` = "
+					.'0x'.bin2hex( $theUnit[ 'AccessionID' ] )." ) "
+					."ORDER BY `TransferDate` ASC "
+					."LIMIT $start,$limit";
+			$rs = $theDatabase->execute( $query );
+	
+		} // Records left.
+		
+		//
+		// Close iterator.
+		//
+		if( $rs instanceof ADORecordSet )
+			$rs->Close();
+
+	} // loadTransfers.
 	
 
 	/**

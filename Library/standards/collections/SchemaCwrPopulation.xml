@@ -120,17 +120,10 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
 		</EDGE>
-		
-		<!-- mcpd:DUPLSITE -->
+	
+		<!-- :germplasm:safety -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLSITE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
-		</EDGE>
-		
-		<!-- :inventory:DUPLSITE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:DUPLSITE</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:safety</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
 		</EDGE>
