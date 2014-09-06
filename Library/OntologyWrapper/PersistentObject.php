@@ -5783,7 +5783,6 @@ MILKO - Need to check.
 			
 			case kTYPE_TYPED_LIST:
 			case kTYPE_LANGUAGE_STRING:
-			case kTYPE_LANGUAGE_STRINGS:
 				foreach( $theProperty as $element )
 				{
 					$tmp0 = $theContainer->addChild( kIO_XML_DATA );
@@ -5792,6 +5791,25 @@ MILKO - Need to check.
 						$tmp1 = $tmp0->addChild( kIO_XML_DATA );
 						$tmp1->addAttribute( kIO_XML_ATTR_QUAL_KEY, $key );
 						SetAsCDATA( $tmp1, $value );
+					}
+				}
+				break;
+			
+			case kTYPE_LANGUAGE_STRINGS:
+				foreach( $theProperty as $element )
+				{
+					$tmp0 = $theContainer->addChild( kIO_XML_DATA );
+					foreach( $element as $key => $value )
+					{
+						$tmp1 = $tmp0->addChild( kIO_XML_DATA );
+						$tmp1->addAttribute( kIO_XML_ATTR_QUAL_KEY, $key );
+						if( is_array( $value ) )
+						{
+							foreach( $value as $item )
+								$tmp1->addChild( kIO_XML_DATA, $item );
+						}
+						else
+							SetAsCDATA( $tmp1, $value );
 					}
 				}
 				break;
