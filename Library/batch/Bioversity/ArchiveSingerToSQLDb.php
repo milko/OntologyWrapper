@@ -102,8 +102,8 @@ if( $argc < 5 )
 // Init local storage.
 //
 $start = 0;
-$limit = 100;
-$page = 50000;
+$limit = 1000;
+$page = 50;
 $dc_in = $dc_out = $rs = NULL;
 $class = 'OntologyWrapper\Accession';
 
@@ -404,16 +404,27 @@ finally
 		// Set accession name.
 		//
 		if( array_key_exists( 'AccessionNames', $theData ) )
-			$theObject->offsetSet( 'mcpd:ACCENAME',
-									explode( ';', $theData[ 'AccessionNames' ] ) );
+		{
+			$tmp = Array();
+			foreach( explode( ',', $theData[ 'AccessionNames' ] ) as $item )
+			{
+				$item = trim( $item );
+				if( strlen( $item ) )
+				{
+					if( ! in_array( $item, $tmp ) )
+						$tmp[] = $item;
+				}
+			}
+			if( count( $tmp ) )
+				$theObject->offsetSet( 'mcpd:ACCENAME', $tmp );
+		}
 		
 		//
 		// Set other accession identifiers.
 		//
 		if( array_key_exists( 'OtherAccessionIdentification', $theData ) )
 			$theObject->offsetSet( 'mcpd:OTHERNUMB',
-									explode( ';',
-											 $theData[ 'OtherAccessionIdentification' ] ) );
+								   array( $theData[ 'OtherAccessionIdentification' ] ) );
 		
 		
 		//
@@ -524,9 +535,21 @@ finally
 		//
 		if( array_key_exists( 'CropNames', $theData ) )
 		{
-			$theObject->offsetSet( ':taxon:names',
-								   array( kTAG_TEXT =>
-								   	explode( ';', $theData[ 'CropNames' ] ) ) );
+			$tmp = Array();
+			foreach( explode( ';', $theData[ 'CropNames' ] ) as $item )
+			{
+				$item = trim( $item );
+				if( strlen( $item ) )
+				{
+					if( ! in_array( $item, $tmp ) )
+						$tmp[] = $item;
+				}
+			}
+			if( count( $tmp ) )
+				$theObject->offsetSet(
+					':taxon:names',
+					array(
+						array( kTAG_TEXT => $tmp ) ) );
 		}
 		
 		//
@@ -540,8 +563,11 @@ finally
 		// Set annex-1.
 		//
 		if( array_key_exists( 'Annex1', $theData ) )
-			$theObject->offsetSet( ':taxon:annex-1',
-									':taxon:annex-1:'.$theData[ 'Annex1' ] );
+		{
+			if( $theData[ 'Annex1' ] != '900' )
+				$theObject->offsetSet( ':taxon:annex-1',
+									   ':taxon:annex-1:'.$theData[ 'Annex1' ] );
+		}
 		
 		//
 		// Set ancestors.
@@ -794,6 +820,16 @@ finally
 		if( array_key_exists( 'CollectingSiteGeoreferenceOld', $theUnit ) )
 			$theContainer[ getTag( ':location:site:georeference-old' ) ]
 				= $theUnit[ 'CollectingSiteGeoreferenceOld' ];
+		
+		//
+		// Set collecting site error.
+		//
+		if( array_key_exists( 'CollectingSiteGeoreferenceError', $theUnit ) )
+			$theContainer[ getTag( ':location:site:error' ) ]
+				= $theUnit[ 'CollectingSiteGeoreferenceError' ];
+		elseif( array_key_exists( 'CollectingSiteLatitudePrecision', $theUnit ) )
+			$theContainer[ getTag( ':location:site:error' ) ]
+				= $theUnit[ 'CollectingSiteLatitudePrecision' ];
 								
 		//
 		// Set georeference notes.

@@ -6150,12 +6150,6 @@
 					<item const="kTAG_TEXT">Latitude uncertainty</item>
 				</item>
 			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Location latitude uncertainty.</item>
-				</item>
-			</item>
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -6418,12 +6412,6 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT">Longitude uncertainty</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Location longitude uncertainty.</item>
 				</item>
 			</item>
 		</TERM>

@@ -320,16 +320,16 @@ class Accession extends UnitObject
 		
 		//
 		// Handle distance range.
+		//		
 		//
-		if( $this->offsetExists( 'CollectingSiteGeoreferenceError' )
-		 || $this->offsetExists( 'CollectingSiteLatitudePrecision' ) )
+		// Set collecting site error.
+		//
+		if( $this->offsetExists( ':location:site:error' ) )
 		{
 			//
 			// Get value.
 			//
-			$tmp = ( $this->offsetExists( 'CollectingSiteGeoreferenceError' ) )
-				 ? $this->offsetGet( 'CollectingSiteGeoreferenceError' )
-				 : $this->offsetGet( 'CollectingSiteLatitudePrecision' );
+			$tmp = $this->offsetGet( ':location:site:error' );
 			
 			//
 			// Handle value.
