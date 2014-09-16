@@ -3109,7 +3109,7 @@ abstract class PersistentObject extends OntologyObject
 	protected function preCommitTraverse( &$theTags, &$theRefs, $doValidate = TRUE )
 	{
 		//
-		// Remove private offsets.
+		// Remove dynamic offsets.
 		//
 		foreach( static::DynamicOffsets() as $offset )
 			$this->offsetUnset( $offset );
@@ -5806,7 +5806,10 @@ MILKO - Need to check.
 						if( is_array( $value ) )
 						{
 							foreach( $value as $item )
-								$tmp1->addChild( kIO_XML_DATA, $item );
+							{
+								$tmp2 = $tmp1->addChild( kIO_XML_DATA );
+								SetAsCDATA( $tmp2, $item );
+							}
 						}
 						else
 							SetAsCDATA( $tmp1, $value );

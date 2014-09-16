@@ -359,6 +359,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_FORM}</tt>: Get node form.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_STRUCT}</tt>: Get node structure.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
@@ -393,6 +394,7 @@ class Service extends ContainerObject
 			case kAPI_OP_GET_TAG_ENUMERATIONS:
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
 			case kAPI_OP_GET_NODE_FORM:
+			case kAPI_OP_GET_NODE_STRUCT:
 			case kAPI_OP_MATCH_UNITS:
 			case kAPI_OP_GET_UNIT:
 			case kAPI_OP_ADD_USER:
@@ -694,6 +696,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_FORM}</tt>: Get node form.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_STRUCT}</tt>: Get node structure.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
@@ -744,7 +747,8 @@ class Service extends ContainerObject
 				break;
 				
 			case kAPI_OP_GET_NODE_FORM:
-				$this->validateGetNodeForm();
+			case kAPI_OP_GET_NODE_STRUCT:
+				$this->validateGetNodeStruct();
 				break;
 				
 			case kAPI_OP_MATCH_UNITS:
@@ -1073,13 +1077,13 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	validateGetNodeForm																*
+	 *	validateGetNodeStruct																*
 	 *==================================================================================*/
 
 	/**
-	 * Validate get node enumerations service.
+	 * Validate get node form service.
 	 *
-	 * This method will validate all service operations which return node enumerated sets,
+	 * This method will validate all service operations which return node form structures,
 	 * the method will perform the following actions:
 	 *
 	 * <ul>
@@ -1096,7 +1100,7 @@ class Service extends ContainerObject
 	 *
 	 * @see kAPI_PARAM_NODE
 	 */
-	protected function validateGetNodeForm()
+	protected function validateGetNodeStruct()
 	{
 		//
 		// Check parameter.
@@ -1148,20 +1152,40 @@ class Service extends ContainerObject
 				"Invalid node reference [$id]." );								// !@! ==>
 		
 		//
-		// Assert root and form types.
+		// Parse by operation.
 		//
-		if( (! array_key_exists( kTAG_NODE_TYPE, $node ))
-		 || (! in_array( kTYPE_NODE_ROOT, $node[ kTAG_NODE_TYPE ] ))
-		 || (! in_array( kTYPE_NODE_FORM, $node[ kTAG_NODE_TYPE ] )) )
-			throw new \Exception(
-				"Node must be a root form." );									// !@! ==>
+		switch( $op = $this->offsetGet( kAPI_REQUEST_OPERATION ) )
+		{
+			case kAPI_OP_GET_NODE_FORM:
+				//
+				// Assert root and form types.
+				//
+				if( (! array_key_exists( kTAG_NODE_TYPE, $node ))
+				 || (! in_array( kTYPE_NODE_ROOT, $node[ kTAG_NODE_TYPE ] ))
+				 || (! in_array( kTYPE_NODE_FORM, $node[ kTAG_NODE_TYPE ] )) )
+					throw new \Exception(
+						"Node must be a root form." );							// !@! ==>
+				break;
+			
+			case kAPI_OP_GET_NODE_STRUCT:
+				//
+				// Assert root and structure types.
+				//
+				if( (! array_key_exists( kTAG_NODE_TYPE, $node ))
+				 || (! in_array( kTYPE_NODE_ROOT, $node[ kTAG_NODE_TYPE ] ))
+				 || (! in_array( kTYPE_NODE_STRUCT, $node[ kTAG_NODE_TYPE ] )) )
+					throw new \Exception(
+						"Node must be a root structure." );						// !@! ==>
+				break;
+		}
+		
 		
 		//
 		// Save node native identifier.
 		//
 		$this->offsetSet( kAPI_PARAM_NODE, $node[ kTAG_NID ] );
 		
-	} // validateGetNodeForm.
+	} // validateGetNodeStruct.
 
 	 
 	/*===================================================================================
@@ -2910,6 +2934,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_FORM}</tt>: Get node form.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_STRUCT}</tt>: Get node structure.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 * </ul>
@@ -2970,7 +2995,8 @@ class Service extends ContainerObject
 				break;
 				
 			case kAPI_OP_GET_NODE_FORM:
-				$this->executeGetNodeForm();
+			case kAPI_OP_GET_NODE_STRUCT:
+				$this->executeGetNodeStructure();
 				break;
 				
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
@@ -3106,6 +3132,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_GET_TAG_ENUMERATIONS" ] = kAPI_OP_GET_TAG_ENUMERATIONS;
 		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
 		$ref[ "kAPI_OP_GET_NODE_FORM" ] = kAPI_OP_GET_NODE_FORM;
+		$ref[ "kAPI_OP_GET_NODE_STRUCT" ] = kAPI_OP_GET_NODE_STRUCT;
 		$ref[ "kAPI_OP_MATCH_UNITS" ] = kAPI_OP_MATCH_UNITS;
 		$ref[ "kAPI_OP_GET_UNIT" ] = kAPI_OP_GET_UNIT;
 		$ref[ "kAPI_OP_ADD_USER" ] = kAPI_OP_ADD_USER;
@@ -3200,6 +3227,7 @@ class Service extends ContainerObject
 		//
 		$ref[ "kAPI_PARAM_INDEX" ] = kAPI_PARAM_INDEX;
 		$ref[ "kAPI_PARAM_DATA_TYPE" ] = kAPI_PARAM_DATA_TYPE;
+		$ref[ "kAPI_PARAM_DATA_KIND" ] = kAPI_PARAM_DATA_KIND;
 		$ref[ "kAPI_PARAM_VALUE_COUNT" ] = kAPI_PARAM_VALUE_COUNT;
 		$ref[ "kAPI_PARAM_OFFSETS" ] = kAPI_PARAM_OFFSETS;
 		$ref[ "kAPI_PARAM_GROUP_DATA" ] = kAPI_PARAM_GROUP_DATA;
@@ -3727,18 +3755,18 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	executeGetNodeForm																*
+	 *	executeGetNodeStructure															*
 	 *==================================================================================*/
 
 	/**
-	 * Get node form.
+	 * Get node structure.
 	 *
-	 * The method will return the form structure corresponding to the node stored in
+	 * The method will return the structure corresponding to the node stored in
 	 * {@link kAPI_PARAM_NODE}.
 	 *
 	 * @access protected
 	 */
-	protected function executeGetNodeForm()
+	protected function executeGetNodeStructure()
 	{
 		//
 		// Init local storage.
@@ -3796,10 +3824,10 @@ class Service extends ContainerObject
 		//
 		// Traverse form structure.
 		//
-		$this->traverseFormStructure(
+		$this->traverseStructure(
 			$this->mResponse[ kAPI_RESPONSE_RESULTS ], $node, $language, $ref_count );
 		
-	} // executeGetNodeForm.
+	} // executeGetNodeStructure.
 
 	 
 	/*===================================================================================
@@ -6265,11 +6293,11 @@ $rs_units = & $rs_units[ 'result' ];
 
 	 
 	/*===================================================================================
-	 *	traverseFormStructure															*
+	 *	traverseStructure																*
 	 *==================================================================================*/
 
 	/**
-	 * Traverse form structure.
+	 * Traverse structure.
 	 *
 	 * This method will traverse the structure of the provided form node, loading the
 	 * information in the provided container.
@@ -6300,9 +6328,9 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @access protected
 	 * @return array				Criteria record.
 	 */
-	protected function traverseFormStructure( &$theContainer, $theNode,
-															  $theLanguage,
-															  $theRefCount = NULL )
+	protected function traverseStructure( &$theContainer, $theNode,
+														  $theLanguage,
+														  $theRefCount = NULL )
 	{
 		//
 		// Allocate element.
@@ -6324,7 +6352,7 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Load related nodes.
 		//
-		$this->traverseFormEdges( $children, $theNode, $theLanguage, $theRefCount );
+		$this->traverseEdges( $children, $theNode, $theLanguage, $theRefCount );
 		
 		//
 		// Set children.
@@ -6332,15 +6360,15 @@ $rs_units = & $rs_units[ 'result' ];
 		if( count( $children ) )
 			$theContainer[ $index ][ kAPI_PARAM_RESPONSE_CHILDREN ] = $children;
 		
-	} // traverseFormStructure.
+	} // traverseStructure.
 
 	 
 	/*===================================================================================
-	 *	traverseFormEdges																*
+	 *	traverseEdges																	*
 	 *==================================================================================*/
 
 	/**
-	 * Traverse form edges.
+	 * Traverse edges.
 	 *
 	 * This method will scan the edges that point to the provided node, recursing subclass
 	 * predicates.
@@ -6355,9 +6383,9 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @access protected
 	 * @return array				Criteria record.
 	 */
-	protected function traverseFormEdges( &$theContainer, $theNode,
-														  $theLanguage,
-														  $theRefCount = NULL )
+	protected function traverseEdges( &$theContainer, $theNode,
+													  $theLanguage,
+													  $theRefCount = NULL )
 	{
 		//
 		// Get related elements.
@@ -6384,18 +6412,19 @@ $rs_units = & $rs_units[ 'result' ];
 			// Recurse subclasses.
 			//
 			if( $edge[ kTAG_PREDICATE ] == kPREDICATE_SUBCLASS_OF )
-				$this->traverseFormEdges(
+				$this->traverseEdges(
 					$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage, $theRefCount );
 			
 			//
 			// Load node information.
 			//
-			$this->traverseFormStructure(
-				$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage, $theRefCount );
+			else
+				$this->traverseStructure(
+					$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage, $theRefCount );
 		
 		} // Iterating related.
 		
-	} // traverseFormEdges.
+	} // traverseEdges.
 
 	 
 	/*===================================================================================
@@ -6497,6 +6526,20 @@ $rs_units = & $rs_units[ 'result' ];
 			//
 			$theContainer[ kAPI_PARAM_TAG ]
 				= $node->offsetGet( kTAG_TAG );
+			
+			//
+			// Set tag data type.
+			//
+			if( $referenced->offsetExists( kTAG_DATA_TYPE ) )
+				$theContainer[ kAPI_PARAM_DATA_TYPE ]
+					= $referenced->offsetGet( kTAG_DATA_TYPE );
+			
+			//
+			// Set tag data kind.
+			//
+			if( $referenced->offsetExists( kTAG_DATA_KIND ) )
+				$theContainer[ kAPI_PARAM_DATA_KIND ]
+					= $referenced->offsetGet( kTAG_DATA_KIND );
 			
 			//
 			// Set reference count.

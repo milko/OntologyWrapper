@@ -857,6 +857,38 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
 define( "kAPI_OP_GET_NODE_FORM",				'getNodeForm' );
 
 /**
+ * Get node structure.
+ *
+ * This tag defines the get node structure operation.
+ *
+ * The service will return the structure related to the provided struct node, if the
+ * provided node is not a structure, the method will raise an exception.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_NODE}</tt>: <em>Node</em>. This required parameter is an
+ *		integer referencing the node native identifier.
+ * </ul>
+ *
+ * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
+ * it will be an array whose elements are structured as follows:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: This item will be set with the native identifier of
+ *		a tag, if the element references a tag, or it will be missing if the element
+ *		references a term.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The tag or term label.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The tag or term description.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_COUNT}</tt>: The reference count, if a tag and the
+ *		{@link kAPI_PARAM_REF_COUNT} parameter was provided.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_CHILDREN}</tt>: The children of the element in the
+ *		same format as here.
+ * </ul>
+ */
+define( "kAPI_OP_GET_NODE_STRUCT",				'getNodeStruct' );
+
+/**
  * Match units.
  *
  * This tag defines the match units operation.
@@ -2067,6 +2099,13 @@ define( "kAPI_PARAM_INDEX",						'index' );
  * This parameter will hold the tag data type.
  */
 define( "kAPI_PARAM_DATA_TYPE",					'data-type' );
+
+/**
+ * Data kind (array).
+ *
+ * This parameter will hold the tag data kind.
+ */
+define( "kAPI_PARAM_DATA_KIND",					'data-kind' );
 
 /**
  * Value count (int).

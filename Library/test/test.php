@@ -819,6 +819,17 @@ echo( '<hr />' );
 	
 /******************************************************************************/
 
+/*
 echo( urldecode( 'http://pgrdg.grinfo.private/Service.php?op=matchSummaryTagsByLabel&ln=en&pr={%22log-request%22:%22true%22,%22limit%22:50,%22exclude-tags%22:{%22id%22:{%22tag%22:149,%22children%22:{%22name%22:%22Unit%20populations%22,%22info%22:%22Information%20on%20population%20target%20species%20growing%20in%20the%20unit.%22,%22children%22:{%22name%22:%22Genus%22}}}},%22has-values%22:%22_units%22,%22pattern%22:%22Genus%22,%22operator%22:[%22$CX%22,%22$i%22]}' ) );
+
+*/
+	
+/******************************************************************************/
+
+$string = "P&egrave;re David's peach";
+echo( "$string<br />" );
+echo( html_entity_decode( $string, ENT_COMPAT | ENT_HTML401, 'UTF-8' ) );
+echo( "<br />" );
+
 	
 ?>

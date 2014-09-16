@@ -1,21 +1,21 @@
 <?php
 
 /**
- * SQL EURISCO archive procedure.
+ * SQL GRIN archive procedure.
  *
- * This file contains routines to load EURISCO from an SQL database and archive it as XML
+ * This file contains routines to load GRIN from an SQL database and archive it as XML
  * in the archive database.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 06/09/2014
+ *	@version	1.00 16/09/2014
  */
 
 /*=======================================================================================
  *																						*
- *								ArchiveEuriscoToSQLDb.php								*
+ *								ArchiveGrinToSQLDb.php									*
  *																						*
  *======================================================================================*/
 
@@ -89,7 +89,7 @@ if( $argc < 5 )
 				."<Input SQL database DSN> "
 	// MySQLi://user:pass@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist
 				."<Output SQL database DSN> "
-	// eurisco
+	// grin
 				."<Output SQL database table> "
 	// mongodb://localhost:27017/BIOVERSITY
 				."<mongo database DSN> "
@@ -110,55 +110,7 @@ $class = 'OntologyWrapper\Accession';
 //
 // Init base query.
 //
-$base_query = <<<EOT
-select
-	`eurisco_itw`.`accessions`.`ID` AS `ID`,
-	`eurisco_itw`.`accessions`.`InventoryCode` AS `NICODE`,
-	`eurisco_itw`.`accessions`.`HoldingInstituteCode` AS `INSTCODE`,
-	`eurisco_itw`.`taxa`.`Genus` AS `COLLECTION`,
-	`eurisco_itw`.`accessions`.`AccessionNumber` AS `ACCENUMB`,
-	`eurisco_itw`.`accessions`.`CollectingNumber` AS `COLLNUMB`,
-	`eurisco_itw`.`accessions`.`CollectingInstituteCode` AS `COLLCODE`,
-	`eurisco_itw`.`taxa`.`Genus` AS `GENUS`,
-	`eurisco_itw`.`taxa`.`Species` AS `SPECIES`,
-	`eurisco_itw`.`taxa`.`SpeciesAuthor` AS `SPAUTHOR`,
-	`eurisco_itw`.`taxa`.`InfraspeciesEpithet` AS `SUBTAXA`,
-	`eurisco_itw`.`taxa`.`InfraspeciesAuthor` AS `SUBTAUTHOR`,
-	`eurisco_itw`.`accessions`.`CropNames` AS `CROPNAME`,
-	`eurisco_itw`.`accessions`.`AccessionNames` AS `ACCENAME`,
-	`eurisco_itw`.`accessions`.`AcquisitionDate` AS `ACQDATE`,
-	`ancillary`.`code_iso_3166`.`ISO3` AS `ORIGCTY`,
-	`eurisco_itw`.`accessions`.`CollectingLocality` AS `COLLSITE`,
-	`eurisco_itw`.`accessions`.`ProvidedLatitude` AS `LATITUDE`,
-	`eurisco_itw`.`accessions`.`CollectingLatitude` AS `LATITUDED`,
-	`eurisco_itw`.`accessions`.`ProvidedLongitude` AS `LONGITUDE`,
-	`eurisco_itw`.`accessions`.`CollectingLongitude` AS `LONGITUDED`,
-	IF( `eurisco_itw`.`accessions`.`CollectingLatitudeError` > 0,
-		`eurisco_itw`.`accessions`.`CollectingLatitudeError` * 111034,
-		NULL ) AS `ERROR`,
-	`eurisco_itw`.`accessions`.`CollectingElevation` AS `ELEVATION`,
-	`eurisco_itw`.`accessions`.`CollectingDate` AS `COLLDATE`,
-	`BREEDERS`.`InstituteCode` AS `BREDCODE`,
-	`eurisco_itw`.`accessions`.`BiologicalStatus` AS `SAMPSTAT`,
-	`eurisco_itw`.`accessions`.`Ancestors` AS `ANCEST`,
-	`eurisco_itw`.`accessions`.`AcquisitionSource` AS `COLLSRC`,
-	`DONORS`.`InstituteCode` AS `DONORCODE`,
-	`DONORS`.`Number` AS `DONORNUMB`,
-	`eurisco_itw`.`accessions`.`OTHERNUMB` AS `OTHERNUMB`,
-	`eurisco_itw`.`accessions`.`DUPLSITE` AS `DUPLSITE`,
-	group_concat(`eurisco_itw`.`accession_storage`.`Storage` separator ',') AS `STORAGE`,
-	`eurisco_itw`.`accessions`.`REMARKS` AS `REMARKS`,
-	`eurisco_itw`.`accessions`.`Collectors` AS `COLLDESCR`,
-	`BREEDERS`.`Name` AS `BREDDESCR`,
-	`DONORS`.`Name` AS `DONORDESCR`,
-	`eurisco_itw`.`accessions`.`DUPLDESCR` AS `DUPLDESCR`,
-	`eurisco_itw`.`accessions`.`URL` AS `ACCEURL`,
-	`eurisco_itw`.`accessions`.`MLSSTAT` AS `MLSSTAT`,
-	`eurisco_itw`.`accessions`.`AEGISSTAT` AS `AEGISSTAT`,
-	`eurisco_itw`.`accessions`.`DateOfLastChange` AS `DateOfLastChange`
-from
-	(((((`eurisco_itw`.`accessions` left join `eurisco_itw`.`holdings` `BREEDERS` on((`BREEDERS`.`ID` = `eurisco_itw`.`accessions`.`BreederID`))) left join `eurisco_itw`.`holdings` `DONORS` on((`DONORS`.`ID` = `eurisco_itw`.`accessions`.`DonorID`))) left join `eurisco_itw`.`taxa` on((`eurisco_itw`.`taxa`.`ID` = `eurisco_itw`.`accessions`.`TaxonID`))) left join `ancillary`.`code_iso_3166` on((`ancillary`.`code_iso_3166`.`Code` = `eurisco_itw`.`accessions`.`CountryOrigin`))) left join `eurisco_itw`.`accession_storage` on((`eurisco_itw`.`accession_storage`.`AccessionID` = `eurisco_itw`.`accessions`.`ID`))) group by `eurisco_itw`.`accessions`.`ID`
-EOT;
+$base_query = "SELECT * from `grin_acc`";
 
 //
 // Load arguments.
@@ -173,7 +125,7 @@ $last = ( $argc > 6 ) ? $argv[ 6 ] : NULL;
 //
 // Inform.
 //
-echo( "\n==> Loading EURISCO into $table.\n" );
+echo( "\n==> Loading GRIN into $table.\n" );
 
 //
 // Try.
@@ -277,7 +229,7 @@ try
 	$query = $base_query;
 	if( $last !== NULL )
 		$query .= " WHERE `ID` > $last";
-	$query .= " ORDER BY `eurisco_itw`.`accessions`.`ID` LIMIT $start,$limit";
+	$query .= " ORDER BY `ID` LIMIT $start,$limit";
 	$rs = $dc_in->execute( $query );
 	while( $rs->RecordCount() )
 	{
@@ -366,7 +318,7 @@ try
 		$query = $base_query;
 		if( $last !== NULL )
 			$query .= " WHERE `ID` > $last";
-		$query .= " ORDER BY `eurisco_itw`.`accessions`.`ID` LIMIT $start,$limit";
+		$query .= " ORDER BY `ID` LIMIT $start,$limit";
 		$rs = $dc_in->execute( $query );
 	
 	} // Records left.
@@ -431,16 +383,23 @@ finally
 		//
 		// Set dataset.
 		//
-		$theObject->offsetSet( getTag( ':inventory:dataset' ), 'EURISCO' );
+		$theObject->offsetSet( getTag( ':inventory:dataset' ), 'GRIN' );
 		
 		//
 		// Set version.
 		//
-		if( array_key_exists( 'DateOfLastChange', $theData ) )
+		if( array_key_exists( 'Stamp', $theData ) )
 			$theObject->offsetSet( kTAG_VERSION,
-								   substr( $theData[ 'DateOfLastChange' ], 0, 4 )
-								  .substr( $theData[ 'DateOfLastChange' ], 5, 2 )
-								  .substr( $theData[ 'DateOfLastChange' ], 8, 2 ) );
+								   substr( $theData[ 'Stamp' ], 0, 4 )
+								  .substr( $theData[ 'Stamp' ], 5, 2 )
+								  .substr( $theData[ 'Stamp' ], 8, 2 ) );
+		
+		//
+		// Set Genesys ID.
+		//
+		if( array_key_exists( 'ALIS_ID', $theData ) )
+			$theObject->offsetSet( ':inventory:GENESYS',
+								   (string) $theData[ 'ALIS_ID' ] );
 		
 		//
 		// Set holding institute.
@@ -455,8 +414,7 @@ finally
 		//
 		// Set National inventory code.
 		//
-		$theObject->offsetSet( ':inventory:NICODE',
-								$theData[ 'NICODE' ] );
+		$theObject->offsetSet( ':inventory:NICODE', 'USA' );
 		
 		//
 		// Set holding institute code.
@@ -474,20 +432,8 @@ finally
 		// Set accession name.
 		//
 		if( array_key_exists( 'ACCENAME', $theData ) )
-		{
-			$tmp = Array();
-			foreach( explode( ',', $theData[ 'ACCENAME' ] ) as $item )
-			{
-				$item = trim( $item );
-				if( strlen( $item ) )
-				{
-					if( ! in_array( $item, $tmp ) )
-						$tmp[] = $item;
-				}
-			}
-			if( count( $tmp ) )
-				$theObject->offsetSet( 'mcpd:ACCENAME', $tmp );
-		}
+			$theObject->offsetSet( 'mcpd:ACCENAME',
+								   array( $theData[ 'ACCENAME' ] ) );
 		
 		//
 		// Set other accession identifiers.
@@ -551,21 +497,34 @@ finally
 		//
 		// Set taxon epithet.
 		//
-		$tmp = $theData[ 'GENUS' ];
-		if( array_key_exists( 'SPECIES', $theData ) )
-			$tmp .= (' '.$theData[ 'SPECIES' ]);
-		if( array_key_exists( 'SUBTAXA', $theData ) )
-			$tmp .= (' '.$theData[ 'SUBTAXA' ]);
-		if( strlen( $tmp ) )
-			$theObject->offsetSet( ':taxon:epithet', $tmp );
+		if( array_key_exists( 'TAXON', $theData ) )
+			$theObject->offsetSet( ':taxon:epithet',
+								   $theData[ 'TAXON' ] );
+		
+		//
+		// Set taxon reference.
+		//
+		if( array_key_exists( 'TAXREF', $theData ) )
+			$theObject->offsetSet( ':taxon:reference',
+								   'http://www.ars-grin.gov/cgi-bin/npgs/html/index.pl' );
+		
+		//
+		// Set taxon URL.
+		//
+		if( array_key_exists( 'TAXREF', $theData ) )
+			$theObject->offsetSet( ':taxon:url',
+								   $theData[ 'TAXREF' ] );
 		
 		//
 		// Set vernacular names.
 		//
 		if( array_key_exists( 'CROPNAME', $theData ) )
 		{
+			$name = html_entity_decode( $theData[ 'CROPNAME' ],
+										ENT_COMPAT | ENT_HTML401,
+										'UTF-8' );
 			$tmp = Array();
-			foreach( explode( ';', $theData[ 'CROPNAME' ] ) as $item )
+			foreach( explode( ';', $name ) as $item )
 			{
 				$item = trim( $item );
 				if( strlen( $item ) )
@@ -610,10 +569,15 @@ finally
 		//
 		if( array_key_exists( 'MLSSTAT', $theData ) )
 		{
-			if( $theData[ 'MLSSTAT' ] == '1' )
-				$theObject->offsetSet( 'mcpd:MLSSTAT', 'mcpd:MLSSTAT:1' );
-			if( $theData[ 'MLSSTAT' ] == '0' )
-				$theObject->offsetSet( 'mcpd:MLSSTAT', 'mcpd:MLSSTAT:0' );
+			switch( $theData[ 'MLSSTAT' ] )
+			{
+				case '0':
+					$theObject->offsetSet( 'mcpd:MLSSTAT', 'mcpd:MLSSTAT:0' );
+					break;
+				case '1':
+					$theObject->offsetSet( 'mcpd:MLSSTAT', 'mcpd:MLSSTAT:1' );
+					break;
+			}
 		}
 		
 		//
@@ -621,10 +585,15 @@ finally
 		//
 		if( array_key_exists( 'AEGISSTAT', $theData ) )
 		{
-			if( $theData[ 'AEGISSTAT' ] == '1' )
-				$theObject->offsetSet( 'mcpd:AEGISSTAT', 'mcpd:AEGISSTAT:1' );
-			if( $theData[ 'AEGISSTAT' ] == '0' )
-				$theObject->offsetSet( 'mcpd:AEGISSTAT', 'mcpd:AEGISSTAT:0' );
+			switch( $theData[ 'AEGISSTAT' ] )
+			{
+				case '0':
+					$theObject->offsetSet( 'mcpd:AEGISSTAT', 'mcpd:AEGISSTAT:0' );
+					break;
+				case '1':
+					$theObject->offsetSet( 'mcpd:AEGISSTAT', 'mcpd:AEGISSTAT:1' );
+					break;
+			}
 		}
 		
 		//
@@ -632,10 +601,15 @@ finally
 		//
 		if( array_key_exists( 'AVAILABLE', $theData ) )
 		{
-			if( $theData[ 'AVAILABLE' ] == '1' )
-				$theObject->offsetSet( 'mcpd:AVAILABLE', 'mcpd:AVAILABLE:1' );
-			if( $theData[ 'AVAILABLE' ] == '0' )
-				$theObject->offsetSet( 'mcpd:AVAILABLE', 'mcpd:AVAILABLE:0' );
+			switch( $theData[ 'AVAILABLE' ] )
+			{
+				case '0':
+					$theObject->offsetSet( 'mcpd:AVAILABLE', 'mcpd:AVAILABLE:0' );
+					break;
+				case '1':
+					$theObject->offsetSet( 'mcpd:AVAILABLE', 'mcpd:AVAILABLE:1' );
+					break;
+			}
 		}
 		
 		//
@@ -730,10 +704,95 @@ finally
 		//
 		if( array_key_exists( 'ORIGCTY', $theUnit ) )
 		{
-			if( $tmp
-					= OntologyWrapper\Term::ResolveCountryCode(
-							$theWrapper, $theUnit[ 'ORIGCTY' ] ) )
-				$theContainer[ getTag( ':location:country' ) ] = $tmp;
+			switch( $theUnit[ 'ORIGCTY' ] )
+			{
+				case '001':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:002";
+					break;
+				case '002':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:ARB";
+					break;
+				case '003':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:142";
+					break;
+				case '004':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:AMI";
+					break;
+				case '006':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:BWI";
+					break;
+				case '007':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:013";
+					break;
+				case '008':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:151";
+					break;
+				case '009':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:150";
+					break;
+				case '012':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:FEA";
+					break;
+				case '014':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:IDC";
+					break;
+				case '015':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:KOR";
+					break;
+				case '017':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:AMD";
+					break;
+				case '018':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:MES";
+					break;
+				case '019':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:NGN";
+					break;
+				case '020':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:015";
+					break;
+				case '023':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:APL";
+					break;
+				case '024':
+					$theContainer[ getTag( ':location:country' ) ] = "iso:3166:3:alpha-3:RHO";
+					break;
+				case '025':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:RUR";
+					break;
+				case '026':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:SOM";
+					break;
+				case '027':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:005";
+					break;
+				case '029':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:035";
+					break;
+				case '030':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:039";
+					break;
+				case '031':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:TUR";
+					break;
+				case '034':
+					$theContainer[ getTag( ':location:country' ) ] = "iso:3166:1:alpha-3:NGA";
+					break;
+				case '036':
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:location:145";
+					break;
+				case '037':
+					$theContainer[ getTag( ':location:country' ) ] = "iso:3166:3:alpha-3:SUN";
+					$theContainer[ getTag( ':location:admin' ) ] = "iso:3166:2:RU-MOS";
+					break;
+				
+				default:
+					if( $tmp
+							= OntologyWrapper\Term::ResolveCountryCode(
+									$theWrapper, $theUnit[ 'ORIGCTY' ] ) )
+						$theContainer[ getTag( ':location:country' ) ] = $tmp;
+					break;
+			}
 		}
 								
 		//
@@ -859,14 +918,14 @@ finally
 		$sub = Array();
 
 		//
-		// Set COLLCODE.
+		// Set BREDCODE.
 		//
 		if( array_key_exists( 'BREDCODE', $theUnit ) )
 			$sub[ getTag( 'mcpd:BREDCODE' ) ]
 				= $theUnit[ 'BREDCODE' ];
 
 		//
-		// Set COLLDESCR.
+		// Set BREDDESCR.
 		//
 		if( array_key_exists( 'BREDDESCR', $theUnit ) )
 		{

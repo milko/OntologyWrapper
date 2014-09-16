@@ -278,11 +278,13 @@ try
 			// Save record.
 			//
 			$xml = $object->export( 'xml' );
-			$insert = "REPLACE INTO `$table`( "
-					 ."`id`, `class`, `xml` ) VALUES( "
-					 .'0x'.bin2hex( (string) $record[ 'ID' ] ).', '
-					 .'0x'.bin2hex( get_class( $object ) ).', '
-					 .'0x'.bin2hex( $xml->asXML() ).' )';
+			$insert = ( $last === NULL )
+					? "INSERT INTO `$table`( "
+					: "REPLACE INTO `$table`( ";
+			$insert .= ("`id`, `class`, `xml` ) VALUES( "
+					   .'0x'.bin2hex( (string) $record[ 'ID' ] ).', '
+					   .'0x'.bin2hex( get_class( $object ) ).', '
+					   .'0x'.bin2hex( $xml->asXML() ).' )');
 			$dc_out->Execute( $insert );
 			
 		} // Iterating page.
@@ -377,6 +379,22 @@ finally
 		// Set dataset.
 		//
 		$theObject->offsetSet( getTag( ':inventory:dataset' ), 'SINGER' );
+		
+		//
+		// Set version.
+		//
+		if( array_key_exists( 'Stamp', $theData ) )
+			$theObject->offsetSet( kTAG_VERSION,
+								   substr( $theData[ 'Stamp' ], 0, 4 )
+								  .substr( $theData[ 'Stamp' ], 5, 2 )
+								  .substr( $theData[ 'Stamp' ], 8, 2 ) );
+		
+		//
+		// Set Genesys ID.
+		//
+		if( array_key_exists( 'AlisID', $theData ) )
+			$theObject->offsetSet( ':inventory:GENESYS',
+								   (string) $theData[ 'AlisID' ] );
 		
 		//
 		// Set holding institute.
@@ -926,9 +944,11 @@ finally
 				 || array_key_exists( 'CooperatorEntityType', $data ) )
 				{
 					$tmp = Array();
-					if( array_key_exists( 'CooperatorType', $data ) )
+					if( array_key_exists( 'CooperatorType', $data )
+					 && ($data[ 'CooperatorType' ] != '999') )
 						$tmp[] = ':type:entity:'.$data[ 'CooperatorType' ];
 					if( array_key_exists( 'CooperatorEntityType', $data )
+					 && ($data[ 'CooperatorEntityType' ] != '999')
 					 && (! in_array( ':type:entity:'.$data[ 'CooperatorEntityType' ],
 					 				 $tmp )) )
 						$tmp[] = ':type:entity:'.$data[ 'CooperatorEntityType' ];
@@ -1230,9 +1250,11 @@ finally
 					 || array_key_exists( 'CooperatorEntityType', $data ) )
 					{
 						$tmp = Array();
-						if( array_key_exists( 'CooperatorType', $data ) )
+						if( array_key_exists( 'CooperatorType', $data )
+						 && ($data[ 'CooperatorType' ] != '999') )
 							$tmp[] = ':type:entity:'.$data[ 'CooperatorType' ];
 						if( array_key_exists( 'CooperatorEntityType', $data )
+						 && ($data[ 'CooperatorEntityType' ] != '999')
 						 && (! in_array( ':type:entity:'.$data[ 'CooperatorEntityType' ],
 										 $tmp )) )
 							$tmp[] = ':type:entity:'.$data[ 'CooperatorEntityType' ];
@@ -1398,9 +1420,11 @@ finally
 				 || array_key_exists( 'CooperatorEntityType', $data ) )
 				{
 					$tmp = Array();
-					if( array_key_exists( 'CooperatorType', $data ) )
+					if( array_key_exists( 'CooperatorType', $data )
+					 && ($data[ 'CooperatorType' ] != '999') )
 						$tmp[] = ':type:entity:'.$data[ 'CooperatorType' ];
 					if( array_key_exists( 'CooperatorEntityType', $data )
+					 && ($data[ 'CooperatorEntityType' ] != '999')
 					 && (! in_array( ':type:entity:'.$data[ 'CooperatorEntityType' ],
 					 				 $tmp )) )
 						$tmp[] = ':type:entity:'.$data[ 'CooperatorEntityType' ];

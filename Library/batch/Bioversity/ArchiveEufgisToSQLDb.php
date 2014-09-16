@@ -269,11 +269,13 @@ try
 			// Save record.
 			//
 			$xml = $object->export( 'xml' );
-			$insert = "REPLACE INTO `$table`( "
-					 ."`id`, `class`, `xml` ) VALUES( "
-					 .'0x'.bin2hex( (string) $record[ 'UnitID' ] ).', '
-					 .'0x'.bin2hex( get_class( $object ) ).', '
-					 .'0x'.bin2hex( $xml->asXML() ).' )';
+			$insert = ( $last === NULL )
+					? "INSERT INTO `$table`( "
+					: "REPLACE INTO `$table`( ";
+			$insert .= ("`id`, `class`, `xml` ) VALUES( "
+					   .'0x'.bin2hex( (string) $record[ 'UnitID' ] ).', '
+					   .'0x'.bin2hex( get_class( $object ) ).', '
+					   .'0x'.bin2hex( $xml->asXML() ).' )');
 			$dc_out->Execute( $insert );
 			
 		} // Iterating page.

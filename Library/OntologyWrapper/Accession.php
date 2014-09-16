@@ -534,7 +534,7 @@ class Accession extends UnitObject
 		// Check authority.
 		//
 		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
-			$this->offsetSet( kTAG_AUTHORITY, $this->offsetGet( ':inventory:INSTCODE' ) );
+			$this->offsetSet( kTAG_AUTHORITY, $this->offsetGet( 'mcpd:INSTCODE' ) );
 		
 		//
 		// Set taxon.
