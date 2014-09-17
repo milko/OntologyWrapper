@@ -505,8 +505,9 @@ finally
 		// Set taxon reference.
 		//
 		if( array_key_exists( 'TAXREF', $theData ) )
-			$theObject->offsetSet( ':taxon:reference',
-								   'http://www.ars-grin.gov/cgi-bin/npgs/html/index.pl' );
+			$theObject->offsetSet(
+				':taxon:reference',
+				array( 'http://www.ars-grin.gov/cgi-bin/npgs/html/index.pl' ) );
 		
 		//
 		// Set taxon URL.
