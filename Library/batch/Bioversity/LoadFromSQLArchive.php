@@ -93,6 +93,7 @@ if( $argc < 4 )
 //
 $start = 0;
 $limit = 100;
+$page = 100;
 $dc = $dc_out = $rs = NULL;
 
 //
@@ -190,6 +191,7 @@ try
 	// Import.
 	//
 	echo( "  • Importing\n" );
+	$pages = $page;
 	$query = "SELECT * FROM `$table` LIMIT $start,$limit";
 	$rs = $dc->execute( $query );
 	while( $rs->RecordCount() )
@@ -222,7 +224,13 @@ try
 		//
 		// Inform.
 		//
-		echo( '.' );
+		if( ! $pages-- )
+		{
+			echo( $start + $limit );
+			$pages = $page;
+		}
+		else
+			echo( '.' );
 		
 		//
 		// Read next.

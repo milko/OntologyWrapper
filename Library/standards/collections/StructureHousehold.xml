@@ -61,10 +61,22 @@
 			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+	
+		<!-- abdh:STATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:STATE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 		
 		<!-- :location:admin-2 -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- abdh:DISTRICT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:DISTRICT</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -73,10 +85,22 @@
 			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+	
+		<!-- abdh:BLOCKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BLOCKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 		
 		<!-- :location:locality -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:locality</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- abdh:VILLAGE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:VILLAGE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
