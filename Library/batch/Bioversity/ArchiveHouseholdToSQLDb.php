@@ -2218,6 +2218,18 @@ finally
 				if( count( $sub ) )
 					$theContainer[ getTag( 'abdh:economy:water' ) ]
 						= $sub;
+				
+				//
+				// Load housing data.
+				//
+				$sub = Array();
+				loadEconomyHousing( $sub,
+									$data,
+									$theWrapper,
+									$theDatabase );
+				if( count( $sub ) )
+					$theContainer[ getTag( 'abdh:economy:housing' ) ]
+						= $sub;
 			}
 		}
 
@@ -2793,8 +2805,126 @@ finally
 		setEnum( $sub, $theUnit,
 				 'TAANKA_WHO', 'abdh:TAANKA_WHO',
 				 array( '1', '2', '3' ) );
+		
+		// No mdata for GLR.
 
 	} // loadEconomyWater.
+	
+
+	/**
+	 * Load housing data.
+	 *
+	 * This function will load the housing data related to the provided
+	 * <b>$theUnit</b> parameter into the container provided in the <b>$theContainer</b>
+	 * parameter.
+	 *
+	 * Note that the container is a non-list structure and the provided record holds the
+	 * actual data.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadEconomyHousing( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set main residence floor.
+		//
+		setEnumSet( $sub, $theUnit,
+					'Q6.1a', 'abdh:Q6.1a',
+					Array(),
+					array( '0' ) );
+		setEnumSet( $sub, $theUnit,
+					'Q6.1b', 'abdh:Q6.1a',
+					Array(),
+					array( '0' ) );
+		setEnumSet( $sub, $theUnit,
+					'Q6.1c', 'abdh:Q6.1a',
+					Array(),
+					array( '0' ) );
+		// No data for abdh:Q6.1b.
+
+		//
+		// Set main residence wall.
+		//
+		setEnumSet( $sub, $theUnit,
+					'Q6.2a', 'abdh:Q6.2a',
+					Array(),
+					array( '0' ) );
+		setEnumSet( $sub, $theUnit,
+					'Q6.2b', 'abdh:Q6.2a',
+					Array(),
+					array( '0' ) );
+
+		//
+		// Set main residence roof.
+		//
+		setEnumSet( $sub, $theUnit,
+					'Q6.3a', 'abdh:Q6.3a',
+					Array(),
+					array( '0' ) );
+		if( array_key_exists( 'Q6.3b', $theUnit ) )
+		{
+			$tag = getTag( 'abdh:Q6.3b' )
+			switch( $value = $theUnit[ 'Q6.3b' ] )
+			{
+				case 'R,C;C':
+					if( ! array_key_exists( $tag, $theContainer ) )
+						$theContainer[ $tag ] = Array();
+					if( ! array_key_exists( 'R,C', $theContainer[ $tag ] ) )
+						$theContainer[ $tag ][] = 'R,C';
+					if( ! array_key_exists( 'C', $theContainer[ $tag ] ) )
+						$theContainer[ $tag ][] = 'C';
+					break;
+				case 'STONE':
+					if( ! array_key_exists( $tag, $theContainer ) )
+						$theContainer[ $tag ] = Array();
+					if( ! array_key_exists( 'STONE', $theContainer[ $tag ] ) )
+						$theContainer[ $tag ][] = 'STONE';
+					break;
+				default:
+					setEnumSet( $sub, $theUnit,
+								'Q6.3b', 'abdh:Q6.3a',
+								Array(),
+								array( '0' ) );
+					break;
+			}
+		}
+
+		//
+		// Set electricity.
+		//
+		setEnum( $sub, $theUnit,
+				 'Q6.4', 'abdh:Q6.4',
+				 Array(),
+				 array( '-1' ) );
+
+		//
+		// Set electricity source.
+		//
+		if( array_key_exists( 'Q6.5a', $theUnit ) )
+		{
+			$tag = getTag( 'abdh:Q6.5b' )
+			switch( $value = $theUnit[ 'Q6.5a' ] )
+			{
+				case 'POWER COMPANY':
+					if( ! array_key_exists( $tag, $theContainer ) )
+						$theContainer[ $tag ] = Array();
+					if( ! array_key_exists( 'POWER COMPANY', $theContainer[ $tag ] ) )
+						$theContainer[ $tag ][] = 'POWER COMPANY';
+					break;
+				default:
+					setEnumSet( $sub, $theUnit,
+								'Q6.5a', 'abdh:Q6.5a',
+								Array(),
+								array( '0' ) );
+					break;
+			}
+		}
+		// No data for Q6.5b.
+
+	} // loadEconomyHousing.
 	
 
 	/**

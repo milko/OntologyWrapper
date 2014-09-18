@@ -3062,7 +3062,7 @@
 			<item const="kTAG_TERMS">
 				<item>abdh:Q6.1a</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text-03</item>
@@ -3255,7 +3255,7 @@
 			<item const="kTAG_TERMS">
 				<item>abdh:Q6.2a</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text-03</item>
