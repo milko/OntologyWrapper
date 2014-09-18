@@ -273,8 +273,6 @@ try
 			// Validate object.
 			//
 			$object->validate();
-print_r( $object->getArrayCopy() );
-exit;
 			
 			//
 			// Save record.
@@ -580,7 +578,10 @@ finally
 				//
 				// Set household head spouse status.
 				//
-				if( array_key_exists( 'SPOUSE_STAT', $data ) )
+				if( array_key_exists( 'SPOUSE_STAT', $data )
+				 && ( ($data[ 'SPOUSE_STAT' ] == '1')
+				   || ($data[ 'SPOUSE_STAT' ] == '2')
+				   || ($data[ 'SPOUSE_STAT' ] == '3') ) )
 					$sub[ getTag( 'abdh:SPOUSE_STAT' ) ]
 						= 'abdh:SPOUSE_STAT:'.$data[ 'SPOUSE_STAT' ];
 			
@@ -619,7 +620,8 @@ finally
 				//
 				if( array_key_exists( 'LAT', $data ) )
 				{
-					$sub[ getTag( 'abdh:LAT' ) ] = $data[ 'LAT' ];
+					$sub[ getTag( ':location:site:latitude:provided' ) ]
+						= $data[ 'LAT' ];
 					if( array_key_exists( 'LATITUDE', $data ) )
 						$sub[ getTag( ':location:site:latitude' ) ]
 							= (double) $data[ 'LATITUDE' ];
@@ -642,7 +644,8 @@ finally
 				//
 				if( array_key_exists( 'LONG', $data ) )
 				{
-					$sub[ getTag( 'abdh:LONG' ) ] = $data[ 'LONG' ];
+					$sub[ getTag( ':location:site:longitude:provided' ) ]
+						= $data[ 'LONG' ];
 					if( array_key_exists( 'LONGITUDE', $data ) )
 						$sub[ getTag( ':location:site:longitude' ) ]
 							= (double) $data[ 'LONGITUDE' ];
@@ -664,12 +667,8 @@ finally
 				// Set elevation.
 				//
 				if( array_key_exists( 'ELEV', $data ) )
-				{
-					$sub[ getTag( 'abdh:ELEV' ) ]
-						= (int) $data[ 'ELEV' ];
 					$sub[ getTag( ':location:site:elevation' ) ]
 						= (int) $data[ 'ELEV' ];
-				}
 		
 				//
 				// Load record.
@@ -768,7 +767,8 @@ finally
 				//
 				// Set species category.
 				//
-				$sub[ getTag( 'abdh:SPECIES_CAT' ) ] = 'SPECIES_CAT:1';
+				$sub[ getTag( 'abdh:SPECIES_CAT' ) ]
+					= 'abdh:SPECIES_CAT:1';
 			
 				//
 				// Set year.
@@ -845,9 +845,10 @@ finally
 				//
 				// Set where was species grown.
 				//
-				if( array_key_exists( 'Q2.1a', $data ) )
+				if( array_key_exists( 'Q2.1a', $data )
+				 && ($data[ 'Q2.1a' ] != '0') )
 				{
-					$sub[ getTag( 'abdh:Q2.2a' ) ]
+					$sub[ getTag( 'abdh:Q1a' ) ]
 						= array( 'abdh:Q1a:'.$data[ 'Q2.1a' ] );
 					// No data for abdh:Q1b.
 				}
@@ -855,7 +856,8 @@ finally
 				//
 				// Set which season species grown.
 				//
-				if( array_key_exists( 'Q2.2a', $data ) )
+				if( array_key_exists( 'Q2.2a', $data )
+				 && ($data[ 'Q2.2a' ] != '0') )
 				{
 					$sub[ getTag( 'abdh:Q2.2a' ) ]
 						= array( 'abdh:Q2.2a:'.$data[ 'Q2.2a' ] );
@@ -866,13 +868,15 @@ finally
 				// Set where was species grown.
 				//
 				$tmp = Array();
-				if( array_key_exists( 'Q2.3a', $data ) )
+				if( array_key_exists( 'Q2.3a', $data )
+				 && ($data[ 'Q2.3a' ] != '0') )
 				{
 					$val = 'abdh:Q2a:'.$data[ 'Q2.3a' ];
 					if( ! in_array( $val, $tmp ) )
 						$tmp[] = $val;
 				}
-				if( array_key_exists( 'Q2.3b', $data ) )
+				if( array_key_exists( 'Q2.3b', $data )
+				 && ($data[ 'Q2.3b' ] != '0') )
 				{
 					$val = 'abdh:Q2a:'.$data[ 'Q2.3b' ];
 					if( ! in_array( $val, $tmp ) )
@@ -885,7 +889,8 @@ finally
 				//
 				// Cropping practice.
 				//
-				if( array_key_exists( 'Q2.4a', $data ) )
+				if( array_key_exists( 'Q2.4a', $data )
+				 && ($data[ 'Q2.4a' ] != '0') )
 					$sub[ getTag( 'abdh:Q2.4a' ) ]
 						= 'abdh:Q2.4a:'.$data[ 'Q2.4a' ];
 				
@@ -899,7 +904,10 @@ finally
 				//
 				// Objectives of species production.
 				//
-				if( array_key_exists( 'Q2.5', $data ) )
+				if( array_key_exists( 'Q2.5', $data )
+				 && ( ($data[ 'Q2.5' ] == '1')
+				   || ($data[ 'Q2.5' ] == '2')
+				   || ($data[ 'Q2.5' ] == '3') ) )
 					$sub[ getTag( 'abdh:Q3' ) ]
 						= 'abdh:Q3:'.$data[ 'Q2.5' ];
 				
@@ -921,31 +929,36 @@ finally
 				// Plant parts used.
 				//
 				$tmp = Array();
-				if( array_key_exists( 'Q2.8a', $data ) )
+				if( array_key_exists( 'Q2.8a', $data )
+				 && ($data[ 'Q2.8a' ] != '0') )
 				{
 					$val = 'abdh:Q4a:'.$data[ 'Q2.8a' ];
 					if( ! in_array( $val, $tmp ) )
 						$tmp[] = $val;
 				}
-				if( array_key_exists( 'Q2.8b', $data ) )
+				if( array_key_exists( 'Q2.8b', $data )
+				 && ($data[ 'Q2.8b' ] != '0') )
 				{
 					$val = 'abdh:Q4a:'.$data[ 'Q2.8b' ];
 					if( ! in_array( $val, $tmp ) )
 						$tmp[] = $val;
 				}
-				if( array_key_exists( 'Q2.8c', $data ) )
+				if( array_key_exists( 'Q2.8c', $data )
+				 && ($data[ 'Q2.8c' ] != '0') )
 				{
 					$val = 'abdh:Q4a:'.$data[ 'Q2.8c' ];
 					if( ! in_array( $val, $tmp ) )
 						$tmp[] = $val;
 				}
-				if( array_key_exists( 'Q2.8d', $data ) )
+				if( array_key_exists( 'Q2.8d', $data )
+				 && ($data[ 'Q2.8d' ] != '0') )
 				{
 					$val = 'abdh:Q4a:'.$data[ 'Q2.8d' ];
 					if( ! in_array( $val, $tmp ) )
 						$tmp[] = $val;
 				}
-				if( array_key_exists( 'Q2.8e', $data ) )
+				if( array_key_exists( 'Q2.8e', $data )
+				 && ($data[ 'Q2.8e' ] != '0') )
 				{
 					$val = 'abdh:Q4a:'.$data[ 'Q2.8e' ];
 					if( ! in_array( $val, $tmp ) )
@@ -959,31 +972,36 @@ finally
 				// Plant specific used.
 				//
 				$tmp = Array();
-				if( array_key_exists( 'Q2.9a', $data ) )
+				if( array_key_exists( 'Q2.9a', $data )
+				 && ($data[ 'Q2.9a' ] != '0') )
 				{
 					$val = 'abdh:Q5a:'.$data[ 'Q2.9a' ];
 					if( ! in_array( $val, $tmp ) )
 						$tmp[] = $val;
 				}
-				if( array_key_exists( 'Q2.9b', $data ) )
+				if( array_key_exists( 'Q2.9b', $data )
+				 && ($data[ 'Q2.9b' ] != '0') )
 				{
 					$val = 'abdh:Q5a:'.$data[ 'Q2.9b' ];
 					if( ! in_array( $val, $tmp ) )
 						$tmp[] = $val;
 				}
-				if( array_key_exists( 'Q2.9c', $data ) )
+				if( array_key_exists( 'Q2.9c', $data )
+				 && ($data[ 'Q2.9c' ] != '0') )
 				{
 					$val = 'abdh:Q5a:'.$data[ 'Q2.9c' ];
 					if( ! in_array( $val, $tmp ) )
 						$tmp[] = $val;
 				}
-				if( array_key_exists( 'Q2.9d', $data ) )
+				if( array_key_exists( 'Q2.9d', $data )
+				 && ($data[ 'Q2.9d' ] != '0') )
 				{
 					$val = 'abdh:Q5a:'.$data[ 'Q2.9d' ];
 					if( ! in_array( $val, $tmp ) )
 						$tmp[] = $val;
 				}
-				if( array_key_exists( 'Q2.9e', $data ) )
+				if( array_key_exists( 'Q2.9e', $data )
+				 && ($data[ 'Q2.9e' ] != '0') )
 				{
 					$val = 'abdh:Q5a:'.$data[ 'Q2.9e' ];
 					if( ! in_array( $val, $tmp ) )
@@ -996,7 +1014,9 @@ finally
 				//
 				// Source of seed.
 				//
-				if( array_key_exists( 'Q2.10', $data ) )
+				if( array_key_exists( 'Q2.10', $data )
+				 && ( ($data[ 'Q2.10' ] == '1')
+				   || ($data[ 'Q2.10' ] == '2') ) )
 					$sub[ getTag( 'abdh:Q2.10' ) ]
 						= 'abdh:Q2.10:'.$data[ 'Q2.10' ];
 				
@@ -1004,7 +1024,8 @@ finally
 				// Seed obtained by who.
 				//
 				$tmp = Array();
-				if( array_key_exists( 'Q2.11a', $data ) )
+				if( array_key_exists( 'Q2.11a', $data )
+				 && ($data[ 'Q2.11a' ] != '0') )
 				{
 					$val = 'abdh:Q2.11a:'.$data[ 'Q2.11a' ];
 					if( ! in_array( $val, $tmp ) )
@@ -1041,7 +1062,9 @@ finally
 				//
 				// Source of seed outside of farm.
 				//
-				if( array_key_exists( 'Q2.12', $data ) )
+				if( array_key_exists( 'Q2.12', $data )
+				 && ($data[ 'Q2.12' ] != '0')
+				 && ($data[ 'Q2.12' ] != '5') )
 					$sub[ getTag( 'abdh:Q2.12' ) ]
 						= 'abdh:Q2.12:'.$data[ 'Q2.12' ];
 				
@@ -1049,7 +1072,8 @@ finally
 				// Seed transactions.
 				//
 				$tmp = Array();
-				if( array_key_exists( 'Q2.13a', $data ) )
+				if( array_key_exists( 'Q2.13a', $data )
+				 && ($data[ 'Q2.13a' ] != '0') )
 				{
 					$val = 'abdh:Q6a:'.$data[ 'Q2.13a' ];
 					if( ! in_array( $val, $tmp ) )
@@ -1086,14 +1110,17 @@ finally
 				//
 				// Seed to other farmers.
 				//
-				if( array_key_exists( 'Q2.14', $data ) )
+				if( array_key_exists( 'Q2.14', $data )
+				 && ( ($data[ 'Q2.14' ] == '0')
+				   || ($data[ 'Q2.14' ] == '1') ) )
 					$sub[ getTag( 'abdh:Q2.14' ) ]
 						= 'abdh:Q2.14:'.$data[ 'Q2.14' ];
 				
 				//
 				// Seed renewal.
 				//
-				if( array_key_exists( 'Q2.15a', $data ) )
+				if( array_key_exists( 'Q2.15a', $data )
+				 && ($data[ 'Q2.15a' ] != '0') )
 					$sub[ getTag( 'abdh:Q2.15a' ) ]
 						= 'abdh:Q2.15a:'.$data[ 'Q2.15a' ];
 				// No data for abdh:Q2.15b.
@@ -1122,9 +1149,76 @@ finally
 				//
 				// Want other varieties.
 				//
-				if( array_key_exists( 'Q2.19', $data ) )
+				if( array_key_exists( 'Q2.19', $data )
+				 && ( ($data[ 'Q2.19' ] == '0')
+				   || ($data[ 'Q2.19' ] == '1') ) )
 					$sub[ getTag( 'abdh:Q2.19' ) ]
 						= 'abdh:Q2.19:'.$data[ 'Q2.19' ];
+				
+				//
+				// If yes what types?
+				//
+				if( array_key_exists( 'Q2.20', $data )
+				 && ( ($data[ 'Q2.20' ] == '1')
+				   || ($data[ 'Q2.20' ] == '2')
+				   || ($data[ 'Q2.20' ] == '3') ) )
+					$sub[ getTag( 'abdh:Q2.20' ) ]
+						= 'abdh:Q2.20:'.$data[ 'Q2.20' ];
+				
+				//
+				// Who takes care of the species?
+				//
+				if( array_key_exists( 'Q2.21a', $data )
+				 && ($data[ 'Q2.21a' ] != '0') )
+					$sub[ getTag( 'abdh:Q7a' ) ]
+						= array( 'abdh:Q7a:'.$data[ 'Q2.21a' ] );
+				if( array_key_exists( 'Q2.21b', $data ) )
+					$sub[ getTag( 'abdh:Q7b' ) ]
+						= array( $data[ 'Q2.21b' ] );
+				
+				//
+				// Who takes decisions about seed planted?
+				//
+				if( array_key_exists( 'Q2.22a', $data )
+				 && ($data[ 'Q2.22a' ] != '0') )
+					$sub[ getTag( 'abdh:Q2.22a' ) ]
+						= array( 'abdh:Q2.22a:'.$data[ 'Q2.22a' ] );
+				if( array_key_exists( 'Q2.22b', $data ) )
+					$sub[ getTag( 'abdh:Q2.22b' ) ]
+						= array( $data[ 'Q2.22b' ] );
+				
+				//
+				// Who takes decisions about field management?
+				//
+				if( array_key_exists( 'Q2.23a', $data )
+				 && ($data[ 'Q2.23a' ] != '0') )
+					$sub[ getTag( 'abdh:Q8a' ) ]
+						= array( 'abdh:Q8a:'.$data[ 'Q2.23a' ] );
+				if( array_key_exists( 'Q2.23b', $data ) )
+					$sub[ getTag( 'abdh:Q8b' ) ]
+						= array( $data[ 'Q2.23b' ] );
+				
+				//
+				// Who takes decisions about consumption?
+				//
+				if( array_key_exists( 'Q2.24a', $data )
+				 && ($data[ 'Q2.24a' ] != '0') )
+					$sub[ getTag( 'abdh:Q2.24a' ) ]
+						= array( 'abdh:Q2.24a:'.$data[ 'Q2.24a' ] );
+				if( array_key_exists( 'Q2.24b', $data ) )
+					$sub[ getTag( 'abdh:Q2.24b' ) ]
+						= array( $data[ 'Q2.24b' ] );
+				
+				//
+				// Who takes decisions about marketing?
+				//
+				if( array_key_exists( 'Q2.25a', $data )
+				 && ($data[ 'Q2.25a' ] != '0') )
+					$sub[ getTag( 'abdh:Q2.25a' ) ]
+						= array( 'abdh:Q2.25a:'.$data[ 'Q2.25a' ] );
+				if( array_key_exists( 'Q2.25b', $data ) )
+					$sub[ getTag( 'abdh:Q2.25b' ) ]
+						= array( $data[ 'Q2.25b' ] );
 		
 				//
 				// Load record.
