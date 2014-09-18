@@ -64,5 +64,65 @@
 			<item const="kTAG_SUBJECT" node="tag">abdh:Q3</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+		
+		<!-- abdh:Q7a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q7b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q8a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q8a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q8b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q8b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q9a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q9a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q9b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q9b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q10a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q10a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q10b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q10b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q11a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q11a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:Q11b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q11b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	</META>
 </METADATA>
