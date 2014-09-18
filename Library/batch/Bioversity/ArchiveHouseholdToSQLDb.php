@@ -2718,7 +2718,7 @@ finally
 		//
 		// Set canals owner.
 		//
-		setEnum( $sub, $theUnit,
+		setEnum( $theContainer, $theUnit,
 				 'CAN_WHO', 'abdh:CAN_WHO',
 				 array( '1', '2', '3' ) );
 
@@ -2739,7 +2739,7 @@ finally
 		//
 		// Set open wells owner.
 		//
-		setEnum( $sub, $theUnit,
+		setEnum( $theContainer, $theUnit,
 				 'OWELL_WHO', 'abdh:OWELL_WHO',
 				 array( '1', '2', '3' ) );
 
@@ -2760,7 +2760,7 @@ finally
 		//
 		// Set bore wells owner.
 		//
-		setEnum( $sub, $theUnit,
+		setEnum( $theContainer, $theUnit,
 				 'BWELL_WHO', 'abdh:BWELL_WHO',
 				 array( '1', '2', '3' ) );
 
@@ -2781,7 +2781,7 @@ finally
 		//
 		// Set khadin owner.
 		//
-		setEnum( $sub, $theUnit,
+		setEnum( $theContainer, $theUnit,
 				 'KHADIN_WHO', 'abdh:KHADIN_WHO',
 				 array( '1', '2', '3' ) );
 
@@ -2802,7 +2802,7 @@ finally
 		//
 		// Set naadi owner.
 		//
-		setEnum( $sub, $theUnit,
+		setEnum( $theContainer, $theUnit,
 				 'TAANKA_WHO', 'abdh:TAANKA_WHO',
 				 array( '1', '2', '3' ) );
 		
@@ -2831,15 +2831,15 @@ finally
 		//
 		// Set main residence floor.
 		//
-		setEnumSet( $sub, $theUnit,
+		setEnumSet( $theContainer, $theUnit,
 					'Q6.1a', 'abdh:Q6.1a',
 					Array(),
 					array( '0' ) );
-		setEnumSet( $sub, $theUnit,
+		setEnumSet( $theContainer, $theUnit,
 					'Q6.1b', 'abdh:Q6.1a',
 					Array(),
 					array( '0' ) );
-		setEnumSet( $sub, $theUnit,
+		setEnumSet( $theContainer, $theUnit,
 					'Q6.1c', 'abdh:Q6.1a',
 					Array(),
 					array( '0' ) );
@@ -2848,11 +2848,11 @@ finally
 		//
 		// Set main residence wall.
 		//
-		setEnumSet( $sub, $theUnit,
+		setEnumSet( $theContainer, $theUnit,
 					'Q6.2a', 'abdh:Q6.2a',
 					Array(),
 					array( '0' ) );
-		setEnumSet( $sub, $theUnit,
+		setEnumSet( $theContainer, $theUnit,
 					'Q6.2b', 'abdh:Q6.2a',
 					Array(),
 					array( '0' ) );
@@ -2860,13 +2860,13 @@ finally
 		//
 		// Set main residence roof.
 		//
-		setEnumSet( $sub, $theUnit,
+		setEnumSet( $theContainer, $theUnit,
 					'Q6.3a', 'abdh:Q6.3a',
 					Array(),
-					array( '0' ) );
+					array( '0', '5' ) );
 		if( array_key_exists( 'Q6.3b', $theUnit ) )
 		{
-			$tag = getTag( 'abdh:Q6.3b' )
+			$tag = getTag( 'abdh:Q6.3b' );
 			switch( $value = $theUnit[ 'Q6.3b' ] )
 			{
 				case 'R,C;C':
@@ -2884,7 +2884,7 @@ finally
 						$theContainer[ $tag ][] = 'STONE';
 					break;
 				default:
-					setEnumSet( $sub, $theUnit,
+					setEnumSet( $theContainer, $theUnit,
 								'Q6.3b', 'abdh:Q6.3a',
 								Array(),
 								array( '0' ) );
@@ -2895,7 +2895,7 @@ finally
 		//
 		// Set electricity.
 		//
-		setEnum( $sub, $theUnit,
+		setEnum( $theContainer, $theUnit,
 				 'Q6.4', 'abdh:Q6.4',
 				 Array(),
 				 array( '-1' ) );
@@ -2905,17 +2905,17 @@ finally
 		//
 		if( array_key_exists( 'Q6.5a', $theUnit ) )
 		{
-			$tag = getTag( 'abdh:Q6.5b' )
 			switch( $value = $theUnit[ 'Q6.5a' ] )
 			{
-				case 'POWER COMPANY':
+				case 'P0WER COMPANY':
+					$tag = getTag( 'abdh:Q6.5b' );
 					if( ! array_key_exists( $tag, $theContainer ) )
 						$theContainer[ $tag ] = Array();
 					if( ! array_key_exists( 'POWER COMPANY', $theContainer[ $tag ] ) )
-						$theContainer[ $tag ][] = 'POWER COMPANY';
+						$theContainer[ $tag ][] = $value;
 					break;
 				default:
-					setEnumSet( $sub, $theUnit,
+					setEnumSet( $theContainer, $theUnit,
 								'Q6.5a', 'abdh:Q6.5a',
 								Array(),
 								array( '0' ) );

@@ -10,7 +10,8 @@
 #
 # Init data dictionary.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Main.php
 
 #
 # Archive EUFGIS.

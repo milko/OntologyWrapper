@@ -1,10 +1,12 @@
 <?php
 
 /**
- * Base data initialisation procedure.
+ * Main data initialisation procedure.
  *
- * This file contains routines to initialise base data, which includes the default and major
- * standards.
+ * This file contains routines to initialise main data, which includes standards metadata
+ * and organisation units.
+ *
+ * <em>Note that this implies that you call InitBase.php before</em>.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
@@ -15,7 +17,7 @@
 
 /*=======================================================================================
  *																						*
- *									Init_Base.php										*
+ *									Init_Main.php										*
  *																						*
  *======================================================================================*/
 
@@ -77,11 +79,6 @@ try
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
 	//
-	// Drop metadata.
-	//
-	$meta->drop();
-	
-	//
 	// Set units.
 	//
 	echo( "  • Setting units.\n" );
@@ -90,22 +87,12 @@ try
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
 	//
-	// Drop units.
-	//
-	$units->drop();
-	
-	//
 	// Set entities.
 	//
 	echo( "  • Setting entities.\n" );
 	$entities = $wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
-	
-	//
-	// Drop entities.
-	//
-	$entities->drop();
 	
 	//
 	// Check graph database.
@@ -120,63 +107,47 @@ try
 			new OntologyWrapper\Neo4jGraph(
 				"neo4j://localhost:7474" ) );
 	
-		//
-		// Drop graph database.
-		//
-		echo( "  • Resetting graph.\n" );
-		$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
-	
 	} // Use graph database.
 	
 	//
-	// Reset ontology.
+	// Load standards.
 	//
-	$wrapper->resetOntology( TRUE );
+	$wrapper->loadStandards( TRUE );
 	
 	//
-	// Load ISO Standards.
+	// Load MCPD standards.
 	//
-	$wrapper->loadISOStandards( TRUE );
+	$wrapper->loadMCPDStandards( TRUE );
 	
 	//
-	// Load WBI Standards.
+	// Load FCU standards.
 	//
-	$wrapper->loadWBIStandards( TRUE );
+	$wrapper->loadFCUStandards( TRUE );
 	
 	//
-	// Load IUCN Standards.
+	// Load CWR standards.
 	//
-	$wrapper->loadIUCNStandards( TRUE );
+	$wrapper->loadCWRStandards( TRUE );
 	
 	//
-	// Load NaturalServe Standards.
+	// Load ABDH standards.
 	//
-	$wrapper->loadNatServeStandards( TRUE );
+	$wrapper->loadABDHStandards( TRUE );
 	
 	//
-	// Load FAO Standards.
+	// Load collections.
 	//
-	$wrapper->loadFAOStandards( TRUE );
+	$wrapper->loadCollections( TRUE );
 	
 	//
-	// Load EEC Standards.
+	// Reset units.
 	//
-	$wrapper->loadEECStandards( TRUE );
+	$wrapper->resetUnits( TRUE );
 	
 	//
-	// Load GENS Standards.
+	// Reset entities.
 	//
-	$wrapper->loadGENSStandards( TRUE );
-	
-	//
-	// Load GLOBCOV Standards.
-	//
-	$wrapper->loadGLOBCOVStandards( TRUE );
-	
-	//
-	// Load HWSD Standards.
-	//
-	$wrapper->loadHWSDStandards( TRUE );
+	$wrapper->resetEntities( TRUE );
 	
 	//
 	// Reset dictionary.
