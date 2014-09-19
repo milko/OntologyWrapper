@@ -5060,7 +5060,20 @@ $rs_units = & $rs_units[ 'result' ];
 			$offsets = array( 'score' => array( '$meta' => "textScore" ) );
 			foreach( UnitObject::ListOffsets( $this->offsetGet( kAPI_PARAM_DOMAIN ) )
 						as $offset )
-				$offsets[ (string) $this->mWrapper->getSerial( $offset ) ] = TRUE;
+			{
+				//
+				// Handle numeric offset.
+				//
+				if( is_int( $offset )
+				 || ctype_digit( $offset ) )
+					$offsets[ (string) $offset ] = TRUE;
+				
+				//
+				// Resolve offset.
+				//
+				else
+					$offsets[ (string) $this->mWrapper->getSerial( $offset ) ] = TRUE;
+			}
 			$pipeline[] = array( '$project' => $offsets );
 			
 			//
