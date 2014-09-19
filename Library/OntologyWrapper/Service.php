@@ -5029,7 +5029,10 @@ $rs_units = & $rs_units[ 'result' ];
 			foreach( $this->mFilter[ '$and' ] as $tmp )
 			{
 				if( $full_text = array_key_exists( '$text', $tmp ) )
+				{
+					$full_text = TRUE;
 					break;													// =>
+				}
 			}
 		}
 		
@@ -5083,8 +5086,10 @@ $rs_units = & $rs_units[ 'result' ];
 			//
 			// Set limits.
 			//
-			$iterator->skip( $skip );
-			$iterator->limit( $limit );
+			if( $skip !== NULL )
+				$iterator->skip( $skip );
+			if( $limit !== NULL )
+				$iterator->limit( $limit );
 			
 		} // Full text search.
 		

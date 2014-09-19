@@ -276,6 +276,8 @@ class ArrayCursorIterator extends ObjectIterator
 	 *
 	 * We slice the iterator.
 	 *
+	 * <em>Note that you <b>must</b> call this method <b>after</b> calling skip()</em>.
+	 *
 	 * @param integer				$theCount			Maximum number of iterations.
 	 *
 	 * @access public
@@ -289,31 +291,39 @@ class ArrayCursorIterator extends ObjectIterator
 		if( $theCount !== NULL )
 		{
 			//
-			// Get array.
+			// Check if needed.
 			//
-			$array = iterator_to_array( $this->mCursor );
+			if( $theCount < $this->count() )
+			{
+				//
+				// Get array.
+				//
+				$array = iterator_to_array( $this->mCursor );
 			
-			//
-			// Determine slice.
-			//
-			$delta = ((int) $theCount) - count( $array );
+				//
+				// Determine slice.
+				//
+				$delta = ((int) $theCount) - count( $array );
 		
-			//
-			// Slice.
-			//
-			if( $delta > 0 )
-				$array = array_slice( $array, (int) ($delta * -1), FALSE );
+				//
+				// Slice.
+				//
+				if( $delta > 0 )
+					$array = array_slice( $array, (int) ($delta * -1), FALSE );
 		
-			//
-			// Replace.
-			//
-			$this->mCursor = new \ArrayIterator( $array );
+				//
+				// Replace.
+				//
+				$this->mCursor = new \ArrayIterator( $array );
 			
-			//
-			// Set value.
-			//
-			$this->mLimit = (int) $theCount;
-		}
+				//
+				// Set value.
+				//
+				$this->mLimit = (int) $theCount;
+			
+			} // Limit is less than count.
+		
+		} // Has limit.
 		
 		return $this->mLimit;														// ==>
 	
