@@ -11,7 +11,7 @@
 # Init data dictionary.
 #
 #php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Main.php
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Main.php
 
 #
 # Archive EUFGIS.
@@ -25,10 +25,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Ini
 #
 # Load EUFGIS.
 #
-#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
-#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-#	"eufgis" \
-#	"mongodb://localhost:27017/BIOVERSITY"
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+	"eufgis" \
+	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Archive GRIN.

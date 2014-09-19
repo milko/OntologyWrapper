@@ -527,6 +527,17 @@ finally
 					 $theDatabase );
 		if( count( $sub ) )
 			$theObject->offsetSet( 'abdh:economy', $sub );
+		
+		//
+		// Load markets data.
+		//
+		$sub = Array();
+		loadMarket(	$sub,
+					$theData,
+					$theWrapper,
+					$theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( 'abdh:market', $sub );
 
 	} // loadUnit.
 	
@@ -2230,6 +2241,30 @@ finally
 				if( count( $sub ) )
 					$theContainer[ getTag( 'abdh:economy:housing' ) ]
 						= $sub;
+				
+				//
+				// Load ownership data.
+				//
+				$sub = Array();
+				loadEconomyOwnership( $sub,
+									  $data,
+									  $theWrapper,
+									  $theDatabase );
+				if( count( $sub ) )
+					$theContainer[ getTag( 'abdh:economy:ownership' ) ]
+						= $sub;
+				
+				//
+				// Load income data.
+				//
+				$sub = Array();
+				loadEconomyIncome( $sub,
+								   $data,
+								   $theWrapper,
+								   $theDatabase );
+				if( count( $sub ) )
+					$theContainer[ getTag( 'abdh:economy:income' ) ]
+						= $sub;
 			}
 		}
 
@@ -2925,6 +2960,553 @@ finally
 		// No data for Q6.5b.
 
 	} // loadEconomyHousing.
+	
+
+	/**
+	 * Load ownership data.
+	 *
+	 * This function will load the ownership data related to the provided
+	 * <b>$theUnit</b> parameter into the container provided in the <b>$theContainer</b>
+	 * parameter.
+	 *
+	 * Note that the container is a non-list structure and the provided record holds the
+	 * actual data.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadEconomyOwnership( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set bycicle.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.6a', 'abdh:Q6.6a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.6b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.6b' ) ]
+				= (int) $theUnit[ 'Q6.6b' ];
+
+		//
+		// Set motorbike.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.7a', 'abdh:Q6.7a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.7b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.7b' ) ]
+				= (int) $theUnit[ 'Q6.7b' ];
+
+		//
+		// Set car.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.8a', 'abdh:Q6.8a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.8b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.8b' ) ]
+				= (int) $theUnit[ 'Q6.8b' ];
+
+		//
+		// Set radio.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.9a', 'abdh:Q6.9a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.9b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.9b' ) ]
+				= (int) $theUnit[ 'Q6.9b' ];
+
+		//
+		// Set CD player.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.10a', 'abdh:Q6.10a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.10b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.10b' ) ]
+				= (int) $theUnit[ 'Q6.10b' ];
+
+		//
+		// Set television.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.11a', 'abdh:Q6.11a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.11b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.11b' ) ]
+				= (int) $theUnit[ 'Q6.11b' ];
+
+		//
+		// Set mobile.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.12a', 'abdh:Q6.12a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.12b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.12b' ) ]
+				= (int) $theUnit[ 'Q6.12b' ];
+
+		//
+		// Set fridge.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.13a', 'abdh:Q6.13a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.13b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.13b' ) ]
+				= (int) $theUnit[ 'Q6.13b' ];
+
+		//
+		// Set business vehicle.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.14a', 'abdh:Q6.14a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.14b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.14b' ) ]
+				= (int) $theUnit[ 'Q6.14b' ];
+
+		//
+		// Set paraffine stove.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.15a', 'abdh:Q6.15a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.15b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.15b' ) ]
+				= (int) $theUnit[ 'Q6.15b' ];
+
+		//
+		// Set gas cooker.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.16a', 'abdh:Q6.16a',
+				 array( '0', '1' ) );
+		if( array_key_exists( 'Q6.16b', $theUnit ) )
+			$theContainer[ getTag( 'abdh:Q6.16b' ) ]
+				= (int) $theUnit[ 'Q6.16b' ];
+
+	} // loadEconomyOwnership.
+	
+
+	/**
+	 * Load income data.
+	 *
+	 * This function will load the income data related to the provided
+	 * <b>$theUnit</b> parameter into the container provided in the <b>$theContainer</b>
+	 * parameter.
+	 *
+	 * Note that the container is a non-list structure and the provided record holds the
+	 * actual data.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadEconomyIncome( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set crop main income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'CROP_MAIN', 'abdh:CROP_MAIN',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'CROP_MAIN_WHOEARNS', 'abdh:CROP_MAIN_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'CROP_MAIN_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:CROP_MAIN_REV' ) ]
+				= (double) $theUnit[ 'CROP_MAIN_REV' ];
+		if( array_key_exists( 'CROP_MAIN_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:CROP_MAIN_TIME' ) ]
+				= (double) $theUnit[ 'CROP_MAIN_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'CROP_MAIN_TREND', 'abdh:CROP_MAIN_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set crop residues income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'CROP_RES', 'abdh:CROP_RES',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'CROP_RES_WHOEARNS', 'abdh:CROP_RES_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'CROP_RES_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:CROP_RES_REV' ) ]
+				= (double) $theUnit[ 'CROP_RES_REV' ];
+		if( array_key_exists( 'CROP_RES_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:CROP_RES_TIME' ) ]
+				= (double) $theUnit[ 'CROP_RES_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'CROP_RES_TREND', 'abdh:CROP_RES_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set other feeds or forages income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'FEEDS', 'abdh:FEEDS',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'FEEDS_WHOEARNS', 'abdh:FEEDS_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'FEEDS_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:FEEDS_REV' ) ]
+				= (double) $theUnit[ 'FEEDS_REV' ];
+		if( array_key_exists( 'FEEDS_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:FEEDS_TIME' ) ]
+				= (double) $theUnit[ 'FEEDS_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'FEEDS_TREND', 'abdh:FEEDS_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set livestock income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'LIVESTOCK', 'abdh:LIVESTOCK',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'LIVESTOCK_WHOEARNS', 'abdh:LIVESTOCK_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'LIVESTOCK_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:LIVESTOCK_REV' ) ]
+				= (double) $theUnit[ 'LIVESTOCK_REV' ];
+		if( array_key_exists( 'LIVESTOCK_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:LIVESTOCK_TIME' ) ]
+				= (double) $theUnit[ 'LIVESTOCK_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'LIVESTOCK_TREND', 'abdh:LIVESTOCK_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set livestock products income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'LIVESTOCKPROD', 'abdh:LIVESTOCKPROD',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'LIVESTOCKPROD_WHOEARNS', 'abdh:LIVESTOCKPROD_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'LIVESTOCKPROD_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:LIVESTOCKPROD_REV' ) ]
+				= (double) $theUnit[ 'LIVESTOCKPROD_REV' ];
+		if( array_key_exists( 'LIVESTOCKPROD_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:LIVESTOCKPROD_TIME' ) ]
+				= (double) $theUnit[ 'LIVESTOCKPROD_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'LIVESTOCKPROD_TREND', 'abdh:LIVESTOCKPROD_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set agricultural labour income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'AGLABOR', 'abdh:AGLABOR',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'AGLABOR_WHOEARNS', 'abdh:AGLABOR_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'AGLABOR_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:AGLABOR_REV' ) ]
+				= (double) $theUnit[ 'AGLABOR_REV' ];
+		if( array_key_exists( 'AGLABOR_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:AGLABOR_TIME' ) ]
+				= (double) $theUnit[ 'AGLABOR_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'AGLABOR_TREND', 'abdh:AGLABOR_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set non agricultural labour income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'NON_AGLABOR', 'abdh:NON_AGLABOR',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'NON_AGLABOR_WHOEARNS', 'abdh:NON_AGLABOR_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'NON_AGLABOR_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:NON_AGLABOR_REV' ) ]
+				= (double) $theUnit[ 'NON_AGLABOR_REV' ];
+		if( array_key_exists( 'NON_AGLABOR_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:NON_AGLABOR_TIME' ) ]
+				= (double) $theUnit[ 'NON_AGLABOR_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'NON_AGLABOR_TREND', 'abdh:NON_AGLABOR_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set regular employment income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'REG_EMPL', 'abdh:REG_EMPL',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'REG_EMPL_WHOEARNS', 'abdh:REG_EMPL_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'REG_EMPL_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:REG_EMPL_REV' ) ]
+				= (double) $theUnit[ 'REG_EMPL_REV' ];
+		if( array_key_exists( 'REG_EMPL_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:REG_EMPL_TIME' ) ]
+				= (double) $theUnit[ 'REG_EMPL_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'REG_EMPL_TREND', 'abdh:REG_EMPL_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set business self-employed income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'BUSS', 'abdh:BUSS',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'BUSS_WHOEARNS', 'abdh:BUSS_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'BUSS_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:BUSS_REV' ) ]
+				= (double) $theUnit[ 'BUSS_REV' ];
+		if( array_key_exists( 'BUSS_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:BUSS_TIME' ) ]
+				= (double) $theUnit[ 'BUSS_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'BUSS_TREND', 'abdh:BUSS_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set remittence income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'REMIT', 'abdh:REMIT',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'REMIT_WHOEARNS', 'abdh:REMIT_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'REMIT_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:REMIT_REV' ) ]
+				= (double) $theUnit[ 'REMIT_REV' ];
+		if( array_key_exists( 'REMIT_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:REMIT_TIME' ) ]
+				= (double) $theUnit[ 'REMIT_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'REMIT_TREND', 'abdh:REMIT_TREND',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set other income.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'OTHER', 'abdh:OTHER',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'OTHER_WHOEARNS', 'abdh:OTHER_WHOEARNS',
+				 array( '1', '2', '3' ) );
+		if( array_key_exists( 'OTHER_REV', $theUnit ) )
+			$theContainer[ getTag( 'abdh:OTHER_REV' ) ]
+				= (double) $theUnit[ 'OTHER_REV' ];
+		if( array_key_exists( 'OTHER_TIME', $theUnit ) )
+			$theContainer[ getTag( 'abdh:OTHER_TIME' ) ]
+				= (double) $theUnit[ 'OTHER_TIME' ];
+		setEnum( $theContainer, $theUnit,
+				 'OTHER_TREND', 'abdh:OTHER_TREND',
+				 array( '1', '2', '3' ) );
+
+	} // loadEconomyIncome.
+	
+
+	/**
+	 * Load market data.
+	 *
+	 * This function will load the market data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadMarket( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Init local storage.
+		//
+		$start = 0;
+		$limit = 100;
+		$identifier = $theUnit[ 'ID_HOUSEHOLD' ];
+		
+		//
+		// Select respondents.
+		//
+		$rs = $theDatabase->execute( "SELECT * FROM `abdh_market` "
+									."WHERE( `ID_HOUSEHOLD` = '$identifier' ) "
+									."LIMIT $start,$limit" );
+		while( $rs->RecordCount() )
+		{
+			//
+			// Iterate page.
+			//
+			foreach( $rs as $record )
+			{
+				//
+				// Scan record.
+				//
+				$data = Array();
+				foreach( $record as $key => $value )
+				{
+					//
+					// Normalise value.
+					//
+					if( strlen( trim( $value ) ) )
+						$data[ $key ] = trim( $value );
+			
+				} // Scanning record.
+			
+				//
+				// Skip empty records.
+				//
+				if( ! count( $data ) )
+					continue;													// =>
+				
+				//
+				// Init sub.
+				//
+				$sub = Array();
+			
+				//
+				// Set market name.
+				//
+				if( array_key_exists( 'NAME_MARKET', $data ) )
+					$sub[ getTag( 'abdh:NAME_MARKET' ) ] = $data[ 'NAME_MARKET' ];
+			
+				//
+				// Set market food.
+				//
+				setEnum( $sub, $data,
+						 'MARKET_FOOD', 'abdh:MARKET_FOOD',
+						 array( '1', '2', '3' ) );
+			
+				//
+				// Set market groceries.
+				//
+				setEnum( $sub, $data,
+						 'MARKET_GROCERIES', 'abdh:MARKET_GROCERIES',
+						 array( '1', '2', '3' ) );
+			
+				//
+				// Set market agriproducts.
+				//
+				setEnum( $sub, $data,
+						 'MARKET_AG_PRODUCTS', 'abdh:MARKET_AG_PRODUCTS',
+						 array( '1', '2', '3' ) );
+			
+				//
+				// Set market agrinputs.
+				//
+				setEnum( $sub, $data,
+						 'MARKET_AG_INPUTS', 'abdh:MARKET_AG_INPUTS',
+						 array( '1', '2', '3' ) );
+			
+				//
+				// Set market animals.
+				//
+				setEnum( $sub, $data,
+						 'MARKET_ANIMALS', 'abdh:MARKET_ANIMALS',
+						 array( '1', '2', '3' ) );
+				
+				// No data for other market products.
+			
+				//
+				// Set market transport.
+				//
+				$list = Array();
+				if( array_key_exists( 'TRANSP1', $data ) )
+				{
+					$value = $data[ 'TRANSP1' ];
+					if( $value != '0' )
+					{
+						if( ! in_array( $value, $list ) )
+							$list[] = $value;
+					}
+				}
+				if( array_key_exists( 'TRANSP2', $data ) )
+				{
+					$value = $data[ 'TRANSP2' ];
+					if( $value != '0' )
+					{
+						if( ! in_array( $value, $list ) )
+							$list[] = $value;
+					}
+				}
+				if( array_key_exists( 'TRANSP3', $data ) )
+				{
+					$value = $data[ 'TRANSP3' ];
+					if( $value != '0' )
+					{
+						if( ! in_array( $value, $list ) )
+							$list[] = $value;
+					}
+				}
+				if( count( $list ) )
+					$sub[ getTag( 'abdh:TRANSP' ) ] = $list;
+			
+				//
+				// Set market distance.
+				//
+				if( array_key_exists( 'DIST_MARKET', $data ) )
+					$sub[ getTag( 'abdh:DIST_MARKET' ) ]
+						= (double) $data[ 'DIST_MARKET' ];
+			
+				//
+				// Set market time.
+				//
+				if( array_key_exists( 'TIME_MARKET', $data ) )
+					$sub[ getTag( 'abdh:TIME_MARKET' ) ]
+						= (int) $data[ 'TIME_MARKET' ];
+			
+				//
+				// Set market frequency.
+				//
+				if( array_key_exists( 'FREQUENCY', $data ) )
+					$sub[ getTag( 'abdh:FREQUENCY' ) ]
+						= (int) $data[ 'FREQUENCY' ];
+		
+				//
+				// Load record.
+				//
+				$theContainer[] = $sub;
+			
+			} // Iterating page.
+		
+			//
+			// Close recordset.
+			//
+			$rs->Close();
+			$rs = NULL;
+		
+			//
+			// Read next.
+			//
+			$start += $limit;
+			$rs = $theDatabase->execute( "SELECT * FROM `abdh_market` "
+										."WHERE( `ID_HOUSEHOLD` = '$identifier' ) "
+										."LIMIT $start,$limit" );
+	
+		} // Records left.
+		
+		//
+		// Close iterator.
+		//
+		if( $rs instanceof ADORecordSet )
+			$rs->Close();
+
+	} // loadMarket.
 	
 
 	/**
