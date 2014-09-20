@@ -192,7 +192,7 @@ try
 	//
 	echo( "  • Importing\n" );
 	$pages = $page;
-	$query = "SELECT * FROM `$table` LIMIT $start,$limit";
+	$query = "SELECT * FROM `$table` ORDER BY `id` ASC LIMIT $start,$limit";
 	$rs = $dc->execute( $query );
 	while( $rs->RecordCount() )
 	{
@@ -236,7 +236,7 @@ try
 		// Read next.
 		//
 		$start += $limit;
-		$query = "SELECT * FROM `$table` LIMIT $start,$limit";
+		$query = "SELECT * FROM `$table` ORDER BY `id` ASC LIMIT $start,$limit";
 		$rs = $dc->execute( $query );
 	
 	} // Records left.

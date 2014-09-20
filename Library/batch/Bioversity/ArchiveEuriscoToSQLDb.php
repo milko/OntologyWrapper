@@ -157,7 +157,9 @@ select
 	`eurisco_itw`.`accessions`.`AEGISSTAT` AS `AEGISSTAT`,
 	`eurisco_itw`.`accessions`.`DateOfLastChange` AS `DateOfLastChange`
 from
-	(((((`eurisco_itw`.`accessions` left join `eurisco_itw`.`holdings` `BREEDERS` on((`BREEDERS`.`ID` = `eurisco_itw`.`accessions`.`BreederID`))) left join `eurisco_itw`.`holdings` `DONORS` on((`DONORS`.`ID` = `eurisco_itw`.`accessions`.`DonorID`))) left join `eurisco_itw`.`taxa` on((`eurisco_itw`.`taxa`.`ID` = `eurisco_itw`.`accessions`.`TaxonID`))) left join `ancillary`.`code_iso_3166` on((`ancillary`.`code_iso_3166`.`Code` = `eurisco_itw`.`accessions`.`CountryOrigin`))) left join `eurisco_itw`.`accession_storage` on((`eurisco_itw`.`accession_storage`.`AccessionID` = `eurisco_itw`.`accessions`.`ID`))) group by `eurisco_itw`.`accessions`.`ID`
+	(((((`eurisco_itw`.`accessions` left join `eurisco_itw`.`holdings` `BREEDERS` on((`BREEDERS`.`ID` = `eurisco_itw`.`accessions`.`BreederID`))) left join `eurisco_itw`.`holdings` `DONORS` on((`DONORS`.`ID` = `eurisco_itw`.`accessions`.`DonorID`))) left join `eurisco_itw`.`taxa` on((`eurisco_itw`.`taxa`.`ID` = `eurisco_itw`.`accessions`.`TaxonID`))) left join `ancillary`.`code_iso_3166` on((`ancillary`.`code_iso_3166`.`Code` = `eurisco_itw`.`accessions`.`CountryOrigin`))) left join `eurisco_itw`.`accession_storage` on((`eurisco_itw`.`accession_storage`.`AccessionID` = `eurisco_itw`.`accessions`.`ID`)))
+group by
+	`eurisco_itw`.`accessions`.`ID`
 EOT;
 
 //
@@ -278,7 +280,7 @@ try
 	if( $last !== NULL )
 		$query .= " WHERE `ID` > $last";
 	$query .= " ORDER BY `eurisco_itw`.`accessions`.`ID` LIMIT $start,$limit";
-	$rs = $dc_in->execute( $query );
+	$rs = $dc_in->Execute( $query );
 	while( $rs->RecordCount() )
 	{
 		//
@@ -286,6 +288,14 @@ try
 		//
 		foreach( $rs as $record )
 		{
+	//
+	// Check if existing.
+	//
+	$id = $record[ 'ID' ];
+	$query = "SELECT COUNT(*) FROM `$table` WHERE `id` = '$id'";
+	$dup = $dc_out->GetOne( $query );
+	if( $dup )
+		continue;															// ==>
 			//
 			// Scan record.
 			//
