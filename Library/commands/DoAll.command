@@ -25,10 +25,10 @@
 #
 # Load EUFGIS.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
-	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-	"eufgis" \
-	"mongodb://localhost:27017/BIOVERSITY"
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+#	"eufgis" \
+#	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Archive GRIN.
@@ -80,5 +80,22 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 #	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
 #	"eurisco" \
 #	"mongodb://localhost:27017/BIOVERSITY"
+
+#
+# Archive Households.
+#
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveHouseholdToSQLDb.php \
+#	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
+#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+#	"abdh" \
+#	"mongodb://localhost:27017/BIOVERSITY"
+
+#
+# Load Households.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+	"abdh" \
+	"mongodb://localhost:27017/BIOVERSITY"
 
 exit

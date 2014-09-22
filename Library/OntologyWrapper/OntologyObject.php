@@ -967,6 +967,28 @@ abstract class OntologyObject extends ContainerObject
 						"Invalid shape structure." );							// !@! ==>
 				break;
 			
+			case 'MultiPoint':
+				//
+				// Check geometry.
+				//
+				if( is_array( $geom ) )
+				{
+					//
+					// Check coordinates list.
+					//
+					foreach( $geom as $coord )
+					{
+						if( (! is_array( $coord ))
+						 || (count( $coord ) != 2) )
+							throw new \Exception(
+								"Invalid multi-pointcoordinate element." );		// !@! ==>
+					}
+				}
+				else
+					throw new \Exception(
+						"Invalid shape structure." );							// !@! ==>
+				break;
+			
 			case 'LineString':
 				//
 				// Check geometry.

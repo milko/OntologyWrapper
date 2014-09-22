@@ -236,7 +236,8 @@ class Household extends UnitObject
 		//
 		// Check authority.
 		//
-		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
+		if( $this->offsetExists( 'abdh:INSTITUTE' )
+		 && (! $this->offsetExists( kTAG_AUTHORITY )) )
 			$this->offsetSet( kTAG_AUTHORITY, $this->offsetGet( 'abdh:INSTITUTE' ) );
 		
 		//
@@ -264,6 +265,53 @@ class Household extends UnitObject
 		{
 			if( $this->offsetExists( 'abdh:REF-YEAR' ) )
 				$this->offsetSet( kTAG_VERSION, $this->offsetGet( 'abdh:REF-YEAR' ) );
+		}
+		
+		//
+		// Create shape.
+		//
+		if( $this->offsetExists( 'abdh:interview' ) )
+		{
+			//
+			// Init loop storage.
+			//
+			$shape = NULL;
+			$coords = Array();
+			$lat_tag = $this->resolveOffset( ':location:site:latitude', TRUE );
+			$lon_tag = $this->resolveOffset( ':location:site:longitude', TRUE );
+			
+			//
+			// Iterate interviewers.
+			//
+			foreach( $this->offsetGet( 'abdh:interview' ) as $interview )
+			{
+				if( array_key_exists( $lat_tag, $interview )
+				 && array_key_exists( $lon_tag, $interview ) )
+					$coords[] = array( $interview[ $lon_tag ], $interview[ $lat_tag ] );
+			}
+			
+			//
+			// Build shape.
+			//
+			if( count( $coords ) == 1 )
+				$shape = array( kTAG_TYPE => 'Point',
+								kTAG_GEOMETRY => $coords[ 0 ] );
+			elseif( count( $coords ) == 2 )
+		//		$shape = array( kTAG_TYPE => 'MultiPoint',
+				$shape = array( kTAG_TYPE => 'LineString',
+								kTAG_GEOMETRY => $coords );
+			elseif( count( $coords ) > 2 )
+			{
+				$shape = array( kTAG_TYPE => 'Polygon' );
+				$coords[ count( $coords ) ] = $coords[ 0 ];
+				$shape = array( kTAG_GEOMETRY => array( $coords ) );
+			}
+			
+			//
+			// Set shape.
+			//
+			if( $shape !== NULL )
+				$this->offsetSet( kTAG_GEO_SHAPE, $shape );
 		}
 		
 		//
