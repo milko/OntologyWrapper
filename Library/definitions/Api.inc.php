@@ -837,6 +837,9 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
  *			zero.
  *	 </ul>
+ *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: <em>Recurse flag</em>. This optional flag, if
+ *		set, will allow traversing root form nodes; if not set, root form nodes will not be
+ *		recursed.
  * </ul>
  *
  * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,

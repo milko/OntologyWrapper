@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	FORMS
+	Forms.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Forms -->
+	
+	<!-- :forms -->
+	<META>
+		<TERM ns="" lid="forms">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forms]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Collection of available forms.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":forms" pid="form::forms">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+		</NODE>
+		
+		<!-- :inventory -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::inventory</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::taxon</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::location</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::environment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :collecting -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::collecting</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :breeding -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::breeding</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:accession -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:accession</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:forest -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:forest</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:inventory -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:inventory:checklist -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory:checklist</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:population -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form:cwr:population</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- domain:hh-assessment -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:hh-assessment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

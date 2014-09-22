@@ -42,6 +42,18 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- mcpd:COLLCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :collecting:mission:start -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:start</item>

@@ -2598,11 +2598,11 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/collections/FormCollecting.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormBreeding.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/collections/FormCrossability.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCollecting.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -2642,11 +2642,7 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/collections/FormTaxonConservation.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/collections/FormTaxonThreat.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/Forms.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	

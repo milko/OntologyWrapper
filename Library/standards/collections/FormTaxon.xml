@@ -797,4 +797,187 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>
+
+	<!-- Conservation attributes -->
+
+	<META>
+		<!-- :taxon:conservation -->
+		<NODE term=":taxon:conservation" pid="form::taxon:conservation" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+		
+		<!-- :taxon:repsystem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:bredsystem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:bredsystem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:sexstructure -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:sexstructure</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:pollination -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:pollination</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:lifeform -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:lifeform</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:lifespan -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:lifespan</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:seed-dispersal -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:seed-dispersal</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Threat attributes -->
+
+	<META>
+		<!-- :taxon:threat -->
+		<NODE term=":taxon:threat" pid="form::taxon:threat" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:assessment -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:assessment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:region -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:region</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:country -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:country</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- iucn:category -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:category</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- iucn:criteria -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:criteria</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:other-red-list-criteria -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:other-red-list-criteria</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:assessment:year -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:assessment:year</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national:ucode -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:ucode</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national:udescr -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:udescr</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national:uauth -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:uauth</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national:year -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:year</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:occurrence-status -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-status</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- iucn:threat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:threat</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:period -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:period</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Crossability attributes -->
+
+	<META>
+		<!-- :taxon:cross -->
+		<NODE term=":taxon:cross" pid="form::taxon:cross" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+		
+		<!-- :taxon:cross:species -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:species</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:cross:methods -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:methods</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:cross:success -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:success</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
 </METADATA>

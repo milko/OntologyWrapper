@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	CROSSABILITY FORM
-	FormCrossability.xml
+	BREEDING FORM
+	FormBreeding.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,9 +9,9 @@
 	
 	<!-- FORM -->
 	
-	<!-- :taxon:cross -->
+	<!-- :breeding -->
 	<META>
-		<NODE term=":taxon:cross" pid="form::taxon:cross">
+		<NODE term=":breeding" pid="form::breeding">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>
@@ -19,26 +19,26 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This form contains all common crossability search fields.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common breeding event search fields.]]></item>
 				</item>
 			</item>
 		</NODE>
 		
-		<!-- :taxon:cross:species -->
+		<!-- mcpd:BREDCODE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:species</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:BREDCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :taxon:cross:methods -->
+		<!-- mcpd:BREDDESCR -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:methods</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:BREDDESCR</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-	
-		<!-- :taxon:cross:success -->
+		
+		<!-- mcpd:ANCEST -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:success</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ANCEST</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

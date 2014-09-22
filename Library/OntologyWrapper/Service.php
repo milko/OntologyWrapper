@@ -92,6 +92,16 @@ class Service extends ContainerObject
 	 */
 	protected $mFilter = Array();
 
+	/**
+	 * Root.
+	 *
+	 * This data member holds a flag indicating whether the root element of a structure was
+	 * processed.
+	 *
+	 * @var boolean
+	 */
+	protected $mRootProcessed = FALSE;
+
 		
 
 /*=======================================================================================
@@ -6359,24 +6369,45 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Load element information.
 		//
-		$this->loadNodeElementInfo(
-			$theContainer[ $index ], $theNode, $theLanguage, $theRefCount );
+		$node
+			= $this->loadNodeElementInfo(
+				$theContainer[ $index ], $theNode, $theLanguage, $theRefCount );
 		
 		//
-		// Allocate children.
+		// Handle root node.
 		//
-		$children = Array();
+		$is_root = ( $node->NodeType( kTYPE_NODE_ROOT ) !== NULL );
 		
 		//
-		// Load related nodes.
+		// Recurse structure.
 		//
-		$this->traverseEdges( $children, $theNode, $theLanguage, $theRefCount );
+		if( (! $is_root)								// Not a root,
+		 || (! $this->mRootProcessed)					// or root not yet processed,
+		 || $this->offsetGet( kAPI_PARAM_RECURSE ) )	// or traverse roots.
+		{
+			//
+			// Set root node flag.
+			//
+			if( $is_root )
+				$this->mRootProcessed = TRUE;
 		
-		//
-		// Set children.
-		//
-		if( count( $children ) )
-			$theContainer[ $index ][ kAPI_PARAM_RESPONSE_CHILDREN ] = $children;
+			//
+			// Allocate children.
+			//
+			$children = Array();
+		
+			//
+			// Load related nodes.
+			//
+			$this->traverseEdges( $children, $theNode, $theLanguage, $theRefCount );
+		
+			//
+			// Set children.
+			//
+			if( count( $children ) )
+				$theContainer[ $index ][ kAPI_PARAM_RESPONSE_CHILDREN ] = $children;
+		
+		} // Not a root node.
 		
 	} // traverseStructure.
 
@@ -6472,7 +6503,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @param string				$theRefCount		Reference count tag.
 	 *
 	 * @access protected
-	 * @return array				Criteria record.
+	 * @return Node					Node object.
 	 */
 	protected function loadNodeElementInfo( &$theContainer, $theNode,
 															$theLanguage,
@@ -6497,6 +6528,17 @@ $rs_units = & $rs_units[ 'result' ];
 					kQUERY_ASSERT | kQUERY_OBJECT );
 		
 		//
+		// Resolve referenced.
+		//
+		$referenced = $node->getReferenced();
+		
+		//
+		// Set node identifier, if root.
+		//
+		if( $node->NodeType( kTYPE_NODE_ROOT ) !== NULL )
+			$theContainer[ kAPI_PARAM_NODE ] = $node[ kTAG_NID ];
+		
+		//
 		// Set label.
 		//
 		if( $node->offsetExists( kTAG_LABEL ) )
@@ -6506,7 +6548,6 @@ $rs_units = & $rs_units[ 'result' ];
 		
 		else
 		{
-			$referenced = $node->getReferenced();
 			if( $referenced->offsetExists( kTAG_LABEL ) )
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
 					= OntologyObject::SelectLanguageString(
@@ -6522,8 +6563,6 @@ $rs_units = & $rs_units[ 'result' ];
 				$node->offsetGet( kTAG_DESCRIPTION ), $theLanguage );
 		else
 		{
-			if( $referenced === NULL )
-				$referenced = $node->getReferenced();
 			if( $referenced->offsetExists( kTAG_DESCRIPTION ) )
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
 					= OntologyObject::SelectLanguageString(
@@ -6570,6 +6609,8 @@ $rs_units = & $rs_units[ 'result' ];
 					: 0;
 			}
 		}
+		
+		return $node;																// ==>
 		
 	} // loadNodeElementInfo.
 
