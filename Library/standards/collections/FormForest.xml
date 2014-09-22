@@ -38,7 +38,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form::domain:forest</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:forest</item>
 		</EDGE>
 	
 		<!-- fcu:unit:number -->
@@ -103,7 +103,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form::domain:forest</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:forest</item>
 		</EDGE>
 		
 		<!-- fcu:population:number -->

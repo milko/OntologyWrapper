@@ -113,11 +113,46 @@ try
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_NODE => 'form::forms',
+		kAPI_PARAM_NODE => 'form::domain:forest',
 	//	kAPI_PARAM_RECURSE => TRUE,
 		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
 	);
 	$request = "$base_url?op=".kAPI_OP_GET_NODE_FORM;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test matchTagByIdentifier.
+	//
+	echo( '<h4>Test matchTagByIdentifier</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_TAG => 'mcpd:ACCENUMB',
+		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_IDENTIFIER;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );

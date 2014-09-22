@@ -277,7 +277,6 @@ try
 			//
 			// Save record.
 			//
-	/*
 			$xml = $object->export( 'xml' );
 			$insert = ( $last === NULL )
 					? "INSERT INTO `$table`( "
@@ -287,7 +286,6 @@ try
 					   .'0x'.bin2hex( get_class( $object ) ).', '
 					   .'0x'.bin2hex( $xml->asXML() ).' )');
 			$dc_out->Execute( $insert );
-	*/
 			
 		} // Iterating page.
 		
@@ -538,6 +536,28 @@ finally
 					$theDatabase );
 		if( count( $sub ) )
 			$theObject->offsetSet( 'abdh:market', $sub );
+		
+		//
+		// Load social data.
+		//
+		$sub = Array();
+		loadSocial(	$sub,
+					$theData,
+					$theWrapper,
+					$theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( 'abdh:social', $sub );
+		
+		//
+		// Load risk data.
+		//
+		$sub = Array();
+		loadRisk( $sub,
+				  $theData,
+				  $theWrapper,
+				  $theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( 'abdh:risk', $sub );
 
 	} // loadUnit.
 	
@@ -3507,6 +3527,737 @@ finally
 			$rs->Close();
 
 	} // loadMarket.
+	
+
+	/**
+	 * Load social data.
+	 *
+	 * This function will load the social data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadSocial( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Init local storage.
+		//
+		$identifier = $theUnit[ 'ID_HOUSEHOLD' ];
+		
+		//
+		// Select respondents.
+		//
+		$record = $theDatabase->GetRow( "SELECT * FROM `abdh_social` "
+									   ."WHERE( `ID_HOUSEHOLD` = '$identifier' )" );
+		if( count( $record ) )
+		{
+			//
+			// Scan record.
+			//
+			$data = Array();
+			foreach( $record as $key => $value )
+			{
+				//
+				// Normalise value.
+				//
+				if( strlen( trim( $value ) ) )
+					$data[ $key ] = trim( $value );
+		
+			} // Scanning record.
+		
+			//
+			// Skip empty records.
+			//
+			if( count( $data ) )
+			{
+				//
+				// Load social status.
+				//
+				$sub = Array();
+				loadSocialStatus( $sub,
+								  $data,
+								  $theWrapper,
+								  $theDatabase );
+				if( count( $sub ) )
+					$theContainer[ getTag( 'abdh:social:status' ) ]
+						= $sub;
+				
+				//
+				// Load social networking.
+				//
+				$sub = Array();
+				loadSocialNetworking( $sub,
+									  $data,
+									  $theWrapper,
+									  $theDatabase );
+				if( count( $sub ) )
+					$theContainer[ getTag( 'abdh:social:networking' ) ]
+						= $sub;
+			}
+		}
+
+	} // loadSocial.
+	
+
+	/**
+	 * Load social status data.
+	 *
+	 * This function will load the social status data related to the provided
+	 * <b>$theUnit</b> parameter into the container provided in the <b>$theContainer</b>
+	 * parameter.
+	 *
+	 * Note that the container is a non-list structure and the provided record holds the
+	 * actual data.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadSocialStatus( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set caste.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'CASTE', 'abdh:CASTE',
+				 array( '0', '1' ) );
+
+		//
+		// Set SC.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'SC', 'abdh:SC',
+				 array( '0', '1' ) );
+
+		//
+		// Set ST.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'ST', 'abdh:ST',
+				 array( '0', '1' ) );
+
+		//
+		// Set BC.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'BC', 'abdh:BC',
+				 array( '0', '1' ) );
+
+		//
+		// Set OC.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'OC', 'abdh:OC',
+				 array( '0', '1' ) );
+
+		//
+		// Set community roles.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'COMM_ROLE', 'abdh:COMM_ROLE',
+				 array( '0', '1' ) );
+
+		//
+		// Set leadership roles.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'LEAD_ROLE', 'abdh:LEAD_ROLE',
+				 array( '0', '1' ) );
+
+		//
+		// Set social activist roles.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'SOC_ACTIV', 'abdh:SOC_ACTIV',
+				 array( '0', '1' ) );
+
+		//
+		// Set environmental activist roles.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'ENV_ACTIV', 'abdh:ENV_ACTIV',
+				 array( '0', '1' ) );
+
+	} // loadSocialStatus.
+	
+
+	/**
+	 * Load social networking data.
+	 *
+	 * This function will load the social networking data related to the provided
+	 * <b>$theUnit</b> parameter into the container provided in the <b>$theContainer</b>
+	 * parameter.
+	 *
+	 * Note that the container is a non-list structure and the provided record holds the
+	 * actual data.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadSocialNetworking( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set ag/livestock/fisheries producers group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.18a', 'abdh:Q6.18a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.18b', 'abdh:Q6.18b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.18c', 'abdh:Q6.18c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set water users group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.19a', 'abdh:Q6.19a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.19b', 'abdh:Q6.19b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.19c', 'abdh:Q6.19c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set forest users group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.20a', 'abdh:Q6.20a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.20b', 'abdh:Q6.20b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.20c', 'abdh:Q6.20c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set credit/finance group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.21a', 'abdh:Q6.21a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.21b', 'abdh:Q6.21b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.21c', 'abdh:Q6.21c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set mutual insurance group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.22a', 'abdh:Q6.22a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.22b', 'abdh:Q6.22b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.22c', 'abdh:Q6.22c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set trade/business association group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.23a', 'abdh:Q6.23a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.23b', 'abdh:Q6.23b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.23c', 'abdh:Q6.23c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set civic group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.24a', 'abdh:Q6.24a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.24b', 'abdh:Q6.24b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.24c', 'abdh:Q6.24c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set local government group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.25a', 'abdh:Q6.25a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.25b', 'abdh:Q6.25b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.25c', 'abdh:Q6.25c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set religious group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.26a', 'abdh:Q6.26a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.26b', 'abdh:Q6.26b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.26c', 'abdh:Q6.26c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set self-help group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.27a', 'abdh:Q6.27a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.27b', 'abdh:Q6.27b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.27c', 'abdh:Q6.27c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set village federation group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.28a', 'abdh:Q6.28a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.28b', 'abdh:Q6.28b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.28c', 'abdh:Q6.28c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set youths sanghmas group.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.29a', 'abdh:Q6.29a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.29b', 'abdh:Q6.29b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.29c', 'abdh:Q6.29c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set connection with neighboring villagers.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q6.30a', 'abdh:Q6.30a',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.30b', 'abdh:Q6.30b',
+				 array( '0', '1' ) );
+		setEnum( $theContainer, $theUnit,
+				 'Q6.30c', 'abdh:Q6.30c',
+				 array( '1', '2', '3' ) );
+
+		//
+		// Set other groups.
+		//
+		// Ignored other groups, since there is no group names.
+		
+		//
+		// Set participation in government and non-government programs.
+		//
+		$groups = Array();
+		if( array_key_exists( 'PROGR1a', $theUnit )
+		 && array_key_exists( 'PROGR1b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR1a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR1b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( array_key_exists( 'PROGR2a', $theUnit )
+		 && array_key_exists( 'PROGR2b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR2a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR2b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( array_key_exists( 'PROGR3a', $theUnit )
+		 && array_key_exists( 'PROGR3b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR3a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR3b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( array_key_exists( 'PROGR4a', $theUnit )
+		 && array_key_exists( 'PROGR4b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR4a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR4b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( array_key_exists( 'PROGR5a', $theUnit )
+		 && array_key_exists( 'PROGR5b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR5a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR5b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( array_key_exists( 'PROGR6a', $theUnit )
+		 && array_key_exists( 'PROGR6b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR6a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR6b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( array_key_exists( 'PROGR7a', $theUnit )
+		 && array_key_exists( 'PROGR7b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR7a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR7b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( array_key_exists( 'PROGR8a', $theUnit )
+		 && array_key_exists( 'PROGR8b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR8a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR8b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( array_key_exists( 'PROGR9a', $theUnit )
+		 && array_key_exists( 'PROGR9b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR9a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR9b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( array_key_exists( 'PROGR10a', $theUnit )
+		 && array_key_exists( 'PROGR10b', $theUnit ) )
+		{
+			$tmp = Array();
+			$tmp[ getTag( 'abdh:PROGRa' ) ] = $theUnit[ 'PROGR10a' ];
+			setEnum( $tmp, $theUnit,
+					 'PROGR10b', 'abdh:PROGRb',
+					 array( '0', '1' ) );
+			$groups[] = $tmp;
+		}
+		if( count( $groups ) )
+			$tmp[ getTag( 'abdh:PROGR' ) ] = $groups;
+
+	} // loadSocialNetworking.
+	
+
+	/**
+	 * Load risk attituted data.
+	 *
+	 * This function will load the risk attituted data related to the provided
+	 * <b>$theUnit</b> parameter into the container provided in the <b>$theContainer</b>
+	 * parameter.
+	 *
+	 * Note that the container is a non-list structure and the provided record holds the
+	 * actual data.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadRisk( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Worried about missing food.
+		//
+		if( array_key_exists( 'Q7.1a', $theUnit )
+		 || array_key_exists( 'Q7.1b', $theUnit ) )
+		{
+			if( $theUnit[ 'Q7.1a' ] == '0' )
+				$theContainer[ 'abdh:Q7.1' ]
+					= 'abdh:Q7.1:0';
+			elseif( $theUnit[ 'Q7.1a' ] == '1' )
+			{
+				if( array_key_exists( 'Q7.1b', $theUnit ) )
+				{
+					switch( $theUnit[ 'Q7.1b' ] )
+					{
+						case '3':
+						case '4':
+						case '5':
+							$theContainer[ 'abdh:Q7.1' ]
+								= 'abdh:Q7.1:'.$theUnit[ 'Q7.1b' ];
+							break;
+						default:
+							$theContainer[ 'abdh:Q7.1' ]
+								= 'abdh:Q7.1:1';
+							break;
+					}
+				}
+			}
+		}
+
+		//
+		// Unable to eat certain foods.
+		//
+		if( array_key_exists( 'Q7.2a', $theUnit )
+		 || array_key_exists( 'Q7.2b', $theUnit ) )
+		{
+			if( $theUnit[ 'Q7.2a' ] == '0' )
+				$theContainer[ 'abdh:Q7.2' ]
+					= 'abdh:Q7.2:0';
+			elseif( $theUnit[ 'Q7.2a' ] == '1' )
+			{
+				if( array_key_exists( 'Q7.2b', $theUnit ) )
+				{
+					switch( $theUnit[ 'Q7.2b' ] )
+					{
+						case '3':
+						case '4':
+						case '5':
+							$theContainer[ 'abdh:Q7.2' ]
+								= 'abdh:Q7.2:'.$theUnit[ 'Q7.2b' ];
+							break;
+						default:
+							$theContainer[ 'abdh:Q7.2' ]
+								= 'abdh:Q7.2:1';
+							break;
+					}
+				}
+			}
+		}
+
+		//
+		// Forced to eat same food.
+		//
+		if( array_key_exists( 'Q7.3a', $theUnit )
+		 || array_key_exists( 'Q7.3b', $theUnit ) )
+		{
+			if( $theUnit[ 'Q7.3a' ] == '0' )
+				$theContainer[ 'abdh:Q7.3' ]
+					= 'abdh:Q7.3:0';
+			elseif( $theUnit[ 'Q7.3a' ] == '1' )
+			{
+				if( array_key_exists( 'Q7.3b', $theUnit ) )
+				{
+					switch( $theUnit[ 'Q7.3b' ] )
+					{
+						case '3':
+						case '4':
+						case '5':
+							$theContainer[ 'abdh:Q7.3' ]
+								= 'abdh:Q7.3:'.$theUnit[ 'Q7.3b' ];
+							break;
+						default:
+							$theContainer[ 'abdh:Q7.3' ]
+								= 'abdh:Q7.3:1';
+							break;
+					}
+				}
+			}
+		}
+
+		//
+		// Forced to eat foods you usually avoid.
+		//
+		if( array_key_exists( 'Q7.4a', $theUnit )
+		 || array_key_exists( 'Q7.4b', $theUnit ) )
+		{
+			if( $theUnit[ 'Q7.4a' ] == '0' )
+				$theContainer[ 'abdh:Q7.4' ]
+					= 'abdh:Q7.4:0';
+			elseif( $theUnit[ 'Q7.4a' ] == '1' )
+			{
+				if( array_key_exists( 'Q7.4b', $theUnit ) )
+				{
+					switch( $theUnit[ 'Q7.4b' ] )
+					{
+						case '3':
+						case '4':
+						case '5':
+							$theContainer[ 'abdh:Q7.4' ]
+								= 'abdh:Q7.4:'.$theUnit[ 'Q7.4b' ];
+							break;
+						default:
+							$theContainer[ 'abdh:Q7.4' ]
+								= 'abdh:Q7.4:1';
+							break;
+					}
+				}
+			}
+		}
+
+		//
+		// Forced to reduce quantity of foods.
+		//
+		if( array_key_exists( 'Q7.5a', $theUnit )
+		 || array_key_exists( 'Q7.5b', $theUnit ) )
+		{
+			if( $theUnit[ 'Q7.5a' ] == '0' )
+				$theContainer[ 'abdh:Q7.5' ]
+					= 'abdh:Q7.5:0';
+			elseif( $theUnit[ 'Q7.5a' ] == '1' )
+			{
+				if( array_key_exists( 'Q7.5b', $theUnit ) )
+				{
+					switch( $theUnit[ 'Q7.5b' ] )
+					{
+						case '3':
+						case '4':
+						case '5':
+							$theContainer[ 'abdh:Q7.5' ]
+								= 'abdh:Q7.5:'.$theUnit[ 'Q7.5b' ];
+							break;
+						default:
+							$theContainer[ 'abdh:Q7.5' ]
+								= 'abdh:Q7.5:1';
+							break;
+					}
+				}
+			}
+		}
+
+		//
+		// Lacked food.
+		//
+		if( array_key_exists( 'Q7.6a', $theUnit )
+		 || array_key_exists( 'Q7.6b', $theUnit ) )
+		{
+			if( $theUnit[ 'Q7.6a' ] == '0' )
+				$theContainer[ 'abdh:Q7.6' ]
+					= 'abdh:Q7.6:0';
+			elseif( $theUnit[ 'Q7.6a' ] == '1' )
+			{
+				if( array_key_exists( 'Q7.6b', $theUnit ) )
+				{
+					switch( $theUnit[ 'Q7.6b' ] )
+					{
+						case '3':
+						case '4':
+						case '5':
+							$theContainer[ 'abdh:Q7.6' ]
+								= 'abdh:Q7.6:'.$theUnit[ 'Q7.6b' ];
+							break;
+						default:
+							$theContainer[ 'abdh:Q7.6' ]
+								= 'abdh:Q7.6:1';
+							break;
+					}
+				}
+			}
+		}
+
+		//
+		// Go to bed without eating.
+		//
+		if( array_key_exists( 'Q7.7a', $theUnit )
+		 || array_key_exists( 'Q7.1b', $theUnit ) )
+		{
+			if( $theUnit[ 'Q7.7a' ] == '0' )
+				$theContainer[ 'abdh:Q7.7' ]
+					= 'abdh:Q7.7:0';
+			elseif( $theUnit[ 'Q7.7a' ] == '1' )
+			{
+				if( array_key_exists( 'Q7.7b', $theUnit ) )
+				{
+					switch( $theUnit[ 'Q7.7b' ] )
+					{
+						case '3':
+						case '4':
+						case '5':
+							$theContainer[ 'abdh:Q7.7' ]
+								= 'abdh:Q7.7:'.$theUnit[ 'Q7.7b' ];
+							break;
+						default:
+							$theContainer[ 'abdh:Q7.7' ]
+								= 'abdh:Q7.7:1';
+							break;
+					}
+				}
+			}
+		}
+
+		//
+		// Whole day without eating.
+		//
+		if( array_key_exists( 'Q7.8a', $theUnit )
+		 || array_key_exists( 'Q7.8b', $theUnit ) )
+		{
+			if( $theUnit[ 'Q7.8a' ] == '0' )
+				$theContainer[ 'abdh:Q7.8' ]
+					= 'abdh:Q7.8:0';
+			elseif( $theUnit[ 'Q7.8a' ] == '1' )
+			{
+				if( array_key_exists( 'Q7.8b', $theUnit ) )
+				{
+					switch( $theUnit[ 'Q7.8b' ] )
+					{
+						case '3':
+						case '4':
+						case '5':
+							$theContainer[ 'abdh:Q7.8' ]
+								= 'abdh:Q7.8:'.$theUnit[ 'Q7.8b' ];
+							break;
+						default:
+							$theContainer[ 'abdh:Q7.8' ]
+								= 'abdh:Q7.8:1';
+							break;
+					}
+				}
+			}
+		}
+
+		//
+		// How would you describe yourself.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q8.1', 'abdh:Q8.1',
+				 array( '1', '2', '3' ) );
+
+		//
+		// How would you describe your attitude towards risk.
+		//
+		setEnum( $theContainer, $theUnit,
+				 'Q8.1', 'abdh:Q8.1',
+				 array( '1', '2', '3', '4', '5' ) );
+
+	} // loadRisk.
 	
 
 	/**
