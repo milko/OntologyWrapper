@@ -282,7 +282,7 @@ try
 					? "INSERT INTO `$table`( "
 					: "REPLACE INTO `$table`( ";
 			$insert .= ("`id`, `class`, `xml` ) VALUES( "
-					   .'0x'.bin2hex( (string) $record[ 'ID' ] ).', '
+					   .'0x'.bin2hex( (string) $record[ 'ID_HOUSEHOLD' ] ).', '
 					   .'0x'.bin2hex( get_class( $object ) ).', '
 					   .'0x'.bin2hex( $xml->asXML() ).' )');
 			$dc_out->Execute( $insert );
