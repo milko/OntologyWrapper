@@ -34,9 +34,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitNumber</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitNumber</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -76,9 +74,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitGeneNumber</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitGeneNumber</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -122,9 +118,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitArea</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitArea</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -159,9 +153,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitOwnership</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitOwnership</item>
 		</TAG>
 		<NODE tag="fcu:unit:ownership">
 			<item const="kTAG_NODE_TYPE">
@@ -287,9 +279,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitType</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitType</item>
 		</TAG>
 		<NODE tag="fcu:unit:type">
 			<item const="kTAG_NODE_TYPE">
@@ -445,9 +435,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitDataCollectionYear</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitDataCollectionYear</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -480,9 +468,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitLastVisitYear</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitLastVisitYear</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -516,9 +502,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitSoilRemarks</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitSoilRemarks</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -552,9 +536,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitRemarks</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitRemarks</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -589,9 +571,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>UnitSpecies</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">UnitSpecies</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -663,9 +643,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:full-text-10</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationUnitNumber</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationUnitNumber</item>
 		</TAG>
 		<NODE tag="fcu:population:number">
 			<item const="kTAG_NODE_TYPE">
@@ -692,9 +670,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationEstablishmentYear</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationEstablishmentYear</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -727,9 +703,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationEstablishmentYear</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationEstablishmentYear</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -764,9 +738,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationStatus</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationStatus</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -878,9 +850,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationSitu</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationSitu</item>
 		</TAG>
 		<NODE tag="fcu:population:situ">
 			<item const="kTAG_NODE_TYPE">
@@ -966,9 +936,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationOrigin</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationOrigin</item>
 		</TAG>
 		<NODE tag="fcu:population:origin">
 			<item const="kTAG_NODE_TYPE">
@@ -1074,9 +1042,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationSystem</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationSystem</item>
 		</TAG>
 		<NODE tag="fcu:population:system">
 			<item const="kTAG_NODE_TYPE">
@@ -1260,9 +1226,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationManagement</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationManagement</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1374,9 +1338,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationJustification</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationJustification</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1488,9 +1450,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationReproducingTrees</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationReproducingTrees</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1622,9 +1582,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationSexRatio</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationSexRatio</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1736,9 +1694,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationRegeneration</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationRegeneration</item>
 		</TAG>
 		<NODE tag="fcu:population:regeneration">
 			<item const="kTAG_NODE_TYPE">
@@ -1844,9 +1800,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationDistribution</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationDistribution</item>
 		</TAG>
 		<NODE tag="fcu:population:distribution">
 			<item const="kTAG_NODE_TYPE">
@@ -1950,9 +1904,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationShare</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationShare</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1986,9 +1938,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PopulationRemarks</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PopulationRemarks</item>
 		</TAG>
 		<NODE tag="fcu:population:remarks">
 			<item const="kTAG_NODE_TYPE">

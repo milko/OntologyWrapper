@@ -27,9 +27,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>RECDATE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">RECDATE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -62,9 +60,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NUMB</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NUMB</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -98,9 +94,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MONIT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MONIT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -185,9 +179,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MONITRESP</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MONITRESP</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -220,9 +212,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MONINT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MONINT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -257,9 +247,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>AREA</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">AREA</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -292,9 +280,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>INDIVNUMB</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">INDIVNUMB</item>
 		</TAG>
 		<NODE tag="cwr:population:INDIVNUMB">
 			<item const="kTAG_NODE_TYPE">
@@ -321,9 +307,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MATURENUMB</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MATURENUMB</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -356,9 +340,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JUVENNUMB</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JUVENNUMB</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -393,9 +375,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SEEDLINGSTATUS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SEEDLINGSTATUS</item>
 		</TAG>
 		<NODE tag="cwr:population:SEEDLINGSTATUS">
 			<item const="kTAG_NODE_TYPE">
@@ -553,9 +533,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>POPDENSI</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">POPDENSI</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -588,9 +566,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>RANKFOLCOVER</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">RANKFOLCOVER</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -624,9 +600,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>RAKSCALE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">RAKSCALE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -663,9 +637,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>EXSECURE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">EXSECURE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -773,9 +745,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>INSTNAMEDESCR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">INSTNAMEDESCR</item>
 		</TAG>
 		<NODE tag="cwr:population:INSTNAMEDESCR">
 			<item const="kTAG_NODE_TYPE">
@@ -803,9 +773,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>INSTADDRESSDESCR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">INSTADDRESSDESCR</item>
 		</TAG>
 		<NODE tag="cwr:population:INSTADDRESSDESCR">
 			<item const="kTAG_NODE_TYPE">

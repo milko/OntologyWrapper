@@ -41,9 +41,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.1</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.1</item>
 		</TAG>
 		<NODE tag="abdh:Q5.1">
 			<item const="kTAG_NODE_TYPE">
@@ -72,9 +70,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.2a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.2a</item>
 		</TAG>
 		<NODE tag="abdh:Q5.2a">
 			<item const="kTAG_NODE_TYPE">
@@ -214,9 +210,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.2b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.2b</item>
 		</TAG>
 		<NODE tag="abdh:Q5.2b">
 			<item const="kTAG_NODE_TYPE">
@@ -245,9 +239,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.3a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.3a</item>
 		</TAG>
 		<NODE tag="abdh:Q5.3a">
 			<item const="kTAG_NODE_TYPE">
@@ -367,9 +359,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.3b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.3b</item>
 		</TAG>
 		<NODE tag="abdh:Q5.3b">
 			<item const="kTAG_NODE_TYPE">
@@ -396,9 +386,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.4</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.4</item>
 		</TAG>
 		<NODE tag="abdh:Q5.4">
 			<item const="kTAG_NODE_TYPE">
@@ -425,9 +413,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.5</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.5</item>
 		</TAG>
 		<NODE tag="abdh:Q5.5">
 			<item const="kTAG_NODE_TYPE">
@@ -454,9 +440,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.6</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.6</item>
 		</TAG>
 		<NODE tag="abdh:Q5.6">
 			<item const="kTAG_NODE_TYPE">
@@ -483,9 +467,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.7</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.7</item>
 		</TAG>
 		<NODE tag="abdh:Q5.7">
 			<item const="kTAG_NODE_TYPE">
@@ -512,9 +494,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.8</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.8</item>
 		</TAG>
 		<NODE tag="abdh:Q5.8">
 			<item const="kTAG_NODE_TYPE">
@@ -541,9 +521,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.9</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.9</item>
 		</TAG>
 		<NODE tag="abdh:Q5.9">
 			<item const="kTAG_NODE_TYPE">
@@ -570,9 +548,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.10</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.10</item>
 		</TAG>
 		<NODE tag="abdh:Q5.10">
 			<item const="kTAG_NODE_TYPE">
@@ -601,9 +577,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.11</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.11</item>
 		</TAG>
 		<NODE tag="abdh:Q5.11">
 			<item const="kTAG_NODE_TYPE">
@@ -632,9 +606,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.12</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.12</item>
 		</TAG>
 		<NODE tag="abdh:Q5.12">
 			<item const="kTAG_NODE_TYPE">
@@ -662,9 +634,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q5.13</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q5.13</item>
 		</TAG>
 		<NODE tag="abdh:Q5.13">
 			<item const="kTAG_NODE_TYPE">

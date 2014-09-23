@@ -3424,7 +3424,7 @@ class IteratorSerialiser
 					= array_merge(
 						$class::DynamicOffsets(),
 						$class::InternalOffsets(),
-						array( kTAG_GEO_SHAPE ) );		// Added shape to excluded.
+						array( kTAG_GEO_SHAPE, kTAG_GEO_SHAPE_DISP ) );	// Excluded shapes.
 				
 				break;
 			

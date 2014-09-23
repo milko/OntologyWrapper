@@ -311,8 +311,7 @@ abstract class UnitObject extends PersistentObject
 	 *
 	 * <ul>
 	 *	<li><b>$theShape</b>: The coordinates, point, polygon or rect, of the area for
-	 *		which the climate is requested. This parameter may either be a
-	 *		{@link CDataTypeShape} instance, or a GeoJSON shape array.
+	 *		which the climate is requested. This parameter must be a GeoJSON shape array.
 	 *	<li><b>$theRange</b>: This optional parameter represents the elevation range as an
 	 *		array of two elements representing respectively the minimum and maximum
 	 *		elevation. If the parameter is provided as a scalar, not a range, the method
@@ -356,6 +355,7 @@ abstract class UnitObject extends PersistentObject
 			// Init local storage.
 			//
 			$error = NULL;
+			$cmd = NULL;
 			$range = FALSE;
 			$climate = Array();
 			$request = Array();
@@ -370,6 +370,8 @@ abstract class UnitObject extends PersistentObject
 					break;
 			
 				case 'Rect':
+					$range = TRUE;
+					$cmd = 'contains';
 					$tmp = 'rect=';
 					$tmp .= implode( ',', $theShape[ kTAG_GEOMETRY ][ 0 ] );
 					$tmp .= ';';
@@ -378,9 +380,20 @@ abstract class UnitObject extends PersistentObject
 					break;
 			
 				case 'Polygon':
-					throw new \Exception(
-						"Unable to get climate data: "
-					   ."polygons are not yet supported." );					// !@! ==>
+					$range = TRUE;
+					$cmd = 'contains';
+					$first = TRUE;
+					$tmp = 'polygon=';
+					foreach( $theShape[ kTAG_GEOMETRY ][ 0 ] as $coord )
+					{
+						if( ! $first )
+							$tmp .= ';';
+						else
+							$first = FALSE;
+						$tmp .= ($coord[ 0 ].','.$coord[ 1 ]);
+					}
+					$request[] = $tmp;
+					break;
 				
 				default:
 					$tmp = $theShape[ kTAG_TYPE ];
@@ -427,20 +440,17 @@ abstract class UnitObject extends PersistentObject
 			} // Provided uncertainty.
 			
 			//
-			// Handle ranges.
+			// Handle missing command.
 			//
-			if( $range )
-			{
-				$request[] = 'near';
-				$request[] = 'range';
+			if( $cmd === NULL )
+				$cmd = ( $range ) ? 'near' : 'contains';
 			
-			} // Elevation range and/or uncertainty.
-	
 			//
-			// Handle contains.
+			// Set command and range.
 			//
-			else
-				$request[] = 'contains';
+			$request[] = $cmd;
+			if( $range )
+				$request[] = 'range';
 			
 			//
 			// Check range distance.
@@ -931,7 +941,7 @@ abstract class UnitObject extends PersistentObject
 		//
 		// Set geographic unit index.
 		//
-		$collection->createIndex( array( kTAG_GEO_SHAPE => "2dsphere" ),
+		$collection->createIndex( array( kTAG_GEO_SHAPE_DISP => "2dsphere" ),
 								  array( "name" => "SHAPE",
 								  		 "sparse" => TRUE ) );
 		

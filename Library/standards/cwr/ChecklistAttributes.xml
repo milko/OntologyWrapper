@@ -28,9 +28,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CWRCODE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CWRCODE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -64,9 +62,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NUMB</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NUMB</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -103,9 +99,7 @@
 				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>TYPE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">TYPE</item>
 		</TAG>
 		<NODE tag="cwr:ck:TYPE">
 			<item const="kTAG_NODE_TYPE">

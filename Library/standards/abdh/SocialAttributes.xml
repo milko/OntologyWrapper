@@ -76,9 +76,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CASTE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CASTE</item>
 		</TAG>
 		<NODE tag="abdh:CASTE">
 			<item const="kTAG_NODE_TYPE">
@@ -157,9 +155,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SC</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SC</item>
 		</TAG>
 		<NODE tag="abdh:SC">
 			<item const="kTAG_NODE_TYPE">
@@ -238,9 +234,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ST</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">ST</item>
 		</TAG>
 		<NODE tag="abdh:ST">
 			<item const="kTAG_NODE_TYPE">
@@ -319,9 +313,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BC</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BC</item>
 		</TAG>
 		<NODE tag="abdh:BC">
 			<item const="kTAG_NODE_TYPE">
@@ -400,9 +392,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OC</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OC</item>
 		</TAG>
 		<NODE tag="abdh:OC">
 			<item const="kTAG_NODE_TYPE">
@@ -481,9 +471,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>COMM_ROLE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">COMM_ROLE</item>
 		</TAG>
 		<NODE tag="abdh:COMM_ROLE">
 			<item const="kTAG_NODE_TYPE">
@@ -562,9 +550,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LEAD_ROLE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LEAD_ROLE</item>
 		</TAG>
 		<NODE tag="abdh:LEAD_ROLE">
 			<item const="kTAG_NODE_TYPE">
@@ -643,9 +629,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SOC_ACTIV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SOC_ACTIV</item>
 		</TAG>
 		<NODE tag="abdh:SOC_ACTIV">
 			<item const="kTAG_NODE_TYPE">
@@ -724,9 +708,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ENV_ACTIV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">ENV_ACTIV</item>
 		</TAG>
 		<NODE tag="abdh:ENV_ACTIV">
 			<item const="kTAG_NODE_TYPE">
@@ -830,9 +812,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.18a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.18a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.18a">
 			<item const="kTAG_NODE_TYPE">
@@ -911,9 +891,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.18b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.18b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.18b">
 			<item const="kTAG_NODE_TYPE">
@@ -992,9 +970,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.18c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.18c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.18c">
 			<item const="kTAG_NODE_TYPE">
@@ -1094,9 +1070,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.19a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.19a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.19a">
 			<item const="kTAG_NODE_TYPE">
@@ -1175,9 +1149,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.19b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.19b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.19b">
 			<item const="kTAG_NODE_TYPE">
@@ -1256,9 +1228,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.19c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.19c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.19c">
 			<item const="kTAG_NODE_TYPE">
@@ -1358,9 +1328,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.20a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.20a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.20a">
 			<item const="kTAG_NODE_TYPE">
@@ -1439,9 +1407,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.20b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.20b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.20b">
 			<item const="kTAG_NODE_TYPE">
@@ -1520,9 +1486,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.20c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.20c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.20c">
 			<item const="kTAG_NODE_TYPE">
@@ -1622,9 +1586,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.21a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.21a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.21a">
 			<item const="kTAG_NODE_TYPE">
@@ -1703,9 +1665,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.21b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.21b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.21b">
 			<item const="kTAG_NODE_TYPE">
@@ -1784,9 +1744,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.21c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.21c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.21c">
 			<item const="kTAG_NODE_TYPE">
@@ -1886,9 +1844,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.22a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.22a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.22a">
 			<item const="kTAG_NODE_TYPE">
@@ -1967,9 +1923,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.22b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.22b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.22b">
 			<item const="kTAG_NODE_TYPE">
@@ -2048,9 +2002,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.22c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.22c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.22c">
 			<item const="kTAG_NODE_TYPE">
@@ -2150,9 +2102,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.23a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.23a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.23a">
 			<item const="kTAG_NODE_TYPE">
@@ -2231,9 +2181,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.23b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.23b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.23b">
 			<item const="kTAG_NODE_TYPE">
@@ -2312,9 +2260,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.23c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.23c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.23c">
 			<item const="kTAG_NODE_TYPE">
@@ -2414,9 +2360,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.24a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.24a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.24a">
 			<item const="kTAG_NODE_TYPE">
@@ -2495,9 +2439,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.24b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.24b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.24b">
 			<item const="kTAG_NODE_TYPE">
@@ -2576,9 +2518,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.24c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.24c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.24c">
 			<item const="kTAG_NODE_TYPE">
@@ -2678,9 +2618,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.25a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.25a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.25a">
 			<item const="kTAG_NODE_TYPE">
@@ -2759,9 +2697,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.25b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.25b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.25b">
 			<item const="kTAG_NODE_TYPE">
@@ -2840,9 +2776,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.25c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.25c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.25c">
 			<item const="kTAG_NODE_TYPE">
@@ -2942,9 +2876,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.26a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.26a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.26a">
 			<item const="kTAG_NODE_TYPE">
@@ -3023,9 +2955,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.26b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.26b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.26b">
 			<item const="kTAG_NODE_TYPE">
@@ -3104,9 +3034,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.26c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.26c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.26c">
 			<item const="kTAG_NODE_TYPE">
@@ -3206,9 +3134,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.27a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.27a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.27a">
 			<item const="kTAG_NODE_TYPE">
@@ -3287,9 +3213,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.27b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.27b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.27b">
 			<item const="kTAG_NODE_TYPE">
@@ -3368,9 +3292,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.27c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.27c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.27c">
 			<item const="kTAG_NODE_TYPE">
@@ -3470,9 +3392,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.28a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.28a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.28a">
 			<item const="kTAG_NODE_TYPE">
@@ -3551,9 +3471,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.28b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.28b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.28b">
 			<item const="kTAG_NODE_TYPE">
@@ -3632,9 +3550,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.28c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.28c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.28c">
 			<item const="kTAG_NODE_TYPE">
@@ -3734,9 +3650,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.29a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.29a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.29a">
 			<item const="kTAG_NODE_TYPE">
@@ -3815,9 +3729,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.29b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.29b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.29b">
 			<item const="kTAG_NODE_TYPE">
@@ -3896,9 +3808,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.29c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.29c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.29c">
 			<item const="kTAG_NODE_TYPE">
@@ -3998,9 +3908,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.30a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.30a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.30a">
 			<item const="kTAG_NODE_TYPE">
@@ -4079,9 +3987,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.30b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.30b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.30b">
 			<item const="kTAG_NODE_TYPE">
@@ -4160,9 +4066,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.30c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.30c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.30c">
 			<item const="kTAG_NODE_TYPE">
@@ -4262,9 +4166,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.31a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.31a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.31a">
 			<item const="kTAG_NODE_TYPE">
@@ -4342,9 +4244,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.31aa</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.31aa</item>
 		</TAG>
 		<NODE tag="abdh:Q6.31aa">
 			<item const="kTAG_NODE_TYPE">
@@ -4408,9 +4308,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.31b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.31b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.31b">
 			<item const="kTAG_NODE_TYPE">
@@ -4494,9 +4392,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.31c</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.31c</item>
 		</TAG>
 		<NODE tag="abdh:Q6.31c">
 			<item const="kTAG_NODE_TYPE">
@@ -4601,9 +4497,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PROGRa</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PROGRa</item>
 		</TAG>
 		<NODE tag="abdh:PROGRa">
 			<item const="kTAG_NODE_TYPE">
@@ -4667,9 +4561,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>PROGRb</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">PROGRb</item>
 		</TAG>
 		<NODE tag="abdh:PROGRb">
 			<item const="kTAG_NODE_TYPE">

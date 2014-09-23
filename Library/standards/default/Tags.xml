@@ -23,6 +23,7 @@
 				<item>:type:summary</item>
 				<item>:type:lookup</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_NAMESPACE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -43,6 +44,7 @@
 				<item>:type:full-text-06</item>
 				<item>:type:lookup</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ID_LOCAL</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -63,6 +65,7 @@
 				<item>:type:full-text-10</item>
 				<item>:type:lookup</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ID_PERSISTENT</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -72,6 +75,27 @@
 		</TAG>
 	
 		<!-- 4 -->
+		<!-- kTAG_ID_SYMBOL -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:id-symbol</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-10</item>
+				<item>:type:lookup</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ID_SYMBOL</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The symbol represents a public acronym by which an object can be identified and referenced.]]></item>
+				</item>
+			</item>
+		</TAG>
+	
+		<!-- 5 -->
 		<!-- kTAG_ID_VALID -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -82,6 +106,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-06</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ID_VALID</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -90,7 +115,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 5 -->
+		<!-- 6 -->
 		<!-- kTAG_ID_SEQUENCE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -100,6 +125,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ID_SEQUENCE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -108,7 +134,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 6 -->
+		<!-- 7 -->
 		<!-- kTAG_ID_GRAPH -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -119,6 +145,7 @@
 				<item>:type:discrete</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ID_GRAPH</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -131,7 +158,7 @@
 	<!-- Unit classification tags -->
 	
 	<META>
-		<!-- 7 -->
+		<!-- 8 -->
 		<!-- kTAG_DOMAIN -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -143,6 +170,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_DOMAIN</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -151,7 +179,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 8 -->
+		<!-- 9 -->
 		<!-- kTAG_AUTHORITY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -163,6 +191,7 @@
 				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_AUTHORITY</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -171,7 +200,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 9 -->
+		<!-- 10 -->
 		<!-- kTAG_COLLECTION -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -183,6 +212,7 @@
 				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_COLLECTION</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -191,7 +221,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 10 -->
+		<!-- 11 -->
 		<!-- kTAG_IDENTIFIER -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -202,6 +232,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_IDENTIFIER</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -210,7 +241,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 11 -->
+		<!-- 12 -->
 		<!-- kTAG_VERSION -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -220,6 +251,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_VERSION</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -234,7 +266,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 12 -->
+		<!-- 13 -->
 		<!-- kTAG_SYNONYM -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -245,6 +277,7 @@
 				<item>:type:discrete</item>
 				<item>:type:list</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SYNONYM</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -257,7 +290,7 @@
 	<!-- Object reference tags -->
 	
 	<META>
-		<!-- 13 -->
+		<!-- 14 -->
 		<!-- kTAG_TAG -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -267,6 +300,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TAG</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -281,7 +315,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 14 -->
+		<!-- 15 -->
 		<!-- kTAG_TAGS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -292,6 +326,7 @@
 				<item>:type:discrete</item>
 				<item>:type:list</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TAGS</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -306,7 +341,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 15 -->
+		<!-- 16 -->
 		<!-- kTAG_TERM -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -316,6 +351,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TERM</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -330,7 +366,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 16 -->
+		<!-- 17 -->
 		<!-- kTAG_TERMS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -341,6 +377,7 @@
 				<item>:type:discrete</item>
 				<item>:type:list</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TERMS</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -355,7 +392,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 17 -->
+		<!-- 18 -->
 		<!-- kTAG_SUBJECT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -365,6 +402,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SUBJECT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -379,7 +417,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 18 -->
+		<!-- 19 -->
 		<!-- kTAG_GRAPH_SUBJECT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -390,6 +428,7 @@
 				<item>:type:discrete</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_GRAPH_SUBJECT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -404,7 +443,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 19 -->
+		<!-- 20 -->
 		<!-- kTAG_PREDICATE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -414,6 +453,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_PREDICATE</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -428,7 +468,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 20 -->
+		<!-- 21 -->
 		<!-- kTAG_OBJECT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -438,6 +478,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_OBJECT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -452,7 +493,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 21 -->
+		<!-- 22 -->
 		<!-- kTAG_GRAPH_OBJECT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -463,6 +504,7 @@
 				<item>:type:discrete</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_GRAPH_OBJECT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -477,7 +519,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 22 -->
+		<!-- 23 -->
 		<!-- kTAG_ENTITY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -487,6 +529,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -501,7 +544,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 23 -->
+		<!-- 24 -->
 		<!-- kTAG_MASTER -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -512,6 +555,7 @@
 				<item>:type:discrete</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_MASTER</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -530,7 +574,7 @@
 	<!-- Object category tags -->
 	
 	<META>
-		<!-- 24 -->
+		<!-- 25 -->
 		<!-- kTAG_CATEGORY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -542,6 +586,7 @@
 				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CATEGORY</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -550,7 +595,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 25 -->
+		<!-- 26 -->
 		<!-- kTAG_DATA_TYPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -562,6 +607,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_DATA_TYPE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -570,7 +616,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 26 -->
+		<!-- 27 -->
 		<!-- kTAG_DATA_KIND -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -582,6 +628,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_DATA_KIND</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -590,7 +637,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 27 -->
+		<!-- 28 -->
 		<!-- kTAG_TERM_TYPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -601,6 +648,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TERM_TYPE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -609,7 +657,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 28 -->
+		<!-- 29 -->
 		<!-- kTAG_NODE_TYPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -621,6 +669,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_NODE_TYPE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -633,7 +682,7 @@
 	<!-- Object description tags -->
 	
 	<META>
-		<!-- 29 -->
+		<!-- 30 -->
 		<!-- kTAG_NAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -644,6 +693,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-06</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_NAME</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -652,7 +702,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 30 -->
+		<!-- 31 -->
 		<!-- kTAG_LABEL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -663,6 +713,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-06</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_LABEL</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -671,7 +722,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 31 -->
+		<!-- 32 -->
 		<!-- kTAG_DEFINITION -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -682,6 +733,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_DEFINITION</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -690,7 +742,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 32 -->
+		<!-- 33 -->
 		<!-- kTAG_DESCRIPTION -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -701,6 +753,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_DESCRIPTION</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -709,7 +762,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 33 -->
+		<!-- 34 -->
 		<!-- kTAG_NOTE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -721,6 +774,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_NOTE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -729,7 +783,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 34 -->
+		<!-- 35 -->
 		<!-- kTAG_EXAMPLE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -740,6 +794,7 @@
 				<item>:type:discrete</item>
 				<item>:type:list</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_EXAMPLE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -752,7 +807,7 @@
 	<!-- Statistical attributes -->
 	
 	<META>
-		<!-- 35 -->
+		<!-- 36 -->
 		<!-- kTAG_UNIT_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -763,6 +818,7 @@
 				<item>:type:quantitative</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_UNIT_COUNT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -777,7 +833,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 36 -->
+		<!-- 37 -->
 		<!-- kTAG_ENTITY_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -788,6 +844,7 @@
 				<item>:type:quantitative</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_COUNT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -802,7 +859,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 37 -->
+		<!-- 38 -->
 		<!-- kTAG_TAG_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -813,6 +870,7 @@
 				<item>:type:quantitative</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TAG_COUNT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -827,7 +885,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 38 -->
+		<!-- 39 -->
 		<!-- kTAG_TERM_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -838,6 +896,7 @@
 				<item>:type:quantitative</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TERM_COUNT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -852,7 +911,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 39 -->
+		<!-- 40 -->
 		<!-- kTAG_NODE_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -863,6 +922,7 @@
 				<item>:type:quantitative</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_NODE_COUNT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -877,7 +937,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 40 -->
+		<!-- 41 -->
 		<!-- kTAG_EDGE_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -888,6 +948,7 @@
 				<item>:type:quantitative</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_EDGE_COUNT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -902,7 +963,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 41 -->
+		<!-- 42 -->
 		<!-- kTAG_TAG_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -916,6 +977,7 @@
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TAG_OFFSETS</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -930,7 +992,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 42 -->
+		<!-- 43 -->
 		<!-- kTAG_TERM_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -944,6 +1006,7 @@
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TERM_OFFSETS</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -958,7 +1021,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 43 -->
+		<!-- 44 -->
 		<!-- kTAG_NODE_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -972,6 +1035,7 @@
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_NODE_OFFSETS</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -986,7 +1050,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 44 -->
+		<!-- 45 -->
 		<!-- kTAG_EDGE_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1000,6 +1064,7 @@
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_EDGE_OFFSETS</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1014,7 +1079,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 45 -->
+		<!-- 46 -->
 		<!-- kTAG_ENTITY_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1028,6 +1093,7 @@
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_OFFSETS</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1042,7 +1108,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 46 -->
+		<!-- 47 -->
 		<!-- kTAG_UNIT_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1056,6 +1122,7 @@
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_UNIT_OFFSETS</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1070,7 +1137,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 47 -->
+		<!-- 48 -->
 		<!-- kTAG_OBJECT_TAGS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1084,6 +1151,7 @@
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_OBJECT_TAGS</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1092,7 +1160,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 48 -->
+		<!-- 49 -->
 		<!-- kTAG_OBJECT_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1105,6 +1173,7 @@
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_OBJECT_OFFSETS</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1113,7 +1182,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 49 -->
+		<!-- 50 -->
 		<!-- kTAG_OBJECT_REFERENCES -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1126,6 +1195,7 @@
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_OBJECT_REFERENCES</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1134,7 +1204,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 50 -->
+		<!-- 51 -->
 		<!-- kTAG_TAG_STRUCT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1146,6 +1216,7 @@
 				<item>:type:private-search</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TAG_STRUCT</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1154,7 +1225,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 51 -->
+		<!-- 52 -->
 		<!-- kTAG_TAG_STRUCT_IDX -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1166,6 +1237,7 @@
 				<item>:type:private-search</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TAG_STRUCT_IDX</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1178,7 +1250,7 @@
 	<!-- Property description attributes -->
 	
 	<META>
-		<!-- 52 -->
+		<!-- 53 -->
 		<!-- kTAG_MIN_VAL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1188,6 +1260,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_MIN_VAL</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1196,7 +1269,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 53 -->
+		<!-- 54 -->
 		<!-- kTAG_MIN_RANGE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1206,6 +1279,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_MIN_RANGE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1214,7 +1288,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 54 -->
+		<!-- 55 -->
 		<!-- kTAG_MAX_VAL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1224,6 +1298,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_MAX_VAL</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1232,7 +1307,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 55 -->
+		<!-- 56 -->
 		<!-- kTAG_MAX_RANGE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1242,6 +1317,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_MAX_RANGE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1250,7 +1326,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 56 -->
+		<!-- 57 -->
 		<!-- kTAG_PATTERN -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1260,6 +1336,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_PATTERN</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1272,7 +1349,7 @@
 	<!-- Default attributes -->
 	
 	<META>
-		<!-- 57 -->
+		<!-- 58 -->
 		<!-- kTAG_GEO_SHAPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1284,6 +1361,7 @@
 				<item>:type:private-search</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_GEO_SHAPE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1292,7 +1370,28 @@
 			</item>
 		</TAG>
 		
-		<!-- 58 -->
+		<!-- 59 -->
+		<!-- kTAG_GEO_SHAPE_DISP -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:shape-disp</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:shape</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:private-search</item>
+				<item>:type:private-display</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_GEO_SHAPE_DISP</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a geometric shape which represents the displayed geographic location and geometry of an object.]]></item>
+				</item>
+			</item>
+		</TAG>
+		
+		<!-- 60 -->
 		<!-- kTAG_RECORD_CREATED -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1303,6 +1402,7 @@
 				<item>:type:quantitative</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_RECORD_CREATED</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1311,7 +1411,7 @@
 			</item>
 		</TAG>
 		
-		<!-- 59 -->
+		<!-- 61 -->
 		<!-- kTAG_RECORD_MODIFIED -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1322,6 +1422,7 @@
 				<item>:type:quantitative</item>
 				<item>:type:private-modify</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_RECORD_MODIFIED</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1334,7 +1435,7 @@
 	<!-- Connection attributes -->
 	
 	<META>
-		<!-- 60 -->
+		<!-- 62 -->
 		<!-- kTAG_CONN_PROTOCOL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1344,6 +1445,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_PROTOCOL</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1358,7 +1460,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 61 -->
+		<!-- 63 -->
 		<!-- kTAG_CONN_HOST -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1368,6 +1470,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_HOST</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1382,7 +1485,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 62 -->
+		<!-- 64 -->
 		<!-- kTAG_CONN_PORT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1392,6 +1495,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_PORT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1406,7 +1510,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 63 -->
+		<!-- 65 -->
 		<!-- kTAG_CONN_CODE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1418,6 +1522,7 @@
 				<item>:type:private-search</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_CODE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1426,7 +1531,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 64 -->
+		<!-- 66 -->
 		<!-- kTAG_CONN_PASS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1438,6 +1543,7 @@
 				<item>:type:private-search</item>
 				<item>:type:private-display</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_PASS</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1446,7 +1552,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 65 -->
+		<!-- 67 -->
 		<!-- kTAG_CONN_BASE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1456,6 +1562,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_BASE</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1470,7 +1577,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 66 -->
+		<!-- 68 -->
 		<!-- kTAG_CONN_COLL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1480,6 +1587,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_COLL</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1494,7 +1602,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 67 -->
+		<!-- 69 -->
 		<!-- kTAG_CONN_OPTS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1504,6 +1612,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_OPTS</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1522,7 +1631,7 @@
 	<!-- Entity attributes -->
 	
 	<META>
-		<!-- 68 -->
+		<!-- 70 -->
 		<!-- kTAG_ENTITY_IDENT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1533,6 +1642,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_IDENT</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1541,7 +1651,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 69 -->
+		<!-- 71 -->
 		<!-- kTAG_ENTITY_FNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1550,8 +1660,9 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text-10</item>
+				<item>:type:full-text-06</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_FNAME</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1560,7 +1671,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 70 -->
+		<!-- 72 -->
 		<!-- kTAG_ENTITY_LNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1571,6 +1682,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_LNAME</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1579,7 +1691,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 71 -->
+		<!-- 73 -->
 		<!-- kTAG_ENTITY_TYPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1591,6 +1703,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_TYPE</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1599,7 +1712,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 72 -->
+		<!-- 74 -->
 		<!-- kTAG_ENTITY_KIND -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1611,6 +1724,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_KIND</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1619,7 +1733,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 73 -->
+		<!-- 75 -->
 		<!-- kTAG_ENTITY_ACRONYM -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1631,6 +1745,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-10</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_ACRONYM</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1645,7 +1760,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 74 -->
+		<!-- 76 -->
 		<!-- kTAG_ENTITY_MAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1655,6 +1770,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_MAIL</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1669,7 +1785,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 75 -->
+		<!-- 77 -->
 		<!-- kTAG_ENTITY_EMAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1679,6 +1795,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_EMAIL</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1693,7 +1810,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 76 -->
+		<!-- 78 -->
 		<!-- kTAG_ENTITY_LINK -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1703,6 +1820,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_LINK</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1717,7 +1835,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 77 -->
+		<!-- 79 -->
 		<!-- kTAG_ENTITY_PHONE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1727,6 +1845,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_PHONE</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1741,7 +1860,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 78 -->
+		<!-- 80 -->
 		<!-- kTAG_ENTITY_FAX -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1751,6 +1870,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_FAX</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1765,7 +1885,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 79 -->
+		<!-- 81 -->
 		<!-- kTAG_ENTITY_AFFILIATION -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1775,6 +1895,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_AFFILIATION</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1783,7 +1904,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 80 -->
+		<!-- 82 -->
 		<!-- kTAG_ENTITY_NATIONALITY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1795,6 +1916,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_NATIONALITY</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1809,7 +1931,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 81 -->
+		<!-- 83 -->
 		<!-- kTAG_ENTITY_VALID -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1819,6 +1941,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_VALID</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1827,7 +1950,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 82 -->
+		<!-- 84 -->
 		<!-- kTAG_ENTITY_PGP_KEY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1837,6 +1960,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_PGP_KEY</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1845,7 +1969,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 83 -->
+		<!-- 85 -->
 		<!-- kTAG_ENTITY_PGP_FINGERPRINT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1855,6 +1979,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_PGP_FINGERPRINT</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1867,7 +1992,7 @@
 	<!-- Management attributes -->
 	
 	<META>
-		<!-- 84 -->
+		<!-- 86 -->
 		<!-- kTAG_ROLES -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1878,6 +2003,7 @@
 				<item>:type:categorical</item>
 				<item>:type:list</item>
 			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ROLES</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

@@ -54,6 +54,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Operators.inc.php" );
 //
 require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 
+//
+// Functions.
+//
+require_once( kPATH_LIBRARY_ROOT."/Functions.php" );
+
 
 /*=======================================================================================
  *	TEST																				*

@@ -29,9 +29,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REF</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REF</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -64,9 +62,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>URL</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">URL</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -101,9 +97,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>USEOFTAXON</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">USEOFTAXON</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

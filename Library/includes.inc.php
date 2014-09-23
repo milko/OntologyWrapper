@@ -57,6 +57,13 @@ define( "kPATH_DEFINITIONS_ROOT",	kPATH_LIBRARY_ROOT."/definitions" );
  */
 define( "kPATH_STANDARDS_ROOT",	kPATH_LIBRARY_ROOT."/standards" );
 
+/**
+ * Local classes library root.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the local classes directory.
+ */
+define( "kPATH_CLASSES_ROOT",	kPATH_LIBRARY_ROOT."/classes" );
+
 /*=======================================================================================
  *	EXTERNAL LIBRARY PATHS																*
  *======================================================================================*/

@@ -33,9 +33,7 @@
 				<item>:type:full-text-10</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>INSTCODE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">INSTCODE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -69,9 +67,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ACCENUMB</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">ACCENUMB</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -106,9 +102,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-10</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ACCENAME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">ACCENAME</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -143,9 +137,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-06</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OTHERNUMB</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OTHERNUMB</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -186,9 +178,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROPNAME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROPNAME</item>
 		</TAG>
 		<NODE tag="mcpd:COLLDATE">
 			<item const="kTAG_NODE_TYPE">
@@ -216,9 +206,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>COLLNUMB</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">COLLNUMB</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -253,9 +241,7 @@
 				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>COLLCODE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">COLLCODE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -289,9 +275,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>COLLDESCR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">COLLDESCR</item>
 		</TAG>
 		<NODE tag="mcpd:COLLDESCR">
 			<item const="kTAG_NODE_TYPE">
@@ -320,9 +304,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LATITUDE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LATITUDE</item>
 		</TAG>
 		<NODE tag="mcpd:LATITUDE">
 			<item const="kTAG_NODE_TYPE">
@@ -349,9 +331,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LONGITUDE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LONGITUDE</item>
 		</TAG>
 		<NODE tag="mcpd:LONGITUDE">
 			<item const="kTAG_NODE_TYPE">
@@ -380,9 +360,7 @@
 				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BREDCODE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BREDCODE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -416,9 +394,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BREDDESCR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BREDDESCR</item>
 		</TAG>
 		<NODE tag="mcpd:BREDDESCR">
 			<item const="kTAG_NODE_TYPE">
@@ -446,9 +422,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BREDDESCR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BREDDESCR</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -483,9 +457,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>COLLSRC</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">COLLSRC</item>
 		</TAG>
 		<NODE tag="mcpd:COLLSRC">
 			<item const="kTAG_NODE_TYPE">
@@ -1041,9 +1013,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SAMPSTAT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SAMPSTAT</item>
 		</TAG>
 		<NODE tag="mcpd:SAMPSTAT">
 			<item const="kTAG_NODE_TYPE">
@@ -1449,9 +1419,7 @@
 				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>DONORCODE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">DONORCODE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1485,9 +1453,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>DONORDESCR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">DONORDESCR</item>
 		</TAG>
 		<NODE tag="mcpd:DONORDESCR">
 			<item const="kTAG_NODE_TYPE">
@@ -1515,9 +1481,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>DONORNUMB</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">DONORNUMB</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1550,9 +1514,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ACQDATE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">ACQDATE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1587,9 +1549,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>STORAGE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">STORAGE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1832,9 +1792,7 @@
 				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>DUPLSITE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">DUPLSITE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1868,9 +1826,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>DUPLDESCR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">DUPLDESCR</item>
 		</TAG>
 		<NODE tag="mcpd:DUPLDESCR">
 			<item const="kTAG_NODE_TYPE">
@@ -1897,9 +1853,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ACCEURL</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">ACCEURL</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2224,9 +2178,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REMARKS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REMARKS</item>
 		</TAG>
 		<NODE tag="mcpd:REMARKS">
 			<item const="kTAG_NODE_TYPE">

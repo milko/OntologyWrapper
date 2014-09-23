@@ -263,124 +263,114 @@ class Accession extends UnitObject
 									$theMinElev = kCLIMATE_DELTA_ELEV )
 	{
 		//
-		// Create shape.
+		// Create shapes.
 		//
-		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		if( $this->setObjectShapes() )
 		{
 			//
-			// Check coordinates.
+			// Check environment.
+			//
+			if( $this->offsetExists( ':environment' ) )
+				return TRUE;														// ==>
+			
+			//
+			// Get coordinates.
 			//
 			if( $this->offsetExists( ':domain:accession:collecting' ) )
-			{
-				//
-				// Get event and offsets.
-				//
 				$event = $this->offsetGet( ':domain:accession:collecting' );
-				$olat = $this->mDictionary->getSerial( ':location:site:latitude' );
-				$olon = $this->mDictionary->getSerial( ':location:site:longitude' );
-				
-				//
-				// Check coordinates.
-				//
-				if( array_key_exists( $olat, $event )
-				 && array_key_exists( $olon, $event ) )
-					$this->offsetSet(
-						kTAG_GEO_SHAPE,
-						array( kTAG_TYPE => 'Point',
-							   kTAG_GEOMETRY => array(
-								   (double) $event[ $olon ],
-								   (double) $event[ $olat ] ) ) );
-				else
-					return FALSE;													// ==>
-			
-			} // Has collecting event.
-			
+			elseif( $this->offsetExists( ':domain:accession:breeding' ) )
+				$event = $this->offsetGet( ':domain:accession:breeding' );
 			else
 				return FALSE;														// ==>
-		
-		} // Shape not yet set.
-		
-		//
-		// Init local storage.
-		//
-		$range = $dist = NULL;
-		
-		//
-		// Handle elevation range.
-		//
-		if( $this->offsetExists( ':location:site:elevation' ) )
-		{
-			//
-			// Set range.
-			//
-			$tmp = $this->offsetGet( ':location:site:elevation' );
-			$range = array( $tmp - $theMinElev, $tmp + $theMinElev );
-		
-		} // Has elevation range.
-		
-		//
-		// Handle distance range.
-		//		
-		//
-		// Set collecting site error.
-		//
-		if( $this->offsetExists( ':location:site:error' ) )
-		{
-			//
-			// Get value.
-			//
-			$tmp = $this->offsetGet( ':location:site:error' );
 			
 			//
-			// Handle value.
+			// Resolve error and elevation tags.
 			//
-			if( $tmp )
+			$oerr = $this->resolveOffset( ':location:site:error', TRUE );
+			$oalt = $this->resolveOffset( ':location:site:elevation', TRUE );
+			$oenv = $this->resolveOffset( ':environment', TRUE );
+			
+			//
+			// Init local storage.
+			//
+			$range = $dist = NULL;
+		
+			//
+			// Handle elevation range.
+			//
+			if( array_key_exists( $oalt, $event ) )
 			{
 				//
-				// Handle error overflow.
+				// Set range.
 				//
-				if( $tmp > kCLIMATE_MAX_DIST )
-					return FALSE;													// ==>
+				$tmp = $event[ $oalt ];
+				$range = array( $tmp - $theMinElev, $tmp + $theMinElev );
+		
+			} // Has elevation range.
+		
+			//
+			// Set collecting site error.
+			//
+			if( array_key_exists( $oerr, $event ) )
+			{
+				//
+				// Get value.
+				//
+				$tmp = $event[ $oerr ];
 			
 				//
-				// Handle error underflow.
+				// Handle value.
 				//
-				if( $tmp < $theDefDist )
-					$dist = $theDefDist;
+				if( $tmp )
+				{
+					//
+					// Handle error overflow.
+					//
+					if( $tmp > kCLIMATE_MAX_DIST )
+						return FALSE;												// ==>
 			
-				//
-				// Set value.
-				//
-				else
-					$dist = $tmp;
+					//
+					// Handle error underflow.
+					//
+					if( $tmp < $theDefDist )
+						$dist = $theDefDist;
+			
+					//
+					// Set value.
+					//
+					else
+						$dist = $tmp;
+				}
 			}
-		}
 		
-		//
-		// Enforce distance.
-		//
-		if( ($dist === NULL)
-		 && ($range !== NULL) )
-			$dist = $theDefDist;
+			//
+			// Enforce distance.
+			//
+			if( ($dist === NULL)
+			 && ($range !== NULL) )
+				$dist = $theDefDist;
 		
-		//
-		// Get climate data.
-		//
-		$climate = static::GetClimateData( $this->mDictionary,
-										   $this->offsetGet( kTAG_GEO_SHAPE ),
-										   $range,
-										   $dist );
+			//
+			// Get climate data.
+			// Note that we use the point shape by default.
+			//
+			$climate = static::GetClimateData( $this->mDictionary,
+											   $this->offsetGet( kTAG_GEO_SHAPE_DISP ),
+											   $range,
+											   $dist );
 		
-		//
-		// Set climate data.
-		//
-		if( count( $climate ) )
-		{
-			$this->offsetSet( ':environment', $climate );
+			//
+			// Set climate data.
+			//
+			if( count( $climate ) )
+			{
+				$this->offsetSet( ':environment', $climate );
 			
-			return TRUE;															// ==>
+				return TRUE;														// ==>
 		
-		} // Climate set.
+			} // Climate set.
+		
+		} // Has shapes.
 		
 		return FALSE;																// ==>
 	
@@ -562,40 +552,12 @@ class Accession extends UnitObject
 		//
 		// Create shape.
 		//
-		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
-		{
-			//
-			// Check coordinates.
-			//
-			if( $this->offsetExists( ':domain:accession:collecting' ) )
-			{
-				//
-				// Get event and offsets.
-				//
-				$event = $this->offsetGet( ':domain:accession:collecting' );
-				$olat = $this->mDictionary->getSerial( ':location:site:latitude' );
-				$olon = $this->mDictionary->getSerial( ':location:site:longitude' );
-				
-				//
-				// Check coordinates.
-				//
-				if( array_key_exists( $olat, $event )
-				 && array_key_exists( $olon, $event ) )
-					$this->offsetSet(
-						kTAG_GEO_SHAPE,
-						array( kTAG_TYPE => 'Point',
-							   kTAG_GEOMETRY => array(
-								   (double) $event[ $olon ],
-								   (double) $event[ $olat ] ) ) );
-			
-			} // Has collecting event.
-		
-		} // Shape not yet set.
+		$this->setObjectShapes();
 		
 		//
 		// Set climate data.
 		//
-		$this->SetClimateData();
+		$this->setClimateData();
 		
 		//
 		// Call parent method.
@@ -603,6 +565,93 @@ class Accession extends UnitObject
 		parent::preCommitPrepare( $theTags, $theRefs );
 	
 	} // preCommitPrepare.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									SHAPE UTILITIES										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setObjectActualShape															*
+	 *==================================================================================*/
+
+	/**
+	 * Set object actual shape
+	 *
+	 * In this class we use the latitude (<tt>:location:site:latitude</tt>) and longitude
+	 * (<tt>:location:site:longitude</tt>) of the colleting or breeding site, and the
+	 * coordinate error (<tt>:location:site:error</tt>) as the circle radius.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shape was set or found.
+	 */
+	protected function setObjectActualShape()
+	{
+		//
+		// Check shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Get coordinates.
+			//
+			if( $this->offsetExists( ':domain:accession:collecting' ) )
+				$event = $this->offsetGet( ':domain:accession:collecting' );
+			elseif( $this->offsetExists( ':domain:accession:breeding' ) )
+				$event = $this->offsetGet( ':domain:accession:breeding' );
+			else
+				return FALSE;														// ==>
+			
+			//
+			// Get coordinates.
+			//
+			$olat = $this->resolveOffset( ':location:site:latitude', TRUE );
+			$olon = $this->resolveOffset( ':location:site:longitude', TRUE );
+			$oerr = $this->resolveOffset( ':location:site:error', TRUE );
+			
+			//
+			// Check coordinates.
+			//
+			if( array_key_exists( $olat, $event )
+			 && array_key_exists( $olon, $event ) )
+			{
+				//
+				// Set circle.
+				//
+				if( array_key_exists( $oerr, $event )
+				 && ($event[ $oerr ] > kCLIMATE_MIN_DIST) )
+					$this->offsetSet(
+						kTAG_GEO_SHAPE,
+						array( kTAG_TYPE => 'Circle',
+							   kTAG_GEOMETRY => array(
+								   (double) $event[ $olon ],
+								   (double) $event[ $olat ] ),
+							   kTAG_RADIUS => (int) $event[ $oerr ] ) );
+				
+				//
+				// Set point.
+				//
+				else
+					$this->offsetSet(
+						kTAG_GEO_SHAPE,
+						array( kTAG_TYPE => 'Point',
+							   kTAG_GEOMETRY => array(
+								   (double) $event[ $olon ],
+								   (double) $event[ $olat ] ) ) );
+			}
+			else
+				return FALSE;														// ==>
+		
+		} // Shape not yet set.
+		
+		return TRUE;																// ==>
+	
+	} // setObjectActualShape.
 
 	 
 

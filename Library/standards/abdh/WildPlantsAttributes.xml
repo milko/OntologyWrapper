@@ -43,9 +43,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q4.1</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q4.1</item>
 		</TAG>
 		<NODE tag="abdh:Q4.1">
 			<item const="kTAG_NODE_TYPE">

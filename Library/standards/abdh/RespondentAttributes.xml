@@ -27,9 +27,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ID_ENUMERATOR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">ID_ENUMERATOR</item>
 		</TAG>
 		<NODE tag="abdh:ID_ENUMERATOR">
 			<item const="kTAG_NODE_TYPE">
@@ -84,9 +82,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-06</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ENUMERATOR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">ENUMERATOR</item>
 		</TAG>
 		<NODE tag="abdh:ENUMERATOR">
 			<item const="kTAG_NODE_TYPE">
@@ -114,9 +110,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-06</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NOM_HHH</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NOM_HHH</item>
 		</TAG>
 		<NODE tag="abdh:NOM_HHH">
 			<item const="kTAG_NODE_TYPE">
@@ -145,9 +139,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>GENDER_HHH</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">GENDER_HHH</item>
 		</TAG>
 		<NODE tag="abdh:GENDER_HHH">
 			<item const="kTAG_NODE_TYPE">
@@ -226,9 +218,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>EDUC_HHH</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">EDUC_HHH</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -262,9 +252,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>EDUC_HHH_NOTES</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">EDUC_HHH_NOTES</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -297,9 +285,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>AGE_HHH</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">AGE_HHH</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -334,9 +320,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MARIT_STAT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MARIT_STAT</item>
 		</TAG>
 		<NODE tag="abdh:MARIT_STAT">
 			<item const="kTAG_NODE_TYPE">
@@ -436,9 +420,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPOUSE_STAT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPOUSE_STAT</item>
 		</TAG>
 		<NODE tag="abdh:SPOUSE_STAT">
 			<item const="kTAG_NODE_TYPE">
@@ -536,9 +518,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPOUSE_EDUC</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPOUSE_EDUC</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -572,9 +552,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPOUSE_EDUC_NOTES</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPOUSE_EDUC_NOTES</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -609,9 +587,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REL_RESP_HHH</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REL_RESP_HHH</item>
 		</TAG>
 		<NODE tag="abdh:REL_RESP_HHH">
 			<item const="kTAG_NODE_TYPE">
@@ -809,9 +785,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>DATE_INT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">DATE_INT</item>
 		</TAG>
 		<NODE tag="abdh:DATE_INT">
 			<item const="kTAG_NODE_TYPE">

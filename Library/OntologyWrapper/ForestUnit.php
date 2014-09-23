@@ -200,98 +200,90 @@ class ForestUnit extends UnitObject
 									$theMinElev = kCLIMATE_DELTA_ELEV )
 	{
 		//
-		// Create shape.
+		// Create shapes.
 		//
-		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		if( $this->setObjectShapes() )
 		{
 			//
-			// Check coordinates.
+			// Check environment.
 			//
-			if( $this->offsetExists( ':location:site:latitude' )
-			 && $this->offsetExists( ':location:site:longitude' ) )
-				$this->offsetSet(
-					kTAG_GEO_SHAPE,
-					array( kTAG_TYPE => 'Point',
-						   kTAG_GEOMETRY => array(
-							(double) $this->offsetGet( ':location:site:longitude' ),
-							(double) $this->offsetGet( ':location:site:latitude' ) ) ) );
-			else
-				return FALSE;														// ==>
-		
-		} // Shape not yet set.
-		
-		//
-		// Init local storage.
-		//
-		$range = $dist = NULL;
-		
-		//
-		// Handle elevation range.
-		//
-		if( $this->offsetExists( ':location:site:elevation:min' )
-		 && $this->offsetExists( ':location:site:elevation:max' ) )
-		{
-			//
-			// Reorder range.
-			//
-			$min = $this->offsetGet( ':location:site:elevation:min' );
-			$max = $this->offsetGet( ':location:site:elevation:max' );
-			if( $min > $max )
-			{
-				$this->offsetSet( ':location:site:elevation:min', $max );
-				$this->offsetSet( ':location:site:elevation:max', $min );
-				$tmp = $min;
-				$min = $max;
-				$max = $tmp;
-			}
+			if( $this->offsetExists( ':environment' ) )
+				return TRUE;														// ==>
 			
 			//
-			// Normalise range.
+			// Init local storage.
 			//
-			if( ($max - $min) < ($theMinElev * 2) )
+			$range = $dist = NULL;
+		
+			//
+			// Handle elevation range.
+			//
+			if( $this->offsetExists( ':location:site:elevation:min' )
+			 && $this->offsetExists( ':location:site:elevation:max' ) )
 			{
-				$tmp = (int) floor( (($theMinElev * 2) - ($max - $min)) / 2 );
-				$min -= $tmp;
-				$max += $tmp;
-			}
+				//
+				// Reorder range.
+				//
+				$min = $this->offsetGet( ':location:site:elevation:min' );
+				$max = $this->offsetGet( ':location:site:elevation:max' );
+				if( $min > $max )
+				{
+					$this->offsetSet( ':location:site:elevation:min', $max );
+					$this->offsetSet( ':location:site:elevation:max', $min );
+					$tmp = $min;
+					$min = $max;
+					$max = $tmp;
+				}
 			
-			//
-			// Set range.
-			//
-			$range = array( $min, $max );
+				//
+				// Normalise range.
+				//
+				if( ($max - $min) < ($theMinElev * 2) )
+				{
+					$tmp = (int) floor( (($theMinElev * 2) - ($max - $min)) / 2 );
+					$min -= $tmp;
+					$max += $tmp;
+				}
+			
+				//
+				// Set range.
+				//
+				$range = array( $min, $max );
 		
-		} // Has elevation range.
+			} // Has elevation range.
 		
-		//
-		// Handle distance range.
-		//
-		if( $this->offsetExists( 'fcu:unit:area' ) )
-		{
-			$dist = sqrt( $this->offsetGet( 'fcu:unit:area' ) * 10000 ) * 1.2;
-			if( $dist < $theDefDist )
+			//
+			// Handle distance range.
+			//
+			if( $this->offsetExists( 'fcu:unit:area' ) )
+			{
+				$dist = sqrt( $this->offsetGet( 'fcu:unit:area' ) * 10000 ) * 1.2;
+				if( $dist < $theDefDist )
+					$dist = $theDefDist;
+			}
+			elseif( $range !== NULL )
 				$dist = $theDefDist;
-		}
-		elseif( $range !== NULL )
-			$dist = $theDefDist;
 		
-		//
-		// Get climate data.
-		//
-		$climate = static::GetClimateData( $this->mDictionary,
-										   $this->offsetGet( kTAG_GEO_SHAPE ),
-										   $range,
-										   $dist );
+			//
+			// Get climate data.
+			//
+			$climate = static::GetClimateData( $this->mDictionary,
+											   $this->offsetGet( kTAG_GEO_SHAPE ),
+											   $range,
+											   $dist );
 		
-		//
-		// Set climate data.
-		//
-		if( count( $climate ) )
-		{
-			$this->offsetSet( ':environment', $climate );
+			//
+			// Set climate data.
+			//
+			if( count( $climate ) )
+			{
+				$this->offsetSet( ':environment', $climate );
 			
-			return TRUE;															// ==>
+				return TRUE;														// ==>
 		
-		} // Climate set.
+			} // Climate set.
+		
+		} // Had or created shape.
 		
 		return FALSE;																// ==>
 	
@@ -525,28 +517,14 @@ class ForestUnit extends UnitObject
 							  $this->offsetGet( 'fcu:unit:data-collection' ) );
 		
 		//
-		// Create shape.
+		// Set shape.
 		//
-		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
-		{
-			//
-			// Check coordinates.
-			//
-			if( $this->offsetExists( ':location:site:latitude' )
-			 && $this->offsetExists( ':location:site:longitude' ) )
-				$this->offsetSet(
-					kTAG_GEO_SHAPE,
-					array( kTAG_TYPE => 'Point',
-						   kTAG_GEOMETRY => array(
-							   (double) $this->offsetGet( ':location:site:longitude' ),
-							   (double) $this->offsetGet( ':location:site:latitude' ) ) ) );
-		
-		} // Shape not yet set.
+		$this->setObjectShapes();
 		
 		//
 		// Set climate data.
 		//
-		$this->SetClimateData();
+		$this->setClimateData();
 	
 		//
 		// Call parent method.
@@ -554,6 +532,56 @@ class ForestUnit extends UnitObject
 		parent::preCommitPrepare( $theTags, $theRefs );
 	
 	} // preCommitPrepare.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									SHAPE UTILITIES										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setObjectActualShape															*
+	 *==================================================================================*/
+
+	/**
+	 * Set object actual shape
+	 *
+	 * In this class we use the latitude (<tt>:location:site:latitude</tt>) and longitude
+	 * (<tt>:location:site:longitude</tt>) of the unit, if the shape was not already set
+	 * as a polygon.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shape was set or found.
+	 */
+	protected function setObjectActualShape()
+	{
+		//
+		// Check shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Check shape.
+			//
+			if( $this->offsetExists( ':location:site:latitude' )
+			 && $this->offsetExists( ':location:site:longitude' ) )
+				$this->offsetSet(
+					kTAG_GEO_SHAPE,
+					array( kTAG_TYPE => 'Point',
+						   kTAG_GEOMETRY => array(
+							(double) $this->offsetGet( ':location:site:longitude' ),
+							(double) $this->offsetGet( ':location:site:latitude' ) ) ) );
+			else
+				return FALSE;														// ==>
+		}
+		
+		return TRUE;																// ==>
+	
+	} // setObjectActualShape.
 
 	 
 

@@ -20,6 +20,13 @@ use OntologyWrapper\OntologyObject;
 /**
  * Query flags.
  *
+ * This file contains the function definitions.
+ */
+require_once( kPATH_LIBRARY_ROOT."/Functions.php" );
+
+/**
+ * Query flags.
+ *
  * This file contains the query flag definitions.
  */
 require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
@@ -133,6 +140,14 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_ID_PERSISTENT => array
 		(
 			kTAG_NID	=> ':id-persistent',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10,
+									  kTYPE_LOOKUP )
+		),
+		kTAG_ID_SYMBOL => array
+		(
+			kTAG_NID	=> ':id-symbol',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTYPE_FULL_TEXT_10,
@@ -534,7 +549,15 @@ abstract class PersistentObject extends OntologyObject
 		),
 		kTAG_GEO_SHAPE => array
 		(
-			kTAG_NID	=> ':geo',
+			kTAG_NID	=> ':shape',
+			kTAG_DATA_TYPE	=> kTYPE_SHAPE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
+		),
+		kTAG_GEO_SHAPE_DISP => array
+		(
+			kTAG_NID	=> ':shape-disp',
 			kTAG_DATA_TYPE	=> kTYPE_SHAPE,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTAG_PRIVATE_SEARCH,
@@ -606,12 +629,19 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
+		kTAG_ENTITY_IDENT => array
+		(
+			kTAG_NID	=> ':entity:identifier',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10 )
+		),
 		kTAG_ENTITY_FNAME => array
 		(
 			kTAG_NID	=> ':entity:fname',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
-									  kTYPE_FULL_TEXT_10 )
+									  kTYPE_FULL_TEXT_06 )
 		),
 		kTAG_ENTITY_LNAME => array
 		(
@@ -6167,6 +6197,150 @@ MILKO - Need to check.
 		   ."missing tag or key reference." );									// !@! ==>
 	
 	} // parseXMLElementOffset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									SHAPE UTILITIES										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setObjectShapes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set object shapes
+	 *
+	 * This method can be used to the the object {@link kTAG_GEO_SHAPE} and
+	 * {@link kTAG_GEO_SHAPE_DISP} properties, the method will first set the actual shape,
+	 * if this was performed, it will set the display shape.
+	 *
+	 * The method will return <tt>TRUE</tt> if the shapes were set or found and
+	 * <tt>FALSE</tt> if not.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shapes were set or found.
+	 */
+	protected function setObjectShapes()
+	{
+		//
+		// Check object shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Set actual shape.
+			//
+			if( $this->setObjectActualShape() )
+			{
+				//
+				// Set object display shape.
+				//
+				$this->setObjectDisplayShape();
+				
+				return TRUE;														// ==>
+			
+			} // Actual shape was set.
+		
+		} // Shape not set.
+		
+		return FALSE;																// ==>
+	
+	} // setObjectShapes.
+
+	 
+	/*===================================================================================
+	 *	setObjectActualShape															*
+	 *==================================================================================*/
+
+	/**
+	 * Set object actual shape
+	 *
+	 * This method can be used to the the object {@link kTAG_GEO_SHAPE} which represents
+	 * the object's real shape.
+	 *
+	 * The method will return <tt>TRUE</tt> if the shape was set or found and <tt>FALSE</tt>
+	 * if not.
+	 *
+	 * In this class we assume the object does not have a shape, in derived classes you
+	 * should only need to overload this method if the object features a shape.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shape was set or found.
+	 */
+	protected function setObjectActualShape()							{	return FALSE;	}
+
+	 
+	/*===================================================================================
+	 *	setObjectDisplayShape															*
+	 *==================================================================================*/
+
+	/**
+	 * Set object display shape
+	 *
+	 * This method can be used to the the object display shape, {@link kTAG_GEO_SHAPE_DISP},
+	 * it expects the {@link setObjectActualShape()} to have been called beforehand.
+	 *
+	 * @access protected
+	 */
+	protected function setObjectDisplayShape()
+	{
+		//
+		// Check shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE_DISP ) )
+		{
+			//
+			// Get actual shape.
+			//
+			$shape = $this->offsetGet( kTAG_GEO_SHAPE );
+			
+			//
+			// Parse by actual shape type.
+			//
+			switch( $this->offsetGet( kTAG_GEO_SHAPE )[ kTAG_TYPE ] )
+			{
+				case 'Point':
+					$this->offsetSet( kTAG_GEO_SHAPE_DISP, $shape );
+					break;
+				
+				case 'Circle':
+					$this->offsetSet(
+						kTAG_GEO_SHAPE_DISP,
+						array( kTAG_TYPE => 'Point',
+							   kTAG_GEOMETRY => $shape[ kTAG_GEOMETRY ] ) );
+					break;
+				
+				case 'MultiPoint':
+				case 'LineString':
+					if( count( $shape[ kTAG_GEOMETRY ] ) == 2 )
+						$this->offsetSet(
+							kTAG_GEO_SHAPE_DISP,
+							array( kTAG_TYPE => 'Point',
+								   kTAG_GEOMETRY => Centroid( $shape[ kTAG_GEOMETRY ] ) ) );
+					elseif( count( $shape[ kTAG_GEOMETRY ] ) > 2 )
+						$this->offsetSet(
+							kTAG_GEO_SHAPE_DISP,
+							array( kTAG_TYPE => 'Point',
+								   kTAG_GEOMETRY
+								   	=> Centroid( Polygon( $shape[ kTAG_GEOMETRY ] ) ) ) );
+					break;
+					
+				case 'Polygon':
+					$this->offsetSet(
+						kTAG_GEO_SHAPE_DISP,
+						array( kTAG_TYPE => 'Point',
+							   kTAG_GEOMETRY
+							   		=> Centroid( $shape[ kTAG_GEOMETRY ][ 0 ] ) ) );
+					break;
+			}
+		}
+	
+	} // setObjectDisplayShape.
 
 		
 

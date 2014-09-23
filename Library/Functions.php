@@ -6,6 +6,15 @@
  * This file contains common function definitions.
  */
 
+/**
+ * Convex hull class.
+ *
+ * This file contains the definition of the convex hull class.
+ */
+require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
+
+
+
 /*=======================================================================================
  *																						*
  *									DIRECTORY UTILITIES									*
@@ -413,6 +422,89 @@
 		return $theString;															// ==>
 	
 	} // UTF82XML.
+
+
+
+/*=======================================================================================
+ *																						*
+ *									GEOMETRIC UTILITIES									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Centroid																		*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Calculate the centroid of a set of points</h4>
+	 *
+	 * This function will return the centroid of a set of points. It expects an array of
+	 * X/Y coordinates and will return a X/Y coordinate as an array.
+	 *
+	 * @param array					$thePoints			Array of points.
+	 * @return array				The centroid as a X/Y coordinate.
+	 */
+	function Centroid( $thePoints )
+	{
+		//
+		// Init local storage
+		//
+		$x = $y = 0;
+		
+		//
+		// Iterate points.
+		//
+		foreach( $thePoints as $point )
+		{
+			$x += $point[ 0 ];
+			$y += $point[ 1 ];
+		}
+		
+		return array( $x / count( $thePoints ), $y / count( $thePoints ) );			// ==>
+	
+	} // Centroid.
+
+	 
+	/*===================================================================================
+	 *	Polygon																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Calculate the polygon of a set of points</h4>
+	 *
+	 * This function will return the polygon surrounding a set of points. It expects an
+	 * array of X/Y coordinates and will return an X/Y coordinates array representing the
+	 * polygon enclosing the provided points.
+	 *
+	 * The first and last points of the returned array will be the same.
+	 *
+	 * @param array					$thePoints			Array of points.
+	 * @return array				The polygon as a X/Y coordinates.
+	 */
+	function Polygon( $thePoints )
+	{
+		//
+		// Calculate convex hull.
+		//
+		$hull = new ConvexHull( $thePoints );
+		
+		//
+		// Get polygon.
+		//
+		$poly = $hull->getHullPoints();
+		
+		//
+		// Set first and last points.
+		//
+		if( ($poly[ 0 ][ 0 ] != $poly[ count( $poly ) - 1 ][ 0 ])
+		 || ($poly[ 0 ][ 1 ] != $poly[ count( $poly ) - 1 ][ 1 ]) )
+			$poly[] = $poly[ 0 ];
+		
+		return $poly;																// ==>
+	
+	} // Polygon.
 
 
 

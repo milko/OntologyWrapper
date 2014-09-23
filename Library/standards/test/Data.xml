@@ -67,7 +67,7 @@
 			</item>
 		</item>
 		
-		<item const="kTAG_GEO_SHAPE">
+		<item const="kTAG_GEO_SHAPE_DISP">
 			<item const="kTAG_TYPE">Point</item>
 			<item const="kTAG_GEOMETRY">
 				<item>12.236371</item>

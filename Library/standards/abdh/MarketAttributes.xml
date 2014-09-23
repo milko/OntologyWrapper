@@ -29,9 +29,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NAME_MARKET</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NAME_MARKET</item>
 		</TAG>
 		<NODE tag="abdh:NAME_MARKET">
 			<item const="kTAG_NODE_TYPE">
@@ -89,9 +87,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MARKET_FOOD</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MARKET_FOOD</item>
 		</TAG>
 		<NODE tag="abdh:MARKET_FOOD">
 			<item const="kTAG_NODE_TYPE">
@@ -191,9 +187,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MARKET_GROCERIES</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MARKET_GROCERIES</item>
 		</TAG>
 		<NODE tag="abdh:MARKET_GROCERIES">
 			<item const="kTAG_NODE_TYPE">
@@ -293,9 +287,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MARKET_AG_PRODUCTS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MARKET_AG_PRODUCTS</item>
 		</TAG>
 		<NODE tag="abdh:MARKET_AG_PRODUCTS">
 			<item const="kTAG_NODE_TYPE">
@@ -395,9 +387,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MARKET_AG_INPUTS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MARKET_AG_INPUTS</item>
 		</TAG>
 		<NODE tag="abdh:MARKET_AG_INPUTS">
 			<item const="kTAG_NODE_TYPE">
@@ -497,9 +487,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MARKET_ANIMALS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MARKET_ANIMALS</item>
 		</TAG>
 		<NODE tag="abdh:MARKET_ANIMALS">
 			<item const="kTAG_NODE_TYPE">
@@ -598,9 +586,7 @@
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MARKET_OTHERSb</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MARKET_OTHERSb</item>
 		</TAG>
 		<NODE tag="abdh:MARKET_OTHERSb">
 			<item const="kTAG_NODE_TYPE">
@@ -656,9 +642,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MARKET_OTHERSa</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">MARKET_OTHERSa</item>
 		</TAG>
 		<NODE tag="abdh:MARKET_OTHERSa">
 			<item const="kTAG_NODE_TYPE">
@@ -772,9 +756,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>TRANSP</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">TRANSP</item>
 		</TAG>
 		<NODE tag="abdh:TRANSP">
 			<item const="kTAG_NODE_TYPE">
@@ -801,9 +783,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>DIST_MARKET</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">DIST_MARKET</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -836,9 +816,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>TIME_MARKET</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">TIME_MARKET</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -871,9 +849,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>FREQUENCY</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">FREQUENCY</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

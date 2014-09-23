@@ -126,6 +126,22 @@
 			</item>
 		</TERM>
 	
+		<!-- kTAG_ID_SYMBOL -->
+		<TERM ns="" lid="id-symbol">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Symbol</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The symbol represents an acronym by which an object can be publicly identified.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
 		<!-- kTAG_ID_VALID -->
 		<TERM ns="" lid="id-valid">
 			<item const="kTAG_LABEL">
@@ -983,7 +999,23 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the default geographic location and geometry of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the geographic location and geometry of an object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_GEO_SHAPE_DISP -->
+		<TERM ns="" lid="shape-disp">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Geographic location display shape</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the displayed geographic location and geometry of an object.]]></item>
 				</item>
 			</item>
 		</TERM>

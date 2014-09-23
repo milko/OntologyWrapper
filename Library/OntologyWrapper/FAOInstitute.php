@@ -789,27 +789,9 @@ class FAOInstitute extends Institution
 			$this->offsetSet( kTAG_NAME, $this->offsetGet( kTAG_IDENTIFIER ) );
 		
 		//
-		// Check shape.
+		// Set shape.
 		//
-		if( $this->offsetExists( ':location:site:latitude' )
-		 && $this->offsetExists( ':location:site:longitude' ) )
-		{
-			if( ($this->offsetGet( ':location:site:latitude' ) != 0)
-			 || ($this->offsetGet( ':location:site:longitude' ) != 0) )
-				$this->offsetSet( kTAG_GEO_SHAPE,
-								  array( kTAG_TYPE => 'Point',
-										 kTAG_GEOMETRY => array(
-											$this->offsetGet( ':location:site:longitude' ),
-											$this->offsetGet( ':location:site:latitude' ) ) ) );
-			else
-			{
-				$this->offsetUnset( kTAG_GEO_SHAPE );
-				$this->offsetUnset( ':location:site:latitude' );
-				$this->offsetUnset( ':location:site:longitude' );
-			}
-		}
-		else
-			$this->offsetUnset( kTAG_GEO_SHAPE );
+		$this->setObjectShapes();
 		
 		//
 		// Call parent method.
@@ -1194,6 +1176,70 @@ class FAOInstitute extends Institution
 		return array_values( $type );												// ==>
 	
 	} // importType.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									SHAPE UTILITIES										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setObjectActualShape															*
+	 *==================================================================================*/
+
+	/**
+	 * Set object actual shape
+	 *
+	 * In this class we use the latitude (<tt>:location:site:latitude</tt>) and longitude
+	 * (<tt>:location:site:longitude</tt>) of the institute.
+	 *
+	 * Note that we also filter 0/0 coordinates which might be integer defaults of Excel.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shape was set or found.
+	 */
+	protected function setObjectActualShape()
+	{
+		//
+		// Check shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Check shape.
+			//
+			if( $this->offsetExists( ':location:site:latitude' )
+			 && $this->offsetExists( ':location:site:longitude' ) )
+			{
+				//
+				// Get coordinates.
+				//
+				$lat = $this->offsetGet( ':location:site:latitude' );
+				$lon = $this->offsetGet( ':location:site:longitude' );
+				
+				//
+				// Filter zero coordinates.
+				//
+				if( ($lat != 0)
+				 || ($lon != 0) )
+					$this->offsetSet(
+						kTAG_GEO_SHAPE,
+						array( kTAG_TYPE => 'Point',
+							   kTAG_GEOMETRY => array( $lon, $lat ) ) );
+				else
+					return FALSE;													// ==>
+			}
+			else
+				return FALSE;														// ==>
+		}
+		
+		return TRUE;																// ==>
+	
+	} // setObjectActualShape.
 
 	 
 

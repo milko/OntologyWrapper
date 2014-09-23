@@ -75,9 +75,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>M_6MONTHS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">M_6MONTHS</item>
 		</TAG>
 		<NODE tag="abdh:M_6MONTHS">
 			<item const="kTAG_NODE_TYPE">
@@ -104,9 +102,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>M_6MONTHS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">M_6MONTHS</item>
 		</TAG>
 		<NODE tag="abdh:M_6_59MONTHS">
 			<item const="kTAG_NODE_TYPE">
@@ -133,9 +129,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>M_5_6YEARS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">M_5_6YEARS</item>
 		</TAG>
 		<NODE tag="abdh:M_5_6YEARS">
 			<item const="kTAG_NODE_TYPE">
@@ -162,9 +156,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>M_7_9YEARS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">M_7_9YEARS</item>
 		</TAG>
 		<NODE tag="abdh:M_7_9YEARS">
 			<item const="kTAG_NODE_TYPE">
@@ -191,9 +183,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>M_10_15YEARS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">M_10_15YEARS</item>
 		</TAG>
 		<NODE tag="abdh:M_10_15YEARS">
 			<item const="kTAG_NODE_TYPE">
@@ -220,9 +210,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>M_16_60YEARS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">M_16_60YEARS</item>
 		</TAG>
 		<NODE tag="abdh:M_16_60YEARS">
 			<item const="kTAG_NODE_TYPE">
@@ -249,9 +237,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>M_60MORE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">M_60MORE</item>
 		</TAG>
 		<NODE tag="abdh:M_60MORE">
 			<item const="kTAG_NODE_TYPE">
@@ -278,9 +264,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>F_6MONTHS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">F_6MONTHS</item>
 		</TAG>
 		<NODE tag="abdh:F_6MONTHS">
 			<item const="kTAG_NODE_TYPE">
@@ -307,9 +291,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>F_6MONTHS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">F_6MONTHS</item>
 		</TAG>
 		<NODE tag="abdh:F_6_59MONTHS">
 			<item const="kTAG_NODE_TYPE">
@@ -336,9 +318,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>F_5_6YEARS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">F_5_6YEARS</item>
 		</TAG>
 		<NODE tag="abdh:F_5_6YEARS">
 			<item const="kTAG_NODE_TYPE">
@@ -365,9 +345,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>F_7_9YEARS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">F_7_9YEARS</item>
 		</TAG>
 		<NODE tag="abdh:F_7_9YEARS">
 			<item const="kTAG_NODE_TYPE">
@@ -394,9 +372,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>F_10_15YEARS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">F_10_15YEARS</item>
 		</TAG>
 		<NODE tag="abdh:F_10_15YEARS">
 			<item const="kTAG_NODE_TYPE">
@@ -423,9 +399,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>F_16_60YEARS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">F_16_60YEARS</item>
 		</TAG>
 		<NODE tag="abdh:F_16_60YEARS">
 			<item const="kTAG_NODE_TYPE">
@@ -452,9 +426,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>F_60MORE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">F_60MORE</item>
 		</TAG>
 		<NODE tag="abdh:F_60MORE">
 			<item const="kTAG_NODE_TYPE">
@@ -506,9 +478,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_OWN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_OWN</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -541,9 +511,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_SH_IN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_SH_IN</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -576,9 +544,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_SH_OUT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_SH_OUT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -611,9 +577,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_RENT_IN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_RENT_IN</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -646,9 +610,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_RENT_OUT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_RENT_OUT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -681,9 +643,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_TOT_CULT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_TOT_CULT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -716,9 +676,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_TOT_CULT1</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_TOT_CULT1</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -751,9 +709,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_OWN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_OWN</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -786,9 +742,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_SH_IN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_SH_IN</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -821,9 +775,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_SH_OUT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_SH_OUT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -856,9 +808,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_RENT_IN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_RENT_IN</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -891,9 +841,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_RENT_OUT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_RENT_OUT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -926,9 +874,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_TOT_CULT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_TOT_CULT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -961,9 +907,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_TOT_CULT1</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_TOT_CULT1</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -996,9 +940,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_OWN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_OWN</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1031,9 +973,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_SH_IN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_SH_IN</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1066,9 +1006,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_SH_OUT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_SH_OUT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1101,9 +1039,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_RENT_IN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_RENT_IN</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1136,9 +1072,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_RENT_OUT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_RENT_OUT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1171,9 +1105,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_TOT_CULT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_TOT_CULT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1206,9 +1138,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_TOT_CULT1</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_TOT_CULT1</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1266,9 +1196,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_FAL</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_FAL</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1301,9 +1229,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_WASTE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_WASTE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1336,9 +1262,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_GRAZING</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_GRAZING</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1371,9 +1295,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_TREE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_TREE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1406,9 +1328,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_OTHERS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_OTHERS</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1441,9 +1361,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>HUSB_TOT_UNCULT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">HUSB_TOT_UNCULT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1476,9 +1394,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_FAL</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_FAL</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1511,9 +1427,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_WASTE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_WASTE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1546,9 +1460,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_GRAZING</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_GRAZING</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1581,9 +1493,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_TREE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_TREE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1616,9 +1526,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_OTHERS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_OTHERS</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1651,9 +1559,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SPO_TOT_UNCULT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">SPO_TOT_UNCULT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1686,9 +1592,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_FAL</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_FAL</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1721,9 +1625,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_WASTE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_WASTE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1756,9 +1658,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_GRAZING</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_GRAZING</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1791,9 +1691,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_TREE</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_TREE</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1826,9 +1724,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_OTHERS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_OTHERS</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1861,9 +1757,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>JOINT_TOT_UNCULT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">JOINT_TOT_UNCULT</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1921,9 +1815,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CAN_PRIV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CAN_PRIV</item>
 		</TAG>
 		<NODE tag="abdh:CAN_PRIV">
 			<item const="kTAG_NODE_TYPE">
@@ -1950,9 +1842,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CAN_COM</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CAN_COM</item>
 		</TAG>
 		<NODE tag="abdh:CAN_COM">
 			<item const="kTAG_NODE_TYPE">
@@ -1981,9 +1871,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CAN_WHO</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CAN_WHO</item>
 		</TAG>
 		<NODE tag="abdh:CAN_WHO">
 			<item const="kTAG_NODE_TYPE">
@@ -2081,9 +1969,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OWELL_PRIV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OWELL_PRIV</item>
 		</TAG>
 		<NODE tag="abdh:OWELL_PRIV">
 			<item const="kTAG_NODE_TYPE">
@@ -2110,9 +1996,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OWELL_COM</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OWELL_COM</item>
 		</TAG>
 		<NODE tag="abdh:OWELL_COM">
 			<item const="kTAG_NODE_TYPE">
@@ -2141,9 +2025,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OWELL_WHO</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OWELL_WHO</item>
 		</TAG>
 		<NODE tag="abdh:OWELL_WHO">
 			<item const="kTAG_NODE_TYPE">
@@ -2241,9 +2123,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BWELL_PRIV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BWELL_PRIV</item>
 		</TAG>
 		<NODE tag="abdh:BWELL_PRIV">
 			<item const="kTAG_NODE_TYPE">
@@ -2270,9 +2150,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BWELL_COM</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BWELL_COM</item>
 		</TAG>
 		<NODE tag="abdh:BWELL_COM">
 			<item const="kTAG_NODE_TYPE">
@@ -2301,9 +2179,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BWELL_WHO</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BWELL_WHO</item>
 		</TAG>
 		<NODE tag="abdh:BWELL_WHO">
 			<item const="kTAG_NODE_TYPE">
@@ -2401,9 +2277,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>KHADIN_PRIV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">KHADIN_PRIV</item>
 		</TAG>
 		<NODE tag="abdh:KHADIN_PRIV">
 			<item const="kTAG_NODE_TYPE">
@@ -2430,9 +2304,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>KHADIN_COM</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">KHADIN_COM</item>
 		</TAG>
 		<NODE tag="abdh:KHADIN_COM">
 			<item const="kTAG_NODE_TYPE">
@@ -2461,9 +2333,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>KHADIN_WHO</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">KHADIN_WHO</item>
 		</TAG>
 		<NODE tag="abdh:KHADIN_WHO">
 			<item const="kTAG_NODE_TYPE">
@@ -2561,9 +2431,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>TAANKA_PRIV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">TAANKA_PRIV</item>
 		</TAG>
 		<NODE tag="abdh:TAANKA_PRIV">
 			<item const="kTAG_NODE_TYPE">
@@ -2590,9 +2458,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>TAANKA_COM</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">TAANKA_COM</item>
 		</TAG>
 		<NODE tag="abdh:TAANKA_COM">
 			<item const="kTAG_NODE_TYPE">
@@ -2621,9 +2487,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>TAANKA_WHO</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">TAANKA_WHO</item>
 		</TAG>
 		<NODE tag="abdh:TAANKA_WHO">
 			<item const="kTAG_NODE_TYPE">
@@ -2721,9 +2585,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NAADI_PRIV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NAADI_PRIV</item>
 		</TAG>
 		<NODE tag="abdh:NAADI_PRIV">
 			<item const="kTAG_NODE_TYPE">
@@ -2750,9 +2612,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NAADI_COM</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NAADI_COM</item>
 		</TAG>
 		<NODE tag="abdh:NAADI_COM">
 			<item const="kTAG_NODE_TYPE">
@@ -2781,9 +2641,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NAADI_WHO</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NAADI_WHO</item>
 		</TAG>
 		<NODE tag="abdh:NAADI_WHO">
 			<item const="kTAG_NODE_TYPE">
@@ -2881,9 +2739,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>GLR_PRIV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">GLR_PRIV</item>
 		</TAG>
 		<NODE tag="abdh:GLR_PRIV">
 			<item const="kTAG_NODE_TYPE">
@@ -2910,9 +2766,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>GLR_COM</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">GLR_COM</item>
 		</TAG>
 		<NODE tag="abdh:GLR_COM">
 			<item const="kTAG_NODE_TYPE">
@@ -2941,9 +2795,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>GLR_WHO</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">GLR_WHO</item>
 		</TAG>
 		<NODE tag="abdh:GLR_WHO">
 			<item const="kTAG_NODE_TYPE">
@@ -3068,9 +2920,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.1a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.1a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.1a">
 			<item const="kTAG_NODE_TYPE">
@@ -3230,9 +3080,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.1b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.1b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.1b">
 			<item const="kTAG_NODE_TYPE">
@@ -3261,9 +3109,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.2a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.2a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.2a">
 			<item const="kTAG_NODE_TYPE">
@@ -3403,9 +3249,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.2b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.2b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.2b">
 			<item const="kTAG_NODE_TYPE">
@@ -3434,9 +3278,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.3a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.3a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.3a">
 			<item const="kTAG_NODE_TYPE">
@@ -3556,9 +3398,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.3b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.3b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.3b">
 			<item const="kTAG_NODE_TYPE">
@@ -3587,9 +3427,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.4</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.4</item>
 		</TAG>
 		<NODE tag="abdh:Q6.4">
 			<item const="kTAG_NODE_TYPE">
@@ -3709,9 +3547,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.5a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.5a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.5a">
 			<item const="kTAG_NODE_TYPE">
@@ -3831,9 +3667,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.5b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.5b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.5b">
 			<item const="kTAG_NODE_TYPE">
@@ -3887,9 +3721,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.6a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.6a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.6a">
 			<item const="kTAG_NODE_TYPE">
@@ -3967,9 +3799,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.6b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.6b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.6b">
 			<item const="kTAG_NODE_TYPE">
@@ -3998,9 +3828,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.7a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.7a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.7a">
 			<item const="kTAG_NODE_TYPE">
@@ -4078,9 +3906,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.7b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.7b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.7b">
 			<item const="kTAG_NODE_TYPE">
@@ -4109,9 +3935,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.8a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.8a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.8a">
 			<item const="kTAG_NODE_TYPE">
@@ -4189,9 +4013,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.8b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.8b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.8b">
 			<item const="kTAG_NODE_TYPE">
@@ -4220,9 +4042,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.9a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.9a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.9a">
 			<item const="kTAG_NODE_TYPE">
@@ -4300,9 +4120,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.9b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.9b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.9b">
 			<item const="kTAG_NODE_TYPE">
@@ -4331,9 +4149,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.10a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.10a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.10a">
 			<item const="kTAG_NODE_TYPE">
@@ -4411,9 +4227,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.10b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.10b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.10b">
 			<item const="kTAG_NODE_TYPE">
@@ -4442,9 +4256,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.11a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.11a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.11a">
 			<item const="kTAG_NODE_TYPE">
@@ -4522,9 +4334,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.11b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.11b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.11b">
 			<item const="kTAG_NODE_TYPE">
@@ -4553,9 +4363,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.12a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.12a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.12a">
 			<item const="kTAG_NODE_TYPE">
@@ -4633,9 +4441,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.12b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.12b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.12b">
 			<item const="kTAG_NODE_TYPE">
@@ -4664,9 +4470,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.13a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.13a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.13a">
 			<item const="kTAG_NODE_TYPE">
@@ -4744,9 +4548,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.13b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.13b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.13b">
 			<item const="kTAG_NODE_TYPE">
@@ -4775,9 +4577,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.14a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.14a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.14a">
 			<item const="kTAG_NODE_TYPE">
@@ -4855,9 +4655,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.14b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.14b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.14b">
 			<item const="kTAG_NODE_TYPE">
@@ -4886,9 +4684,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.15a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.15a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.15a">
 			<item const="kTAG_NODE_TYPE">
@@ -4966,9 +4762,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.15b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.15b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.15b">
 			<item const="kTAG_NODE_TYPE">
@@ -4997,9 +4791,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.16a</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.16a</item>
 		</TAG>
 		<NODE tag="abdh:Q6.16a">
 			<item const="kTAG_NODE_TYPE">
@@ -5077,9 +4869,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q6.16b</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q6.16b</item>
 		</TAG>
 		<NODE tag="abdh:Q6.16b">
 			<item const="kTAG_NODE_TYPE">
@@ -5132,9 +4922,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_MAIN</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_MAIN</item>
 		</TAG>
 		<NODE tag="abdh:CROP_MAIN">
 			<item const="kTAG_NODE_TYPE">
@@ -5214,9 +5002,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_MAIN_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_MAIN_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:CROP_MAIN_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -5314,9 +5100,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_MAIN_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_MAIN_REV</item>
 		</TAG>
 		<NODE tag="abdh:CROP_MAIN_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -5343,9 +5127,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_MAIN_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_MAIN_TIME</item>
 		</TAG>
 		<NODE tag="abdh:CROP_MAIN_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -5374,9 +5156,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_MAIN_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_MAIN_TREND</item>
 		</TAG>
 		<NODE tag="abdh:CROP_MAIN_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -5475,9 +5255,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_RES</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_RES</item>
 		</TAG>
 		<NODE tag="abdh:CROP_RES">
 			<item const="kTAG_NODE_TYPE">
@@ -5557,9 +5335,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_RES_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_RES_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:CROP_RES_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -5657,9 +5433,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_RES_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_RES_REV</item>
 		</TAG>
 		<NODE tag="abdh:CROP_RES_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -5686,9 +5460,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_RES_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_RES_TIME</item>
 		</TAG>
 		<NODE tag="abdh:CROP_RES_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -5717,9 +5489,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CROP_RES_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">CROP_RES_TREND</item>
 		</TAG>
 		<NODE tag="abdh:CROP_RES_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -5818,9 +5588,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>FEEDS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">FEEDS</item>
 		</TAG>
 		<NODE tag="abdh:FEEDS">
 			<item const="kTAG_NODE_TYPE">
@@ -5900,9 +5668,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>FEEDS_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">FEEDS_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:FEEDS_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -6000,9 +5766,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>FEEDS_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">FEEDS_REV</item>
 		</TAG>
 		<NODE tag="abdh:FEEDS_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -6029,9 +5793,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>FEEDS_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">FEEDS_TIME</item>
 		</TAG>
 		<NODE tag="abdh:FEEDS_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -6060,9 +5822,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>FEEDS_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">FEEDS_TREND</item>
 		</TAG>
 		<NODE tag="abdh:FEEDS_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -6161,9 +5921,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCK</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCK</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCK">
 			<item const="kTAG_NODE_TYPE">
@@ -6243,9 +6001,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCK_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCK_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCK_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -6343,9 +6099,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCK_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCK_REV</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCK_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -6372,9 +6126,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCK_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCK_TIME</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCK_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -6403,9 +6155,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCK_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCK_TREND</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCK_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -6504,9 +6254,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCKPROD</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCKPROD</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCKPROD">
 			<item const="kTAG_NODE_TYPE">
@@ -6586,9 +6334,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCKPROD_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCKPROD_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCKPROD_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -6686,9 +6432,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCKPROD_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCKPROD_REV</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCKPROD_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -6715,9 +6459,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCKPROD_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCKPROD_TIME</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCKPROD_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -6746,9 +6488,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LIVESTOCKPROD_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">LIVESTOCKPROD_TREND</item>
 		</TAG>
 		<NODE tag="abdh:LIVESTOCKPROD_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -6847,9 +6587,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>AGLABOR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">AGLABOR</item>
 		</TAG>
 		<NODE tag="abdh:AGLABOR">
 			<item const="kTAG_NODE_TYPE">
@@ -6929,9 +6667,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>AGLABOR_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">AGLABOR_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:AGLABOR_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -7029,9 +6765,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>AGLABOR_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">AGLABOR_REV</item>
 		</TAG>
 		<NODE tag="abdh:AGLABOR_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -7058,9 +6792,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>AGLABOR_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">AGLABOR_TIME</item>
 		</TAG>
 		<NODE tag="abdh:AGLABOR_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -7089,9 +6821,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>AGLABOR_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">AGLABOR_TREND</item>
 		</TAG>
 		<NODE tag="abdh:AGLABOR_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -7190,9 +6920,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NON_AGLABOR</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NON_AGLABOR</item>
 		</TAG>
 		<NODE tag="abdh:NON_AGLABOR">
 			<item const="kTAG_NODE_TYPE">
@@ -7272,9 +7000,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NON_AGLABOR_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NON_AGLABOR_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:NON_AGLABOR_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -7372,9 +7098,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NON_AGLABOR_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NON_AGLABOR_REV</item>
 		</TAG>
 		<NODE tag="abdh:NON_AGLABOR_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -7401,9 +7125,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NON_AGLABOR_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NON_AGLABOR_TIME</item>
 		</TAG>
 		<NODE tag="abdh:NON_AGLABOR_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -7432,9 +7154,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NON_AGLABOR_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">NON_AGLABOR_TREND</item>
 		</TAG>
 		<NODE tag="abdh:NON_AGLABOR_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -7533,9 +7253,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REG_EMPL</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REG_EMPL</item>
 		</TAG>
 		<NODE tag="abdh:REG_EMPL">
 			<item const="kTAG_NODE_TYPE">
@@ -7615,9 +7333,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REG_EMPL_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REG_EMPL_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:REG_EMPL_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -7715,9 +7431,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REG_EMPL_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REG_EMPL_REV</item>
 		</TAG>
 		<NODE tag="abdh:REG_EMPL_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -7744,9 +7458,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REG_EMPL_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REG_EMPL_TIME</item>
 		</TAG>
 		<NODE tag="abdh:REG_EMPL_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -7775,9 +7487,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REG_EMPL_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REG_EMPL_TREND</item>
 		</TAG>
 		<NODE tag="abdh:REG_EMPL_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -7876,9 +7586,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BUSS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BUSS</item>
 		</TAG>
 		<NODE tag="abdh:BUSS">
 			<item const="kTAG_NODE_TYPE">
@@ -7958,9 +7666,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BUSS_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BUSS_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:BUSS_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -8058,9 +7764,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BUSS_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BUSS_REV</item>
 		</TAG>
 		<NODE tag="abdh:BUSS_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -8087,9 +7791,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BUSS_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BUSS_TIME</item>
 		</TAG>
 		<NODE tag="abdh:BUSS_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -8118,9 +7820,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>BUSS_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">BUSS_TREND</item>
 		</TAG>
 		<NODE tag="abdh:BUSS_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -8219,9 +7919,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REMIT</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REMIT</item>
 		</TAG>
 		<NODE tag="abdh:REMIT">
 			<item const="kTAG_NODE_TYPE">
@@ -8301,9 +7999,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REMIT_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REMIT_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:REMIT_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -8401,9 +8097,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REMIT_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REMIT_REV</item>
 		</TAG>
 		<NODE tag="abdh:REMIT_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -8430,9 +8124,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REMIT_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REMIT_TIME</item>
 		</TAG>
 		<NODE tag="abdh:REMIT_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -8461,9 +8153,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REMIT_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">REMIT_TREND</item>
 		</TAG>
 		<NODE tag="abdh:REMIT_TREND">
 			<item const="kTAG_NODE_TYPE">
@@ -8562,9 +8252,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OTHER</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OTHER</item>
 		</TAG>
 		<NODE tag="abdh:OTHER">
 			<item const="kTAG_NODE_TYPE">
@@ -8644,9 +8332,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OTHER_WHOEARNS</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OTHER_WHOEARNS</item>
 		</TAG>
 		<NODE tag="abdh:OTHER_WHOEARNS">
 			<item const="kTAG_NODE_TYPE">
@@ -8744,9 +8430,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OTHER_REV</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OTHER_REV</item>
 		</TAG>
 		<NODE tag="abdh:OTHER_REV">
 			<item const="kTAG_NODE_TYPE">
@@ -8773,9 +8457,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OTHER_TIME</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OTHER_TIME</item>
 		</TAG>
 		<NODE tag="abdh:OTHER_TIME">
 			<item const="kTAG_NODE_TYPE">
@@ -8804,9 +8486,7 @@
 				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OTHER_TREND</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">OTHER_TREND</item>
 		</TAG>
 		<NODE tag="abdh:OTHER_TREND">
 			<item const="kTAG_NODE_TYPE">

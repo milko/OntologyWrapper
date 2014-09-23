@@ -50,9 +50,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q3.3</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q3.3</item>
 		</TAG>
 		<NODE tag="abdh:Q3.3">
 			<item const="kTAG_NODE_TYPE">
@@ -140,9 +138,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q3.7</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q3.7</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -175,9 +171,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q3.8</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q3.8</item>
 		</TAG>
 		<NODE tag="abdh:Q3.8">
 			<item const="kTAG_NODE_TYPE">
@@ -204,9 +198,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q3.9</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q3.9</item>
 		</TAG>
 		<NODE tag="abdh:Q3.9">
 			<item const="kTAG_NODE_TYPE">
@@ -233,9 +225,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q3.10</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q3.10</item>
 		</TAG>
 		<NODE tag="abdh:Q3.10">
 			<item const="kTAG_NODE_TYPE">
@@ -264,9 +254,7 @@
 				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q3.11</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q3.11</item>
 		</TAG>
 		<NODE tag="abdh:Q3.11">
 			<item const="kTAG_NODE_TYPE">
@@ -298,9 +286,7 @@
 				<item>:type:categorical</item>
 				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_SYNONYM">
-				<item>Q3.13</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">Q3.13</item>
 		</TAG>
 		<NODE tag="abdh:Q3.13">
 			<item const="kTAG_NODE_TYPE">

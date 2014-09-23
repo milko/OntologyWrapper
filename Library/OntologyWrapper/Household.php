@@ -125,6 +125,144 @@ class Household extends UnitObject
 	
 	} // getName.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC CLIMATE MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setClimateData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set climate data
+	 *
+	 * This method can be used to set the climate data according to the provided parameters.
+	 *
+	 * This method is called automatically at commit time, but you may want to provide
+	 * custom parameters when setting it.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theDefDist</b>: Default error distance. This represents the default value
+	 *		of the coordinate uncertainty expressed as the radius of a circle originating
+	 *		from the object coordinates in meters. When providing climate data for an
+	 *		elevation range, the coordinate uncertainty must be provided, if this value is
+	 *		not available, it will be set with this parameter. The default value is taken
+	 *		from the constant {@link kCLIMATE_DEF_DIST}.
+	 *	<li><b>$theMinElev</b>: Minimum elevation range. This represents the minimum
+	 *		elevation range. If the range is smaller than this value, it will be adjusted
+	 *		to this value. The default value is taken from the constant
+	 *		{@link kCLIMATE_DELTA_ELEV}.
+	 * </ul>
+	 *
+	 * The method expects the object's data dictionary to have been set and will create the
+	 * shape property if not yet set.
+	 *
+	 * @param integer				$theDefDist			Default coordinate uncertainty.
+	 * @param integer				$theMinElev			Minimum elevation range.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> if the climate was set.
+	 */
+	public function setClimateData( $theDefDist = kCLIMATE_DEF_DIST,
+									$theMinElev = kCLIMATE_DELTA_ELEV )
+	{
+		//
+		// Create shapes.
+		//
+		if( $this->setObjectShapes() )
+		{
+			//
+			// Resolve tags.
+			//
+			$oenv = $this->mDictionary->resolveOffset( ':environment', TRUE );
+			$olat = $this->mDictionary->resolveOffset( ':location:site:latitude', TRUE );
+			$olon = $this->mDictionary->resolveOffset( ':location:site:longitude', TRUE );
+			
+			//
+			// Check interview.
+			//
+			if( $this->offsetExists( 'abdh:interview' ) )
+				$event = $this->offsetGet( 'abdh:interview' );
+			else
+				return FALSE;														// ==>
+			
+			//
+			// Iterate interviewers.
+			//
+			$done = 0;
+			$keys = array_keys( $event );
+			foreach( $keys as $key )
+			{
+				//
+				// Check environment.
+				//
+				if( ! array_key_exists( $oenv, $event[ $key ] ) )
+				{
+					//
+					// Check coordinates.
+					//
+					if( array_key_exists( $olat, $event[ $key ] )
+					 && array_key_exists( $olon, $event[ $key ] ) )
+					{
+						//
+						// Set shape.
+						//
+						$shape = array( kTAG_TYPE => 'Point',
+										kTAG_GEOMETRY => array( $event[ $key ][ $olon ],
+																$event[ $key ][ $olat ] ) );
+		
+						//
+						// Get climate data.
+						//
+						$climate = static::GetClimateData( $this->mDictionary, $shape );
+		
+						//
+						// Set climate data.
+						//
+						if( count( $climate ) )
+						{
+							//
+							// Set data.
+							//
+							$event[ $key ][ $oenv ] = $climate;
+							
+							//
+							// Signal done.
+							//
+							$done++;
+		
+						} // Climate set.
+					}
+				}
+			}
+			
+			//
+			// Handle updates.
+			//
+			if( $done )
+			{
+				//
+				// Update interviews.
+				//
+				$this->offsetSet( 'abdh:interview', $event );
+				
+				return TRUE;														// ==>
+			}
+		
+		} // Has shapes.
+		
+		return FALSE;																// ==>
+	
+	} // setClimateData.
+
 		
 
 /*=======================================================================================
@@ -270,24 +408,75 @@ class Household extends UnitObject
 		//
 		// Create shape.
 		//
-		if( $this->offsetExists( 'abdh:interview' ) )
+		$this->setObjectShapes();
+		
+		//
+		// Set climate data.
+		//
+		$this->setClimateData();
+		
+		//
+		// Call parent method.
+		//
+		parent::preCommitPrepare( $theTags, $theRefs );
+	
+	} // preCommitPrepare.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									SHAPE UTILITIES										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setObjectActualShape															*
+	 *==================================================================================*/
+
+	/**
+	 * Set object actual shape
+	 *
+	 * In this class we use the latitude (<tt>:location:site:latitude</tt>) and longitude
+	 * (<tt>:location:site:longitude</tt>) of the colleting or breeding site, and the
+	 * coordinate error (<tt>:location:site:error</tt>) as the circle radius.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shape was set or found.
+	 */
+	protected function setObjectActualShape()
+	{
+		//
+		// Check shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
 		{
 			//
-			// Init loop storage.
+			// Check interview.
+			//
+			if( $this->offsetExists( 'abdh:interview' ) )
+				$event = $this->offsetGet( 'abdh:interview' );
+			else
+				return FALSE;														// ==>
+			
+			//
+			// Init local storage.
 			//
 			$shape = NULL;
 			$coords = Array();
-			$lat_tag = $this->resolveOffset( ':location:site:latitude', TRUE );
-			$lon_tag = $this->resolveOffset( ':location:site:longitude', TRUE );
+			$olat = $this->resolveOffset( ':location:site:latitude', TRUE );
+			$olon = $this->resolveOffset( ':location:site:longitude', TRUE );
 			
 			//
 			// Iterate interviewers.
 			//
-			foreach( $this->offsetGet( 'abdh:interview' ) as $interview )
+			foreach( $event as $interview )
 			{
-				if( array_key_exists( $lat_tag, $interview )
-				 && array_key_exists( $lon_tag, $interview ) )
-					$coords[] = array( $interview[ $lon_tag ], $interview[ $lat_tag ] );
+				if( array_key_exists( $olat, $interview )
+				 && array_key_exists( $olon, $interview ) )
+					$coords[] = array( $interview[ $olon ], $interview[ $olat ] );
 			}
 			
 			//
@@ -296,30 +485,29 @@ class Household extends UnitObject
 			if( count( $coords ) == 1 )
 				$shape = array( kTAG_TYPE => 'Point',
 								kTAG_GEOMETRY => $coords[ 0 ] );
-			elseif( count( $coords ) == 2 )
-		//		$shape = array( kTAG_TYPE => 'MultiPoint',
-				$shape = array( kTAG_TYPE => 'LineString',
+		//	elseif( count( $coords ) == 2 )
+			elseif( count( $coords ) > 1 )
+				$shape = array( kTAG_TYPE => 'MultiPoint',
 								kTAG_GEOMETRY => $coords );
+		/*
 			elseif( count( $coords ) > 2 )
-			{
-				$shape = array( kTAG_TYPE => 'Polygon' );
-				$coords[ count( $coords ) ] = $coords[ 0 ];
-				$shape = array( kTAG_GEOMETRY => array( $coords ) );
-			}
+				$shape = array( kTAG_TYPE => 'Polygon',
+								kTAG_GEOMETRY => array( Polygon( $coords ) );
+		*/
 			
 			//
 			// Set shape.
 			//
 			if( $shape !== NULL )
 				$this->offsetSet( kTAG_GEO_SHAPE, $shape );
-		}
+			else
+				return FALSE;														// ==>
 		
-		//
-		// Call parent method.
-		//
-		parent::preCommitPrepare( $theTags, $theRefs );
+		} // Shape not yet set.
+		
+		return TRUE;																// ==>
 	
-	} // preCommitPrepare.
+	} // setObjectActualShape.
 
 	 
 

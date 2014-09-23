@@ -933,7 +933,7 @@ try
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
 			)
 		),
-		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE_DISP,
 		kAPI_PARAM_GROUP => array( '242.149', '242.255' )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
@@ -1340,7 +1340,7 @@ try
 		),
 		kAPI_PARAM_DOMAIN => ':domain:forest',
 		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
-		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE_DISP,
 		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Rect',
 								   kTAG_GEOMETRY => array( array( 9, 45 ),
 														   array( 18, 50 ) ) )
@@ -1760,7 +1760,7 @@ try
 		),
 		kAPI_PARAM_DOMAIN => ':domain:forest',
 		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
-		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE_DISP,
 		kAPI_PARAM_SHAPE
 				=> array( kTAG_TYPE => 'Polygon',
 						  kTAG_GEOMETRY

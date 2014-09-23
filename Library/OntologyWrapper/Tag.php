@@ -74,6 +74,12 @@ use OntologyWrapper\CollectionObject;
  *		references to this sequence number. This attribute must be managed with its offset;
  *		in derived classes it will be automatically assigned end only available as
  *		read-only.
+ *	<li><tt>{@link kTAG_ID_SYMBOL}</tt>: <em>Symbol</em>. This optional attribute holds
+ *		a string value which represents the current object's symbol or variable name. This
+ *		value will be used to reference the current tag in data templates, so it is
+ *		important that this value be unique within all templates in which the tag is
+ *		referenced; ideally, this value should be equivalent to the global unique
+ *		identifier.
  *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Property graph node</em>. If the wrapper uses
  *		a graph database, this property will be used to reference the graph node which
  *		represents the current tag as a data property; it is an integer value which is

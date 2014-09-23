@@ -6860,6 +6860,15 @@
 		</NODE>
 	</META>
 	
+	<!-- :shape-disp -->
+	<META>
+		<NODE tag=":shape-disp">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Usage -->
 	
 	<!-- :location:site:coordinates-restricted -->

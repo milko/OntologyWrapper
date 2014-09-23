@@ -514,6 +514,7 @@ abstract class OntologyObject extends ContainerObject
 	 *	<li><tt>{@link kTAG_TEXT}</tt>: Property text.
 	 *	<li><tt>{@link kTAG_URL}</tt>: Property URL.
 	 *	<li><tt>{@link kTAG_GEOMETRY}</tt>: Shape property geometry.
+	 *	<li><tt>{@link kTAG_RADIUS}</tt>: Shape property radius.
 	 *	<li><tt>{@link kTAG_FULL_TEXT_10}</tt>: Full-text values, weight 10.
 	 *	<li><tt>{@link kTAG_FULL_TEXT_06}</tt>: Full-text values, weight 6.
 	 *	<li><tt>{@link kTAG_FULL_TEXT_03}</tt>: Full-text values, weight 3.
@@ -526,7 +527,7 @@ abstract class OntologyObject extends ContainerObject
 	{
 		return array( kTAG_NID, kTAG_CLASS,
 					  kTAG_TYPE, kTAG_LANGUAGE,
-					  kTAG_TEXT, kTAG_URL, kTAG_GEOMETRY,
+					  kTAG_TEXT, kTAG_URL, kTAG_GEOMETRY, kTAG_RADIUS,
 					  kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 );	// ==>
 	
 	} // InternalOffsets.
@@ -945,6 +946,7 @@ abstract class OntologyObject extends ContainerObject
 		switch( $type )
 		{
 			case 'Point':
+			case 'Circle':
 				//
 				// Check geometry.
 				//
@@ -965,30 +967,34 @@ abstract class OntologyObject extends ContainerObject
 				else
 					throw new \Exception(
 						"Invalid shape structure." );							// !@! ==>
+				
+				//
+				// Handle circle.
+				//
+				if( $type == 'Circle' )
+				{
+					//
+					// Check radius.
+					//
+					if( array_key_exists( kTAG_RADIUS, $theShape ) )
+					{
+						if( is_scalar( $theShape[ kTAG_RADIUS ] ) )
+						{
+							if( is_int( $theShape[ kTAG_RADIUS ] )
+							 || ctype_digit( $theShape[ kTAG_RADIUS ] ) )
+								$theShape[ kTAG_RADIUS ] = (int) $theShape[ kTAG_RADIUS ];
+						}
+						else
+							throw new \Exception(
+								"Invalid circle radius value." );				// !@! ==>
+					}
+					else
+						throw new \Exception(
+							"Missing circle radius." );							// !@! ==>
+				}
 				break;
 			
 			case 'MultiPoint':
-				//
-				// Check geometry.
-				//
-				if( is_array( $geom ) )
-				{
-					//
-					// Check coordinates list.
-					//
-					foreach( $geom as $coord )
-					{
-						if( (! is_array( $coord ))
-						 || (count( $coord ) != 2) )
-							throw new \Exception(
-								"Invalid multi-pointcoordinate element." );		// !@! ==>
-					}
-				}
-				else
-					throw new \Exception(
-						"Invalid shape structure." );							// !@! ==>
-				break;
-			
 			case 'LineString':
 				//
 				// Check geometry.
