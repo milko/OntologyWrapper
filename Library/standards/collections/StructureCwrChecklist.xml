@@ -36,6 +36,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- cwr:INSTCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:INSTCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- schema::inventory -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::inventory</item>
@@ -66,10 +72,16 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:occurrence -->
+		<!-- cwr:ENDEMISM -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:occurrence</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ENDEMISM</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::domain:occurrence -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::domain:occurrence</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	</META>
 </METADATA>

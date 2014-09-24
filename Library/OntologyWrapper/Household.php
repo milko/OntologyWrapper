@@ -182,9 +182,9 @@ class Household extends UnitObject
 			//
 			// Resolve tags.
 			//
-			$oenv = $this->mDictionary->resolveOffset( ':environment', TRUE );
-			$olat = $this->mDictionary->resolveOffset( ':location:site:latitude', TRUE );
-			$olon = $this->mDictionary->resolveOffset( ':location:site:longitude', TRUE );
+			$oenv = $this->resolveOffset( ':environment', TRUE );
+			$olat = $this->resolveOffset( ':location:site:latitude', TRUE );
+			$olon = $this->resolveOffset( ':location:site:longitude', TRUE );
 			
 			//
 			// Check interview.
@@ -290,7 +290,8 @@ class Household extends UnitObject
 	{
 		return array_merge( parent::DefaultOffsets(),
 							$this->mDictionary
-								->collectStructureOffsets( 'struct:abdh' ) );		// ==>
+								->collectStructureOffsets(
+									'struct::domain:hh-assessment' ) );				// ==>
 	
 	} // DefaultOffsets.
 

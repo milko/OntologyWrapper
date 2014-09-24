@@ -2538,10 +2538,6 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/collections/StructCwrOccurrence.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
 		$file = kPATH_STANDARDS_ROOT.'/collections/StructForestPopulation.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -2573,10 +2569,6 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 		
 		$file = kPATH_STANDARDS_ROOT.'/collections/StructureCwrInventory.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/collections/StructureCwrOccurrence.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		

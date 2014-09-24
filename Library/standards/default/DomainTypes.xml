@@ -216,6 +216,33 @@
 		</EDGE>
 	</META>
 		
+	<!-- kDOMAIN_POPULATION -->
+	<META>
+		<TERM ns=":domain" lid="population">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Population</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Generic populations.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:occurrence</item>
+		</EDGE>
+	</META>
+		
 	<!-- kDOMAIN_FOREST -->
 	<META>
 		<TERM ns=":domain" lid="forest">
@@ -472,6 +499,33 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Samples collection in the field.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:event</item>
+		</EDGE>
+	</META>
+		
+	<!-- kDOMAIN_BREEDING -->
+	<META>
+		<TERM ns=":domain" lid="breeding">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Breeding</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Samples breeding.]]></item>
 				</item>
 			</item>
 		</TERM>

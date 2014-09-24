@@ -403,7 +403,8 @@ class Accession extends UnitObject
 	{
 		return array_merge( parent::DefaultOffsets(),
 							$this->mDictionary
-								->collectStructureOffsets( 'struct:mcpd' ) );		// ==>
+								->collectStructureOffsets(
+									'struct::domain:accession' ) );					// ==>
 	
 	} // DefaultOffsets.
 

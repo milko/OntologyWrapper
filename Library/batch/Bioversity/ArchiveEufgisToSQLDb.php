@@ -73,7 +73,7 @@ require_once( "/Library/WebServer/Library/adodb/adodb-exceptions.inc.php" );
 /**
  * Settings.
  */
-define( 'kDO_CLIMATE',	TRUE );
+define( 'kDO_CLIMATE', TRUE );
 
 
 /*=======================================================================================

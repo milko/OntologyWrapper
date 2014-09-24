@@ -8,6 +8,40 @@
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
 	<!-- Crop wild relative attributes -->
+		
+	<!-- cwr:INSTCODE -->
+	<META>
+		<TERM ns="cwr" lid="INSTCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Institute code]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:INSTCODE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-10</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">INSTCODE</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[FAO WIEWS code of the institute that is responsible for the production of the National CWR checklist or inventory.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:INSTCODE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
 	<!-- cwr:REF -->
 	<META>
@@ -75,6 +109,79 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+	</META>
+	
+	<!-- cwr:ENDEMISM -->
+	<META>
+		<TERM ns="cwr" lid="ENDEMISM">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Endemism]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ENDEMISM</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">ENDEMISM</item>
+		</TAG>
+		<NODE tag="cwr:ENDEMISM">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="cwr:ENDEMISM">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+		</NODE>
+	</META>
+	<!-- cwr:ENDEMISM:0 -->
+	<META>
+		<TERM ns="cwr:ENDEMISM" lid="0">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[No]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">cwr:ENDEMISM</item>
+		</EDGE>
+	</META>
+	<!-- cwr:ENDEMISM:1 -->
+	<META>
+		<TERM ns="cwr:ENDEMISM" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yes]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">cwr:ENDEMISM</item>
+		</EDGE>
 	</META>
 	
 	<!-- cwr:USEOFTAXON -->
@@ -558,7 +665,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[List of crop wild relative occurrences.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[List of species occurrences.]]></item>
 				</item>
 			</item>
 		</TAG>

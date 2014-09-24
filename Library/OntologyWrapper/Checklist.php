@@ -162,6 +162,12 @@ class Checklist extends UnitObject
 		if( $this->offsetExists( kTAG_IDENTIFIER ) )
 			$name[] = $this->offsetGet( kTAG_IDENTIFIER );
 		
+		//
+		// Set version.
+		//
+		if( $this->offsetExists( kTAG_VERSION ) )
+			$name[] = $this->offsetGet( kTAG_VERSION );
+		
 		return ( $domain !== NULL )
 			 ? ($domain.' '.implode( ':', $name ))									// ==>
 			 : implode( ':', $name );												// ==>
@@ -195,7 +201,8 @@ class Checklist extends UnitObject
 	{
 		return array_merge( parent::DefaultOffsets(),
 							$this->mDictionary
-								->collectStructureOffsets( 'struct:cwr:ck' ) );		// ==>
+								->collectStructureOffsets(
+									'struct::domain:inventory:checklist' ) );		// ==>
 	
 	} // DefaultOffsets.
 
@@ -323,7 +330,7 @@ class Checklist extends UnitObject
 		// Check authority.
 		//
 		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
-			$this->offsetSet( kTAG_AUTHORITY, $this->offsetGet( ':inventory:INSTCODE' ) );
+			$this->offsetSet( kTAG_AUTHORITY, $this->offsetGet( 'cwr:INSTCODE' ) );
 		
 		//
 		// Check version.

@@ -70,9 +70,18 @@ define( "kDOMAIN_ENTITY",						':domain:entity' );
  *
  * An occurrence or observation.
  *
- * This represents the domain of generic events.
+ * This represents the domain of occurrences.
  */
 define( "kDOMAIN_OCCURRENCE",					':domain:occurrence' );
+
+/**
+ * Population.
+ *
+ * A population occurrence.
+ *
+ * This represents the domain of populations.
+ */
+define( "kDOMAIN_POPULATION",					':domain:population' );
 
 /**
  * Specimen.
@@ -181,6 +190,15 @@ define( "kDOMAIN_TRIAL",						':domain:trial' );
  * This represents the collecting of samples in the field.
  */
 define( "kDOMAIN_COLLECTING",					':domain:collecting' );
+
+/**
+ * Breeding.
+ *
+ * A breeding trial or event.
+ *
+ * This represents the breeding of samples.
+ */
+define( "kDOMAIN_BREEDING",						':domain:nreeding' );
 
 /**
  * Forest unit.

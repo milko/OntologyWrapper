@@ -69,6 +69,15 @@ define( "kSTANDARDS_LANGUAGE",			'en' );
 define( "kCLIMATE_URL",				'http://geo.grinfo.net/features.php' );
 
 /**
+ * Default average distance.
+ *
+ * This token represents the default distance in meters, or coordinate uncertainty, that
+ * will be used in climate data retrieval. This value will be used whenever the distance is
+ * required but not provided.
+ */
+define( "kCLIMATE_DEF_DIST",		7000 );
+
+/**
  * Minimum average distance.
  *
  * This token represents the minimum distance in meters, or coordinate uncertainty, that
@@ -80,7 +89,7 @@ define( "kCLIMATE_MIN_DIST",		925 );
 /**
  * Maximum average distance.
  *
- * This token represents the efault maximum average tile distance from the provided
+ * This token represents the default maximum average tile distance from the provided
  * geometry in meters (10km.).
  */
 define( "kCLIMATE_MAX_DIST",		111325 );
@@ -124,76 +133,5 @@ define( "kDIR_STANDARDS_ISO",					'iso' );
  * This tag indicates the directory name where the WBI standards XML files are stored.
  */
 define( "kDIR_STANDARDS_WBI",					'wbi' );
-
-/**
- * UNSD standards.
- *
- * This tag indicates the directory name where the UNSD standards XML files are stored.
- */
-define( "kDIR_STANDARDS_UNSD",					'unsd' );
-
-/**
- * FAO standards.
- *
- * This tag indicates the directory name where the FAO standards XML files are stored.
- */
-define( "kDIR_STANDARDS_FAO",					'fao' );
-
-/**
- * DWC standards.
- *
- * This tag indicates the directory name where the DWC standards XML files are stored.
- */
-define( "kDIR_STANDARDS_DWC",					'dwc' );
-
-/**
- * IUCN standards.
- *
- * This tag indicates the directory name where the IUCN standards XML files are stored.
- */
-define( "kDIR_STANDARDS_IUCN",					'iucn' );
-
-/**
- * MCPD standards.
- *
- * This tag indicates the directory name where the MCPD standards XML files are stored.
- */
-define( "kDIR_STANDARDS_MCPD",					'mcpd' );
-
-/**
- * LR standards.
- *
- * This tag indicates the directory name where the landrace standards XML files are stored.
- */
-define( "kDIR_STANDARDS_LR",					'lr' );
-
-/**
- * CWR standards.
- *
- * This tag indicates the directory name where the CWR standards XML files are stored.
- */
-define( "kDIR_STANDARDS_CWR",					'cwr' );
-
-/**
- * FCU standards.
- *
- * This tag indicates the directory name where the FCU standards XML files are stored.
- */
-define( "kDIR_STANDARDS_FCU",					'fcu' );
-
-/**
- * QTL standards.
- *
- * This tag indicates the directory name where the QTL standards XML files are stored.
- */
-define( "kDIR_STANDARDS_QTL",					'qtl' );
-
-/**
- * GR standards.
- *
- * This tag indicates the directory name where the genetic resources standards XML files
- * are stored.
- */
-define( "kDIR_STANDARDS_GR",					'gr' );
 
 ?>

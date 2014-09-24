@@ -380,7 +380,8 @@ class ForestUnit extends UnitObject
 	{
 		return array_merge( parent::DefaultOffsets(),
 							$this->mDictionary
-								->collectStructureOffsets( 'struct:fcu:unit' ) );	// ==>
+								->collectStructureOffsets(
+									'struct::domain:forest' ) );					// ==>
 	
 	} // DefaultOffsets.
 
