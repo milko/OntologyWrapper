@@ -387,12 +387,12 @@ finally
 		if( strlen( $value ) == 3 )
 		{
 			$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:$value" );
-			$theObject->offsetSet( ':location:admin', "iso:3166:1:alpha-3:$value" );
+			$theObject->offsetSet( ':inventory:admin', "iso:3166:1:alpha-3:$value" );
 		}
 		elseif( substr( $value, 0, 2 ) == 'GB' )
 		{
 			$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:GBR" );
-			$theObject->offsetSet( ':location:admin', "iso:3166:2:$value" );
+			$theObject->offsetSet( ':inventory:admin', "iso:3166:2:$value" );
 		}
 		
 		//
@@ -688,7 +688,8 @@ finally
 				if( $element !== NULL )
 					$value[] = "iucn:category:$element";
 			}
-			$theObject->offsetSet( 'iucn:category', $value );
+			if( count( $value ) )
+				$theObject->offsetSet( 'iucn:category', $value );
 		}
 		
 		//

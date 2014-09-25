@@ -465,8 +465,18 @@ finally
 		//
 		// Set National inventory code.
 		//
-		$theObject->offsetSet( ':inventory:NICODE',
-								$theData[ 'NICODE' ] );
+		$theObject->offsetSet( ':inventory:NICODE', $theData[ 'NICODE' ] );
+		
+		//
+		// Set inventory administrative code.
+		//
+		if( $theData[ 'NICODE' ] != 'NGB' )
+			$theObject->offsetSet( ':inventory:admin',
+								   "iso:3166:1:alpha-3:".$theData[ 'NICODE' ] );
+		else
+			$theObject->offsetSet( ':inventory:admin',
+								   "iso:3166:1:alpha-3:"
+								  .substr( $theData[ 'INSTCODE' ], 0, 3 ) );
 		
 		//
 		// Set holding institute code.

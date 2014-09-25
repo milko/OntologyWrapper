@@ -417,6 +417,11 @@ finally
 		$theObject->offsetSet( ':inventory:NICODE', 'USA' );
 		
 		//
+		// Set inventory administrative unit.
+		//
+		$theObject->offsetSet( ':inventory:admin', 'iso:3166:1:alpha-3:USA' );
+		
+		//
 		// Set holding institute code.
 		//
 		$theObject->offsetSet( 'mcpd:INSTCODE',
