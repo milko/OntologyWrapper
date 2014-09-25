@@ -69,7 +69,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Information regarding institutions and inventories.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Information on inventory and institution.]]></item>
 				</item>
 			</item>
 		</TERM>

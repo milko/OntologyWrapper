@@ -352,6 +352,12 @@ finally
 	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
 		//
+		// Set dataset.
+		//
+		$theObject->offsetSet( ':inventory:dataset',
+			'European information system on forest genetic resources (EUFGIS)' );
+		
+		//
 		// Set unit number.
 		//
 		if( array_key_exists( 'UnitNumber', $theData ) )

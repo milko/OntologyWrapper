@@ -59,6 +59,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :germplasm:sample -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :germplasm:sample-id -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample-id</item>

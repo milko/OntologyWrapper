@@ -139,13 +139,36 @@ class Inventory extends UnitObject
 		//
 		// Init local storage
 		//
-		$name = parent::getName( $theLanguage );
+		$name = Array();
+		$domain = parent::getName( $theLanguage );
 		
-		return ( $name !== NULL )
-			 ? ($name.' '.$this->offsetGet( kTAG_IDENTIFIER ).'/'
-						 .$this->offsetGet( kTAG_COLLECTION ))						// ==>
-			 : ($this->offsetGet( kTAG_IDENTIFIER ).'/'
-			   .$this->offsetGet( kTAG_COLLECTION ));								// ==>
+		//
+		// Set authority.
+		//
+		if( $this->offsetExists( kTAG_AUTHORITY ) )
+			$name[] = $this->offsetGet( kTAG_AUTHORITY );
+		
+		//
+		// Set collection.
+		//
+		if( $this->offsetExists( kTAG_COLLECTION ) )
+			$name[] = $this->offsetGet( kTAG_COLLECTION );
+		
+		//
+		// Set identifier.
+		//
+		if( $this->offsetExists( kTAG_IDENTIFIER ) )
+			$name[] = $this->offsetGet( kTAG_IDENTIFIER );
+		
+		//
+		// Set version.
+		//
+		if( $this->offsetExists( kTAG_VERSION ) )
+			$name[] = $this->offsetGet( kTAG_VERSION );
+		
+		return ( $domain !== NULL )
+			 ? ($domain.' '.implode( ':', $name ))									// ==>
+			 : implode( ':', $name );												// ==>
 	
 	} // getName.
 

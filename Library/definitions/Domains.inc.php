@@ -111,13 +111,31 @@ define( "kDOMAIN_TAXON",						':domain:taxon' );
 define( "kDOMAIN_INVENTORY",					':domain:inventory' );
 
 /**
- * Crop wild relative checklist unit.
+ * CWR inventory.
  *
- * A crop wild relative checklist unit.
+ * A crop wild relatives inventory.
  *
- * This represents a crop wild relative checklist unit.
+ * This represents the domain of crop wild relatives inventories.
+ */
+define( "kDOMAIN_INVENTORY_CWR",				':domain:inventory:cwr' );
+
+/**
+ * Checklist.
+ *
+ * A checklist.
+ *
+ * This represents the domain of taxa checklists.
  */
 define( "kDOMAIN_CHECKLIST",					':domain:inventory:checklist' );
+
+/**
+ * Crop wild relative checklist.
+ *
+ * A crop wild relative checklist.
+ *
+ * This represents a crop wild relative checklist.
+ */
+define( "kDOMAIN_CHECKLIST_CWR",				':domain:inventory:checklist:cwr' );
 
 /**
  * Person.
@@ -198,7 +216,7 @@ define( "kDOMAIN_COLLECTING",					':domain:collecting' );
  *
  * This represents the breeding of samples.
  */
-define( "kDOMAIN_BREEDING",						':domain:nreeding' );
+define( "kDOMAIN_BREEDING",						':domain:breeding' );
 
 /**
  * Forest unit.

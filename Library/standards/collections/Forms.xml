@@ -80,15 +80,15 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :domain:inventory -->
+		<!-- :domain:inventory:cwr -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory</item>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory:cwr</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :domain:inventory:checklist -->
+		<!-- :domain:inventory:checklist:cwr -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory:checklist</item>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory:checklist:cwr</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

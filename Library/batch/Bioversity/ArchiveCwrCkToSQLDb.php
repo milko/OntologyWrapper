@@ -363,7 +363,39 @@ finally
 		//
 		// Set dataset.
 		//
-		$theObject->offsetSet( ':inventory:dataset', 'CWR-EU' );
+		$value = $theData[ 'cwr:ck:CWRCODE' ];
+		$value = ( strlen( $value ) == 3 )
+			   ? "iso:3166:1:alpha-3:".$theData[ 'cwr:ck:CWRCODE' ]
+			   : "iso:3166:2:".$theData[ 'cwr:ck:CWRCODE' ];
+		$tmp = new OntologyWrapper\Term( $theWrapper, $value );
+		$tmp = OntologyWrapper\OntologyObject::SelectLanguageString( $tmp[ kTAG_LABEL ], 'en' );
+		$theObject->offsetSet( ':inventory:dataset', "$tmp crop wild relative checklist" );
+		
+		//
+		// Set authority.
+		//
+		$theObject->offsetSet( kTAG_AUTHORITY, $theData[ ':inventory:INSTCODE' ] );
+		
+		//
+		// Set collection.
+		//
+		$theObject->offsetSet( kTAG_COLLECTION, $theData[ ':taxon:epithet' ] );
+		
+		//
+		// Set identifier.
+		//
+		$tmp = Array();
+		if( array_key_exists( 'cwr:ck:CWRCODE', $theData ) )
+			$tmp[] = $theData[ 'cwr:ck:CWRCODE' ];
+		if( array_key_exists( 'cwr:ck:NUMB', $theData ) )
+			$tmp[] = $theData[ 'cwr:ck:NUMB' ];
+		if( count( $tmp ) )
+			$theObject->offsetSet( kTAG_IDENTIFIER, implode( '-', $tmp ) );
+		
+		//
+		// Set version.
+		//
+		$theObject->offsetSet( kTAG_VERSION, $theData[ 'cwr:ck:TYPE' ] );
 		
 		//
 		// Set national inventory code.
@@ -631,17 +663,23 @@ finally
 		// No data.
 		
 		//
+		// Init threat struct.
+		//
+		$threat = Array();
+		
+		//
 		// Set assessment level.
 		//
 		if( array_key_exists( 'cwr:ASSLEVEL', $theData ) )
-			$theObject->offsetSet( ':taxon:threat:assessment',
-								   ':taxon:threat:assessment:'.$theData[ 'cwr:ASSLEVEL' ] );
+			$threat[ getTag( ':taxon:threat:assessment' ) ]
+				= ':taxon:threat:assessment:'.$theData[ 'cwr:ASSLEVEL' ];
 		
 		//
 		// Set assessment region.
 		//
 		if( array_key_exists( 'cwr:REGIONASS', $theData ) )
-			$theObject->offsetSet( ':taxon:threat:region', $theData[ 'cwr:REGIONASS' ] );
+			$threat[ getTag( ':taxon:threat:region' ) ]
+				= $theData[ 'cwr:REGIONASS' ];
 		
 		//
 		// Set iucn category
@@ -689,7 +727,8 @@ finally
 					$value[] = "iucn:category:$element";
 			}
 			if( count( $value ) )
-				$theObject->offsetSet( 'iucn:category', $value );
+				$threat[ getTag( 'iucn:category' ) ]
+					= $value;
 		}
 		
 		//
@@ -711,6 +750,12 @@ finally
 		// Set red list reference
 		//
 		// No data.
+		
+		//
+		// Set threat.
+		//
+		if( count( $threat ) )
+			$theObject->offsetSet( ':taxon:threat', array( $threat ) );
 		
 		//
 		// Set taxon status

@@ -2172,6 +2172,16 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
+		// Load standards additions files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML additions files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Additions_ISO.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
 		// Load XML namespace files.
 		//
 		if( $doLog )

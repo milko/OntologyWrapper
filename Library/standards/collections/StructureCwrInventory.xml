@@ -9,9 +9,9 @@
 	
 	<!-- Inventory structure -->
 	
-	<!-- :domain:inventory -->
+	<!-- :domain:inventory:cwr -->
 	<META>
-		<NODE term=":domain:inventory" pid="struct::domain:inventory">
+		<NODE term=":domain:inventory:cwr" pid="struct::domain:inventory:cwr">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:struct</item>

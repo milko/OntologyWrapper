@@ -9,9 +9,9 @@
 	
 	<!-- Inventory form -->
 	
-	<!-- :domain:inventory -->
+	<!-- :domain:inventory:cwr -->
 	<META>
-		<NODE term=":domain:inventory" pid="form::domain:inventory">
+		<NODE term=":domain:inventory:cwr" pid="form::domain:inventory:cwr">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>

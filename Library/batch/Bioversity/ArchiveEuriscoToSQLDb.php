@@ -430,6 +430,12 @@ finally
 	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
 		//
+		// Set dataset.
+		//
+		$theObject->offsetSet( ':inventory:dataset',
+			'European network of ex situ National Inventories (EURISCO)' );
+		
+		//
 		// Set accession ID.
 		//
 		$theObject->offsetSet(
@@ -437,11 +443,6 @@ finally
 			$theData[ 'INSTCODE' ].kTOKEN_INDEX_SEPARATOR
 		   .$theData[ 'COLLECTION' ].kTOKEN_NAMESPACE_SEPARATOR
 		   .$theData[ 'ACCENUMB' ] );
-		
-		//
-		// Set dataset.
-		//
-		$theObject->offsetSet( getTag( ':inventory:dataset' ), 'EURISCO' );
 		
 		//
 		// Set version.

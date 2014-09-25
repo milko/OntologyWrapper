@@ -9,9 +9,9 @@
 	
 	<!-- Checklist form -->
 	
-	<!-- :domain:inventory:checklist -->
+	<!-- :domain:inventory:checklist:cwr -->
 	<META>
-		<NODE term=":domain:inventory:checklist" pid="form::domain:inventory:checklist">
+		<NODE term=":domain:inventory:checklist:cwr" pid="form::domain:inventory:checklist:cwr">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>

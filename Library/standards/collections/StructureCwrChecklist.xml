@@ -9,9 +9,9 @@
 	
 	<!-- Checklist structure -->
 	
-	<!-- :domain:inventory:checklist -->
+	<!-- :domain:inventory:checklist:cwr -->
 	<META>
-		<NODE term=":domain:inventory:checklist" pid="struct::domain:inventory:checklist">
+		<NODE term=":domain:inventory:checklist:cwr" pid="struct::domain:inventory:checklist:cwr">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:struct</item>

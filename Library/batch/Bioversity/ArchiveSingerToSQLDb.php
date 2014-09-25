@@ -367,6 +367,13 @@ finally
 	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
 		//
+		// Set dataset.
+		//
+		$theObject->offsetSet(
+			':inventory:dataset',
+			'System-wide Information Network for Genetic Resources' );
+		
+		//
 		// Set accession ID.
 		//
 		$theObject->offsetSet(
@@ -374,11 +381,6 @@ finally
 			$theData[ 'HoldingInstituteFAOCode' ].kTOKEN_INDEX_SEPARATOR
 		   .$theData[ 'HoldingCollectionCode' ].kTOKEN_NAMESPACE_SEPARATOR
 		   .$theData[ 'AccessionNumber' ] );
-		
-		//
-		// Set dataset.
-		//
-		$theObject->offsetSet( getTag( ':inventory:dataset' ), 'SINGER' );
 		
 		//
 		// Set version.

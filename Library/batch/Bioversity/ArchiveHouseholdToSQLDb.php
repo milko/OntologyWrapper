@@ -369,7 +369,9 @@ finally
 		//
 		// Set dataset.
 		//
-		$theObject->offsetSet( getTag( ':inventory:dataset' ), 'ABDH' );
+		$theObject->offsetSet(
+			':inventory:dataset',
+			'Household agro-biodiversity assessment' );
 		
 		//
 		// Set version.

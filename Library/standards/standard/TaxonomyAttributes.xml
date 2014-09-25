@@ -5611,7 +5611,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text-03</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
