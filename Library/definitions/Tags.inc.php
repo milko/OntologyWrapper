@@ -668,7 +668,7 @@ define( "kTAG_STRUCT_LABEL",			36 );
  * featuring a specific property</em>. This is generally used to assess <em>tag usage
  * frequency in unit objects</em>.
  */
-define( "kTAG_UNIT_COUNT",				67 );
+define( "kTAG_UNIT_COUNT",				37 );
 
 /**
  * Entity count (<code>:entity-count</code)
@@ -682,7 +682,7 @@ define( "kTAG_UNIT_COUNT",				67 );
  * featuring a specific property</em>. This is generally used to assess <em>tag usage
  * frequency in entity objects</em>.
  */
-define( "kTAG_ENTITY_COUNT",			68 );
+define( "kTAG_ENTITY_COUNT",			38 );
 
 /**
  * Tag count (<code>:tag-count</code)
@@ -695,7 +695,7 @@ define( "kTAG_ENTITY_COUNT",			68 );
  * This tag holds an <em>integer</em> value representing the <em>number of tag objects
  * that reference the current object</em>.
  */
-define( "kTAG_TAG_COUNT",				69 );
+define( "kTAG_TAG_COUNT",				39 );
 
 /**
  * Term count (<code>:term-count</code)

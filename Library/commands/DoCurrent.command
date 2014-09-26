@@ -14,38 +14,36 @@
 #
 # Init data dictionary.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
 
 #
 # Backup and archive base dictionary.
 #
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.1.base.zip"
-ditto -c -k --sequesterRsrc --keepParent \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.1.base.zip"
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+#mongodump --directoryperdb \
+#		  --db 'BIOVERSITY' \
+#		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+#rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.1.base.zip"
+#ditto -c -k --sequesterRsrc --keepParent \
+#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
+#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.1.base.zip"
+#rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 #
 # Init main data.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Main.php
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Main.php
 
 #
 # Backup and archive main dictionary.
 #
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.2.main.zip"
-ditto -c -k --sequesterRsrc --keepParent \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.2.main.zip"
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-
-exit;
+#mongodump --directoryperdb \
+#		  --db 'BIOVERSITY' \
+#		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+#rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.2.main.zip"
+#ditto -c -k --sequesterRsrc --keepParent \
+#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
+#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.2.main.zip"
+#rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 ########################################################################################
 #   Create XML archives                                                                #
@@ -67,6 +65,15 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
 	"cwr_ck" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+#
+# Archive CWR inventory.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrInToSQLDb.php \
+	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
+	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+	"cwr_in" \
 	"mongodb://localhost:27017/BIOVERSITY"
 
 #
@@ -113,8 +120,6 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
 #	"eurisco" \
 #	"mongodb://localhost:27017/BIOVERSITY"
-
-exit
 
 ########################################################################################
 #   Load households from XML archives                                                  #

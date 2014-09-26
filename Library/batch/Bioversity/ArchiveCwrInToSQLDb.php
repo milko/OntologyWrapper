@@ -292,7 +292,6 @@ try
 			//
 			// Save record.
 			//
-		/*
 			$xml = $object->export( 'xml' );
 			$insert = ( $last === NULL )
 					? "INSERT INTO `$table`( "
@@ -302,7 +301,6 @@ try
 					   .'0x'.bin2hex( get_class( $object ) ).', '
 					   .'0x'.bin2hex( $xml->asXML() ).' )');
 			$dc_out->Execute( $insert );
-		*/
 			
 		} // Iterating page.
 		
@@ -587,17 +585,17 @@ finally
 		//
 		// Handle distribution.
 		//
-		loadDistribution( $object, $theData[ 'HASH' ], $wrapper, $dc_in );
+		loadDistribution( $theObject, $theData[ 'HASH' ], $theWrapper, $theDatabase );
 		
 		//
 		// Handle crossability.
 		//
-		loadCrossability( $object, $theData[ 'HASH' ], $wrapper, $dc_in );
+		loadCrossability( $theObject, $theData[ 'HASH' ], $theWrapper, $theDatabase );
 		
 		//
 		// Handle threats.
 		//
-		loadThreats( $object, $theData[ 'HASH' ], $wrapper, $dc_in );
+		loadThreats( $theObject, $theData[ 'HASH' ], $theWrapper, $theDatabase );
 
 	} // loadUnit.
 	
@@ -888,7 +886,7 @@ EOT;
 			// Set red list assessment year.
 			//
 			if( array_key_exists( 'cwr:YEARREDLISTASS', $data ) )
-				$struct[ getTag( ':taxon:threat:assessment:year' ) ]
+				$properties[ getTag( ':taxon:threat:assessment:year' ) ]
 					= $data[ 'cwr:YEARREDLISTASS' ];
 			
 			//
