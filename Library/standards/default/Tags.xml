@@ -802,12 +802,34 @@
 				</item>
 			</item>
 		</TAG>
+	
+		<!-- 36 -->
+		<!-- kTAG_STRUCT_LABEL -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:struct-label</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_STRUCT_LABEL</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which is used to identify a structure in a list of structures that do not contain a field which can be used for this purpose.]]></item>
+				</item>
+			</item>
+		</TAG>
 	</META>
 	
 	<!-- Statistical attributes -->
 	
 	<META>
-		<!-- 36 -->
+		<!-- 37 -->
 		<!-- kTAG_UNIT_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -833,7 +855,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 37 -->
+		<!-- 38 -->
 		<!-- kTAG_ENTITY_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -859,7 +881,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 38 -->
+		<!-- 39 -->
 		<!-- kTAG_TAG_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -885,7 +907,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 39 -->
+		<!-- 40 -->
 		<!-- kTAG_TERM_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -911,7 +933,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 40 -->
+		<!-- 41 -->
 		<!-- kTAG_NODE_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -937,7 +959,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 41 -->
+		<!-- 42 -->
 		<!-- kTAG_EDGE_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -963,7 +985,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 42 -->
+		<!-- 43 -->
 		<!-- kTAG_TAG_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -992,7 +1014,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 43 -->
+		<!-- 44 -->
 		<!-- kTAG_TERM_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1021,7 +1043,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 44 -->
+		<!-- 45 -->
 		<!-- kTAG_NODE_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1050,7 +1072,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 45 -->
+		<!-- 46 -->
 		<!-- kTAG_EDGE_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1079,7 +1101,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 46 -->
+		<!-- 47 -->
 		<!-- kTAG_ENTITY_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1108,7 +1130,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 47 -->
+		<!-- 48 -->
 		<!-- kTAG_UNIT_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1137,7 +1159,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 48 -->
+		<!-- 49 -->
 		<!-- kTAG_OBJECT_TAGS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1160,7 +1182,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 49 -->
+		<!-- 50 -->
 		<!-- kTAG_OBJECT_OFFSETS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1182,7 +1204,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 50 -->
+		<!-- 51 -->
 		<!-- kTAG_OBJECT_REFERENCES -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1204,7 +1226,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 51 -->
+		<!-- 52 -->
 		<!-- kTAG_TAG_STRUCT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1225,7 +1247,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 52 -->
+		<!-- 53 -->
 		<!-- kTAG_TAG_STRUCT_IDX -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1250,7 +1272,7 @@
 	<!-- Property description attributes -->
 	
 	<META>
-		<!-- 53 -->
+		<!-- 54 -->
 		<!-- kTAG_MIN_VAL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1269,7 +1291,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 54 -->
+		<!-- 55 -->
 		<!-- kTAG_MIN_RANGE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1288,7 +1310,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 55 -->
+		<!-- 56 -->
 		<!-- kTAG_MAX_VAL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1307,7 +1329,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 56 -->
+		<!-- 57 -->
 		<!-- kTAG_MAX_RANGE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1326,7 +1348,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 57 -->
+		<!-- 58 -->
 		<!-- kTAG_PATTERN -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1349,7 +1371,7 @@
 	<!-- Default attributes -->
 	
 	<META>
-		<!-- 58 -->
+		<!-- 59 -->
 		<!-- kTAG_GEO_SHAPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1370,7 +1392,7 @@
 			</item>
 		</TAG>
 		
-		<!-- 59 -->
+		<!-- 60 -->
 		<!-- kTAG_GEO_SHAPE_DISP -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1391,7 +1413,7 @@
 			</item>
 		</TAG>
 		
-		<!-- 60 -->
+		<!-- 61 -->
 		<!-- kTAG_RECORD_CREATED -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1411,7 +1433,7 @@
 			</item>
 		</TAG>
 		
-		<!-- 61 -->
+		<!-- 62 -->
 		<!-- kTAG_RECORD_MODIFIED -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1435,7 +1457,7 @@
 	<!-- Connection attributes -->
 	
 	<META>
-		<!-- 62 -->
+		<!-- 63 -->
 		<!-- kTAG_CONN_PROTOCOL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1460,7 +1482,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 63 -->
+		<!-- 64 -->
 		<!-- kTAG_CONN_HOST -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1485,7 +1507,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 64 -->
+		<!-- 65 -->
 		<!-- kTAG_CONN_PORT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1510,7 +1532,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 65 -->
+		<!-- 66 -->
 		<!-- kTAG_CONN_CODE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1531,7 +1553,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 66 -->
+		<!-- 67 -->
 		<!-- kTAG_CONN_PASS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1552,7 +1574,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 67 -->
+		<!-- 68 -->
 		<!-- kTAG_CONN_BASE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1577,7 +1599,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 68 -->
+		<!-- 69 -->
 		<!-- kTAG_CONN_COLL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1602,7 +1624,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 69 -->
+		<!-- 70 -->
 		<!-- kTAG_CONN_OPTS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1631,7 +1653,7 @@
 	<!-- Entity attributes -->
 	
 	<META>
-		<!-- 70 -->
+		<!-- 71 -->
 		<!-- kTAG_ENTITY_IDENT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1651,7 +1673,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 71 -->
+		<!-- 72 -->
 		<!-- kTAG_ENTITY_FNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1671,7 +1693,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 72 -->
+		<!-- 73 -->
 		<!-- kTAG_ENTITY_LNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1691,7 +1713,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 73 -->
+		<!-- 74 -->
 		<!-- kTAG_ENTITY_TYPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1712,7 +1734,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 74 -->
+		<!-- 75 -->
 		<!-- kTAG_ENTITY_KIND -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1733,7 +1755,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 75 -->
+		<!-- 76 -->
 		<!-- kTAG_ENTITY_ACRONYM -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1760,7 +1782,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 76 -->
+		<!-- 77 -->
 		<!-- kTAG_ENTITY_MAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1785,7 +1807,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 77 -->
+		<!-- 78 -->
 		<!-- kTAG_ENTITY_EMAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1810,7 +1832,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 78 -->
+		<!-- 79 -->
 		<!-- kTAG_ENTITY_LINK -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1835,7 +1857,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 79 -->
+		<!-- 80 -->
 		<!-- kTAG_ENTITY_PHONE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1860,7 +1882,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 80 -->
+		<!-- 81 -->
 		<!-- kTAG_ENTITY_FAX -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1885,7 +1907,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 81 -->
+		<!-- 82 -->
 		<!-- kTAG_ENTITY_AFFILIATION -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1904,7 +1926,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 82 -->
+		<!-- 83 -->
 		<!-- kTAG_ENTITY_NATIONALITY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1931,7 +1953,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 83 -->
+		<!-- 84 -->
 		<!-- kTAG_ENTITY_VALID -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1950,7 +1972,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 84 -->
+		<!-- 85 -->
 		<!-- kTAG_ENTITY_PGP_KEY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1969,7 +1991,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 85 -->
+		<!-- 86 -->
 		<!-- kTAG_ENTITY_PGP_FINGERPRINT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1992,7 +2014,7 @@
 	<!-- Management attributes -->
 	
 	<META>
-		<!-- 86 -->
+		<!-- 87 -->
 		<!-- kTAG_ROLES -->
 		<TAG>
 			<item const="kTAG_TERMS">

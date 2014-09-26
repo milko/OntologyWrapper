@@ -371,6 +371,15 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTYPE_LIST )
 		),
+		kTAG_STRUCT_LABEL => array
+		(
+			kTAG_NID	=> ':struct-label',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
+		),
 		kTAG_UNIT_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:unit',

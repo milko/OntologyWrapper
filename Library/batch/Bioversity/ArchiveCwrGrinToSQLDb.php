@@ -404,15 +404,24 @@ finally
 		$theObject->offsetSet( 'cwr:INSTCODE', 'USA126' );
 		
 		//
+		// Set responsible institute.
+		//
+		$theObject->offsetSet(
+			':inventory:INSTCODE',
+			kDOMAIN_ORGANISATION
+		   .'://http://fao.org/wiews:USA126'
+		   .kTOKEN_END_TAG );
+		
+		//
 		// Set familia.
 		//
-		if( array_key_exists( ':taxon:familia', $theData ) )
+		if( array_key_exists( 'Family', $theData ) )
 			$theObject->offsetSet( ':taxon:familia', $theData[ 'Family' ] );
 		
 		//
 		// Set genus.
 		//
-		if( array_key_exists( ':taxon:genus', $theData ) )
+		if( array_key_exists( 'Genus', $theData ) )
 			$theObject->offsetSet( ':taxon:genus', $theData[ 'Genus' ] );
 		
 		//
@@ -492,26 +501,24 @@ finally
 		}
 		
 		//
-		// Set genepool.
-		//
-		if( array_key_exists( 'GP_TG', $theData ) )
-			$theObject->offsetSet( ':taxon:genepool',
-								   array( $theData[ 'GP_TG' ] ) );
-		
-		//
-		// Set genepool reference.
+		// Set genepool and reference.
 		//
 		if( array_key_exists( 'GP_TG', $theData ) )
 		{
-			$value = Array();
-			foreach( explode( ';', $theData[ 'GP_TG_citation' ] ) as $item )
+			$theObject->offsetSet( ':taxon:genepool',
+								   array( $theData[ 'GP_TG' ] ) );
+			if( array_key_exists( 'GP_TG_citation', $theData ) )
 			{
-				$item = trim( $item );
-				if( strlen( $item ) )
-					$value[] = $item;
+				$value = Array();
+				foreach( explode( ';', $theData[ 'GP_TG_citation' ] ) as $item )
+				{
+					$item = trim( $item );
+					if( strlen( $item ) )
+						$value[] = $item;
+				}
+				if( count( $value ) )
+					$theObject->offsetSet( ':taxon:genepool-ref', $value );
 			}
-			if( count( $value ) )
-				$theObject->offsetSet( ':taxon:genepool-ref', $value );
 		}
 		
 		//
@@ -569,6 +576,7 @@ finally
 		{
 			$dist = Array();
 			$tag_dist = getTag( ':location:admin' );
+			$tag_dist_reg = getTag( ':location:region' );
 			$tag_dist_notes = getTag( ':taxon:distribution:notes' );
 			foreach( explode( '@', $theData[ 'Distribution_states' ] ) as $element )
 			{
@@ -585,7 +593,12 @@ finally
 							if( ($country == 'US')
 							 && ($state == 'NN') )
 								$state = 'NM';
-							$dist_elm[ $tag_dist ] = "iso:3166:2:$country-$state";
+							$code = "iso:3166:2:$country-$state";
+							$region = new OntologyWrapper\Term( $theWrapper, $code );
+							$dist_elm[ $tag_dist ] = $code;
+							$dist_elm[ $tag_dist_reg ]
+								= OntologyWrapper\OntologyObject::SelectLanguageString(
+									$region[ kTAG_LABEL ], 'en' );
 							if( $length > 2 )
 								$dist_elm[ $tag_dist_notes ] = "$country: $item";
 							$dist[] = $dist_elm;
@@ -641,6 +654,22 @@ finally
 		// Init threat struct.
 		//
 		$threat = Array();
+		
+		//
+		// Set structure label.
+		//
+		if( array_key_exists( 'US_ESA', $theData ) )
+			$threat[ kTAG_STRUCT_LABEL ] 
+				= $theData[ 'US_ESA' ];
+		elseif( array_key_exists( 'IUCN_RL', $theData ) )
+			$threat[ kTAG_STRUCT_LABEL ] 
+				= $theData[ 'IUCN_RL' ];
+		elseif( array_key_exists( 'NatServe', $theData ) )
+			$threat[ kTAG_STRUCT_LABEL ] 
+				= $theData[ 'NatServe' ];
+		else
+			$threat[ kTAG_STRUCT_LABEL ] 
+				= 'Details';
 		
 		//
 		// Set national threat.

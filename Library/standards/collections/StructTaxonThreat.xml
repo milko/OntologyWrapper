@@ -60,6 +60,20 @@
 			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
+		<!-- iucn:threat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:threat</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:period -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:period</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
+		</EDGE>
+		
 		<!-- :taxon:threat:assessment:year -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:assessment:year</item>
@@ -80,6 +94,13 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
+	
+		<!-- natserve:threat:code -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">natserve:threat:code</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
+		</EDGE>
 		
 		<!-- :taxon:threat:national -->
 		<EDGE>
@@ -91,13 +112,6 @@
 		<!-- :taxon:threat:national:ucode -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:ucode</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
-		</EDGE>
-	
-		<!-- natserve:threat:code -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">natserve:threat:code</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
@@ -126,20 +140,6 @@
 		<!-- :taxon:occurrence-status -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-status</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
-		</EDGE>
-		
-		<!-- iucn:threat -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iucn:threat</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
-		</EDGE>
-		
-		<!-- :taxon:threat:period -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:period</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>

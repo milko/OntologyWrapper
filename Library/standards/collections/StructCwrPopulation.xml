@@ -18,13 +18,6 @@
 			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
 		</EDGE>
 				
-		<!-- :taxon:threat -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:threat</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
-		</EDGE>
-				
 		<!-- schema::location:site -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::location:site</item>

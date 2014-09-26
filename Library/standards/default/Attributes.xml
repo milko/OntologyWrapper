@@ -621,6 +621,22 @@
 				</item>
 			</item>
 		</TERM>
+	
+		<!-- kTAG_STRUCT_LABEL -->
+		<TERM ns="" lid="struct-label">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Structure label</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A label used to identify a structure in a list of structures.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Statistical attributes -->
