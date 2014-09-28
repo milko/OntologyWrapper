@@ -3536,7 +3536,7 @@ class Service extends ContainerObject
 			//
 			// Format results.
 			//
-			$this->executeSerialiseResults( $rs );
+			$this->executeSerialiseResults( $rs, TRUE );
 		
 		} // Something to search.
 		
@@ -4429,7 +4429,7 @@ class Service extends ContainerObject
 				break;
 			
 			default:
-				$this->executeSerialiseResults( $theIterator );
+				$this->executeSerialiseResults( $theIterator, TRUE );
 				break;
 		}
 		
@@ -5426,7 +5426,7 @@ $rs_units = & $rs_units[ 'result' ];
 			= new IteratorSerialiser(
 					$theIterator,									// Iterator.
 					kAPI_RESULT_ENUM_DATA_RECORD,					// Format.
-					$this->offsetGet( kAPI_REQUEST_LANGUAGE ) );	// Language.
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ) );	// language.
 		
 		//
 		// Serialise iterator.

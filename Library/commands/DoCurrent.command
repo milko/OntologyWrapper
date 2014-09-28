@@ -14,11 +14,12 @@
 #
 # Init data dictionary.
 #
-#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
 
 #
 # Backup and archive base dictionary.
 #
+#rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 #mongodump --directoryperdb \
 #		  --db 'BIOVERSITY' \
 #		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
@@ -31,11 +32,12 @@
 #
 # Init main data.
 #
-#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Main.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Main.php
 
 #
 # Backup and archive main dictionary.
 #
+#rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 #mongodump --directoryperdb \
 #		  --db 'BIOVERSITY' \
 #		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
@@ -52,47 +54,47 @@
 #
 # Archive Households.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveHouseholdToSQLDb.php \
-	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
-	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-	"abdh" \
-	"mongodb://localhost:27017/BIOVERSITY"
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveHouseholdToSQLDb.php \
+#	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
+#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+#	"abdh" \
+#	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Archive CWR checklist.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrCkToSQLDb.php \
-	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
-	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-	"cwr_ck" \
-	"mongodb://localhost:27017/BIOVERSITY"
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrCkToSQLDb.php \
+#	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
+#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+#	"cwr_ck" \
+#	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Archive CWR inventory.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrInToSQLDb.php \
-	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
-	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-	"cwr_in" \
-	"mongodb://localhost:27017/BIOVERSITY"
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrInToSQLDb.php \
+#	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
+#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+#	"cwr_in" \
+#	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Archive GRIN CWR inventory.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrGrinToSQLDb.php \
-	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
-	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-	"grin_cwr" \
-	"mongodb://localhost:27017/BIOVERSITY"
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrGrinToSQLDb.php \
+#	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
+#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+#	"grin_cwr" \
+#	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Archive EUFGIS.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveEufgisToSQLDb.php \
-"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
-	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-	"eufgis" \
-	"mongodb://localhost:27017/BIOVERSITY"
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveEufgisToSQLDb.php \
+#	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
+#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+#	"eufgis" \
+#	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Archive GRIN.
@@ -128,22 +130,23 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load Households.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
-	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-	"abdh" \
-	"mongodb://localhost:27017/MAURICIO"
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+#	"abdh" \
+#	"mongodb://localhost:27017/MAURICIO"
 
 #
 # Backup and archive households.
 #
-mongodump --directoryperdb \
-		  --db 'MAURICIO' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO.2.data.zip"
-ditto -c -k --sequesterRsrc --keepParent \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO.2.data.zip"
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO"
+#rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+#mongodump --directoryperdb \
+#		  --db 'MAURICIO' \
+#		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+#rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO.2.data.zip"
+#ditto -c -k --sequesterRsrc --keepParent \
+#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO" \
+#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO.2.data.zip"
+#rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO"
 
 ########################################################################################
 #   Load others from XML archives                                                      #
@@ -158,16 +161,20 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 	"mongodb://localhost:27017/BIOVERSITY"
 
 #
-# Backup and archive crop wild relatives checklist.
+# Load CWR inventory.
 #
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.3.cwr_ck.zip"
-ditto -c -k --sequesterRsrc --keepParent \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.3.cwr_ck.zip"
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+	"cwr_in" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+#
+# Load GRIN CWR inventory.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+	"grin_cwr" \
+	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Load EUFGIS.
@@ -178,16 +185,12 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 	"mongodb://localhost:27017/BIOVERSITY"
 
 #
-# Backup and archive EUFGIS.
+# Load SINGER.
 #
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY/.4.eufgis.zip"
-ditto -c -k --sequesterRsrc --keepParent \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.eufgis.zip"
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+#	"singer" \
+#	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Load GRIN.
@@ -198,38 +201,6 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #	"mongodb://localhost:27017/BIOVERSITY"
 
 #
-# Backup and archive GRIN.
-#
-#mongodump --directoryperdb \
-#		  --db 'BIOVERSITY' \
-#		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-#rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY/.5.grin.zip"
-#ditto -c -k --sequesterRsrc --keepParent \
-#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.grin.zip"
-#rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-
-#
-# Load SINGER.
-#
-#php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
-#	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-#	"singer" \
-#	"mongodb://localhost:27017/BIOVERSITY"
-
-#
-# Backup and archive SINGER.
-#
-#mongodump --directoryperdb \
-#		  --db 'BIOVERSITY' \
-#		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-#rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY/.6.singer.zip"
-#ditto -c -k --sequesterRsrc --keepParent \
-#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.6.singer.zip"
-#rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-
-#
 # Load EURISCO.
 #
 #php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
@@ -238,15 +209,16 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #	"mongodb://localhost:27017/BIOVERSITY"
 
 #
-# Backup and archive EURISCO.
+# Backup and archive.
 #
+#rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 #mongodump --directoryperdb \
 #		  --db 'BIOVERSITY' \
 #		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-#rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY/.7.eurisco.zip"
+#rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.data.zip"
 #ditto -c -k --sequesterRsrc --keepParent \
 #	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.7.eurisco.zip"
+#	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.data.zip"
 #rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 exit

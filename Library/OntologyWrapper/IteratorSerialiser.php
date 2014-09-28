@@ -117,6 +117,26 @@ class IteratorSerialiser
 	protected $mDomain = NULL;
 
 	/**
+	 * Offsets tag.
+	 *
+	 * This protected data member holds the offsets tag to be tracked, this is relevant when
+	 * serialising tags, the value corresponds to the tag offset which records the offsets
+	 * found in a particular collection, these are the valid values:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag offsets.
+	 *	<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: Term offsets.
+	 *	<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node offsets.
+	 *	<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge offsets.
+	 *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit offsets.
+	 *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity offsets.
+	 * </ul>
+	 *
+	 * @var string
+	 */
+	protected $mOffset = NULL;
+
+	/**
 	 * Shape.
 	 *
 	 * This protected data member holds the default shape offset as the tag's serial number.
@@ -986,6 +1006,11 @@ class IteratorSerialiser
 	protected function serialiseRecords()
 	{
 		//
+		// Init local storage.
+		//
+		$offsets = Array();
+		
+		//
 		// Set columns in dictionary.
 		//
 		$this->setColumns();
@@ -1026,8 +1051,37 @@ class IteratorSerialiser
 			// Set record.
 			//
 			$this->setRecord( $this->mData, $object );
+			
+			//
+			// Check tag offsets.
+			//
+			$class = $object[ kTAG_CLASS ];
+			if( $class::kSEQ_NAME == Tag::kSEQ_NAME )
+				$this->CollectOffsetTags( $offsets, $object );
 		
 		} // Iterating objects.
+		
+		//
+		// Handle tag offsets.
+		//
+		foreach( $offsets as $object )
+		{
+			//
+			// Save current object.
+			//
+			$this->mCurrentUnit = $object;
+			
+			//
+			// Set excluded offsets.
+			//
+			$this->setHiddenTags( $object );
+			
+			//
+			// Set record.
+			//
+			$this->setRecord( $this->mData, $object );
+		
+		} // Iterating tag offsets.
 		
 		//
 		// Cluster tags.
@@ -3508,6 +3562,78 @@ class IteratorSerialiser
 		} // Tags collection.
 	
 	} // clusterTags.
+
+	 
+	/*===================================================================================
+	 *	CollectOffsetTags																*
+	 *==================================================================================*/
+
+	/**
+	 * Collect offset tags
+	 *
+	 * This method will collect the offset tag objects of the provided tag into the provided
+	 * container.
+	 *
+	 * @param array					$theContainer		Receives tag objects.
+	 * @param PersistentObject		$theTag				Tag object or array object.
+	 *
+	 * @access protected
+	 */
+	protected function CollectOffsetTags( &$theContainer, PersistentObject $theTag )
+	{
+		//
+		// Init local storage.
+		//
+		$offsets = array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS, kTAG_NODE_OFFSETS,
+						  kTAG_EDGE_OFFSETS, kTAG_ENTITY_OFFSETS, kTAG_UNIT_OFFSETS );
+		
+		//
+		// Iterate tags.
+		//
+		foreach( $offsets as $offset )
+		{
+			//
+			// Check for offset.
+			//
+			if( $theTag->offsetExists( $offset ) )
+			{
+				//
+				// Iterate offsets.
+				//
+				foreach( $theTag[ $offset ] as $element )
+				{
+					//
+					// Parse nested offset tag.
+					//
+					$tags = explode( '.', $element );
+					if( count( $tags ) > 1 )
+					{
+						//
+						// Iterate nested tags.
+						//
+						for( $i = 0; $i < (count( $tags ) - 1); $i++ )
+						{
+							//
+							// Add if not duplicate.
+							//
+							if( ! array_key_exists( $tags[ $i ], $theContainer ) )
+								$theContainer[ $tags[ $i ] ]
+									= new Tag(
+										$this->mIterator
+											->collection()
+												->dictionary(),
+										$this->mIterator
+											->collection()
+												->dictionary()
+													->getObject( $tags[ $i ] )
+														[ kTAG_NID ] );
+						}
+					}
+				}
+			}
+		}
+	
+	} // CollectOffsetTags.
 
 	 
 

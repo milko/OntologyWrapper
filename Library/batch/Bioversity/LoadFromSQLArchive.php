@@ -92,8 +92,7 @@ if( $argc < 4 )
 // Init local storage.
 //
 $start = 0;
-$limit = 100;
-$page = 100;
+$limit = 200;
 $dc = $dc_out = $rs = NULL;
 
 //
@@ -175,7 +174,7 @@ try
 	//
 	// Load data dictionary.
 	//
-//	if( ! $wrapper->dictionaryFilled() )
+	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
 	
 	//
@@ -188,10 +187,16 @@ try
 	$dc->SetFetchMode( ADODB_FETCH_ASSOC );
 	
 	//
+	// Get records count.
+	//
+	$rec_count = $dc->GetOne( "SELECT COUNT(*) FROM `$table`" );
+	$page = (int) ($rec_count / 100);
+	$cur = $page;
+	
+	//
 	// Import.
 	//
 	echo( "  • Importing\n" );
-	$pages = $page;
 	$query = "SELECT * FROM `$table` ORDER BY `id` ASC LIMIT $start,$limit";
 	$rs = $dc->execute( $query );
 	while( $rs->RecordCount() )
@@ -213,6 +218,15 @@ try
 			foreach( $list as $object )
 				$object->commit();
 			
+			//
+			// Inform.
+			//
+			if( $cur-- <= 0 )
+			{
+				echo( '.' );
+				$cur = $page;
+			}
+			
 		} // Iterating page.
 		
 		//
@@ -220,17 +234,6 @@ try
 		//
 		$rs->Close();
 		$rs = NULL;
-			
-		//
-		// Inform.
-		//
-		if( ! $pages-- )
-		{
-			echo( $start + $limit );
-			$pages = $page;
-		}
-		else
-			echo( '.' );
 		
 		//
 		// Read next.

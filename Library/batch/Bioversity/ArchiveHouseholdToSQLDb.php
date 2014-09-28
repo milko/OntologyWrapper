@@ -217,6 +217,15 @@ try
 	$dc_out->SetFetchMode( ADODB_FETCH_ASSOC );
 	
 	//
+	// Clearing output.
+	//
+	if( $last === NULL )
+	{
+		$rs = $dc_out->Execute( "TRUNCATE TABLE `$table`" );
+		$rs->Close();
+	}
+	
+	//
 	// Import.
 	//
 	$pages = $page;

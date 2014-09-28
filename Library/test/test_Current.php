@@ -82,13 +82,13 @@ try
 	//
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
+			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	$wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
+			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	$wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
+			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
 	//
 	// Load data dictionary.
@@ -172,7 +172,6 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-*/
 
 	//
 	// Test getTagByIdentifier.
@@ -196,6 +195,45 @@ try
 		kAPI_PARAM_TAG => 'pippo'
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_IDENTIFIER;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+*/
+
+	//
+	// Try matchTagByLabel.
+	//
+	echo( '<h4>Try matchTagByLabel</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PAGING_LIMIT => 50,
+		kAPI_PARAM_PATTERN => 'Genus',
+		kAPI_PARAM_OPERATOR => array( kOPERATOR_EQUAL )
+	//	kAPI_PARAM_REF_COUNT => array( kAPI_PARAM_COLLECTION_TERM,
+	//								   kAPI_PARAM_COLLECTION_NODE )
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_LABEL;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );
