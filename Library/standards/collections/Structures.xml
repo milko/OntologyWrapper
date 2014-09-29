@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	STRUCTURES
+	Structures.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Structures -->
+	
+	<!-- :structures -->
+	<META>
+		<TERM ns="" lid="structures">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Structures]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Collection of available structures.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":structures" pid="struct::structures">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:struct</item>
+			</item>
+		</NODE>
+		
+		<!-- :domain:accession -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:accession</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:sample:collected -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:sample:collected</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:collecting -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:collecting</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:inventory:cwr -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:inventory:cwr</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:inventory:checklist:cwr -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:inventory:checklist:cwr</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:forest -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:forest</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :domain:hh-assessment -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:hh-assessment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

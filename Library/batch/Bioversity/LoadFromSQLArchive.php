@@ -93,6 +93,7 @@ if( $argc < 4 )
 //
 $start = 0;
 $limit = 200;
+$backup = 10000;
 $dc = $dc_out = $rs = NULL;
 
 //
@@ -192,6 +193,7 @@ try
 	$rec_count = $dc->GetOne( "SELECT COUNT(*) FROM `$table`" );
 	$page = (int) ($rec_count / 100);
 	$cur = $page;
+	$do_backup = $backup;
 	
 	//
 	// Import.
@@ -225,6 +227,30 @@ try
 			{
 				echo( '.' );
 				$cur = $page;
+			}
+			
+			//
+			// Backup.
+			//
+			if( $do_backup-- <= 0 )
+			{
+				//
+				// Backup database.
+				//
+				exec( 'rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"' );
+				exec( 'mongodump --directoryperdb '
+					.'--db "BIOVERSITY" '
+					.'--out "/Library/WebServer/Library/OntologyWrapper/Library/backup/data"' );
+				exec( 'rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.zip"' );
+				exec( 'ditto -c -k --sequesterRsrc --keepParent '
+					 .'"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"  '
+					 .'"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.zip"' );
+				exec( 'rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"' );
+				
+				//
+				// Reset counter.
+				//
+				$do_backup = $backup;
 			}
 			
 		} // Iterating page.
