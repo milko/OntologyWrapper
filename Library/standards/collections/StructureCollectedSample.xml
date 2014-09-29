@@ -14,7 +14,7 @@
 		<NODE term=":domain:sample:collected" pid="struct::domain:sample:collected">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
-				<item>:type:node:form</item>
+				<item>:type:node:struct</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>

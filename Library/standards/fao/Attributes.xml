@@ -15,7 +15,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Land use</item>
+					<item const="kTAG_TEXT">Land use (FAO)</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">

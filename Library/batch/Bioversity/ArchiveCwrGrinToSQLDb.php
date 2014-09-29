@@ -100,7 +100,7 @@ $start = 0;
 $limit = 100;
 $page = 5;
 $dc_in = $dc_out = $rs = NULL;
-$class = 'OntologyWrapper\Checklist';
+$class = 'OntologyWrapper\Inventory';
 
 //
 // Init base query.
@@ -432,6 +432,12 @@ finally
 		//
 		if( array_key_exists( 'Genus', $theData ) )
 			$theObject->offsetSet( ':taxon:genus', $theData[ 'Genus' ] );
+		
+		//
+		// Set scientific name.
+		//
+		if( array_key_exists( 'Taxon', $theData ) )
+			$theObject->offsetSet( ':taxon:epithet', $theData[ 'Taxon' ] );
 		
 		//
 		// Set vernacular names.

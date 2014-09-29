@@ -365,6 +365,8 @@ abstract class OntologyObject extends ContainerObject
 	 * @access public
 	 * @return boolean				<tt>TRUE</tt> the offset exists.
 	 *
+	 * @throws Exception
+	 *
 	 * @uses nestedOffsetExists()
 	 */
 	public function offsetExists( $theOffset )
@@ -373,7 +375,23 @@ abstract class OntologyObject extends ContainerObject
 		// Intercept nested offsets.
 		//
 		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
-			return $this->nestedOffsetExists( $theOffset, $value );					// ==>
+		{
+			//
+			// Check dictionary.
+			//
+			if( ! ($this->mDictionary instanceof Dictionary) )
+				throw new \Exception(
+					"Unable to resolve nested offset: "
+				   ."the object is missing its dictionary." );					// !@! ==>
+		
+			//
+			// Handle nested offset.
+			//
+			$value = NULL;
+			$offsets = explode( '.', $theOffset );
+			return $this->nestedOffsetExists( $offsets, $value );					// ==>
+		
+		} // Nested offset.
 		
 		return parent::offsetExists( $theOffset );									// ==>
 	
@@ -396,6 +414,8 @@ abstract class OntologyObject extends ContainerObject
 	 * @access public
 	 * @return mixed				Offset value or <tt>NULL</tt>.
 	 *
+	 * @throws Exception
+	 *
 	 * @uses nestedOffsetGet()
 	 */
 	public function offsetGet( $theOffset )
@@ -404,7 +424,30 @@ abstract class OntologyObject extends ContainerObject
 		// Intercept nested offsets.
 		//
 		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
-			return $this->nestedOffsetGet( $theOffset, $value );					// ==>
+		{
+			//
+			// handle missing offset.
+			//
+			if( ! $this->offsetExists( $theOffset ) )
+				return NULL;														// ==>
+			
+			//
+			// Check dictionary.
+			//
+			if( ! ($this->mDictionary instanceof Dictionary) )
+				throw new \Exception(
+					"Unable to resolve nested offset: "
+				   ."the object is missing its dictionary." );					// !@! ==>
+			
+			//
+			// Handle nested offset.
+			//
+			$found = NULL;
+			$value = NULL;
+			$offsets = explode( '.', $theOffset );
+			return $this->nestedOffsetGet( $offsets, $value, $found );				// ==>
+		
+		} // Nested offset.
 		
 		return parent::offsetGet( $theOffset );										// ==>
 	
@@ -1206,14 +1249,14 @@ abstract class OntologyObject extends ContainerObject
 	 * method will traverse the current value until it finds the offset, if at any level
 	 * an offset is not resolved, the method will return <tt>FALSE</tt>.
 	 *
-	 * It is assumed that all offsets except the last one must be arrays, if that is not
+	 * It is assumed that all offsets except the last one must be structures, if that is not
 	 * the case, the method will return <tt>FALSE</tt>.
 	 *
 	 * The provided offset must be a valid nested offset, which is a sequence of numerics
 	 * separated by a period; this check must have been performed by the caller.
 	 *
-	 * @param mixed					$theOffset			Offset.
-	 * @param array					$theValue			Current value.
+	 * @param array					$theOffset			Offsets path.
+	 * @param mixed					$theValue			Parent offset value.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> the offset exists.
@@ -1221,48 +1264,90 @@ abstract class OntologyObject extends ContainerObject
 	protected function nestedOffsetExists( $theOffset, &$theValue )
 	{
 		//
-		// Handle root offset.
-		// Note that we know the offset to have at least two levels.
+		// Get root offset.
 		//
-		if( $theValue === NULL)
-		{
-			//
-			// Convert offset.
-			//
-			$theOffset = explode( '.', $theOffset );
-			
-			//
-			// Get offset value.
-			//
-			$theValue = parent::offsetGet( array_shift( $theOffset ) );
-		
-		} // Root offset.
+		$parent = array_shift( $theOffset );
+		$tag = $this->mDictionary->getObject( $parent, TRUE );
 		
 		//
-		// Check value.
+		// Assert structure.
 		//
-		if( ! is_array( $theValue ) )
+		if( $tag[ kTAG_DATA_TYPE ] != kTYPE_STRUCT )
 			return FALSE;															// ==>
-	
+		
+		//
+		// Get parent value.
+		//
+		if( $theValue === NULL )
+		{
+			$theValue = parent::offsetGet( $parent );
+			if( $theValue === NULL )
+				return FALSE;														// ==>
+		}
+		
 		//
 		// Get current offset.
 		//
-		$offset = array_shift( $theOffset );
-	
-		//
-		// Check offset.
-		//
-		if( ! array_key_exists( $offset, $theValue ) )
-			return FALSE;															// ==>
-	
-		//
-		// Handle leaf offset.
-		//
-		if( ! count( $theOffset ) )
-			return TRUE;															// ==>
+		$offset = $theOffset[ 0 ];
 		
-		return $this->nestedOffsetExists( $theOffset, $theValue[ $offset ] );		// ==>
-	
+		//
+		// Handle structures list.
+		//
+		if( array_key_exists( kTAG_DATA_KIND, $tag )
+		 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+		{
+			//
+			// Iterate structures list.
+			//
+			foreach( $theValue as $value )
+			{
+				//
+				// Handle match.
+				//
+				if( array_key_exists( $offset, $value ) )
+				{
+					//
+					// Handle leaf offset.
+					//
+					if( count( $theOffset ) == 1 )
+						return TRUE;												// ==>
+					
+					//
+					// Recurse.
+					//
+					return $this->nestedOffsetExists(
+								$theOffset, $value[ $offset ] );					// ==>
+				
+				} // Matched offset.
+			
+			} // Iterating structures list.
+			
+			return FALSE;															// ==>
+		
+		} // Structures list.
+		
+		//
+		// Handle scalar structure.
+		//
+		if( array_key_exists( $offset, $theValue ) )
+		{
+			//
+			// Handle leaf node.
+			//
+			if( count( $theOffset ) == 1 )
+				return TRUE;														// ==>
+			
+			//
+			// Recurse.
+			//
+			else
+				return $this->nestedOffsetExists(
+							$theOffset, $theValue[ $offset ] );						// ==>
+		
+		} // Matched in scalar structure.
+		
+		return FALSE;																// ==>
+		
 	} // nestedOffsetExists.
 
 	 
@@ -1283,56 +1368,128 @@ abstract class OntologyObject extends ContainerObject
 	 * The provided offset must be a valid nested offset, which is a sequence of numerics
 	 * separated by a period; this check must have been performed by the caller.
 	 *
+	 * If at any stage of the path there is a list of structures, the result will be an
+	 * array of all found values.
+	 *
+	 * Note that this method will only be called if the offset exists, so it must find it.
+	 *
 	 * @param mixed					$theOffset			Offset.
 	 * @param array					$theValue			Current value.
+	 * @param mixed					$theFound			Found value.
 	 *
 	 * @access public
 	 * @return mixed				Offset value or <tt>NULL</tt>.
 	 */
-	public function nestedOffsetGet( $theOffset, &$theValue )
+	public function nestedOffsetGet( $theOffset, &$theValue, &$theFound )
 	{
 		//
-		// Handle root offset.
-		// Note that we know the offset to have at least two levels.
+		// Get root offset.
 		//
-		if( $theValue === NULL)
+		$parent = array_shift( $theOffset );
+		$tag = $this->mDictionary->getObject( $parent, TRUE );
+		
+		//
+		// Assert structure.
+		//
+		if( $tag[ kTAG_DATA_TYPE ] != kTYPE_STRUCT )
 		{
-			//
-			// Convert offset.
-			//
-			$theOffset = explode( '.', $theOffset );
-			
-			//
-			// Get offset value.
-			//
-			$theValue = parent::offsetGet( array_shift( $theOffset ) );
-		
-		} // Root offset.
+			$theFound = NULL;
+				return NULL;														// ==>
+		}
 		
 		//
-		// Check value.
+		// Get parent value.
 		//
-		if( ! is_array( $theValue ) )
-			return NULL;															// ==>
-	
+		if( $theValue === NULL )
+		{
+			$theValue = parent::offsetGet( $parent );
+			if( $theValue === NULL )
+				return NULL;														// ==>
+		}
+		
 		//
 		// Get current offset.
 		//
-		$offset = array_shift( $theOffset );
-	
-		//
-		// Check offset.
-		//
-		if( ! array_key_exists( $offset, $theValue ) )
-			return NULL;															// ==>
-	
-		//
-		// Handle leaf offset.
-		//
-		if( ! count( $theOffset ) )
-			return $theValue[ $offset ];											// ==>
+		$offset = $theOffset[ 0 ];
 		
-		return $this->nestedOffsetGet( $theOffset, $theValue[ $offset ] );			// ==>
+		//
+		// Handle structures list.
+		//
+		if( array_key_exists( kTAG_DATA_KIND, $tag )
+		 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+		{
+			//
+			// Set found value to array.
+			//
+			if( ! is_array( $theFound ) )
+				$theFound = Array();
+			
+			//
+			// Iterate structures list.
+			//
+			foreach( $theValue as $value )
+			{
+				//
+				// Handle match.
+				//
+				if( array_key_exists( $offset, $value ) )
+				{
+					//
+					// Handle leaf offset.
+					//
+					if( count( $theOffset ) == 1 )
+						$theFound[] = $value[ $offset ];
+					
+					//
+					// Recurse.
+					//
+					else
+						$this->nestedOffsetGet(
+								$theOffset, $value[ $offset ], $theFound );
+				
+				} // Matched offset.
+			
+			} // Iterating structures list.
+		
+		} // Structures list.
+		
+		//
+		// Handle scalar structure.
+		//
+		else
+		{
+			//
+			// Handle match.
+			//
+			if( array_key_exists( $offset, $theValue ) )
+			{
+				//
+				// Handle leaf offset.
+				//
+				if( count( $theOffset ) == 1 )
+				{
+					if( is_array( $theFound ) )
+						$theFound[] = $theValue[ $offset ];
+					else
+						$theFound = $theValue[ $offset ];
+				}
+				
+				//
+				// Recurse.
+				//
+				else
+					$this->nestedOffsetGet(
+							$theOffset, $theValue[ $offset ], $theFound );
+			
+			} // Matched.
+		
+		} // Scalar structure.
+		
+		return ( is_array( $theFound ) )
+			 ? ( ( count( $theFound ) )
+			   ? $theFound															// ==>
+			   : NULL )																// ==>
+			 : $theFound;															// ==>
 	
 	} // nestedOffsetGet.
 

@@ -761,6 +761,19 @@ finally
 		// No data.
 		
 		//
+		// Set structure label.
+		//
+		if( array_key_exists( getTag( ':taxon:threat:region' ), $threat ) )
+			$threat[ kTAG_STRUCT_LABEL ]
+				= $threat[ getTag( ':taxon:threat:region' ) ];
+		elseif( array_key_exists( getTag( ':taxon:threat:assessment' ), $threat ) )
+			$threat[ kTAG_STRUCT_LABEL ]
+				= getEnum( $threat[ getTag( ':taxon:threat:assessment' ) ] );
+		elseif( array_key_exists( getTag( 'iucn:category' ), $threat ) )
+			$threat[ kTAG_STRUCT_LABEL ]
+				= getEnum( $threat[ getTag( 'iucn:category' ) ][ 0 ] );
+		
+		//
 		// Set threat.
 		//
 		if( count( $threat ) )
@@ -854,5 +867,24 @@ finally
 		return $wrapper->getSerial( $theIdentifier, TRUE );							// ==>
 
 	} // getTag.
+	
+
+	/**
+	 * Get enum.
+	 *
+	 * This function will return the label of the provided enumeration.
+	 *
+	 * @param string				$theEnum			Enumeration.
+	 * @return string				Term label.
+	 */
+	function getEnum( $theEnum )
+	{
+		global $wrapper;
+		
+		$term = new OntologyWrapper\Term( $wrapper, $theEnum );
+		return OntologyWrapper\OntologyObject::SelectLanguageString(
+				$term[ kTAG_LABEL ], 'en' );										// ==>
+
+	} // getEnum.
 
 ?>

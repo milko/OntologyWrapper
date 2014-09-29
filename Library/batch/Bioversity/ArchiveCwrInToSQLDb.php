@@ -1110,6 +1110,22 @@ EOT;
 				break;
 			}
 		}
+		
+		//
+		// Set structure label.
+		//
+		$label = Array();
+		if( array_key_exists( 'cwr:in:COUNTRYCODEASS', $record ) )
+			$label[] = $record[ 'cwr:in:COUNTRYCODEASS' ];
+		if( array_key_exists( getTag( ':taxon:threat:assessment' ), $properties ) )
+			$label[] = getEnum( $properties[ getTag( ':taxon:threat:assessment' ) ] );
+		if( array_key_exists( 'cwr:in:NUNITCODE', $record ) )
+			$label[] = $record[ 'cwr:in:NUNITCODE' ];
+		elseif( array_key_exists( getTag( 'iucn:criteria-citation' ), $properties ) )
+			$label[] = $properties[ getTag( 'iucn:criteria-citation' ) ];
+		if( ! count( $label ) )
+			$label[] = 'Details';
+		$properties[ kTAG_STRUCT_LABEL ] = implode( '/', $label );
 	
 		//
 		// Add to object.
@@ -1136,5 +1152,24 @@ EOT;
 		return $wrapper->getSerial( $theIdentifier, TRUE );							// ==>
 
 	} // getTag.
+	
+
+	/**
+	 * Get enum.
+	 *
+	 * This function will return the label of the provided enumeration.
+	 *
+	 * @param string				$theEnum			Enumeration.
+	 * @return string				Term label.
+	 */
+	function getEnum( $theEnum )
+	{
+		global $wrapper;
+		
+		$term = new OntologyWrapper\Term( $wrapper, $theEnum );
+		return OntologyWrapper\OntologyObject::SelectLanguageString(
+				$term[ kTAG_LABEL ], 'en' );										// ==>
+
+	} // getEnum.
 
 ?>

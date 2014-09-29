@@ -571,7 +571,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Collect array keys</h4>
+	 * <h4>Collect array values</h4>
 	 *
 	 * This function will parse the provided offset and return the pointed value or values.
 	 *

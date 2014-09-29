@@ -350,9 +350,7 @@ try
 			// Save record.
 			//
 			$xml = $object->export( 'xml' );
-			$insert = ( $last === NULL )
-					? "INSERT INTO `$table`( "
-					: "REPLACE INTO `$table`( ";
+			$insert = "INSERT INTO `$table`( ";
 			$insert .= ("`id`, `class`, `xml` ) VALUES( "
 					   .'0x'.bin2hex( (string) $record[ 'ID' ] ).', '
 					   .'0x'.bin2hex( get_class( $object ) ).', '

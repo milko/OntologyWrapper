@@ -118,7 +118,7 @@ try
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_NODE => 'form::domain:forest',
+		kAPI_PARAM_NODE => 'form::taxon',
 	//	kAPI_PARAM_RECURSE => TRUE,
 		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
 	);

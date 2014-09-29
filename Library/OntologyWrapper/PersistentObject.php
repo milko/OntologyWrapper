@@ -1683,6 +1683,77 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
+	 *	CreateIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create index
+	 *
+	 * This method will create an index, for the provided tag, on all used offsets in the
+	 * current object's collection.
+	 *
+	 * This method should be used when a tag is to be indexed in a collection: call this
+	 * static method using the desired class.
+	 *
+	 * The method expects as paraneters the database and the tag's sequence number or
+	 * native identifier.
+	 *
+	 * If the method is unable to resolve the provided tag, it will raise an exception.
+	 *
+	 * The method will return the list of indexed offsets.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param mixed					$theOffset			Tag offset.
+	 *
+	 * @static
+	 * @return array				List of indexed offsets.
+	 */
+	static function CreateIndex( Wrapper $theWrapper, $theOffset )
+	{
+		//
+		// Resolve tag native identifier.
+		//
+		if( is_int( $theOffset )
+		 || ctype_digit( $theOffset ) )
+			$theOffset = $theWrapper->getObject( $theOffset, TRUE )[ kTAG_NID ];
+		
+		//
+		// Assert tag native identifier.
+		//
+		else
+			$theWrapper->getSerial( $theOffset, TRUE );
+		
+		//
+		// Load tag.
+		//
+		$tag = new Tag( $theWrapper, $theOffset );
+		
+		//
+		// Resolve collection.
+		//
+		$collection = static::ResolveCollectionByName( $theWrapper, static::kSEQ_NAME );
+		
+		//
+		// Handle tag offsets.
+		//
+		if( is_array( $offsets = $tag->offsetGet(
+				static::ResolveOffsetsTag( static::kSEQ_NAME ) ) ) )
+		{
+			//
+			// Iterate tag offsets.
+			//
+			foreach( $offsets as $offset )
+				$collection->createIndex( array( $offset => 1 ),
+										  array( "sparse" => TRUE ) );
+		
+		} // Has offsets.
+		
+		return $offsets;															// ==>
+	
+	} // CreateIndex.
+
+	 
+	/*===================================================================================
 	 *	CreateIndexes																	*
 	 *==================================================================================*/
 
@@ -5409,18 +5480,79 @@ MILKO - Need to check.
 					if( $value !== NULL )
 					{
 						//
-						// Handle minimum.
+						// Handle list.
 						//
-						if( ($min === NULL)
-						 || ($value < $min) )
-							$min = $value;
+						if( is_array( $value ) )
+						{
+							//
+							// Collect values.
+							//
+							$values = Array();
+							foreach( $value as $element )
+							{
+								//
+								// Handle array.
+								// Note that a quantitative value can be at most
+								// one array level.
+								//
+								if( is_array( $element ) )
+								{
+									foreach( $element as $item )
+									{
+										if( ! in_array( $item, $values ) )
+											$values[] = $item;
+									}
+								}
+								
+								//
+								// Handle scalar.
+								//
+								if( ! in_array( $element, $values ) )
+									$values[] = $element;
+							}
+							
+							//
+							// Iterate list.
+							//
+							foreach( $values as $value )
+							{
+								//
+								// Handle minimum.
+								//
+								if( ($min === NULL)
+								 || ($value < $min) )
+									$min = $value;
+						
+								//
+								// Handle maximum.
+								//
+								if( ($max === NULL)
+								 || ($value > $max) )
+									$max = $value;
+							}
+						
+						} // List.
 						
 						//
-						// Handle maximum.
+						// Handle scalar.
 						//
-						if( ($max === NULL)
-						 || ($value > $max) )
-							$max = $value;
+						else
+						{
+							//
+							// Handle minimum.
+							//
+							if( ($min === NULL)
+							 || ($value < $min) )
+								$min = $value;
+						
+							//
+							// Handle maximum.
+							//
+							if( ($max === NULL)
+							 || ($value > $max) )
+								$max = $value;
+						
+						} // Scalar.
 					
 					} // Has value.
 				

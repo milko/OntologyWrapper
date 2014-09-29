@@ -95,6 +95,15 @@ try
 	//
 	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
+	
+	//
+	// Index genus.
+	//
+	$indexes = OntologyWrapper\UnitObject::CreateIndex( $wrapper, ':taxon:genus' );
+	
+	var_dump( $indexes );
+	
+	exit;
 
 /*
 	//
