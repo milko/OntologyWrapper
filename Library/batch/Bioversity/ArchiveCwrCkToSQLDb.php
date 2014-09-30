@@ -188,7 +188,8 @@ try
 	//
 	// Load data dictionary.
 	//
-	$wrapper->loadTagCache();
+	if( ! $wrapper->dictionaryFilled() )
+		$wrapper->loadTagCache();
 	
 	//
 	// Resolve collection.

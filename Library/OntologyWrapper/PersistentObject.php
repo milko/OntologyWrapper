@@ -5995,6 +5995,12 @@ MILKO - Need to check.
 				$tmp0 = $theContainer->addChild( kIO_XML_DATA );
 				$tmp0->addAttribute( kIO_XML_ATTR_QUAL_KEY, kTAG_GEOMETRY );
 				$this->exportXMLArray( $theProperty[ kTAG_GEOMETRY ], $tmp0 );
+				if( $theProperty[ kTAG_TYPE ] == 'Circle' )
+				{
+					$tmp0 = $theContainer->addChild( kIO_XML_DATA,
+													 $theProperty[ kTAG_RADIUS ] );
+					$tmp0->addAttribute( kIO_XML_ATTR_QUAL_KEY, kTAG_RADIUS );
+				}
 				break;
 			
 			case kTYPE_ENUM:
