@@ -9,9 +9,9 @@
 	
 	<!-- Collecting mission structure -->
 	
-	<!-- struct::domain:collecting -->
+	<!-- struct::domain:sample:collected -->
 	<META>
-		<NODE term=":domain:collecting" pid="struct::domain:collecting">
+		<NODE term=":domain:collecting:mission" pid="struct::domain:collecting:mission">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:struct</item>
@@ -19,7 +19,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of an event describing the collection of a series of germplasm samples.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a collecting mission.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -48,15 +48,15 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:mission:notes -->
+		<!-- :collecting:mission:events -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:notes</item>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:events</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:samples -->
+		<!-- :collecting:mission:notes -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:samples</item>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:notes</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

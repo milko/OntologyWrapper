@@ -513,6 +513,60 @@
 		</EDGE>
 	</META>
 		
+	<!-- kDOMAIN_COLLECTING_MISSION -->
+	<META>
+		<TERM ns=":domain:collecting" lid="mission">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collecting mission</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A series of collecting events.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:collecting</item>
+		</EDGE>
+	</META>
+		
+	<!-- kDOMAIN_COLLECTING_EVENT -->
+	<META>
+		<TERM ns=":domain:collecting" lid="event">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collecting event</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A collecting sub-mission or event.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:collecting</item>
+		</EDGE>
+	</META>
+		
 	<!-- kDOMAIN_BREEDING -->
 	<META>
 		<TERM ns=":domain" lid="breeding">

@@ -6659,6 +6659,26 @@
 			<item const="kTAG_OBJECT" node="term">:location:site:georeference-method</item>
 		</EDGE>
 	</META>
+	<!-- :location:site:georeference-method:40 -->
+	<META>
+		<TERM ns=":location:site:georeference-method" lid="40">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Georeferencing tool]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:location:site:georeference-method</item>
+		</EDGE>
+	</META>
 	<!-- :location:site:georeference-method:99 -->
 	<META>
 		<TERM ns=":location:site:georeference-method" lid="99">
@@ -6678,6 +6698,39 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:location:site:georeference-method</item>
 		</EDGE>
+	</META>
+	
+	<!-- :location:site:georeference-tool -->
+	<META>
+		<TERM ns=":location:site" lid="georeference-tool">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Georeference tool</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Specific tool used for georeferencing.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:site:georeference-tool</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:site:georeference-tool">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 	
 	<!-- :location:site:georeference-latitude -->

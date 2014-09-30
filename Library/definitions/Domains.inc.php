@@ -210,6 +210,24 @@ define( "kDOMAIN_TRIAL",						':domain:trial' );
 define( "kDOMAIN_COLLECTING",					':domain:collecting' );
 
 /**
+ * Collecting mission.
+ *
+ * A collecting mission.
+ *
+ * This represents a series of collecting events.
+ */
+define( "kDOMAIN_COLLECTING_MISSION",			':domain:collecting:mission' );
+
+/**
+ * Collecting event.
+ *
+ * A collecting sub-mission or event.
+ *
+ * This represents a collecting event.
+ */
+define( "kDOMAIN_COLLECTING_EVENT",				':domain:collecting:event' );
+
+/**
  * Breeding.
  *
  * A breeding trial or event.

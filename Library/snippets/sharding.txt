@@ -5,16 +5,16 @@ sh.addShard( "shard1.grinfo.private:27018" )
 sh.addShard( "shard2.grinfo.private:27018" )
 sh.addShard( "shard3.grinfo.private:27018" )
 
-use PGRDG
+use BIOVERSITY
 db.dropDatabase()
-use PGRDG
-sh.enableSharding("PGRDG")
+use BIOVERSITY
+sh.enableSharding("BIOVERSITY")
 
 // Shard normal.
 
-sh.shardCollection( "PGRDG._units", { "_id" : 1 } )
+sh.shardCollection( "BIOVERSITY._units", { "_id" : 1 } )
 
 // Shard hashed.
 
 db[":_units"].ensureIndex( { "_id" : "hashed" } )
-sh.shardCollection( "PGRDG._units", { "_id" : "hashed" } )
+sh.shardCollection( "BIOVERSITY._units", { "_id" : "hashed" } )
