@@ -1744,7 +1744,8 @@ abstract class PersistentObject extends OntologyObject
 			//
 			foreach( $offsets as $offset )
 				$collection->createIndex( array( $offset => 1 ),
-										  array( "sparse" => TRUE ) );
+										  array( "background" => TRUE,
+										  		 "sparse" => TRUE ) );
 		
 		} // Has offsets.
 		
