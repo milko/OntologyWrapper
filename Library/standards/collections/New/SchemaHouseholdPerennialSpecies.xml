@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- abdh:perennial -->
+	<!-- schema:abdh:perennial -->
 	<META>
 		<NODE term="abdh:perennial" pid="schema:abdh:perennial">
 			<item const="kTAG_NODE_TYPE">

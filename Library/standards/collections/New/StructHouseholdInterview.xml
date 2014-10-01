@@ -10,6 +10,9 @@
 	<!-- Household interview information -->
 	
 	<META>
+	
+		<!-- Respondent information -->
+	
 		<!-- schema:abdh:interview -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema:abdh:interview</item>
@@ -17,16 +20,32 @@
 			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
 		</EDGE>
 		
-		<!-- schema::location -->
+		<!-- Location information -->
+	
+		<!-- schema::location:unit:enum -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
 		</EDGE>
 		
-		<!-- schema::location:site -->
+		<!-- schema::location:unit:names -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:site</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:names</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:direction -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:direction</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:coordinates -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:coordinates</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
 		</EDGE>

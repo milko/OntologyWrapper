@@ -201,13 +201,13 @@ define( "kDOMAIN_SAMPLE_BREEDING",				':domain:sample:breeding' );
 define( "kDOMAIN_TRIAL",						':domain:trial' );
 
 /**
- * Collecting.
+ * Mission.
  *
- * A collecting mission or event.
+ * A mission or project.
  *
- * This represents the collecting of samples in the field.
+ * This represents a mission or project.
  */
-define( "kDOMAIN_COLLECTING",					':domain:collecting' );
+define( "kDOMAIN_MISSION",						':domain:mission' );
 
 /**
  * Collecting mission.
@@ -216,7 +216,7 @@ define( "kDOMAIN_COLLECTING",					':domain:collecting' );
  *
  * This represents a series of collecting events.
  */
-define( "kDOMAIN_COLLECTING_MISSION",			':domain:collecting:mission' );
+define( "kDOMAIN_COLLECTING_MISSION",			':domain:mission:collecting' );
 
 /**
  * Collecting event.
@@ -225,7 +225,16 @@ define( "kDOMAIN_COLLECTING_MISSION",			':domain:collecting:mission' );
  *
  * This represents a collecting event.
  */
-define( "kDOMAIN_COLLECTING_EVENT",				':domain:collecting:event' );
+define( "kDOMAIN_COLLECTING_EVENT",				':domain:event:collecting' );
+
+/**
+ * Collecting.
+ *
+ * A collecting mission or event.
+ *
+ * This represents the collecting of samples in the field.
+ */
+define( "kDOMAIN_COLLECTING",					':domain:collecting' );
 
 /**
  * Breeding.

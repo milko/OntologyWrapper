@@ -49,9 +49,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :inventory:INSTCODE -->
+		<!-- :inventory:institute -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:institute</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

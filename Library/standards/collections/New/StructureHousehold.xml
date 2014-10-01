@@ -24,96 +24,46 @@
 			</item>
 		</NODE>
 	
+		<!-- Inventory properties -->
+		
+		<!-- :inventory:dataset -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :inventory:institute -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:institute</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- Household properties -->
 		
-		<!-- abdh:ID_HOUSEHOLD -->
+		<!-- schema:abdh:household -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:ID_HOUSEHOLD</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:household</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
-		<!-- abdh:REF-YEAR -->
+		<!-- Location properties -->
+		
+		<!-- schema::location:unit:enum -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:REF-YEAR</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
-		<!-- abdh:INSTITUTE -->
+		<!-- schema::location:unit:names -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:INSTITUTE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:names</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
-		<!-- :location:country -->
+		<!-- schema::location:unit:direction -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:admin -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- :location:admin-1 -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- abdh:STATE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:STATE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:admin-2 -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- abdh:DISTRICT -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:DISTRICT</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:admin-3 -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- abdh:BLOCKS -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:BLOCKS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:locality -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:locality</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- abdh:VILLAGE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:VILLAGE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- abdh:PIN -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:PIN</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- abdh:LANDSCAPE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:LANDSCAPE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:direction</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- Sub-structures -->

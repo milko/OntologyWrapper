@@ -51,7 +51,7 @@
 	
 	<!-- :inventory:code -->
 	<META>
-		<TERM ns=":inventory" lid="NICODE">
+		<TERM ns=":inventory" lid="code">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -121,9 +121,9 @@
 		</EDGE>
 	</META>
 	
-	<!-- :inventory:INSTCODE -->
+	<!-- :inventory:institute -->
 	<META>
-		<TERM ns=":inventory" lid="INSTCODE">
+		<TERM ns=":inventory" lid="institute">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -133,7 +133,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:inventory:INSTCODE</item>
+				<item>:inventory:institute</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
 			<item const="kTAG_DOMAIN">:domain:organisation</item>
@@ -144,7 +144,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag=":inventory:INSTCODE">
+		<NODE tag=":inventory:institute">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

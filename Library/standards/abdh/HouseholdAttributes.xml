@@ -7,6 +7,20 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
+	<!-- Household information -->
+	
+	<!-- abdh:household -->
+	<META>
+		<TERM ns="abdh" lid="household">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Household]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
 	<!-- General information -->
 	
 	<!-- abdh:ID_HOUSEHOLD -->

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	COLLECTING EVENT SCHEMA
-	SchemaCollectingEvent.xml
+	HOUSEHOLD DOMESTICATED ANIMAL SPECIES SCHEMA
+	SchemaHousehold.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,71 +9,73 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- schema::collecting:event -->
+	<!-- abdh:household -->
 	<META>
-		<NODE term=":collecting:event" pid="schema::collecting:event">
+		<NODE term="abdh:household" pid="schema:abdh:household">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:schema</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This schema contains all specific properties describing a collecting event.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties specific to household information.]]></item>
 				</item>
 			</item>
 		</NODE>
+	
+		<!-- Household properties -->
 		
-		<!-- :collecting:mission -->
+		<!-- abdh:ID_HOUSEHOLD -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ID_HOUSEHOLD</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:mission:identifier -->
+		<!-- abdh:REF-YEAR -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:identifier</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REF-YEAR</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:event:identifier -->
+		<!-- abdh:INSTITUTE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:event:identifier</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:INSTITUTE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- mcpd:COLLDATE -->
+
+		<!-- abdh:STATE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDATE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- mcpd:COLLNUMB -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLNUMB</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :germplasm:sample -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :germplasm:identifier -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:STATE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- :collecting:samples:count -->
+		<!-- abdh:DISTRICT -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:samples:count</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:DISTRICT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- abdh:BLOCKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BLOCKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- abdh:VILLAGE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:VILLAGE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:event:notes -->
+		<!-- abdh:PIN -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:notes</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:PIN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:LANDSCAPE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LANDSCAPE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

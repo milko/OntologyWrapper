@@ -18,16 +18,16 @@
 			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
 		</EDGE>
 	
-		<!-- :germplasm:accession-id -->
+		<!-- :germplasm:identifier -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:accession-id</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
 		</EDGE>
 	
-		<!-- :inventory:INSTCODE -->
+		<!-- :inventory:institute -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:institute</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
 		</EDGE>

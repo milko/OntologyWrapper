@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- abdh:annual -->
+	<!-- schema:abdh:annual -->
 	<META>
 		<NODE term="abdh:annual" pid="schema:abdh:annual">
 			<item const="kTAG_NODE_TYPE">

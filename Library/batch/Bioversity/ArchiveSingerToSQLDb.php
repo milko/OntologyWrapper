@@ -385,7 +385,7 @@ finally
 		// Set accession ID.
 		//
 		$theObject->offsetSet(
-			':germplasm:accession-id',
+			':germplasm:identifier',
 			$theData[ 'HoldingInstituteFAOCode' ].kTOKEN_INDEX_SEPARATOR
 		   .$theData[ 'HoldingCollectionCode' ].kTOKEN_NAMESPACE_SEPARATOR
 		   .$theData[ 'AccessionNumber' ] );
@@ -1127,7 +1127,7 @@ finally
 					$item = trim( $item );
 					if( strlen( $item ) )
 					{
-						$tmp[ getTag( ':germplasm:safety:tag' ) ] = $item;
+						$tmp[ getTag( ':struct-label' ) ] = $item;
 						$tmp[ getTag( 'mcpd:DUPLSITE' ) ] = $item;
 						$tmp[ getTag( ':inventory:DUPLSITE' ) ]
 							= kDOMAIN_ORGANISATION
@@ -1144,7 +1144,7 @@ finally
 				$item = trim( $theUnit[ 'SafetyDuplicateInstitutesNames' ] );
 				if( strlen( $item ) )
 				{
-					$tmp[ getTag( ':germplasm:safety:tag' ) ] = $item;
+					$tmp[ getTag( ':struct-label' ) ] = $item;
 					$tmp[ getTag( 'mcpd:DUPLDESCR' ) ] = $item;
 					$list[] = $tmp;
 				}
@@ -1394,10 +1394,10 @@ finally
 						= $data[ 'TransferSMTANotes' ];
 		
 				//
-				// Set :germplasm:mt:samples.
+				// Set :germplasm:mt:samples-intended.
 				//
 				if( array_key_exists( 'Samples', $data ) )
-					$sub[ getTag( ':germplasm:mt:samples' ) ]
+					$sub[ getTag( ':germplasm:mt:samples-intended' ) ]
 						= $data[ 'Samples' ];
 		
 				//

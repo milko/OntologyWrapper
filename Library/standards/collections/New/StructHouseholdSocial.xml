@@ -10,26 +10,26 @@
 	<META>
 		<!-- abdh:social:status -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema:abdh:social:status</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social:status</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:social:status</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:social:status</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:social:status</item>
+		</EDGE>
 	
 		<!-- abdh:social:networking -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema:abdh:social:networking</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social:networking</item>
-		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:social:networking</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:social:networking</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:social:networking</item>
 		</EDGE>
 	</META>
 </METADATA>

@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :location:unit:habitat -->
+	<!-- schema::location:unit:habitat -->
 	<META>
 		<NODE term=":location:unit:habitat" pid="schema::location:unit:habitat">
 			<item const="kTAG_NODE_TYPE">

@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :cooperator -->
+	<!-- schema::cooperator -->
 	<META>
 		<NODE term=":cooperator" pid="schema::cooperator">
 			<item const="kTAG_NODE_TYPE">
@@ -23,9 +23,9 @@
 			</item>
 		</NODE>
 		
-		<!-- :inventory:INSTCODE -->
+		<!-- :inventory:institute -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:institute</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	

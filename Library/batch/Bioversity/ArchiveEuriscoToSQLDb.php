@@ -439,7 +439,7 @@ finally
 		// Set accession ID.
 		//
 		$theObject->offsetSet(
-			':germplasm:accession-id',
+			':germplasm:identifier',
 			$theData[ 'INSTCODE' ].kTOKEN_INDEX_SEPARATOR
 		   .$theData[ 'COLLECTION' ].kTOKEN_NAMESPACE_SEPARATOR
 		   .$theData[ 'ACCENUMB' ] );
@@ -985,7 +985,7 @@ finally
 					$item = trim( $item );
 					if( strlen( $item ) )
 					{
-						$tmp[ getTag( ':germplasm:safety:tag' ) ] = $item;
+						$tmp[ getTag( ':struct-label' ) ] = $item;
 						$tmp[ getTag( 'mcpd:DUPLSITE' ) ] = $item;
 						$tmp[ getTag( ':inventory:DUPLSITE' ) ]
 							= kDOMAIN_ORGANISATION
@@ -1002,7 +1002,7 @@ finally
 				$item = trim( $theUnit[ 'DUPLDESCR' ] );
 				if( strlen( $item ) )
 				{
-					$tmp[ getTag( ':germplasm:safety:tag' ) ] = $item;
+					$tmp[ getTag( ':struct-label' ) ] = $item;
 					$tmp[ getTag( 'mcpd:DUPLDESCR' ) ] = $item;
 					$list[] = $tmp;
 				}

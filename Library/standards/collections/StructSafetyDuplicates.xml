@@ -11,9 +11,9 @@
 	
 	<!-- :germplasm:safety -->
 	<META>
-		<!-- :germplasm:safety:tag -->
+		<!-- :struct-label -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:safety:tag</item>
+			<item const="kTAG_SUBJECT" node="tag">:struct-label</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:germplasm:safety</item>
 		</EDGE>

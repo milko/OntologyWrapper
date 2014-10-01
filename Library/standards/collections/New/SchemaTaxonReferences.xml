@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :taxon:unit:refs -->
+	<!-- schema::taxon:unit:refs -->
 	<META>
 		<NODE term=":taxon:unit:refs" pid="schema::taxon:unit:refs">
 			<item const="kTAG_NODE_TYPE">

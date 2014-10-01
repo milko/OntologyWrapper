@@ -316,6 +316,12 @@ class Inventory extends UnitObject
 							  static::kDEFAULT_DOMAIN );
 		
 		//
+		// Check authority.
+		//
+		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
+			$this->offsetSet( kTAG_AUTHORITY, $this->offsetGet( 'cwr:INSTCODE' ) );
+		
+		//
 		// Check identifier.
 		//
 		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )

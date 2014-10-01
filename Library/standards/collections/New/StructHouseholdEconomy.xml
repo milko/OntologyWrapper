@@ -12,86 +12,86 @@
 	<META>
 		<!-- abdh:economy:family -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:family</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:economy:family</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:economy:family</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:family</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy:family</item>
+		</EDGE>
 	
 		<!-- abdh:economy:land -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:land</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:economy:land</item>
-		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:economy:land</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:land</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy:land</item>
+		</EDGE>
 	
 		<!-- abdh:economy:land-other -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:land-other</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:economy:land-other</item>
-		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:economy:land-other</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:land-other</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy:land-other</item>
+		</EDGE>
 
 		<!-- abdh:economy:water -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:water</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:economy:water</item>
-		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:economy:water</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:water</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy:water</item>
+		</EDGE>
 	
 		<!-- abdh:economy:housing -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:housing</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:economy:housing</item>
-		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:economy:housing</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:housing</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy:housing</item>
+		</EDGE>
 	
 		<!-- abdh:economy:ownership -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:ownership</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:economy:ownership</item>
-		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:economy:ownership</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:ownership</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy:ownership</item>
+		</EDGE>
 	
 		<!-- abdh:economy:income -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:income</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:economy:income</item>
-		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:economy:income</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:income</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy:income</item>
 		</EDGE>
 	</META>
 </METADATA>

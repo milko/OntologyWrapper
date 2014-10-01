@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON FORM
+	FormTaxon.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- FORM -->
+	
+	<!-- :taxon -->
+	<META>
+		<NODE term=":taxon" pid="form::taxon">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common taxonomy search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+
+	<!-- Epithets -->
+
+	<!-- form::taxon:unit:epithets -->
+	<META>
+		<NODE term=":taxon:unit:epithets" pid="form::taxon:unit:epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::taxon:unit:epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:kingdom-epithets -->
+	<META>
+		<NODE term=":taxon:kingdom-epithets" pid="form::taxon:kingdom-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:kingdom-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:kingdom-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:phylum-epithets -->
+	<META>
+		<NODE term=":taxon:phylum-epithets" pid="form::taxon:phylum-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:phylum-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:phylum-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:class-epithets -->
+	<META>
+		<NODE term=":taxon:class-epithets" pid="form::taxon:class-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:class-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:class-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:legio-epithets -->
+	<META>
+		<NODE term=":taxon:legio-epithets" pid="form::taxon:legio-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:legio-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:legio-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:ordo-epithets -->
+	<META>
+		<NODE term=":taxon:ordo-epithets" pid="form::taxon:ordo-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:ordo-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:ordo-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:familia-epithets -->
+	<META>
+		<NODE term=":taxon:familia-epithets" pid="form::taxon:familia-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:familia-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:familia-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:tribus-epithets -->
+	<META>
+		<NODE term=":taxon:tribus-epithets" pid="form::taxon:tribus-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:tribus-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:tribus-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:genus-epithets -->
+	<META>
+		<NODE term=":taxon:genus-epithets" pid="form::taxon:genus-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:genus-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:genus-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:species-epithets -->
+	<META>
+		<NODE term=":taxon:species-epithets" pid="form::taxon:species-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:species-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:species-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	<!-- form::taxon:infraspecific-epithets -->
+	<META>
+		<NODE term=":taxon:infraspecific-epithets" pid="form::taxon:infraspecific-epithets" />
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:infraspecific-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon:unit:epithets</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:infraspecific-epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Names -->
+
+	<!-- form::taxon:unit:names-->
+	<META>
+		<NODE term=":taxon:unit:names" pid="form::taxon:unit:names" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:unit:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:names</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- References -->
+
+	<!-- form::taxon:unit:refs-->
+	<META>
+		<NODE term=":taxon:unit:refs" pid="form::taxon:unit:refs" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:unit:refs -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:refs</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Groups -->
+
+	<!-- form::taxon:unit:groups-->
+	<META>
+		<NODE term=":taxon:unit:groups" pid="form::taxon:unit:groups" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:unit:groups -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:groups</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Economy -->
+
+	<!-- form::taxon:unit:economy-->
+	<META>
+		<NODE term=":taxon:unit:economy" pid="form::taxon:unit:economy" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:unit:economy -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:economy</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Biology -->
+
+	<!-- form::taxon:unit:biology-->
+	<META>
+		<NODE term=":taxon:unit:biology" pid="form::taxon:unit:biology" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:unit:biology -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:biology</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Crossability -->
+
+	<!-- form::taxon:cross-->
+	<META>
+		<NODE term=":taxon:cross" pid="form::taxon:cross" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:cross -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:cross</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Distribution -->
+
+	<!-- form::taxon:distribution-->
+	<META>
+		<NODE term=":taxon:distribution" pid="form::taxon:distribution" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:distribution -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:distribution</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Conservation -->
+
+	<!-- form::taxon:conservation-->
+	<META>
+		<NODE term=":taxon:conservation" pid="form::taxon:conservation" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:conservation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:conservation</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Threat -->
+
+	<!-- form::taxon:threat-->
+	<META>
+		<NODE term=":taxon:threat" pid="form::taxon:threat" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:threat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:threat</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :location:unit:soil -->
+	<!-- schema::location:unit:soil -->
 	<META>
 		<NODE term=":location:unit:soil" pid="schema::location:unit:soil">
 			<item const="kTAG_NODE_TYPE">

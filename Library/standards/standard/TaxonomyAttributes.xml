@@ -25,7 +25,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Taxon ranks</item>
+					<item const="kTAG_TEXT">Taxon epithets</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">

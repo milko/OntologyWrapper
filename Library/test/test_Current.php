@@ -89,7 +89,8 @@ try
 	$wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
-	
+
+/*	
 	//
 	// Load data dictionary.
 	//
@@ -104,6 +105,7 @@ try
 	var_dump( $indexes );
 	
 	exit;
+*/
 
 /*
 	//
@@ -219,7 +221,6 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-*/
 
 	//
 	// Try matchTagByLabel.
@@ -243,6 +244,51 @@ try
 	//								   kAPI_PARAM_COLLECTION_NODE )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_LABEL;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+*/
+	//
+	// Try matchUnits with fulkl text search on "wild".
+	//
+	echo( '<h4>Try matchUnits with fulkl text search on "wild"</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PAGING_LIMIT => 3,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_CRITERIA => array
+		(
+			kAPI_PARAM_FULL_TEXT_OFFSET => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_TEXT,
+				kAPI_PARAM_PATTERN => 'wild'
+			)
+		),
+		kAPI_PARAM_DOMAIN => ':domain:organisation',
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_COLUMN
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );

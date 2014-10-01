@@ -24,9 +24,9 @@
 			</item>
 		</NODE>
 
-		<!-- :germplasm:accession-id -->
+		<!-- :germplasm:identifier -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:accession-id</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

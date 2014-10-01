@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	MISSION COLLECTING EVENTS STRUCTURE
+	StructCollectingSamples.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Collecting mission samples structure -->
+	
+	<!-- :mission:collecting:samples -->
+	<META>
+		<!-- :struct-label -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:struct-label</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
+		</EDGE>
+		
+		<!-- :germplasm:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLDATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDATE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
+		</EDGE>
+		
+		<!-- schema::taxon:unit:epithets -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
+		</EDGE>
+		
+		<!-- schema::taxon:unit:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:names</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
+		</EDGE>
+		
+		<!-- :germplasm:sample -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
+		</EDGE>
+	</META>
+</METADATA>

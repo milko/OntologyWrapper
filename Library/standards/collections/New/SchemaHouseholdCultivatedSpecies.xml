@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- abdh:cultivated -->
+	<!-- schema:abdh:cultivated -->
 	<META>
 		<NODE term="abdh:cultivated" pid="schema:abdh:cultivated">
 			<item const="kTAG_NODE_TYPE">

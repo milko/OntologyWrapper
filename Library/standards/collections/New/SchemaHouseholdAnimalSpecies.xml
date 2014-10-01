@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- abdh:animal -->
+	<!-- schema:abdh:animal -->
 	<META>
 		<NODE term="abdh:animal" pid="schema:abdh:animal">
 			<item const="kTAG_NODE_TYPE">

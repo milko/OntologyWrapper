@@ -291,6 +291,11 @@ class ArrayCursorIterator extends ObjectIterator
 		if( $theCount !== NULL )
 		{
 			//
+			// Set value.
+			//
+			$this->mLimit = (int) $theCount;
+		
+			//
 			// Check if needed.
 			//
 			if( $theCount < $this->count() )
@@ -315,11 +320,6 @@ class ArrayCursorIterator extends ObjectIterator
 				// Replace.
 				//
 				$this->mCursor = new \ArrayIterator( $array );
-			
-				//
-				// Set value.
-				//
-				$this->mLimit = (int) $theCount;
 			
 			} // Limit is less than count.
 		

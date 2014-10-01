@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- abdh:species -->
+	<!-- schema:abdh:species -->
 	<META>
 		<NODE term="abdh:species" pid="schema:abdh:species">
 			<item const="kTAG_NODE_TYPE">
@@ -44,18 +44,6 @@
 		<!-- abdh:NAME_ENG -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:NAME_ENG</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- schema::taxon -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:distribution -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	

@@ -2428,7 +2428,7 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading XML environment sub-structure files.\n" );
 		
-		$file = kPATH_STANDARDS_ROOT.'/collections/StructClimatic.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructBioclimatic.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		

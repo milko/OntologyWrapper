@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	MISSION ATTRIBUTES
+	MissionAttributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Mission reference -->
+	
+	<!-- :mission -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:mission</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
+			<item const="kTAG_DOMAIN">:domain:mission</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the reference to the mission.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":mission">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Mission attributes -->
+	
+	<!-- :mission:identifier -->
+	<META>
+		<TERM ns=":mission" lid="identifier">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Mission identifier</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:mission:identifier</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-06</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the unique identifier of the mission.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":mission:identifier">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :mission:start -->
+	<META>
+		<TERM ns=":mission" lid="start">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Mission start date</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:mission:start</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the mission start date.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":mission:start">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :mission:end -->
+	<META>
+		<TERM ns=":mission" lid="end">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Mission end date</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:mission:end</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the mission end date.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":mission:end">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :mission:documents -->
+	<META>
+		<TERM ns=":mission" lid="documents">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Mission documents</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:mission:documents</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a link to the mission documents.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":mission:documents">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :mission:notes -->
+	<META>
+		<TERM ns=":mission" lid="notes">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Mission notes</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:mission:notes</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag=":mission:notes">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :mission:collecting -->
+	<META>
+		<TERM ns=":mission" lid="collecting">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collecting missions</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:mission:collecting</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:struct-label</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the list of collecting missions.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":mission:collecting">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :mission:locations -->
+	<META>
+		<TERM ns=":mission" lid="locations">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Mission locations</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:mission:locations</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:struct-label</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the list of locations touched by the mission.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":mission:locations">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :mission:taxa -->
+	<META>
+		<TERM ns=":mission" lid="taxa">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Mission taxa</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:mission:taxa</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:taxon:epithet</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the list of taxa collected by the mission.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":mission:taxa">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

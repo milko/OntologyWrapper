@@ -486,19 +486,19 @@
 		</EDGE>
 	</META>
 		
-	<!-- kDOMAIN_COLLECTING -->
+	<!-- kDOMAIN_MISSION -->
 	<META>
-		<TERM ns=":domain" lid="collecting">
+		<TERM ns=":domain" lid="mission">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Collecting</item>
+					<item const="kTAG_TEXT">Mission</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Samples collection in the field.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A mission, project or a series of events.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -515,7 +515,7 @@
 		
 	<!-- kDOMAIN_COLLECTING_MISSION -->
 	<META>
-		<TERM ns=":domain:collecting" lid="mission">
+		<TERM ns=":domain:mission" lid="collecting">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -536,13 +536,13 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:domain:collecting</item>
+			<item const="kTAG_OBJECT" node="term">:domain:mission</item>
 		</EDGE>
 	</META>
 		
 	<!-- kDOMAIN_COLLECTING_EVENT -->
 	<META>
-		<TERM ns=":domain:collecting" lid="event">
+		<TERM ns=":domain:event" lid="collecting">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -552,7 +552,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A collecting sub-mission or event.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A collecting event or sub-mission.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -563,7 +563,34 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:domain:collecting</item>
+			<item const="kTAG_OBJECT" node="term">:domain:event</item>
+		</EDGE>
+	</META>
+		
+	<!-- kDOMAIN_COLLECTING -->
+	<META>
+		<TERM ns=":domain" lid="collecting">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collecting event</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Samples collection in the field.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:event</item>
 		</EDGE>
 	</META>
 		

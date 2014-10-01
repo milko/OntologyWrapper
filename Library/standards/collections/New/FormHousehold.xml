@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ABD HOUSEHOLD ASSESSMENT FORM
+	FormHousehold.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- FORM -->
+	
+	<!-- :domain:hh-assessment -->
+	<META>
+		<NODE term=":domain:hh-assessment" pid="form::domain:hh-assessment">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common agro bio-diversity household assessment search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Household -->
+	
+	<!-- abdh:household -->
+	<META>
+		<NODE term="abdh:household" pid="form:abdh:household">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Household search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:hh-assessment</item>
+		</EDGE>
+		
+		<!-- schema:abdh:household -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:household</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Respondent -->
+	
+	<!-- abdh:interview -->
+	<META>
+		<NODE term="abdh:interview" pid="form:abdh:interview">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Interview]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Household interview & respondent search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:hh-assessment</item>
+		</EDGE>
+		
+		<!-- schema:abdh:interview -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:interview</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Species -->
+	
+	<!-- abdh:species -->
+	<META>
+		<NODE term="abdh:species" pid="form:abdh:species">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Species]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Species search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:hh-assessment</item>
+		</EDGE>
+		
+		<!-- schema:abdh:species -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:species</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- abdh:cultivated -->
+	<META>
+		<NODE term="abdh:cultivated" pid="form:abdh:cultivated">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cultivated plant species search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:species</item>
+		</EDGE>
+		
+		<!-- schema:abdh:cultivated -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:cultivated</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- abdh:annual -->
+	<META>
+		<NODE term="abdh:annual" pid="form:abdh:annual">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Annual species search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:cultivated</item>
+		</EDGE>
+		
+		<!-- schema:abdh:annual -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:annual</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- abdh:perennial -->
+	<META>
+		<NODE term="abdh:perennial" pid="form:abdh:perennial">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Perennial species search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:cultivated</item>
+		</EDGE>
+		
+		<!-- schema:abdh:perennial -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:perennial</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- abdh:wild -->
+	<META>
+		<NODE term="abdh:wild" pid="form:abdh:wild">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild species search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:species</item>
+		</EDGE>
+		
+		<!-- schema:abdh:wild -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:wild</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- abdh:animal -->
+	<META>
+		<NODE term="abdh:animal" pid="form:abdh:animal">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Domesticated animal species search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:species</item>
+		</EDGE>
+		
+		<!-- schema:abdh:animal -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:animal</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Socio-economic information -->
+	
+	<!-- abdh:economy -->
+	<META>
+		<NODE term="abdh:economy" pid="form:abdh:economy">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Socio-economic information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:hh-assessment</item>
+		</EDGE>
+	</META>
+	
+	<!-- Family size -->
+	
+	<!-- abdh:economy:family -->
+	<META>
+		<NODE term="abdh:economy:family" pid="form:abdh:economy:family">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Family information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:economy</item>
+		</EDGE>
+		
+		<!-- schema:abdh:economy:family -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:family</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Land owned and cultivated -->
+	
+	<!-- abdh:economy:land -->
+	<META>
+		<NODE term="abdh:economy:land" pid="form:abdh:economy:land">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Land owned and cultivated information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:economy</item>
+		</EDGE>
+		
+		<!-- schema:abdh:economy:land -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:land</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Other owned land, land use/land cover -->
+	
+	<!-- abdh:economy:land-other -->
+	<META>
+		<NODE term="abdh:economy:land-other" pid="form:abdh:economy:land-other">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Other owned land, land use/land cover information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:economy</item>
+		</EDGE>
+		
+		<!-- schema:abdh:economy:land-other -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:land-other</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Acess, quality, quantity, and management of water resources -->
+	
+	<!-- abdh:economy:water -->
+	<META>
+		<NODE term="abdh:economy:water" pid="form:abdh:economy:water">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Acess, quality, quantity, and management of water resources information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:economy</item>
+		</EDGE>
+		
+		<!-- schema:abdh:economy:water -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:water</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Housing -->
+	
+	<!-- abdh:economy:housing -->
+	<META>
+		<NODE term="abdh:economy:housing" pid="form:abdh:economy:housing">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Housing information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:economy</item>
+		</EDGE>
+		
+		<!-- schema:abdh:economy:housing -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:housing</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Ownership of consumer goods -->
+	
+	<!-- abdh:economy:ownership -->
+	<META>
+		<NODE term="abdh:economy:ownership" pid="form:abdh:economy:ownership">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ownership of consumer goods information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:economy</item>
+		</EDGE>
+		
+		<!-- schema:abdh:economy:ownership -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:ownership</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Household sources of income -->
+	
+	<!-- abdh:economy:income -->
+	<META>
+		<NODE term="abdh:economy:income" pid="form:abdh:economy:income">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sources of income information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:economy</item>
+		</EDGE>
+		
+		<!-- schema:abdh:economy:income -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:economy:income</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Market integration -->
+	
+	<!-- abdh:market -->
+	<META>
+		<NODE term="abdh:market" pid="form:abdh:market">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Market integration information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:hh-assessment</item>
+		</EDGE>
+		
+		<!-- schema:abdh:market -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:market</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Caste, social network & programmes information -->
+	
+	<!-- abdh:social -->
+	<META>
+		<NODE term="abdh:social" pid="form:abdh:social">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Socio-economic information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:hh-assessment</item>
+		</EDGE>
+	</META>
+	
+	<!-- Social status -->
+	
+	<!-- abdh:social:status -->
+	<META>
+		<NODE term="abdh:social:status" pid="form:abdh:social:status">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Social status information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:social</item>
+		</EDGE>
+		
+		<!-- schema:abdh:social:status -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:social:status</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Social networking -->
+	
+	<!-- abdh:social:networking -->
+	<META>
+		<NODE term="abdh:social:networking" pid="form:abdh:social:networking">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Social networking information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh:social</item>
+		</EDGE>
+		
+		<!-- schema:abdh:social:networking -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:social:networking</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Household food security & risk attitudes -->
+	
+	<!-- abdh:risk -->
+	<META>
+		<NODE term="abdh:risk" pid="form:abdh:risk">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Food security & risk attitudes information search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:hh-assessment</item>
+		</EDGE>
+		
+		<!-- schema:abdh:risk -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:abdh:risk</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :taxon:unit:groups -->
+	<!-- schema::taxon:unit:groups -->
 	<META>
 		<NODE term=":taxon:unit:groups" pid="schema::taxon:unit:groups">
 			<item const="kTAG_NODE_TYPE">
