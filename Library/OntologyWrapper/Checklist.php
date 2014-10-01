@@ -31,7 +31,7 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_DOMAIN}</tt>: By default the class sets the
  *		{@link kDOMAIN_CHECKLIST} constant.
  *	<li><tt>{@link kTAG_AUTHORITY}</tt>: The authority is set with the institute code,
- *		<tt>:inventory:INSTCODE</tt> tag.
+ *		<tt>:inventory:institute</tt> tag.
  *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier is set with the concatenation of
  *		the <tt>cwr:ck:CWRCODE</tt> anf the <tt>cwr:ck:NUMB</tt> tags separated by a dash.
  *	<li><tt>{@link kTAG_COLLECTION}</tt>: This property is set with the value of the

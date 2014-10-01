@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LOCATION FORM
+	FormLocation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- FORM -->
+	
+	<!-- :location -->
+	<META>
+		<NODE term=":location" pid="form::location">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common location search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+
+	<!-- Identification -->
+
+	<!-- :location:site:id -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:id</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	</META>
+
+	<!-- Enumerations -->
+
+	<!-- :location:unit:enum -->
+	<META>
+		<NODE term=":location:unit:enum" pid="form::location:unit:enum" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:enum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Names -->
+
+	<!-- :location:unit:names -->
+	<META>
+		<NODE term=":location:unit:names" pid="form::location:unit:names" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:names</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Directions -->
+
+	<!-- :location:unit:direction -->
+	<META>
+		<NODE term=":location:unit:direction" pid="form::location:unit:direction" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:direction -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:direction</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Coordinates -->
+
+	<!-- :location:unit:coordinates -->
+	<META>
+		<NODE term=":location:unit:coordinates" pid="form::location:unit:coordinates" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:coordinates -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:coordinates</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Georeferencing -->
+
+	<!-- :location:unit:georef -->
+	<META>
+		<NODE term=":location:unit:georef" pid="form::location:unit:georef" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:georef -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:georef</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Legislation -->
+
+	<!-- :location:unit:legal -->
+	<META>
+		<NODE term=":location:unit:legal" pid="form::location:unit:legal" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:legal -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:legal</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Land use -->
+
+	<!-- :location:unit:use -->
+	<META>
+		<NODE term=":location:unit:use" pid="form::location:unit:use" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:use -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:use</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Protection -->
+
+	<!-- :location:unit:protection -->
+	<META>
+		<NODE term=":location:unit:protection" pid="form::location:unit:protection" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:protection -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:protection</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Habitat -->
+
+	<!-- :location:unit:habitat -->
+	<META>
+		<NODE term=":location:unit:habitat" pid="form::location:unit:habitat" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:habitat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:habitat</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Soil -->
+
+	<!-- :location:unit:soil -->
+	<META>
+		<NODE term=":location:unit:soil" pid="form::location:unit:soil" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:soil -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:soil</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Monitoring -->
+
+	<!-- :location:unit:monitor -->
+	<META>
+		<NODE term=":location:unit:monitor" pid="form::location:unit:monitor" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:monitor -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:monitor</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Comments -->
+
+	<META>
+		<!-- :location:site:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	</META>
+</METADATA>

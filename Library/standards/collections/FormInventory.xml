@@ -30,9 +30,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :inventory:NICODE -->
+		<!-- :inventory:code -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:NICODE</item>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:code</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

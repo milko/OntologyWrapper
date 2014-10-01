@@ -410,13 +410,13 @@ finally
 		//
 		// Set national inventory code.
 		//
-		$theObject->offsetSet( ':inventory:NICODE', $theData[ 'cwr:ck:CWRCODE' ] );
+		$theObject->offsetSet( ':inventory:code', $theData[ 'cwr:ck:CWRCODE' ] );
 		
 		//
 		// Set responsible institute.
 		//
 		$theObject->offsetSet(
-			':inventory:INSTCODE',
+			':inventory:institute',
 			kDOMAIN_ORGANISATION
 		   .'://http://fao.org/wiews:'
 		   .$theData[ ':inventory:INSTCODE' ]

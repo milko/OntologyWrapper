@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	INVENTORY SCHEMA
-	SchemaInventory.xml
+	LOCATION MONITORING UNIT SCHEMA
+	SchemaLocationMonitoring.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,41 +9,37 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :inventory -->
+	<!-- :location:unit:monitor -->
 	<META>
-		<NODE term=":inventory" pid="schema::inventory">
+		<NODE term=":location:unit:monitor" pid="schema::location:unit:monitor">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:schema</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard common properties describing inventory properties of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard properties describing the monitoring of a site.]]></item>
 				</item>
 			</item>
 		</NODE>
-		
-		<!-- :inventory:dataset -->
+	
+		<!-- Site monitoring -->
+	
+		<!-- :location:site:monitored -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :inventory:code -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:code</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :inventory:admin -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:admin</item>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:monitored</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- :inventory:INSTCODE -->
+		<!-- :location:site:monitor -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:monitor</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:monitor:interval -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:monitor:interval</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

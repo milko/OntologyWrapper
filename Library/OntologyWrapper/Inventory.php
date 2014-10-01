@@ -31,9 +31,9 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_DOMAIN}</tt>: By default the class sets the
  *		{@link kDOMAIN_INVENTORY} constant.
  *	<li><tt>{@link kTAG_AUTHORITY}</tt>: The authority is set with the institute code,
- *		<tt>:inventory:INSTCODE</tt> tag.
+ *		<tt>:inventory:institute</tt> tag.
  *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier is set with the
- *		<tt>:inventory:NICODE</tt> and <tt>cwr:in:NIENUMB</tt> tags separated by a dash.
+ *		<tt>:inventory:code</tt> and <tt>cwr:in:NIENUMB</tt> tags separated by a dash.
  *	<li><tt>{@link kTAG_COLLECTION}</tt>: This property is set with the value of the
  *		<tt>:taxon:epithet</tt> tag.
  *	<li><tt>{@link kTAG_VERSION}</tt>: This property is set with an autonumber sequence.
@@ -319,15 +319,9 @@ class Inventory extends UnitObject
 		// Check identifier.
 		//
 		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
-			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( ':inventory:NICODE' )
+			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( ':inventory:code' )
 											  .'-'
 											  .$this->offsetGet( 'cwr:in:NIENUMB' ) );
-		
-		//
-		// Check authority.
-		//
-		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
-			$this->offsetSet( kTAG_AUTHORITY, $this->offsetGet( ':inventory:INSTCODE' ) );
 		
 		//
 		// Set taxon.

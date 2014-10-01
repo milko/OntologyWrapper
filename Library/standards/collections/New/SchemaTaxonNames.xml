@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON NAMES UNIT SCHEMA
+	SchemaTaxonNames.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :taxon:unit:names -->
+	<META>
+		<NODE term=":taxon:unit:names" pid="schema::taxon:unit:names">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard properties describing taxon synonyms, scientific and vernacular names.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Names -->
+		
+		<!-- :taxon:epithet -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:author -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:author</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:infraspecies -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:infraspecies:author -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies:author</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:valid -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:valid</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:synonym -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:synonym</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:names</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

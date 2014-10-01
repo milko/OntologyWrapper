@@ -7,6 +7,68 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
+	<!-- Local namespaces -->
+	
+	<META>
+		<!-- :location:unit -->
+		<TERM ns=":location" lid="unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location unit</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:enum -->
+		<TERM ns=":location:unit" lid="enum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location enumerations</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Enumerated administrative data.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:names -->
+		<TERM ns=":location:unit" lid="names">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location names</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Named administrative data.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:direction -->
+		<TERM ns=":location:unit" lid="direction">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location directions</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location directions and proximity references.</item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
 	<!-- Enumerated administrative units -->
 	
 	<!-- :location:continent -->

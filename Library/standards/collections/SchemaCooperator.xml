@@ -29,12 +29,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- :inventory:COOPERATOR -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:COOPERATOR</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
 		<!-- schema::domain:entity -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:entity</item>

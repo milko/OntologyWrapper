@@ -1,147 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	TAXON THREAT STRUCTURE
-	StructTaxonThreat.xml
+	TAXON THREAT UNIT SCHEMA
+	SchemaTaxonThreat.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Threat structure -->
+	<!-- SCHEMA -->
 	
 	<!-- :taxon:threat -->
 	<META>
+		<NODE term=":taxon:threat" pid="schema::taxon:threat">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all specific properties describing taxon threats.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Threats -->
+		
 		<!-- :taxon:threat:assessment -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:assessment</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:region -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:region</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:country -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:country</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- iucn:category -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">iucn:category</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- iucn:criteria -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">iucn:criteria</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- iucn:criteria-citation -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">iucn:criteria-citation</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:other-red-list-criteria -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:other-red-list-criteria</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- iucn:threat -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">iucn:threat</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:period -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:period</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:assessment:year -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:assessment:year</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:assessment:url -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:assessment:url</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:assessment:ref -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:assessment:ref</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 	
 		<!-- natserve:threat:code -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">natserve:threat:code</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:national -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:national:ucode -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:ucode</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:national:udescr -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:udescr</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:national:uauth -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:uauth</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:national:year -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:year</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- :taxon:occurrence-status -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-status</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 	</META>
 </METADATA>

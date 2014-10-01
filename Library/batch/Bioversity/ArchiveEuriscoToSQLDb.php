@@ -457,7 +457,7 @@ finally
 		// Set holding institute.
 		//
 		$theObject->offsetSet(
-			':inventory:INSTCODE',
+			':inventory:institute',
 			kDOMAIN_ORGANISATION
 		   .'://http://fao.org/wiews:'
 		   .$theData[ 'INSTCODE' ]
@@ -466,7 +466,7 @@ finally
 		//
 		// Set National inventory code.
 		//
-		$theObject->offsetSet( ':inventory:NICODE', $theData[ 'NICODE' ] );
+		$theObject->offsetSet( ':inventory:code', $theData[ 'NICODE' ] );
 		
 		//
 		// Set inventory administrative code.
@@ -832,7 +832,7 @@ finally
 		// Set :inventory:INSTCODE.
 		//
 		if( array_key_exists( 'COLLCODE', $theUnit ) )
-			$sub[ getTag( ':inventory:INSTCODE' ) ]
+			$sub[ getTag( ':inventory:institute' ) ]
 				= kDOMAIN_ORGANISATION
 				 .'://http://fao.org/wiews:'
 				 .$theUnit[ 'COLLCODE' ]
@@ -900,7 +900,7 @@ finally
 		// Set :inventory:INSTCODE.
 		//
 		if( array_key_exists( 'BREDCODE', $theUnit ) )
-			$sub[ getTag( ':inventory:INSTCODE' ) ]
+			$sub[ getTag( ':inventory:institute' ) ]
 				= kDOMAIN_ORGANISATION
 				 .'://http://fao.org/wiews:'
 				 .$theUnit[ 'BREDCODE' ]
@@ -1052,7 +1052,7 @@ finally
 			$theContainer[ getTag( 'mcpd:DONORCODE' ) ]
 				= $theUnit[ 'DONORCODE' ];
 			
-			$theContainer[ getTag( ':inventory:INSTCODE' ) ]
+			$theContainer[ getTag( ':inventory:institute' ) ]
 				= kDOMAIN_ORGANISATION
 				 .'://http://fao.org/wiews:'
 				 .$theUnit[ 'DONORCODE' ]

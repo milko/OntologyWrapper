@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON LEGION EPITHETS UNIT SCHEMA
+	SchemaEpithetLegion.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :taxon:legio-epithets -->
+	<META>
+		<TERM ns=":taxon" lid="legio-epithets">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Legion]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Legion rank epithets.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":taxon:legio-epithets" pid="schema::taxon:legio-epithets">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+		</NODE>
+
+		<!-- Legion epithets -->
+		
+		<!-- :taxon:legio -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:legio</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:cohors -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cohors</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

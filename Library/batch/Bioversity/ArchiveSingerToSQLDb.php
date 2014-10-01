@@ -410,7 +410,7 @@ finally
 		// Set holding institute.
 		//
 		$theObject->offsetSet(
-			':inventory:INSTCODE',
+			':inventory:institute',
 			kDOMAIN_ORGANISATION
 		   .'://http://fao.org/wiews:'
 		   .$theData[ 'HoldingInstituteFAOCode' ]
@@ -935,7 +935,7 @@ finally
 				// Set :inventory:INSTCODE.
 				//
 				if( array_key_exists( 'CooperatorInstituteFAOCode', $data ) )
-					$sub[ getTag( ':inventory:INSTCODE' ) ]
+					$sub[ getTag( ':inventory:institute' ) ]
 						= kDOMAIN_ORGANISATION
 						 .'://http://fao.org/wiews:'
 						 .$data[ 'CooperatorInstituteFAOCode' ]
@@ -1226,7 +1226,7 @@ finally
 					//
 					// :inventory:INSTCODE
 					//
-					$theContainer[ getTag( ':inventory:INSTCODE' ) ]
+					$theContainer[ getTag( ':inventory:institute' ) ]
 						= kDOMAIN_ORGANISATION
 						 .'://http://fao.org/wiews:'
 						 .$data[ 'CooperatorInstituteFAOCode' ]
@@ -1411,7 +1411,7 @@ finally
 				// Set :inventory:INSTCODE.
 				//
 				if( array_key_exists( 'CooperatorInstituteFAOCode', $data ) )
-					$sub[ getTag( ':inventory:INSTCODE' ) ]
+					$sub[ getTag( ':inventory:institute' ) ]
 						= kDOMAIN_ORGANISATION
 						 .'://http://fao.org/wiews:'
 						 .$data[ 'CooperatorInstituteFAOCode' ]

@@ -31,7 +31,7 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_DOMAIN}</tt>: By default the class sets the
  *		{@link kDOMAIN_ACCESSION} constant.
  *	<li><tt>{@link kTAG_AUTHORITY}</tt>: The authority is set with the institute code,
- *		<tt>:inventory:INSTCODE</tt> tag.
+ *		<tt>:inventory:institute</tt> tag.
  *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier is set with the
  *		<tt>mcpd:ACCENUMB</tt> tag.
  *	<li><tt>{@link kTAG_COLLECTION}</tt>: This property is optionally set by the client.

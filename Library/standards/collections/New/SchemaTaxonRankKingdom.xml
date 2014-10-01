@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON KINGDOM EPITHETS UNIT SCHEMA
+	SchemaEpithetKingdom.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :taxon:kingdom-epithets -->
+	<META>
+		<TERM ns=":taxon" lid="kingdom-epithets">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Kingdom]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Kingdom rank epithets.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":taxon:kingdom-epithets" pid="schema::taxon:kingdom-epithets">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+		</NODE>
+	
+		<!-- Kingdom epithets -->
+		
+		<!-- :taxon:superregnum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:superregnum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:regnum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:regnum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:subregnum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:subregnum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:infraregnum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:infraregnum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

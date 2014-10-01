@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LOCATION USE UNIT SCHEMA
+	SchemaLocationUse.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :location:unit:use -->
+	<META>
+		<NODE term=":location:unit:use" pid="schema::location:unit:use">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard properties describing the land use of a site.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Site land -->
+	
+		<!-- fao:landuse -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">fao:landuse</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- eec:CORINE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">eec:CORINE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

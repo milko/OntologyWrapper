@@ -400,7 +400,7 @@ finally
 		//
 		// Set national inventory code.
 		//
-		$theObject->offsetSet( ':inventory:NICODE', 'USA' );
+		$theObject->offsetSet( ':inventory:code', 'USA' );
 		
 		//
 		// Set country and administrative unit.
@@ -417,7 +417,7 @@ finally
 		// Set responsible institute.
 		//
 		$theObject->offsetSet(
-			':inventory:INSTCODE',
+			':inventory:institute',
 			kDOMAIN_ORGANISATION
 		   .'://http://fao.org/wiews:USA126'
 		   .kTOKEN_END_TAG );

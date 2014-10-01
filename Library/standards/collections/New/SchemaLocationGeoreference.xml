@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LOCATION GEOREFERENCE UNIT SCHEMA
+	SchemaLocationGeoreference.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :location:unit:georef -->
+	<META>
+		<NODE term=":location:unit:georef" pid="schema::location:unit:georef">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard properties describing the georeferencing of a site.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Site georeferencing -->
+	
+		<!-- :location:site:georeference-date -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-date</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-contact -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-contact</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-source -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-source</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-method -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-method</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-tool -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-tool</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-latitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-latitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-longitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-longitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-old -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-old</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:site:georeference-notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:georeference-notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

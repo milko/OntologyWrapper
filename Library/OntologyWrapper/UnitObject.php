@@ -1074,10 +1074,10 @@ abstract class UnitObject extends PersistentObject
 		
 			case kDOMAIN_CHECKLIST:
 				return array( ':taxon:epithet', 'cwr:ck:TYPE', 'cwr:ck:CWRCODE',
-							  'cwr:ck:NUMB', ':location:admin' );									// ==>
+							  'cwr:ck:NUMB', ':location:admin' );					// ==>
 		
 			case kDOMAIN_INVENTORY:
-				return array( ':taxon:epithet', ':inventory:NICODE',
+				return array( ':taxon:epithet', ':inventory:code',
 							  'cwr:in:NIENUMB', ':unit:version' );					// ==>
 		
 			case kDOMAIN_HH_ASSESSMENT:

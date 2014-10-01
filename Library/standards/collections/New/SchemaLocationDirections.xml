@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	INVENTORY SCHEMA
-	SchemaInventory.xml
+	LOCATION DIRECTIONS UNIT SCHEMA
+	SchemaLocationDirections.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,41 +9,37 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :inventory -->
+	<!-- :location:unit:direction -->
 	<META>
-		<NODE term=":inventory" pid="schema::inventory">
+		<NODE term=":location:unit:direction" pid="schema::location:unit:direction">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:schema</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard common properties describing inventory properties of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard properties describing geographic unit directions and references.]]></item>
 				</item>
 			</item>
 		</NODE>
-		
-		<!-- :inventory:dataset -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :inventory:code -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:code</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :inventory:admin -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:admin</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
 	
-		<!-- :inventory:INSTCODE -->
+		<!-- Administrative unit directions -->
+		
+		<!-- :location:near-place -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
+			<item const="kTAG_SUBJECT" node="tag">:location:near-place</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:near-dist -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:near-dist</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:near-dir -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:near-dir</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

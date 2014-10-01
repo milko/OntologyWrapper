@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON PHYLUM EPITHETS UNIT SCHEMA
+	SchemaEpithetPhylum.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :taxon:phylum-epithets -->
+	<META>
+		<TERM ns=":taxon" lid="phylum-epithets">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Phylum & Division]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Phylum or Division rank epithets.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":taxon:phylum-epithets" pid="schema::taxon:phylum-epithets">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+		</NODE>
+
+		<!-- Phylum & Division epithets -->
+		
+		<!-- :taxon:superphylum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:superphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:phylum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:phylum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:subphylum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:subphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:infraphylum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:infraphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:microphylum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:microphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

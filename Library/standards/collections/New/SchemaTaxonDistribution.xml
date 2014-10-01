@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON DISTRIBUTION UNIT SCHEMA
+	SchemaTaxonDistribution.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :taxon:distribution -->
+	<META>
+		<NODE term=":taxon:distribution" pid="schema::taxon:distribution">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all specific properties describing taxon distribution.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Distribution -->
+		
+		<!-- :taxon:occurrence-status -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-status</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:distribution:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

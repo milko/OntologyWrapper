@@ -11,17 +11,24 @@
 	
 	<!-- :taxon:distribution -->
 	<META>
-		<!-- schema::location -->
+		<!-- schema::location:unit:enum -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:taxon:distribution</item>
 		</EDGE>
 		
-		<!-- :taxon:distribution:notes -->
+		<!-- schema::location:unit:names -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution:notes</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:names</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:distribution</item>
+		</EDGE>
+		
+		<!-- schema::taxon:distribution -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:distribution</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:taxon:distribution</item>
 		</EDGE>
 	</META>

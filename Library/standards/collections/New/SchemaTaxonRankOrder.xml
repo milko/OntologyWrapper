@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON ORDER EPITHETS UNIT SCHEMA
+	SchemaEpithetOrder.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :taxon:ordo-epithets -->
+	<META>
+		<TERM ns=":taxon" lid="ordo-epithets">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Order]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Order rank epithets.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":taxon:ordo-epithets" pid="schema::taxon:ordo-epithets">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+		</NODE>
+
+		<!-- Order epithets -->
+		
+		<!-- :taxon:magnordo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:magnordo</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:superordo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:superordo</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:grandordo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:grandordo</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:mirordo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:mirordo</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:ordo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:ordo</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:subordo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:subordo</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:infraordo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:infraordo</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:parvordo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:parvordo</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

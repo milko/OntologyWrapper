@@ -7,15 +7,159 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Site namespace -->
+	<!-- Local namespaces -->
 	
-	<!-- :location:site -->
 	<META>
+		<!-- :location:unit:ident -->
+		<TERM ns=":location:unit" lid="ident">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location identification</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location identification and notes.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:coordinates -->
+		<TERM ns=":location:unit" lid="coordinates">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location coordinates</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location geographic position.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:georef -->
+		<TERM ns=":location:unit" lid="georef">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location georeferencing</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location georeferencing information.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:legal -->
+		<TERM ns=":location:unit" lid="legal">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location legislation</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location legal and legislative information.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:use -->
+		<TERM ns=":location:unit" lid="use">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location land use</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location land use information.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:protection -->
+		<TERM ns=":location:unit" lid="protection">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location protection</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location protection information.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:habitat -->
+		<TERM ns=":location:unit" lid="habitat">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location habitat</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location habitat and environment.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:soil -->
+		<TERM ns=":location:unit" lid="soil">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location soil</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location soil information.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:unit:monitor -->
+		<TERM ns=":location:unit" lid="monitor">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location monitoring</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location monitoring information.</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:site -->
 		<TERM ns=":location" lid="site">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Sites</item>
+					<item const="kTAG_TEXT">Site</item>
 				</item>
 			</item>
 		</TERM>

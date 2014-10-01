@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON ECONOMY UNIT SCHEMA
+	SchemaTaxonEconomy.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :taxon:unit:economy -->
+	<META>
+		<NODE term=":taxon:unit:economy" pid="schema::taxon:unit:economy">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard properties describing taxon economic value.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Economic value -->
+		
+		<!-- :taxon:ecovalue -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:ecovalue-ref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue-ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -808,45 +808,44 @@
 			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
 		</EDGE>
 		
-		<!-- :taxon:repsystem -->
+		<!-- :taxon:conservation:in-place -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue</item>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:conservation:in-place</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :taxon:bredsystem -->
+		<!-- iucn:conservation -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:bredsystem</item>
+			<item const="kTAG_SUBJECT" node="tag">iucn:conservation</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :taxon:sexstructure -->
+		<!-- :taxon:conservation:legislation -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:sexstructure</item>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:conservation:legislation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Distribution attributes -->
+
+	<META>
+		<!-- :taxon:distribution -->
+		<NODE term=":taxon:distribution" pid="form::taxon:distribution" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+		
+		<!-- :taxon:occurrence-status -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-status</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :taxon:pollination -->
+		<!-- :taxon:distribution:notes -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:pollination</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:lifeform -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:lifeform</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:lifespan -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:lifespan</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:seed-dispersal -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:seed-dispersal</item>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution:notes</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>
@@ -930,12 +929,6 @@
 		<!-- :taxon:threat:national:year -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:year</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:occurrence-status -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-status</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
