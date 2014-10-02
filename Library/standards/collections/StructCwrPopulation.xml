@@ -164,6 +164,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:population</item>
 		</EDGE>
 	</META>
 </METADATA>

@@ -99,7 +99,7 @@
 		
 		<!-- schema::location:unit:names -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:names</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		

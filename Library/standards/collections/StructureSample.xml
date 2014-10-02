@@ -104,7 +104,7 @@
 	
 		<!-- :germplasm:mt -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">germplasm:mt</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

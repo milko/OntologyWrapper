@@ -92,13 +92,13 @@
 	
 		<!-- :germplasm:mt -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">germplasm:mt</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- :mission:collecting:notes -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:documents</item>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:notes</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

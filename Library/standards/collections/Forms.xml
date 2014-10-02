@@ -46,7 +46,7 @@
 		
 		<!-- form::collecting -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::domain:sample</item>
+			<item const="kTAG_SUBJECT" node="pid">form::collecting</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -114,7 +114,8 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">form::mission</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		
+		</EDGE>
+				
 		<!-- form::taxon -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">form::taxon</item>

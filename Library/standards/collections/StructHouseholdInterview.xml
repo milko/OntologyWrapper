@@ -35,6 +35,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
 		</EDGE>
 	</META>
 </METADATA>

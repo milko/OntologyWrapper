@@ -48,9 +48,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- :collecting:samples:count -->
+		<!-- :collecting:samples -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:samples:count</item>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:samples</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
