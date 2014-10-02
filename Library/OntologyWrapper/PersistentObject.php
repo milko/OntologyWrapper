@@ -1704,11 +1704,12 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param Wrapper				$theWrapper			Wrapper.
 	 * @param mixed					$theOffset			Tag offset.
+	 * @param boolean				$doBackground		Background creation.
 	 *
 	 * @static
 	 * @return array				List of indexed offsets.
 	 */
-	static function CreateIndex( Wrapper $theWrapper, $theOffset )
+	static function CreateIndex( Wrapper $theWrapper, $theOffset, $doBackground = TRUE )
 	{
 		//
 		// Resolve tag native identifier.
@@ -1734,6 +1735,13 @@ abstract class PersistentObject extends OntologyObject
 		$collection = static::ResolveCollectionByName( $theWrapper, static::kSEQ_NAME );
 		
 		//
+		// Set options.
+		//
+		$options = array( "sparse" => TRUE );
+		if( $doBackground )
+			$options[ "background" ] = TRUE;
+		
+		//
 		// Handle tag offsets.
 		//
 		if( is_array( $offsets = $tag->offsetGet(
@@ -1744,8 +1752,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			foreach( $offsets as $offset )
 				$collection->createIndex( array( $offset => 1 ),
-										  array( "background" => TRUE,
-										  		 "sparse" => TRUE ) );
+										  $options );
 		
 		} // Has offsets.
 		

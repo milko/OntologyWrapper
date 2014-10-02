@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	MATERIAL TRANSFERS STRUCT
+	MATERIAL TRANSFER STRUCTURE
 	StructMaterialTransfers.xml
 -->
 <METADATA
@@ -11,53 +11,42 @@
 	
 	<!-- :germplasm:mt -->
 	<META>
-		<!-- :germplasm:mt:identifier -->
+		<!-- :struct-label -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:identifier</item>
+			<item const="kTAG_SUBJECT" node="tag">:struct-label</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
 		</EDGE>
-	
-		<!-- :germplasm:identifier -->
+		
+		<!-- schema::germplasm:mt -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::germplasm:mt</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
 		</EDGE>
-	
-		<!-- :germplasm:mt:date -->
+		
+		<!-- schema::taxon:unit:epithets -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:date</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:epithets</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	
-		<!-- :germplasm:mt:smta -->
+		<!-- schema::taxon:unit:names -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:smta</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:names</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	
-		<!-- :germplasm:mt:smta:notes -->
+		<!-- schema::taxon:unit:refs -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:smta:notes</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:refs</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
-	
-		<!-- :germplasm:mt:samples-intended -->
+		
+		<!-- schema::taxon:unit:groups -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:samples-intended</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
-		</EDGE>
-	
-		<!-- :germplasm:mt:samples-received -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt:samples-received</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:groups</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- schema::cooperator -->
@@ -65,6 +54,39 @@
 			<item const="kTAG_SUBJECT" node="pid">schema::cooperator</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+		
+		<!-- :germplasm:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+		
+		<!-- :germplasm:sample -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+		
+		<!-- :germplasm:accession -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:accession</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:mt</item>
+		</EDGE>
+	
+		<!-- mcpd:INSTCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:INSTCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- mcpd:ACCENUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>
 </METADATA>

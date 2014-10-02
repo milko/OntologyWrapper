@@ -5536,7 +5536,7 @@ $rs_units = & $rs_units[ 'result' ];
 						//
 						// Set tag label.
 						//
-						if( $tag[ kTAG_LABEL ] )
+						if( isset( $tag[ kTAG_LABEL ] ) )
 							$struct_ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
 								= OntologyObject::SelectLanguageString(
 									$tag[ kTAG_LABEL ], $language );
@@ -5544,7 +5544,7 @@ $rs_units = & $rs_units[ 'result' ];
 						//
 						// Set tag description.
 						//
-						if( $tag[ kTAG_DESCRIPTION ] )
+						if( isset( $tag[ kTAG_DESCRIPTION ] ) )
 							$struct_ref[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
 								= OntologyObject::SelectLanguageString(
 									$tag[ kTAG_DESCRIPTION ], $language );

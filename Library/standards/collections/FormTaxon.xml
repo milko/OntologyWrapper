@@ -9,7 +9,7 @@
 	
 	<!-- FORM -->
 	
-	<!-- :taxon -->
+	<!-- form::taxon -->
 	<META>
 		<NODE term=":taxon" pid="form::taxon">
 			<item const="kTAG_NODE_TYPE">
@@ -286,23 +286,6 @@
 		</EDGE>
 	</META>
 
-	<!-- Conservation -->
-
-	<!-- form::taxon:conservation-->
-	<META>
-		<NODE term=":taxon:conservation" pid="form::taxon:conservation" />
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
-		</EDGE>
-	
-		<!-- schema::taxon:conservation -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::taxon:conservation</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-	</META>
-
 	<!-- Threat -->
 
 	<!-- form::taxon:threat-->
@@ -316,6 +299,23 @@
 		<!-- schema::taxon:threat -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::taxon:threat</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Conservation -->
+
+	<!-- form::taxon:conservation-->
+	<META>
+		<NODE term=":taxon:conservation" pid="form::taxon:conservation" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:conservation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:conservation</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	</META>

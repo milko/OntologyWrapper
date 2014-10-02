@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	COLLECTING MISSION STRUCTURE
-	StructureCollectingMission.xml
+	SAMPLE STRUCTURE
+	StructureSample.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Collecting mission structure -->
+	<!-- Sample structure -->
 	
-	<!-- struct::domain:mission:collecting -->
+	<!-- struct::domain:sample -->
 	<META>
-		<NODE term=":domain:mission:collecting" pid="struct::domain:mission:collecting">
+		<NODE term=":domain:sample" pid="struct::domain:sample">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:struct</item>
@@ -19,10 +19,16 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a collecting mission.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a germplasm sample.]]></item>
 				</item>
 			</item>
 		</NODE>
+		
+		<!-- :inventory:dataset -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 		
 		<!-- :mission -->
 		<EDGE>
@@ -36,51 +42,63 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :mission:collecting -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :mission:collecting:identifier -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:identifier</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :mission:collecting:start -->
+		<!-- mcpd:COLLDATE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:start</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDATE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :mission:collecting:end -->
+		<!-- mcpd:COLLNUMB -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:end</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLNUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :mission:collecting:documents -->
+		<!-- :collecting:samples -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:documents</item>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:samples</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- schema::location:unit:enum -->
+		<!-- mcpd:COLLSRC -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLSRC</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:SAMPSTAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:SAMPSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::taxon -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
-		<!-- schema::location:unit:names -->
+		<!-- schema::location -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:names</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	
-		<!-- :collecting:entities -->
+		<!-- :environment -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:entities</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- :mission:collecting:samples -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:samples</item>
+			<item const="kTAG_SUBJECT" node="tag">:environment</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
@@ -90,9 +108,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :mission:collecting:notes -->
+		<!-- :collecting:notes -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:documents</item>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:notes</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

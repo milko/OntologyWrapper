@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	TAXON DISTRIBUTION UNIT SCHEMA
-	SchemaTaxonDistribution.xml
+	LOCATION USE UNIT SCHEMA
+	SchemaLocationUse.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,31 +9,31 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :taxon:distribution -->
+	<!-- schema::location:unit:use -->
 	<META>
-		<NODE term=":taxon:distribution" pid="schema::taxon:distribution">
+		<NODE term=":location:unit:use" pid="schema::location:unit:use">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:schema</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This schema contains all specific properties describing taxon distribution.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard properties describing the land use of a site.]]></item>
 				</item>
 			</item>
 		</NODE>
 	
-		<!-- Distribution -->
-		
-		<!-- :taxon:occurrence-status -->
+		<!-- Site land -->
+	
+		<!-- fao:landuse -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-status</item>
+			<item const="kTAG_SUBJECT" node="tag">fao:landuse</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- :taxon:distribution:notes -->
+	
+		<!-- eec:CORINE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution:notes</item>
+			<item const="kTAG_SUBJECT" node="tag">eec:CORINE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

@@ -24,6 +24,12 @@
 			</item>
 		</NODE>
 		
+		<!-- :inventory:dataset -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :mission:identifier -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:mission:identifier</item>
@@ -60,9 +66,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- :mission:collecting -->
+		<!-- :collecting:missions -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:mission:collecting</item>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:missions</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	

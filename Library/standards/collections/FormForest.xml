@@ -9,7 +9,7 @@
 	
 	<!-- Forest gene conservation unit form -->
 	
-	<!-- :domain:forest -->
+	<!-- form::domain:forest -->
 	<META>
 		<NODE term=":domain:forest" pid="form::domain:forest">
 			<item const="kTAG_NODE_TYPE">

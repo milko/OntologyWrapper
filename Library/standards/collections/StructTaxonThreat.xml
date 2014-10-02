@@ -15,14 +15,14 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:distribution</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- schema::location:unit:names -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:names</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:distribution</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:threat</item>
 		</EDGE>
 		
 		<!-- schema::taxon:threat -->

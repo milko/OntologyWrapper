@@ -9,7 +9,7 @@
 	
 	<!-- FORM -->
 	
-	<!-- :mission -->
+	<!-- form::mission -->
 	<META>
 		<NODE term=":mission" pid="form::mission">
 			<item const="kTAG_NODE_TYPE">

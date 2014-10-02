@@ -11,7 +11,7 @@
 	
 	<!-- :location:unit:protection -->
 	<META>
-		<NODE term=":location:unit:env" pid="schema::location:unit:protection">
+		<NODE term=":location:unit:protection" pid="schema::location:unit:protection">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:schema</item>
 			</item>

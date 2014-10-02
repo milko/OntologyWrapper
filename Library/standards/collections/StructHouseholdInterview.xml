@@ -22,32 +22,19 @@
 		
 		<!-- Location information -->
 	
-		<!-- schema::location:unit:enum -->
+		<!-- schema::location -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
 		</EDGE>
+	
+		<!-- Environment data -->
 		
-		<!-- schema::location:unit:names -->
+		<!-- :environment -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:names</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
-		
-		<!-- schema::location:unit:direction -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:direction</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
-		
-		<!-- schema::location:unit:coordinates -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:coordinates</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
+			<item const="kTAG_SUBJECT" node="tag">:environment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>
 </METADATA>

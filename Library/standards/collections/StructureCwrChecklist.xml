@@ -9,7 +9,7 @@
 	
 	<!-- Checklist structure -->
 	
-	<!-- :domain:inventory:checklist:cwr -->
+	<!-- struct::domain:inventory:checklist:cwr -->
 	<META>
 		<NODE term=":domain:inventory:checklist:cwr" pid="struct::domain:inventory:checklist:cwr">
 			<item const="kTAG_NODE_TYPE">
@@ -24,6 +24,12 @@
 			</item>
 		</NODE>
 	
+		<!-- schema::inventory -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::inventory</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
 		<!-- cwr:ck:CWRCODE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:ck:CWRCODE</item>
@@ -40,12 +46,6 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:INSTCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- schema::inventory -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::inventory</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- cwr:ck:TYPE -->
@@ -66,22 +66,22 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:ck:REMARKS -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REMARKS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- cwr:ENDEMISM -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:ENDEMISM</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- schema::domain:occurrence -->
+		<!-- schema::taxon -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::domain:occurrence</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:REMARKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REMARKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>
 </METADATA>

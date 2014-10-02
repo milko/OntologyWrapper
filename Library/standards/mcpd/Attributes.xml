@@ -882,7 +882,7 @@
 	</META>
 	<!-- mcpd:COLLSRC:35 -->
 	<META>
-		<TERM ns="mcpd:COLLSRC" lid="30">
+		<TERM ns="mcpd:COLLSRC" lid="35">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

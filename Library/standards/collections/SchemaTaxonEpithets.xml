@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :taxon:unit:epithets -->
+	<!-- schema::taxon:unit:epithets -->
 	<META>
 		<NODE term=":taxon:unit:epithets" pid="schema::taxon:unit:epithets">
 			<item const="kTAG_NODE_TYPE">

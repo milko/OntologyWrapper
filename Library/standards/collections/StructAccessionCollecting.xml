@@ -37,33 +37,105 @@
 			</item>
 		</NODE>
 
-		<!-- schema::collecting:event -->
+		<!-- :mission -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::collecting:event</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_SUBJECT" node="tag">:mission</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-	
+		
+		<!-- :mission:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:mission:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :mission:collecting -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :mission:collecting:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :germplasm:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLDATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDATE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :collecting:entities -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:collecting:entities</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- schema::location -->
+		<!-- schema::location:unit:ident -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:ident</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
-		<!-- schema::location:site -->
+		<!-- schema::location:unit:enum -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:site</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:coordinates -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:coordinates</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:georef -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:georef</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:habitat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:habitat</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:soil -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:soil</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	
 		<!-- :environment -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :collecting:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:notes</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

@@ -9,7 +9,7 @@
 	
 	<!-- FORM -->
 	
-	<!-- :collecting -->
+	<!-- form::collecting -->
 	<META>
 		<NODE term=":collecting" pid="form::collecting">
 			<item const="kTAG_NODE_TYPE">
@@ -23,18 +23,6 @@
 				</item>
 			</item>
 		</NODE>
-		
-		<!-- :collecting:mission:identifier -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:identifier</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :collecting:event:identifier -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:event:identifier</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
 		
 		<!-- mcpd:COLLDATE -->
 		<EDGE>
@@ -54,33 +42,21 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:mission:start -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:start</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :collecting:mission:end -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:end</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- mcpd:COLLNUMB -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLNUMB</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :germplasm:identifier -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
 		<!-- :collecting:samples:count -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:collecting:samples:count</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :collecting:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:notes</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

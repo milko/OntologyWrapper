@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	GERMPLASM NEIGHBOURHOOD STRUCTURE
+	GERMPLADM NEIGHBOURHOOD STRUCTURE
 	StructGermplasmNeighbourhood.xml
 -->
 <METADATA
@@ -9,41 +9,48 @@
 	
 	<!-- Germplasm neighbourhood structure -->
 	
-	<!-- :collecting:samples:accessions -->
+	<!-- :germplasm:neighbourhood -->
 	<META>
-		<!-- :germplasm:accession -->
+		<!-- :struct-label -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:accession</item>
+			<item const="kTAG_SUBJECT" node="tag">:struct-label</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:neighbourhood</item>
 		</EDGE>
-	
+		
 		<!-- :germplasm:identifier -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:neighbourhood</item>
 		</EDGE>
-	
-		<!-- :inventory:institute -->
+		
+		<!-- :germplasm:sample -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:institute</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:neighbourhood</item>
+		</EDGE>
+		
+		<!-- :germplasm:accession -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:accession</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:neighbourhood</item>
 		</EDGE>
 		
 		<!-- mcpd:INSTCODE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:INSTCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:neighbourhood</item>
 		</EDGE>
 
 		<!-- mcpd:ACCENUMB -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:collecting:samples:accessions</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:neighbourhood</item>
 		</EDGE>
 	</META>
 </METADATA>

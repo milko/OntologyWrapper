@@ -36,6 +36,18 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+	
+		<!-- :breeding:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:breeding:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- mcpd:ANCEST -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ANCEST</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 
 		<!-- :breeding:entities -->
 		<EDGE>
@@ -43,21 +55,57 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- schema::location -->
+		<!-- schema::location:unit:ident -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:ident</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
-		<!-- schema::location:site -->
+		<!-- schema::location:unit:enum -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:site</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:coordinates -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:coordinates</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:georef -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:georef</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:habitat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:habitat</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:soil -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:soil</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	
 		<!-- :environment -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:environment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :breeding:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:breeding:notes</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

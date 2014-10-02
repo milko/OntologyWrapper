@@ -9,7 +9,7 @@
 	
 	<!-- Collecting mission structure -->
 	
-	<!-- struct::domain:sample:collected -->
+	<!-- struct::domain:mission:collecting -->
 	<META>
 		<NODE term=":domain:mission:collecting" pid="struct::domain:mission:collecting">
 			<item const="kTAG_NODE_TYPE">
@@ -23,40 +23,82 @@
 				</item>
 			</item>
 		</NODE>
-
-		<!-- :collecting:mission:identifier -->
+		
+		<!-- :inventory:dataset -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:identifier</item>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :name -->
+		<!-- :mission -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:name</item>
+			<item const="kTAG_SUBJECT" node="tag">:mission</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:mission:start -->
+		<!-- :mission:identifier -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:start</item>
+			<item const="kTAG_SUBJECT" node="tag">:mission:identifier</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:mission:end -->
+		<!-- :mission:collecting:identifier -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:end</item>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:identifier</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:mission:events -->
+		<!-- :mission:collecting:start -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:events</item>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:start</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :collecting:mission:notes -->
+		<!-- :mission:collecting:end -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:notes</item>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:end</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :mission:collecting:documents -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:documents</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:enum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:enum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- schema::location:unit:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:names</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	
+		<!-- :collecting:entities -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:entities</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :mission:collecting:samples -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:samples</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :germplasm:mt -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">germplasm:mt</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :mission:collecting:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:documents</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

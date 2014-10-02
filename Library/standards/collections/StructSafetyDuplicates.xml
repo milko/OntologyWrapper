@@ -18,9 +18,16 @@
 			<item const="kTAG_OBJECT" node="tag">:germplasm:safety</item>
 		</EDGE>
 		
-		<!-- :inventory:DUPLSITE -->
+		<!-- :germplasm:identifier -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:DUPLSITE</item>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:safety</item>
+		</EDGE>
+		
+		<!-- :inventory:institute -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:institute</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:germplasm:safety</item>
 		</EDGE>
@@ -35,6 +42,13 @@
 		<!-- mcpd:DUPLDESCR -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:safety</item>
+		</EDGE>
+		
+		<!-- mcpd:ACCENUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:germplasm:safety</item>
 		</EDGE>

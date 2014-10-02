@@ -9,7 +9,7 @@
 	
 	<!-- Population form -->
 	
-	<!-- cwr:population -->
+	<!-- form:cwr:population -->
 	<META>
 		<NODE term="cwr:population" pid="form:cwr:population">
 			<item const="kTAG_NODE_TYPE">

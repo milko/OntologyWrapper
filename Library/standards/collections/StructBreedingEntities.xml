@@ -13,14 +13,14 @@
 	<META>
 		<!-- mcpd:BREDCODE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLCODE</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:BREDCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:breeding:entities</item>
 		</EDGE>
 		
 		<!-- mcpd:BREDDESCR -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDESCR</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:BREDDESCR</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:breeding:entities</item>
 		</EDGE>

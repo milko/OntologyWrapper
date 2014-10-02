@@ -9,7 +9,7 @@
 	
 	<!-- FORM -->
 	
-	<!-- :domain:hh-assessment -->
+	<!-- form::domain:hh-assessment -->
 	<META>
 		<NODE term=":domain:hh-assessment" pid="form::domain:hh-assessment">
 			<item const="kTAG_NODE_TYPE">

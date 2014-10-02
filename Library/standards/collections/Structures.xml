@@ -38,39 +38,45 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :domain:sample:collected -->
+		<!-- :struct::domain:mission:collecting -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">struct::domain:sample:collected</item>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:mission:collecting</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :domain:collecting -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">struct::domain:collecting</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :domain:inventory:cwr -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">struct::domain:inventory:cwr</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :domain:inventory:checklist:cwr -->
+		<!-- :struct::domain:inventory:checklist:cwr -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">struct::domain:inventory:checklist:cwr</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :domain:forest -->
+		<!-- struct::domain:inventory:cwr -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:inventory:cwr</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- struct::domain:forest -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">struct::domain:forest</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :domain:hh-assessment -->
+		<!-- struct::domain:hh-assessment -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">struct::domain:hh-assessment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- struct::domain:mission -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:mission</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- struct::domain:sample -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:sample</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

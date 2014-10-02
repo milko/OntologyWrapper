@@ -9,7 +9,7 @@
 	
 	<!-- Forest gene conservation unit structure -->
 	
-	<!-- :domain:forest -->
+	<!-- struct::domain:forest -->
 	<META>
 		<NODE term=":domain:forest" pid="struct::domain:forest">
 			<item const="kTAG_NODE_TYPE">
@@ -41,12 +41,6 @@
 		<!-- schema::location -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- schema::location:site -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:site</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	

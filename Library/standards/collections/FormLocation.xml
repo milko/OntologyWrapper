@@ -9,7 +9,7 @@
 	
 	<!-- FORM -->
 	
-	<!-- :location -->
+	<!-- form::location -->
 	<META>
 		<NODE term=":location" pid="form::location">
 			<item const="kTAG_NODE_TYPE">
@@ -27,12 +27,35 @@
 
 	<!-- Identification -->
 
-	<!-- :location:site:id -->
+	<!-- :location:unit:ident -->
 	<META>
+		<NODE term=":location:unit:ident" pid="form::location:unit:ident" />
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:site:id</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:ident -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:ident</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Monitoring -->
+
+	<!-- :location:unit:monitor -->
+	<META>
+		<NODE term=":location:unit:monitor" pid="form::location:unit:monitor" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- schema::location:unit:monitor -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:monitor</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	</META>
 
@@ -202,23 +225,6 @@
 		<!-- schema::location:unit:soil -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:soil</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-	</META>
-
-	<!-- Monitoring -->
-
-	<!-- :location:unit:monitor -->
-	<META>
-		<NODE term=":location:unit:monitor" pid="form::location:unit:monitor" />
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">form::location</item>
-		</EDGE>
-	
-		<!-- schema::location:unit:monitor -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:monitor</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	</META>

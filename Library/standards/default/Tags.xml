@@ -824,6 +824,12 @@
 				</item>
 			</item>
 		</TAG>
+		<!-- We instantiate the node here so that it is available immediately -->
+		<NODE tag=":struct-label">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 	
 	<!-- Statistical attributes -->

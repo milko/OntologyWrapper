@@ -9,7 +9,7 @@
 	
 	<!-- Checklist form -->
 	
-	<!-- :domain:inventory:checklist:cwr -->
+	<!-- form::domain:inventory:checklist:cwr -->
 	<META>
 		<NODE term=":domain:inventory:checklist:cwr" pid="form::domain:inventory:checklist:cwr">
 			<item const="kTAG_NODE_TYPE">
@@ -39,6 +39,12 @@
 		<!-- cwr:ck:TYPE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:ck:TYPE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ENDEMISM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ENDEMISM</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

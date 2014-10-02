@@ -9,7 +9,7 @@
 	
 	<!-- Inventory form -->
 	
-	<!-- :domain:inventory:cwr -->
+	<!-- form::domain:inventory:cwr -->
 	<META>
 		<NODE term=":domain:inventory:cwr" pid="form::domain:inventory:cwr">
 			<item const="kTAG_NODE_TYPE">

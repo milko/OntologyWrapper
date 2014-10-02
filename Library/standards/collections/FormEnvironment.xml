@@ -9,7 +9,7 @@
 	
 	<!-- FORM -->
 	
-	<!-- :environment -->
+	<!-- form::environment -->
 	<META>
 		<NODE term=":environment" pid="form::environment">
 			<item const="kTAG_NODE_TYPE">

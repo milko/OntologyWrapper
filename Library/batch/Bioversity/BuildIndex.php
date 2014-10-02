@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * Build units indexes.
+ *
+ * This file contains a script to build unit indexes.
+ *
+ *	@package	OntologyWrapper
+ *	@subpackage	Test
+ *
+ *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@version	1.00 02/10/2014
+ */
+
+/*=======================================================================================
+ *																						*
+ *									BuildIndex.php										*
+ *																						*
+ *======================================================================================*/
+
+//
+// Global includes.
+//
+require_once( 'includes.inc.php' );
+
+//
+// local includes.
+//
+require_once( 'local.inc.php' );
+
+//
+// Session definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
+
+
+/*=======================================================================================
+ *	TEST																				*
+ *======================================================================================*/
+
+//
+// MAIN.
+//
+try
+{
+	//
+	// Check arguments.
+	//
+	if( $argc < 3 )
+		exit( "usage: php -f BuildIndex.php "
+			 ."<database> "
+			 ."<tag native identifier> "
+			 ."[background build (Y/N)]\n" );										// ==>
+	
+	//
+	// Get arguments.
+	//
+	$database = $argv[ 1 ];
+	$tag = $argv[ 2 ];
+	$background = TRUE;
+	if( $argc > 1 )
+		$background = ( ($argv[ 3 ] == '1') 
+					 || (strtolower( $argv[ 3 ] ) == 'y')
+					 || (strtolower( $argv[ 3 ] ) == 'Y')
+					 || (strtolower( $argv[ 3 ] ) == 'true') );
+	
+	//
+	// Inform.
+	//
+	echo( "\n"
+		 ."Tag:              $tag\n"
+		 ."Database:         $database\n"
+		 ."Background build: "
+		 .( ( $background ) ? "Yes" : "No" )
+		 ."\n" );
+	
+	//
+	// Instantiate data dictionary.
+	//
+	$wrapper
+		= new OntologyWrapper\Wrapper(
+			kSESSION_DDICT,
+			array( array( 'localhost', 11211 ) ) );
+
+	//
+	// Set databases.
+	//
+	$meta = $wrapper->Metadata(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/$database?connect=1" ) );
+	$wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/$database?connect=1" ) );
+	$wrapper->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/$database?connect=1" ) );
+
+	//
+	// Load data dictionary.
+	//
+	if( ! $wrapper->dictionaryFilled() )
+		$wrapper->loadTagCache();
+	
+	//
+	// Check tag.
+	//
+	if( is_int( $tag )
+	 || ctype_digit( $tag ) )
+	{
+		if( $wrapper->getObject( (int) $tag, FALSE ) === NULL )
+			exit( "Unknown tag [$tag]\n" );											// ==>
+	}
+	elseif( $wrapper->getSerial( $tag, FALSE ) === NULL )
+		exit( "Unknown tag [$tag]\n" );												// ==>
+	
+	//
+	// Build index.
+	//
+	$indexes = OntologyWrapper\UnitObject::CreateIndex( $wrapper, $tag );
+	echo( implode( ', ', $indexes )."\n" );
+}
+
+//
+// Catch exceptions.
+//
+catch( \Exception $error )
+{
+	echo( $error->xdebug_message );
+}
+
+echo( "\nDone!\n" );
+
+?>

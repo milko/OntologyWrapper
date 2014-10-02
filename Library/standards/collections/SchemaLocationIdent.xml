@@ -38,4 +38,5 @@
 			<item const="kTAG_SUBJECT" node="tag">:location:site:notes</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+	</META>
 </METADATA>
