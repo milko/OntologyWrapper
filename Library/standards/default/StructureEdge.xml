@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	EDGE STRUCTURE
+	StructureEdge.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- EDGE -->
+	
+	<!-- struct::domain:edge -->
+	<META>
+		<NODE term=":domain:edge" pid="struct::domain:edge">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of edge objects.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- kTAG_ID_GRAPH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:id-graph</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- kTAG_SUBJECT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:relationship:subject</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- kTAG_GRAPH_SUBJECT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:relationship:graph-subject</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- kTAG_PREDICATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:predicate</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- kTAG_OBJECT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:relationship:object</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- kTAG_GRAPH_OBJECT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:relationship:graph-object</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- RECORD PROPERTIES -->
+	
+		<!-- schema::ref-count -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::record -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::record</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

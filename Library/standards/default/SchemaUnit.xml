@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	REFERENCE COUNT SCHEMA
-	SchemaRefCount.xml
+	UNIT IDENTIFICATION SCHEMA
+	SchemaUnit.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,55 +9,54 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- schema::ref-count -->
+	<!-- schema::domain:unit -->
 	<META>
-		<NODE term=":ref-count" pid="schema::ref-count">
+		<NODE term=":domain:unit" pid="schema::domain:unit">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:schema</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties which count object references.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties which are used to identify objects derived from the unit class.]]></item>
 				</item>
 			</item>
 		</NODE>
 	
 		<!-- PROPERTIES -->
 	
-		<!-- kTAG_TAG_COUNT -->
+		<!-- kTAG_DOMAIN -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:tag</item>
+			<item const="kTAG_SUBJECT" node="tag">:unit:domain</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum::domain</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:unit:domain</item>
+		</EDGE>
+	
+		<!-- kTAG_AUTHORITY -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:unit:authority</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_TERM_COUNT -->
+		<!-- kTAG_COLLECTION -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:term</item>
+			<item const="kTAG_SUBJECT" node="tag">:unit:collection</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_NODE_COUNT -->
+		<!-- kTAG_IDENTIFIER -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:node</item>
+			<item const="kTAG_SUBJECT" node="tag">:unit:identifier</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_EDGE_COUNT -->
+		<!-- kTAG_VERSION -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:edge</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- kTAG_UNIT_COUNT -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:unit</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- kTAG_ENTITY_COUNT -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:entity</item>
+			<item const="kTAG_SUBJECT" node="tag">:unit:version</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

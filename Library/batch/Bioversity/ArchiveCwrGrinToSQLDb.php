@@ -370,12 +370,9 @@ finally
 	 */
 	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
-		//
-		// Set dataset.
-		//
-		$theObject->offsetSet(
-			':inventory:dataset',
-			'U.S. National Inventory of crop wild relatives (CWR) and wild utilized species (WUS)' );
+		/***********************************************************************
+		 * Set unit identification properties.
+		 **********************************************************************/
 		
 		//
 		// Set authority.
@@ -396,31 +393,45 @@ finally
 		// Set version.
 		//
 		$theObject->offsetSet( kTAG_VERSION, '2013' );
+				
+		/***********************************************************************
+		 * Set unit inventory properties.
+		 **********************************************************************/
 		
 		//
-		// Set national inventory code.
+		// Set dataset.
+		//
+		$theObject->offsetSet(
+			':inventory:dataset',
+			'U.S. National Inventory of crop wild relatives (CWR) and wild utilized species (WUS)' );
+		
+		//
+		// Set inventory code.
 		//
 		$theObject->offsetSet( ':inventory:code', 'USA' );
 		
 		//
-		// Set country and administrative unit.
+		// Set inventory administrative unit.
 		//
-		$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:USA" );
 		$theObject->offsetSet( ':inventory:admin', "iso:3166:1:alpha-3:USA" );
 		
 		//
-		// Set checklist institute.
-		//
-		$theObject->offsetSet( 'cwr:INSTCODE', 'USA126' );
-		
-		//
-		// Set responsible institute.
+		// Set inventory institute.
 		//
 		$theObject->offsetSet(
 			':inventory:institute',
 			kDOMAIN_ORGANISATION
 		   .'://http://fao.org/wiews:USA126'
 		   .kTOKEN_END_TAG );
+		
+		/***********************************************************************
+		 * Set other properties.
+		 **********************************************************************/
+		
+		//
+		// Set inventory institute code.
+		//
+		$theObject->offsetSet( 'cwr:INSTCODE', 'USA126' );
 		
 		//
 		// Set familia.
@@ -433,6 +444,19 @@ finally
 		//
 		if( array_key_exists( 'Genus', $theData ) )
 			$theObject->offsetSet( ':taxon:genus', $theData[ 'Genus' ] );
+		
+		//
+		// Parse scientific name.
+		//
+		$name = trim( substr( $theData[ 'Taxon' ], strlen( $theData[ 'Genus' ] ) ) );
+		$elms = explode( ' ', $name );
+		if( count( $elms ) )
+		{
+			if( strlen( $tmp = trim( array_shift( $elms ) ) ) )
+				$theObject->offsetSet( ':taxon:species', $tmp );
+			if( count( $elms ) )
+				$theObject->offsetSet( ':taxon:infraspecies', implode( ' ', $elms ) );
+		}
 		
 		//
 		// Set scientific name.
@@ -538,181 +562,87 @@ finally
 		}
 		
 		//
-		// Set taxon general occurence.
+		// Handle taxon occurrence.
 		//
-		$list = Array();
-		if( array_key_exists( 'Occurrence general', $theData ) )
-			$list[] = $theData[ 'Occurrence general' ];
-		if( array_key_exists( 'Occurrence specific', $theData ) )
+		if( array_key_exists( 'Occurrence general', $theData )
+		 || array_key_exists( 'Occurrence specific', $theData ) )
 		{
-			foreach( explode( ';', $theData[ 'Occurrence specific' ] ) as $item )
+			//
+			// Init local storage.
+			//
+			$list = Array();
+			
+			//
+			// Merge general and specific occurrences.
+			//
+			if( ! array_key_exists( 'Distribution_states', $theData ) )
 			{
-				if( strlen( $item = trim( $item ) ) )
+				if( array_key_exists( 'Occurrence specific', $theData ) )
 				{
-					if( ! in_array( $item, $list ) )
-						$list[] = $item;
-				}
-			}
-		}
-		if( count( $list ) )
-		{
-			$value = Array();
-			foreach( $list as $item )
-			{
-				switch( strtolower( $theData[ 'Occurrence general' ] ) )
-				{
-					case 'native':
-						$value[] = ':taxon:occurrence-status:100';
-						break;
-				
-					case 'non native':
-						$value[] = ':taxon:occurrence-status:400';
-						break;
-				
-					case 'adventive':
-						$value[] = ':taxon:occurrence-status:430';
-						break;
-				
-					case 'endemic':
-						$value[] = ':taxon:occurrence-status:110';
-						break;
-				
-					case 'naturalized':
-						$value[] = ':taxon:occurrence-status:420';
-						break;
-				}
-			}
-			$theObject->offsetSet( ':taxon:occurrence-status', $value );
-		}
-		
-		//
-		// Set distribution.
-		//
-		if( array_key_exists( 'Distribution_states', $theData ) )
-		{
-			$dist = Array();
-			$tag_dist = getTag( ':location:admin' );
-			$tag_dist_reg = getTag( ':location:region' );
-			$tag_dist_notes = getTag( ':taxon:distribution:notes' );
-			foreach( explode( '@', $theData[ 'Distribution_states' ] ) as $element )
-			{
-				if( strlen( $element = trim( $element ) ) )
-				{
-					$country = substr( $element, 0, 2 );
-					$element = substr( $element, 4 );
-					foreach( explode( ',', $element ) as $item )
+					foreach( explode( ';', $theData[ 'Occurrence specific' ] ) as $item )
 					{
-						if( $length = strlen( $item = trim( $item ) ) )
+						if( strlen( $item = trim( $item ) ) )
 						{
-							$dist_elm = Array();
-							$state = substr( $item, 0, 2 );
-							if( ($country == 'US')
-							 && ($state == 'NN') )
-								$state = 'NM';
-							$code = "iso:3166:2:$country-$state";
-							$region = new OntologyWrapper\Term( $theWrapper, $code );
-							$dist_elm[ $tag_dist ] = $code;
-							$dist_elm[ $tag_dist_reg ]
-								= OntologyWrapper\OntologyObject::SelectLanguageString(
-									$region[ kTAG_LABEL ], 'en' );
-							if( $length > 2 )
-								$dist_elm[ $tag_dist_notes ] = "$country: $item";
-							$dist[] = $dist_elm;
+							if( ! in_array( $item, $list ) )
+								$list[] = $item;
 						}
 					}
 				}
 			}
-			if( count( $dist ) )
-				$theObject->offsetSet( ':taxon:distribution', $dist );
-		}
-		
-		//
-		// Set national designation.
-		//
-		if( array_key_exists( 'Nox_weed', $theData ) )
-		{
-			switch( $theData[ 'Nox_weed' ] )
+			
+			//
+			// Set general occurrence.
+			//
+			if( array_key_exists( 'Occurrence general', $theData ) )
 			{
-				case 'Noxious_weed_FEDandState':
-					$theObject->offsetSet( ':taxon:designation:national',
-										   'Noxious weed FED and State' );
-					break;
-				case 'Noxious_weed_State':
-					$theObject->offsetSet( ':taxon:designation:national',
-										   'Noxious weed State' );
-					break;
+				foreach( explode( ';', $theData[ 'Occurrence general' ] ) as $item )
+				{
+					if( strlen( $item = trim( $item ) ) )
+					{
+						if( ! in_array( $item, $list ) )
+							$list[] = $item;
+					}
+				}
+			}
+			
+			if( count( $list ) )
+			{
+				$value = Array();
+				foreach( $list as $item )
+				{
+					switch( strtolower( $item ) )
+					{
+						case 'native':
+							$value[] = ':taxon:occurrence-status:100';
+							break;
+				
+						case 'non native':
+							$value[] = ':taxon:occurrence-status:400';
+							break;
+				
+						case 'adventive':
+							$value[] = ':taxon:occurrence-status:430';
+							break;
+				
+						case 'endemic':
+							$value[] = ':taxon:occurrence-status:110';
+							break;
+				
+						case 'naturalized':
+							$value[] = ':taxon:occurrence-status:420';
+							break;
+					}
+				}
+				$theObject->offsetSet( ':taxon:occurrence-status', $value );
 			}
 		}
 		
 		//
-		// Set taxon designation reference.
-		//
-		if( array_key_exists( 'CWR_WUS_citation', $theData ) )
-		{
-			$value = Array();
-			foreach( explode( ';', $theData[ 'CWR_WUS_citation' ] ) as $item )
-			{
-				if( strlen( $item = trim( $item ) ) )
-					$value[] = $item;
-			}
-			if( count( $value ) )
-				$theObject->offsetSet( ':taxon:designation:ref', $value );
-		}
-		
-		//
-		// Set national designation notes.
+		// Set taxon designation notes.
 		//
 		if( array_key_exists( 'Occurrence_notes', $theData ) )
 			$theObject->offsetSet( ':taxon:designation:notes',
 								   $theData[ 'Occurrence_notes' ] );
-		
-		//
-		// Init threat struct.
-		//
-		$threat = Array();
-		
-		//
-		// Set structure label.
-		//
-		if( array_key_exists( 'US_ESA', $theData ) )
-			$threat[ kTAG_STRUCT_LABEL ] 
-				= $theData[ 'US_ESA' ];
-		elseif( array_key_exists( 'IUCN_RL', $theData ) )
-			$threat[ kTAG_STRUCT_LABEL ] 
-				= $theData[ 'IUCN_RL' ];
-		elseif( array_key_exists( 'NatServe', $theData ) )
-			$threat[ kTAG_STRUCT_LABEL ] 
-				= $theData[ 'NatServe' ];
-		else
-			$threat[ kTAG_STRUCT_LABEL ] 
-				= 'Details';
-		
-		//
-		// Set national threat.
-		//
-		if( array_key_exists( 'US_ESA', $theData ) )
-			$threat[ getTag( ':taxon:threat:national' ) ]
-				= $theData[ 'US_ESA' ];
-		
-		//
-		// Set NatServe threat.
-		//
-		if( array_key_exists( 'NatServe', $theData ) )
-			$threat[ getTag( 'natserve:threat:code' ) ]
-				= $theData[ 'NatServe' ];
-		
-		//
-		// Set iucn criteria citation.
-		//
-		if( array_key_exists( 'IUCN_RL', $theData ) )
-			$threat[ getTag( 'iucn:criteria-citation' ) ]
-				= $theData[ 'IUCN_RL' ];
-		
-		//
-		// Set threat.
-		//
-		if( count( $threat ) )
-			$theObject->offsetSet( ':taxon:threat', array( $threat ) );
 		
 		//
 		// Set associated crop taxa.
@@ -754,9 +684,291 @@ finally
 		if( array_key_exists( 'Crop or WUS use_3', $theData ) )
 			$value[] = $theData[ 'Crop or WUS use_3' ];
 		if( count( $value ) )
-			$theObject->offsetSet( ':taxon:designation:use', $value );
-
+			$theObject->offsetSet( ':taxon:designation:use',
+								   array_values( array_unique( $value ) ) );
+		
+		//
+		// Set national designation.
+		//
+		if( array_key_exists( 'Nox_weed', $theData ) )
+		{
+			switch( $theData[ 'Nox_weed' ] )
+			{
+				case 'Noxious_weed_FEDandState':
+					$theObject->offsetSet( ':taxon:designation:national',
+										   'Noxious weed FED and State' );
+					break;
+				case 'Noxious_weed_State':
+					$theObject->offsetSet( ':taxon:designation:national',
+										   'Noxious weed State' );
+					break;
+			}
+		}
+		
+		//
+		// Set taxon designation reference.
+		//
+		if( array_key_exists( 'CWR_WUS_citation', $theData ) )
+		{
+			$value = Array();
+			foreach( explode( ';', $theData[ 'CWR_WUS_citation' ] ) as $item )
+			{
+				if( strlen( $item = trim( $item ) ) )
+					$value[] = $item;
+			}
+			if( count( $value ) )
+				$theObject->offsetSet( ':taxon:designation:ref', $value );
+		}
+		
+		//
+		// Load distribution data.
+		//
+		$sub = Array();
+		loadDistribution( $sub,
+						  $theData,
+						  $theWrapper,
+						  $theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':taxon:distribution', $sub );
+		
+		//
+		// Load threat data.
+		//
+		$sub = Array();
+		loadThreat(	$sub,
+					$theData,
+					$theWrapper,
+					$theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':taxon:threat', $sub );
+		
 	} // loadUnit.
+	
+
+	/**
+	 * Load distribution data.
+	 *
+	 * This function will load the distribution data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadDistribution( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Check states.
+		//
+		if( array_key_exists( 'Distribution_states', $theUnit ) )
+		{
+			//
+			// Init local storage.
+			//
+			$occurrence = NULL;
+			$tag_dist = getTag( ':location:admin' );
+			$tag_dist_reg = getTag( ':location:region' );
+			$tag_dist_notes = getTag( ':taxon:distribution:notes' );
+		
+			//
+			// Determine occurrence status.
+			//
+			if( array_key_exists( 'Occurrence general', $theUnit )
+			 || array_key_exists( 'Occurrence specific', $theUnit ) )
+			{
+				$list = Array();
+				if( array_key_exists( 'Occurrence specific', $theUnit ) )
+				{
+					foreach( explode( ';', $theUnit[ 'Occurrence specific' ] ) as $item )
+					{
+						if( strlen( $item = trim( $item ) ) )
+						{
+							if( ! in_array( $item, $list ) )
+								$list[] = $item;
+						}
+					}
+				}
+				elseif( array_key_exists( 'Occurrence general', $theUnit ) )
+				{
+					foreach( explode( ';', $theUnit[ 'Occurrence general' ] ) as $item )
+					{
+						if( strlen( $item = trim( $item ) ) )
+						{
+							if( ! in_array( $item, $list ) )
+								$list[] = $item;
+						}
+					}
+				}
+				if( count( $list ) )
+				{
+					$occurrence = Array();
+					foreach( $list as $item )
+					{
+						switch( strtolower( $item ) )
+						{
+							case 'native':
+								$occurrence[] = ':taxon:occurrence-status:100';
+								break;
+				
+							case 'non native':
+								$occurrence[] = ':taxon:occurrence-status:400';
+								break;
+				
+							case 'adventive':
+								$occurrence[] = ':taxon:occurrence-status:430';
+								break;
+				
+							case 'endemic':
+								$occurrence[] = ':taxon:occurrence-status:110';
+								break;
+				
+							case 'naturalized':
+								$occurrence[] = ':taxon:occurrence-status:420';
+								break;
+						}
+					}
+				}
+			}
+
+			//
+			// Iterate states.
+			//
+			foreach( explode( '@', $theUnit[ 'Distribution_states' ] ) as $element )
+			{
+				//
+				// Handle country.
+				//
+				if( strlen( $element = trim( $element ) ) )
+				{
+					//
+					// Extract country and states.
+					//
+					$country = substr( $element, 0, 2 );
+					$element = substr( $element, 4 );
+					
+					//
+					// Iterate states.
+					//
+					foreach( explode( ',', $element ) as $item )
+					{
+						//
+						// Init loop storage.
+						//
+						$dist = Array();
+						
+						//
+						// Handle state.
+						//
+						if( $length = strlen( $item = trim( $item ) ) )
+						{
+							//
+							// Set occurrence.
+							//
+							if( $occurrence !== NULL )
+								$dist[ getTag( ':taxon:occurrence-status' ) ] = $occurrence;
+							
+							//
+							// Set administrative unit code.
+							//
+							$state = substr( $item, 0, 2 );
+							if( ($country == 'US')
+							 && ($state == 'NN') )
+								$state = 'NM';
+							$code = "iso:3166:2:$country-$state";
+							$dist[ $tag_dist ] = $code;
+							
+							//
+							// Set region name.
+							//
+							$region = new OntologyWrapper\Term( $theWrapper, $code );
+							$dist[ $tag_dist_reg ]
+								= OntologyWrapper\OntologyObject::SelectLanguageString(
+									$region[ kTAG_LABEL ], 'en' );
+							
+							//
+							// Set distribution notes.
+							//
+							if( $length > 2 )
+								$dist[ $tag_dist_notes ] = "$country: $item";
+						}
+						
+						//
+						// Add distribution element.
+						//
+						if( count( $dist ) )
+							$theContainer[]
+								= $dist;
+					}
+				}
+			}
+		}
+
+	} // loadDistribution.
+	
+
+	/**
+	 * Load threat data.
+	 *
+	 * This function will load the threat data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadThreat( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Init threat struct.
+		//
+		$sub = Array();
+		
+		//
+		// Set structure label.
+		//
+		if( array_key_exists( 'US_ESA', $theUnit ) )
+			$sub[ kTAG_STRUCT_LABEL ] 
+				= $theUnit[ 'US_ESA' ];
+		elseif( array_key_exists( 'IUCN_RL', $theUnit ) )
+			$sub[ kTAG_STRUCT_LABEL ] 
+				= $theUnit[ 'IUCN_RL' ];
+		elseif( array_key_exists( 'NatServe', $theUnit ) )
+			$sub[ kTAG_STRUCT_LABEL ] 
+				= $theUnit[ 'NatServe' ];
+		else
+			$sub[ kTAG_STRUCT_LABEL ] 
+				= 'Details';
+		
+		//
+		// Set national threat.
+		//
+		if( array_key_exists( 'US_ESA', $theUnit ) )
+			$sub[ getTag( ':taxon:threat:national' ) ]
+				= $theUnit[ 'US_ESA' ];
+		
+		//
+		// Set NatServe threat.
+		//
+		if( array_key_exists( 'NatServe', $theUnit ) )
+			$sub[ getTag( 'natserve:threat:code' ) ]
+				= $theUnit[ 'NatServe' ];
+		
+		//
+		// Set iucn criteria citation.
+		//
+		if( array_key_exists( 'IUCN_RL', $theUnit ) )
+			$sub[ getTag( 'iucn:criteria-citation' ) ]
+				= $theUnit[ 'IUCN_RL' ];
+		
+		//
+		// Set threat.
+		//
+		if( count( $sub ) )
+			$theContainer[] = $sub;
+
+	} // loadThreat.
 	
 
 	/**

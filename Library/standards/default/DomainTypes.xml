@@ -27,6 +27,168 @@
 	
 	<!-- Domain type enumerations -->
 	
+	<!-- kDOMAIN_COLLECTION -->
+	<META>
+		<TERM ns=":domain" lid="collection">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collection</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Data collection.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
+		</EDGE>
+	</META>
+	
+	<!-- kDOMAIN_TERM -->
+	<META>
+		<TERM ns=":domain" lid="term">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Dictionary term.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:collection</item>
+		</EDGE>
+	</META>
+	
+	<!-- kDOMAIN_TAG -->
+	<META>
+		<TERM ns=":domain" lid="tag">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tag</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Data tag.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:collection</item>
+		</EDGE>
+	</META>
+	
+	<!-- kDOMAIN_NODE -->
+	<META>
+		<TERM ns=":domain" lid="node">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Node</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Graph node.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:collection</item>
+		</EDGE>
+	</META>
+	
+	<!-- kDOMAIN_EDGE -->
+	<META>
+		<TERM ns=":domain" lid="edge">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Edge</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Directed graph relationship.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:collection</item>
+		</EDGE>
+	</META>
+	
+	<!-- kDOMAIN_UNIT -->
+	<META>
+		<TERM ns=":domain" lid="unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Generic units.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:domain:collection</item>
+		</EDGE>
+	</META>
+		
 	<!-- kDOMAIN_ATTRIBUTE -->
 	<META>
 		<TERM ns=":domain" lid="attribute">
@@ -81,33 +243,6 @@
 		</EDGE>
 	</META>
 	
-	<!-- kDOMAIN_UNIT -->
-	<META>
-		<TERM ns=":domain" lid="unit">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Unit</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Generic units.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
-		</EDGE>
-	</META>
-		
 	<!-- kDOMAIN_ENTITY -->
 	<META>
 		<TERM ns=":domain" lid="entity">

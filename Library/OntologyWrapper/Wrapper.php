@@ -771,7 +771,11 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/default/SchemaUnitIdentification.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaObjectOffsets.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaUnit.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -793,23 +797,23 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading default XML structure files.\n" );
 		
-		$file = kPATH_STANDARDS_ROOT.'/default/StructTag.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureTag.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-		$file = kPATH_STANDARDS_ROOT.'/default/StructTerm.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureTerm.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-		$file = kPATH_STANDARDS_ROOT.'/default/StructNode.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureNode.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-		$file = kPATH_STANDARDS_ROOT.'/default/StructEdge.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureEdge.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-		$file = kPATH_STANDARDS_ROOT.'/default/StructEntity.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureEntity.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		

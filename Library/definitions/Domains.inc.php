@@ -21,6 +21,60 @@
  *======================================================================================*/
 
 /**
+ * Collection.
+ *
+ * A data collection.
+ *
+ * This represents the domain of data collections.
+ */
+define( "kDOMAIN_COLLECTION",					':domain:collection' );
+
+/**
+ * Term.
+ *
+ * A dictionary term.
+ *
+ * This represents the domain of terms.
+ */
+define( "kDOMAIN_TERM",							':domain:term' );
+
+/**
+ * Tag.
+ *
+ * A data tag.
+ *
+ * This represents the domain of tags.
+ */
+define( "kDOMAIN_TAG",							':domain:tag' );
+
+/**
+ * Node.
+ *
+ * A graph node.
+ *
+ * This represents the domain of nodes.
+ */
+define( "kDOMAIN_NODE",							':domain:node' );
+
+/**
+ * Edge.
+ *
+ * A directed graph relationship.
+ *
+ * This represents the domain of graph relationships.
+ */
+define( "kDOMAIN_EDGE",							':domain:edge' );
+
+/**
+ * Unit.
+ *
+ * A generic unit.
+ *
+ * This represents the domain of generic units.
+ */
+define( "kDOMAIN_UNIT",							':domain:unit' );
+
+/**
  * Attribute.
  *
  * An attribute.
@@ -37,15 +91,6 @@ define( "kDOMAIN_ATTRIBUTE",					':domain:attribute' );
  * This represents the domain of data properties.
  */
 define( "kDOMAIN_PROPERTY",						':domain:property' );
-
-/**
- * Unit.
- *
- * A generic unit.
- *
- * This represents the domain of generic units.
- */
-define( "kDOMAIN_UNIT",							':domain:unit' );
 
 /**
  * Event.

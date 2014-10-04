@@ -125,7 +125,7 @@
 				<item>:germplasm:neighbourhood</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:struct</item>
-			<item const="kTAG_TAG_STRUCT_IDX">:struct-label</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:germplasm:identifier</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 			</item>

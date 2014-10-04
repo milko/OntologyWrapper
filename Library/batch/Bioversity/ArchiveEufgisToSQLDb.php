@@ -360,11 +360,51 @@ finally
 	 */
 	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
+		/***********************************************************************
+		 * Set unit identification properties.
+		 **********************************************************************/
+		
+		//
+		// Set authority.
+		//
+		$theObject->offsetSet( kTAG_AUTHORITY,
+							   substr( $theData[ 'UnitNumber' ], 0, 3 ) );
+		
+		//
+		// Set identifier.
+		//
+		$theObject->offsetSet( kTAG_IDENTIFIER,
+							   substr( $theData[ 'UnitNumber' ], 3 ) );
+		
+		//
+		// Set version.
+		//
+		$theObject->offsetSet( kTAG_VERSION, $theData[ 'UnitDataCollectionYear' ] );
+		
+		/***********************************************************************
+		 * Set unit inventory properties.
+		 **********************************************************************/
+		
 		//
 		// Set dataset.
 		//
 		$theObject->offsetSet( ':inventory:dataset',
 			'European information system on forest genetic resources (EUFGIS)' );
+		
+		//
+		// Set inventory code.
+		//
+		$theObject->offsetSet( ':inventory:code', $theData[ 'UnitCountry' ] );
+		
+		//
+		// Set inventory administrative unit.
+		//
+		$theObject->offsetSet( ':inventory:admin', 'iso:3166:1:alpha-3:'
+												  .$theData[ 'UnitCountry' ] );
+		
+		/***********************************************************************
+		 * Set other properties.
+		 **********************************************************************/
 		
 		//
 		// Set unit number.

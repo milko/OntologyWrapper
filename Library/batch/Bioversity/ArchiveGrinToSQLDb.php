@@ -379,21 +379,24 @@ finally
 	 */
 	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
-		//
-		// Set dataset.
-		//
-		$theObject->offsetSet(
-			':inventory:dataset',
-			'National Plant Germplasm System (GRIN)' );
+		/***********************************************************************
+		 * Set unit identification properties.
+		 **********************************************************************/
 		
 		//
-		// Set accession ID.
+		// Set authority.
 		//
-		$theObject->offsetSet(
-			':germplasm:identifier',
-			$theData[ 'INSTCODE' ].kTOKEN_INDEX_SEPARATOR
-		   .$theData[ 'COLLECTION' ].kTOKEN_NAMESPACE_SEPARATOR
-		   .$theData[ 'ACCENUMB' ] );
+		$theObject->offsetSet( kTAG_AUTHORITY, $theData[ 'INSTCODE' ] );
+		
+		//
+		// Set collection.
+		//
+		$theObject->offsetSet( kTAG_COLLECTION, $theData[ 'COLLECTION' ] );
+		
+		//
+		// Set identifier.
+		//
+		$theObject->offsetSet( kTAG_IDENTIFIER, $theData[ 'ACCENUMB' ] );
 		
 		//
 		// Set version.
@@ -403,6 +406,27 @@ finally
 								   substr( $theData[ 'Stamp' ], 0, 4 )
 								  .substr( $theData[ 'Stamp' ], 5, 2 )
 								  .substr( $theData[ 'Stamp' ], 8, 2 ) );
+		
+		/***********************************************************************
+		 * Set unit inventory properties.
+		 **********************************************************************/
+		
+		//
+		// Set dataset.
+		//
+		$theObject->offsetSet(
+			':inventory:dataset',
+			'National Plant Germplasm System (GRIN)' );
+		
+		//
+		// Set National inventory code.
+		//
+		$theObject->offsetSet( ':inventory:code', 'USA' );
+		
+		//
+		// Set inventory administrative unit.
+		//
+		$theObject->offsetSet( ':inventory:admin', 'iso:3166:1:alpha-3:USA' );
 		
 		//
 		// Set Genesys ID.
@@ -421,15 +445,18 @@ finally
 		   .$theData[ 'INSTCODE' ]
 		   .kTOKEN_END_TAG );
 		
-		//
-		// Set National inventory code.
-		//
-		$theObject->offsetSet( ':inventory:code', 'USA' );
+		/***********************************************************************
+		 * Set other properties.
+		 **********************************************************************/
 		
 		//
-		// Set inventory administrative unit.
+		// Set germplasm identifier.
 		//
-		$theObject->offsetSet( ':inventory:admin', 'iso:3166:1:alpha-3:USA' );
+		$theObject->offsetSet(
+			':germplasm:identifier',
+			$theData[ 'INSTCODE' ].kTOKEN_INDEX_SEPARATOR
+		   .$theData[ 'COLLECTION' ].kTOKEN_NAMESPACE_SEPARATOR
+		   .$theData[ 'ACCENUMB' ] );
 		
 		//
 		// Set holding institute code.
@@ -449,30 +476,6 @@ finally
 		if( array_key_exists( 'ACCENAME', $theData ) )
 			$theObject->offsetSet( 'mcpd:ACCENAME',
 								   array( $theData[ 'ACCENAME' ] ) );
-		
-		//
-		// Set other accession identifiers.
-		//
-		if( array_key_exists( 'OTHERNUMB', $theData ) )
-		{
-			$tmp = Array();
-			foreach( explode( ';', $theData[ 'OTHERNUMB' ] ) as $item )
-			{
-				$item = trim( $item );
-				if( strlen( $item ) )
-				{
-					if( substr( $item, 0, 1 ) == ':' )
-						$item = substr( $item, 1 );
-					if( strlen( $item ) )
-					{
-						if( ! in_array( $item, $tmp ) )
-							$tmp[] = $item;
-					}
-				}
-			}
-			if( count( $tmp ) )
-				$theObject->offsetSet( 'mcpd:OTHERNUMB', $tmp );
-		}
 		
 		//
 		// Set taxon genus.
@@ -574,61 +577,6 @@ finally
 		}
 		
 		//
-		// Set ancestors.
-		//
-		if( array_key_exists( 'ANCEST', $theData ) )
-			$theObject->offsetSet( 'mcpd:ANCEST',
-								   $theData[ 'ANCEST' ] );
-		
-		//
-		// Set taxon MLSSTAT.
-		//
-		if( array_key_exists( 'MLSSTAT', $theData ) )
-		{
-			switch( $theData[ 'MLSSTAT' ] )
-			{
-				case '0':
-					$theObject->offsetSet( 'mcpd:MLSSTAT', 'mcpd:MLSSTAT:0' );
-					break;
-				case '1':
-					$theObject->offsetSet( 'mcpd:MLSSTAT', 'mcpd:MLSSTAT:1' );
-					break;
-			}
-		}
-		
-		//
-		// Set taxon AEGISSTAT.
-		//
-		if( array_key_exists( 'AEGISSTAT', $theData ) )
-		{
-			switch( $theData[ 'AEGISSTAT' ] )
-			{
-				case '0':
-					$theObject->offsetSet( 'mcpd:AEGISSTAT', 'mcpd:AEGISSTAT:0' );
-					break;
-				case '1':
-					$theObject->offsetSet( 'mcpd:AEGISSTAT', 'mcpd:AEGISSTAT:1' );
-					break;
-			}
-		}
-		
-		//
-		// Set taxon AVAILABLE.
-		//
-		if( array_key_exists( 'AVAILABLE', $theData ) )
-		{
-			switch( $theData[ 'AVAILABLE' ] )
-			{
-				case '0':
-					$theObject->offsetSet( 'mcpd:AVAILABLE', 'mcpd:AVAILABLE:0' );
-					break;
-				case '1':
-					$theObject->offsetSet( 'mcpd:AVAILABLE', 'mcpd:AVAILABLE:1' );
-					break;
-			}
-		}
-		
-		//
 		// Set remarks.
 		//
 		if( array_key_exists( 'REMARKS', $theData ) )
@@ -658,6 +606,17 @@ finally
 			$theObject->offsetSet( ':domain:accession:breeding', $sub );
 		
 		//
+		// Load source.
+		//
+		$sub = Array();
+		loadSource(		$sub,
+						$theData,
+						$theWrapper,
+						$theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':domain:accession:source', $sub );
+		
+		//
 		// Load management.
 		//
 		$sub = Array();
@@ -669,15 +628,15 @@ finally
 			$theObject->offsetSet( ':domain:accession:management', $sub );
 		
 		//
-		// Load source.
+		// Load status.
 		//
 		$sub = Array();
-		loadSource(		$sub,
-						$theData,
-						$theWrapper,
-						$theDatabase );
+		loadStatus(	$sub,
+					$theData,
+					$theWrapper,
+					$theDatabase );
 		if( count( $sub ) )
-			$theObject->offsetSet( ':domain:accession:source', $sub );
+			$theObject->offsetSet( ':domain:accession:status', $sub );
 
 	} // loadUnit.
 	
@@ -861,6 +820,34 @@ finally
 				= $theUnit[ 'ERROR' ];
 		
 		//
+		// Load collecting entities.
+		//
+		$sub = Array();
+		loadCollectors(	$sub,
+						$theUnit,
+						$theWrapper,
+						$theDatabase );
+		if( count( $sub ) )
+			$theContainer[ getTag( ':collecting:entities' ) ]
+				= $sub;
+
+	} // loadCollecting.
+	
+
+	/**
+	 * Load collecting entities.
+	 *
+	 * This function will load the collector's data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadCollectors( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
 		// Init sub.
 		//
 		$sub = Array();
@@ -877,9 +864,8 @@ finally
 		//
 		if( array_key_exists( 'COLLDESCR', $theUnit ) )
 		{
-			if( ! array_key_exists( 'COLLCODE', $theUnit ) )
-				$sub[ getTag( 'mcpd:COLLDESCR' ) ]
-					= $theUnit[ 'COLLDESCR' ];
+			$sub[ getTag( 'mcpd:COLLDESCR' ) ]
+				= $theUnit[ 'COLLDESCR' ];
 		}
 
 		//
@@ -906,13 +892,9 @@ finally
 		// Load record.
 		//
 		if( count( $sub ) )
-		{
-			if( ! array_key_exists( getTag( ':collecting:entities' ), $theContainer ) )
-				$theContainer[ getTag( ':collecting:entities' ) ] = Array();
-			$theContainer[ getTag( ':collecting:entities' ) ][] = $sub;
-		}
+			$theContainer[] = $sub;
 
-	} // loadCollecting.
+	} // loadCollectors.
 	
 
 	/**
@@ -927,6 +909,41 @@ finally
 	 * @param ADOConnection			$theDatabase		SQL connection.
 	 */
 	function loadBreeding( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set ancestors.
+		//
+		if( array_key_exists( 'ANCEST', $theUnit ) )
+			$theContainer[ getTag( 'mcpd:ANCEST' ) ]
+				= $theUnit[ 'ANCEST' ];
+		
+		//
+		// Load breeding entities.
+		//
+		$sub = Array();
+		loadBreeders( $sub,
+					  $theUnit,
+					  $theWrapper,
+					  $theDatabase );
+		if( count( $sub ) )
+			$theContainer[ getTag( ':breeding:entities' ) ]
+				= $sub;
+
+	} // loadBreeding.
+	
+
+	/**
+	 * Load breeding entities.
+	 *
+	 * This function will load the breeder's data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadBreeders( &$theContainer, $theUnit, $theWrapper, $theDatabase )
 	{
 		//
 		// Init sub.
@@ -945,9 +962,8 @@ finally
 		//
 		if( array_key_exists( 'BREDDESCR', $theUnit ) )
 		{
-			if( ! array_key_exists( 'BREDDESCR', $theUnit ) )
-				$sub[ getTag( 'mcpd:BREDDESCR' ) ]
-					= $theUnit[ 'BREDDESCR' ];
+			$sub[ getTag( 'mcpd:BREDDESCR' ) ]
+				= $theUnit[ 'BREDDESCR' ];
 		}
 
 		//
@@ -966,7 +982,7 @@ finally
 		if( array_key_exists( 'BREDDESCR', $theUnit ) )
 			$sub[ getTag( ':name' ) ]
 				= $theUnit[ 'BREDDESCR' ];
-		elseif( array_key_exists( 'BREDDESCR', $theUnit ) )
+		elseif( array_key_exists( 'BREDCODE', $theUnit ) )
 			$sub[ getTag( ':name' ) ]
 				= $theUnit[ 'BREDCODE' ];
 
@@ -974,13 +990,9 @@ finally
 		// Load record.
 		//
 		if( count( $sub ) )
-		{
-			if( ! array_key_exists( getTag( ':breeding:entities' ), $theContainer ) )
-				$theContainer[ getTag( ':breeding:entities' ) ] = Array();
-			$theContainer[ getTag( ':breeding:entities' ) ][] = $sub;
-		}
+			$theContainer[] = $sub;
 
-	} // loadBreeding.
+	} // loadBreeders.
 	
 
 	/**
@@ -1065,6 +1077,46 @@ finally
 				$theContainer[ getTag( ':germplasm:safety' ) ]
 					= $list;
 		}
+		
+		//
+		// Set other accession identifiers.
+		//
+		if( array_key_exists( 'OTHERNUMB', $theUnit ) )
+		{
+			$tmp = Array();
+			foreach( explode( ';', $theUnit[ 'OTHERNUMB' ] ) as $item )
+			{
+				$item = trim( $item );
+				if( strlen( $item ) )
+				{
+					if( substr( $item, 0, 1 ) == ':' )
+						$item = substr( $item, 1 );
+					if( strlen( $item ) )
+					{
+						if( ! in_array( $item, $tmp ) )
+							$tmp[] = $item;
+					}
+				}
+			}
+			if( count( $tmp ) )
+				$theContainer[ getTag( 'mcpd:OTHERNUMB' ) ]
+					= $tmp;
+		}
+		
+		//
+		// Set taxon AVAILABLE.
+		//
+		if( array_key_exists( 'AVAILABLE', $theUnit ) )
+		{
+			switch( $theUnit[ 'AVAILABLE' ] )
+			{
+				case '0':
+				case '1':
+					$theContainer[ getTag( 'mcpd:AVAILABLE' ) ]
+						= 'mcpd:AVAILABLE:'.$theUnit[ 'AVAILABLE' ];
+					break;
+			}
+		}
 
 	} // loadManagement.
 	
@@ -1128,6 +1180,52 @@ finally
 				= $theUnit[ 'DONORNUMB' ];
 
 	} // loadSource.
+	
+
+	/**
+	 * Load accession status.
+	 *
+	 * This function will load the accession status related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadStatus( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set taxon MLSSTAT.
+		//
+		if( array_key_exists( 'MLSSTAT', $theUnit ) )
+		{
+			switch( $theUnit[ 'MLSSTAT' ] )
+			{
+				case '0':
+				case '1':
+					$theContainer[ getTag( 'mcpd:MLSSTAT' ) ]
+						= 'mcpd:MLSSTAT:'.$theUnit[ 'MLSSTAT' ];
+					break;
+			}
+		}
+		
+		//
+		// Set taxon AEGISSTAT.
+		//
+		if( array_key_exists( 'AEGISSTAT', $theUnit ) )
+		{
+			switch( $theUnit[ 'AEGISSTAT' ] )
+			{
+				case '0':
+				case '1':
+					$theContainer[ getTag( 'mcpd:AEGISSTAT' ) ]
+						= 'mcpd:AEGISSTAT:'.$theUnit[ 'AEGISSTAT' ];
+					break;
+			}
+		}
+
+	} // loadStatus.
 	
 
 	/**

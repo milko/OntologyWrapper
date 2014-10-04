@@ -499,16 +499,16 @@ class ForestUnit extends UnitObject
 							  static::kDEFAULT_DOMAIN );
 		
 		//
-		// Check identifier.
-		//
-		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
-			$this->offsetSet( kTAG_IDENTIFIER, substr( $id, 3 ) );
-		
-		//
 		// Check authority.
 		//
 		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
 			$this->offsetSet( kTAG_AUTHORITY, substr( $id, 0, 3 ) );
+		
+		//
+		// Check identifier.
+		//
+		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
+			$this->offsetSet( kTAG_IDENTIFIER, substr( $id, 3 ) );
 		
 		//
 		// Check version.

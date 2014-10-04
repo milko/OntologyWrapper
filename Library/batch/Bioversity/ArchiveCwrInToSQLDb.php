@@ -382,12 +382,9 @@ finally
 	 */
 	function loadIdentifier( $theObject, $theData, $theWrapper, $theDatabase )
 	{
-		//
-		// Set dataset.
-		//
-		$theObject->offsetSet(
-			':inventory:dataset',
-			'United Kingdom crop wild relatives inventory' );
+		/***********************************************************************
+		 * Set unit identification properties.
+		 **********************************************************************/
 		
 		//
 		// Set authority.
@@ -408,26 +405,31 @@ finally
 		// Set version.
 		//
 		$theObject->offsetSet( kTAG_VERSION, '2014' );
+				
+		/***********************************************************************
+		 * Set unit inventory properties.
+		 **********************************************************************/
 		
 		//
-		// Set national inventory code.
+		// Set dataset.
+		//
+		$theObject->offsetSet(
+			':inventory:dataset',
+			'United Kingdom crop wild relatives inventory' );
+		
+		//
+		// Set inventory code.
 		//
 		$theObject->offsetSet( ':inventory:code', $theData[ ':inventory:NICODE' ] );
 		
 		//
-		// Set country and administrative unit.
+		// Set inventory administrative unit.
 		//
-		$tmp = $theData[ ':inventory:NICODE' ];
-		$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:$tmp" );
-		$theObject->offsetSet( ':inventory:admin', "iso:3166:1:alpha-3:$tmp" );
+		$theObject->offsetSet( ':inventory:admin',
+							   "iso:3166:1:alpha-3:".$theData[ ':inventory:NICODE' ] );
 		
 		//
-		// Set checklist institute.
-		//
-		$theObject->offsetSet( 'cwr:INSTCODE', $theData[ ':inventory:INSTCODE' ] );
-		
-		//
-		// Set responsible institute.
+		// Set inventory institute.
 		//
 		$theObject->offsetSet(
 			':inventory:institute',
@@ -435,6 +437,15 @@ finally
 		   .'://http://fao.org/wiews:'
 		   .$theData[ ':inventory:INSTCODE' ]
 		   .kTOKEN_END_TAG );
+		
+		/***********************************************************************
+		 * Set other properties.
+		 **********************************************************************/
+		
+		//
+		// Set inventory institute code.
+		//
+		$theObject->offsetSet( 'cwr:INSTCODE', $theData[ ':inventory:INSTCODE' ] );
 		
 		//
 		// Set familia.
@@ -519,8 +530,7 @@ finally
 				."`cwr:GENEPOOL`, "
 				."`cwr:GENEPOOLREF`, "
 				."`cwr:TAXONGROUP`, "
-				."`cwr:REFTAXONGROUP`, "
-				."`cwr:TAXONSTATUS` "
+				."`cwr:REFTAXONGROUP` "
 				."FROM `cwr_in` "
 				."WHERE( `HASH` = '$theHash' )";
 		$all = $theDatabase->GetAll( $query );
@@ -680,30 +690,6 @@ finally
 			$theObject->offsetSet( ':taxon:group-ref', $property );
 		
 		//
-		// Set taxon occurrence status.
-		//
-		$property = Array();
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'cwr:TAXONSTATUS', $record ) )
-			{
-				switch( trim( $record[ 'cwr:TAXONSTATUS' ] ) )
-				{
-					case '1':
-						if( ! in_array( ':taxon:occurrence-status:100', $property ) )
-							$property[] = ':taxon:occurrence-status:100';
-						break;
-					case '5':
-						if( ! in_array( ':taxon:occurrence-status:400', $property ) )
-							$property[] = ':taxon:occurrence-status:400';
-						break;
-				}
-			}
-		}
-		if( count( $property ) )
-			$theObject->offsetSet( ':taxon:occurrence-status', $property );
-		
-		//
 		// Handle distribution.
 		//
 		loadDistribution( $theObject, $theHash, $theWrapper, $theDatabase );
@@ -744,7 +730,9 @@ finally
 		//
 		// Iterate crossability data.
 		//
-		$query = "SELECT DISTINCT `cwr:in:DISTCOUNTRYCODE` "
+		$query = "SELECT DISTINCT "
+				."`cwr:in:DISTCOUNTRYCODE`, "
+				."`cwr:TAXONSTATUS` "
 				."FROM `cwr_in` "
 				."WHERE( `HASH` = '$theHash' )";
 		$records = $theDatabase->GetAll( $query );
@@ -775,22 +763,53 @@ finally
 			//
 			if( array_key_exists( 'cwr:in:DISTCOUNTRYCODE', $data ) )
 			{
+				//
+				// Init loop storage.
+				//
 				$dist = Array();
 				$tag_dist = getTag( ':location:admin' );
 				$tag_dist_reg = getTag( ':location:region' );
+				$tag_dist_occur = getTag( ':taxon:occurrence-status' );
+				
+				//
+				// Set region code.
+				//
 				$code = "iso:3166:2:".$data[ 'cwr:in:DISTCOUNTRYCODE' ];
+				$dist[ $tag_dist ] = $code;
+				
+				//
+				// Set region name.
+				//
 				$region = new OntologyWrapper\Term( $theWrapper, $code );
-				$dist_elm[ $tag_dist ] = $code;
-				$dist_elm[ $tag_dist_reg ]
+				$dist[ $tag_dist_reg ]
 					= OntologyWrapper\OntologyObject::SelectLanguageString(
 						$region[ kTAG_LABEL ], 'en' );
+		
+				//
+				// Set taxon occurrence status.
+				//
+				if( array_key_exists( 'cwr:TAXONSTATUS', $record ) )
+				{
+					switch( trim( $record[ 'cwr:TAXONSTATUS' ] ) )
+					{
+						case '1':
+							$dist[ $tag_dist_occur ] = array( ':taxon:occurrence-status:100' );
+							break;
+						case '5':
+							$dist[ $tag_dist_occur ] = array( ':taxon:occurrence-status:400' );
+							break;
+					}
+				}
 				
+				//
+				// Set element.
+				//
 				if( count( $dist ) )
 					$struct[] = $dist;
 			
 			} // Has distribution.
 		
-		} // Iterating crossability data.
+		} // Iterating distribution data.
 		
 		//
 		// Set structure.
@@ -964,6 +983,40 @@ EOT;
 			if( count( $data ) )
 				$records[] = $data;
 		}
+		
+		//
+		// Set structure label.
+		//
+		$cou = $year = $ass = $code = NULL;
+		foreach( $records as $record )
+		{
+			if( ($cou === NULL)
+			 && array_key_exists( 'cwr:in:COUNTRYCODEASS', $record ) )
+				$cou = $record[ 'cwr:in:COUNTRYCODEASS' ];
+			if( ($year === NULL)
+			 && array_key_exists( 'cwr:YEARREDLISTASS', $record ) )
+				$year = $record[ 'cwr:YEARREDLISTASS' ];
+			if( ($ass === NULL)
+			 && array_key_exists( 'cwr:ASSLEVEL', $record ) )
+				$ass = $record[ 'cwr:ASSLEVEL' ];
+			if( ($code === NULL)
+			 && array_key_exists( 'cwr:in:NUNITCODE', $record ) )
+				$code = $record[ 'cwr:in:NUNITCODE' ];
+			elseif( ($code === NULL)
+				 && array_key_exists( 'iucn:criteria', $record ) )
+				$code = $record[ 'iucn:criteria' ];
+		}
+		$label = Array();
+		if( $cou !== NULL )
+			$label[] = $cou;
+		if( $year !== NULL )
+			$label[] = $year;
+		if( $ass !== NULL )
+			$label[] = $ass;
+		if( $code !== NULL )
+			$label[] = $code;
+		if( count( $label ) )
+			$properties[ kTAG_STRUCT_LABEL ] = implode( '/', $label );
 	
 		//
 		// Set threat assessment level.
@@ -1112,22 +1165,6 @@ EOT;
 			}
 		}
 		
-		//
-		// Set structure label.
-		//
-		$label = Array();
-		if( array_key_exists( 'cwr:in:COUNTRYCODEASS', $record ) )
-			$label[] = $record[ 'cwr:in:COUNTRYCODEASS' ];
-		if( array_key_exists( getTag( ':taxon:threat:assessment' ), $properties ) )
-			$label[] = getEnum( $properties[ getTag( ':taxon:threat:assessment' ) ] );
-		if( array_key_exists( 'cwr:in:NUNITCODE', $record ) )
-			$label[] = $record[ 'cwr:in:NUNITCODE' ];
-		elseif( array_key_exists( getTag( 'iucn:criteria-citation' ), $properties ) )
-			$label[] = $properties[ getTag( 'iucn:criteria-citation' ) ];
-		if( ! count( $label ) )
-			$label[] = 'Details';
-		$properties[ kTAG_STRUCT_LABEL ] = implode( '/', $label );
-	
 		//
 		// Add to object.
 		//

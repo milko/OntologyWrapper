@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	REFERENCE COUNT SCHEMA
-	SchemaRefCount.xml
+	OBJECT OFFSETS SCHEMA
+	SchemaObjectOffsets.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,9 +9,9 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- schema::ref-count -->
+	<!-- schema::offset -->
 	<META>
-		<NODE term=":ref-count" pid="schema::ref-count">
+		<NODE term=":offset" pid="schema::offset">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:schema</item>
 			</item>
@@ -25,39 +25,39 @@
 	
 		<!-- PROPERTIES -->
 	
-		<!-- kTAG_TAG_COUNT -->
+		<!-- kTAG_TAG_OFFSETS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:tag</item>
+			<item const="kTAG_SUBJECT" node="tag">:offset:tag</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_TERM_COUNT -->
+		<!-- kTAG_TERM_OFFSETS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:term</item>
+			<item const="kTAG_SUBJECT" node="tag">:offset:term</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_NODE_COUNT -->
+		<!-- kTAG_NODE_OFFSETS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:node</item>
+			<item const="kTAG_SUBJECT" node="tag">:offset:node</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_EDGE_COUNT -->
+		<!-- kTAG_EDGE_OFFSETS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:edge</item>
+			<item const="kTAG_SUBJECT" node="tag">:offset:edge</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_UNIT_COUNT -->
+		<!-- kTAG_UNIT_OFFSETS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:unit</item>
+			<item const="kTAG_SUBJECT" node="tag">:offset:unit</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_ENTITY_COUNT -->
+		<!-- kTAG_ENTITY_OFFSETS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:entity</item>
+			<item const="kTAG_SUBJECT" node="tag">:offset:entity</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

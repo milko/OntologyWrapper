@@ -370,16 +370,9 @@ finally
 	 */
 	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
-		//
-		// Set dataset.
-		//
-		$value = $theData[ 'cwr:ck:CWRCODE' ];
-		$value = ( strlen( $value ) == 3 )
-			   ? "iso:3166:1:alpha-3:".$theData[ 'cwr:ck:CWRCODE' ]
-			   : "iso:3166:2:".$theData[ 'cwr:ck:CWRCODE' ];
-		$tmp = new OntologyWrapper\Term( $theWrapper, $value );
-		$tmp = OntologyWrapper\OntologyObject::SelectLanguageString( $tmp[ kTAG_LABEL ], 'en' );
-		$theObject->offsetSet( ':inventory:dataset', "$tmp crop wild relative checklist" );
+		/***********************************************************************
+		 * Set unit identification properties.
+		 **********************************************************************/
 		
 		//
 		// Set authority.
@@ -407,13 +400,37 @@ finally
 		//
 		$theObject->offsetSet( kTAG_VERSION, $theData[ 'cwr:ck:TYPE' ] );
 		
+		/***********************************************************************
+		 * Set unit inventory properties.
+		 **********************************************************************/
+		
 		//
-		// Set national inventory code.
+		// Set dataset.
+		//
+		$value = $theData[ 'cwr:ck:CWRCODE' ];
+		$value = ( strlen( $value ) == 3 )
+			   ? "iso:3166:1:alpha-3:".$theData[ 'cwr:ck:CWRCODE' ]
+			   : "iso:3166:2:".$theData[ 'cwr:ck:CWRCODE' ];
+		$tmp = new OntologyWrapper\Term( $theWrapper, $value );
+		$tmp = OntologyWrapper\OntologyObject::SelectLanguageString( $tmp[ kTAG_LABEL ], 'en' );
+		$theObject->offsetSet( ':inventory:dataset', "$tmp crop wild relative checklist" );
+		
+		//
+		// Set inventory code.
 		//
 		$theObject->offsetSet( ':inventory:code', $theData[ 'cwr:ck:CWRCODE' ] );
 		
 		//
-		// Set responsible institute.
+		// Set inventory administrative unit.
+		//
+		$value = $theData[ 'cwr:ck:CWRCODE' ];
+		if( strlen( $value ) == 3 )
+			$theObject->offsetSet( ':inventory:admin', "iso:3166:1:alpha-3:$value" );
+		elseif( substr( $value, 0, 2 ) == 'GB' )
+			$theObject->offsetSet( ':inventory:admin', "iso:3166:2:$value" );
+		
+		//
+		// Set inventory institute.
 		//
 		$theObject->offsetSet(
 			':inventory:institute',
@@ -422,20 +439,9 @@ finally
 		   .$theData[ ':inventory:INSTCODE' ]
 		   .kTOKEN_END_TAG );
 		
-		//
-		// Set country and administrative unit.
-		//
-		$value = $theData[ 'cwr:ck:CWRCODE' ];
-		if( strlen( $value ) == 3 )
-		{
-			$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:$value" );
-			$theObject->offsetSet( ':inventory:admin', "iso:3166:1:alpha-3:$value" );
-		}
-		elseif( substr( $value, 0, 2 ) == 'GB' )
-		{
-			$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:GBR" );
-			$theObject->offsetSet( ':inventory:admin', "iso:3166:2:$value" );
-		}
+		/***********************************************************************
+		 * Set other properties.
+		 **********************************************************************/
 		
 		//
 		// Set checklist code.
@@ -459,16 +465,6 @@ finally
 							   'cwr:ck:TYPE:'.$theData[ 'cwr:ck:TYPE' ] );
 		
 		//
-		// Set checklist reference.
-		//
-		// no data
-		
-		//
-		// Set checklist URL.
-		//
-		// no data
-		
-		//
 		// Set checklist priority.
 		//
 		if( array_key_exists( 'cwr:in:CRITPRIORI', $theData ) )
@@ -481,6 +477,13 @@ finally
 				$value[] = "cwr:in:CRITPRIORI:$element";
 			$theObject->offsetSet( 'cwr:in:CRITPRIORI', $value );
 		}
+		
+		//
+		// Set endemism.
+		//
+		if( array_key_exists( 'cwr:ENDEMISM', $theData ) )
+			$theObject->offsetSet( 'cwr:ENDEMISM',
+								   'cwr:ENDEMISM:'.$theData[ 'cwr:ENDEMISM' ] );
 		
 		//
 		// Set regnum.
@@ -578,28 +581,6 @@ finally
 								   array( $theData[ ':taxon:reference' ] ) );
 		
 		//
-		// Set taxon synonyms.
-		//
-		// No data.
-		
-		//
-		// Set taxon synonym references.
-		//
-		// No data.
-		
-		//
-		// Set taxon vernacular names.
-		//
-		// No data.
-		
-		//
-		// Set endemism.
-		//
-		if( array_key_exists( 'cwr:ENDEMISM', $theData ) )
-			$theObject->offsetSet( 'cwr:ENDEMISM',
-								   'cwr:ENDEMISM:'.$theData[ 'cwr:ENDEMISM' ] );
-		
-		//
 		// Set chromosome number.
 		//
 		if( array_key_exists( 'cwr:CHROMOSNUMB', $theData ) )
@@ -648,56 +629,121 @@ finally
 		}
 		
 		//
-		// Set taxon group reference.
+		// Set taxon status
 		//
-		// No data.
+		if( array_key_exists( 'cwr:TAXONSTATUS', $theData ) )
+		{
+			$value = Array();
+			$list = explode( ';', $theData[ 'cwr:TAXONSTATUS' ] );
+			foreach( $list as $element )
+			{
+				switch( $element )
+				{
+					case '1':
+						$value[] = ":taxon:occurrence-status:100";
+						break;
+					case '2':
+						$value[] = ":taxon:occurrence-status:130";
+						break;
+					case '3':
+						$value[] = ":taxon:occurrence-status:200";
+						break;
+					case '4':
+						$value[] = ":taxon:occurrence-status:300";
+						break;
+					case '5':
+						$value[] = ":taxon:occurrence-status:400";
+						break;
+					case '6':
+						$value[] = ":taxon:occurrence-status:490";
+						break;
+				}
+			}
+			$theObject->offsetSet( ':taxon:occurrence-status', $value );
+		}
 		
 		//
-		// Set list of species crosses.
+		// Set taxon economic value.
 		//
-		// No data.
+		if( array_key_exists( 'cwr:ECOVALUE', $theData ) )
+			$theObject->offsetSet( ':taxon:ecovalue',
+								   array( $theData[ 'cwr:ECOVALUE' ] ) );
 		
 		//
-		// Set list of species cross references.
+		// Set taxon economic value reference.
 		//
-		// No data.
+		if( array_key_exists( 'cwr:ECOVALUEREF', $theData ) )
+			$theObject->offsetSet( ':taxon:ecovalue-ref',
+								   array( $theData[ 'cwr:ECOVALUEREF' ] ) );
 		
 		//
-		// Set list of species cross methods.
+		// Set country and administrative unit.
 		//
-		// No data.
+		$value = $theData[ 'cwr:ck:CWRCODE' ];
+		if( strlen( $value ) == 3 )
+			$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:$value" );
+		elseif( substr( $value, 0, 2 ) == 'GB' )
+			$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:GBR" );
 		
 		//
-		// Set list of species cross success.
+		// Load threat data.
 		//
-		// No data.
+		$sub = Array();
+		loadThreat(	$sub,
+					$theData,
+					$theWrapper,
+					$theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':taxon:threat', $sub );
 		
 		//
-		// Init threat struct.
+		// Set checklist remarks.
 		//
-		$threat = Array();
+		if( array_key_exists( 'cwr:REMARKS', $theData ) )
+			$theObject->offsetSet( 'cwr:ck:REMARKS', $theData[ 'cwr:REMARKS' ] );
+
+	} // loadUnit.
+	
+
+	/**
+	 * Load threat data.
+	 *
+	 * This function will load the threat data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadThreat( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Init local storage.
+		//
+		$sub = Array();
 		
 		//
 		// Set assessment level.
 		//
-		if( array_key_exists( 'cwr:ASSLEVEL', $theData ) )
-			$threat[ getTag( ':taxon:threat:assessment' ) ]
-				= ':taxon:threat:assessment:'.$theData[ 'cwr:ASSLEVEL' ];
+		if( array_key_exists( 'cwr:ASSLEVEL', $theUnit ) )
+			$sub[ getTag( ':taxon:threat:assessment' ) ]
+				= ':taxon:threat:assessment:'.$theUnit[ 'cwr:ASSLEVEL' ];
 		
 		//
 		// Set assessment region.
 		//
-		if( array_key_exists( 'cwr:REGIONASS', $theData ) )
-			$threat[ getTag( ':taxon:threat:region' ) ]
-				= $theData[ 'cwr:REGIONASS' ];
+		if( array_key_exists( 'cwr:REGIONASS', $theUnit ) )
+			$sub[ getTag( ':taxon:threat:region' ) ]
+				= $theUnit[ 'cwr:REGIONASS' ];
 		
 		//
 		// Set iucn category
 		//
-		if( array_key_exists( 'iucn:category', $theData ) )
+		if( array_key_exists( 'iucn:category', $theUnit ) )
 		{
 			$value = Array();
-			$list = explode( ';', $theData[ 'iucn:category' ] );
+			$list = explode( ';', $theUnit[ 'iucn:category' ] );
 			foreach( $list as $element )
 			{
 				switch( $element )
@@ -737,119 +783,30 @@ finally
 					$value[] = "iucn:category:$element";
 			}
 			if( count( $value ) )
-				$threat[ getTag( 'iucn:category' ) ]
+				$sub[ getTag( 'iucn:category' ) ]
 					= $value;
 		}
 		
 		//
-		// Set iucn criteria
-		//
-		// No data.
-		
-		//
-		// Set red list category
-		//
-		// No data.
-		
-		//
-		// Set red list URL
-		//
-		// No data.
-		
-		//
-		// Set red list reference
-		//
-		// No data.
-		
-		//
 		// Set structure label.
 		//
-		if( array_key_exists( getTag( ':taxon:threat:region' ), $threat ) )
-			$threat[ kTAG_STRUCT_LABEL ]
-				= $threat[ getTag( ':taxon:threat:region' ) ];
-		elseif( array_key_exists( getTag( ':taxon:threat:assessment' ), $threat ) )
-			$threat[ kTAG_STRUCT_LABEL ]
-				= getEnum( $threat[ getTag( ':taxon:threat:assessment' ) ] );
-		elseif( array_key_exists( getTag( 'iucn:category' ), $threat ) )
-			$threat[ kTAG_STRUCT_LABEL ]
-				= getEnum( $threat[ getTag( 'iucn:category' ) ][ 0 ] );
+		if( array_key_exists( getTag( ':taxon:threat:region' ), $sub ) )
+			$sub[ kTAG_STRUCT_LABEL ]
+				= $sub[ getTag( ':taxon:threat:region' ) ];
+		elseif( array_key_exists( getTag( ':taxon:threat:assessment' ), $sub ) )
+			$sub[ kTAG_STRUCT_LABEL ]
+				= getEnum( $sub[ getTag( ':taxon:threat:assessment' ) ] );
+		elseif( array_key_exists( getTag( 'iucn:category' ), $sub ) )
+			$sub[ kTAG_STRUCT_LABEL ]
+				= getEnum( $sub[ getTag( 'iucn:category' ) ][ 0 ] );
 		
 		//
-		// Set threat.
+		// Load sub-structure.
 		//
-		if( count( $threat ) )
-			$theObject->offsetSet( ':taxon:threat', array( $threat ) );
-		
-		//
-		// Set taxon status
-		//
-		if( array_key_exists( 'cwr:TAXONSTATUS', $theData ) )
-		{
-			$value = Array();
-			$list = explode( ';', $theData[ 'cwr:TAXONSTATUS' ] );
-			foreach( $list as $element )
-			{
-				switch( $element )
-				{
-					case '1':
-						$value[] = ":taxon:occurrence-status:100";
-						break;
-					case '2':
-						$value[] = ":taxon:occurrence-status:130";
-						break;
-					case '3':
-						$value[] = ":taxon:occurrence-status:200";
-						break;
-					case '4':
-						$value[] = ":taxon:occurrence-status:300";
-						break;
-					case '5':
-						$value[] = ":taxon:occurrence-status:400";
-						break;
-					case '6':
-						$value[] = ":taxon:occurrence-status:490";
-						break;
-				}
-			}
-			$theObject->offsetSet( ':taxon:occurrence-status', $value );
-		}
-		
-		//
-		// Set use of taxon
-		//
-		// No data.
-		
-		//
-		// Set iucn threat
-		//
-		// No data.
-		
-		//
-		// Set threat occurrence
-		//
-		// No data.
-		
-		//
-		// Set taxon economic value.
-		//
-		if( array_key_exists( 'cwr:ECOVALUE', $theData ) )
-			$theObject->offsetSet( ':taxon:ecovalue',
-								   array( $theData[ 'cwr:ECOVALUE' ] ) );
-		
-		//
-		// Set taxon economic value reference.
-		//
-		if( array_key_exists( 'cwr:ECOVALUEREF', $theData ) )
-			$theObject->offsetSet( ':taxon:ecovalue-ref',
-								   array( $theData[ 'cwr:ECOVALUEREF' ] ) );
-		
-		//
-		// Set checklist remarks.
-		//
-		if( array_key_exists( 'cwr:REMARKS', $theData ) )
-			$theObject->offsetSet( 'cwr:ck:REMARKS', $theData[ 'cwr:REMARKS' ] );
+		if( count( $sub ) )
+			$theContainer[] = $sub;
 
-	} // loadUnit.
+	} // loadThreat.
 	
 
 	/**

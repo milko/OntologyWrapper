@@ -374,21 +374,24 @@ finally
 	 */
 	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
-		//
-		// Set dataset.
-		//
-		$theObject->offsetSet(
-			':inventory:dataset',
-			'System-wide Information Network for Genetic Resources' );
+		/***********************************************************************
+		 * Set unit identification properties.
+		 **********************************************************************/
 		
 		//
-		// Set accession ID.
+		// Set authority.
 		//
-		$theObject->offsetSet(
-			':germplasm:identifier',
-			$theData[ 'HoldingInstituteFAOCode' ].kTOKEN_INDEX_SEPARATOR
-		   .$theData[ 'HoldingCollectionCode' ].kTOKEN_NAMESPACE_SEPARATOR
-		   .$theData[ 'AccessionNumber' ] );
+		$theObject->offsetSet( kTAG_AUTHORITY, $theData[ 'HoldingInstituteFAOCode' ] );
+		
+		//
+		// Set collection.
+		//
+		$theObject->offsetSet( kTAG_COLLECTION, $theData[ 'HoldingCollectionCode' ] );
+		
+		//
+		// Set identifier.
+		//
+		$theObject->offsetSet( kTAG_IDENTIFIER, $theData[ 'AccessionNumber' ] );
 		
 		//
 		// Set version.
@@ -398,6 +401,27 @@ finally
 								   substr( $theData[ 'Stamp' ], 0, 4 )
 								  .substr( $theData[ 'Stamp' ], 5, 2 )
 								  .substr( $theData[ 'Stamp' ], 8, 2 ) );
+				
+		/***********************************************************************
+		 * Set unit inventory properties.
+		 **********************************************************************/
+		
+		//
+		// Set dataset.
+		//
+		$theObject->offsetSet(
+			':inventory:dataset',
+			'System-wide Information Network for Genetic Resources' );
+		
+		//
+		// Set inventory institute.
+		//
+		$theObject->offsetSet(
+			':inventory:institute',
+			kDOMAIN_ORGANISATION
+		   .'://http://fao.org/wiews:'
+		   .$theData[ 'HoldingInstituteFAOCode' ]
+		   .kTOKEN_END_TAG );
 		
 		//
 		// Set Genesys ID.
@@ -406,15 +430,18 @@ finally
 			$theObject->offsetSet( ':inventory:GENESYS',
 								   (string) $theData[ 'AlisID' ] );
 		
+		/***********************************************************************
+		 * Set other properties.
+		 **********************************************************************/
+		
 		//
-		// Set holding institute.
+		// Set germplasm identifier.
 		//
 		$theObject->offsetSet(
-			':inventory:institute',
-			kDOMAIN_ORGANISATION
-		   .'://http://fao.org/wiews:'
-		   .$theData[ 'HoldingInstituteFAOCode' ]
-		   .kTOKEN_END_TAG );
+			':germplasm:identifier',
+			$theData[ 'HoldingInstituteFAOCode' ].kTOKEN_INDEX_SEPARATOR
+		   .$theData[ 'HoldingCollectionCode' ].kTOKEN_NAMESPACE_SEPARATOR
+		   .$theData[ 'AccessionNumber' ] );
 		
 		//
 		// Set holding institute code.
@@ -446,28 +473,6 @@ finally
 			if( count( $tmp ) )
 				$theObject->offsetSet( 'mcpd:ACCENAME', $tmp );
 		}
-		
-		//
-		// Set other accession identifiers.
-		//
-		if( array_key_exists( 'OtherAccessionIdentification', $theData ) )
-			$theObject->offsetSet( 'mcpd:OTHERNUMB',
-								   array( $theData[ 'OtherAccessionIdentification' ] ) );
-		
-		
-		//
-		// Set taxon reference.
-		//
-		if( array_key_exists( 'TaxonReference', $theData ) )
-			$theObject->offsetSet(
-				':taxon:reference',
-				array( 'http://www.ars-grin.gov/cgi-bin/npgs/html/index.pl' ) );
-		//
-		// Set taxon URL.
-		//
-		if( array_key_exists( 'TaxonReference', $theData ) )
-			$theObject->offsetSet( ':taxon:url',
-								   $theData[ 'TaxonReference' ] );
 		
 		//
 		// Set taxon rank.
@@ -560,6 +565,25 @@ finally
 								   $theData[ 'ScientificName' ] );
 		
 		//
+		// Set taxon reference.
+		//
+		if( array_key_exists( 'TaxonReference', $theData ) )
+		{
+			//
+			// Set taxon reference.
+			//
+			$theObject->offsetSet(
+				':taxon:reference',
+				array( 'http://www.ars-grin.gov/cgi-bin/npgs/html/index.pl' ) );
+			
+			//
+			// Set taxon URL.
+			//
+			$theObject->offsetSet( ':taxon:url',
+								   $theData[ 'TaxonReference' ] );
+		}
+		
+		//
 		// Set vernacular names.
 		//
 		if( array_key_exists( 'CropNames', $theData ) )
@@ -599,31 +623,6 @@ finally
 		}
 		
 		//
-		// Set ancestors.
-		//
-		if( array_key_exists( 'AncestralData', $theData ) )
-			$theObject->offsetSet( 'mcpd:ANCEST',
-								   $theData[ 'AncestralData' ] );
-		
-		//
-		// Set taxon MLSSTAT.
-		//
-		if( array_key_exists( 'InTrust', $theData ) )
-			$theObject->offsetSet( 'mcpd:MLSSTAT',
-								   ( ( $theData[ 'InTrust' ] )
-									 ? 'mcpd:MLSSTAT:1'
-									 : 'mcpd:MLSSTAT:0' ) );
-		
-		//
-		// Set sample AVAILABLE.
-		//
-		if( array_key_exists( 'Available', $theData ) )
-			$theObject->offsetSet( 'mcpd:AVAILABLE',
-								   ( ( $theData[ 'Available' ] )
-									 ? 'mcpd:AVAILABLE:1'
-									 : 'mcpd:AVAILABLE:0' ) );
-		
-		//
 		// Set remarks.
 		//
 		if( array_key_exists( 'AccessionRemarks', $theData ) )
@@ -653,6 +652,17 @@ finally
 			$theObject->offsetSet( ':domain:accession:breeding', $sub );
 		
 		//
+		// Load source.
+		//
+		$sub = Array();
+		loadSource(		$sub,
+						$theData,
+						$theWrapper,
+						$theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':domain:accession:source', $sub );
+		
+		//
 		// Load management.
 		//
 		$sub = Array();
@@ -664,15 +674,15 @@ finally
 			$theObject->offsetSet( ':domain:accession:management', $sub );
 		
 		//
-		// Load source.
+		// Load status.
 		//
 		$sub = Array();
-		loadSource(		$sub,
-						$theData,
-						$theWrapper,
-						$theDatabase );
+		loadStatus(	$sub,
+					$theData,
+					$theWrapper,
+					$theDatabase );
 		if( count( $sub ) )
-			$theObject->offsetSet( ':domain:accession:source', $sub );
+			$theObject->offsetSet( ':domain:accession:status', $sub );
 		
 		//
 		// Load transfers.
@@ -701,12 +711,6 @@ finally
 	 */
 	function loadCollecting( &$theContainer, $theUnit, $theWrapper, $theDatabase )
 	{
-		//
-		// Init local storage.
-		//
-		$start = 0;
-		$limit = 100;
-		
 		//
 		// Set collecting date.
 		//
@@ -868,6 +872,40 @@ finally
 				= $theUnit[ 'CollectingSiteGeoreferenceNotes' ];
 		
 		//
+		// Load collecting entities.
+		//
+		$sub = Array();
+		loadCollectors(	$sub,
+						$theUnit,
+						$theWrapper,
+						$theDatabase );
+		if( count( $sub ) )
+			$theContainer[ getTag( ':collecting:entities' ) ]
+				= $sub;
+
+	} // loadCollecting.
+	
+
+	/**
+	 * Load collecting entities.
+	 *
+	 * This function will load the collector's data related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadCollectors( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Init local storage.
+		//
+		$start = 0;
+		$limit = 100;
+		
+		//
 		// Select collectors.
 		//
 		$query = "SELECT * FROM `singer_collectors` "
@@ -925,13 +963,6 @@ finally
 				}
 		
 				//
-				// Set :entity:identifier.
-				//
-				if( array_key_exists( 'CooperatorCode', $data ) )
-					$sub[ getTag( ':entity:identifier' ) ]
-						= $data[ 'CooperatorCode' ];
-		
-				//
 				// Set :inventory:INSTCODE.
 				//
 				if( array_key_exists( 'CooperatorInstituteFAOCode', $data ) )
@@ -942,11 +973,21 @@ finally
 						 .kTOKEN_END_TAG;
 		
 				//
+				// Set :entity:identifier.
+				//
+				if( array_key_exists( 'CooperatorCode', $data ) )
+					$sub[ kTAG_ENTITY_IDENT ]
+						= $data[ 'CooperatorCode' ];
+		
+				//
 				// Set :name.
 				//
 				if( array_key_exists( 'CooperatorName', $data ) )
-					$sub[ getTag( ':name' ) ]
+					$sub[ kTAG_NAME ]
 						= $data[ 'CooperatorName' ];
+				elseif( array_key_exists( 'CooperatorLocalCode', $data ) )
+					$sub[ kTAG_NAME ]
+						= $data[ 'CooperatorLocalCode' ];
 		
 				//
 				// Set :type:entity.
@@ -964,21 +1005,21 @@ finally
 					 				 $tmp )) )
 						$tmp[] = ':type:entity:'.$data[ 'CooperatorEntityType' ];
 					if( count( $tmp ) )
-						$sub[ getTag( ':type:entity' ) ] = $tmp;
+						$sub[ kTAG_ENTITY_TYPE ] = $tmp;
 				}
 		
 				//
 				// Set :entity:mail.
 				//
 				if( array_key_exists( 'CooperatorAddress', $data ) )
-					$sub[ getTag( ':entity:mail' ) ][]
+					$sub[ kTAG_ENTITY_MAIL ][]
 						= array( kTAG_TEXT => $data[ 'CooperatorAddress' ] );
 		
 				//
 				// Set :entity:email.
 				//
 				if( array_key_exists( 'CooperatorEmail', $data ) )
-					$sub[ getTag( ':entity:email' ) ][]
+					$sub[ kTAG_ENTITY_EMAIL ][]
 						= array( kTAG_TEXT => $data[ 'CooperatorEmail' ] );
 								
 				//
@@ -989,18 +1030,14 @@ finally
 					if( $tmp
 							= OntologyWrapper\Term::ResolveCountryCode(
 									$theWrapper, $data[ 'CooperatorCountryCode' ] ) )
-						$sub[ getTag( ':entity:nationality' ) ] = $tmp;
+						$sub[ kTAG_ENTITY_NATIONALITY ] = $tmp;
 				}
 		
 				//
 				// Load record.
 				//
 				if( count( $sub ) )
-				{
-					if( ! array_key_exists( getTag( ':collecting:entities' ), $theContainer ) )
-						$theContainer[ getTag( ':collecting:entities' ) ] = Array();
-					$theContainer[ getTag( ':collecting:entities' ) ][] = $sub;
-				}
+					$theContainer[] = $sub;
 			
 			} // Iterating page.
 		
@@ -1027,7 +1064,7 @@ finally
 		if( $rs instanceof ADORecordSet )
 			$rs->Close();
 
-	} // loadCollecting.
+	} // loadCollectors.
 	
 
 	/**
@@ -1043,6 +1080,13 @@ finally
 	 */
 	function loadBreeding( &$theContainer, $theUnit, $theWrapper, $theDatabase )
 	{
+		//
+		// Set ancestors.
+		//
+		if( array_key_exists( 'AncestralData', $theUnit ) )
+			$theContainer[ getTag( 'mcpd:ANCEST' ) ]
+				= $theUnit[ 'AncestralData' ];
+		
 		//
 		// Set country.
 		//
@@ -1110,6 +1154,22 @@ finally
 		if( array_key_exists( 'GermplasmStorageTypeNotes', $theUnit ) )
 			$theContainer[ getTag( 'mcpd:STORAGE:NOTES' ) ]
 				= $theUnit[ 'GermplasmStorageTypeNotes' ];
+		
+		//
+		// Set other accession identifiers.
+		//
+		if( array_key_exists( 'OtherAccessionIdentification', $theUnit ) )
+			$theContainer[ getTag( 'mcpd:OTHERNUMB' ) ]
+				= array( $theUnit[ 'OtherAccessionIdentification' ] );
+		
+		//
+		// Set sample AVAILABLE.
+		//
+		if( array_key_exists( 'Available', $theUnit ) )
+			$theContainer[ getTag( 'mcpd:AVAILABLE' ) ]
+				= ( $theUnit[ 'Available' ] )
+				? 'mcpd:AVAILABLE:1'
+				: 'mcpd:AVAILABLE:0';
 								
 		//
 		// Set safety duplicates.
@@ -1312,6 +1372,31 @@ finally
 	
 
 	/**
+	 * Load accession status.
+	 *
+	 * This function will load the accession status related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadStatus( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Set MLSSTAT.
+		//
+		if( array_key_exists( 'InTrust', $theUnit ) )
+			$theContainer[ getTag( 'mcpd:MLSSTAT' ) ]
+				= ( $theUnit[ 'InTrust' ] )
+				? 'mcpd:MLSSTAT:1'
+				: 'mcpd:MLSSTAT:0';
+
+	} // loadStatus.
+	
+
+	/**
 	 * Load material transfers.
 	 *
 	 * This function will load the material transfers related to the provided <b>$theUnit</b>
@@ -1421,8 +1506,11 @@ finally
 				// Set :name.
 				//
 				if( array_key_exists( 'CooperatorName', $data ) )
-					$sub[ getTag( ':name' ) ]
+					$sub[ kTAG_NAME ]
 						= $data[ 'CooperatorName' ];
+				elseif( array_key_exists( 'CooperatorLocalCode', $data ) )
+					$sub[ kTAG_NAME ]
+						= $data[ 'CooperatorCode' ];
 		
 				//
 				// Set :type:entity.

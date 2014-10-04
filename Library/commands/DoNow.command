@@ -8,28 +8,19 @@
 #
 
 ########################################################################################
-#   Load households from XML archives                                                  #
+#   Archive GRIN                                                                       #
 ########################################################################################
 
 #
-# Load Households.
+# Archive GRIN.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+mysql --host=localhost --user=$1 --password=$2 \
+	  --socket=/tmp/mysql.sock --database=bioversity_archive \
+	  --execute="TRUNCATE TABLE grin"
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveGrinToSQLDb.php \
+	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-	"abdh" \
-	"mongodb://localhost:27017/MAURICIO"
-
-#
-# Backup and archive households.
-#
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO"
-mongodump --directoryperdb \
-		  --db 'MAURICIO' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO.data.zip"
-ditto -c -k --sequesterRsrc --keepParent \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO.data.zip"
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO"
+	"grin" \
+	"mongodb://localhost:27017/BIOVERSITY"
 
 exit

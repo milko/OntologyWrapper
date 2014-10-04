@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAG STRUCTURE
+	StructureTag.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- TAG -->
+	
+	<!-- struct::domain:tag -->
+	<META>
+		<NODE term=":domain:tag" pid="struct::domain:tag">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of tag objects.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- PROPERTIES -->
+	
+		<!-- kTAG_ID_SEQUENCE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:id-sequence</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_ID_GRAPH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:id-graph</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_TERMS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:terms</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_DATA_TYPE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:type:data</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_DATA_KIND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:type:kind</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_LABEL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:label</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_DESCRIPTION -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:description</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_SYNONYM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:synonym</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_MIN_VAL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:min-val</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_MAX_VAL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:max-val</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_PATTERN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:grep</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- schema::offset -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::offset</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_TAG_STRUCT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:tag:struct</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_TAG_STRUCT_IDX -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:tag:struct-index</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- RECORD PROPERTIES -->
+	
+		<!-- schema::ref-count -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- schema::record -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::record</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

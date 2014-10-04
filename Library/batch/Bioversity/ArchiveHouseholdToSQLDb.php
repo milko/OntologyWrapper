@@ -288,9 +288,7 @@ try
 			// Save record.
 			//
 			$xml = $object->export( 'xml' );
-			$insert = ( $last === NULL )
-					? "INSERT INTO `$table`( "
-					: "REPLACE INTO `$table`( ";
+			$insert = "INSERT INTO `$table`( ";
 			$insert .= ("`id`, `class`, `xml` ) VALUES( "
 					   .'0x'.bin2hex( (string) $record[ 'ID_HOUSEHOLD' ] ).', '
 					   .'0x'.bin2hex( get_class( $object ) ).', '
@@ -382,6 +380,45 @@ finally
 		$theObject->offsetSet(
 			':inventory:dataset',
 			'Household agro-biodiversity assessment' );
+		
+		/***********************************************************************
+		 * Set unit identification properties.
+		 **********************************************************************/
+		
+		//
+		// Set authority.
+		//
+		// No data.
+		
+		//
+		// Set collection.
+		//
+		$tmp = Array();
+		if( array_key_exists( 'STATE', $theData ) )
+			$tmp[] = $theData[ 'STATE' ];
+		if( array_key_exists( 'DISTRICT', $theData ) )
+			$tmp[] = $theData[ 'DISTRICT' ];
+		if( array_key_exists( 'BLOCKS', $theData ) )
+			$tmp[] = $theData[ 'BLOCKS' ];
+		if( array_key_exists( 'VILLAGE', $theData ) )
+			$tmp[] = $theData[ 'VILLAGE' ];
+		if( count( $tmp ) )
+			$theObject->offsetSet( kTAG_COLLECTION, implode( ',', $tmp ) );
+		
+		//
+		// Set identifier.
+		//
+		if( array_key_exists( 'ID_HOUSEHOLD', $theData ) )
+			$theObject->offsetSet( kTAG_IDENTIFIER, $theData[ 'ID_HOUSEHOLD' ] );
+		
+		//
+		// Set version.
+		//
+		$theObject->offsetSet( kTAG_VERSION, '2012' );
+		
+		/***********************************************************************
+		 * Set other properties.
+		 **********************************************************************/
 		
 		//
 		// Set version.

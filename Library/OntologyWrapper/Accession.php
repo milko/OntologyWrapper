@@ -516,16 +516,16 @@ class Accession extends UnitObject
 			$this->offsetSet( kTAG_DOMAIN, static::kDEFAULT_DOMAIN );
 		
 		//
-		// Check identifier.
-		//
-		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
-			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( 'mcpd:ACCENUMB' ) );
-		
-		//
 		// Check authority.
 		//
 		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
 			$this->offsetSet( kTAG_AUTHORITY, $this->offsetGet( 'mcpd:INSTCODE' ) );
+		
+		//
+		// Check identifier.
+		//
+		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
+			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( 'mcpd:ACCENUMB' ) );
 		
 		//
 		// Set taxon.

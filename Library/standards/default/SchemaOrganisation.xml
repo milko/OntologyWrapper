@@ -22,33 +22,19 @@
 				</item>
 			</item>
 		</NODE>
-	</META>
 	
-	<!-- PROPERTIES -->
+		<!-- PROPERTIES -->
 	
-	<!-- kTAG_ENTITY_ACRONYM -->
-	<META>
-		<NODE tag=":entity:acronym">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
+		<!-- kTAG_ENTITY_ACRONYM -->
 		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:entity:acronym</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::domain:organisation</item>
 		</EDGE>
-	</META>
 	
-	<!-- kTAG_ENTITY_LINK -->
-	<META>
-		<NODE tag=":entity:url">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
+		<!-- kTAG_ENTITY_LINK -->
 		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:entity:url</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::domain:organisation</item>
 		</EDGE>
 	</META>
 </METADATA>
