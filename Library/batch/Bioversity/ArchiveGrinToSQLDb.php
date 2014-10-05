@@ -637,6 +637,17 @@ finally
 					$theDatabase );
 		if( count( $sub ) )
 			$theObject->offsetSet( ':domain:accession:status', $sub );
+		
+		//
+		// Load germplasm neighbourhood.
+		//
+		$sub = Array();
+		loadNeighbourhood( $sub,
+						   $theData,
+						   $theWrapper,
+						   $theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':germplasm:neighbourhood', $sub );
 
 	} // loadUnit.
 	
@@ -1082,26 +1093,8 @@ finally
 		// Set other accession identifiers.
 		//
 		if( array_key_exists( 'OTHERNUMB', $theUnit ) )
-		{
-			$tmp = Array();
-			foreach( explode( ';', $theUnit[ 'OTHERNUMB' ] ) as $item )
-			{
-				$item = trim( $item );
-				if( strlen( $item ) )
-				{
-					if( substr( $item, 0, 1 ) == ':' )
-						$item = substr( $item, 1 );
-					if( strlen( $item ) )
-					{
-						if( ! in_array( $item, $tmp ) )
-							$tmp[] = $item;
-					}
-				}
-			}
-			if( count( $tmp ) )
-				$theContainer[ getTag( 'mcpd:OTHERNUMB' ) ]
-					= $tmp;
-		}
+			$theContainer[ getTag( 'mcpd:OTHERNUMB' ) ]
+				= $theUnit[ 'OTHERNUMB' ];
 		
 		//
 		// Set taxon AVAILABLE.
@@ -1226,6 +1219,103 @@ finally
 		}
 
 	} // loadStatus.
+	
+
+	/**
+	 * Load germplasm neighbourhood.
+	 *
+	 * This function will load the accession germplasm neighbourhood related to the provided
+	 * <b>$theUnit</b> parameter into the container provided in the <b>$theContainer</b>
+	 * parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadNeighbourhood( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Check other identification.
+		//
+		if( array_key_exists( 'OTHERNUMB', $theUnit ) )
+		{
+			//
+			// Iterate elements.
+			//
+			foreach( explode( ';', $theUnit[ 'OTHERNUMB' ] ) as $element )
+			{
+				//
+				// Init loop storage.
+				//
+				$sub = Array();
+				$element = trim( $element );
+				
+				//
+				// Parse identifier.
+				//
+				$items = explode( ':', $element );
+				
+				//
+				// Set institute code.
+				//
+				$instcode = ( strlen( trim( $items[ 0 ] ) ) )
+						  ? trim( $items[ 0 ] )
+						  : NULL;
+				
+				//
+				// Set identifier.
+				//
+				$accenumb = ( strlen( trim( $items[ 1 ] ) ) )
+						  ? trim( $items[ 1 ] )
+						  : NULL;
+				
+				//
+				// Set germplasm identifier.
+				//
+				$sub[ getTag( ':germplasm:identifier' ) ]
+					= ( $instcode !== NULL )
+					? $element
+					: $accenumb;
+				
+				//
+				// Set institute.
+				//
+				if( $instcode !== NULL )
+				{
+					//
+					// Set reference.
+					//
+					$sub[ getTag( ':inventory:institute' ) ]
+						= kDOMAIN_ORGANISATION
+						 .'://http://fao.org/wiews:'
+						 .$instcode
+						 .kTOKEN_END_TAG;
+					
+					//
+					// Set code.
+					//
+					$sub[ getTag( 'mcpd:INSTCODE' ) ]
+						= $instcode;
+					
+					//
+					// Set accession number.
+					//
+					if( $accenumb !== NULL )
+						$sub[ getTag( 'mcpd:ACCENUMB' ) ]
+							= $accenumb;
+			}
+				
+				//
+				// Set element.
+				//
+				if( count( $sub ) )
+					$theContainer[]
+						= $sub;
+			}
+		}
+
+	} // loadNeighbourhood.
 	
 
 	/**

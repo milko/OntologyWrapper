@@ -11,13 +11,6 @@
 	
 	<!-- :germplasm:neighbourhood -->
 	<META>
-		<!-- :struct-label -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:struct-label</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:germplasm:neighbourhood</item>
-		</EDGE>
-		
 		<!-- :germplasm:identifier -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
@@ -37,6 +30,12 @@
 			<item const="kTAG_SUBJECT" node="tag">:germplasm:accession</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:germplasm:neighbourhood</item>
+		</EDGE>
+	
+		<!-- :inventory:institute -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:institute</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- mcpd:INSTCODE -->

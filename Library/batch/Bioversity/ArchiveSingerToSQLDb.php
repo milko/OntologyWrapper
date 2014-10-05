@@ -1160,7 +1160,7 @@ finally
 		//
 		if( array_key_exists( 'OtherAccessionIdentification', $theUnit ) )
 			$theContainer[ getTag( 'mcpd:OTHERNUMB' ) ]
-				= array( $theUnit[ 'OtherAccessionIdentification' ] );
+				= $theUnit[ 'OtherAccessionIdentification' ];
 		
 		//
 		// Set sample AVAILABLE.
