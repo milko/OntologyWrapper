@@ -11,7 +11,7 @@
 	
 	<!-- form::domain:mission:collecting -->
 	<META>
-		<NODE term=":mission" pid="form::domain:mission:collecting">
+		<NODE term=":domain:mission:collecting" pid="form::domain:mission:collecting">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>

@@ -199,7 +199,8 @@ class Inventory extends UnitObject
 	{
 		return array_merge( parent::DefaultOffsets(),
 							$this->mDictionary
-								->collectStructureOffsets( 'struct:cwr:in' ) );		// ==>
+								->collectStructureOffsets(
+									'struct::domain:inventory:cwr' ) );				// ==>
 	
 	} // DefaultOffsets.
 

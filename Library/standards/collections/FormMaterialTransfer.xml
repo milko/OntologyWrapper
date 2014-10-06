@@ -11,7 +11,7 @@
 	
 	<!-- form::germplasm:mt -->
 	<META>
-		<NODE term=":mission" pid="form::germplasm:mt">
+		<NODE term=":germplasm:mt" pid="form::germplasm:mt">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>

@@ -101,6 +101,12 @@
 			<item const="kTAG_SUBJECT" node="tag">:environment</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+		
+		<!-- :germplasm:neighbourhood -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:neighbourhood</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	
 		<!-- :germplasm:mt -->
 		<EDGE>

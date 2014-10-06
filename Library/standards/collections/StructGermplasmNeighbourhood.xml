@@ -36,6 +36,7 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:inventory:institute</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:neighbourhood</item>
 		</EDGE>
 		
 		<!-- mcpd:INSTCODE -->
