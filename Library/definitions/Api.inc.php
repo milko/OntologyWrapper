@@ -990,6 +990,10 @@ define( "kAPI_OP_GET_NODE_STRUCT",				'getNodeStruct' );
  *			table set.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The service will return a
  *			clustered record set.
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_STAT}</tt>: The service will return the
+ *			statistics according to the provided {@link kAPI_PARAM_STAT} parameter; in this
+ *			case the {@link kAPI_PARAM_DOMAIN} parameter and the {@link kAPI_PARAM_STAT}
+ *			parameters are required.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
  *			formatted record set.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
@@ -997,10 +1001,15 @@ define( "kAPI_OP_GET_NODE_STRUCT",				'getNodeStruct' );
  *			value contained in the offset provided in the {@link kAPI_PARAM_SHAPE_OFFSET},
  *			which is required in this case.
  *	 </ul>
+ *	<li><tt>{@link kAPI_PARAM_STAT}</tt>: <em>Statistics type</em>. This parameter is
+ *		required if the {@link kAPI_PARAM_DATA} parameter is
+ *		{@link kAPI_RESULT_ENUM_DATA_STAT}: it indicates which type of statistics is to be
+ *		performed.
  *	<li><tt>{@link kAPI_PARAM_DOMAIN}</tt>: <em>Results domain</em>. If this parameter is
  *		provided, the service will return the results of the type provided in this
  *		parameter, if it is not provided, the next parameter is required. If this parameter
- *		is provided, the next parameter will be ignored.
+ *		is provided, the next parameter will be ignored. This parameter is required if the
+ *		{@link kAPI_PARAM_DATA} parameter is {@link kAPI_RESULT_ENUM_DATA_STAT}.
  *	<li><tt>{@link kAPI_PARAM_GROUP}</tt>: <em>Group results</em>. This parameter must be
  *		provided if the {@link kAPI_PARAM_DOMAIN} is omitted: the value may be a string or
  *		an array of strings representing the tag native identifiers or sequence numbers by
@@ -1063,6 +1072,15 @@ define( "kAPI_OP_GET_NODE_STRUCT",				'getNodeStruct' );
  *			table set.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
  *			{@link IteratorSerialiser} class.
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_STAT}</tt>: The results are structured as
+ *			follows:
+ *		 <ul>
+ *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: Statistics name or label.
+ *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: Statistics description.
+ *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_HEAD}</tt>: Statistics header.
+ *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: Statistics data (one element
+ *				per header element).
+ *		 </ul>
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
  *			formatted record set.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
@@ -1227,6 +1245,15 @@ define( "kAPI_PARAM_TERM",						'term' );
  * This parameter represents an integer referencing a node native identifier.
  */
 define( "kAPI_PARAM_NODE",						'node' );
+
+/**
+ * Parent node (int).
+ *
+ * This tag defines the parent node.
+ *
+ * This parameter represents an integer referencing a parent node native identifier.
+ */
+define( "kAPI_PARAM_PARENT_NODE",				'parent-node' );
 
 /**
  * Match operator (strings array).
@@ -1465,6 +1492,16 @@ define( "kAPI_PARAM_DOMAIN",					'domain' );
  * This parameter is ignored if the {@link kAPI_PARAM_DOMAIN} parameter is not provided.
  */
 define( "kAPI_PARAM_DATA",						'data' );
+
+/**
+ * Statistics type (string).
+ *
+ * This tag defines the statistics type.
+ *
+ * This parameter is used by services requesting a statistical summary, it defines what type
+ * of statistics is to be performed.
+ */
+define( "kAPI_PARAM_STAT",						'stat' );
 
 /**
  * Result grouping (string).
@@ -1768,6 +1805,19 @@ define( "kAPI_PARAM_RESPONSE_FRMT_SERV",		'serv' );
  */
 define( "kAPI_PARAM_RESPONSE_FRMT_DOCU",		'docu' );
 
+/**
+ * Statistics header (array).
+ *
+ * This tag indicates the statistics header as an array, the elements are structured as
+ * follows:
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: Header element name.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: Header element description.
+ *	<li><tt>{@link kAPI_PARAM_DATA_TYPE}</tt>: Column data type.
+ * </ul>
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_HEAD",		'head' );
+
 /*=======================================================================================
  *	FORMATTED RESPONSE TYPES															*
  *======================================================================================*/
@@ -1903,6 +1953,13 @@ define( "kAPI_RESULT_ENUM_DATA_MARKER",			'marker' );
  * This value indicates a result of type clustered records
  */
 define( "kAPI_RESULT_ENUM_DATA_RECORD",			'record' );
+
+/**
+ * Statistics (string).
+ *
+ * This value indicates a result of type statistics
+ */
+define( "kAPI_RESULT_ENUM_DATA_STAT",			'stats' );
 
 /*=======================================================================================
  *	COLLECTION REFERENCE ENUMERATED SET													*

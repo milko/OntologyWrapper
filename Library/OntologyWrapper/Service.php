@@ -536,6 +536,7 @@ class Service extends ContainerObject
 			case kAPI_PARAM_NODE:
 			case kAPI_PARAM_DOMAIN:
 			case kAPI_PARAM_DATA:
+			case kAPI_PARAM_STAT:
 			case kAPI_PARAM_SHAPE_OFFSET:
 				if( strlen( $theValue ) )
 					$this->offsetSet( $theKey, $theValue );
@@ -1267,6 +1268,7 @@ class Service extends ContainerObject
 			$this->offsetUnset( kAPI_PARAM_SUMMARY );
 			$this->offsetUnset( kAPI_PARAM_DOMAIN );
 			$this->offsetUnset( kAPI_PARAM_DATA );
+			$this->offsetUnset( kAPI_PARAM_STAT );
 	
 			//
 			// Reset limits.
@@ -1337,7 +1339,7 @@ class Service extends ContainerObject
 		else
 		{
 			//
-			// Assert result type.
+			// Assert domain.
 			//
 			if( ! $this->offsetExists( kAPI_PARAM_DOMAIN ) )
 				throw new \Exception(
@@ -1382,6 +1384,20 @@ class Service extends ContainerObject
 						//
 						if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
 							$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
+						break;
+						
+					case kAPI_RESULT_ENUM_DATA_STAT:
+						//
+						// Assert statistics type.
+						//
+						if( ! $this->offsetExists( kAPI_PARAM_STAT ) )
+							throw new \Exception(
+								"Missing statistics type." );					// !@! ==>
+						//
+						// Remove limits.
+						//
+						$this->offsetUnset( kAPI_PAGING_SKIP );
+						$this->offsetUnset( kAPI_PAGING_LIMIT );
 						break;
 					
 					default:
@@ -3157,6 +3173,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_TAG" ] = kAPI_PARAM_TAG;
 		$ref[ "kAPI_PARAM_TERM" ] = kAPI_PARAM_TERM;
 		$ref[ "kAPI_PARAM_NODE" ] = kAPI_PARAM_NODE;
+		$ref[ "kAPI_PARAM_PARENT_NODE" ] = kAPI_PARAM_PARENT_NODE;
 		$ref[ "kAPI_PARAM_OPERATOR" ] = kAPI_PARAM_OPERATOR;
 		$ref[ "kAPI_PARAM_RANGE_MIN" ] = kAPI_PARAM_RANGE_MIN;
 		$ref[ "kAPI_PARAM_RANGE_MAX" ] = kAPI_PARAM_RANGE_MAX;
@@ -3166,6 +3183,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_ID" ] = kAPI_PARAM_ID;
 		$ref[ "kAPI_PARAM_DOMAIN" ] = kAPI_PARAM_DOMAIN;
 		$ref[ "kAPI_PARAM_DATA" ] = kAPI_PARAM_DATA;
+		$ref[ "kAPI_PARAM_STAT" ] = kAPI_PARAM_STAT;
 		$ref[ "kAPI_PARAM_GROUP" ] = kAPI_PARAM_GROUP;
 		$ref[ "kAPI_PARAM_SUMMARY" ] = kAPI_PARAM_SUMMARY;
 		$ref[ "kAPI_PARAM_SHAPE" ] = kAPI_PARAM_SHAPE;
@@ -3192,6 +3210,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_LINK" ] = kAPI_PARAM_RESPONSE_FRMT_LINK;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_SERV" ] = kAPI_PARAM_RESPONSE_FRMT_SERV;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_DOCU" ] = kAPI_PARAM_RESPONSE_FRMT_DOCU;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_HEAD" ] = kAPI_PARAM_RESPONSE_FRMT_HEAD;
 		
 		//
 		// Load formatted response types.
@@ -3835,7 +3854,7 @@ class Service extends ContainerObject
 		// Traverse form structure.
 		//
 		$this->traverseStructure(
-			$this->mResponse[ kAPI_RESPONSE_RESULTS ], $node, $language, $ref_count );
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ], $node, $language, NULL, $ref_count );
 		
 	} // executeGetNodeStructure.
 
@@ -3896,6 +3915,12 @@ class Service extends ContainerObject
 			
 				case kAPI_RESULT_ENUM_DATA_RECORD:
 					$this->executeClusterUnits(
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+						UnitObject::kSEQ_NAME );
+					break;
+			
+				case kAPI_RESULT_ENUM_DATA_STAT:
+					$this->executeUnitStats(
 						$this->mResponse[ kAPI_RESPONSE_RESULTS ],
 						UnitObject::kSEQ_NAME );
 					break;
@@ -5405,6 +5430,157 @@ $rs_units = & $rs_units[ 'result' ];
 
 
 	/*===================================================================================
+	 *	executeUnitStats																*
+	 *==================================================================================*/
+
+	/**
+	 * Perform statistics.
+	 *
+	 * This method expects the filter data member set with the requested query.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 * @param string				$theCollection		collection name.
+	 *
+	 * @access protected
+	 */
+	protected function executeUnitStats( &$theContainer, $theCollection )
+	{
+		//
+		// Execute request.
+		//
+		$iterator
+			= PersistentObject::ResolveCollectionByName(
+				$this->mWrapper, $theCollection )
+					->matchAll(
+						$this->mFilter, kQUERY_OBJECT );
+	
+		//
+		// Skip records.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+			$iterator->skip( (int) $tmp );
+		
+		//
+		// Set cursor limit.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
+			$iterator->limit( (int) $tmp );
+		
+		//
+		// Perform statistics.
+		//
+		switch( $tmp = $this->offsetGet( kAPI_PARAM_STAT ) )
+		{
+			case 's1':
+				$this->executeUnitStat1( $theContainer, $iterator );
+				break;
+			
+			default:
+				throw new \Exception(
+					"Unknown statistics type [$tmp]. " );						// !@! ==>
+		}
+		
+	} // executeUnitStats.
+
+
+	/*===================================================================================
+	 *	executeUnitStat1																*
+	 *==================================================================================*/
+
+	/**
+	 * Perform statistic 1.
+	 *
+	 * This method will perform the statistics according to the data provided in the
+	 * iterator parameter.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 * @param ObjectIterator		$theIterator		Iterator.
+	 *
+	 * @access protected
+	 */
+	protected function executeUnitStat1( &$theContainer, $theIterator )
+	{
+		//
+		// Set title
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+			= 'Annual Species grown by households, '
+			 .'area and contribution to food and income';
+		
+		//
+		// Set header.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ] = Array();
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Common name',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'No. of households',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '%',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Total area',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Contribution to food',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Contribution to income',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		
+		//
+		// Iterate.
+		//
+		$data = Array();
+		foreach( $theIterator as $object )
+		{
+			//
+			// Get species sub-structure.
+			//
+			$species = $object->offsetGet( 'abdh:species' );
+			if( $species !== NULL )
+			{
+				//
+				// Iterate species.
+				//
+				foreach( $species as $record )
+				{
+					//
+					// Set or select data element.
+					//
+					$tag = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+					$name = $species[ $tag ];
+					if( ! array_key_exists( $name, $data ) )
+						$data[ $name ]
+							= array_fill(
+								0,
+								count( $theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ] ),
+								NULL );
+				
+				} // Iterating species.
+			
+			} // Has species.
+		
+		} // Iterating.
+		
+		//
+		// Sort data.
+		//
+		
+		//
+		// Set data.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = $data;
+		
+	} // executeUnitStat1.
+
+
+	/*===================================================================================
 	 *	executeSerialiseResults															*
 	 *==================================================================================*/
 
@@ -6351,6 +6527,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @param array					$theContainer		Receives information.
 	 * @param int					$theNode			Node native identifier.
 	 * @param string				$theLanguage		Default language.
+	 * @param int					$theParent			Parent node native identifier.
 	 * @param string				$theRefCount		Reference count tag.
 	 *
 	 * @access protected
@@ -6358,6 +6535,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 */
 	protected function traverseStructure( &$theContainer, $theNode,
 														  $theLanguage,
+														  $theParent = NULL,
 														  $theRefCount = NULL )
 	{
 		//
@@ -6371,7 +6549,8 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		$node
 			= $this->loadNodeElementInfo(
-				$theContainer[ $index ], $theNode, $theLanguage, $theRefCount );
+				$theContainer[ $index ], $theNode, $theLanguage,
+				$theParent, $theRefCount );
 		
 		//
 		// Handle root node.
@@ -6399,7 +6578,8 @@ $rs_units = & $rs_units[ 'result' ];
 			//
 			// Load related nodes.
 			//
-			$this->traverseEdges( $children, $theNode, $theLanguage, $theRefCount );
+			$this->traverseEdges(
+				$children, $theNode, $theLanguage, $theParent, $theRefCount );
 		
 			//
 			// Set children.
@@ -6427,6 +6607,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @param array					$theContainer		Receives information.
 	 * @param int					$theNode			Node native identifier.
 	 * @param string				$theLanguage		Default language.
+	 * @param int					$theParent			Parent node native identifier.
 	 * @param string				$theRefCount		Reference count tag.
 	 *
 	 * @access protected
@@ -6434,6 +6615,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 */
 	protected function traverseEdges( &$theContainer, $theNode,
 													  $theLanguage,
+													  $theParent = NULL,
 													  $theRefCount = NULL )
 	{
 		//
@@ -6462,14 +6644,16 @@ $rs_units = & $rs_units[ 'result' ];
 			//
 			if( $edge[ kTAG_PREDICATE ] == kPREDICATE_SUBCLASS_OF )
 				$this->traverseEdges(
-					$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage, $theRefCount );
+					$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage,
+					$theNode, $theRefCount );
 			
 			//
 			// Load node information.
 			//
 			else
 				$this->traverseStructure(
-					$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage, $theRefCount );
+					$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage,
+					$theNode, $theRefCount );
 		
 		} // Iterating related.
 		
@@ -6500,6 +6684,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @param array					$theContainer		Receives information.
 	 * @param mixed					$theNode			Node native identifier.
 	 * @param string				$theLanguage		Default language.
+	 * @param int					$theParent			Parent node native identifier.
 	 * @param string				$theRefCount		Reference count tag.
 	 *
 	 * @access protected
@@ -6507,6 +6692,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 */
 	protected function loadNodeElementInfo( &$theContainer, $theNode,
 															$theLanguage,
+															$theParent = NULL,
 															$theRefCount = NULL )
 	{
 		//
@@ -6533,9 +6719,15 @@ $rs_units = & $rs_units[ 'result' ];
 		$referenced = $node->getReferenced();
 		
 		//
+		// Set parent node identifier, if there.
+		//
+		if( $theParent !== NULL )
+			$theContainer[ kAPI_PARAM_PARENT_NODE ] = $theParent;
+		
+		//
 		// Set node identifier, if root.
 		//
-		if( $node->NodeType( kTYPE_NODE_ROOT ) !== NULL )
+	//	if( $node->NodeType( kTYPE_NODE_ROOT ) !== NULL )
 			$theContainer[ kAPI_PARAM_NODE ] = $node[ kTAG_NID ];
 		
 		//

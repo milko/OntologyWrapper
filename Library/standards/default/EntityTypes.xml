@@ -597,10 +597,25 @@
 					<item const="kTAG_TEXT">University</item>
 				</item>
 			</item>
-			<item const="kTAG_DEFINITION">
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:200</item>
+		</EDGE>
+	</META>
+
+	<!-- :type:entity:271 -->
+	<META>
+		<TERM ns=":type:entity" lid="271">
+			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[University.]]></item>
+					<item const="kTAG_TEXT">Educational Institution</item>
 				</item>
 			</item>
 		</TERM>

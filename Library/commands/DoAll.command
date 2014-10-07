@@ -185,7 +185,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 	"mongodb://localhost:27017/BIOVERSITY"
 
 ########################################################################################
-#   Handle Missions                                                                    #
+#   Archive Missions                                                                   #
 ########################################################################################
 
 #
@@ -201,18 +201,6 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 	"mongodb://localhost:27017/BIOVERSITY"
 
 #
-# Load Missions.
-#
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
-	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
-	"cmdb_mission" \
-	"mongodb://localhost:27017/BIOVERSITY"
-
-########################################################################################
-#   Handle Collecting Missions                                                         #
-########################################################################################
-
-#
 # Archive Collecting Missions.
 #
 mysql --host=localhost --user=$1 --password=$2 \
@@ -222,6 +210,18 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
 	"cmdb_collecting" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Load Missions                                                                      #
+########################################################################################
+
+#
+# Load Missions.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+	"cmdb_mission" \
 	"mongodb://localhost:27017/BIOVERSITY"
 
 #

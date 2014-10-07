@@ -1080,6 +1080,13 @@ class IteratorSerialiser
 			// Set record.
 			//
 			$this->setRecord( $this->mData, $object );
+			
+			//
+			// Set dictionary xref.
+			//
+			$this->mDictionary[ kAPI_DICTIONARY_TAGS ]
+							  [ $object[ kTAG_ID_SEQUENCE ] ]
+				= $object[ kTAG_NID ];
 		
 		} // Iterating tag offsets.
 		
