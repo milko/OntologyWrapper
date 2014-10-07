@@ -5501,6 +5501,15 @@ $rs_units = & $rs_units[ 'result' ];
 	protected function executeUnitStat1( &$theContainer, $theIterator )
 	{
 		//
+		// Save tags.
+		//
+		$tag_epithet = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+		$tag_cname = $this->mWrapper->getSerial( 'abdh:NAME_ENG', TRUE );
+		$tag_cultot = $this->mWrapper->getSerial( 'abdh:Q2.4b', TRUE );
+		$cont_food = $this->mWrapper->getSerial( 'abdh:Q2.6', TRUE );
+		$cont_inco = $this->mWrapper->getSerial( 'abdh:Q2.7', TRUE );
+		
+		//
 		// Set title
 		//
 		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
@@ -5536,14 +5545,14 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Iterate.
 		//
+		$tot_cult = 0;
 		$data = Array();
 		foreach( $theIterator as $object )
 		{
 			//
 			// Get species sub-structure.
 			//
-			$species = $object->offsetGet( 'abdh:species' );
-			if( $species !== NULL )
+			if( ($species = $object->offsetGet( 'abdh:species' )) !== NULL )
 			{
 				//
 				// Iterate species.
@@ -5551,16 +5560,100 @@ $rs_units = & $rs_units[ 'result' ];
 				foreach( $species as $record )
 				{
 					//
-					// Set or select data element.
+					// Check required tags.
 					//
-					$tag = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
-					$name = $species[ $tag ];
-					if( ! array_key_exists( $name, $data ) )
-						$data[ $name ]
-							= array_fill(
-								0,
-								count( $theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ] ),
-								NULL );
+					if( array_key_exists( $tag_epithet, $record )
+					 && array_key_exists( $tag_cultot, $record )
+					 && array_key_exists( $cont_food, $record )
+					 && array_key_exists( $cont_inco, $record ) )
+					{
+						//
+						// Create new entry.
+						//
+						if( ! array_key_exists( $record[ $tag_epithet ], $data ) )
+						{
+							//
+							// Init record.
+							//
+							$data[ $record[ $tag_epithet ] ]
+								= array(
+									$record[ $tag_epithet ],
+									NULL,
+									1,
+									0,
+									0,
+									0,
+									0 );
+					
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+					
+							//
+							// Set common name.
+							//
+							if( array_key_exists( $tag_cname, $record ) )
+								$ref[ 1 ] = $record[ $tag_cname ];
+				
+						} // New species.
+						
+						//
+						// Init existing species.
+						//
+						else
+						{
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+					
+							//
+							// Increment households count.
+							//
+							$ref[ 2 ]++;
+						
+						} // Existing species.
+						
+						//
+						// Set cultivated area.
+						//
+						$ref[ 4 ] += $record[ $tag_cultot ];
+						$tot_cult += $record[ $tag_cultot ];
+						
+						//
+						// Set contribution to food.
+						//
+						switch( $record[ $cont_food ] )
+						{
+							case 'abdh:Q2.6:1':
+								$ref[ 5 ] += 1;
+								break;
+							case 'abdh:Q2.6:2':
+								$ref[ 5 ] += 2;
+								break;
+							case 'abdh:Q2.6:3':
+								$ref[ 5 ] += 3;
+								break;
+						}
+						
+						//
+						// Set contribution to income.
+						//
+						switch( $record[ $cont_inco ] )
+						{
+							case 'abdh:Q2.7:1':
+								$ref[ 6 ] += 1;
+								break;
+							case 'abdh:Q2.7:2':
+								$ref[ 6 ] += 2;
+								break;
+							case 'abdh:Q2.7:3':
+								$ref[ 6 ] += 3;
+								break;
+						}
+					
+					} // Has required tags,
 				
 				} // Iterating species.
 			
@@ -5569,8 +5662,29 @@ $rs_units = & $rs_units[ 'result' ];
 		} // Iterating.
 		
 		//
-		// Sort data.
+		// Finalise results.
 		//
+		foreach( array_keys( $data ) as $key )
+		{
+			//
+			// Set cultivated land percentage.
+			//
+			$data[ $key ][ 3 ] = ( $data[ $key ][ 4 ] * 100 ) / $tot_cult;
+			
+			//
+			// Set contribution ratio.
+			//
+			$data[ $key ][ 5 ] /= $data[ $key ][ 2 ];
+			$data[ $key ][ 6 ] /= $data[ $key ][ 2 ];
+			
+			//
+			// Round figures.
+			//
+			$data[ $key ][ 3 ] = round( $data[ $key ][ 3 ], 2 );
+			$data[ $key ][ 5 ] = round( $data[ $key ][ 5 ], 2 );
+			$data[ $key ][ 6 ] = round( $data[ $key ][ 6 ], 2 );
+		
+		} // Iterating data.
 		
 		//
 		// Set data.

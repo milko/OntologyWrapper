@@ -304,8 +304,7 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-*/
-
+	
 	//
 	// Try matchUnits statistics with full text search on "wild".
 	//
@@ -351,6 +350,7 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+*/
 
 }
 

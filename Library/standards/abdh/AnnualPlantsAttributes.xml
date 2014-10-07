@@ -246,7 +246,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Area under crop, if monocropped, or area of all crops, if intercropped (units = gigha)]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Area under crop, if monocropped, or area of all crops, if intercropped (units = bigha)]]></item>
 				</item>
 			</item>
 		</TERM>
