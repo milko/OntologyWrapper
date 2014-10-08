@@ -352,6 +352,33 @@ define( "kAPI_OP_LIST_OPERATORS",				'listOperators' );
 define( "kAPI_OP_LIST_REF_COUNTS",				'listRefCounts' );
 
 /**
+ * List statistics.
+ *
+ * This tag defines the list statistics operation.
+ *
+ * This operation will return the list of statistics associated to the provided domain, the
+ * service expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{@link kAPI_PARAM_DOMAIN}</tt>: <em>Statistics domain</em>. This required
+ *		parameter indicates the statistics domain, only one element is expected.
+ * </ul>
+ *
+ * The response format is an array organised as follows:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_STAT}</tt>: The statistics code which can be set in the
+ *		same parameter of the {@link kAPI_OP_MATCH_UNITS} service.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The statistics name or label.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The statistics description.
+ * </ul>
+ */
+define( "kAPI_OP_LIST_STATS",					'listStats' );
+
+/**
  * Match tag labels.
  *
  * This tag defines the match tag labels operation.

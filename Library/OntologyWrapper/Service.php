@@ -47,6 +47,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Predicates.inc.php" );
 require_once( kPATH_DEFINITIONS_ROOT."/Operators.inc.php" );
 
 /**
+ * Domains.
+ *
+ * This file contains the domains definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
+
+/**
  * Functions.
  *
  * This file contains common function definitions.
@@ -359,6 +366,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
+	 *	<li><tt>{@link kAPI_OP_LIST_STATS}</tt>: List statistics by domain.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
@@ -394,6 +402,7 @@ class Service extends ContainerObject
 			case kAPI_OP_LIST_CONSTANTS:
 			case kAPI_OP_LIST_OPERATORS:
 			case kAPI_OP_LIST_REF_COUNTS:
+			case kAPI_OP_LIST_STATS:
 			case kAPI_OP_MATCH_TAG_LABELS:
 			case kAPI_OP_MATCH_TAG_SUMMARY_LABELS:
 			case kAPI_OP_MATCH_TERM_LABELS:
@@ -697,6 +706,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
+	 *	<li><tt>{@link kAPI_OP_LIST_STATS}</tt>: List statistics by domain.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
@@ -734,6 +744,10 @@ class Service extends ContainerObject
 			case kAPI_OP_LIST_CONSTANTS:
 			case kAPI_OP_LIST_OPERATORS:
 			case kAPI_OP_LIST_REF_COUNTS:
+				break;
+			
+			case kAPI_OP_LIST_STATS:
+				$this->validateListStats();
 				break;
 			
 			case kAPI_OP_MATCH_TAG_LABELS:
@@ -794,6 +808,66 @@ class Service extends ContainerObject
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	validateListStats																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate match label strings services.
+	 *
+	 * This method will validate all service operations which match label strings, the
+	 * method will perform the following actions:
+	 *
+	 * <ul>
+	 *	<li><em>Validate operator</em>: If the parameter is missing, it will set it by
+	 *		default as "contains case and accent insensitive"; if the parameter is set, it
+	 *		will ensure that it is conformant with the requested operation.
+	 *	<li><em>Check limit</em>: If the parameter is missing, the method will raise an
+	 *		exception; if its value is larger than the {@link kSTANDARDS_STRINGS_LIMIT}
+	 *		constant, it will set it to that value.
+	 *	<li><em>Check pattern</em>: If the parameter is missing, the method will raise an
+	 *		exception.
+	 * </ul>
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_OPERATOR kAPI_PAGING_LIMIT kAPI_PARAM_PATTERN
+	 * @see kOPERATOR_CONTAINS kOPERATOR_NOCASE
+	 * @see kSTANDARDS_STRINGS_LIMIT
+	 *
+	 * @uses validateStringMatchOperator()
+	 */
+	protected function validateListStats()
+	{
+		//
+		// Assert domain.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_DOMAIN ) )
+			throw new \Exception(
+				"Missing domain parameter." );									// !@! ==>
+		
+		//
+		// Normalise domain.
+		//
+		$domain = $this->offsetGet( kAPI_PARAM_DOMAIN );
+		if( is_array( $domain ) )
+		{
+			if( ! count( $domain ) )
+				throw new \Exception(
+					"Empty domain parameter." );								// !@! ==>
+			$domain = array_shift( $domain );
+		}
+		
+		//
+		// Save domain.
+		//
+		$this->offsetSet( kAPI_PARAM_DOMAIN, $domain );
+		
+	} // validateListStats.
 
 	 
 	/*===================================================================================
@@ -2950,6 +3024,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
+	 *	<li><tt>{@link kAPI_OP_LIST_STATS}</tt>: List statistics by domain.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
@@ -2992,6 +3067,10 @@ class Service extends ContainerObject
 			
 			case kAPI_OP_LIST_REF_COUNTS:
 				$this->executeListReferenceCountParameters();
+				break;
+			
+			case kAPI_OP_LIST_STATS:
+				$this->executeListStats();
 				break;
 				
 			case kAPI_OP_MATCH_TAG_LABELS:
@@ -3418,6 +3497,35 @@ class Service extends ContainerObject
 		$ref[ kAPI_PARAM_COLLECTION_ENTITY ] = kTAG_ENTITY_COUNT;
 		
 	} // executeListReferenceCountParameters.
+
+	 
+	/*===================================================================================
+	 *	executeListStats																*
+	 *==================================================================================*/
+
+	/**
+	 * Execute list statistics request.
+	 *
+	 * This method will handle the {@link kAPI_OP_LIST_STATS} operation.
+	 *
+	 * @access protected
+	 */
+	protected function executeListStats()
+	{
+		//
+		// Initialise results.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		$ref = & $this->mResponse[ kAPI_RESPONSE_RESULTS ];
+		
+		//
+		// Load results.
+		//
+		$this->getStatistics( $ref,
+							  $this->offsetGet( kAPI_REQUEST_LANGUAGE ),
+							  $this->offsetGet( kAPI_PARAM_DOMAIN ) );
+		
+	} // executeListStats.
 
 	 
 	/*===================================================================================
@@ -5471,7 +5579,7 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		switch( $tmp = $this->offsetGet( kAPI_PARAM_STAT ) )
 		{
-			case 's1':
+			case 'abdh-species-01':
 				$this->executeUnitStat1( $theContainer, $iterator );
 				break;
 			
@@ -5512,9 +5620,10 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Set title
 		//
-		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-			= 'Annual Species grown by households, '
-			 .'area and contribution to food and income';
+		$this->getStatistics( $theContainer,
+							  $this->offsetGet( kAPI_REQUEST_LANGUAGE ),
+							  $this->offsetGet( kAPI_PARAM_DOMAIN ),
+							  $this->offsetGet( kAPI_PARAM_STAT ) );
 		
 		//
 		// Set header.
@@ -6919,6 +7028,72 @@ $rs_units = & $rs_units[ 'result' ];
 		return $node;																// ==>
 		
 	} // loadNodeElementInfo.
+
+	 
+	/*===================================================================================
+	 *	getStatistics																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load statistics information information.
+	 *
+	 * This method will load the provided container with the information pertaining to the
+	 * statistics related to the provided domain in the provided language.
+	 *
+	 * The container is expected to point to an array.
+	 *
+	 * @param array					$theContainer		Results container.
+	 * @param string				$theLanguage		Default language.
+	 * @param string				$theDomain			Statistics domain.
+	 * @param string				$theStatistics		Optionsl statistics code.
+	 *
+	 * @access protected
+	 */
+	protected function getStatistics( &$theContainer, $theLanguage,
+													  $theDomain,
+													  $theStatistics = NULL)
+	{
+		//
+		// Init local storage.
+		//
+		$list = Array();
+		
+		//
+		// Parse by domain.
+		//
+		switch( $theDomain )
+		{
+			case kDOMAIN_HH_ASSESSMENT:
+				//
+				// Load statistics.
+				//
+				$element = Array();
+				$element[ kAPI_PARAM_STAT ] = 'abdh-species-01';
+				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= 'Annual Species area and contribution to food and income';
+				$element[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= 'Annual Species grown by households, '
+					 .'area and contribution to food and income';
+				$list[ $element[ kAPI_PARAM_STAT ] ] = $element;
+				break;
+		}
+		
+		//
+		// Handle specific statistics.
+		//
+		if( $theStatistics !== NULL )
+		{
+			if( array_key_exists( $theStatistics, $list ) )
+				$theContainer = $list[ $theStatistics ];
+		}
+		
+		//
+		// Handle all statistics.
+		//
+		else
+			$theContainer = array_values( $list );
+		
+	} // getStatistics.
 
 	 
 
