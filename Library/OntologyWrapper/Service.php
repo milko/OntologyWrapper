@@ -1318,6 +1318,17 @@ class Service extends ContainerObject
 			 : Array();
 		
 		//
+		// Update criteria for statistics.
+		//
+		if( $this->offsetExists( kAPI_PARAM_STAT )
+		 && $this->offsetExists( kAPI_PARAM_DATA )
+		 && $this->offsetExists( kAPI_PARAM_DOMAIN )
+		 && ($this->offsetGet( kAPI_PARAM_DATA ) == kAPI_RESULT_ENUM_DATA_STAT) )
+			$this->setStatisticsCriteria( $tmp,
+										  $this->offsetGet( kAPI_PARAM_STAT ),
+										  $this->offsetGet( kAPI_PARAM_DOMAIN ) );
+		
+		//
 		// Resolve criteria tag references.
 		//
 		$criteria = Array();
@@ -2073,7 +2084,7 @@ class Service extends ContainerObject
 					if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
 						throw new \Exception(
 							"Missing search pattern for tag [$tag]." );			// !@! ==>
-					
+			
 					//
 					// Handle empty search pattern.
 					//
@@ -2081,11 +2092,11 @@ class Service extends ContainerObject
 					{
 						$has_values = FALSE;
 						break;
-					
-					} // No value.
-					
-					break;
 			
+					} // No value.
+				
+					break;
+		
 				//
 				// Ranges.
 				//
@@ -2096,28 +2107,28 @@ class Service extends ContainerObject
 					if( ! array_key_exists( kAPI_PARAM_RANGE_MIN, $criteria ) )
 						throw new \Exception(
 							"Missing minimum range for tag [$tag]." );			// !@! ==>
-					
+			
 					//
 					// Require maximum.
 					//
 					if( ! array_key_exists( kAPI_PARAM_RANGE_MAX, $criteria ) )
 						throw new \Exception(
 							"Missing maximum range for tag [$tag]." );			// !@! ==>
-					
+			
 					//
 					// Set minimum.
 					//
 					if( ! strlen( $criteria[ kAPI_PARAM_RANGE_MIN ] ) )
 						$criteria[ kAPI_PARAM_RANGE_MIN ]
 							= $criteria[ kAPI_PARAM_RANGE_MAX ];
-					
+			
 					//
 					// Set maximum.
 					//
 					if( ! strlen( $criteria[ kAPI_PARAM_RANGE_MAX ] ) )
 						$criteria[ kAPI_PARAM_RANGE_MAX ]
 							= $criteria[ kAPI_PARAM_RANGE_MIN ];
-					
+			
 					//
 					// Handle empty range.
 					//
@@ -2126,11 +2137,11 @@ class Service extends ContainerObject
 					{
 						$has_values = FALSE;
 						break;
-					
-					} // No value.
-				
-					break;
 			
+					} // No value.
+			
+					break;
+		
 				//
 				// Enumerations.
 				//
@@ -2141,7 +2152,7 @@ class Service extends ContainerObject
 					if( ! array_key_exists( kAPI_RESULT_ENUM_TERM, $criteria ) )
 						throw new \Exception(
 							"Missing enumerated values [$tag]." );				// !@! ==>
-					
+			
 					//
 					// Handle array.
 					//
@@ -2152,11 +2163,11 @@ class Service extends ContainerObject
 						{
 							$has_values = FALSE;
 							break;
-						
+				
 						}
-					
+			
 					} // Received array.
-					
+			
 					//
 					// Handle string.
 					//
@@ -2165,9 +2176,9 @@ class Service extends ContainerObject
 						$has_values = FALSE;
 						break;
 					}
-				
-					break;
 			
+					break;
+		
 				//
 				// Shapes.
 				//
@@ -2178,9 +2189,9 @@ class Service extends ContainerObject
 					if( ! array_key_exists( kAPI_PARAM_SHAPE, $criteria ) )
 						throw new \Exception(
 							"Missing shape [$tag]." );							// !@! ==>
-				
+			
 					break;
-					
+				
 				//
 				// Default.
 				//
@@ -2191,7 +2202,7 @@ class Service extends ContainerObject
 					if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
 						throw new \Exception(
 							"Missing search pattern for tag [$tag]." );			// !@! ==>
-					
+			
 					//
 					// Handle empty search pattern.
 					//
@@ -2200,9 +2211,9 @@ class Service extends ContainerObject
 					{
 						$has_values = FALSE;
 						break;
-					
+			
 					} // No value.
-				
+			
 					break;
 				
 				//
@@ -2220,10 +2231,18 @@ class Service extends ContainerObject
 			if( ! $has_values )
 			{
 				//
-				// Set tag.
+				// Handle only offsets.
 				//
-				$criteria_ref[ $tag_sequence ] = NULL;
-		
+				if( array_key_exists( kAPI_PARAM_OFFSETS, $criteria ) )
+					$criteria_ref[ $tag_sequence ][ kAPI_PARAM_OFFSETS ]
+						= $criteria[ kAPI_PARAM_OFFSETS ];
+					
+				//
+				// Handle only tag.
+				//
+				else
+					$criteria_ref[ $tag_sequence ] = NULL;
+				
 				continue;													// =>
 			
 			} // Has no values.
@@ -5583,6 +5602,14 @@ $rs_units = & $rs_units[ 'result' ];
 				$this->executeUnitStat1( $theContainer, $iterator );
 				break;
 			
+			case 'abdh-species-02':
+				$this->executeUnitStat2( $theContainer, $iterator );
+				break;
+			
+			case 'abdh-species-03':
+				$this->executeUnitStat3( $theContainer, $iterator );
+				break;
+			
 			default:
 				throw new \Exception(
 					"Unknown statistics type [$tmp]. " );						// !@! ==>
@@ -5611,6 +5638,7 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Save tags.
 		//
+		$tag_cat = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
 		$tag_epithet = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
 		$tag_cname = $this->mWrapper->getSerial( 'abdh:NAME_ENG', TRUE );
 		$tag_cultot = $this->mWrapper->getSerial( 'abdh:Q2.4b', TRUE );
@@ -5674,7 +5702,9 @@ $rs_units = & $rs_units[ 'result' ];
 					if( array_key_exists( $tag_epithet, $record )
 					 && array_key_exists( $tag_cultot, $record )
 					 && array_key_exists( $cont_food, $record )
-					 && array_key_exists( $cont_inco, $record ) )
+					 && array_key_exists( $cont_inco, $record )
+					 && array_key_exists( $tag_cat, $record )
+					 && ($record[ $tag_cat ] == 'abdh:SPECIES_CAT:1') )
 					{
 						//
 						// Create new entry.
@@ -5801,6 +5831,430 @@ $rs_units = & $rs_units[ 'result' ];
 		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = $data;
 		
 	} // executeUnitStat1.
+
+
+	/*===================================================================================
+	 *	executeUnitStat2																*
+	 *==================================================================================*/
+
+	/**
+	 * Perform statistic 2.
+	 *
+	 * This method will perform the statistics according to the data provided in the
+	 * iterator parameter.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 * @param ObjectIterator		$theIterator		Iterator.
+	 *
+	 * @access protected
+	 */
+	protected function executeUnitStat2( &$theContainer, $theIterator )
+	{
+		//
+		// Save tags.
+		//
+		$tag_cat = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+		$tag_epithet = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+		$tag_cname = $this->mWrapper->getSerial( 'abdh:NAME_ENG', TRUE );
+		$tag_season = $this->mWrapper->getSerial( 'abdh:Q2.2a', TRUE );
+		$tag_water = $this->mWrapper->getSerial( 'abdh:Q2a', TRUE );
+		
+		//
+		// Set title
+		//
+		$this->getStatistics( $theContainer,
+							  $this->offsetGet( kAPI_REQUEST_LANGUAGE ),
+							  $this->offsetGet( kAPI_PARAM_DOMAIN ),
+							  $this->offsetGet( kAPI_PARAM_STAT ) );
+		
+		//
+		// Set header.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ] = Array();
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Common name',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'No. of households',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Rabi',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Kharif',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Rainfed',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Khadim',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Tube-well irrigation',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Canal irrigation',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		//
+		// Iterate.
+		//
+		$data = Array();
+		foreach( $theIterator as $object )
+		{
+			//
+			// Get species sub-structure.
+			//
+			if( ($species = $object->offsetGet( 'abdh:species' )) !== NULL )
+			{
+				//
+				// Iterate species.
+				//
+				foreach( $species as $record )
+				{
+					//
+					// Check required offsets.
+					//
+					if( array_key_exists( $tag_epithet, $record )
+					 && ( array_key_exists( $tag_season, $record )
+					   || array_key_exists( $tag_water, $record ) )
+					 && array_key_exists( $tag_cat, $record )
+					 && ($record[ $tag_cat ] == 'abdh:SPECIES_CAT:1') )
+					{
+						//
+						// Create new entry.
+						//
+						if( ! array_key_exists( $record[ $tag_epithet ], $data ) )
+						{
+							//
+							// Init record.
+							//
+							$data[ $record[ $tag_epithet ] ]
+								= array(
+									$record[ $tag_epithet ],
+									NULL,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0 );
+				
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Set common name.
+							//
+							if( array_key_exists( $tag_cname, $record ) )
+								$ref[ 1 ] = $record[ $tag_cname ];
+			
+						} // New species.
+					
+						//
+						// Init existing species.
+						//
+						else
+						{
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Increment households count.
+							//
+							$ref[ 2 ]++;
+					
+						} // Existing species.
+					
+						//
+						// Handle season.
+						//
+						if( array_key_exists( $tag_season, $record ) )
+						{
+							foreach( $record[ $tag_season ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q2.2a:1':
+										$ref[ 3 ]++;
+										break;
+									case 'abdh:Q2.2a:2':
+										$ref[ 4 ]++;
+										break;
+								}
+							}
+					
+						} // Has season.
+					
+						//
+						// Handle water.
+						//
+						if( array_key_exists( $tag_water, $record ) )
+						{
+							foreach( $record[ $tag_water ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q2a:1':
+										$ref[ 5 ]++;
+										break;
+									case 'abdh:Q2a:2':
+										$ref[ 6 ]++;
+										break;
+									case 'abdh:Q2a:3':
+										$ref[ 7 ]++;
+										break;
+									case 'abdh:Q2a:4':
+										$ref[ 8 ]++;
+										break;
+								}
+							}
+					
+						} // Has water.
+					
+					} // Has species epithet.
+				
+				} // Iterating species.
+			
+			} // Has species.
+		
+		} // Iterating.
+		
+		//
+		// Set data.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = $data;
+		
+	} // executeUnitStat2.
+
+
+	/*===================================================================================
+	 *	executeUnitStat3																*
+	 *==================================================================================*/
+
+	/**
+	 * Perform statistic 3.
+	 *
+	 * This method will perform the statistics according to the data provided in the
+	 * iterator parameter.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 * @param ObjectIterator		$theIterator		Iterator.
+	 *
+	 * @access protected
+	 */
+	protected function executeUnitStat3( &$theContainer, $theIterator )
+	{
+		//
+		// Save tags.
+		//
+		$tag_cat = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+		$tag_epithet = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+		$tag_cname = $this->mWrapper->getSerial( 'abdh:NAME_ENG', TRUE );
+		$tag_vcount = $this->mWrapper->getSerial( 'abdh:Q2.16', TRUE );
+		$tag_desi = $this->mWrapper->getSerial( 'abdh:Q2.17', TRUE );
+		$tag_impr = $this->mWrapper->getSerial( 'abdh:Q2.18', TRUE );
+		$tag_want = $this->mWrapper->getSerial( 'abdh:Q2.19', TRUE );
+		$tag_type = $this->mWrapper->getSerial( 'abdh:Q2.20', TRUE );
+		
+		//
+		// Set title
+		//
+		$this->getStatistics( $theContainer,
+							  $this->offsetGet( kAPI_REQUEST_LANGUAGE ),
+							  $this->offsetGet( kAPI_PARAM_DOMAIN ),
+							  $this->offsetGet( kAPI_PARAM_STAT ) );
+		
+		//
+		// Set header.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ] = Array();
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Common name',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'No. of households',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Total number of varieties',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Number of desi',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Number of hybrid/improved',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '% yes',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Desi',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Improved',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Both',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		//
+		// Iterate.
+		//
+		$data = Array();
+		foreach( $theIterator as $object )
+		{
+			//
+			// Get species sub-structure.
+			//
+			if( ($species = $object->offsetGet( 'abdh:species' )) !== NULL )
+			{
+				//
+				// Iterate species.
+				//
+				foreach( $species as $record )
+				{
+					//
+					// Check required offsets.
+					//
+					if( array_key_exists( $tag_epithet, $record )
+					 && array_key_exists( $tag_vcount, $record )
+					 && array_key_exists( $tag_want, $record )
+					 && array_key_exists( $tag_cat, $record )
+					 && ($record[ $tag_cat ] == 'abdh:SPECIES_CAT:1') )
+					{
+						//
+						// Create new entry.
+						//
+						if( ! array_key_exists( $record[ $tag_epithet ], $data ) )
+						{
+							//
+							// Init record.
+							//
+							$data[ $record[ $tag_epithet ] ]
+								= array(
+									$record[ $tag_epithet ],
+									NULL,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0 );
+				
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Set common name.
+							//
+							if( array_key_exists( $tag_cname, $record ) )
+								$ref[ 1 ] = $record[ $tag_cname ];
+			
+						} // New species.
+					
+						//
+						// Init existing species.
+						//
+						else
+						{
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Increment households count.
+							//
+							$ref[ 2 ]++;
+					
+						} // Existing species.
+						
+						//
+						// Handle varieties count.
+						//
+						if( array_key_exists( $tag_vcount, $record ) )
+							$ref[ 3 ] += $record[ $tag_vcount ];
+						
+						//
+						// Handle number of desi.
+						//
+						if( array_key_exists( $tag_desi, $record ) )
+							$ref[ 4 ] += $record[ $tag_desi ];
+						
+						//
+						// Handle number of improved.
+						//
+						if( array_key_exists( $tag_impr, $record ) )
+							$ref[ 5 ] += $record[ $tag_impr ];
+						
+						//
+						// Handle want others.
+						//
+						if( array_key_exists( $tag_want, $record ) )
+						{
+							if( $record[ $tag_want ] == 'abdh:Q2.19:1' )
+								$ref[ 6 ]++;
+						}
+					
+						//
+						// Handle which.
+						//
+						if( array_key_exists( $tag_type, $record ) )
+						{
+							switch( $record[ $tag_type ] )
+							{
+								case 'abdh:Q2.20:1':
+									$ref[ 7 ]++;
+									break;
+								case 'abdh:Q2.20:2':
+									$ref[ 8 ]++;
+									break;
+								case 'abdh:Q2.20:3':
+									$ref[ 9 ]++;
+									break;
+							}
+					
+						} // Has season.
+					
+					} // Has species epithet.
+				
+				} // Iterating species.
+			
+			} // Has species.
+		
+		} // Iterating.
+		
+		//
+		// Normalise results.
+		//
+		foreach( array_keys( $data ) as $species )
+		{
+			if( $data[ $species ][ 2 ] > 0 )
+				$data[ $species ][ 6 ]
+					= round( ( $data[ $species ][ 6 ] * 100 ) / $data[ $species ][ 2 ], 2 );
+		}
+		
+		//
+		// Set data.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = $data;
+		
+	} // executeUnitStat3.
 
 
 	/*===================================================================================
@@ -6309,6 +6763,48 @@ $rs_units = & $rs_units[ 'result' ];
 					$root[] = array( kTAG_OBJECT_TAGS => $match );
 				else
 					$root[ kTAG_OBJECT_TAGS ] = $match;
+				
+				//
+				// Check for offsets match.
+				//
+				if( $criteria_count )
+				{
+					//
+					// Collect offsets.
+					//
+					$offsets = Array();
+					foreach( $cluster[ kAPI_PARAM_CRITERIA ] as $tag => $criteria )
+					{
+						//
+						// Intercept offsets.
+						//
+						if( array_key_exists( kAPI_PARAM_OFFSETS, $criteria ) )
+						{
+							//
+							// Set match value.
+							//
+							$match = ( count( $criteria[ kAPI_PARAM_OFFSETS ] ) > 1 )
+								   ? array( '$in' => $criteria[ kAPI_PARAM_OFFSETS ] )
+								   : $criteria[ kAPI_PARAM_OFFSETS ][ 0 ];
+						
+							//
+							// Set tag offset.
+							//
+							$tmp = kTAG_OBJECT_OFFSETS.'.'.$tag;
+						
+							//
+							// Load offset match clause.
+							//
+							if( $cluster_count > 1 )
+								$root[] = array( $tmp => $match );
+							else
+								$root[ $tmp ] = $match;
+						
+						} // Has offsets.
+					
+					} // Iterating cluster criteria.
+				
+				} // Has criteria.
 			
 			} // Cluster has no values.
 			
@@ -7051,7 +7547,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 */
 	protected function getStatistics( &$theContainer, $theLanguage,
 													  $theDomain,
-													  $theStatistics = NULL)
+													  $theStatistics = NULL )
 	{
 		//
 		// Init local storage.
@@ -7068,13 +7564,28 @@ $rs_units = & $rs_units[ 'result' ];
 				// Load statistics.
 				//
 				$element = Array();
-				$element[ kAPI_PARAM_STAT ] = 'abdh-species-01';
+				$id = 'abdh-species-01';
+				$element[ kAPI_PARAM_STAT ] = $id;
 				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-					= 'Annual Species area and contribution to food and income';
-				$element[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
 					= 'Annual Species grown by households, '
 					 .'area and contribution to food and income';
-				$list[ $element[ kAPI_PARAM_STAT ] ] = $element;
+				$list[ $id ] = $element;
+				
+				$element = Array();
+				$id = 'abdh-species-02';
+				$element[ kAPI_PARAM_STAT ] = $id;
+				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= 'Annual species by season grown and water regime '
+					 .'(number of households)';
+				$list[ $id ] = $element;
+				
+				$element = Array();
+				$id = 'abdh-species-03';
+				$element[ kAPI_PARAM_STAT ] = $id;
+				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= 'Varieties grown by annual species '
+					 .'by type and demand for seed/planting material';
+				$list[ $id ] = $element;
 				break;
 		}
 		
@@ -7094,6 +7605,169 @@ $rs_units = & $rs_units[ 'result' ];
 			$theContainer = array_values( $list );
 		
 	} // getStatistics.
+
+	 
+	/*===================================================================================
+	 *	setStatisticsCriteria															*
+	 *==================================================================================*/
+
+	/**
+	 * Set statistics criteria.
+	 *
+	 * This method will update the criteria according to the requested statistics.
+	 *
+	 * The container is expected to hold the current criteria.
+	 *
+	 * @param array					$theContainer		Current criteria.
+	 * @param string				$theStatistics		Statistics code.
+	 * @param string				$theDomain			Statistics domain.
+	 *
+	 * @access protected
+	 */
+	protected function setStatisticsCriteria( &$theContainer, $theStatistics, $theDomain )
+	{
+		//
+		// Normalise domain.
+		//
+		if( is_array( $theDomain ) )
+			$theDomain = array_shift( $theDomain );
+		
+		//
+		// Parse by domain.
+		//
+		switch( $theDomain )
+		{
+			case kDOMAIN_HH_ASSESSMENT:
+				switch( $theStatistics )
+				{
+					case 'abdh-species-01':
+						$struct = $this->mWrapper->getSerial( 'abdh:species', TRUE );
+						if( ! array_key_exists( 'abdh:SPECIES_CAT', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+							$theContainer[ 'abdh:SPECIES_CAT' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+								kAPI_RESULT_ENUM_TERM => array( 'abdh:SPECIES_CAT:1' ),
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( ':taxon:epithet', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+							$theContainer[ ':taxon:epithet' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.4b', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.4b', TRUE );
+							$theContainer[ 'abdh:Q2.4b' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.6', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.6', TRUE );
+							$theContainer[ 'abdh:Q2.6' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.7', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.7', TRUE );
+							$theContainer[ 'abdh:Q2.7' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						break;
+						
+					case 'abdh-species-02':
+						$struct = $this->mWrapper->getSerial( 'abdh:species', TRUE );
+						if( ! array_key_exists( 'abdh:SPECIES_CAT', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+							$theContainer[ 'abdh:SPECIES_CAT' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+								kAPI_RESULT_ENUM_TERM => array( 'abdh:SPECIES_CAT:1' ),
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( ':taxon:epithet', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+							$theContainer[ ':taxon:epithet' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						break;
+						
+					case 'abdh-species-03':
+						$struct = $this->mWrapper->getSerial( 'abdh:species', TRUE );
+						if( ! array_key_exists( 'abdh:SPECIES_CAT', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+							$theContainer[ 'abdh:SPECIES_CAT' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+								kAPI_RESULT_ENUM_TERM => array( 'abdh:SPECIES_CAT:1' ),
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( ':taxon:epithet', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+							$theContainer[ ':taxon:epithet' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.16', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.16', TRUE );
+							$theContainer[ 'abdh:Q2.16' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.17', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.17', TRUE );
+							$theContainer[ 'abdh:Q2.17' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.18', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.18', TRUE );
+							$theContainer[ 'abdh:Q2.18' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.19', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.19', TRUE );
+							$theContainer[ 'abdh:Q2.19' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.20', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.20', TRUE );
+							$theContainer[ 'abdh:Q2.20' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						break;
+				}
+				break;
+		}
+		
+	} // setStatisticsCriteria.
 
 	 
 
