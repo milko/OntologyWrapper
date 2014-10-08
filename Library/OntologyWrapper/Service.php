@@ -6775,32 +6775,36 @@ $rs_units = & $rs_units[ 'result' ];
 					$offsets = Array();
 					foreach( $cluster[ kAPI_PARAM_CRITERIA ] as $tag => $criteria )
 					{
-						//
-						// Intercept offsets.
-						//
-						if( array_key_exists( kAPI_PARAM_OFFSETS, $criteria ) )
+						if( is_array( $criteria ) )
 						{
 							//
-							// Set match value.
+							// Intercept offsets.
 							//
-							$match = ( count( $criteria[ kAPI_PARAM_OFFSETS ] ) > 1 )
-								   ? array( '$in' => $criteria[ kAPI_PARAM_OFFSETS ] )
-								   : $criteria[ kAPI_PARAM_OFFSETS ][ 0 ];
+							if( array_key_exists( kAPI_PARAM_OFFSETS, $criteria ) )
+							{
+								//
+								// Set match value.
+								//
+								$match = ( count( $criteria[ kAPI_PARAM_OFFSETS ] ) > 1 )
+									   ? array( '$in' => $criteria[ kAPI_PARAM_OFFSETS ] )
+									   : $criteria[ kAPI_PARAM_OFFSETS ][ 0 ];
 						
-							//
-							// Set tag offset.
-							//
-							$tmp = kTAG_OBJECT_OFFSETS.'.'.$tag;
+								//
+								// Set tag offset.
+								//
+								$tmp = kTAG_OBJECT_OFFSETS.'.'.$tag;
 						
-							//
-							// Load offset match clause.
-							//
-							if( $cluster_count > 1 )
-								$root[] = array( $tmp => $match );
-							else
-								$root[ $tmp ] = $match;
+								//
+								// Load offset match clause.
+								//
+								if( $cluster_count > 1 )
+									$root[] = array( $tmp => $match );
+								else
+									$root[ $tmp ] = $match;
 						
-						} // Has offsets.
+							} // Has offsets.
+						
+						} // Criteria is set.
 					
 					} // Iterating cluster criteria.
 				
