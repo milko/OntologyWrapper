@@ -1235,6 +1235,8 @@ finally
 	 */
 	function loadNeighbourhood( &$theContainer, $theUnit, $theWrapper, $theDatabase )
 	{
+		global $wrapper;
+		
 		//
 		// Check other identification.
 		//
@@ -1266,9 +1268,12 @@ finally
 				//
 				// Set identifier.
 				//
-				$accenumb = ( strlen( trim( $items[ 1 ] ) ) )
-						  ? trim( $items[ 1 ] )
-						  : NULL;
+				if( count( $items ) > 1 )
+					$accenumb = ( strlen( trim( $items[ 1 ] ) ) )
+							  ? trim( $items[ 1 ] )
+							  : NULL;
+				else
+					$accenumb = NULL;
 				
 				//
 				// Set germplasm identifier.
@@ -1284,15 +1289,6 @@ finally
 				if( $instcode !== NULL )
 				{
 					//
-					// Set reference.
-					//
-					$sub[ getTag( ':inventory:institute' ) ]
-						= kDOMAIN_ORGANISATION
-						 .'://http://fao.org/wiews:'
-						 .$instcode
-						 .kTOKEN_END_TAG;
-					
-					//
 					// Set code.
 					//
 					$sub[ getTag( 'mcpd:INSTCODE' ) ]
@@ -1304,7 +1300,20 @@ finally
 					if( $accenumb !== NULL )
 						$sub[ getTag( 'mcpd:ACCENUMB' ) ]
 							= $accenumb;
-			}
+					
+					//
+					// Set reference.
+					//
+					$institute
+						= kDOMAIN_ORGANISATION
+						 .'://http://fao.org/wiews:'
+						 .$instcode
+						 .kTOKEN_END_TAG;
+					$inst = new OntologyWrapper\FAOInstitute( $wrapper, $institute, FALSE );
+					if( $inst->committed() )
+						$sub[ getTag( ':inventory:institute' ) ]
+							= $institute;
+				}
 				
 				//
 				// Set element.

@@ -2741,7 +2741,7 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
-		$file = kPATH_STANDARDS_ROOT.'/collections/StructureSample.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureCollectingSample.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 

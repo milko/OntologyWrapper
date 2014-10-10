@@ -30,11 +30,11 @@
 				<item>:germplasm:sample</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
-			<item const="kTAG_DOMAIN">:domain:sample</item>
+			<item const="kTAG_DOMAIN">:domain:sample:collected</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the reference to a sample.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the reference to a collected sample.]]></item>
 				</item>
 			</item>
 		</TAG>

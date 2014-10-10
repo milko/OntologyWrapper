@@ -631,7 +631,7 @@
 			<item const="kTAG_TERMS">
 				<item>abdh:Q3</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text-03</item>
@@ -715,6 +715,55 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q3</item>
 		</EDGE>
+	</META>
+	<!-- abdh:Q3:4 -->
+	<META>
+		<TERM ns="abdh:Q3" lid="4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Other]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:Q3</item>
+		</EDGE>
+	</META>
+	
+	<!-- abdh:Q3b -->
+	<META>
+		<TERM ns="abdh" lid="Q3b">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Objective of species production (other specification)]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:Q3b</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text-03</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">Q3b</item>
+		</TAG>
+		<NODE tag="abdh:Q3b">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 	
 	<!-- abdh:Q4a -->
@@ -1105,9 +1154,89 @@
 			<item const="kTAG_OBJECT" node="term">abdh:Q5a</item>
 		</EDGE>
 	</META>
-	<!-- abdh:Q5a:6 -->
+	<!-- abdh:Q5a:11 -->
 	<META>
-		<TERM ns="abdh:Q5a" lid="6">
+		<TERM ns="abdh:Q5a" lid="11">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Milk]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:Q5a</item>
+		</EDGE>
+	</META>
+	<!-- abdh:Q5a:12 -->
+	<META>
+		<TERM ns="abdh:Q5a" lid="12">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Dung for fuel]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:Q5a</item>
+		</EDGE>
+	</META>
+	<!-- abdh:Q5a:13 -->
+	<META>
+		<TERM ns="abdh:Q5a" lid="13">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Dung as fertilizer]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:Q5a</item>
+		</EDGE>
+	</META>
+	<!-- abdh:Q5a:14 -->
+	<META>
+		<TERM ns="abdh:Q5a" lid="14">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Hides]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:Q5a</item>
+		</EDGE>
+	</META>
+	<!-- abdh:Q5a:99 -->
+	<META>
+		<TERM ns="abdh:Q5a" lid="99">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

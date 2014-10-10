@@ -59,18 +59,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- abdh:Q5a -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q5a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- abdh:Q5b -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q5b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- abdh:Q6a -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:Q6a</item>

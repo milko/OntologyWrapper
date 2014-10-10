@@ -5610,6 +5610,22 @@ $rs_units = & $rs_units[ 'result' ];
 				$this->executeUnitStat3( $theContainer, $iterator );
 				break;
 			
+			case 'abdh-species-04':
+				$this->executeUnitStat4( $theContainer, $iterator );
+				break;
+			
+			case 'abdh-species-05':
+				$this->executeUnitStat5( $theContainer, $iterator );
+				break;
+			
+			case 'abdh-species-06':
+				$this->executeUnitStat6( $theContainer, $iterator );
+				break;
+			
+			case 'abdh-species-07':
+				$this->executeUnitStat7( $theContainer, $iterator );
+				break;
+			
 			default:
 				throw new \Exception(
 					"Unknown statistics type [$tmp]. " );						// !@! ==>
@@ -5828,7 +5844,7 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Set data.
 		//
-		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = $data;
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = array_values( $data );
 		
 	} // executeUnitStat1.
 
@@ -5881,6 +5897,9 @@ $rs_units = & $rs_units[ 'result' ];
 			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'No. of households',
 					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
 		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '%',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
 			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Rabi',
 					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
 		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
@@ -5902,9 +5921,15 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Iterate.
 		//
+		$count = 0;
 		$data = Array();
 		foreach( $theIterator as $object )
 		{
+			//
+			// Init households counter.
+			//
+			$house_spec = 0;
+			
 			//
 			// Get species sub-structure.
 			//
@@ -5925,6 +5950,11 @@ $rs_units = & $rs_units[ 'result' ];
 					 && ($record[ $tag_cat ] == 'abdh:SPECIES_CAT:1') )
 					{
 						//
+						// Increment species count.
+						//
+						$house_spec++;
+						
+						//
 						// Create new entry.
 						//
 						if( ! array_key_exists( $record[ $tag_epithet ], $data ) )
@@ -5937,6 +5967,7 @@ $rs_units = & $rs_units[ 'result' ];
 									$record[ $tag_epithet ],
 									NULL,
 									1,
+									0,
 									0,
 									0,
 									0,
@@ -5984,10 +6015,10 @@ $rs_units = & $rs_units[ 'result' ];
 								switch( $item )
 								{
 									case 'abdh:Q2.2a:1':
-										$ref[ 3 ]++;
+										$ref[ 4 ]++;
 										break;
 									case 'abdh:Q2.2a:2':
-										$ref[ 4 ]++;
+										$ref[ 5 ]++;
 										break;
 								}
 							}
@@ -6004,16 +6035,16 @@ $rs_units = & $rs_units[ 'result' ];
 								switch( $item )
 								{
 									case 'abdh:Q2a:1':
-										$ref[ 5 ]++;
-										break;
-									case 'abdh:Q2a:2':
 										$ref[ 6 ]++;
 										break;
-									case 'abdh:Q2a:3':
+									case 'abdh:Q2a:2':
 										$ref[ 7 ]++;
 										break;
-									case 'abdh:Q2a:4':
+									case 'abdh:Q2a:3':
 										$ref[ 8 ]++;
+										break;
+									case 'abdh:Q2a:4':
+										$ref[ 9 ]++;
 										break;
 								}
 							}
@@ -6025,13 +6056,31 @@ $rs_units = & $rs_units[ 'result' ];
 				} // Iterating species.
 			
 			} // Has species.
+			
+			//
+			// Increment households count.
+			//
+			if( $house_spec )
+				$count++;
 		
 		} // Iterating.
 		
 		//
+		// Calculate percentages.
+		//
+		foreach( array_keys( $data ) as $species )
+		{
+			if( $count )
+			{
+				$data[ $species ][ 3 ]
+					= round( ( $data[ $species ][ 2 ] * 100 ) / $count, 2 );
+			}
+		}
+		
+		//
 		// Set data.
 		//
-		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = $data;
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = array_values( $data );
 		
 	} // executeUnitStat2.
 
@@ -6087,6 +6136,9 @@ $rs_units = & $rs_units[ 'result' ];
 			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'No. of households',
 					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
 		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '%',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
 			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Total number of varieties',
 					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
 		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
@@ -6111,9 +6163,15 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Iterate.
 		//
+		$count = 0;
 		$data = Array();
 		foreach( $theIterator as $object )
 		{
+			//
+			// Init households counter.
+			//
+			$house_spec = 0;
+			
 			//
 			// Get species sub-structure.
 			//
@@ -6134,6 +6192,11 @@ $rs_units = & $rs_units[ 'result' ];
 					 && ($record[ $tag_cat ] == 'abdh:SPECIES_CAT:1') )
 					{
 						//
+						// Increment species count.
+						//
+						$house_spec++;
+						
+						//
 						// Create new entry.
 						//
 						if( ! array_key_exists( $record[ $tag_epithet ], $data ) )
@@ -6146,6 +6209,7 @@ $rs_units = & $rs_units[ 'result' ];
 									$record[ $tag_epithet ],
 									NULL,
 									1,
+									0,
 									0,
 									0,
 									0,
@@ -6188,19 +6252,19 @@ $rs_units = & $rs_units[ 'result' ];
 						// Handle varieties count.
 						//
 						if( array_key_exists( $tag_vcount, $record ) )
-							$ref[ 3 ] += $record[ $tag_vcount ];
+							$ref[ 4 ] += $record[ $tag_vcount ];
 						
 						//
 						// Handle number of desi.
 						//
 						if( array_key_exists( $tag_desi, $record ) )
-							$ref[ 4 ] += $record[ $tag_desi ];
+							$ref[ 5 ] += $record[ $tag_desi ];
 						
 						//
 						// Handle number of improved.
 						//
 						if( array_key_exists( $tag_impr, $record ) )
-							$ref[ 5 ] += $record[ $tag_impr ];
+							$ref[ 6 ] += $record[ $tag_impr ];
 						
 						//
 						// Handle want others.
@@ -6208,7 +6272,7 @@ $rs_units = & $rs_units[ 'result' ];
 						if( array_key_exists( $tag_want, $record ) )
 						{
 							if( $record[ $tag_want ] == 'abdh:Q2.19:1' )
-								$ref[ 6 ]++;
+								$ref[ 7 ]++;
 						}
 					
 						//
@@ -6219,13 +6283,13 @@ $rs_units = & $rs_units[ 'result' ];
 							switch( $record[ $tag_type ] )
 							{
 								case 'abdh:Q2.20:1':
-									$ref[ 7 ]++;
-									break;
-								case 'abdh:Q2.20:2':
 									$ref[ 8 ]++;
 									break;
-								case 'abdh:Q2.20:3':
+								case 'abdh:Q2.20:2':
 									$ref[ 9 ]++;
+									break;
+								case 'abdh:Q2.20:3':
+									$ref[ 10 ]++;
 									break;
 							}
 					
@@ -6236,6 +6300,12 @@ $rs_units = & $rs_units[ 'result' ];
 				} // Iterating species.
 			
 			} // Has species.
+			
+			//
+			// Increment households count.
+			//
+			if( $house_spec )
+				$count++;
 		
 		} // Iterating.
 		
@@ -6244,17 +6314,1427 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		foreach( array_keys( $data ) as $species )
 		{
+			//
+			// Set species percentage.
+			//
+			if( $count )
+			{
+				$data[ $species ][ 3 ]
+					= round( ( $data[ $species ][ 2 ] * 100 ) / $count, 2 );
+			}
+			
+			//
+			// Set yes percentage.
+			//
 			if( $data[ $species ][ 2 ] > 0 )
-				$data[ $species ][ 6 ]
-					= round( ( $data[ $species ][ 6 ] * 100 ) / $data[ $species ][ 2 ], 2 );
+				$data[ $species ][ 7 ]
+					= round( ( $data[ $species ][ 7 ] * 100 ) / $data[ $species ][ 2 ], 2 );
 		}
 		
 		//
 		// Set data.
 		//
-		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = $data;
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = array_values( $data );
 		
 	} // executeUnitStat3.
+
+
+	/*===================================================================================
+	 *	executeUnitStat4																*
+	 *==================================================================================*/
+
+	/**
+	 * Perform statistic 4.
+	 *
+	 * This method will perform the statistics according to the data provided in the
+	 * iterator parameter.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 * @param ObjectIterator		$theIterator		Iterator.
+	 *
+	 * @access protected
+	 */
+	protected function executeUnitStat4( &$theContainer, $theIterator )
+	{
+		//
+		// Save tags.
+		//
+		$tag_cat = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+		$tag_epithet = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+		$tag_cname = $this->mWrapper->getSerial( 'abdh:NAME_ENG', TRUE );
+		$tag_source = $this->mWrapper->getSerial( 'abdh:Q2.10', TRUE );
+		$tag_who = $this->mWrapper->getSerial( 'abdh:Q2.11a', TRUE );
+		$tag_trans = $this->mWrapper->getSerial( 'abdh:Q6a', TRUE );
+		
+		//
+		// Set title
+		//
+		$this->getStatistics( $theContainer,
+							  $this->offsetGet( kAPI_REQUEST_LANGUAGE ),
+							  $this->offsetGet( kAPI_PARAM_DOMAIN ),
+							  $this->offsetGet( kAPI_PARAM_STAT ) );
+		
+		//
+		// Set header.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ] = Array();
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Common name',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'No. of households',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '%',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Saved from previous harvest',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Obtained outside of farm',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Family',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Neighbour',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Friend',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Public seed traider',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Private seed traider',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Local market',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Government emergency programme',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'NGO',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Other',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '% Purchase',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '% Exchange of seed',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '% Barter for other goods',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '% Credit',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '% Gift',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '% Other',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		
+		//
+		// Iterate.
+		//
+		$count = 0;
+		$data = Array();
+		foreach( $theIterator as $object )
+		{
+			//
+			// Init households counter.
+			//
+			$house_spec = 0;
+			
+			//
+			// Get species sub-structure.
+			//
+			if( ($species = $object->offsetGet( 'abdh:species' )) !== NULL )
+			{
+				//
+				// Iterate species.
+				//
+				foreach( $species as $record )
+				{
+					//
+					// Check required offsets.
+					//
+					if( array_key_exists( $tag_epithet, $record )
+					 && array_key_exists( $tag_source, $record )
+					 && array_key_exists( $tag_cat, $record )
+					 && ($record[ $tag_cat ] == 'abdh:SPECIES_CAT:1') )
+					{
+						//
+						// Increment species count.
+						//
+						$house_spec++;
+						
+						//
+						// Create new entry.
+						//
+						if( ! array_key_exists( $record[ $tag_epithet ], $data ) )
+						{
+							//
+							// Init record.
+							//
+							$data[ $record[ $tag_epithet ] ]
+								= array(
+									$record[ $tag_epithet ],
+									NULL,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0 );
+				
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Set common name.
+							//
+							if( array_key_exists( $tag_cname, $record ) )
+								$ref[ 1 ] = $record[ $tag_cname ];
+			
+						} // New species.
+					
+						//
+						// Init existing species.
+						//
+						else
+						{
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Increment households count.
+							//
+							$ref[ 2 ]++;
+					
+						} // Existing species.
+						
+						//
+						// Handle source of seed.
+						//
+						if( array_key_exists( $tag_source, $record ) )
+						{
+							switch( $record[ $tag_source ] )
+							{
+								case 'abdh:Q2.10:1':
+									$ref[ 4 ]++;
+									break;
+								case 'abdh:Q2.10:2':
+									$ref[ 5 ]++;
+									break;
+							}
+						}
+						
+						//
+						// Handle provider of seed.
+						//
+						if( array_key_exists( $tag_who, $record ) )
+						{
+							foreach( $record[ $tag_who ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q2.11a:1':
+										$ref[ 6 ]++;
+										break;
+									case 'abdh:Q2.11a:2':
+										$ref[ 7 ]++;
+										break;
+									case 'abdh:Q2.11a:3':
+										$ref[ 8 ]++;
+										break;
+									case 'abdh:Q2.11a:4':
+										$ref[ 9 ]++;
+										break;
+									case 'abdh:Q2.11a:5':
+										$ref[ 10 ]++;
+										break;
+									case 'abdh:Q2.11a:6':
+										$ref[ 11 ]++;
+										break;
+									case 'abdh:Q2.11a:7':
+										$ref[ 12 ]++;
+										break;
+									case 'abdh:Q2.11a:8':
+										$ref[ 13 ]++;
+										break;
+									case 'abdh:Q2.11a:9':
+										$ref[ 14 ]++;
+										break;
+								}
+							}
+						}
+						
+						//
+						// Handle transaction type.
+						//
+						if( array_key_exists( $tag_trans, $record ) )
+						{
+							foreach( $record[ $tag_trans ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q6a:1':
+										$ref[ 15 ]++;
+										break;
+									case 'abdh:Q6a:2':
+										$ref[ 16 ]++;
+										break;
+									case 'abdh:Q6a:3':
+										$ref[ 17 ]++;
+										break;
+									case 'abdh:Q6a:4':
+										$ref[ 18 ]++;
+										break;
+									case 'abdh:Q6a:5':
+										$ref[ 19 ]++;
+										break;
+									case 'abdh:Q6a:6':
+										$ref[ 20 ]++;
+										break;
+								}
+							}
+						}
+					
+					} // Has species epithet.
+				
+				} // Iterating species.
+			
+			} // Has species.
+			
+			//
+			// Increment households count.
+			//
+			if( $house_spec )
+				$count++;
+		
+		} // Iterating.
+		
+		//
+		// Normalise results.
+		//
+		foreach( array_keys( $data ) as $species )
+		{
+			//
+			// Calculate species percentage.
+			//
+			if( $count )
+			{
+				$data[ $species ][ 3 ]
+					= round( ( $data[ $species ][ 2 ] * 100 ) / $count, 2 );
+			}
+			
+			//
+			// Get the sum of transaction types.
+			//
+			for( $sum = 0, $i = 15; $i < count( $data[ $species ] ); $i++ )
+				$sum += $data[ $species ][ $i ];
+			
+			//
+			// Calculate percentages.
+			//
+			if( $sum )
+			{
+				for( $i = 15; $i < count( $data[ $species ] ); $i++ )
+					$data[ $species ][ $i ]
+						= round( ( $data[ $species ][ $i ] * 100 ) / $sum, 2 );
+			}
+		}
+		
+		//
+		// Set data.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = array_values( $data );
+		
+	} // executeUnitStat4.
+
+
+	/*===================================================================================
+	 *	executeUnitStat5																*
+	 *==================================================================================*/
+
+	/**
+	 * Perform statistic 5.
+	 *
+	 * This method will perform the statistics according to the data provided in the
+	 * iterator parameter.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 * @param ObjectIterator		$theIterator		Iterator.
+	 *
+	 * @access protected
+	 */
+	protected function executeUnitStat5( &$theContainer, $theIterator )
+	{
+		//
+		// Save tags.
+		//
+		$tag_cat = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+		$tag_epithet = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+		$tag_cname = $this->mWrapper->getSerial( 'abdh:NAME_ENG', TRUE );
+		$tag_freq = $this->mWrapper->getSerial( 'abdh:Q2.15a', TRUE );
+		
+		//
+		// Set title
+		//
+		$this->getStatistics( $theContainer,
+							  $this->offsetGet( kAPI_REQUEST_LANGUAGE ),
+							  $this->offsetGet( kAPI_PARAM_DOMAIN ),
+							  $this->offsetGet( kAPI_PARAM_STAT ) );
+		
+		//
+		// Set header.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ] = Array();
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Common name',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'No. of households',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '%',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Renew seeds every year',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Renew seeds every 2 years',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Renew seeds every 3 years',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Never renew seeds',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Other',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		//
+		// Iterate.
+		//
+		$count = 0;
+		$data = Array();
+		foreach( $theIterator as $object )
+		{
+			//
+			// Init households counter.
+			//
+			$house_spec = 0;
+			
+			//
+			// Get species sub-structure.
+			//
+			if( ($species = $object->offsetGet( 'abdh:species' )) !== NULL )
+			{
+				//
+				// Iterate species.
+				//
+				foreach( $species as $record )
+				{
+					//
+					// Check required offsets.
+					//
+					if( array_key_exists( $tag_epithet, $record )
+					 && array_key_exists( $tag_freq, $record )
+					 && array_key_exists( $tag_cat, $record )
+					 && ($record[ $tag_cat ] == 'abdh:SPECIES_CAT:1') )
+					{
+						//
+						// Increment species count.
+						//
+						$house_spec++;
+						
+						//
+						// Create new entry.
+						//
+						if( ! array_key_exists( $record[ $tag_epithet ], $data ) )
+						{
+							//
+							// Init record.
+							//
+							$data[ $record[ $tag_epithet ] ]
+								= array(
+									$record[ $tag_epithet ],
+									NULL,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0 );
+				
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Set common name.
+							//
+							if( array_key_exists( $tag_cname, $record ) )
+								$ref[ 1 ] = $record[ $tag_cname ];
+			
+						} // New species.
+					
+						//
+						// Init existing species.
+						//
+						else
+						{
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Increment households count.
+							//
+							$ref[ 2 ]++;
+					
+						} // Existing species.
+						
+						//
+						// Handle seed renewal.
+						//
+						if( array_key_exists( $tag_freq, $record ) )
+						{
+							switch( $record[ $tag_freq ] )
+							{
+								case 'abdh:Q2.15a:1':
+									$ref[ 4 ]++;
+									break;
+								case 'abdh:Q2.15a:2':
+									$ref[ 5 ]++;
+									break;
+								case 'abdh:Q2.15a:3':
+									$ref[ 6 ]++;
+									break;
+								case 'abdh:Q2.15a:4':
+									$ref[ 7 ]++;
+									break;
+								case 'abdh:Q2.15a:5':
+									$ref[ 8 ]++;
+									break;
+							}
+						}
+					
+					} // Has species epithet.
+				
+				} // Iterating species.
+			
+			} // Has species.
+			
+			//
+			// Increment households count.
+			//
+			if( $house_spec )
+				$count++;
+		
+		} // Iterating.
+		
+		//
+		// Calculate percentages.
+		//
+		foreach( array_keys( $data ) as $species )
+		{
+			if( $count )
+			{
+				$data[ $species ][ 3 ]
+					= round( ( $data[ $species ][ 2 ] * 100 ) / $count, 2 );
+			}
+		}
+		
+		//
+		// Set data.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = array_values( $data );
+		
+	} // executeUnitStat5.
+
+
+	/*===================================================================================
+	 *	executeUnitStat6																*
+	 *==================================================================================*/
+
+	/**
+	 * Perform statistic 5.
+	 *
+	 * This method will perform the statistics according to the data provided in the
+	 * iterator parameter.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 * @param ObjectIterator		$theIterator		Iterator.
+	 *
+	 * @access protected
+	 */
+	protected function executeUnitStat6( &$theContainer, $theIterator )
+	{
+		//
+		// Save tags.
+		//
+		$tag_cat = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+		$tag_epithet = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+		$tag_cname = $this->mWrapper->getSerial( 'abdh:NAME_ENG', TRUE );
+		$tag_care = $this->mWrapper->getSerial( 'abdh:Q7a', TRUE );
+		$tag_a_seed = $this->mWrapper->getSerial( 'abdh:Q2.22a', TRUE );
+		$tag_field = $this->mWrapper->getSerial( 'abdh:Q8a', TRUE );
+		$tag_a_cons = $this->mWrapper->getSerial( 'abdh:Q2.24a', TRUE );
+		$tag_a_mark = $this->mWrapper->getSerial( 'abdh:Q2.25a', TRUE );
+		$tag_harv = $this->mWrapper->getSerial( 'abdh:Q9a', TRUE );
+		$tag_use = $this->mWrapper->getSerial( 'abdh:Q10a', TRUE );
+		$tag_sale = $this->mWrapper->getSerial( 'abdh:Q11a', TRUE );
+		
+		//
+		// Set title
+		//
+		$this->getStatistics( $theContainer,
+							  $this->offsetGet( kAPI_REQUEST_LANGUAGE ),
+							  $this->offsetGet( kAPI_PARAM_DOMAIN ),
+							  $this->offsetGet( kAPI_PARAM_STAT ) );
+		
+		//
+		// Set header.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ] = Array();
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Common name',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Species type',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'No. of households',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '%',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Husband takes care of the species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Wife takes care of the species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Both take care of the species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Children take care of the species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Others take care of the species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Husband takes decisions about seed planting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Wife takes decisions about seed planting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Both take decisions about seed planting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Children decisions about seed planting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Others take decisions about seed planting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Husband takes decisions about field management',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Wife takes decisions about field management',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Both take decisions about field management',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Children decisions about field management',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Others take decisions about field management',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Husband takes decisions about harvesting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Wife takes decisions about harvesting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Both take decisions about harvesting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Children decisions about harvesting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Others take decisions about harvesting',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Husband takes decisions about uses',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Wife takes decisions about uses',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Both take decisions about uses',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Children decisions about uses',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Others take decisions about uses',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Husband takes decisions about consumption',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Wife takes decisions about consumption',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Both take decisions about consumption',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Children decisions about consumption',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Others take decisions about consumption',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Husband takes decisions about marketing/sale',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Wife takes decisions about marketing/sale',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Both take decisions about marketing/sale',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Children decisions about marketing/sale',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Others take decisions about marketing/sale',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		//
+		// Iterate.
+		//
+		$count = 0;
+		$data = Array();
+		foreach( $theIterator as $object )
+		{
+			//
+			// Init households counter.
+			//
+			$house_spec = 0;
+			
+			//
+			// Get species sub-structure.
+			//
+			if( ($species = $object->offsetGet( 'abdh:species' )) !== NULL )
+			{
+				//
+				// Iterate species.
+				//
+				foreach( $species as $record )
+				{
+					//
+					// Check required offsets.
+					//
+					if( array_key_exists( $tag_epithet, $record )
+					 && array_key_exists( $tag_cat, $record )
+					 && ( array_key_exists( $tag_care, $record )
+					   || array_key_exists( $tag_a_seed, $record )
+					   || array_key_exists( $tag_field, $record )
+					   || array_key_exists( $tag_a_cons, $record )
+					   || array_key_exists( $tag_a_mark, $record )
+					   || array_key_exists( $tag_harv, $record )
+					   || array_key_exists( $tag_use, $record )
+					   || array_key_exists( $tag_sale, $record ) ) )
+					{
+						//
+						// Increment species count.
+						//
+						$house_spec++;
+						
+						//
+						// Create new entry.
+						//
+						if( ! array_key_exists( $record[ $tag_epithet ], $data ) )
+						{
+							//
+							// Init record.
+							//
+							$data[ $record[ $tag_epithet ] ]
+								= array(
+									$record[ $tag_epithet ],
+									NULL,
+									NULL,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0 );
+				
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Set common name.
+							//
+							if( array_key_exists( $tag_cname, $record ) )
+								$ref[ 1 ] = $record[ $tag_cname ];
+				
+							//
+							// Set species type.
+							//
+							if( array_key_exists( $tag_cat, $record ) )
+							{
+								switch( $record[ $tag_cat ] )
+								{
+									case 'abdh:SPECIES_CAT:1':
+										$ref[ 2 ] = 'Annual plant species';
+										break;
+									case 'abdh:SPECIES_CAT:2':
+										$ref[ 2 ] = 'Perennial plant species';
+										break;
+									case 'abdh:SPECIES_CAT:3':
+										$ref[ 2 ] = 'Wild plant species';
+										break;
+									case 'abdh:SPECIES_CAT:4':
+										$ref[ 2 ] = 'Domesticated animal species';
+										break;
+								}
+							}
+			
+						} // New species.
+					
+						//
+						// Init existing species.
+						//
+						else
+						{
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Increment households count.
+							//
+							$ref[ 3 ]++;
+					
+						} // Existing species.
+						
+						//
+						// Handle who takes care.
+						//
+						if( array_key_exists( $tag_care, $record ) )
+						{
+							foreach( $record[ $tag_care ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q7a:1':
+										$ref[ 5 ]++;
+										break;
+									case 'abdh:Q7a:2':
+										$ref[ 6 ]++;
+										break;
+									case 'abdh:Q7a:3':
+										$ref[ 7 ]++;
+										break;
+									case 'abdh:Q7a:4':
+										$ref[ 8 ]++;
+										break;
+									case 'abdh:Q7a:5':
+										$ref[ 9 ]++;
+										break;
+								}
+							}
+						}
+						
+						//
+						// Handle seed planting.
+						//
+						if( array_key_exists( $tag_a_seed, $record ) )
+						{
+							foreach( $record[ $tag_a_seed ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q2.22a:1':
+										$ref[ 10 ]++;
+										break;
+									case 'abdh:Q2.22a:2':
+										$ref[ 11 ]++;
+										break;
+									case 'abdh:Q2.22a:3':
+										$ref[ 12 ]++;
+										break;
+									case 'abdh:Q2.22a:4':
+										$ref[ 13 ]++;
+										break;
+									case 'abdh:Q2.22a:5':
+										$ref[ 14 ]++;
+										break;
+								}
+							}
+						}
+						
+						//
+						// Handle field management.
+						//
+						if( array_key_exists( $tag_field, $record ) )
+						{
+							foreach( $record[ $tag_field ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q8a:1':
+										$ref[ 15 ]++;
+										break;
+									case 'abdh:Q8a:2':
+										$ref[ 16 ]++;
+										break;
+									case 'abdh:Q8a:3':
+										$ref[ 17 ]++;
+										break;
+									case 'abdh:Q8a:4':
+										$ref[ 18 ]++;
+										break;
+									case 'abdh:Q8a:5':
+										$ref[ 19 ]++;
+										break;
+								}
+							}
+						}
+						
+						//
+						// Handle harvesting.
+						//
+						if( array_key_exists( $tag_harv, $record ) )
+						{
+							foreach( $record[ $tag_harv ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q9a:1':
+										$ref[ 20 ]++;
+										break;
+									case 'abdh:Q9a:2':
+										$ref[ 21 ]++;
+										break;
+									case 'abdh:Q9a:3':
+										$ref[ 22 ]++;
+										break;
+									case 'abdh:Q9a:4':
+										$ref[ 23 ]++;
+										break;
+									case 'abdh:Q9a:5':
+										$ref[ 24 ]++;
+										break;
+								}
+							}
+						}
+						
+						//
+						// Handle uses.
+						//
+						if( array_key_exists( $tag_use, $record ) )
+						{
+							foreach( $record[ $tag_use ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q10a:1':
+										$ref[ 25 ]++;
+										break;
+									case 'abdh:Q10a:2':
+										$ref[ 26 ]++;
+										break;
+									case 'abdh:Q10a:3':
+										$ref[ 27 ]++;
+										break;
+									case 'abdh:Q10a:4':
+										$ref[ 28 ]++;
+										break;
+									case 'abdh:Q10a:5':
+										$ref[ 29 ]++;
+										break;
+								}
+							}
+						}
+						
+						//
+						// Handle consumption.
+						//
+						if( array_key_exists( $tag_a_cons, $record ) )
+						{
+							foreach( $record[ $tag_a_cons ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q2.24a:1':
+										$ref[ 30 ]++;
+										break;
+									case 'abdh:Q2.24a:2':
+										$ref[ 31 ]++;
+										break;
+									case 'abdh:Q2.24a:3':
+										$ref[ 32 ]++;
+										break;
+									case 'abdh:Q2.24a:4':
+										$ref[ 33 ]++;
+										break;
+									case 'abdh:Q2.24a:5':
+										$ref[ 34 ]++;
+										break;
+								}
+							}
+						}
+						
+						//
+						// Handle marketing/sale.
+						//
+						if( array_key_exists( $tag_a_mark, $record ) )
+						{
+							foreach( $record[ $tag_a_mark ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q2.25a:1':
+										$ref[ 35 ]++;
+										break;
+									case 'abdh:Q2.25a:2':
+										$ref[ 36 ]++;
+										break;
+									case 'abdh:Q2.25a:3':
+										$ref[ 37 ]++;
+										break;
+									case 'abdh:Q2.25a:4':
+										$ref[ 38 ]++;
+										break;
+									case 'abdh:Q2.25a:5':
+										$ref[ 39 ]++;
+										break;
+								}
+							}
+						}
+						elseif( array_key_exists( $tag_sale, $record ) )
+						{
+							foreach( $record[ $tag_sale ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q11a:1':
+										$ref[ 35 ]++;
+										break;
+									case 'abdh:Q11a:2':
+										$ref[ 36 ]++;
+										break;
+									case 'abdh:Q11a:3':
+										$ref[ 37 ]++;
+										break;
+									case 'abdh:Q11a:4':
+										$ref[ 38 ]++;
+										break;
+									case 'abdh:Q11a:5':
+										$ref[ 39 ]++;
+										break;
+								}
+							}
+						}
+					
+					} // Has species epithet.
+				
+				} // Iterating species.
+			
+			} // Has species.
+			
+			//
+			// Increment households count.
+			//
+			if( $house_spec )
+				$count++;
+		
+		} // Iterating.
+		
+		//
+		// Calculate percentages.
+		//
+		foreach( array_keys( $data ) as $species )
+		{
+			if( $count )
+			{
+				$data[ $species ][ 4 ]
+					= round( ( $data[ $species ][ 3 ] * 100 ) / $count, 2 );
+			}
+		}
+		
+		//
+		// Set data.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = array_values( $data );
+		
+	} // executeUnitStat6.
+
+
+	/*===================================================================================
+	 *	executeUnitStat7																*
+	 *==================================================================================*/
+
+	/**
+	 * Perform statistic 7.
+	 *
+	 * This method will perform the statistics according to the data provided in the
+	 * iterator parameter.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 * @param ObjectIterator		$theIterator		Iterator.
+	 *
+	 * @access protected
+	 */
+	protected function executeUnitStat7( &$theContainer, $theIterator )
+	{
+		//
+		// Save tags.
+		//
+		$tag_cat = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+		$tag_epithet = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+		$tag_cname = $this->mWrapper->getSerial( 'abdh:NAME_ENG', TRUE );
+		$tag_obj = $this->mWrapper->getSerial( 'abdh:Q3', TRUE );
+		$tag_use = $this->mWrapper->getSerial( 'abdh:Q5a', TRUE );
+		
+		//
+		// Set title
+		//
+		$this->getStatistics( $theContainer,
+							  $this->offsetGet( kAPI_REQUEST_LANGUAGE ),
+							  $this->offsetGet( kAPI_PARAM_DOMAIN ),
+							  $this->offsetGet( kAPI_PARAM_STAT ) );
+		
+		//
+		// Set header.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ] = Array();
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Species',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Common name',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Species type',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_STRING );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'No. of households',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => '%',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_FLOAT );
+		
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Self consumption exclusively',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Selling exclusively',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Both self consumption and selling',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Food',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Fodder/animal feed',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Medecine',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Fuel',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Construction material',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_HEAD ][]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Other',
+					 kAPI_PARAM_DATA_TYPE => kTYPE_INT );
+		
+		//
+		// Iterate.
+		//
+		$count = 0;
+		$data = Array();
+		foreach( $theIterator as $object )
+		{
+			//
+			// Init households counter.
+			//
+			$house_spec = 0;
+			
+			//
+			// Get species sub-structure.
+			//
+			if( ($species = $object->offsetGet( 'abdh:species' )) !== NULL )
+			{
+				//
+				// Iterate species.
+				//
+				foreach( $species as $record )
+				{
+					//
+					// Check required offsets.
+					//
+					if( array_key_exists( $tag_epithet, $record )
+					 && array_key_exists( $tag_obj, $record )
+					 && array_key_exists( $tag_use, $record )
+					 && array_key_exists( $tag_cat, $record ) )
+					{
+						//
+						// Increment species count.
+						//
+						$house_spec++;
+						
+						//
+						// Create new entry.
+						//
+						if( ! array_key_exists( $record[ $tag_epithet ], $data ) )
+						{
+							//
+							// Init record.
+							//
+							$data[ $record[ $tag_epithet ] ]
+								= array(
+									$record[ $tag_epithet ],
+									NULL,
+									NULL,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0,
+									0 );
+				
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Set common name.
+							//
+							if( array_key_exists( $tag_cname, $record ) )
+								$ref[ 1 ] = $record[ $tag_cname ];
+				
+							//
+							// Set species type.
+							//
+							if( array_key_exists( $tag_cat, $record ) )
+							{
+								switch( $record[ $tag_cat ] )
+								{
+									case 'abdh:SPECIES_CAT:1':
+										$ref[ 2 ] = 'Annual plant species';
+										break;
+									case 'abdh:SPECIES_CAT:2':
+										$ref[ 2 ] = 'Perennial plant species';
+										break;
+									case 'abdh:SPECIES_CAT:3':
+										$ref[ 2 ] = 'Wild plant species';
+										break;
+									case 'abdh:SPECIES_CAT:4':
+										$ref[ 2 ] = 'Domesticated animal species';
+										break;
+								}
+							}
+			
+						} // New species.
+					
+						//
+						// Init existing species.
+						//
+						else
+						{
+							//
+							// Reference record.
+							//
+							$ref = & $data[ $record[ $tag_epithet ] ];
+				
+							//
+							// Increment households count.
+							//
+							$ref[ 3 ]++;
+					
+						} // Existing species.
+						
+						//
+						// Handle objectives of production.
+						//
+						if( array_key_exists( $tag_obj, $record ) )
+						{
+							switch( $record[ $tag_obj ] )
+							{
+								case 'abdh:Q3:1':
+									$ref[ 5 ]++;
+									break;
+								case 'abdh:Q3:2':
+									$ref[ 6 ]++;
+									break;
+								case 'abdh:Q3:3':
+									$ref[ 7 ]++;
+									break;
+							}
+						}
+						
+						//
+						// Handle uses of production.
+						//
+						if( array_key_exists( $tag_use, $record ) )
+						{
+							foreach( $record[ $tag_use ] as $item )
+							{
+								switch( $item )
+								{
+									case 'abdh:Q5a:1':
+										$ref[ 8 ]++;
+										break;
+									case 'abdh:Q5a:2':
+										$ref[ 9 ]++;
+										break;
+									case 'abdh:Q5a:3':
+										$ref[ 10 ]++;
+										break;
+									case 'abdh:Q5a:4':
+										$ref[ 11 ]++;
+										break;
+									case 'abdh:Q5a:5':
+										$ref[ 12 ]++;
+										break;
+									case 'abdh:Q5a:6':
+										$ref[ 13 ]++;
+										break;
+								}
+							}
+						}
+					
+					} // Has species epithet.
+				
+				} // Iterating species.
+			
+			} // Has species.
+			
+			//
+			// Increment households count.
+			//
+			if( $house_spec )
+				$count++;
+		
+		} // Iterating.
+		
+		//
+		// Calculate percentages.
+		//
+		foreach( array_keys( $data ) as $species )
+		{
+			if( $count )
+			{
+				$data[ $species ][ 4 ]
+					= round( ( $data[ $species ][ 3 ] * 100 ) / $count, 2 );
+			}
+		}
+		
+		//
+		// Set data.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = array_values( $data );
+		
+	} // executeUnitStat7.
 
 
 	/*===================================================================================
@@ -7564,9 +9044,8 @@ $rs_units = & $rs_units[ 'result' ];
 		switch( $theDomain )
 		{
 			case kDOMAIN_HH_ASSESSMENT:
-				//
-				// Load statistics.
-				//
+			
+				// abdh-species-01.
 				$element = Array();
 				$id = 'abdh-species-01';
 				$element[ kAPI_PARAM_STAT ] = $id;
@@ -7575,6 +9054,7 @@ $rs_units = & $rs_units[ 'result' ];
 					 .'area and contribution to food and income';
 				$list[ $id ] = $element;
 				
+				// abdh-species-02.
 				$element = Array();
 				$id = 'abdh-species-02';
 				$element[ kAPI_PARAM_STAT ] = $id;
@@ -7583,12 +9063,45 @@ $rs_units = & $rs_units[ 'result' ];
 					 .'(number of households)';
 				$list[ $id ] = $element;
 				
+				// abdh-species-03.
 				$element = Array();
 				$id = 'abdh-species-03';
 				$element[ kAPI_PARAM_STAT ] = $id;
 				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
 					= 'Varieties grown by annual species '
 					 .'by type and demand for seed/planting material';
+				$list[ $id ] = $element;
+				
+				// abdh-species-04.
+				$element = Array();
+				$id = 'abdh-species-04';
+				$element[ kAPI_PARAM_STAT ] = $id;
+				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= 'Sources of seed/planting material for annual species';
+				$list[ $id ] = $element;
+				
+				// abdh-species-05.
+				$element = Array();
+				$id = 'abdh-species-05';
+				$element[ kAPI_PARAM_STAT ] = $id;
+				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= 'Frequency of seed replacement for annual species';
+				$list[ $id ] = $element;
+				
+				// abdh-species-06.
+				$element = Array();
+				$id = 'abdh-species-06';
+				$element[ kAPI_PARAM_STAT ] = $id;
+				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= 'Decisions on species by gender';
+				$list[ $id ] = $element;
+				
+				// abdh-species-07.
+				$element = Array();
+				$id = 'abdh-species-07';
+				$element[ kAPI_PARAM_STAT ] = $id;
+				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= 'Species used by households and by objective of use and type of uses';
 				$list[ $id ] = $element;
 				break;
 		}
@@ -7762,6 +9275,118 @@ $rs_units = & $rs_units[ 'result' ];
 						{
 							$tag = $this->mWrapper->getSerial( 'abdh:Q2.20', TRUE );
 							$theContainer[ 'abdh:Q2.20' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						break;
+						
+					case 'abdh-species-04':
+						$struct = $this->mWrapper->getSerial( 'abdh:species', TRUE );
+						if( ! array_key_exists( 'abdh:SPECIES_CAT', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+							$theContainer[ 'abdh:SPECIES_CAT' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+								kAPI_RESULT_ENUM_TERM => array( 'abdh:SPECIES_CAT:1' ),
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( ':taxon:epithet', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+							$theContainer[ ':taxon:epithet' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.10', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.10', TRUE );
+							$theContainer[ 'abdh:Q2.10' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						break;
+						
+					case 'abdh-species-05':
+						$struct = $this->mWrapper->getSerial( 'abdh:species', TRUE );
+						if( ! array_key_exists( 'abdh:SPECIES_CAT', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+							$theContainer[ 'abdh:SPECIES_CAT' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+								kAPI_RESULT_ENUM_TERM => array( 'abdh:SPECIES_CAT:1' ),
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( ':taxon:epithet', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+							$theContainer[ ':taxon:epithet' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q2.15a', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q2.15a', TRUE );
+							$theContainer[ 'abdh:Q2.15a' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						break;
+						
+					case 'abdh-species-06':
+						$struct = $this->mWrapper->getSerial( 'abdh:species', TRUE );
+						if( ! array_key_exists( 'abdh:SPECIES_CAT', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+							$theContainer[ 'abdh:SPECIES_CAT' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+								kAPI_RESULT_ENUM_TERM => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( ':taxon:epithet', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+							$theContainer[ ':taxon:epithet' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						break;
+						
+					case 'abdh-species-07':
+						$struct = $this->mWrapper->getSerial( 'abdh:species', TRUE );
+						if( ! array_key_exists( 'abdh:SPECIES_CAT', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:SPECIES_CAT', TRUE );
+							$theContainer[ 'abdh:SPECIES_CAT' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+								kAPI_RESULT_ENUM_TERM => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( ':taxon:epithet', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( ':taxon:epithet', TRUE );
+							$theContainer[ ':taxon:epithet' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q3', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q3', TRUE );
+							$theContainer[ 'abdh:Q3' ] = array(
+								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+								kAPI_PARAM_PATTERN => NULL,
+								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );
+						}
+						if( ! array_key_exists( 'abdh:Q5a', $theContainer ) )
+						{
+							$tag = $this->mWrapper->getSerial( 'abdh:Q5a', TRUE );
+							$theContainer[ 'abdh:Q5a' ] = array(
 								kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
 								kAPI_PARAM_PATTERN => NULL,
 								kAPI_PARAM_OFFSETS => array( "$struct.$tag" ) );

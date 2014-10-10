@@ -1048,6 +1048,13 @@ class IteratorSerialiser
 			$this->mDictionary[ kAPI_DICTIONARY_IDS ][] = $object[ kTAG_NID ];
 			
 			//
+			// Set dictionary xref.
+			//
+			$this->mDictionary[ kAPI_DICTIONARY_TAGS ]
+							  [ $object[ kTAG_ID_SEQUENCE ] ]
+				= $object[ kTAG_NID ];
+			
+			//
 			// Set record.
 			//
 			$this->setRecord( $this->mData, $object );

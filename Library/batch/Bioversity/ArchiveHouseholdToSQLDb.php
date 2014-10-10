@@ -1028,9 +1028,9 @@ finally
 				//
 				// Objectives of species production.
 				//
-				setEnum( $sub, $data,
+				setEnumSet( $sub, $data,
 						 'Q2.5', 'abdh:Q3',
-						 array( '1', '2', '3' ) );
+						 array( '1', '2', '3', '4' ) );
 				
 				//
 				// Contribution to consumption.
@@ -1462,9 +1462,9 @@ finally
 				//
 				// Objectives of species production.
 				//
-				setEnum( $sub, $data,
+				setEnumSet( $sub, $data,
 						 'Q3.4', 'abdh:Q3',
-						 array( '1', '2', '3' ) );
+						 array( '1', '2', '3', '4' ) );
 				
 				//
 				// Plant parts used.
@@ -1812,9 +1812,9 @@ finally
 				//
 				// Objectives of species production.
 				//
-				setEnum( $sub, $data,
+				setEnumSet( $sub, $data,
 						 'Q4.2a', 'abdh:Q3',
-						 array( '1', '2', '3' ) );
+						 array( '1', '2', '3', '4' ) );
 				// No data for Q4.2b.
 				// No data for Q4.2c.
 		
@@ -2004,12 +2004,12 @@ finally
 				{
 					$value = $data[ 'Q5.2a' ];
 					setEnumSet( $sub, $data,
-								'Q5.2a', 'abdh:Q5.2a',
+								'Q5.2a', 'abdh:Q5a',
 								Array(),
 								array( '0', 'AUNDA' ) );
 					if( $value == 'AUNDA' )
 					{
-						$tag = getTag( 'abdh:Q5.2b' );
+						$tag = getTag( 'abdh:Q5b' );
 						if( ! array_key_exists( $tag, $sub ) )
 							$sub[ $tag ] = Array();
 						if( ! in_array( $value, $sub[ $tag ] ) )
@@ -2020,12 +2020,12 @@ finally
 				{
 					$value = $data[ 'Q5.2b' ];
 					setEnumSet( $sub, $data,
-								'Q5.2b', 'abdh:Q5.2a',
+								'Q5.2b', 'abdh:Q5a',
 								Array(),
 								array( '0', 'EGG' ) );
 					if( $value == 'EGG' )
 					{
-						$tag = getTag( 'abdh:Q5.2b' );
+						$tag = getTag( 'abdh:Q5b' );
 						if( ! array_key_exists( $tag, $sub ) )
 							$sub[ $tag ] = Array();
 						if( ! in_array( $value, $sub[ $tag ] ) )
@@ -2036,7 +2036,7 @@ finally
 				{
 					$value = $data[ 'Q5.2c' ];
 					setEnumSet( $sub, $data,
-								'Q5.2c', 'abdh:Q5.2a',
+								'Q5.2c', 'abdh:Q5a',
 								Array(),
 								array( '0' ) );
 				}
@@ -2047,10 +2047,10 @@ finally
 				// Objectives of species production.
 				//
 				setEnumSet( $sub, $data,
-							'Q5.3a', 'abdh:Q5.3a',
+							'Q5.3a', 'abdh:Q3',
 							array( '1', '2', '3', '4' ) );
 				setEnumSet( $sub, $data,
-							'Q5.3b', 'abdh:Q5.3a',
+							'Q5.3b', 'abdh:Q3',
 							array( '1', '2', '3', '4' ) );
 				
 				//

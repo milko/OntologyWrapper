@@ -120,7 +120,7 @@ try
 		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_CRITERIA => Array(),
 		kAPI_PARAM_DOMAIN => kDOMAIN_HH_ASSESSMENT,
-		kAPI_PARAM_STAT => 'abdh-species-03',
+		kAPI_PARAM_STAT => 'abdh-species-07',
 		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_STAT
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;

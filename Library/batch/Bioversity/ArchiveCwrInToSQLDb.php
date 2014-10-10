@@ -121,6 +121,12 @@ SELECT DISTINCT
 	`:inventory:NICODE`,
 	`:inventory:INSTCODE`,
 	`cwr:in:NIENUMB`,
+	`:taxon:familia`,
+	`:taxon:genus`,
+	`:taxon:species`,
+	`:taxon:species:author`,
+	`:taxon:infraspecies`,
+	`:taxon:infraspecies:author`,
 	`:taxon:epithet`
 FROM
 	`$table`

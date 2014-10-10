@@ -1231,9 +1231,12 @@ finally
 				//
 				// Set identifier.
 				//
-				$accenumb = ( strlen( trim( $items[ 1 ] ) ) )
-						  ? trim( $items[ 1 ] )
-						  : NULL;
+				if( count( $items ) > 1 )
+					$accenumb = ( strlen( trim( $items[ 1 ] ) ) )
+							  ? trim( $items[ 1 ] )
+							  : NULL;
+				else
+					$accenumb = NULL;
 				
 				//
 				// Set germplasm identifier.
@@ -1269,7 +1272,7 @@ finally
 					if( $accenumb !== NULL )
 						$sub[ getTag( 'mcpd:ACCENUMB' ) ]
 							= $accenumb;
-			}
+				}
 				
 				//
 				// Set element.

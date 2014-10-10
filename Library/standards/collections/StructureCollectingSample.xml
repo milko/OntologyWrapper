@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	SAMPLE STRUCTURE
-	StructureSample.xml
+	StructureCollectingSample.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,9 +9,9 @@
 	
 	<!-- Sample structure -->
 	
-	<!-- struct::domain:sample -->
+	<!-- struct::domain:sample:collected -->
 	<META>
-		<NODE term=":domain:sample" pid="struct::domain:sample">
+		<NODE term=":domain:sample:collected" pid="struct::domain:sample:collected">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:struct</item>
@@ -19,7 +19,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a germplasm sample.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a collected germplasm sample.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -51,6 +51,18 @@
 		<!-- :mission:collecting:identifier -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :germplasm:identifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
