@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DEFAULT TYPE RELATIONS TYPES
+	DefaultTypeRelations.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Default type relations -->
+	
+	<!-- kTAG_ENTITY_NATIONALITY -->
+	<META>
+		<!-- iso:3166:1:alpha-3 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:entity:nationality</item>
+		</EDGE>
+		<!-- :location:country-legacy -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:location:country-legacy</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:entity:nationality</item>
+		</EDGE>
+	</META>
+</METADATA>

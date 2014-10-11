@@ -58,6 +58,12 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:kind:entity</item>
 		</EDGE>
+
+		<!-- kTAG_ENTITY_NATIONALITY -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:entity:nationality</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	
 		<!-- kTAG_ENTITY_MAIL -->
 		<EDGE>
@@ -80,6 +86,12 @@
 		<!-- kTAG_ENTITY_FAX -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:entity:fax</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_ENTITY_TLX -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:entity:tlx</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	

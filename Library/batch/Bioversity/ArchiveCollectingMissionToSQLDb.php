@@ -477,6 +477,17 @@ finally
 		}
 		
 		//
+		// Load collectors.
+		//
+		$sub = Array();
+		loadCollectors( $sub,
+						$theData,
+						$theWrapper,
+						$theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':collecting:entities', $sub );
+		
+		//
 		// Load collecting mission taxa.
 		//
 		$sub = Array();
@@ -488,6 +499,270 @@ finally
 			$theObject->offsetSet( ':mission:taxa', $sub );
 		
 	} // loadUnit.
+	
+
+	/**
+	 * Load collectors.
+	 *
+	 * This function will load the mission collectors related to the provided <b>$theUnit</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadCollectors( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		//
+		// Iterate taxa data.
+		//
+		$id = $theUnit[ ':collecting:event:identifier' ];
+		$query = "SELECT * FROM `cmdb_collectors` "
+				."WHERE `:collecting:event:identifier` = "
+				.'0x'.bin2hex( $id );
+		$records = $theDatabase->GetAll( $query );
+		foreach( $records as $record )
+		{
+			//
+			// Init local storage.
+			//
+			$sub = $data = Array();
+			
+			//
+			// Scan record.
+			//
+			foreach( $record as $key => $value )
+			{
+				//
+				// Normalise value.
+				//
+				if( strlen( trim( $value ) ) )
+					$data[ $key ] = trim( $value );
+			
+			} // Scanning record.
+			
+			//
+			// Skip empty records.
+			//
+			if( ! count( $data ) )
+				continue;													// =>
+			
+			//
+			// Set name.
+			//
+			$tmp = Array();
+			if( array_key_exists( 'ACRONYM', $data ) )
+				$tmp[] = "(".$data[ 'ACRONYM' ].")";
+			elseif( array_key_exists( 'ECPACRONYM', $data ) )
+				$tmp[] = "(".$data[ 'ECPACRONYM' ].")";
+			elseif( array_key_exists( 'NAME_ENG', $data ) )
+				$tmp[] = "(".$data[ 'NAME_ENG' ].")";
+			if( array_key_exists( ':entity:fname', $data ) )
+				$tmp[] = $data[ ':entity:fname' ];
+			if( array_key_exists( ':entity:lname', $data ) )
+				$tmp[] = $data[ ':entity:lname' ];
+			if( count( $tmp ) )
+				$sub[ getTag( ':name' ) ]
+					= implode( ' ', $tmp );
+			else
+				$sub[ getTag( ':name' ) ]
+					= 'unknown';
+			
+			//
+			// Set entity first name.
+			//
+			if( array_key_exists( ':entity:fname', $data ) )
+				$sub[ getTag( ':entity:fname' ) ]
+					= $data[ ':entity:fname' ];
+			
+			//
+			// Set entity last name.
+			//
+			if( array_key_exists( ':entity:lname', $data ) )
+				$sub[ getTag( ':entity:lname' ) ]
+					= $data[ ':entity:lname' ];
+			
+			//
+			// Set collecting institute code.
+			//
+			if( array_key_exists( 'mcpd:COLLCODE', $data ) )
+				$sub[ getTag( 'mcpd:COLLCODE' ) ]
+					= $data[ 'mcpd:COLLCODE' ];
+			elseif( array_key_exists( 'OLDCODE', $data ) )
+				$sub[ getTag( 'mcpd:COLLCODE' ) ]
+					= $data[ 'OLDCODE' ];
+			
+			//
+			// Set collecting institute name.
+			//
+			if( array_key_exists( 'mcpd:COLLDESCR', $data ) )
+				$sub[ getTag( 'mcpd:COLLDESCR' ) ]
+					= $data[ 'mcpd:COLLDESCR' ];
+			elseif( array_key_exists( 'NAME_ENG', $data ) )
+				$sub[ getTag( 'mcpd:COLLDESCR' ) ]
+					= $data[ 'NAME_ENG' ];
+			
+			//
+			// Set institute.
+			//
+			if( array_key_exists( 'mcpd:COLLCODE', $data ) )
+				$sub[ getTag( ':inventory:institute' ) ]
+					= kDOMAIN_ORGANISATION
+					 .'://http://fao.org/wiews:'
+					 .strtoupper( $data[ 'mcpd:COLLCODE' ] )
+					 .kTOKEN_END_TAG;
+			
+			//
+			// Set cooperator details.
+			//
+			else
+			{
+				//
+				// Set entity acronym.
+				//
+				$tmp = Array();
+				if( array_key_exists( 'ACRONYM', $data ) )
+					$tmp[] = $data[ 'ACRONYM' ];
+				if( array_key_exists( 'ECPACRONYM', $data ) )
+					$tmp[] = $data[ 'ECPACRONYM' ];
+				if( count( $tmp ) )
+					$sub[ kTAG_ENTITY_ACRONYM ]
+						= $tmp;
+			
+				//
+				// Set URL.
+				//
+				if( array_key_exists( ':entity:url', $data ) )
+					$sub[ kTAG_ENTITY_LINK ]
+						= array( array( kTAG_TEXT => $data[ ':entity:url' ] ) );
+			
+				//
+				// Set entity type.
+				//
+				if( array_key_exists( ':type:entity', $data ) )
+					$sub[ kTAG_ENTITY_TYPE ]
+						= explode( ';', $data[ ':type:entity' ] );
+			
+				//
+				// Set entity kind.
+				//
+				if( array_key_exists( ':kind:entity', $data ) )
+					$sub[ kTAG_ENTITY_KIND ]
+						= explode( ';', $data[ ':kind:entity' ] );
+			
+				//
+				// Set nationality.
+				//
+				$country_name = $country_code = NULL;
+				if( array_key_exists( 'CTY', $data ) )
+				{
+					$country_code = $data[ 'CTY' ];
+					$country_name = getCountry( $country_code );
+					$sub[ kTAG_ENTITY_NATIONALITY ] = $country_code;
+				}
+		
+				//
+				// Set address.
+				//
+				$address = Array();
+				if( array_key_exists( 'STREET_POB', $record ) )
+				{
+					if( strlen( $tmp = trim( $record[ 'STREET_POB' ] ) ) )
+						$address[] = $record[ 'STREET_POB' ];
+				}
+				$city = '';
+				if( array_key_exists( 'ZIP_CODE', $record ) )
+				{
+					if( strlen( $tmp = trim( $record[ 'ZIP_CODE' ] ) ) )
+						$city .= ($record[ 'ZIP_CODE' ].' ');
+				}
+				if( array_key_exists( 'CITY_STATE', $record ) )
+				{
+					if( strlen( $tmp = trim( $record[ 'CITY_STATE' ] ) ) )
+						$city .= ($record[ 'CITY_STATE' ].' ');
+				}
+				if( strlen( $city ) )
+					$address[] = $city;
+				if( $country_name !== NULL )
+					$address[] = $country_name;
+				if( count( $address ) )
+					$sub[ kTAG_ENTITY_MAIL ]
+						= array( array( kTAG_TEXT => implode( "\n", $address ) ) );
+			
+				//
+				// Set e-mail.
+				//
+				if( array_key_exists( ':entity:email', $data ) )
+					$sub[ kTAG_ENTITY_EMAIL ]
+						= array( array( kTAG_TEXT => $data[ ':entity:email' ] ) );
+			
+				//
+				// Set telephone.
+				//
+				if( array_key_exists( ':entity:phone', $data ) )
+					$sub[ kTAG_ENTITY_PHONE ]
+						= array( array( kTAG_TEXT => $data[ ':entity:phone' ] ) );
+			
+				//
+				// Set telefax.
+				//
+				if( array_key_exists( ':entity:fax', $data ) )
+					$sub[ kTAG_ENTITY_FAX ]
+						= array( array( kTAG_TEXT => $data[ ':entity:fax' ] ) );
+			
+				//
+				// Set telex.
+				//
+				if( array_key_exists( ':entity:tlx', $data ) )
+					$sub[ kTAG_ENTITY_TLX ]
+						= array( array( kTAG_TEXT => $data[ ':entity:tlx' ] ) );
+		
+				//
+				// Set elevation.
+				//
+				if( array_key_exists( ':location:site:elevation', $data ) )
+					$sub[ getTag( ':location:site:elevation' ) ]
+						= $data[ ':location:site:elevation' ];
+		
+				//
+				// Set latitude.
+				//
+				if( array_key_exists( 'LAT', $data ) )
+					$sub[ getTag( ':location:site:latitude:provided' ) ]
+						= $data[ 'LAT' ];
+		
+				//
+				// Set longitude.
+				//
+				if( array_key_exists( 'LONG_', $data ) )
+					$sub[ getTag( ':location:site:longitude:provided' ) ]
+						= $data[ 'LONG_' ];
+		
+				//
+				// Set version.
+				//
+				if( array_key_exists( ':version', $data ) )
+					$sub[ kTAG_VERSION ]
+						= $data[ ':version' ];
+			
+			} // Not an institute or not known institite.
+	
+			//
+			// Set notes.
+			//
+			if( array_key_exists( ':notes', $data ) )
+				$sub[ kTAG_NOTE ]
+					= array( $data[ ':notes' ] );
+			
+			//
+			// Set element.
+			//
+			if( count( $sub ) )
+				$theContainer[] = $sub;
+		}
+
+	} // loadCollectors.
 	
 
 	/**
@@ -581,6 +856,30 @@ finally
 	
 
 	/**
+	 * Get region.
+	 *
+	 * This function will return the region name referenced by the provided parameter
+	 * that should contain its code.
+	 *
+	 * @param string				$theIdentifier		Region code.
+	 * @return string				Region name.
+	 */
+	function getRegion( $theIdentifier )
+	{
+		global $wrapper;
+		
+		//
+		// Get region name.
+		//
+		$region = new OntologyWrapper\Term( $wrapper, $theIdentifier );
+		
+		return OntologyWrapper\OntologyObject::SelectLanguageString(
+				$region[ kTAG_LABEL ], 'en' );										// ==>
+
+	} // getRegion.
+	
+
+	/**
 	 * Get country.
 	 *
 	 * This function will return the country name and its code in the provided parameter
@@ -614,30 +913,6 @@ finally
 				$country[ kTAG_LABEL ], 'en' );										// ==>
 
 	} // getCountry.
-	
-
-	/**
-	 * Get region.
-	 *
-	 * This function will return the region name referenced by the provided parameter
-	 * that should contain its code.
-	 *
-	 * @param string				$theIdentifier		Region code.
-	 * @return string				Region name.
-	 */
-	function getRegion( $theIdentifier )
-	{
-		global $wrapper;
-		
-		//
-		// Get region name.
-		//
-		$region = new OntologyWrapper\Term( $wrapper, $theIdentifier );
-		
-		return OntologyWrapper\OntologyObject::SelectLanguageString(
-				$region[ kTAG_LABEL ], 'en' );										// ==>
-
-	} // getRegion.
 	
 
 	/**

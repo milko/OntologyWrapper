@@ -2301,6 +2301,16 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
+		// Load XML default relations files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML default relations files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/DefaultTypeRelations.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
 		// Load XML taxonomy schema files.
 		//
 		if( $doLog )

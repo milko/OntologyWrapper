@@ -500,7 +500,7 @@ finally
 			':inventory:institute',
 			kDOMAIN_ORGANISATION
 		   .'://http://fao.org/wiews:'
-		   .$theData[ 'INSTCODE' ]
+		   .strtoupper( $theData[ 'INSTCODE' ] )
 		   .kTOKEN_END_TAG );
 		
 		/***********************************************************************
@@ -847,7 +847,7 @@ finally
 			$sub[ getTag( ':inventory:institute' ) ]
 				= kDOMAIN_ORGANISATION
 				 .'://http://fao.org/wiews:'
-				 .$theUnit[ 'COLLCODE' ]
+				 .strtoupper( $theUnit[ 'COLLCODE' ] )
 				 .kTOKEN_END_TAG;
 
 		//
@@ -945,7 +945,7 @@ finally
 			$sub[ getTag( ':inventory:institute' ) ]
 				= kDOMAIN_ORGANISATION
 				 .'://http://fao.org/wiews:'
-				 .$theUnit[ 'BREDCODE' ]
+				 .strtoupper( $theUnit[ 'BREDCODE' ] )
 				 .kTOKEN_END_TAG;
 
 		//
@@ -1028,7 +1028,7 @@ finally
 						$tmp[ getTag( ':inventory:DUPLSITE' ) ]
 							= kDOMAIN_ORGANISATION
 							 .'://http://fao.org/wiews:'
-							 .$item
+							 .strtoupper( $item )
 							 .kTOKEN_END_TAG;
 						$list[] = $tmp;
 					}
@@ -1113,7 +1113,7 @@ finally
 			$theContainer[ getTag( ':inventory:institute' ) ]
 				= kDOMAIN_ORGANISATION
 				 .'://http://fao.org/wiews:'
-				 .$theUnit[ 'DONORCODE' ]
+				 .strtoupper( $theUnit[ 'DONORCODE' ] )
 				 .kTOKEN_END_TAG;
 		}
 		
@@ -1257,7 +1257,7 @@ finally
 					$sub[ getTag( ':inventory:institute' ) ]
 						= kDOMAIN_ORGANISATION
 						 .'://http://fao.org/wiews:'
-						 .$instcode
+						 .strtoupper( $instcode )
 						 .kTOKEN_END_TAG;
 					
 					//

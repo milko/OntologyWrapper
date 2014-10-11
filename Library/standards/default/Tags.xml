@@ -2456,6 +2456,38 @@
 	</META>
 	
 	<!-- 82 -->
+	<!-- kTAG_ENTITY_TLX -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:tlx</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:typed-list</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_TLX</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity telex</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the entity list of telex codes discriminated by type.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- 83 -->
 	<!-- kTAG_ENTITY_AFFILIATION -->
 	<META>
 		<TAG>
@@ -2481,7 +2513,7 @@
 		</NODE>
 	</META>
 	
-	<!-- 83 -->
+	<!-- 84 -->
 	<!-- kTAG_ENTITY_NATIONALITY -->
 	<META>
 		<TAG>
@@ -2515,7 +2547,7 @@
 		</NODE>
 	</META>
 	
-	<!-- 84 -->
+	<!-- 85 -->
 	<!-- kTAG_ENTITY_VALID -->
 	<META>
 		<TAG>
@@ -2541,7 +2573,7 @@
 		</NODE>
 	</META>
 	
-	<!-- 85 -->
+	<!-- 86 -->
 	<!-- kTAG_ENTITY_PGP_KEY -->
 	<META>
 		<TAG>
@@ -2567,7 +2599,7 @@
 		</NODE>
 	</META>
 	
-	<!-- 86 -->
+	<!-- 87 -->
 	<!-- kTAG_ENTITY_PGP_FINGERPRINT -->
 	<META>
 		<TAG>
@@ -2596,7 +2628,7 @@
 	<!-- Management attributes -->
 	
 	<META>
-		<!-- 87 -->
+		<!-- 88 -->
 		<!-- kTAG_ROLES -->
 		<TAG>
 			<item const="kTAG_TERMS">

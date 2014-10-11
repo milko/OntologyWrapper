@@ -36,12 +36,6 @@
 			<item const="kTAG_SUBJECT" node="tag">:entity:lname</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-
-		<!-- kTAG_ENTITY_NATIONALITY -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:entity:nationality</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
 	
 		<!-- kTAG_CONN_CODE -->
 		<EDGE>
@@ -53,7 +47,6 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:connection:pass</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::domain:individual</item>
 		</EDGE>
 	</META>
 </METADATA>

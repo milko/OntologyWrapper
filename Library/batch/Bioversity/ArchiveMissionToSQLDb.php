@@ -98,7 +98,7 @@ if( $argc < 5 )
 //
 $start = 0;
 $limit = 100;
-$page = 5;
+$page = 2;
 $dc_in = $dc_out = $rs = NULL;
 $class = 'OntologyWrapper\Mission';
 

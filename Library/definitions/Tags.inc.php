@@ -1256,6 +1256,18 @@ define( "kTAG_ENTITY_PHONE",			80 );
 define( "kTAG_ENTITY_FAX",				81 );
 
 /**
+ * Entity telex (<code>:entity:tlx</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_TYPED_LIST}
+ * </ul>
+ *
+ * This tag holds a <em>list of telex numbers discriminated by their type</em>. Each
+ * element of the list represents a telex code which should be used according to its type.
+ */
+define( "kTAG_ENTITY_TLX",				82 );
+
+/**
  * Entity affiliation (<code>:entity:affiliation</code)
  *
  * <ul>
@@ -1270,7 +1282,7 @@ define( "kTAG_ENTITY_FAX",				81 );
  * stored in the entities collection exist solely for the purpose of providing a container
  * for system users.</em>
  */
-define( "kTAG_ENTITY_AFFILIATION",		82 );
+define( "kTAG_ENTITY_AFFILIATION",		83 );
 
 /**
  * Entity mationality (<code>:entity:nationality</code)
@@ -1281,7 +1293,7 @@ define( "kTAG_ENTITY_AFFILIATION",		82 );
  *
  * This tag holds an <em>enumerated value representing the nationality of the entity</em>.
  */
-define( "kTAG_ENTITY_NATIONALITY",		83 );
+define( "kTAG_ENTITY_NATIONALITY",		84 );
 
 /**
  * Valid entity (<code>:entity:valid</code)
@@ -1294,7 +1306,7 @@ define( "kTAG_ENTITY_NATIONALITY",		83 );
  * attribute is used by obsolete or defunct entities for referring to the current substitute
  * or valid entity.
  */
-define( "kTAG_ENTITY_VALID",			84 );
+define( "kTAG_ENTITY_VALID",			85 );
 
 /**
  * Entity PGP public key (<code>:entity:pgp-key</code)
@@ -1305,7 +1317,7 @@ define( "kTAG_ENTITY_VALID",			84 );
  *
  * This tag holds the <em>PGP public key</em> which identifies a specific <em>user</em>.
  */
-define( "kTAG_ENTITY_PGP_KEY",			85 );
+define( "kTAG_ENTITY_PGP_KEY",			86 );
 
 /**
  * Entity PGP fingerprint (<code>:entity:pgp-fingerprint</code)
@@ -1316,7 +1328,7 @@ define( "kTAG_ENTITY_PGP_KEY",			85 );
  *
  * This tag holds the <em>PGP fingerprint</em> which identifies a specific <em>user</em>.
  */
-define( "kTAG_ENTITY_PGP_FINGERPRINT",	86 );
+define( "kTAG_ENTITY_PGP_FINGERPRINT",	87 );
 
 /*=======================================================================================
  *	MANAGEMENT OFFSETS																	*
@@ -1329,7 +1341,7 @@ define( "kTAG_ENTITY_PGP_FINGERPRINT",	86 );
  * value is a set of string values which are defined and managed by the user interface
  * system.
  */
-define( "kTAG_ROLES",					87 );
+define( "kTAG_ROLES",					88 );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

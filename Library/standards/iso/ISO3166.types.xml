@@ -1042,10 +1042,6 @@
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:1</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:entity:nationality</item>
-		</EDGE>
 	</META>
 	<!-- iso:3166:1:numeric -->
 	<META>
@@ -1179,10 +1175,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:3</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:entity:nationality</item>
 		</EDGE>
 	</META>
 	<!-- iso:3166:3:alpha-4 -->

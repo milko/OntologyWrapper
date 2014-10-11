@@ -9,7 +9,7 @@
 	
 	<!-- Mission collecting events structure -->
 	
-	<!-- :mission:collecting -->
+	<!-- :collecting:missions -->
 	<META>
 		<!-- :struct-label -->
 		<EDGE>
@@ -35,6 +35,27 @@
 		<!-- :mission:collecting:end -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:end</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:collecting:missions</item>
+		</EDGE>
+		
+		<!-- :location:country -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:collecting:missions</item>
+		</EDGE>
+		
+		<!-- :location:admin -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:collecting:missions</item>
+		</EDGE>
+		
+		<!-- :location:region -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:region</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:collecting:missions</item>
 		</EDGE>
