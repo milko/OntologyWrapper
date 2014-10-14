@@ -377,12 +377,12 @@ finally
 		//
 		// Set authority.
 		//
-		$theObject->offsetSet( kTAG_AUTHORITY, $theData[ ':inventory:INSTCODE' ] );
+		$theObject->offsetSet( ':unit:authority', $theData[ ':inventory:INSTCODE' ] );
 		
 		//
 		// Set collection.
 		//
-		$theObject->offsetSet( kTAG_COLLECTION, $theData[ ':taxon:epithet' ] );
+		$theObject->offsetSet( ':unit:collection', $theData[ ':taxon:epithet' ] );
 		
 		//
 		// Set identifier.
@@ -393,12 +393,12 @@ finally
 		if( array_key_exists( 'cwr:ck:NUMB', $theData ) )
 			$tmp[] = $theData[ 'cwr:ck:NUMB' ];
 		if( count( $tmp ) )
-			$theObject->offsetSet( kTAG_IDENTIFIER, implode( '-', $tmp ) );
+			$theObject->offsetSet( ':unit:identifier', implode( '-', $tmp ) );
 		
 		//
 		// Set version.
 		//
-		$theObject->offsetSet( kTAG_VERSION, $theData[ 'cwr:ck:TYPE' ] );
+		$theObject->offsetSet( ':unit:version', $theData[ 'cwr:ck:TYPE' ] );
 		
 		/***********************************************************************
 		 * Set unit inventory properties.

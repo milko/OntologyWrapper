@@ -713,6 +713,12 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
+		kTAG_ENTITY_TLX => array
+		(
+			kTAG_NID	=> ':entity:tlx',
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
 		kTAG_ENTITY_AFFILIATION => array
 		(
 			kTAG_NID	=> ':entity:affiliation',

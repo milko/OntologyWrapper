@@ -233,6 +233,30 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 	"mongodb://localhost:27017/BIOVERSITY"
 
 ########################################################################################
+#   Handle Collecting Samples                                                          #
+########################################################################################
+
+#
+# Archive Collecting Samples.
+#
+mysql --host=localhost --user=$1 --password=$2 \
+	  --socket=/tmp/mysql.sock --database=bioversity_archive \
+	  --execute="TRUNCATE TABLE cmdb_sample"
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCollectingSampleToSQLDb.php \
+	"MySQLi://$1:$2@localhost/bioversity?socket=/tmp/mysql.sock&persist" \
+	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+	"cmdb_sample" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+#
+# Load Collecting Samples.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist" \
+	"cmdb_sample" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
 #   Backup and archive database                                                        #
 ########################################################################################
 

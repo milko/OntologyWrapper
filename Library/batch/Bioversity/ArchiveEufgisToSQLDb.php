@@ -367,19 +367,19 @@ finally
 		//
 		// Set authority.
 		//
-		$theObject->offsetSet( kTAG_AUTHORITY,
+		$theObject->offsetSet( ':unit:authority',
 							   substr( $theData[ 'UnitNumber' ], 0, 3 ) );
 		
 		//
 		// Set identifier.
 		//
-		$theObject->offsetSet( kTAG_IDENTIFIER,
+		$theObject->offsetSet( ':unit:identifier',
 							   substr( $theData[ 'UnitNumber' ], 3 ) );
 		
 		//
 		// Set version.
 		//
-		$theObject->offsetSet( kTAG_VERSION, $theData[ 'UnitDataCollectionYear' ] );
+		$theObject->offsetSet( ':unit:version', $theData[ 'UnitDataCollectionYear' ] );
 		
 		/***********************************************************************
 		 * Set unit inventory properties.

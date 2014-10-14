@@ -377,22 +377,22 @@ finally
 		//
 		// Set authority.
 		//
-		$theObject->offsetSet( kTAG_AUTHORITY, 'USA126' );
+		$theObject->offsetSet( ':unit:authority', 'USA126' );
 		
 		//
 		// Set collection.
 		//
-		$theObject->offsetSet( kTAG_COLLECTION, $theData[ 'Taxon' ] );
+		$theObject->offsetSet( ':unit:collection', $theData[ 'Taxon' ] );
 		
 		//
 		// Set identifier.
 		//
-		$theObject->offsetSet( kTAG_IDENTIFIER, $theData[ 'Type' ] );
+		$theObject->offsetSet( ':unit:identifier', $theData[ 'Type' ] );
 		
 		//
 		// Set version.
 		//
-		$theObject->offsetSet( kTAG_VERSION, '2013' );
+		$theObject->offsetSet( ':unit:version', '2013' );
 				
 		/***********************************************************************
 		 * Set unit inventory properties.

@@ -1289,7 +1289,7 @@ finally
 				if( $instcode !== NULL )
 				{
 					//
-					// Set code.
+					// Set institute code.
 					//
 					$sub[ getTag( 'mcpd:INSTCODE' ) ]
 						= $instcode;

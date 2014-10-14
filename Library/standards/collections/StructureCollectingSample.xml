@@ -60,12 +60,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- mcpd:COLLCODE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLCODE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- mcpd:COLLDATE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDATE</item>
@@ -117,6 +111,12 @@
 		<!-- :germplasm:neighbourhood -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:germplasm:neighbourhood</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :collecting:entities -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:entities</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	

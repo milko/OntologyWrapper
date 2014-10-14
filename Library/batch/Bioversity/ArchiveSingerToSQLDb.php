@@ -983,10 +983,10 @@ finally
 				// Set :name.
 				//
 				if( array_key_exists( 'CooperatorName', $data ) )
-					$sub[ kTAG_NAME ]
+					$sub[ getTag( ':name' ) ]
 						= $data[ 'CooperatorName' ];
 				elseif( array_key_exists( 'CooperatorLocalCode', $data ) )
-					$sub[ kTAG_NAME ]
+					$sub[ getTag( ':name' ) ]
 						= $data[ 'CooperatorLocalCode' ];
 		
 				//
@@ -1506,10 +1506,10 @@ finally
 				// Set :name.
 				//
 				if( array_key_exists( 'CooperatorName', $data ) )
-					$sub[ kTAG_NAME ]
+					$sub[ getTag( ':name' ) ]
 						= $data[ 'CooperatorName' ];
 				elseif( array_key_exists( 'CooperatorLocalCode', $data ) )
-					$sub[ kTAG_NAME ]
+					$sub[ getTag( ':name' ) ]
 						= $data[ 'CooperatorCode' ];
 		
 				//

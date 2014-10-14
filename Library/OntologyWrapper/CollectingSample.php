@@ -291,7 +291,12 @@ class CollectingSample extends Sample
 		//
 		// Check identifier.
 		//
-		// Done by parent.
+		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
+		{
+			if( $this->offsetExists( ':germplasm:identifier' ) )
+				$this->offsetSet( kTAG_IDENTIFIER,
+								  $this->offsetGet( ':germplasm:identifier' ) );
+		}
 		
 		//
 		// Check version.
@@ -375,23 +380,6 @@ class CollectingSample extends Sample
 		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
 		{
 			//
-			// Get coordinates.
-			//
-			if( $this->offsetExists( ':domain:accession:collecting' ) )
-				$event = $this->offsetGet( ':domain:accession:collecting' );
-			elseif( $this->offsetExists( ':domain:accession:breeding' ) )
-				$event = $this->offsetGet( ':domain:accession:breeding' );
-			else
-				return FALSE;														// ==>
-			
-			//
-			// Get coordinates.
-			//
-			$olat = $this->resolveOffset( ':location:site:latitude', TRUE );
-			$olon = $this->resolveOffset( ':location:site:longitude', TRUE );
-			$oerr = $this->resolveOffset( ':location:site:error', TRUE );
-			
-			//
 			// Check coordinates.
 			//
 			if( $this->offsetExists( ':location:site:latitude' )
@@ -409,7 +397,7 @@ class CollectingSample extends Sample
 							kTAG_GEOMETRY => array(
 							   (double) $this->offsetGet( ':location:site:longitude' ),
 							   (double) $this->offsetGet( ':location:site:latitude' ) ),
-						   kTAG_RADIUS => (int) $this->offsetGet( ':location:site:error' ) ) );
+						    kTAG_RADIUS => (int) $this->offsetGet( ':location:site:error' ) ) );
 				
 				//
 				// Set point.
@@ -419,7 +407,7 @@ class CollectingSample extends Sample
 						kTAG_GEO_SHAPE,
 						array(
 							kTAG_TYPE => 'Point',
-						   kTAG_GEOMETRY => array(
+						    kTAG_GEOMETRY => array(
 							   (double) $this->offsetGet( ':location:site:longitude' ),
 							   (double) $this->offsetGet( ':location:site:latitude' ) ) ) );
 			}

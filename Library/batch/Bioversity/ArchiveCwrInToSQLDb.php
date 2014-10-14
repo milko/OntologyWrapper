@@ -395,22 +395,22 @@ finally
 		//
 		// Set authority.
 		//
-		$theObject->offsetSet( kTAG_AUTHORITY, $theData[ ':inventory:INSTCODE' ] );
+		$theObject->offsetSet( ':unit:authority', $theData[ ':inventory:INSTCODE' ] );
 		
 		//
 		// Set collection.
 		//
-		$theObject->offsetSet( kTAG_COLLECTION, $theData[ ':taxon:epithet' ] );
+		$theObject->offsetSet( ':unit:collection', $theData[ ':taxon:epithet' ] );
 		
 		//
 		// Set identifier.
 		//
-		$theObject->offsetSet( kTAG_IDENTIFIER, $theData[ ':inventory:NICODE' ].'-001' );
+		$theObject->offsetSet( ':unit:identifier', $theData[ ':inventory:NICODE' ].'-001' );
 		
 		//
 		// Set version.
 		//
-		$theObject->offsetSet( kTAG_VERSION, '2014' );
+		$theObject->offsetSet( ':unit:version', '2014' );
 				
 		/***********************************************************************
 		 * Set unit inventory properties.

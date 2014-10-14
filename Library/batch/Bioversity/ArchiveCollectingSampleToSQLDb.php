@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SQL collecting mission archive procedure.
+ * SQL collecting sample archive procedure.
  *
  * This file contains routines to load missions from an SQL database and archive it as
  * XML the archive database.
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *							ArchiveCollectingMissionToSQLDb.php							*
+ *							ArchiveCollectingSampleToSQLDb.php							*
  *																						*
  *======================================================================================*/
 
@@ -70,6 +70,11 @@ require_once( "/Library/WebServer/Library/adodb/adodb-iterator.inc.php" );
  */
 require_once( "/Library/WebServer/Library/adodb/adodb-exceptions.inc.php" );
 
+/**
+ * Settings.
+ */
+define( 'kDO_CLIMATE', TRUE );
+
 
 /*=======================================================================================
  *	MAIN																				*
@@ -84,7 +89,7 @@ if( $argc < 5 )
 				."<Input SQL database DSN> "
 	// MySQLi://user:pass@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist
 				."<Output SQL database DSN> "
-	// cmdb_collecting
+	// cmdb_sample
 				."<Output SQL database table> "
 	// mongodb://localhost:27017/BIOVERSITY
 				."<mongo database DSN> "
@@ -98,14 +103,14 @@ if( $argc < 5 )
 //
 $start = 0;
 $limit = 100;
-$page = 3;
+$page = 50;
 $dc_in = $dc_out = $rs = NULL;
-$class = 'OntologyWrapper\CollectingMission';
+$class = 'OntologyWrapper\CollectingSample';
 
 //
 // Init base query.
 //
-$base_query = "SELECT * from `cmdb_collecting`";
+$base_query = "SELECT * from `cmdb_sample`";
 
 //
 // Load arguments.
@@ -120,7 +125,7 @@ $last = ( $argc > 6 ) ? $argv[ 6 ] : NULL;
 //
 // Inform.
 //
-echo( "\n==> Loading collecting missions into $table.\n" );
+echo( "\n==> Loading samples into $table.\n" );
 
 //
 // Try.
@@ -233,8 +238,8 @@ try
 	echo( "  • Exporting\n" );
 	$query = $base_query;
 	if( $last !== NULL )
-		$query .= " WHERE `:collecting:event:identifier` > $last";
-	$query .= " ORDER BY `:collecting:event:identifier` LIMIT $start,$limit";
+		$query .= " WHERE `ID` > $last";
+	$query .= " ORDER BY `ID` LIMIT $start,$limit";
 	$rs = $dc_in->execute( $query );
 	while( $rs->RecordCount() )
 	{
@@ -274,6 +279,12 @@ try
 			loadUnit( $object, $data, $wrapper, $dc_in );
 			
 			//
+			// Load climate.
+			//
+			if( kDO_CLIMATE )
+				$object->setClimateData();
+			
+			//
 			// Validate object.
 			//
 			$object->validate();
@@ -286,7 +297,7 @@ try
 					? "INSERT INTO `$table`( "
 					: "REPLACE INTO `$table`( ";
 			$insert .= ("`id`, `class`, `xml` ) VALUES( "
-					   .'0x'.bin2hex( (string) $record[ ':collecting:event:identifier' ] ).', '
+					   .$record[ 'ID' ].', '
 					   .'0x'.bin2hex( get_class( $object ) ).', '
 					   .'0x'.bin2hex( $xml->asXML() ).' )');
 			$dc_out->Execute( $insert );
@@ -316,8 +327,8 @@ try
 		$start += $limit;
 		$query = $base_query;
 		if( $last !== NULL )
-			$query .= " WHERE `:collecting:event:identifier` > $last";
-		$query .= " ORDER BY `:collecting:event:identifier` LIMIT $start,$limit";
+			$query .= " WHERE `ID` > $last";
+		$query .= " ORDER BY `ID` LIMIT $start,$limit";
 		$rs = $dc_in->execute( $query );
 	
 	} // Records left.
@@ -377,21 +388,20 @@ finally
 		//
 		// Set authority.
 		//
-		$theObject->offsetSet( ':unit:authority', 'ITA406' );
+		$theObject->offsetSet( kTAG_AUTHORITY, 'ITA406' );
 		
 		//
 		// Set collection.
 		//
-		if( $theData[ ':collecting:mission:identifier' ]
-			!= $theData[ ':collecting:event:identifier' ] )
-			$theObject->offsetSet( ':unit:collection',
-								   $theData[ ':collecting:mission:identifier' ] );
+		$theObject->offsetSet( kTAG_COLLECTION,
+							   $theData[ ':collecting:mission:identifier' ]
+							  .'/'
+							  .$theData[ ':collecting:event:identifier' ] );
 		
 		//
 		// Set identifier.
 		//
-		$theObject->offsetSet( ':unit:identifier',
-							   $theData[ ':collecting:event:identifier' ] );
+		$theObject->offsetSet( kTAG_IDENTIFIER, $theData[ 'ID' ] );
 				
 		/***********************************************************************
 		 * Set unit inventory properties.
@@ -431,60 +441,246 @@ finally
 		}
 		
 		//
-		// Set collecting mission identifier.
+		// Set collecting mission.
 		//
 		if( array_key_exists( ':collecting:event:identifier', $theData ) )
+		{
+			//
+			// Set collecting mission.
+			//
+			$theObject->offsetSet( ':mission',
+								   OntologyWrapper\CollectingMission::kDEFAULT_DOMAIN
+								  .'://'
+								  .'ITA406/'
+								  .$theData[ ':collecting:mission:identifier' ]
+								  .':'
+								  .$theData[ ':collecting:event:identifier' ]
+								  .kTOKEN_END_TAG );
+			
+			//
+			// Set code.
+			//
 			$theObject->offsetSet( ':mission:collecting:identifier',
 								   $theData[ ':collecting:event:identifier' ] );
+		}
 		
 		//
-		// Set collecting mission start.
+		// Set germplasm identifier.
 		//
-		if( array_key_exists( ':collecting:event:start', $theData ) )
-			$theObject->offsetSet( ':mission:collecting:start',
-								   $theData[ ':collecting:event:start' ] );
+		$theObject->offsetSet( ':germplasm:identifier',
+							   $theData[ ':collecting:mission:identifier' ]
+							  .':'
+							  .$theData[ ':collecting:event:identifier' ]
+							  .'/'
+							  .$theData[ 'ID' ] );
 		
 		//
-		// Set collecting mission end.
+		// Set collecting date.
 		//
-		if( array_key_exists( ':collecting:event:end', $theData ) )
-			$theObject->offsetSet( ':mission:collecting:end',
-								   $theData[ ':collecting:event:end' ] );
+		if( array_key_exists( 'mcpd:COLLDATE', $theData ) )
+			$theObject->offsetSet( 'mcpd:COLLDATE',
+								   $theData[ 'mcpd:COLLDATE' ] );
 		
 		//
-		// Set region name.
+		// Set collecting number.
 		//
-		if( array_key_exists( 'Region_name', $theData ) )
+		if( array_key_exists( 'mcpd:COLLNUMB', $theData ) )
+			$theObject->offsetSet( 'mcpd:COLLNUMB',
+								   $theData[ 'mcpd:COLLNUMB' ] );
+		
+		//
+		// Set collecting source.
+		//
+		if( array_key_exists( 'MCPD:COLLSRC', $theData ) )
+			$theObject->offsetSet( 'mcpd:COLLSRC',
+								   $theData[ 'MCPD:COLLSRC' ] );
+		
+		//
+		// Set sample status.
+		//
+		if( array_key_exists( 'MCPD:SAMPSTAT', $theData ) )
+			$theObject->offsetSet( 'mcpd:SAMPSTAT',
+								   $theData[ 'MCPD:SAMPSTAT' ] );
+		
+		//
+		// Set sample genus.
+		//
+		if( array_key_exists( ':taxon:genus', $theData ) )
+			$theObject->offsetSet( ':taxon:genus',
+								   $theData[ ':taxon:genus' ] );
+		
+		//
+		// Set sample sectio.
+		//
+		if( array_key_exists( ':taxon:sectio', $theData ) )
+			$theObject->offsetSet( ':taxon:sectio',
+								   $theData[ ':taxon:sectio' ] );
+		
+		//
+		// Set sample species.
+		//
+		if( array_key_exists( ':taxon:species', $theData ) )
+			$theObject->offsetSet( ':taxon:species',
+								   $theData[ ':taxon:species' ] );
+		
+		//
+		// Set sample infraspecific epithet.
+		//
+		if( array_key_exists( ':taxon:infraspecies', $theData ) )
+			$theObject->offsetSet( ':taxon:infraspecies',
+								   $theData[ ':taxon:infraspecies' ] );
+		
+		//
+		// Set sample epithet.
+		//
+		if( array_key_exists( ':taxon:epithet', $theData ) )
+			$theObject->offsetSet( ':taxon:epithet',
+								   $theData[ ':taxon:epithet' ] );
+		
+		//
+		// Set vernacular names.
+		//
+		if( array_key_exists( ':taxon:names', $theData ) )
+			$theObject->offsetSet( ':taxon:names',
+								   array(
+								   	array( kTAG_TEXT => array(
+								   		$theData[ ':taxon:names' ] ) ) ) );
+		
+		//
+		// Set sample designation use.
+		//
+		if( array_key_exists( ':taxon:designation:use', $theData ) )
+			$theObject->offsetSet( ':taxon:designation:use',
+								   array( $theData[ ':taxon:designation:use' ] ) );
+		
+		//
+		// Set sample taxon reference.
+		//
+		if( array_key_exists( 'TAXCODE_GRIN', $theData ) )
+		{
+			$theObject->offsetSet(
+				':taxon:reference',
+				array( 'http://www.ars-grin.gov/cgi-bin/npgs/html/index.pl' ) );
+			$theObject->offsetSet(
+				':taxon:url',
+				'http://www.ars-grin.gov/cgi-bin/npgs/html/taxon.pl?'
+			   .$theData[ 'TAXCODE_GRIN' ] );
+		}
+		
+		//
+		// Set sample region.
+		//
+		if( array_key_exists( ':location:admin', $theData ) )
 			$theObject->offsetSet( ':location:region',
-								   $theData[ 'Region_name' ] );
-		
-		//
-		// Set location admin.
-		//
-		if( array_key_exists( 'REGION', $theData ) )
-			$theObject->offsetSet( ':location:admin',
-								   $theData[ 'REGION' ] );
+								   getRegion( $theData[ ':location:admin' ] ) );
 		
 		//
 		// Set country.
 		//
-		if( array_key_exists( 'Country_Code', $theData ) )
+		if( array_key_exists( ':location:country', $theData ) )
 		{
-			$code = $theData[ 'Country_Code' ];
+			$code = $theData[ ':location:country' ];
 			$name = getCountry( $code );
 			$theObject->offsetSet( ':location:country', $code );
 		}
 		
 		//
-		// Load collecting mission taxa.
+		// Set sample admin 1.
 		//
-		$sub = Array();
-		loadTaxa( $sub,
-				  $theData,
-				  $theWrapper,
-				  $theDatabase );
-		if( count( $sub ) )
-			$theObject->offsetSet( ':mission:taxa', $sub );
+		if( array_key_exists( ':location:admin-1', $theData ) )
+			$theObject->offsetSet( ':location:admin-1',
+								   $theData[ ':location:admin-1' ] );
+		
+		//
+		// Set sample admin 2.
+		//
+		if( array_key_exists( ':location:admin-2', $theData ) )
+			$theObject->offsetSet( ':location:admin-2',
+								   $theData[ ':location:admin-2' ] );
+		
+		//
+		// Set sample admin 3.
+		//
+		if( array_key_exists( ':location:admin-3', $theData ) )
+			$theObject->offsetSet( ':location:admin-3',
+								   $theData[ ':location:admin-3' ] );
+		
+		//
+		// Set sample locality.
+		//
+		if( array_key_exists( ':location:locality', $theData ) )
+			$theObject->offsetSet( ':location:locality',
+								   $theData[ ':location:locality' ] );
+		
+		//
+		// Set sample elevation.
+		//
+		if( array_key_exists( ':location:site:elevation', $theData ) )
+			$theObject->offsetSet( ':location:site:elevation',
+								   $theData[ ':location:site:elevation' ] );
+		
+		//
+		// Set sample provided latitude.
+		//
+		if( array_key_exists( ':location:site:latitude:provided', $theData ) )
+			$theObject->offsetSet( ':location:site:latitude:provided',
+								   $theData[ ':location:site:latitude:provided' ] );
+		
+		//
+		// Set sample latitude.
+		//
+		if( array_key_exists( ':location:site:latitude', $theData ) )
+			$theObject->offsetSet( ':location:site:latitude',
+								   $theData[ ':location:site:latitude' ] );
+		
+		//
+		// Set sample provided longitude.
+		//
+		if( array_key_exists( ':location:site:longitude:provided', $theData ) )
+			$theObject->offsetSet( ':location:site:longitude:provided',
+								   $theData[ ':location:site:longitude:provided' ] );
+		
+		//
+		// Set sample longitude.
+		//
+		if( array_key_exists( ':location:site:longitude', $theData ) )
+			$theObject->offsetSet( ':location:site:longitude',
+								   $theData[ ':location:site:longitude' ] );
+		
+		//
+		// Set sample error.
+		//
+		if( array_key_exists( ':location:site:error', $theData ) )
+			$theObject->offsetSet( ':location:site:error',
+								   $theData[ ':location:site:error' ] );
+		
+		//
+		// Set sample georeference source.
+		//
+		if( array_key_exists( ':location:site:georeference-source', $theData ) )
+			$theObject->offsetSet( ':location:site:georeference-source',
+								   $theData[ ':location:site:georeference-source' ] );
+		
+		//
+		// Set sample georeference method.
+		//
+		if( array_key_exists( ':location:site:georeference-method', $theData ) )
+			$theObject->offsetSet( ':location:site:georeference-method',
+								   $theData[ ':location:site:georeference-method' ] );
+		
+		//
+		// Set sample georeference tool.
+		//
+		if( array_key_exists( ':location:site:georeference-tool', $theData ) )
+			$theObject->offsetSet( ':location:site:georeference-tool',
+								   $theData[ ':location:site:georeference-tool' ] );
+		
+		//
+		// Set sample site notes.
+		//
+		if( array_key_exists( ':location:site:notes', $theData ) )
+			$theObject->offsetSet( ':location:site:notes',
+								   $theData[ ':location:site:notes' ] );
 		
 		//
 		// Load collectors.
@@ -498,107 +694,31 @@ finally
 			$theObject->offsetSet( ':collecting:entities', $sub );
 		
 		//
-		// Load material transfers.
+		// Load germplasm neighbourhood.
 		//
 		$sub = Array();
-		loadTransfers( $sub,
-					   $theData,
-					   $theWrapper,
-					   $theDatabase );
+		loadNeighbourhood( $sub,
+						   $theData,
+						   $theWrapper,
+						   $theDatabase );
 		if( count( $sub ) )
-			$theObject->offsetSet( ':germplasm:mt', $sub );
+			$theObject->offsetSet( ':germplasm:neighbourhood', $sub );
+		
+		//
+		// Set collecting event notes.
+		//
+		if( array_key_exists( ':collecting:event:notes', $theData ) )
+			$theObject->offsetSet( ':mission:collecting:notes',
+								   $theData[ ':collecting:event:notes' ] );
+		
+		//
+		// Set collecting sample notes.
+		//
+		if( array_key_exists( ':collecting:samples:notes', $theData ) )
+			$theObject->offsetSet( ':collecting:notes',
+								   $theData[ ':collecting:samples:notes' ] );
 		
 	} // loadUnit.
-	
-
-	/**
-	 * Load mission taxa.
-	 *
-	 * This function will load the mission taxa related to the provided <b>$theUnit</b>
-	 * parameter into the container provided in the <b>$theContainer</b> parameter.
-	 *
-	 * @param array					$theContainer		Container.
-	 * @param array					$theUnit			Unit data.
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param ADOConnection			$theDatabase		SQL connection.
-	 */
-	function loadTaxa( &$theContainer, $theUnit, $theWrapper, $theDatabase )
-	{
-		//
-		// Iterate taxa data.
-		//
-		$id = $theUnit[ ':collecting:event:identifier' ];
-		$query = "SELECT DISTINCT "
-				."`:taxon:genus`, "
-				."`:taxon:sectio`, "
-				."`:taxon:species`, "
-				."`:taxon:epithet` "
-				."FROM `cmdb_collecting_taxa` "
-				."WHERE `:collecting:event:identifier` = "
-				.'0x'.bin2hex( $id );
-		$records = $theDatabase->GetAll( $query );
-		foreach( $records as $record )
-		{
-			//
-			// Init local storage.
-			//
-			$sub = $data = Array();
-			
-			//
-			// Scan record.
-			//
-			foreach( $record as $key => $value )
-			{
-				//
-				// Normalise value.
-				//
-				if( strlen( trim( $value ) ) )
-					$data[ $key ] = trim( $value );
-			
-			} // Scanning record.
-			
-			//
-			// Skip empty records.
-			//
-			if( ! count( $data ) )
-				continue;													// =>
-			
-			//
-			// Set genus.
-			//
-			if( array_key_exists( ':taxon:genus', $data ) )
-				$sub[ getTag( ':taxon:genus' ) ]
-					= $data[ ':taxon:genus' ];
-			
-			//
-			// Set section.
-			//
-			if( array_key_exists( ':taxon:sectio', $data ) )
-				$sub[ getTag( ':taxon:sectio' ) ]
-					= $data[ ':taxon:sectio' ];
-			
-			//
-			// Set species.
-			//
-			if( array_key_exists( ':taxon:species', $data ) )
-				$sub[ getTag( ':taxon:species' ) ]
-					= $data[ ':taxon:species' ];
-			
-			//
-			// Set epithet.
-			//
-			if( array_key_exists( ':taxon:epithet', $data ) )
-				$sub[ getTag( ':taxon:epithet' ) ]
-					= $data[ ':taxon:epithet' ];
-			
-			//
-			// Set element.
-			//
-			if( count( $sub ) )
-				$theContainer[] = $sub;
-		}
-
-	} // loadTaxa.
 	
 
 	/**
@@ -617,12 +737,298 @@ finally
 		global $wrapper;
 		
 		//
+		// Check institutes.
+		//
+		if( array_key_exists( 'mcpd:COLLCODE', $theUnit ) )
+		{
+			//
+			// Get institutes.
+			//
+			$institutes = explode( ';', $theUnit[ 'mcpd:COLLCODE' ] );
+			foreach( $institutes as $institute )
+			{
+				//
+				// Init local storage.
+				//
+				$sub = $data = Array();
+	
+				//
+				// Check institute.
+				//
+				if( strlen( $institute = trim( $institute ) ) )
+				{
+					//
+					// Get institute.
+					//
+					$query = "SELECT * FROM `cmdb_institutes` "
+							."WHERE `INSTCODE` = "
+							.'0x'.bin2hex( $institute );
+					$record = $theDatabase->GetRow( $query );
+					
+					//
+					// Scan record.
+					//
+					foreach( $record as $key => $value )
+					{
+						//
+						// Normalise value.
+						//
+						if( strlen( trim( $value ) ) )
+							$data[ $key ] = trim( $value );
+			
+					} // Scanning record.
+			
+					//
+					// Skip empty records.
+					//
+					if( ! count( $data ) )
+						continue;											// =>
+					//
+					// Determine institute identifier.
+					//
+					$institute_id = ( array_key_exists( 'FAOCODE', $data ) )
+								  ? (kDOMAIN_ORGANISATION
+									.'://http://fao.org/wiews:'
+									.strtoupper( $data[ 'FAOCODE' ] )
+									.kTOKEN_END_TAG)
+								  : NULL;
+			
+					//
+					// Determine institute object.
+					//
+					$institute = ( $institute_id !== NULL )
+							   ? new OntologyWrapper\FAOInstitute( $wrapper, $institute_id,
+							   												 FALSE )
+							   : NULL;
+			
+					//
+					// Check institute object.
+					//
+					if( $institute !== NULL )
+					{
+						if( ! $institute->committed() )
+							$institute = $institute_id = NULL;
+					}
+			
+					//
+					// Set organisation name.
+					//
+					if( array_key_exists( 'NAME_NAT', $data ) )
+						$sub[ kTAG_NAME ] = $data[ 'NAME_NAT' ];
+					elseif( array_key_exists( 'NAME_ENG', $data ) )
+						$sub[ kTAG_NAME ] = $data[ 'NAME_ENG' ];
+					elseif( $institute !== NULL )
+						$sub[ kTAG_NAME ] = $institute->offsetGet( ':name' );
+					elseif( array_key_exists( 'ACRONYM', $data ) )
+						$sub[ kTAG_NAME ] = $data[ 'ACRONYM' ];
+					elseif( array_key_exists( 'ECPACRONYM', $data ) )
+						$sub[ kTAG_NAME ] = $data[ 'ECPACRONYM' ];
+					else
+						$sub[ kTAG_NAME ] = 'unknown';
+			
+					//
+					// Set collecting institute code.
+					//
+					if( array_key_exists( 'FAOCODE', $data ) )
+						$sub[ getTag( 'mcpd:COLLCODE' ) ]
+							= $data[ 'FAOCODE' ];
+			
+					//
+					// Set collecting institute name.
+					//
+					if( array_key_exists( 'NAME_NAT', $data ) )
+						$sub[ getTag( 'mcpd:COLLDESCR' ) ]
+							= $data[ 'NAME_NAT' ];
+					elseif( array_key_exists( 'NAME_ENG', $data ) )
+						$sub[ getTag( 'mcpd:COLLDESCR' ) ]
+							= $data[ 'NAME_ENG' ];
+		
+					//
+					// Set entity type.
+					//
+					if( array_key_exists( 'ORGTYPE', $data ) )
+						$sub[ getTag( ':type:entity' ) ]
+							= explode( ';', $data[ 'ORGTYPE' ] );
+		
+					//
+					// Set entity kind.
+					//
+					if( array_key_exists( 'ORGKIND', $data ) )
+						$sub[ getTag( ':kind:entity' ) ]
+							= explode( ';', $data[ 'ORGKIND' ] );
+			
+					//
+					// Set institute.
+					//
+					if( $institute_id !== NULL )
+						$sub[ getTag( ':inventory:institute' ) ]
+							= $institute_id;
+			
+					//
+					// Set cooperator details.
+					//
+					else
+					{
+						//
+						// Set entity acronym.
+						//
+						$tmp = Array();
+						if( array_key_exists( 'ACRONYM', $data ) )
+							$tmp[] = $data[ 'ACRONYM' ];
+						if( array_key_exists( 'ECPACRONYM', $data ) )
+							$tmp[] = $data[ 'ECPACRONYM' ];
+						if( count( $tmp ) )
+							$sub[ getTag( ':entity:acronym' ) ]
+								= $tmp;
+			
+						//
+						// Set URL.
+						//
+						if( array_key_exists( 'URL', $data ) )
+							$sub[ getTag( ':entity:url' ) ]
+								= array( array( kTAG_TEXT => $data[ 'URL' ] ) );
+			
+						//
+						// Set nationality.
+						//
+						$country_name = $country_code = NULL;
+						if( array_key_exists( 'CTY', $data ) )
+						{
+							$country_code = $data[ 'CTY' ];
+							$country_name = getCountry( $country_code );
+							$sub[ getTag( ':entity:nationality' ) ] = $country_code;
+						}
+		
+						//
+						// Set address.
+						//
+						$address = Array();
+						if( array_key_exists( 'STREET_POB', $record ) )
+						{
+							if( strlen( $tmp = trim( $record[ 'STREET_POB' ] ) ) )
+								$address[] = $record[ 'STREET_POB' ];
+						}
+						$city = '';
+						if( array_key_exists( 'ZIP_CODE', $record ) )
+						{
+							if( strlen( $tmp = trim( $record[ 'ZIP_CODE' ] ) ) )
+								$city .= ($record[ 'ZIP_CODE' ].' ');
+						}
+						if( array_key_exists( 'CITY_STATE', $record ) )
+						{
+							if( strlen( $tmp = trim( $record[ 'CITY_STATE' ] ) ) )
+								$city .= ($record[ 'CITY_STATE' ].' ');
+						}
+						if( strlen( $city ) )
+							$address[] = $city;
+						if( $country_name !== NULL )
+							$address[] = $country_name;
+						if( count( $address ) )
+							$sub[ getTag( ':entity:mail' ) ]
+								= array( array( kTAG_TEXT => implode( "\n", $address ) ) );
+			
+						//
+						// Set e-mail.
+						//
+						if( array_key_exists( 'EMA', $data ) )
+							$sub[ getTag( ':entity:email' ) ]
+								= array( array( kTAG_TEXT => $data[ 'EMA' ] ) );
+			
+						//
+						// Set telephone.
+						//
+						if( array_key_exists( 'TLF', $data ) )
+							$sub[ getTag( ':entity:phone' ) ]
+								= array( array( kTAG_TEXT => $data[ 'TLF' ] ) );
+			
+						//
+						// Set telefax.
+						//
+						if( array_key_exists( 'FAX', $data ) )
+							$sub[ getTag( ':entity:fax' ) ]
+								= array( array( kTAG_TEXT => $data[ 'FAX' ] ) );
+			
+						//
+						// Set telex.
+						//
+						if( array_key_exists( 'TLX', $data ) )
+							$sub[ getTag( ':entity:tlx' ) ]
+								= array( array( kTAG_TEXT => $data[ 'TLX' ] ) );
+		
+						//
+						// Set elevation.
+						//
+						if( array_key_exists( 'ALT', $data ) )
+							$sub[ getTag( ':location:site:elevation' ) ]
+								= $data[ 'ALT' ];
+		
+						//
+						// Set latitude.
+						//
+						if( array_key_exists( 'LAT', $data ) )
+							$sub[ getTag( ':location:site:latitude:provided' ) ]
+								= $data[ 'LAT' ];
+		
+						//
+						// Set longitude.
+						//
+						if( array_key_exists( 'LONG_', $data ) )
+							$sub[ getTag( ':location:site:longitude:provided' ) ]
+								= $data[ 'LONG_' ];
+		
+						//
+						// Set version.
+						//
+						if( array_key_exists( 'UPDATED', $data ) )
+							$sub[ getTag( ':unit:version' ) ]
+								= $data[ 'UPDATED' ];
+			
+					} // Not an institute or not known institite.
+
+					//
+					// Set remarks.
+					//
+					if( array_key_exists( 'REMARKS', $data ) )
+						$sub[ getTag( ':notes' ) ]
+							= array( $data[ 'REMARKS' ] );
+			
+					//
+					// Set element.
+					//
+					if( count( $sub ) )
+						$theContainer[] = $sub;
+				
+				} // Has institute.
+			
+			} // Iterating institutes.
+		
+		} // Has collectors.
+
+	} // loadCollectors.
+	
+
+	/**
+	 * Load germplasm neighbourhood.
+	 *
+	 * This function will load the accession germplasm neighbourhood related to the provided
+	 * <b>$theUnit</b> parameter into the container provided in the <b>$theContainer</b>
+	 * parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theUnit			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadNeighbourhood( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	{
+		global $wrapper;
+		
+		//
 		// Iterate taxa data.
 		//
-		$id = $theUnit[ ':collecting:event:identifier' ];
-		$query = "SELECT * FROM `cmdb_collectors` "
-				."WHERE `:collecting:event:identifier` = "
-				.'0x'.bin2hex( $id );
+		$id = $theUnit[ 'ID' ];
+		$query = "SELECT * FROM `cmdb_sample_neighbourhood` "
+				."WHERE `NEW_ID_SAMPLE` = $id";
 		$records = $theDatabase->GetAll( $query );
 		foreach( $records as $record )
 		{
@@ -651,161 +1057,62 @@ finally
 				continue;													// =>
 			
 			//
-			// Handle institute.
+			// Load institute.
 			//
-			if( array_key_exists( 'INSTCODE', $data ) )
+			$query = "SELECT * FROM `cmdb_institutes` "
+					."WHERE `INSTCODE` = '"
+					.$data[ 'INSTCODE' ]
+					."'";
+			$tmp = $theDatabase->GetRow( $query );
+			$instrec = Array();
+			foreach( $tmp as $key => $value )
 			{
 				//
-				// Get institute.
+				// Normalise value.
 				//
-				$query = "SELECT * FROM `cmdb_institutes` "
-						."WHERE `INSTCODE` = "
-						.'0x'.bin2hex( $data[ 'INSTCODE' ] );
-				$tmp = $theDatabase->GetRow( $query );
-				$instrec = Array();
-				foreach( $tmp as $key => $value )
-				{
-					//
-					// Normalise value.
-					//
-					if( strlen( trim( $value ) ) )
-						$instrec[ $key ] = trim( $value );
+				if( strlen( trim( $value ) ) )
+					$instrec[ $key ] = trim( $value );
 			
-				} // Scanning record.
-			
-				//
-				// Determine institute identifier.
-				//
-				$institute_id = ( array_key_exists( 'FAOCODE', $instrec ) )
-							  ? (kDOMAIN_ORGANISATION
-								.'://http://fao.org/wiews:'
-								.strtoupper( $instrec[ 'FAOCODE' ] )
-								.kTOKEN_END_TAG)
-							  : NULL;
-			
-				//
-				// Determine institute object.
-				//
-				$institute = ( $institute_id !== NULL )
-						   ? new OntologyWrapper\FAOInstitute(
-						   			$wrapper, $institute_id, FALSE )
-						   : NULL;
-			
-				//
-				// Check institute object.
-				//
-				if( $institute !== NULL )
-				{
-					if( ! $institute->committed() )
-						$institute = $institute_id = NULL;
-				}
-			
-			} // Has institute.
+			} // Scanning record.
 			
 			//
-			// Clear institute data.
+			// Determine institute identifier.
 			//
-			else
+			$institute_id = ( array_key_exists( 'FAOCODE', $instrec ) )
+						  ? (kDOMAIN_ORGANISATION
+							.'://http://fao.org/wiews:'
+							.strtoupper( $instrec[ 'FAOCODE' ] )
+							.kTOKEN_END_TAG)
+						  : NULL;
+			
+			//
+			// Determine institute object.
+			//
+			$institute = ( $institute_id !== NULL )
+					   ? new OntologyWrapper\FAOInstitute( $wrapper, $institute_id, FALSE )
+					   : NULL;
+			
+			//
+			// Check institute object.
+			//
+			if( $institute !== NULL )
 			{
-				$instrec = Array();
-				$institute = $institute_id = NULL;
-			
-			} // No institute.
-			
-			//
-			// Set entity name.
-			//
-			$name = Array();
-			if( array_key_exists( ':entity:fname', $data )
-			 || array_key_exists( ':entity:lname', $data ) )
-			{
-				$tmp = Array();
-				if( array_key_exists( ':entity:fname', $data ) )
-					$tmp[] = $data[ ':entity:fname' ];
-				if( array_key_exists( ':entity:lname', $data ) )
-					$tmp[] = $data[ ':entity:lname' ];
-				if( count( $tmp ) )
-					$name[] = implode( ' ', $tmp );
-				
-				if( array_key_exists( 'ACRONYM', $instrec ) )
-					$name[] = "(".$instrec[ 'ACRONYM' ].")";
-				elseif( array_key_exists( 'ECPACRONYM', $instrec ) )
-					$name[] = "(".$instrec[ 'ECPACRONYM' ].")";
-				elseif( array_key_exists( 'NAME_NAT', $instrec ) )
-					$name[] = "(".$instrec[ 'NAME_NAT' ].")";
-				elseif( array_key_exists( 'NAME_ENG', $instrec ) )
-					$name[] = "(".$instrec[ 'NAME_ENG' ].")";
-				elseif( $institute !== NULL )
-					$name[] = "(".$institute->offsetGet( ':name' ).")";
+				if( ! $institute->committed() )
+					$institute = $institute_id = NULL;
+				else
+					$instcode = $instrec[ 'FAOCODE' ];
 			}
-			elseif( array_key_exists( 'NAME_NAT', $instrec ) )
-				$name[] = $instrec[ 'NAME_NAT' ];
-			elseif( array_key_exists( 'NAME_ENG', $instrec ) )
-				$name[] = $instrec[ 'NAME_ENG' ];
-			elseif( $institute !== NULL )
-				$name[] = $institute->offsetGet( ':name' );
-			elseif( array_key_exists( 'ACRONYM', $instrec ) )
-				$name[] = $instrec[ 'ACRONYM' ];
-			elseif( array_key_exists( 'ECPACRONYM', $instrec ) )
-				$name[] = $instrec[ 'ECPACRONYM' ];
-			
-			//
-			// Set name.
-			//
-			if( count( $name ) )
-				$sub[ kTAG_NAME ]
-					= implode( ' ', $name );
 			else
-				$sub[ kTAG_NAME ]
-					= 'unknown';
+				$instcode = $instrec[ 'INSTCODE' ];
 			
 			//
-			// Set entity first name.
+			// Set germplasm identifier.
 			//
-			if( array_key_exists( ':entity:fname', $data ) )
-				$sub[ getTag( ':entity:fname' ) ]
-					= $data[ ':entity:fname' ];
+			$sub[ getTag( ':germplasm:identifier' ) ]
+				= $instcode.':'.$data[ 'AccessionNumber' ];
 			
 			//
-			// Set entity last name.
-			//
-			if( array_key_exists( ':entity:lname', $data ) )
-				$sub[ getTag( ':entity:lname' ) ]
-					= $data[ ':entity:lname' ];
-			
-			//
-			// Set collecting institute code.
-			//
-			if( array_key_exists( 'FAOCODE', $instrec ) )
-				$sub[ getTag( 'mcpd:COLLCODE' ) ]
-					= $instrec[ 'FAOCODE' ];
-			
-			//
-			// Set collecting institute name.
-			//
-			if( array_key_exists( 'NAME_NAT', $instrec ) )
-				$sub[ getTag( 'mcpd:COLLDESCR' ) ]
-					= $instrec[ 'NAME_NAT' ];
-			elseif( array_key_exists( 'NAME_ENG', $instrec ) )
-				$sub[ getTag( 'mcpd:COLLDESCR' ) ]
-					= $instrec[ 'NAME_ENG' ];
-		
-			//
-			// Set entity type.
-			//
-			if( array_key_exists( 'ORGTYPE', $instrec ) )
-				$sub[ getTag( ':type:entity' ) ]
-					= explode( ';', $instrec[ 'ORGTYPE' ] );
-		
-			//
-			// Set entity kind.
-			//
-			if( array_key_exists( 'ORGKIND', $instrec ) )
-				$sub[ getTag( ':kind:entity' ) ]
-					= explode( ';', $instrec[ 'ORGKIND' ] );
-			
-			//
-			// Set institute.
+			// Set institute object.
 			//
 			if( $institute_id !== NULL )
 				$sub[ getTag( ':inventory:institute' ) ]
@@ -931,177 +1238,6 @@ finally
 						= $instrec[ 'UPDATED' ];
 			
 			} // Not an institute or not known institite.
-
-			//
-			// Set remarks.
-			//
-			if( array_key_exists( 'REMARKS', $instrec ) )
-				$sub[ getTag( ':notes' ) ]
-					= array( $instrec[ 'REMARKS' ] );
-			
-			//
-			// Set element.
-			//
-			if( count( $sub ) )
-				$theContainer[] = $sub;
-		
-		} // Iterating records.
-
-	} // loadCollectors.
-	
-
-	/**
-	 * Load material transfers.
-	 *
-	 * This function will load the material transfers related to the provided <b>$theUnit</b>
-	 * parameter into the container provided in the <b>$theContainer</b> parameter.
-	 *
-	 * @param array					$theContainer		Container.
-	 * @param array					$theUnit			Unit data.
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param ADOConnection			$theDatabase		SQL connection.
-	 */
-	function loadTransfers( &$theContainer, $theUnit, $theWrapper, $theDatabase )
-	{
-		global $wrapper;
-		
-		//
-		// Iterate taxa data.
-		//
-		$id = $theUnit[ ':collecting:event:identifier' ];
-		$query = "SELECT * FROM `cmdb_distribution` "
-				."WHERE `:collecting:event:identifier` = "
-				.'0x'.bin2hex( $id );
-		$records = $theDatabase->GetAll( $query );
-		foreach( $records as $record )
-		{
-			//
-			// Init local storage.
-			//
-			$sub = $data = Array();
-			
-			//
-			// Scan record.
-			//
-			foreach( $record as $key => $value )
-			{
-				//
-				// Normalise value.
-				//
-				if( strlen( trim( $value ) ) )
-					$data[ $key ] = trim( $value );
-			
-			} // Scanning record.
-			
-			//
-			// Skip empty records.
-			//
-			if( ! count( $data ) )
-				continue;													// =>
-			
-			//
-			// Get institute.
-			//
-			$query = "SELECT * FROM `cmdb_institutes` "
-					."WHERE `INSTCODE` = "
-					.'0x'.bin2hex( $data[ 'INSTCODE' ] );
-			$tmp = $theDatabase->GetRow( $query );
-			$instrec = Array();
-			foreach( $tmp as $key => $value )
-			{
-				//
-				// Normalise value.
-				//
-				if( strlen( trim( $value ) ) )
-					$instrec[ $key ] = trim( $value );
-			
-			} // Scanning record.
-			
-			//
-			// Determine institute identifier.
-			//
-			$institute_id = ( array_key_exists( 'FAOCODE', $instrec ) )
-						  ? (kDOMAIN_ORGANISATION
-							.'://http://fao.org/wiews:'
-							.strtoupper( $instrec[ 'FAOCODE' ] )
-							.kTOKEN_END_TAG)
-						  : NULL;
-			
-			//
-			// Determine institute object.
-			//
-			$institute = ( $institute_id !== NULL )
-					   ? new OntologyWrapper\FAOInstitute( $wrapper, $institute_id, FALSE )
-					   : NULL;
-			
-			//
-			// Check institute object.
-			//
-			if( $institute !== NULL )
-			{
-				if( ! $institute->committed() )
-					$institute = $institute_id = NULL;
-			}
-			
-			//
-			// Set organisation name.
-			//
-			$name = Array();
-			if( array_key_exists( 'NAME_NAT', $instrec ) )
-				$name[] = $instrec[ 'NAME_NAT' ];
-			elseif( array_key_exists( 'NAME_ENG', $instrec ) )
-				$name[] = $instrec[ 'NAME_ENG' ];
-			elseif( $institute !== NULL )
-				$name[] = $institute->offsetGet( ':name' );
-			elseif( array_key_exists( 'ACRONYM', $instrec ) )
-				$name[] = $instrec[ 'ACRONYM' ];
-			elseif( array_key_exists( 'ECPACRONYM', $instrec ) )
-				$name[] = $instrec[ 'ECPACRONYM' ];
-			
-			//
-			// Set name.
-			//
-			if( count( $name ) )
-				$sub[ kTAG_NAME ]
-					= implode( ' ', $name );
-			else
-				$sub[ kTAG_NAME ]
-					= 'unknown';
-			
-			//
-			// Set taxon.
-			//
-			if( array_key_exists( 'TAXON', $data ) )
-				$sub[ getTag( ':taxon:epithet' ) ]
-					= $data[ 'TAXON' ];
-			
-			//
-			// Set samples intended.
-			//
-			if( array_key_exists( 'SamplesIntended', $data ) )
-				$sub[ getTag( ':germplasm:mt:samples-intended' ) ]
-					= $data[ 'SamplesIntended' ];
-			
-			//
-			// Set samples verified.
-			//
-			if( array_key_exists( 'SamplesVerified', $data ) )
-				$sub[ getTag( ':germplasm:mt:samples-verified' ) ]
-					= $data[ 'SamplesVerified' ];
-			
-			//
-			// Set samples received.
-			//
-			if( array_key_exists( 'SamplesReceived', $data ) )
-				$sub[ getTag( ':germplasm:mt:samples-received' ) ]
-					= $data[ 'SamplesReceived' ];
-			
-			//
-			// Set institute identifier.
-			//
-			if( array_key_exists( 'FAOCODE', $instrec ) )
-				$sub[ kTAG_ENTITY_IDENT ]
-					= $instrec[ 'FAOCODE' ];
 		
 			//
 			// Set entity type.
@@ -1116,141 +1252,24 @@ finally
 			if( array_key_exists( 'ORGKIND', $instrec ) )
 				$sub[ getTag( ':kind:entity' ) ]
 					= explode( ';', $instrec[ 'ORGKIND' ] );
-			
+		
 			//
-			// Set institute.
+			// Set accession number.
 			//
-			if( $institute !== NULL )
-				$sub[ getTag( ':inventory:institute' ) ]
-					= $institute_id;
+			$sub[ getTag( 'mcpd:ACCENUMB' ) ]
+				= $data[ 'AccessionNumber' ];
 			
-			//
-			// Set institute details.
-			//
-			else
-			{
-				//
-				// Set entity acronym.
-				//
-				$tmp = Array();
-				if( array_key_exists( 'ACRONYM', $instrec ) )
-					$tmp[] = $instrec[ 'ACRONYM' ];
-				if( array_key_exists( 'ECPACRONYM', $instrec ) )
-					$tmp[] = $instrec[ 'ECPACRONYM' ];
-				if( count( $tmp ) )
-					$sub[ getTag( ':entity:acronym' ) ]
-						= $tmp;
-			
-				//
-				// Set URL.
-				//
-				if( array_key_exists( 'URL', $instrec ) )
-					$sub[ getTag( ':entity:url' ) ]
-						= array( array( kTAG_TEXT => $instrec[ 'URL' ] ) );
-			
-				//
-				// Set nationality.
-				//
-				$country_name = $country_code = NULL;
-				if( array_key_exists( 'CTY', $instrec ) )
-				{
-					$country_code = $instrec[ 'CTY' ];
-					$country_name = getCountry( $country_code );
-					$sub[ getTag( ':entity:nationality' ) ] = $country_code;
-				}
-		
-				//
-				// Set address.
-				//
-				$address = Array();
-				if( array_key_exists( 'STREET_POB', $record ) )
-				{
-					if( strlen( $tmp = trim( $record[ 'STREET_POB' ] ) ) )
-						$address[] = $record[ 'STREET_POB' ];
-				}
-				$city = '';
-				if( array_key_exists( 'ZIP_CODE', $record ) )
-				{
-					if( strlen( $tmp = trim( $record[ 'ZIP_CODE' ] ) ) )
-						$city .= ($record[ 'ZIP_CODE' ].' ');
-				}
-				if( array_key_exists( 'CITY_STATE', $record ) )
-				{
-					if( strlen( $tmp = trim( $record[ 'CITY_STATE' ] ) ) )
-						$city .= ($record[ 'CITY_STATE' ].' ');
-				}
-				if( strlen( $city ) )
-					$address[] = $city;
-				if( $country_name !== NULL )
-					$address[] = $country_name;
-				if( count( $address ) )
-					$sub[ getTag( ':entity:mail' ) ]
-						= array( array( kTAG_TEXT => implode( "\n", $address ) ) );
-			
-				//
-				// Set e-mail.
-				//
-				if( array_key_exists( 'EMA', $instrec ) )
-					$sub[ getTag( ':entity:email' ) ]
-						= array( array( kTAG_TEXT => $instrec[ 'EMA' ] ) );
-			
-				//
-				// Set telephone.
-				//
-				if( array_key_exists( 'TLF', $instrec ) )
-					$sub[ getTag( ':entity:phone' ) ]
-						= array( array( kTAG_TEXT => $instrec[ 'TLF' ] ) );
-			
-				//
-				// Set telefax.
-				//
-				if( array_key_exists( 'FAX', $instrec ) )
-					$sub[ getTag( ':entity:fax' ) ]
-						= array( array( kTAG_TEXT => $instrec[ 'FAX' ] ) );
-			
-				//
-				// Set telex.
-				//
-				if( array_key_exists( 'TLX', $instrec ) )
-					$sub[ getTag( ':entity:tlx' ) ]
-						= array( array( kTAG_TEXT => $instrec[ 'TLX' ] ) );
-		
-				//
-				// Set elevation.
-				//
-				if( array_key_exists( 'ALT', $instrec ) )
-					$sub[ getTag( ':location:site:elevation' ) ]
-						= $instrec[ 'ALT' ];
-		
-				//
-				// Set latitude.
-				//
-				if( array_key_exists( 'LAT', $instrec ) )
-					$sub[ getTag( ':location:site:latitude:provided' ) ]
-						= $instrec[ 'LAT' ];
-		
-				//
-				// Set longitude.
-				//
-				if( array_key_exists( 'LONG_', $instrec ) )
-					$sub[ getTag( ':location:site:longitude:provided' ) ]
-						= $instrec[ 'LONG_' ];
-		
-				//
-				// Set version.
-				//
-				if( array_key_exists( 'UPDATED', $instrec ) )
-					$sub[ getTag( ':unit:version' ) ]
-						= $instrec[ 'UPDATED' ];
-			
-			} // Not an institute or not known institite.
-	
 			//
 			// Set notes.
 			//
-			if( array_key_exists( 'Comments', $data ) )
+			$tmp = Array();
+			if( array_key_exists( 'NOTES', $data ) )
+				$tmp[] = $data[ 'NOTES' ];
+			if( array_key_exists( 'OldAccessionNumber', $data ) )
+				$tmp[] = $data[ 'OldAccessionNumber' ];
+			if( count( $tmp ) )
 				$sub[ getTag( ':notes' ) ]
-					= array( $data[ 'Comments' ] );
+					= $tmp;
 			
 			//
 			// Set element.
@@ -1260,7 +1279,7 @@ finally
 		
 		} // Iterating records.
 
-	} // loadTransfers.
+	} // loadNeighbourhood.
 	
 
 	/**

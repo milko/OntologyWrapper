@@ -1200,6 +1200,8 @@ finally
 	 */
 	function loadNeighbourhood( &$theContainer, $theUnit, $theWrapper, $theDatabase )
 	{
+		global $wrapper;
+		
 		//
 		// Check other identification.
 		//
@@ -1252,20 +1254,33 @@ finally
 				if( $instcode !== NULL )
 				{
 					//
+					// Set institute code.
+					//
+					$sub[ getTag( 'mcpd:INSTCODE' ) ]
+						= $instcode;
+				
+					//
 					// Set reference.
 					//
-					$sub[ getTag( ':inventory:institute' ) ]
+					$reference
 						= kDOMAIN_ORGANISATION
 						 .'://http://fao.org/wiews:'
 						 .strtoupper( $instcode )
 						 .kTOKEN_END_TAG;
 					
 					//
-					// Set code.
+					// Check institute.
 					//
-					$sub[ getTag( 'mcpd:INSTCODE' ) ]
-						= $instcode;
-					
+					$tmp = new OntologyWrapper\FAOInstitute( $wrapper, $reference, FALSE );
+					if( $tmp->committed() )
+					{
+						//
+						// Set institute.
+						//
+						$sub[ getTag( ':inventory:institute' ) ]
+							= $reference;
+					}
+				
 					//
 					// Set accession number.
 					//
