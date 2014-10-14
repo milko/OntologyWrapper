@@ -3651,6 +3651,12 @@ abstract class PersistentObject extends OntologyObject
 	protected function postUpdate( &$theOffsets, &$theReferences )
 	{
 		//
+		// Normalise references.
+		//
+		if( $theReferences === NULL )
+			$theReferences = Array();
+		
+		//
 		// Resolve tag collection.
 		//
 		$tag_collection
@@ -3667,6 +3673,12 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$offsets = $this->offsetGet( kTAG_OBJECT_OFFSETS );
 		$references = $this->offsetGet( kTAG_OBJECT_REFERENCES );
+		
+		//
+		// Normalise references.
+		//
+		if( $references === NULL )
+			$references = Array();
 		
 		//
 		// Update new tags reference count.
@@ -6709,7 +6721,8 @@ MILKO - Need to check.
 				//
 				// New collection.
 				//
-				if( ! array_key_exists( $collection, $theOld ) )
+				if( (! is_array( $theOld ))
+				 || (! array_key_exists( $collection, $theOld )) )
 					$result[ $collection ] = $identifiers;
 				
 				//

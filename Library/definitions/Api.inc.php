@@ -1812,6 +1812,20 @@ define( "kAPI_PARAM_RESPONSE_FRMT_INFO",		'info' );
 define( "kAPI_PARAM_RESPONSE_FRMT_DISP",		'disp' );
 
 /**
+ * Map label (string).
+ *
+ * This tag indicates the map label of a marker or shape.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_MAP_LABEL",	'map-label' );
+
+/**
+ * Map shape (shape).
+ *
+ * This tag indicates the map shape of an object.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_MAP_SHAPE",	'map-shape' );
+
+/**
  * Property link (string/array).
  *
  * This tag indicates the property URL as a string.

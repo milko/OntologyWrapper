@@ -2633,8 +2633,19 @@ class IteratorSerialiser
 		//
 		// Set object name.
 		//
-		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-			= 'View on map';
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = 'View on map';
+		
+		//
+		// Set object map label.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_MAP_LABEL ]
+			= $this->mCurrentUnit[ kTAG_NID ];
+		
+		//
+		// Set object map shape.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_MAP_SHAPE ]
+			= $theValue;
 		
 		//
 		// Allocate service.
@@ -2658,7 +2669,7 @@ class IteratorSerialiser
 		// Set object identifier and data format.
 		//
 		$ref[ kAPI_PARAM_ID ] = $this->mCurrentUnit[ kTAG_NID ];
-		$ref[ kAPI_PARAM_DATA ] = kAPI_RESULT_ENUM_DATA_MARKER;
+		$ref[ kAPI_PARAM_DATA ] = kAPI_RESULT_ENUM_DATA_FORMAT;
 		
 	} // formatShape.
 
@@ -3492,7 +3503,7 @@ class IteratorSerialiser
 					= array_merge(
 						$class::DynamicOffsets(),
 						$class::InternalOffsets(),
-						array( kTAG_GEO_SHAPE, kTAG_GEO_SHAPE_DISP ) );	// Excluded shapes.
+						array( kTAG_GEO_SHAPE_DISP ) );	// Excluded display shape.
 				
 				break;
 			

@@ -18,6 +18,13 @@
 			<item const="kTAG_OBJECT" node="tag">:collecting:missions</item>
 		</EDGE>
 		
+		<!-- :mission -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:mission</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:collecting:missions</item>
+		</EDGE>
+		
 		<!-- :mission:collecting:identifier -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:mission:collecting:identifier</item>
