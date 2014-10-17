@@ -979,6 +979,14 @@ finally
 						$sub[ getTag( ':taxon:genus' ) ] = $genus;
 					if( strlen( $species ) )
 						$sub[ getTag( ':taxon:species' ) ] = $species;
+		
+					//
+					// Set species name.
+					//
+					if( strlen( $genus )
+					 && strlen( $species ) )
+						$sub[ getTag( ':taxon:species:name' ) ]
+							= implode( ' ', array( $genus, $species ) );
 				}
 				
 				//
@@ -1435,6 +1443,14 @@ finally
 						$sub[ getTag( ':taxon:genus' ) ] = $genus;
 					if( strlen( $species ) )
 						$sub[ getTag( ':taxon:species' ) ] = $species;
+		
+					//
+					// Set species name.
+					//
+					if( strlen( $genus )
+					 && strlen( $species ) )
+						$sub[ getTag( ':taxon:species:name' ) ]
+							= implode( ' ', array( $genus, $species ) );
 				}
 				
 				//
@@ -1801,6 +1817,14 @@ finally
 						$sub[ getTag( ':taxon:genus' ) ] = $genus;
 					if( strlen( $species ) )
 						$sub[ getTag( ':taxon:species' ) ] = $species;
+		
+					//
+					// Set species name.
+					//
+					if( strlen( $genus )
+					 && strlen( $species ) )
+						$sub[ getTag( ':taxon:species:name' ) ]
+							= implode( ' ', array( $genus, $species ) );
 				}
 				
 				//
@@ -1988,6 +2012,14 @@ finally
 						$sub[ getTag( ':taxon:genus' ) ] = $genus;
 					if( strlen( $species ) )
 						$sub[ getTag( ':taxon:species' ) ] = $species;
+		
+					//
+					// Set species name.
+					//
+					if( strlen( $genus )
+					 && strlen( $species ) )
+						$sub[ getTag( ':taxon:species:name' ) ]
+							= implode( ' ', array( $genus, $species ) );
 				}
 				
 				//

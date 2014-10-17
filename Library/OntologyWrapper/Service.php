@@ -283,6 +283,99 @@ class Service extends ContainerObject
 
 /*=======================================================================================
  *																						*
+ *										STATIC INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	GetStatisticsList																*
+	 *==================================================================================*/
+
+	/**
+	 * Get statistics
+	 *
+	 * This method will return the statistics list related to the provided domain, the
+	 * result is an array whose elements are structured as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kAPI_PARAM_STAT}</tt>: The statistics identifier.
+	 *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The statistics title.
+	 *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The statistics description.
+	 * </ul>
+	 *
+	 * If the domain has no associated statistics, the method will return an empty array.
+	 *
+	 * @param string				$theDomain			Statistics domain.
+	 *
+	 * @static
+	 * @return array				List of statistics.
+	 */
+	static function GetStatisticsList( $theDomain )
+	{
+		//
+		// Init local storage.
+		//
+		$list = Array();
+		
+		//
+		// Parse by domain.
+		//
+		switch( $theDomain )
+		{
+			case kDOMAIN_HH_ASSESSMENT:
+				$id = 'abdh-species-01';
+				$list[ $id ]
+					= array( kAPI_PARAM_STAT => $id,
+							 kAPI_PARAM_RESPONSE_FRMT_NAME
+								=> 'Annual Species grown by households, '
+								  .'area and contribution to food and income' );
+				$id = 'abdh-species-02';
+				$list[ $id ]
+					= array( kAPI_PARAM_STAT => $id,
+							 kAPI_PARAM_RESPONSE_FRMT_NAME
+								 	=> 'Annual species by season grown and water regime '
+								 	  .'(number of households)' );
+				$id = 'abdh-species-03';
+				$list[ $id ]
+					= array( kAPI_PARAM_STAT => $id,
+							 kAPI_PARAM_RESPONSE_FRMT_NAME
+								=> 'Varieties grown by annual species '
+								  .'by type and demand for seed/planting material' );
+				$id = 'abdh-species-04';
+				$list[ $id ]
+					= array( kAPI_PARAM_STAT => $id,
+							 kAPI_PARAM_RESPONSE_FRMT_NAME
+								=> 'Sources of seed/planting material '
+								  .'for annual species' );
+				$id = 'abdh-species-05';
+				$list[ $id ]
+					= array( kAPI_PARAM_STAT => $id,
+							 kAPI_PARAM_RESPONSE_FRMT_NAME
+								=> 'Frequency of seed replacement for annual species' );
+				$id = 'abdh-species-06';
+				$list[ $id ]
+					= array( kAPI_PARAM_STAT => $id,
+							 kAPI_PARAM_RESPONSE_FRMT_NAME
+								=> 'Decisions on species by gender' );
+				$id = 'abdh-species-07';
+				$list[ $id ]
+					= array( kAPI_PARAM_STAT => $id,
+							 kAPI_PARAM_RESPONSE_FRMT_NAME
+								=> 'Species used by households and by objective '
+								  .'of use and type of uses' );
+				break;
+		}
+		
+		return $list;																// ==>
+	
+	} // GetStatisticsList.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED REQUEST PARSING INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -2886,6 +2979,17 @@ class Service extends ContainerObject
 			// Check shape contents.
 			//
 			$geom = $theValue[ kTAG_GEOMETRY ];
+			
+			//
+			// Check coordinates structure.
+			//
+			if( ! is_array( $geom ) )
+				throw new \Exception(
+					"The geometry must be an array." );							// !@! ==>
+			
+			//
+			// Check by type.
+			//
 			switch( $type = $theValue[ kTAG_TYPE ] )
 			{
 				//
@@ -2902,32 +3006,29 @@ class Service extends ContainerObject
 						   ."must have two elements." );						// !@! ==>
 					
 					//
-					// Check coordinates structure.
-					//
-					if( ! is_array( $geom[ 0 ] ) )
-						throw new \Exception(
-							"The first element of [$type] "
-						   ."must be an array." );								// !@! ==>
-					
-					//
-					// Check coordinates.
-					//
-					if( count( $geom[ 0 ] ) != 2 )
-						throw new \Exception(
-							"The first element of [$type] "
-						   ."must contain a pair of coordinates." );			// !@! ==>
-					
-					//
 					// Cast coordinates.
 					//
-					$geom[ 0 ][ 0 ] = (double) $geom[ 0 ][ 0 ];
-					$geom[ 0 ][ 1 ] = (double) $geom[ 0 ][ 1 ];
+					$geom[ 0 ] = (double) $geom[ 0 ];
+					$geom[ 1 ] = (double) $geom[ 1 ];
 					
 					//
-					// Cast distance.
+					// Check circle.
 					//
 					if( $type == 'Point' )
-						$geom[ 1] = (int) $geom[ 1 ];
+					{
+						//
+						// Check radius.
+						//
+						if( ! array_key_exists( kTAG_RADIUS, $theValue ) )
+							throw new \Exception(
+								"Shape of type [$type] "
+							   ."must feature the radius." );					// !@! ==>
+						
+						//
+						// Cast radius.
+						//
+						$theValue[ kTAG_RADIUS ] = (int) $theValue[ kTAG_RADIUS ];
+					}
 					
 					break;
 							
@@ -3310,6 +3411,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_LINK" ] = kAPI_PARAM_RESPONSE_FRMT_LINK;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_SERV" ] = kAPI_PARAM_RESPONSE_FRMT_SERV;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_DOCU" ] = kAPI_PARAM_RESPONSE_FRMT_DOCU;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_STATS" ] = kAPI_PARAM_RESPONSE_FRMT_STATS;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_HEAD" ] = kAPI_PARAM_RESPONSE_FRMT_HEAD;
 		
 		//
@@ -3361,6 +3463,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_OFFSETS" ] = kAPI_PARAM_OFFSETS;
 		$ref[ "kAPI_PARAM_GROUP_DATA" ] = kAPI_PARAM_GROUP_DATA;
 		$ref[ "kAPI_PARAM_GROUP_LIST" ] = kAPI_PARAM_GROUP_DATA;
+		$ref[ "kAPI_SHAPE_TAG" ] = kAPI_SHAPE_TAG;
 		
 		//
 		// Load result type parameters.
@@ -5125,11 +5228,24 @@ $rs_units = & $rs_units[ 'result' ];
 				//
 				if( $tag == kTAG_DOMAIN )
 				{
+					//
+					// Set units count.
+					//
 					$ref[ $value ][ kAPI_PARAM_RESPONSE_COUNT ]
 						= $record[ kAPI_PARAM_RESPONSE_COUNT ];
+					
+					//
+					// Set units coordinates.
+					//
 					if( array_key_exists( kAPI_PARAM_RESPONSE_POINTS, $record ) )
 						$ref[ $value ][ kAPI_PARAM_RESPONSE_POINTS ]
 							= $record[ kAPI_PARAM_RESPONSE_POINTS ];
+					
+					//
+					// Set domain statistics.
+					//
+					$ref[ $value ][ kAPI_PARAM_RESPONSE_FRMT_STATS ]
+						= count( static::GetStatisticsList( $value ) );
 				}
 				
 				//
@@ -8165,8 +8281,8 @@ $rs_units = & $rs_units[ 'result' ];
 				return
 					array( '$geoWithin'
 						=> array( '$centerSphere'
-							=> array( $geom[ 0 ],
-									  $geom[ 1 ] ) ) );								// ==>
+							=> array( array( $geom[ 0 ], $geom[ 1 ] ),
+									  $theShape[ kTAG_RADIUS ] ) ) );								// ==>
 			
 			case 'Rect':
 				return
@@ -9027,7 +9143,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @param array					$theContainer		Results container.
 	 * @param string				$theLanguage		Default language.
 	 * @param string				$theDomain			Statistics domain.
-	 * @param string				$theStatistics		Optionsl statistics code.
+	 * @param string				$theStatistics		Optional statistics code.
 	 *
 	 * @access protected
 	 */
@@ -9036,77 +9152,9 @@ $rs_units = & $rs_units[ 'result' ];
 													  $theStatistics = NULL )
 	{
 		//
-		// Init local storage.
+		// Get domain statistics.
 		//
-		$list = Array();
-		
-		//
-		// Parse by domain.
-		//
-		switch( $theDomain )
-		{
-			case kDOMAIN_HH_ASSESSMENT:
-			
-				// abdh-species-01.
-				$element = Array();
-				$id = 'abdh-species-01';
-				$element[ kAPI_PARAM_STAT ] = $id;
-				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-					= 'Annual Species grown by households, '
-					 .'area and contribution to food and income';
-				$list[ $id ] = $element;
-				
-				// abdh-species-02.
-				$element = Array();
-				$id = 'abdh-species-02';
-				$element[ kAPI_PARAM_STAT ] = $id;
-				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-					= 'Annual species by season grown and water regime '
-					 .'(number of households)';
-				$list[ $id ] = $element;
-				
-				// abdh-species-03.
-				$element = Array();
-				$id = 'abdh-species-03';
-				$element[ kAPI_PARAM_STAT ] = $id;
-				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-					= 'Varieties grown by annual species '
-					 .'by type and demand for seed/planting material';
-				$list[ $id ] = $element;
-				
-				// abdh-species-04.
-				$element = Array();
-				$id = 'abdh-species-04';
-				$element[ kAPI_PARAM_STAT ] = $id;
-				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-					= 'Sources of seed/planting material for annual species';
-				$list[ $id ] = $element;
-				
-				// abdh-species-05.
-				$element = Array();
-				$id = 'abdh-species-05';
-				$element[ kAPI_PARAM_STAT ] = $id;
-				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-					= 'Frequency of seed replacement for annual species';
-				$list[ $id ] = $element;
-				
-				// abdh-species-06.
-				$element = Array();
-				$id = 'abdh-species-06';
-				$element[ kAPI_PARAM_STAT ] = $id;
-				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-					= 'Decisions on species by gender';
-				$list[ $id ] = $element;
-				
-				// abdh-species-07.
-				$element = Array();
-				$id = 'abdh-species-07';
-				$element[ kAPI_PARAM_STAT ] = $id;
-				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-					= 'Species used by households and by objective of use and type of uses';
-				$list[ $id ] = $element;
-				break;
-		}
+		$list = static::GetStatisticsList( $theDomain );
 		
 		//
 		// Handle specific statistics.

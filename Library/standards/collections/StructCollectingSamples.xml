@@ -18,6 +18,13 @@
 			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
 		</EDGE>
 		
+		<!-- :germplasm:sample -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
+		</EDGE>
+		
 		<!-- :germplasm:identifier -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:germplasm:identifier</item>
@@ -43,13 +50,6 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:names</item>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
-		</EDGE>
-		
-		<!-- :germplasm:sample -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:germplasm:sample</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:mission:collecting:samples</item>
 		</EDGE>
 	</META>

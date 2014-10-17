@@ -478,6 +478,13 @@ finally
 								   array( $theData[ 'ACCENAME' ] ) );
 		
 		//
+		// Set taxon family.
+		//
+		if( array_key_exists( 'FAMILY', $theData ) )
+			$theObject->offsetSet( ':taxon:familia',
+								   $theData[ 'FAMILY' ] );
+		
+		//
 		// Set taxon genus.
 		//
 		if( array_key_exists( 'GENUS', $theData ) )
@@ -513,11 +520,28 @@ finally
 								   $theData[ 'SUBTAUTHOR' ] );
 		
 		//
+		// Set species name.
+		//
+		if( array_key_exists( 'GENUS', $theData )
+		 && array_key_exists( 'SPECIES', $theData ) )
+			$theObject->offsetSet(
+				':taxon:species:name',
+				implode( ' ', array( $theData[ 'GENUS' ],
+									 $theData[ 'SPECIES' ] ) ) );
+		
+		//
 		// Set taxon epithet.
 		//
 		if( array_key_exists( 'TAXON', $theData ) )
 			$theObject->offsetSet( ':taxon:epithet',
 								   $theData[ 'TAXON' ] );
+		
+		//
+		// Set taxon valid name.
+		//
+		if( array_key_exists( 'ValidName', $theData ) )
+			$theObject->offsetSet( ':taxon:valid',
+								   $theData[ 'ValidName' ] );
 		
 		//
 		// Set taxon reference.
@@ -558,6 +582,13 @@ finally
 					array(
 						array( kTAG_TEXT => $tmp ) ) );
 		}
+		
+		//
+		// Set uses.
+		//
+		if( array_key_exists( 'DesignationUse', $theData ) )
+			$theObject->offsetSet( ':taxon:designation:use',
+									implode( '§', $theData[ 'DesignationUse' ] ) );
 		
 		//
 		// Set crop.

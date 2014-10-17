@@ -791,7 +791,7 @@ class FAOInstitute extends Institution
 		//
 		// Set shape.
 		//
-		$this->setObjectShapes();
+		$this->setObjectShapes( TRUE );
 		
 		//
 		// Call parent method.

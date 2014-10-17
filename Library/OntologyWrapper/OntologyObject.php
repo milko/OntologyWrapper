@@ -287,9 +287,9 @@ abstract class OntologyObject extends ContainerObject
 	/**
 	 * Resolve offset
 	 *
-	 * This method will resolve the provided offset into a {@link Tag} native
-	 * identifier, this is done by using a {@link Dictionary} object stored in the current
-	 * object's {@link $mDictionary} data member.
+	 * This method will resolve the provided offset into a {@link Tag} serial number, this
+	 * is done by using a {@link Dictionary} object stored in the current object's
+	 * {@link $mDictionary} data member.
 	 *
 	 * If you provide an integer or a numeric string, the method will simply cast the value
 	 * to an integer and return it.

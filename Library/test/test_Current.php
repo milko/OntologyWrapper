@@ -314,7 +314,6 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-*/
 
 	//
 	// Test getNodeForm.
@@ -350,6 +349,107 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Test single field with data (group).
+	//
+	echo( '<h4>Test single field with data (group)</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_CRITERIA => array
+		(
+			':location:country' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+				kAPI_PARAM_PATTERN => 'iso:3166:1:alpha-3:ITA',
+				kAPI_PARAM_OPERATOR => array
+				(
+					kOPERATOR_CONTAINS,
+					kOPERATOR_NOCASE
+				)
+			)
+		),
+		kAPI_PARAM_GROUP => Array()
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+*/
+
+	//
+	// Map.
+	//
+	echo( '<h4>Map</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+	//	kAPI_PARAM_CRITERIA => Array(),
+		kAPI_PARAM_CRITERIA => array
+		(
+			':shape-disp' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE,
+				kAPI_PARAM_SHAPE => array(
+					kTAG_TYPE => 'Rect',
+					kTAG_GEOMETRY => array( array( 12, 45 ),
+										    array( 18, 50 ) ) )
+			)
+		),
+		kAPI_PARAM_GROUP => Array(),
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT,
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE_DISP,
+	/*
+		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Rect',
+								   kTAG_GEOMETRY => array( array( 12, 45 ),
+														   array( 18, 50 ) ) )
+	*/
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
 	echo( '<hr>' );
 
 }

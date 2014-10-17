@@ -583,6 +583,16 @@ finally
 								   $theData[ 'SUBTAUTHOR' ] );
 		
 		//
+		// Set species name.
+		//
+		if( array_key_exists( 'GENUS', $theData )
+		 && array_key_exists( 'SPECIES', $theData ) )
+			$theObject->offsetSet(
+				':taxon:species:name',
+				implode( ' ', array( $theData[ 'GENUS' ],
+									 $theData[ 'SPECIES' ] ) ) );
+		
+		//
 		// Set taxon epithet.
 		//
 		$tmp = $theData[ 'GENUS' ];

@@ -520,7 +520,7 @@ class ForestUnit extends UnitObject
 		//
 		// Set shape.
 		//
-		$this->setObjectShapes();
+		$this->setObjectShapes( TRUE );
 		
 		//
 		// Set climate data.

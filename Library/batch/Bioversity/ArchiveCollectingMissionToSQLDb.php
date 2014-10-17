@@ -478,6 +478,7 @@ finally
 		//
 		// Load collecting mission taxa.
 		//
+	/*
 		$sub = Array();
 		loadTaxa( $sub,
 				  $theData,
@@ -485,6 +486,7 @@ finally
 				  $theDatabase );
 		if( count( $sub ) )
 			$theObject->offsetSet( ':mission:taxa', $sub );
+	*/
 		
 		//
 		// Load collectors.

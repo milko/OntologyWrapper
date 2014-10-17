@@ -299,16 +299,6 @@ class CollectingSample extends Sample
 		}
 		
 		//
-		// Check version.
-		//
-		if( ! $this->offsetExists( kTAG_VERSION ) )
-		{
-			if( $this->offsetExists( 'mcpd:COLLDATE' ) )
-				$this->offsetSet( kTAG_VERSION,
-								  $this->offsetGet( 'mcpd:COLLDATE' ) );
-		}
-		
-		//
 		// Set taxon.
 		//
 		if( ! $this->offsetExists( ':taxon:epithet' ) )
@@ -334,7 +324,7 @@ class CollectingSample extends Sample
 		//
 		// Create shape.
 		//
-		$this->setObjectShapes();
+		$this->setObjectShapes( TRUE );
 		
 		//
 		// Set climate data.
@@ -347,6 +337,297 @@ class CollectingSample extends Sample
 		parent::preCommitPrepare( $theTags, $theRefs );
 	
 	} // preCommitPrepare.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED POST-COMMIT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postInsert																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after insert
+	 *
+	 * We overload this method to automatically add to the collecting mission the current
+	 * sample.
+	 *
+	 * The method will fill a record with the current sample information and add it to the
+	 * <tt>:mission:collecting:samples</tt> structure of the related collecting mission;
+	 * this will only occur if the current sample is related to a collecting mission
+	 * (<tt>:mission:collecting</tt>).
+	 *
+	 * The elements used are:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_STRUCT_LABEL}</tt>: The list element will be set with the
+	 *		following items:
+	 *	 <ul>
+	 *		<li><tt>:germplasm:identifier</tt>: The germplasm identifier.
+	 *		<li><tt>:taxon:epithet</tt>: The sample scientific name.
+	 *	 </ul>
+	 *	<li><tt>:germplasm:sample</tt>: The germplasm reference.
+	 *	<li><tt>:germplasm:identifier</tt>: The germplasm identifier.
+	 *	<li><tt>:taxon:epithet</tt>: The sample scientific name.
+	 *	<li><tt>mcpd:COLLDATE</tt>: The collecting date.
+	 *	<li><tt>mcpd:COLLNUMB</tt>: The collecting number.
+	 *	<li><tt>mcpd:COLLSRC</tt>: The collecting source.
+	 *	<li><tt>mcpd:SAMPSTAT</tt>: The sample biological status.
+	 * </ul>
+	 *
+	 * @param array					$theOffsets			Tag offsets to be added.
+	 * @param array					$theReferences		Object references to be incremented.
+	 *
+	 * @access protected
+	 */
+	protected function postInsert( $theOffsets, $theReferences )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postInsert( $theOffsets, $theReferences );
+		
+		//
+		// Check if related to a collecting mission.
+		//
+		if( $this->offsetExists( ':mission:collecting' ) )
+		{
+			//
+			// Instantiate collecting mission.
+			//
+			$mission = new CollectingMission( $this->mDictionary,
+											  $this->offsetGet( ':mission:collecting' ),
+											  TRUE );
+			
+			//
+			// Get samples list.
+			//
+			$list = $mission->offsetGet( ':mission:collecting:samples' );
+			if( ! is_array( $list ) )
+				$list = Array();
+			
+			//
+			// Add current object in list.
+			//
+			$list[] = $this->fillListElements();
+			
+			//
+			// Update collecting mission.
+			//
+			$mission->offsetSet( ':mission:collecting:samples', $list );
+			$mission->commit();
+		
+		} // Related to collecting mission.
+	
+	} // postInsert.
+
+	 
+	/*===================================================================================
+	 *	postUpdate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after update
+	 *
+	 * We overload this method to update the related collecting mission in order to update
+	 * its shape, this will be done in all cases to handle cases in which the sample
+	 * information has changed.
+	 *
+	 * The method will fill a record with the current sample information and replace the
+	 * relative element in the <tt>:mission:collecting:samples</tt> structure of the related
+	 * collecting mission; this will only occur if the current sample is related to a
+	 * collecting mission (<tt>:mission:collecting</tt>).
+	 *
+	 * The elements used are:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_STRUCT_LABEL}</tt>: The list element will be set with the
+	 *		following items:
+	 *	 <ul>
+	 *		<li><tt>:germplasm:identifier</tt>: The germplasm identifier.
+	 *		<li><tt>:taxon:epithet</tt>: The sample scientific name.
+	 *	 </ul>
+	 *	<li><tt>:germplasm:sample</tt>: The germplasm reference.
+	 *	<li><tt>:germplasm:identifier</tt>: The germplasm identifier.
+	 *	<li><tt>:taxon:epithet</tt>: The sample scientific name.
+	 *	<li><tt>mcpd:COLLDATE</tt>: The collecting date.
+	 *	<li><tt>mcpd:COLLNUMB</tt>: The collecting number.
+	 *	<li><tt>mcpd:COLLSRC</tt>: The collecting source.
+	 *	<li><tt>mcpd:SAMPSTAT</tt>: The sample biological status.
+	 * </ul>
+	 *
+	 * @param array					$theOffsets			Tag offsets to be added.
+	 * @param array					$theReferences		Object references to be incremented.
+	 *
+	 * @access protected
+	 */
+	protected function postUpdate( $theOffsets, $theReferences )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postUpdate( $theOffsets, $theReferences );
+		
+		//
+		// Check if related to a collecting mission.
+		//
+		if( $this->offsetExists( ':mission:collecting' ) )
+		{
+			//
+			// Instantiate collecting mission.
+			//
+			$mission = new CollectingMission( $this->mDictionary,
+											  $this->offsetGet( ':mission:collecting' ),
+											  TRUE );
+			
+			//
+			// Get samples list.
+			//
+			$list = $mission->offsetGet( ':mission:collecting:samples' );
+			if( ! is_array( $list ) )
+				$list = Array();
+			
+			//
+			// Locate sample.
+			//
+			$done = FALSE;
+			$tag = $this->resolveOffset( ':germplasm:sample', TRUE );
+			foreach( array_keys( $list ) as $key )
+			{
+				if( array_key_exists( $tag, $list[ $key ] ) )
+				{
+					if( $list[ $key ][ $tag ] == $this->offsetGet( kTAG_NID ) )
+					{
+						$list[ $key ] = $this->fillListElements();
+						$done = TRUE;
+						break;												// =>
+					}
+				}
+			}
+			
+			//
+			// Add current object in list.
+			//
+			if( ! $done )
+				$list[] = $this->fillListElements();
+			
+			//
+			// Update collecting mission.
+			//
+			$mission->offsetSet( ':mission:collecting:samples', $list );
+			$mission->commit();
+		
+		} // Related to collecting mission.
+	
+	} // postUpdate.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED POST-DELETE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postDelete																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after delete
+	 *
+	 * We overload this method to remove the current object from related objects that
+	 * feature this object in lists.
+	 *
+	 * The method will first call the inherited method, then it will check whether the
+	 * current object is related to a collecting mission, in that case it will remove it
+	 * from the collecting mission's list of samples.
+	 *
+	 * @param array					$theOffsets			Tag offsets to be removed.
+	 * @param array					$theReferences		Object references to be decremented.
+	 *
+	 * @access protected
+	 */
+	protected function postDelete( $theOffsets, $theReferences )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postDelete( $theOffsets, $theReferences );
+		
+		//
+		// Check if related to a collecting mission.
+		//
+		if( $this->offsetExists( ':mission:collecting' ) )
+		{
+			//
+			// Instantiate collecting mission.
+			//
+			$mission = new CollectingMission( $this->mDictionary,
+											  $this->offsetGet( ':mission:collecting' ),
+											  TRUE );
+			
+			//
+			// Handle samples list.
+			//
+			$list = $mission->offsetGet( ':mission:collecting:samples' );
+			if( is_array( $list ) )
+			{
+				//
+				// Locate sample.
+				//
+				$done = FALSE;
+				$tag = $this->resolveOffset( ':germplasm:sample', TRUE );
+				foreach( array_keys( $list ) as $key )
+				{
+					if( array_key_exists( $tag, $list[ $key ] ) )
+					{
+						if( $list[ $key ][ $tag ] == $this->offsetGet( kTAG_NID ) )
+						{
+							unset( $list[ $key ] );
+							$list = array_values( $list );
+							$done = TRUE;
+							break;											// =>
+						}
+					}
+				}
+			
+				//
+				// Update collecting mission.
+				//
+				if( $done )
+				{
+					//
+					// Update list.
+					//
+					if( count( $list ) )
+						$mission->offsetSet( ':mission:collecting:samples', $list );
+					
+					//
+					// Delete list.
+					//
+					else
+						$mission->offsetUnset( ':mission:collecting:samples' );
+					
+					//
+					// Update object.
+					//
+					$mission->commit();
+				}
+			
+			} // Has samples.
+		
+		} // Related to collecting mission.
+	
+	} // postDelete.
 
 		
 
@@ -419,6 +700,134 @@ class CollectingSample extends Sample
 		return TRUE;																// ==>
 	
 	} // setObjectActualShape.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									REFERENTIAL UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	fillListElements																*
+	 *==================================================================================*/
+
+	/**
+	 * Set list labels
+	 *
+	 * This method will return an array with the properties that the current
+	 * object uses when referenced in a list of references from another object.
+	 *
+	 * The following elements will be set:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_STRUCT_LABEL}</tt>: The list element will be set with the
+	 *		following items:
+	 *	 <ul>
+	 *		<li><tt>:germplasm:identifier</tt>: The germplasm identifier.
+	 *		<li><tt>:taxon:epithet</tt>: The sample scientific name.
+	 *	 </ul>
+	 *	<li><tt>:germplasm:sample</tt>: The germplasm reference.
+	 *	<li><tt>:germplasm:identifier</tt>: The germplasm identifier.
+	 *	<li><tt>:taxon:epithet</tt>: The sample scientific name.
+	 *	<li><tt>mcpd:COLLDATE</tt>: The collecting date.
+	 *	<li><tt>mcpd:COLLNUMB</tt>: The collecting number.
+	 *	<li><tt>mcpd:COLLSRC</tt>: The collecting source.
+	 *	<li><tt>mcpd:SAMPSTAT</tt>: The sample biological status.
+	 * </ul>
+	 *
+	 * @access protected
+	 * @return array				The list of properties.
+	 */
+	protected function fillListElements()
+	{
+		//
+		// Init local storage.
+		//
+		$element = Array();
+		
+		//
+		// Set element label.
+		//
+		$tmp = Array();
+		if( $this->offsetExists( ':germplasm:identifier' ) )
+			$tmp[] = '('.$this->offsetGet( ':germplasm:identifier' ).')';
+		elseif( $this->offsetExists( 'mcpd:COLLNUMB' ) )
+			$tmp[] = '('.$this->offsetGet( 'mcpd:COLLNUMB' ).')';
+		if( $this->offsetExists( ':taxon:epithet' ) )
+			$tmp[] = $this->offsetGet( ':taxon:epithet' );
+		$element[ kTAG_STRUCT_LABEL ] = ( count( $tmp ) )
+									  ? implode( ' ', $tmp )
+									  : 'unknown';
+		
+		//
+		// Set germplasm reference.
+		//
+		$element[ $this->resolveOffset( ':germplasm:sample', TRUE ) ]
+			= $this->offsetGet( kTAG_NID );
+		
+		//
+		// Set germplasm identifier.
+		//
+		if( $this->offsetExists( ':germplasm:identifier' ) )
+			$element[ $this->resolveOffset( ':germplasm:identifier', TRUE ) ]
+				= $this->offsetGet( ':germplasm:identifier' );
+		
+		//
+		// Set genus.
+		//
+		if( $this->offsetExists( ':taxon:genus' ) )
+			$element[ $this->resolveOffset( ':taxon:genus', TRUE ) ]
+				= $this->offsetGet( ':taxon:genus' );
+		
+		//
+		// Set species name.
+		//
+		if( $this->offsetExists( ':taxon:species:name' ) )
+			$element[ $this->resolveOffset( ':taxon:species:name', TRUE ) ]
+				= $this->offsetGet( ':taxon:species:name' );
+		
+		//
+		// Set taxon epithet.
+		//
+		if( $this->offsetExists( ':taxon:epithet' ) )
+			$element[ $this->resolveOffset( ':taxon:epithet', TRUE ) ]
+				= $this->offsetGet( ':taxon:epithet' );
+		
+		//
+		// Set collecting date.
+		//
+		if( $this->offsetExists( 'mcpd:COLLDATE' ) )
+			$element[ $this->resolveOffset( 'mcpd:COLLDATE', TRUE ) ]
+				= $this->offsetGet( 'mcpd:COLLDATE' );
+		
+		//
+		// Set collecting number.
+		//
+		if( $this->offsetExists( 'mcpd:COLLNUMB' ) )
+			$element[ $this->resolveOffset( 'mcpd:COLLNUMB', TRUE ) ]
+				= $this->offsetGet( 'mcpd:COLLNUMB' );
+		
+		//
+		// Set collecting source.
+		//
+		if( $this->offsetExists( 'mcpd:COLLSRC' ) )
+			$element[ $this->resolveOffset( 'mcpd:COLLSRC', TRUE ) ]
+				= $this->offsetGet( 'mcpd:COLLSRC' );
+		
+		//
+		// Set biological status.
+		//
+		if( $this->offsetExists( 'mcpd:SAMPSTAT' ) )
+			$element[ $this->resolveOffset( 'mcpd:SAMPSTAT', TRUE ) ]
+				= $this->offsetGet( 'mcpd:SAMPSTAT' );
+		
+		return $element;															// ==>
+	
+	} // fillListElements.
 
 	 
 

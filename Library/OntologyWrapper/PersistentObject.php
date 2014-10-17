@@ -2717,9 +2717,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Update tag offsets and object references.
 		//
-		$tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
-		$refs = $this->offsetGet( kTAG_OBJECT_REFERENCES );
-		$this->postInsert( $tags, $refs );
+		$this->postInsert( $this->offsetGet( kTAG_OBJECT_OFFSETS ),
+						   $this->offsetGet( kTAG_OBJECT_REFERENCES ) );
 		
 		//
 		// Handle tag value ranges.
@@ -2800,9 +2799,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Update tag offsets and object references.
 		//
-		$tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
-		$refs = $this->offsetGet( kTAG_OBJECT_REFERENCES );
-		$this->postInsert( $tags, $refs );
+		$this->postInsert( $this->offsetGet( kTAG_OBJECT_OFFSETS ),
+						   $this->offsetGet( kTAG_OBJECT_REFERENCES ) );
 		
 		//
 		// Handle tag value ranges.
@@ -2885,7 +2883,12 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Update references.
 		//
-		$this->postUpdate( $old[ kTAG_OBJECT_OFFSETS ], $old[ kTAG_OBJECT_REFERENCES ] );
+		$this->postUpdate( ( ( array_key_exists( kTAG_OBJECT_OFFSETS, $old ) )
+						   ? $old[ kTAG_OBJECT_OFFSETS ]
+						   : Array() ),
+						   ( ( array_key_exists( kTAG_OBJECT_REFERENCES, $old ) )
+						   ? $old[ kTAG_OBJECT_REFERENCES ]
+						   : Array() ) );
 		
 		//
 		// Handle tag value ranges.
@@ -3520,8 +3523,6 @@ abstract class PersistentObject extends OntologyObject
 	 * This method is identical to the {@link postDelete()} method, except that in this case
 	 * offsets will be added and reference counts will be incremented.
 	 *
-	 * The provided array references are read-only.
-	 *
 	 * @param array					$theOffsets			Tag offsets to be added.
 	 * @param array					$theReferences		Object references to be incremented.
 	 *
@@ -3532,8 +3533,16 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses ResolveOffsetsTag()
 	 * @uses updateObjectReferenceCount()
 	 */
-	protected function postInsert( &$theOffsets, &$theReferences )
+	protected function postInsert( $theOffsets, $theReferences )
 	{
+		//
+		// Normalise parameters.
+		//
+		if( $theOffsets === NULL )
+			$theOffsets = Array();
+		if( $theReferences === NULL )
+			$theReferences = Array();
+		
 		//
 		// Resolve tag collection.
 		//
@@ -3549,7 +3558,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Handle tags.
 		//
-		if( is_array( $theOffsets ) )
+		if( is_array( $theOffsets )
+		 && count( $theOffsets ) )
 		{
 			//
 			// Update tags reference count.
@@ -3575,7 +3585,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Handle object references.
 		//
-		if( is_array( $theReferences ) )
+		if( is_array( $theReferences )
+		 && count( $theReferences ) )
 		{
 			foreach( $theReferences as $key => $value )
 				$this->updateObjectReferenceCount(
@@ -3648,11 +3659,13 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses compareObjectReferences()
 	 * @uses filterExistingOffsets()
 	 */
-	protected function postUpdate( &$theOffsets, &$theReferences )
+	protected function postUpdate( $theOffsets, $theReferences )
 	{
 		//
-		// Normalise references.
+		// Normalise parameters.
 		//
+		if( $theOffsets === NULL )
+			$theOffsets = Array();
 		if( $theReferences === NULL )
 			$theReferences = Array();
 		
@@ -3955,8 +3968,6 @@ abstract class PersistentObject extends OntologyObject
 	 * This method is identical to the {@link postInsert()} method, except that in this case
 	 * offsets will be removed and reference counts will be decremented.
 	 *
-	 * The provided array references are read-only.
-	 *
 	 * @param array					$theOffsets			Tag offsets to be removed.
 	 * @param array					$theReferences		Object references to be decremented.
 	 *
@@ -3968,8 +3979,16 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses updateObjectReferenceCount()
 	 * @uses filterExistingOffsets()
 	 */
-	protected function postDelete( &$theOffsets, &$theReferences )
+	protected function postDelete( $theOffsets, $theReferences )
 	{
+		//
+		// Normalise parameters.
+		//
+		if( $theOffsets === NULL )
+			$theOffsets = Array();
+		if( $theReferences === NULL )
+			$theReferences = Array();
+		
 		//
 		// Resolve tag collection.
 		//
@@ -3985,7 +4004,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Handle tags.
 		//
-		if( is_array( $theOffsets ) )
+		if( is_array( $theOffsets )
+		 && count( $theOffsets ) )
 		{
 			//
 			// Update deleted tags reference count.
@@ -4017,7 +4037,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Handle references.
 		//
-		if( is_array( $theReferences ) )
+		if( is_array( $theReferences )
+		 && count( $theReferences ) )
 		{
 			foreach( $theReferences as $key => $value )
 				$this->updateObjectReferenceCount(
@@ -6388,18 +6409,26 @@ MILKO - Need to check.
 	/**
 	 * Set object shapes
 	 *
-	 * This method can be used to the the object {@link kTAG_GEO_SHAPE} and
+	 * This method can be used to set the object {@link kTAG_GEO_SHAPE} and
 	 * {@link kTAG_GEO_SHAPE_DISP} properties, the method will first set the actual shape,
 	 * if this was performed, it will set the display shape.
 	 *
 	 * The method will return <tt>TRUE</tt> if the shapes were set or found and
 	 * <tt>FALSE</tt> if not.
 	 *
+	 * @param boolean				$doUpdate			TRUE means force update.
+	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> if the shapes were set or found.
 	 */
-	protected function setObjectShapes()
+	protected function setObjectShapes( $doUpdate = FALSE )
 	{
+		//
+		// Reset shapes.
+		//
+		if( $doUpdate )
+			$this->resetObjectShapes();
+		
 		//
 		// Check object shape.
 		//
@@ -6475,7 +6504,7 @@ MILKO - Need to check.
 			//
 			// Parse by actual shape type.
 			//
-			switch( $this->offsetGet( kTAG_GEO_SHAPE )[ kTAG_TYPE ] )
+			switch( $shape[ kTAG_TYPE ] )
 			{
 				case 'Point':
 					$this->offsetSet( kTAG_GEO_SHAPE_DISP, $shape );
@@ -6514,6 +6543,31 @@ MILKO - Need to check.
 		}
 	
 	} // setObjectDisplayShape.
+
+	 
+	/*===================================================================================
+	 *	resetObjectShapes																*
+	 *==================================================================================*/
+
+	/**
+	 * Reset object shapes
+	 *
+	 * This method can be used to reset the object {@link kTAG_GEO_SHAPE} and
+	 * {@link kTAG_GEO_SHAPE_DISP} properties, by default, the method will assume the shapes
+	 * to be at the root level of the object, derived classes should overload the method to
+	 * handle shapes embedded in sub-structures.
+	 *
+	 * @access protected
+	 */
+	protected function resetObjectShapes()
+	{
+		//
+		// Reset shapes.
+		//
+		$this->offsetUnset( kTAG_GEO_SHAPE );
+		$this->offsetUnset( kTAG_GEO_SHAPE_DISP );
+	
+	} // resetObjectShapes.
 
 		
 

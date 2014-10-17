@@ -496,6 +496,16 @@ finally
 								   $theData[ ':taxon:infraspecies:author' ] );
 		
 		//
+		// Set sspecies name.
+		//
+		if( array_key_exists( ':taxon:genus', $theData )
+		 && array_key_exists( ':taxon:species', $theData ) )
+			$theObject->offsetSet(
+				':taxon:species:name',
+				implode( ' ', array( $theData[ ':taxon:genus' ],
+									 $theData[ ':taxon:species' ] ) ) );
+		
+		//
 		// Set scientific name.
 		//
 		if( array_key_exists( ':taxon:epithet', $theData ) )

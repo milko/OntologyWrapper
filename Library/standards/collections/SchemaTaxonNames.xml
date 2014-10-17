@@ -37,6 +37,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :taxon:species:name -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:species:name</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :taxon:infraspecies -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies</item>

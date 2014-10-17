@@ -409,7 +409,7 @@ class Household extends UnitObject
 		//
 		// Create shape.
 		//
-		$this->setObjectShapes();
+		$this->setObjectShapes( TRUE );
 		
 		//
 		// Set climate data.

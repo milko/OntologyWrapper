@@ -108,6 +108,21 @@ $dc_in = $dc_out = $rs = NULL;
 $class = 'OntologyWrapper\Accession';
 
 //
+// Init base query.
+//
+$base_query = "SELECT `singer_acc`.*, "
+			 ."`singer_tax`.`CropCode`, `singer_tax`.`Family`, "
+			 ."`singer_tax`.`Genus`, `singer_tax`.`Species`, "
+			 ."`singer_tax`.`SpeciesAuthority`, `singer_tax`.`InfraspecificEpithet`, "
+			 ."`singer_tax`.`InfraspecificAuthority`, `singer_tax`.`SpeciesName`, "
+			 ."`singer_tax`.`ValidName`, `singer_tax`.`TaxonRank`, "
+			 ."`singer_tax`.`TaxonReference`, `singer_tax`.`DesignationUse`, "
+			 ."`singer_tax`.`Annex1` "
+			 ."FROM `singer_acc` "
+			 ."LEFT JOIN `singer_tax` "
+			 ."ON( `singer_tax`.`TaxonCode` = `singer_acc`.`TaxonCode` )";
+
+//
 // Load arguments.
 //
 $db_in = $argv[ 1 ];
@@ -523,6 +538,13 @@ finally
 		}
 		
 		//
+		// Set taxon family.
+		//
+		if( array_key_exists( 'Family', $theData ) )
+			$theObject->offsetSet( ':taxon:familia',
+								   $theData[ 'Family' ] );
+		
+		//
 		// Set taxon genus.
 		//
 		if( array_key_exists( 'Genus', $theData ) )
@@ -558,11 +580,27 @@ finally
 								   $theData[ 'InfraspecificAuthority' ] );
 		
 		//
+		// Set species name.
+		//
+		if( array_key_exists( 'Genus', $theData )
+		 && array_key_exists( 'Species', $theData ) )
+			$theObject->offsetSet( ':taxon:species:name',
+								   implode( ' ', array( $theData[ 'Genus' ],
+								   						$theData[ 'Species' ] ) ) );
+		
+		//
 		// Set taxon epithet.
 		//
 		if( array_key_exists( 'ScientificName', $theData ) )
 			$theObject->offsetSet( ':taxon:epithet',
 								   $theData[ 'ScientificName' ] );
+		
+		//
+		// Set taxon valid name.
+		//
+		if( array_key_exists( 'ValidName', $theData ) )
+			$theObject->offsetSet( ':taxon:valid',
+								   $theData[ 'ValidName' ] );
 		
 		//
 		// Set taxon reference.
@@ -604,6 +642,13 @@ finally
 					array(
 						array( kTAG_TEXT => $tmp ) ) );
 		}
+		
+		//
+		// Set uses.
+		//
+		if( array_key_exists( 'DesignationUse', $theData ) )
+			$theObject->offsetSet( ':taxon:designation:use',
+									implode( '§', $theData[ 'DesignationUse' ] ) );
 		
 		//
 		// Set crop.

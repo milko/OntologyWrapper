@@ -693,6 +693,13 @@ finally
 						$tag = (string) $theWrapper->getSerial( ':taxon:species' );
 						$sub[ $tag ] = $species;
 					}
+					
+					if( strlen( $genus )
+					 && strlen( $species ) )
+					{
+						$tag = (string) $theWrapper->getSerial( ':taxon:species:name' );
+						$sub[ $tag ] = implode( ' ', array( $genus, $species ) );
+					}
 
 					$tag = (string) $theWrapper->getSerial( ':taxon:epithet' );
 					$sub[ $tag ] = $data[ 'PopulationTargetSpecies' ];

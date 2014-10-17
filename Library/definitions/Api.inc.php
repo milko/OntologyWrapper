@@ -1435,7 +1435,7 @@ define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
  *				will not come from a traditional form element, but rather from a map
  *				selection.
  *			 <ul>
- *				<li><tt>{@link kAPI_RESULT_SHAPE}</tt>: The shape (required). The value
+ *				<li><tt>{@link kAPI_PARAM_SHAPE}</tt>: The shape (required). The value
  *					should be a GeoJSON structure amon the following types:
  *				 <ul>
  *					<li><tt>Point</tt>: The service will select the first 100 records (or
@@ -1847,6 +1847,13 @@ define( "kAPI_PARAM_RESPONSE_FRMT_SERV",		'serv' );
 define( "kAPI_PARAM_RESPONSE_FRMT_DOCU",		'docu' );
 
 /**
+ * Statistics count (int).
+ *
+ * This tag indicates the statistics count for the current domain.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_STATS",		'stats-count' );
+
+/**
  * Statistics header (array).
  *
  * This tag indicates the statistics header as an array, the elements are structured as
@@ -2138,7 +2145,7 @@ define( "kAPI_PARAM_INPUT_ENUM",				'input-enum' );
  * A form element of this type should feature the following elements:
  *
  * <ul>
- *	<li><tt>{@link kAPI_RESULT_SHAPE}</tt>: The shape (required). The value should be a
+ *	<li><tt>{@link kAPI_PARAM_SHAPE}</tt>: The shape (required). The value should be a
  *		GeoJSON structure amon the following types:
  *	 <ul>
  *		<li><tt>Point</tt>: The service will select the first 100 records (or less with the
@@ -2249,6 +2256,13 @@ define( "kAPI_PARAM_GROUP_DATA",				'group-data' );
  * must be unwinded.
  */
 define( "kAPI_PARAM_GROUP_LIST",				'group-list' );
+
+/**
+ * Default shape tag identifier (string).
+ *
+ * This parameter holds the native identifier of the default shape.
+ */
+define( "kAPI_SHAPE_TAG",						':shape-disp' );
 
 
 ?>

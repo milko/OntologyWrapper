@@ -236,6 +236,61 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the domain name, derived classes should first call the parent
+	 * method and catenate the local name with the parent name.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		//
+		// Check wrapper.
+		//
+		if( ($this->mDictionary !== NULL)
+		 && $this->offsetExists( kTAG_DOMAIN ) )
+		{
+			//
+			// Get domain.
+			//
+			$domain
+				= Term::ResolveCollection(
+					Term::ResolveDatabase(
+						$this->mDictionary ) )
+							->matchOne(
+								array( kTAG_NID => $this->offsetGet( kTAG_DOMAIN ) ),
+								kQUERY_ARRAY,
+								array( kTAG_LABEL => TRUE ) );
+			
+			return OntologyObject::SelectLanguageString(
+						$domain[ kTAG_LABEL ],
+						$theLanguage );												// ==>
+		
+		} // Has wrapper and domain.
+		
+		return NULL;																// ==>
+	
+	} // getName.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -560,38 +615,70 @@ abstract class UnitObject extends PersistentObject
 							//
 							// Set environment stratification data.
 							//
-							if( array_key_exists( 'gens', $data ) )
+							if( array_key_exists( 'gens', $data )
+							 && is_array( $data[ 'gens' ] ) )
 							{
 								$ref = & $data[ 'gens' ];
 								if( $range )
 								{
-									$tag = (string) $theWrapper->getSerial( 'gens' );
-									$climate[ $tag ] = Array();
-									foreach( $ref[ 'id' ] as $tmp )
-										$climate[ $tag ][] = $tmp;
-									
-									$tag = (string) $theWrapper->getSerial( 'gens:clim' );
-									$climate[ $tag ] = Array();
-									foreach( $ref[ 'c' ] as $tmp )
-										$climate[ $tag ][] = "gens:clim:$tmp";
-									
-									$tag = (string) $theWrapper->getSerial( 'gens:zone' );
-									$climate[ $tag ] = Array();
-									foreach( $ref[ 'e' ] as $tmp )
-										$climate[ $tag ][] = "gens:zone:$tmp";
+									if( array_key_exists( 'id', $ref )
+									 && is_array( $ref[ 'id' ] )
+									 && count( $ref[ 'id' ] ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens' );
+										$climate[ $tag ] = Array();
+										foreach( $ref[ 'id' ] as $tmp )
+											$climate[ $tag ][] = $tmp;
+									}
+								
+									if( array_key_exists( 'c', $ref )
+									 && is_array( $ref[ 'c' ] )
+									 && count( $ref[ 'c' ] ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens:clim' );
+										$climate[ $tag ] = Array();
+										foreach( $ref[ 'c' ] as $tmp )
+											$climate[ $tag ][] = "gens:clim:$tmp";
+									}
+								
+									if( array_key_exists( 'e', $ref )
+									 && is_array( $ref[ 'e' ] )
+									 && count( $ref[ 'e' ] ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens:zone' );
+										$climate[ $tag ] = Array();
+										foreach( $ref[ 'e' ] as $tmp )
+											$climate[ $tag ][] = "gens:zone:$tmp";
+									}
 								}
 								else
 								{
-									$tag = (string) $theWrapper->getSerial( 'gens' );
-									$climate[ $tag ] = array( $ref[ 'id' ] );
-									
-									$tag = (string) $theWrapper->getSerial( 'gens:clim' );
-									$tmp = $ref[ 'c' ];
-									$climate[ $tag ] = array( "gens:clim:$tmp" );
-
-									$tag = (string) $theWrapper->getSerial( 'gens:zone' );
-									$tmp = $ref[ 'e' ];
-									$climate[ $tag ] = array( "gens:zone:$tmp" );
+									if( array_key_exists( 'id', $ref )
+									 && strlen( trim( $ref[ 'id' ] ) ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens' );
+										$climate[ $tag ] = array( $ref[ 'id' ] );
+									}
+									if( array_key_exists( 'c', $ref )
+									 && strlen( trim( $ref[ 'c' ] ) ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens:clim' );
+										$tmp = $ref[ 'c' ];
+										$climate[ $tag ] = array( "gens:clim:$tmp" );
+									}
+									if( array_key_exists( 'e', $ref )
+									 && strlen( trim( $ref[ 'e' ] ) ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens:zone' );
+										$tmp = $ref[ 'e' ];
+										$climate[ $tag ] = array( "gens:zone:$tmp" );
+									}
 								}
 							}
 			
@@ -604,11 +691,14 @@ abstract class UnitObject extends PersistentObject
 								$tag = (string) $theWrapper->getSerial( 'hwsd' );
 								if( $range )
 								{
-									$climate[ $tag ] = Array();
-									foreach( $ref as $tmp )
-										$climate[ $tag ][] = "hwsd:$tmp";
+									if( count( $ref ) )
+									{
+										$climate[ $tag ] = Array();
+										foreach( $ref as $tmp )
+											$climate[ $tag ][] = "hwsd:$tmp";
+									}
 								}
-								else
+								elseif( strlen( trim( $ref ) ) )
 									$climate[ $tag ] = array( "hwsd:$ref" );
 							}
 			
@@ -622,11 +712,14 @@ abstract class UnitObject extends PersistentObject
 													':environment:ghf' );
 								if( $range )
 								{
-									$climate[ $tag ] = Array();
-									foreach( $ref as $tmp )
-										$climate[ $tag ][] = $tmp;
+									if( count( $ref ) )
+									{
+										$climate[ $tag ] = Array();
+										foreach( $ref as $tmp )
+											$climate[ $tag ][] = $tmp;
+									}
 								}
-								else
+								elseif( strlen( trim( $ref ) ) )
 									$climate[ $tag ] = array( $ref );
 							}
 			
@@ -639,18 +732,22 @@ abstract class UnitObject extends PersistentObject
 								$tag = (string) $theWrapper->getSerial( 'globcov' );
 								if( $range )
 								{
-									$climate[ $tag ] = Array();
-									foreach( $ref as $tmp )
-										$climate[ $tag ][] = "globcov:$tmp";
+									if( count( $ref ) )
+									{
+										$climate[ $tag ] = Array();
+										foreach( $ref as $tmp )
+											$climate[ $tag ][] = "globcov:$tmp";
+									}
 								}
-								else
+								elseif( strlen( trim( $ref ) ) )
 									$climate[ $tag ] = array( "globcov:$ref" );
 							}
 			
 							//
 							// Set bio-climatic data.
 							//
-							if( array_key_exists( 'bio', $data ) )
+							if( array_key_exists( 'bio', $data )
+							 && count( $data[ 'bio' ] ) )
 							{
 								$tag = (string) $theWrapper->getSerial(
 													':environment:bio' );
@@ -697,7 +794,8 @@ abstract class UnitObject extends PersistentObject
 							//
 							// Set precipitation data.
 							//
-							if( array_key_exists( 'prec', $data ) )
+							if( array_key_exists( 'prec', $data )
+							 && count( $data[ 'prec' ] ) )
 							{
 								$tag = (string) $theWrapper->getSerial(
 													':environment:precipitation' );
@@ -728,7 +826,8 @@ abstract class UnitObject extends PersistentObject
 							//
 							// Set temperature data.
 							//
-							if( array_key_exists( 'temp', $data ) )
+							if( array_key_exists( 'temp', $data )
+							 && count( $data[ 'temp' ] ) )
 							{
 								$tag = (string) $theWrapper->getSerial(
 													':environment:temperature' );
@@ -805,61 +904,6 @@ abstract class UnitObject extends PersistentObject
 			   ."invalid shape structure." );									// !@! ==>
 		
 	} // GetClimateData.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC NAME MANAGEMENT INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	getName																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get object name
-	 *
-	 * In this class we return the domain name, derived classes should first call the parent
-	 * method and catenate the local name with the parent name.
-	 *
-	 * @param string				$theLanguage		Name language.
-	 *
-	 * @access public
-	 * @return string				Object name.
-	 */
-	public function getName( $theLanguage )
-	{
-		//
-		// Check wrapper.
-		//
-		if( ($this->mDictionary !== NULL)
-		 && $this->offsetExists( kTAG_DOMAIN ) )
-		{
-			//
-			// Get domain.
-			//
-			$domain
-				= Term::ResolveCollection(
-					Term::ResolveDatabase(
-						$this->mDictionary ) )
-							->matchOne(
-								array( kTAG_NID => $this->offsetGet( kTAG_DOMAIN ) ),
-								kQUERY_ARRAY,
-								array( kTAG_LABEL => TRUE ) );
-			
-			return OntologyObject::SelectLanguageString(
-						$domain[ kTAG_LABEL ],
-						$theLanguage );												// ==>
-		
-		} // Has wrapper and domain.
-		
-		return NULL;																// ==>
-	
-	} // getName.
 
 		
 
@@ -1049,6 +1093,9 @@ abstract class UnitObject extends PersistentObject
 		//
 		switch( $theDomain )
 		{
+			//
+			// Default domains.
+			//
 			case kDOMAIN_UNIT:
 				return array( kTAG_DOMAIN, kTAG_AUTHORITY,
 							  kTAG_COLLECTION, kTAG_IDENTIFIER,
@@ -1062,7 +1109,10 @@ abstract class UnitObject extends PersistentObject
 		
 			case kDOMAIN_ORGANISATION:
 				return array( kTAG_IDENTIFIER, kTAG_ENTITY_ACRONYM, kTAG_NAME );	// ==>
-		
+			
+			//
+			// Data domains.
+			//
 			case kDOMAIN_ACCESSION:
 				return array( 'mcpd:INSTCODE', 'mcpd:ACCENUMB',
 							  ':taxon:epithet' );									// ==>
@@ -1084,6 +1134,20 @@ abstract class UnitObject extends PersistentObject
 				return array( 'abdh:ID_HOUSEHOLD',
 							  'abdh:STATE', 'abdh:DISTRICT', 'abdh:BLOCKS', 'abdh:VILLAGE',
 							  ':unit:version' );									// ==>
+		
+			case kDOMAIN_MISSION:
+				return array( ':mission:identifier',
+							  ':mission:start', ':mission:end' );					// ==>
+		
+			case kDOMAIN_COLLECTING_MISSION:
+				return array( ':mission:identifier', ':mission:collecting:identifier',
+							  ':mission:collecting:start', ':mission:collecting:end',
+							  ':location:country' );								// ==>
+		
+			case kDOMAIN_SAMPLE_COLLECTED:
+				return array( ':germplasm:identifier', 'mcpd:COLLDATE',
+							  'mcpd:COLLSRC', 'mcpd:SAMPSTAT', ':taxon:epithet',
+							  ':location:country' );								// ==>
 		
 		} // Parsed domain.
 		

@@ -192,11 +192,220 @@ class Mission extends UnitObject
 			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( ':mission:identifier' ) );
 		
 		//
+		// Create shape.
+		//
+		$this->setObjectShapes( TRUE );
+		
+		//
 		// Call parent method.
 		//
 		parent::preCommitPrepare( $theTags, $theRefs );
 	
 	} // preCommitPrepare.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									SHAPE UTILITIES										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setObjectShapes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set object shapes
+	 *
+	 * We overload this method to intercept polygons and multi-points: in that case we do
+	 * not call the default {@link setObjectDisplayShape()} method to compute the display
+	 * shape.
+	 *
+	 * @param boolean				$doUpdate			TRUE means force update.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shapes were set or found.
+	 */
+	protected function setObjectShapes( $doUpdate = FALSE )
+	{
+		//
+		// Reset shapes.
+		//
+		if( $doUpdate )
+			$this->resetObjectShapes();
+		
+		//
+		// Check object shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Set actual shape.
+			//
+			if( $this->setObjectActualShape() )
+			{
+				//
+				// Intercept line string and multi point.
+				//
+				$shape = $this->offsetGet( kTAG_GEO_SHAPE );
+				switch( $shape[ kTAG_TYPE ] )
+				{
+					case 'Point':
+					case 'Polygon':
+					case 'MultiPoint':
+						$this->offsetSet( kTAG_GEO_SHAPE_DISP, $shape );
+						break;
+					
+					default:
+						$this->setObjectDisplayShape();
+						break;
+				}
+				
+				return TRUE;														// ==>
+			
+			} // Actual shape was set.
+		
+		} // Shape not set.
+		
+		return FALSE;																// ==>
+	
+	} // setObjectShapes.
+
+	 
+	/*===================================================================================
+	 *	setObjectActualShape															*
+	 *==================================================================================*/
+
+	/**
+	 * Set object actual shape
+	 *
+	 * In this class we iterate the collecting missions and create a polygon from all the
+	 * points of the collecting missions.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shape was set or found.
+	 */
+	protected function setObjectActualShape()
+	{
+		//
+		// Check shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Get samples.
+			//
+			$missions = $this->offsetGet( ':collecting:missions' );
+			if( is_array( $missions ) )
+			{
+				//
+				// Init local storage.
+				//
+				$tag_coll = $this->resolveOffset( ':mission:collecting', TRUE );
+				$collection
+					= static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ) );
+
+				
+				//
+				// Collect collecting mission identifiers.
+				//
+				$identifiers = Array();
+				foreach( $missions as $mission )
+				{
+					if( array_key_exists( $tag_coll, $mission ) )
+						$identifiers[] = $mission[ $tag_coll ];
+				}
+				
+				//
+				// Get collecting mission shapes.
+				//
+				$fields = \ArrayObject( array( kTAG_GEO_SHAPE => TRUE ) );
+				$query = array( kTAG_NID => ( ( count( $identifiers ) > 1 )
+											? array( '$in' => $identifiers )
+											: $identifiers[ 0 ] ),
+								kTAG_OBJECT_TAGS => kTAG_GEO_SHAPE );
+				$missions = $collection->connection()->find( $query, $fields );
+				
+				//
+				// Check samples.
+				//
+				if( $missions->count() )
+				{
+					//
+					// Load coordinates.
+					//
+					$geometry = Array();
+					foreach( $missions as $mission )
+					{
+						//
+						// Parse by shape type.
+						//
+						switch( $mission[ kTAG_GEO_SHAPE ][ kTAG_TYPE ] )
+						{
+							case 'Point':
+								$geometry[] = $mission[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ];
+								break;
+							
+							case 'LineString':
+								foreach( $mission[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ] as $c )
+									$geometry[] = $c;
+								break;
+						}
+					}
+					
+					//
+					// Set point.
+					//
+					if( count( $geometry ) == 1 )
+						$this->offsetSet(
+							kTAG_GEO_SHAPE,
+							array( kTAG_TYPE => 'Point',
+								   kTAG_GEOMETRY => $geometry[ 0 ] ) );
+					
+					//
+					// Set multipoint.
+					//
+					elseif( count( $geometry ) == 2 )
+						$this->offsetSet(
+							kTAG_GEO_SHAPE,
+							array( kTAG_TYPE => 'MultiPoint',
+								   kTAG_GEOMETRY => $geometry ) );
+					
+					//
+					// Set polygon.
+					//
+					elseif( count( $geometry ) > 2 )
+					{
+						$geometry[] = $geometry[ 0 ];
+						$this->offsetSet(
+							kTAG_GEO_SHAPE,
+							array( kTAG_TYPE => 'Polygon',
+								   kTAG_GEOMETRY => array( Polygon( $geometry ) ) ) );
+					}
+					
+					//
+					// No point.
+					//
+					else
+						return FALSE;												// ==>
+					
+					return TRUE;													// ==>
+				
+				} // Found collecting missions.
+			
+			} // Has collecting missions.
+			
+			return FALSE;															// ==>
+		
+		} // Shape not yet set.
+		
+		return TRUE;																// ==>
+	
+	} // setObjectActualShape.
 
 	 
 

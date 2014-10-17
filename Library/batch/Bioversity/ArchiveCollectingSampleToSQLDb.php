@@ -293,9 +293,7 @@ try
 			// Save record.
 			//
 			$xml = $object->export( 'xml' );
-			$insert = ( $last === NULL )
-					? "INSERT INTO `$table`( "
-					: "REPLACE INTO `$table`( ";
+			$insert = "INSERT INTO `$table`( ";
 			$insert .= ("`id`, `class`, `xml` ) VALUES( "
 					   .$record[ 'ID' ].', '
 					   .'0x'.bin2hex( get_class( $object ) ).', '
@@ -448,7 +446,7 @@ finally
 			//
 			// Set collecting mission.
 			//
-			$theObject->offsetSet( ':mission',
+			$theObject->offsetSet( ':mission:collecting',
 								   OntologyWrapper\CollectingMission::kDEFAULT_DOMAIN
 								  .'://'
 								  .'ITA406/'
@@ -503,6 +501,13 @@ finally
 								   $theData[ 'MCPD:SAMPSTAT' ] );
 		
 		//
+		// Set sample family.
+		//
+		if( array_key_exists( ':taxon:familia', $theData ) )
+			$theObject->offsetSet( ':taxon:genus',
+								   $theData[ ':taxon:genus' ] );
+		
+		//
 		// Set sample genus.
 		//
 		if( array_key_exists( ':taxon:genus', $theData ) )
@@ -531,11 +536,28 @@ finally
 								   $theData[ ':taxon:infraspecies' ] );
 		
 		//
+		// Set sample species name.
+		//
+		if( array_key_exists( ':taxon:genus', $theData )
+		 && array_key_exists( ':taxon:species', $theData ) )
+			$theObject->offsetSet(
+				':taxon:species:name',
+				implode( ' ', array( $theData[ ':taxon:genus' ],
+									 $theData[ ':taxon:species' ] ) ) );
+		
+		//
 		// Set sample epithet.
 		//
 		if( array_key_exists( ':taxon:epithet', $theData ) )
 			$theObject->offsetSet( ':taxon:epithet',
 								   $theData[ ':taxon:epithet' ] );
+		
+		//
+		// Set sample valid name.
+		//
+		if( array_key_exists( ':taxon:valid', $theData ) )
+			$theObject->offsetSet( ':taxon:valid',
+								   $theData[ ':taxon:valid' ] );
 		
 		//
 		// Set vernacular names.

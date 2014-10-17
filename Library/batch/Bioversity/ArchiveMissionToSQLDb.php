@@ -442,6 +442,7 @@ finally
 		//
 		// Load mission taxa.
 		//
+	/*
 		$sub = Array();
 		loadTaxa( $sub,
 				  $theData,
@@ -449,6 +450,7 @@ finally
 				  $theDatabase );
 		if( count( $sub ) )
 			$theObject->offsetSet( ':mission:taxa', $sub );
+	*/
 		
 	} // loadUnit.
 	
@@ -525,6 +527,15 @@ finally
 			if( array_key_exists( ':taxon:species', $data ) )
 				$sub[ getTag( ':taxon:species' ) ]
 					= $data[ ':taxon:species' ];
+			
+			//
+			// Set species name.
+			//
+			if( array_key_exists( ':taxon:genus', $data )
+			 && array_key_exists( ':taxon:species', $data ) )
+				$sub[ getTag( ':taxon:species:name' ) ]
+					= $implode( ' ', array( $data[ ':taxon:genus' ],
+											$data[ ':taxon:species' ] ) );
 			
 			//
 			// Set epithet.

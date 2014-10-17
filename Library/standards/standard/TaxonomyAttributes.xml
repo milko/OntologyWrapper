@@ -2250,11 +2250,11 @@
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
-				<item>Drosophila melanogaster</item>
-				<item>Homo sapiens</item>
-				<item>Pisum sativum</item>
-				<item>Amanita muscaria</item>
-				<item>Escherichia coli</item>
+				<item>melanogaster</item>
+				<item>sapiens</item>
+				<item>sativum</item>
+				<item>muscaria</item>
+				<item>coli</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -2265,7 +2265,6 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text-06</item>
-				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:species">
@@ -2705,7 +2704,7 @@
 		</EDGE>
 	</META>
 	
-	<!-- Taxonomic aggregation attributes -->
+	<!-- Taxonomic aggregated attributes -->
 	
 	<!-- :taxon:epithet -->
 	<META>
@@ -2766,6 +2765,47 @@
 			</item>
 		</TAG>
 		<NODE tag=":taxon:author">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:species:name -->
+	<META>
+		<TERM ns=":taxon:species" lid="name">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Species</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The species epithet including its genus.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Drosophila melanogaster</item>
+				<item>Homo sapiens</item>
+				<item>Pisum sativum</item>
+				<item>Amanita muscaria</item>
+				<item>Escherichia coli</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:species:name</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-06</item>
+				<item>:type:summary</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:species:name">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
@@ -4182,39 +4222,6 @@
 		</NODE>
 	</META>
 	
-	<!-- :taxon:designation:notes -->
-	<META>
-		<TERM ns=":taxon:designation" lid="notes">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Designation notes</item>
-				</item>
-			</item>
-		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:taxon:designation:notes</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:text</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:full-text-03</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Notes on occurrence and designation status from databases, literature or personal communications.</item>
-				</item>
-			</item>
-		</TAG>
-		<NODE tag=":taxon:designation:notes">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
 	<!-- :taxon:designation:use -->
 	<META>
 		<TERM ns=":taxon:designation" lid="use">
@@ -4243,6 +4250,39 @@
 			</item>
 		</TAG>
 		<NODE tag=":taxon:designation:use">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:designation:notes -->
+	<META>
+		<TERM ns=":taxon:designation" lid="notes">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Designation notes</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:designation:notes</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Notes on occurrence and designation status from databases, literature or personal communications.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:designation:notes">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

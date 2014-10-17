@@ -1178,7 +1178,7 @@ class Tag extends MetadataObject
 	 * @uses ResolveOffsetsTag()
 	 * @uses updateObjectReferenceCount()
 	 */
-	protected function postInsert( &$theOffsets, &$theReferences )
+	protected function postInsert( $theOffsets, $theReferences )
 	{
 		//
 		// Call parent method.

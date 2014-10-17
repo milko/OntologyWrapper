@@ -86,7 +86,9 @@ if( $argc < 4 )
 	// mongodb://localhost:27017/BIOVERSITY
 				."<mongo database DSN> "
 	// neo4j://localhost:7474 or ""
-				."[graph DSN]\n" );													// ==>
+				."[graph DSN] "
+	// last identifier
+				."[last ID (will select all those greater than)]\n" );				// ==>
 
 //
 // Init local storage.
@@ -103,6 +105,7 @@ $db = $argv[ 1 ];
 $table = $argv[ 2 ];
 $mongo = $argv[ 3 ];
 $graph = ( ($argc > 4) && strlen( $argv[ 4 ] ) ) ? $argv[ 4 ] : NULL;
+$last = ( $argc > 5 ) ? $argv[ 5 ] : NULL;
 
 //
 // Inform.
@@ -199,7 +202,10 @@ try
 	// Import.
 	//
 	echo( "  • Importing\n" );
-	$query = "SELECT * FROM `$table` ORDER BY `id` ASC LIMIT $start,$limit";
+	$query = "SELECT * FROM `$table`";
+	if( $last !== NULL )
+		$query .= " WHERE `id` > $last";
+	$query .= " ORDER BY `id` ASC LIMIT $start,$limit";
 	$rs = $dc->execute( $query );
 	while( $rs->RecordCount() )
 	{
@@ -265,7 +271,10 @@ try
 		// Read next.
 		//
 		$start += $limit;
-		$query = "SELECT * FROM `$table` ORDER BY `id` ASC LIMIT $start,$limit";
+		$query = "SELECT * FROM `$table`";
+		if( $last !== NULL )
+			$query .= " WHERE `id` > $last";
+		$query .= " ORDER BY `id` ASC LIMIT $start,$limit";
 		$rs = $dc->execute( $query );
 	
 	} // Records left.

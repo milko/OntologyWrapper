@@ -459,6 +459,16 @@ finally
 		}
 		
 		//
+		// Set sample species name.
+		//
+		if( $theObject->offsetExists( ':taxon:genus' )
+		 && $theObject->offsetExists( ':taxon:species' ) )
+			$theObject->offsetSet(
+				':taxon:species:name',
+				implode( ' ', array( $theObject->offsetGet( ':taxon:genus' ),
+									 $theObject->offsetGet( ':taxon:species' ) ) ) );
+		
+		//
 		// Set scientific name.
 		//
 		if( array_key_exists( 'Taxon', $theData ) )
