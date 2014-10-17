@@ -513,9 +513,9 @@ class CollectingMission extends Mission
 				//
 				// Get samples.
 				//
-				$fields = \ArrayObject( array( $tag_date => TRUE,
-											   $tag_lat => TRUE,
-											   $tag_lon => TRUE ) );
+				$fields = new \ArrayObject( array( $tag_date => TRUE,
+												   $tag_lat => TRUE,
+												   $tag_lon => TRUE ) );
 				$query
 					= array(
 						'$and' => array(

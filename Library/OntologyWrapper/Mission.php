@@ -323,7 +323,7 @@ class Mission extends UnitObject
 				//
 				// Get collecting mission shapes.
 				//
-				$fields = \ArrayObject( array( kTAG_GEO_SHAPE => TRUE ) );
+				$fields = new \ArrayObject( array( kTAG_GEO_SHAPE => TRUE ) );
 				$query = array( kTAG_NID => ( ( count( $identifiers ) > 1 )
 											? array( '$in' => $identifiers )
 											: $identifiers[ 0 ] ),
