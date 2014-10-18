@@ -798,6 +798,13 @@ class CollectingSample extends Sample
 				= $this->offsetGet( ':taxon:epithet' );
 		
 		//
+		// Set country.
+		//
+		if( $this->offsetExists( ':location:country' ) )
+			$element[ $this->resolveOffset( ':location:country', TRUE ) ]
+				= $this->offsetGet( ':location:country' );
+		
+		//
 		// Set collecting date.
 		//
 		if( $this->offsetExists( 'mcpd:COLLDATE' ) )

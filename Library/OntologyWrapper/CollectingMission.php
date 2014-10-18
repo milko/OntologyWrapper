@@ -713,11 +713,11 @@ class CollectingMission extends Mission
 				= $this->offsetGet( ':mission:collecting:end' );
 		
 		//
-		// Set country.
+		// Set region.
 		//
-		if( $country !== NULL )
-			$element[ $this->resolveOffset( ':location:country', TRUE ) ]
-				= $this->offsetGet( ':location:country' );
+		if( $admin !== NULL )
+			$element[ $this->resolveOffset( ':location:region', TRUE ) ]
+				= $this->offsetGet( ':location:region' );
 		
 		//
 		// Set admin.
@@ -727,11 +727,11 @@ class CollectingMission extends Mission
 				= $this->offsetGet( ':location:admin' );
 		
 		//
-		// Set region.
+		// Set country.
 		//
-		if( $admin !== NULL )
-			$element[ $this->resolveOffset( ':location:region', TRUE ) ]
-				= $this->offsetGet( ':location:region' );
+		if( $country !== NULL )
+			$element[ $this->resolveOffset( ':location:country', TRUE ) ]
+				= $this->offsetGet( ':location:country' );
 		
 		return $element;															// ==>
 	

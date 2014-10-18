@@ -466,16 +466,6 @@ finally
 								   $theData[ 'REGION' ] );
 		
 		//
-		// Set country.
-		//
-		if( array_key_exists( 'Country_Code', $theData ) )
-		{
-			$code = $theData[ 'Country_Code' ];
-			$name = getCountry( $code );
-			$theObject->offsetSet( ':location:country', $code );
-		}
-		
-		//
 		// Load collecting mission taxa.
 		//
 	/*
