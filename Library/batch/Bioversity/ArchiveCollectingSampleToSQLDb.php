@@ -592,8 +592,15 @@ finally
 		//
 		// Set sample region.
 		//
-		if( array_key_exists( ':location:admin', $theData ) )
+		if( array_key_exists( ':location:region', $theData ) )
 			$theObject->offsetSet( ':location:region',
+								   $theData[ ':location:region' ] );
+		
+		//
+		// Set sample administrative unit.
+		//
+		if( array_key_exists( ':location:admin', $theData ) )
+			$theObject->offsetSet( ':location:admin',
 								   getRegion( $theData[ ':location:admin' ] ) );
 		
 		//
@@ -1320,7 +1327,7 @@ finally
 		//
 		// Get region name.
 		//
-		$region = new OntologyWrapper\Term( $wrapper, $theIdentifier );
+		$region = new OntologyWrapper\Term( $wrapper, $theIdentifier, TRUE );
 		
 		return OntologyWrapper\OntologyObject::SelectLanguageString(
 				$region[ getTag( ':label' ) ], 'en' );										// ==>

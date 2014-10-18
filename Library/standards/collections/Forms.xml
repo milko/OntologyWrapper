@@ -32,12 +32,6 @@
 			</item>
 		</NODE>
 		
-		<!-- :unit:domain -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:unit:domain</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- form::domain:accession -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">form::domain:accession</item>
