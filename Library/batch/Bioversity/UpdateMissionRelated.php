@@ -14,7 +14,7 @@
 
 /*=======================================================================================
  *																						*
- *								LoadFromSQLArchive.php									*
+ *								UpdateMissionRelated.php								*
  *																						*
  *======================================================================================*/
 
@@ -32,6 +32,11 @@ require_once( 'local.inc.php' );
 // Tag definitions.
 //
 require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
+
+//
+// Domain definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
 
 //
 // Predicate definitions.
@@ -77,40 +82,30 @@ require_once( "/Library/WebServer/Library/adodb/adodb-exceptions.inc.php" );
 //
 // Parse arguments.
 //
-if( $argc < 4 )
+if( $argc < 2 )
 	exit( "Usage: <script.php> "
-	// MySQLi://user:pass@localhost/bioversity_archive?socket=/tmp/mysql.sock&persist
-				."<Input SQL database DSN> "
-	// eufgis
-				."<Output SQL database table> "
 	// mongodb://localhost:27017/BIOVERSITY
 				."<mongo database DSN> "
 	// neo4j://localhost:7474 or ""
-				."[graph DSN] "
-	// last identifier
-				."[last ID (will select all those greater than)]\n" );				// ==>
+				."[graph DSN]\n" );													// ==>
 
 //
 // Init local storage.
 //
 $start = 0;
-$limit = 200;
-$backup = 10000;
-$dc = $dc_out = $rs = NULL;
+$limit = 100;
+$query = array( kTAG_DOMAIN => kDOMAIN_MISSION );
 
 //
 // Load arguments.
 //
-$db = $argv[ 1 ];
-$table = $argv[ 2 ];
-$mongo = $argv[ 3 ];
-$graph = ( ($argc > 4) && strlen( $argv[ 4 ] ) ) ? $argv[ 4 ] : NULL;
-$last = ( $argc > 5 ) ? $argv[ 5 ] : NULL;
+$mongo = $argv[ 1 ];
+$graph = ( ($argc > 2) && strlen( $argv[ 2 ] ) ) ? $argv[ 2 ] : NULL;
 
 //
 // Inform.
 //
-echo( "\n==> Loading from archive ($table).\n" );
+echo( "\n==> Updating collecting missions in missions.\n" );
 
 //
 // Try.
@@ -182,101 +177,42 @@ try
 		$wrapper->loadTagCache();
 	
 	//
-	// Connect to input database.
+	// Resolve collection.
 	//
-	echo( "  • Connecting to input SQL\n" );
-	echo( "    - $db\n" );
-	$dc = NewADOConnection( $db );
-	$dc->Execute( "SET CHARACTER SET 'utf8'" );
-	$dc->SetFetchMode( ADODB_FETCH_ASSOC );
+	$collection
+		= OntologyWrapper\UnitObject::ResolveCollection(
+			OntologyWrapper\UnitObject::ResolveDatabase(
+				$wrapper, TRUE ) );
 	
 	//
-	// Get records count.
+	// Update.
 	//
-	$rec_count = $dc->GetOne( "SELECT COUNT(*) FROM `$table`" );
-	$page = (int) ($rec_count / 100);
-	$cur = $page;
-	$do_backup = $backup;
-	
-	//
-	// Import.
-	//
-	echo( "  • Importing\n" );
-	$query = "SELECT * FROM `$table`";
-	if( $last !== NULL )
-		$query .= " WHERE `id` > $last";
-	$query .= " ORDER BY `id` ASC LIMIT $start,$limit";
-	$rs = $dc->execute( $query );
-	while( $rs->RecordCount() )
+	echo( "  • Updating\n" );
+	$rs = $collection->matchAll( $query, kQUERY_OBJECT );
+	if( $start )
+		$rs->skip( $start );
+	$rs->limit( $limit );
+	while( $rs->count() )
 	{
 		//
 		// Iterate page.
 		//
-		foreach( $rs as $record )
-		{
-			//
-			// Import XML.
-			//
-			$class = $record[ 'class' ];
-			$list = $class::Import( $wrapper, new SimpleXMLElement( $record[ 'xml' ] ) );
-			
-			//
-			// Save records.
-			// Note that we prevent the object from updating its related.
-			//
-			foreach( $list as $object )
-				$object->commit( NULL, kFLAG_DEFAULT );
-			
-			//
-			// Inform.
-			//
-			if( $cur-- <= 0 )
-			{
-				echo( '.' );
-				$cur = $page;
-			}
-			
-			//
-			// Backup.
-			//
-			if( $do_backup-- <= 0 )
-			{
-				//
-				// Backup database.
-				//
-				exec( 'rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"' );
-				exec( 'mongodump --directoryperdb '
-					.'--db "BIOVERSITY" '
-					.'--out "/Library/WebServer/Library/OntologyWrapper/Library/backup/data"' );
-				exec( 'rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.zip"' );
-				exec( 'ditto -c -k --sequesterRsrc --keepParent '
-					 .'"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"  '
-					 .'"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.zip"' );
-				exec( 'rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"' );
-				
-				//
-				// Reset counter.
-				//
-				$do_backup = $backup;
-			}
-			
-		} // Iterating page.
+		foreach( $rs as $object )
+			$object->commit( NULL, kFLAG_OPT_REL_MANY );
 		
 		//
-		// Close recordset.
+		// Inform.
 		//
-		$rs->Close();
-		$rs = NULL;
+		echo( '.' );
 		
 		//
 		// Read next.
 		//
 		$start += $limit;
-		$query = "SELECT * FROM `$table`";
-		if( $last !== NULL )
-			$query .= " WHERE `id` > $last";
-		$query .= " ORDER BY `id` ASC LIMIT $start,$limit";
-		$rs = $dc->execute( $query );
+		$rs = $collection->matchAll( $query, kQUERY_OBJECT );
+		if( $start )
+			$rs->skip( $start );
+		$rs->limit( $limit );
 	
 	} // Records left.
 
@@ -293,17 +229,5 @@ catch( \Exception $error )
 	print_r( $error->getTrace() );
 
 } // CATCH BLOCK.
-
-//
-// FINAL BLOCK.
-//
-finally
-{
-	if( $rs instanceof ADORecordSet )
-		$rs->Close();
-	if( $dc instanceof ADOConnection )
-		$dc->Close();
-
-} // FINALLY BLOCK.
 
 ?>

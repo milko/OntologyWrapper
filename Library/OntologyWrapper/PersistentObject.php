@@ -983,12 +983,16 @@ abstract class PersistentObject extends OntologyObject
 	 *	<li>The object is committed: the method will do nothing.
 	 * </ul>
 	 *
+	 * The <tt>$theOptions</tt> field can be used to enable or disable related objects
+	 * updates.
+	 *
 	 * The method will return the inserted object native identifier or <tt>NULL</tt> if the
 	 * the object was not inserted.
 	 *
 	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access public
 	 * @return mixed				The object's native identifier or <tt>NULL</tt>.
@@ -1000,7 +1004,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses insertObject()
 	 * @uses isDirty()
 	 */
-	public function insert( $theWrapper = NULL )
+	public function insert( $theWrapper = NULL, $theOptions = kFLAG_OPT_REL_ONE )
 	{
 		//
 		// Skip committed object.
@@ -1022,7 +1026,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Insert.
 			//
-			$id = $this->insertObject( $collection );
+			$id = $this->insertObject( $collection, $theOptions );
 			
 			//
 			// Handle inserted object.
@@ -1060,9 +1064,14 @@ abstract class PersistentObject extends OntologyObject
 	 * The method will call the {@link commitObject()} method if the object was not
 	 * committed and the {@link updateObject()} method if it was.
 	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent the object from updating
+	 * related objects. This can be useful when adding objects as batches: in that case it
+	 * may be much faster to first add the objects and then at a later stage update them.
+	 *
 	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access public
 	 * @return mixed				The object's native identifier.
@@ -1075,7 +1084,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses commitObject()
 	 * @uses isDirty()
 	 */
-	public function commit( $theWrapper = NULL )
+	public function commit( $theWrapper = NULL, $theOptions = kFLAG_OPT_REL_ONE )
 	{
 		//
 		// Resolve wrapper.
@@ -1090,11 +1099,17 @@ abstract class PersistentObject extends OntologyObject
 				static::ResolveDatabase( $theWrapper ) );
 		
 		//
+		// Normalise options.
+		//
+		if( $this->isCommitted() )
+			$theOptions |= kFLAG_OPT_UPDATE;
+		
+		//
 		// Commit.
 		//
 		$id = ( $this->isCommitted() )
-			? $this->updateObject( $collection )
-			: $this->commitObject( $collection );
+			? $this->updateObject( $collection, $theOptions )
+			: $this->commitObject( $collection, $theOptions );
 
 		//
 		// Set object status.
@@ -2667,9 +2682,14 @@ abstract class PersistentObject extends OntologyObject
 	 * identifiers assigned by the database, oin that case all objects will appear to be
 	 * new and will be inserted.
 	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent the object from updating
+	 * related objects. This can be useful when adding objects as batches: in that case it
+	 * may be much faster to first add the objects and then at a later stage update them.
+	 *
 	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @param CollectionObject		$theCollection		Data collection.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access protected
 	 * @return mixed				The object's native identifie or <tt>NULL</tt>.
@@ -2677,8 +2697,20 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses preCommit()
 	 * @uses postInsert()
 	 */
-	protected function insertObject( CollectionObject $theCollection )
+	protected function insertObject( CollectionObject $theCollection, $theOptions )
 	{
+		//
+		// Merge object flags.
+		//
+		$theOptions &= (~ kFLAG_OPT_ACCESS_MASK);
+		$theOptions |= kFLAG_OPT_INSERT;
+		
+		//
+		// Load one to many relationships.
+		//
+		if( $theOptions & kFLAG_OPT_REL_MANY )
+			$this->updateOneToMany( $theOptions );
+		
 		//
 		// Prepare object.
 		//
@@ -2718,7 +2750,8 @@ abstract class PersistentObject extends OntologyObject
 		// Update tag offsets and object references.
 		//
 		$this->postInsert( $this->offsetGet( kTAG_OBJECT_OFFSETS ),
-						   $this->offsetGet( kTAG_OBJECT_REFERENCES ) );
+						   $this->offsetGet( kTAG_OBJECT_REFERENCES ),
+						   $theOptions );
 		
 		//
 		// Handle tag value ranges.
@@ -2762,9 +2795,12 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * If any of the above steps fail the method must raise an exception.
 	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent updating related objects.
+	 *
 	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @param CollectionObject		$theCollection		Data collection.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access protected
 	 * @return mixed				The object's native identifier.
@@ -2772,8 +2808,20 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses preCommit()
 	 * @uses postInsert()
 	 */
-	protected function commitObject( CollectionObject $theCollection )
+	protected function commitObject( CollectionObject $theCollection, $theOptions )
 	{
+		//
+		// Merge object flags.
+		//
+		$theOptions &= (~ kFLAG_OPT_ACCESS_MASK);
+		$theOptions |= kFLAG_OPT_INSERT;
+		
+		//
+		// Load one to many relationships.
+		//
+		if( $theOptions & kFLAG_OPT_REL_MANY )
+			$this->updateOneToMany( $theOptions );
+		
 		//
 		// Prepare object.
 		//
@@ -2800,7 +2848,8 @@ abstract class PersistentObject extends OntologyObject
 		// Update tag offsets and object references.
 		//
 		$this->postInsert( $this->offsetGet( kTAG_OBJECT_OFFSETS ),
-						   $this->offsetGet( kTAG_OBJECT_REFERENCES ) );
+						   $this->offsetGet( kTAG_OBJECT_REFERENCES ),
+						   $theOptions );
 		
 		//
 		// Handle tag value ranges.
@@ -2841,9 +2890,12 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * If any of the above steps fail the method must raise an exception.
 	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent updating related objects.
+	 *
 	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @param CollectionObject		$theCollection		Data collection.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access protected
 	 * @return mixed				The object's native identifier.
@@ -2853,8 +2905,20 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses preCommit()
 	 * @uses postUpdate()
 	 */
-	protected function updateObject( CollectionObject $theCollection )
+	protected function updateObject( CollectionObject $theCollection, $theOptions )
 	{
+		//
+		// Merge object flags.
+		//
+		$theOptions &= (~ kFLAG_OPT_ACCESS_MASK);
+		$theOptions |= kFLAG_OPT_UPDATE;
+		
+		//
+		// Load one to many relationships.
+		//
+		if( $theOptions & kFLAG_OPT_REL_MANY )
+			$this->updateOneToMany( $theOptions );
+		
 		//
 		// Load persistent image.
 		//
@@ -2888,7 +2952,8 @@ abstract class PersistentObject extends OntologyObject
 						   : Array() ),
 						   ( ( array_key_exists( kTAG_OBJECT_REFERENCES, $old ) )
 						   ? $old[ kTAG_OBJECT_REFERENCES ]
-						   : Array() ) );
+						   : Array() ),
+						   $theOptions );
 		
 		//
 		// Handle tag value ranges.
@@ -2959,6 +3024,8 @@ abstract class PersistentObject extends OntologyObject
 	 * The method will return the object's native identifier if it was deleted; if the
 	 * object is referenced, the method will return <tt>FALSE</tt>; if the object was not
 	 * found in the container, the method will return <tt>NULL</tt>.
+	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent updating related objects.
 	 *
 	 * You should overload the methods called in this method, not this method.
 	 *
@@ -3306,6 +3373,45 @@ abstract class PersistentObject extends OntologyObject
 		if( (! $this->isCommitted())
 		 && (($graph = $this->mDictionary->Graph()) !== NULL) )
 			$this->preCommitGraphReferences( $graph );
+		
+		//
+		// Handle full text resolution.
+		//
+		$tmp = $this->getFullTextReference();
+		if( $tmp !== NULL )
+		{
+			//
+			// Get level 10 strings.
+			//
+			$txt = $this->offsetGet( kTAG_FULL_TEXT_10 );
+			if( ! is_array( $txt ) )
+				$txt = Array();
+			
+			//
+			// Remove existing string.
+			//
+			foreach( array_keys( $txt ) as $key )
+			{
+				if( preg_match( '/^§.+§$/', $txt[ $key ] ) )
+					unset( $txt[ $key ] );
+			}
+			
+			//
+			// Normalise list.
+			//
+			if( count( $txt ) )
+				$txt = array_values( $txt );
+			
+			//
+			// Add code.
+			//
+			$txt[] = $tmp;
+			
+			//
+			// Update object.
+			//
+			$this->offsetSet( kTAG_FULL_TEXT_10, $txt );
+		}
 	
 	} // preCommitFinalise.
 
@@ -3525,6 +3631,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param array					$theOffsets			Tag offsets to be added.
 	 * @param array					$theReferences		Object references to be incremented.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access protected
 	 *
@@ -3532,8 +3639,9 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @uses ResolveOffsetsTag()
 	 * @uses updateObjectReferenceCount()
+	 * @uses updateManyToOne()
 	 */
-	protected function postInsert( $theOffsets, $theReferences )
+	protected function postInsert( $theOffsets, $theReferences, $theOptions )
 	{
 		//
 		// Normalise parameters.
@@ -3596,6 +3704,12 @@ abstract class PersistentObject extends OntologyObject
 					1 );									// Reference count.
 		
 		} // Has references.
+		
+		//
+		// Update parent related.
+		//
+		if( $theOptions & kFLAG_OPT_REL_ONE )
+			$this->updateManyToOne( $theOptions );
 	
 	} // postInsert.
 
@@ -3648,6 +3762,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param array					$theOffsets			Original tag offsets.
 	 * @param array					$theReferences		Original object references.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access protected
 	 *
@@ -3658,8 +3773,9 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses compareObjectOffsets()
 	 * @uses compareObjectReferences()
 	 * @uses filterExistingOffsets()
+	 * @uses updateManyToOne()
 	 */
-	protected function postUpdate( $theOffsets, $theReferences )
+	protected function postUpdate( $theOffsets, $theReferences, $theOptions )
 	{
 		//
 		// Normalise parameters.
@@ -3769,6 +3885,12 @@ abstract class PersistentObject extends OntologyObject
 				array_values( $value ),					// Identifiers.
 				kTAG_NID,								// Identifiers offset.
 				-1 );									// Reference count.
+		
+		//
+		// Update parent related.
+		//
+		if( $theOptions & kFLAG_OPT_REL_ONE )
+			$this->updateManyToOne( $theOptions );
 	
 	} // postUpdate.
 
@@ -3968,6 +4090,9 @@ abstract class PersistentObject extends OntologyObject
 	 * This method is identical to the {@link postInsert()} method, except that in this case
 	 * offsets will be removed and reference counts will be decremented.
 	 *
+	 * In this method we call be default the {@link updateManyToOne() } method to ensure
+	 * referential integrity.
+	 *
 	 * @param array					$theOffsets			Tag offsets to be removed.
 	 * @param array					$theReferences		Object references to be decremented.
 	 *
@@ -3978,6 +4103,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses ResolveOffsetsTag()
 	 * @uses updateObjectReferenceCount()
 	 * @uses filterExistingOffsets()
+	 * @uses updateManyToOne()
 	 */
 	protected function postDelete( $theOffsets, $theReferences )
 	{
@@ -4048,8 +4174,117 @@ abstract class PersistentObject extends OntologyObject
 					-1 );									// Reference count.
 		
 		} // Has references.
+		
+		//
+		// Update parent related.
+		//
+		$this->updateManyToOne( kFLAG_OPT_DELETE | kFLAG_OPT_REL_ONE );
 	
 	} // postDelete.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *						PROTECTED OBJECT REFERENCING INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateManyToOne																	*
+	 *==================================================================================*/
+
+	/**
+	 * Update many to one relationships
+	 *
+	 * The duty of this method is to load the current object reference in the object that
+	 * keeps track of it, this is the counterpart of the {@link updateOneToMany()} method.
+	 *
+	 * This usually happens whan the related object holds the list of objects which point to
+	 * it. This method should add or update the entry relating to the current object in the
+	 * related object.
+	 *
+	 * The method wxpects the wrapper of the current object to be set and expects a single
+	 * parameter which holds the commit or delete operation options: the method should be
+	 * called only if the {@link kFLAG_OPT_REL_ONE} flag is set, will this method perform
+	 * its duty.
+	 *
+	 * This method will be called <em>after</em> the object was committed.
+	 *
+	 * By default only this method is called, since it ensures referential integrity: the
+	 * relations are recursed up to the root element.
+	 *
+	 * By default this method does nothing.
+	 *
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 */
+	protected function updateManyToOne( $theOptions )									   {}
+
+	 
+	/*===================================================================================
+	 *	updateOneToMany																	*
+	 *==================================================================================*/
+
+	/**
+	 * Update one to many relationships
+	 *
+	 * The duty of this method is to load the references of objects pointing to the current
+	 * object, this is the counterpart of the
+	 * {@link updateOneToMany()} method.
+	 *
+	 * This usually happens whan the current object holds a list of objects, this method
+	 * should select all the objects to which it points to and load them in the appropriate
+	 * property.
+	 *
+	 * The method wxpects the wrapper of the current object to be set and expects a single
+	 * parameter which holds the commit or delete operation options: the method should be
+	 * called only if the {@link kFLAG_OPT_REL_MANY} flag is set, will this method perform
+	 * its duty.
+	 *
+	 * This method will be called <em>before</em> the object's commit phase.
+	 *
+	 * By default this method does nothing.
+	 *
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 */
+	protected function updateOneToMany( $theOptions )									   {}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									REFERENTIAL UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	attributesList																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return object list attributes
+	 *
+	 * This method should return an array with the significant attributes of the current
+	 * object, this information will be used by other objects when referencing the current
+	 * object.
+	 *
+	 * If the object wishes not to provide information, the method should return an empty
+	 * array.
+	 *
+	 * In this class the method does nothing.
+	 *
+	 * @access protected
+	 * @return array				The list of properties.
+	 */
+	protected function attributesList()									{	return Array();	}
 
 	
 
@@ -5094,7 +5329,7 @@ MILKO - Need to check.
 					//
 					if( ! array_key_exists( $collection, $theRefs ) )
 						$theRefs[ $collection ] = array( $reference );
-					elseif( ! in_array( $theRefs[ $collection ], $theProperty ) )
+					elseif( ! in_array( $reference, $theRefs[ $collection ] ) )
 						$theRefs[ $collection ][] = $reference;
 			
 				} // Iterating list.
@@ -5387,6 +5622,25 @@ MILKO - Need to check.
 		return NULL;																// ==>
 	
 	} // getReferenceTypeCollection.
+
+	 
+	/*===================================================================================
+	 *	getFullTextReference															*
+	 *==================================================================================*/
+
+	/**
+	 * Retun the object full text reference
+	 *
+	 * In order to generate a static URL which points to a selection it is necessary to
+	 * have a value which can be selected via a full-text search: this method should return
+	 * this value, which should be set just befor the object is committed.
+	 *
+	 * In this class we do not use this feature, so the method will return <tt>NULL</tt>.
+	 *
+	 * @access public
+	 * @return string				Full text search reference.
+	 */
+	public function getFullTextReference()								{	return NULL;	}
 
 		
 
@@ -6516,7 +6770,7 @@ MILKO - Need to check.
 						array( kTAG_TYPE => 'Point',
 							   kTAG_GEOMETRY => $shape[ kTAG_GEOMETRY ] ) );
 					break;
-				
+		/*		
 				case 'MultiPoint':
 				case 'LineString':
 					if( count( $shape[ kTAG_GEOMETRY ] ) == 2 )
@@ -6530,6 +6784,13 @@ MILKO - Need to check.
 							array( kTAG_TYPE => 'Point',
 								   kTAG_GEOMETRY
 								   	=> Centroid( Polygon( $shape[ kTAG_GEOMETRY ] ) ) ) );
+					break;
+		*/		
+				case 'MultiPoint':
+				case 'LineString':
+					$this->offsetSet(
+						kTAG_GEO_SHAPE_DISP,
+						$shape );
 					break;
 					
 				case 'Polygon':

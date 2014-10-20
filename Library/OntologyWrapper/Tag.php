@@ -1175,15 +1175,19 @@ class Tag extends MetadataObject
 	 *
 	 * We overload this method to add/update the object in the data dictionary cache.
 	 *
+	 * @param array					$theOffsets			Tag offsets to be added.
+	 * @param array					$theReferences		Object references to be incremented.
+	 * @param bitfield				$theOptions			Operation options.
+	 *
 	 * @uses ResolveOffsetsTag()
 	 * @uses updateObjectReferenceCount()
 	 */
-	protected function postInsert( $theOffsets, $theReferences )
+	protected function postInsert( $theOffsets, $theReferences, $theOptions )
 	{
 		//
 		// Call parent method.
 		//
-		parent::postInsert( $theOffsets, $theReferences );
+		parent::postInsert( $theOffsets, $theReferences, $theOptions );
 		
 		//
 		// Set cache.

@@ -374,6 +374,62 @@ class Checklist extends UnitObject
 	
 	} // preCommitPrepare.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED RESOLUTION UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getFullTextReference															*
+	 *==================================================================================*/
+
+	/**
+	 * Retun the object full text reference
+	 *
+	 * In this class we differentiate checklists by country, the returned code will be:
+	 *
+	 * <ul>
+	 *	<li><tt>ck</tt>: This prefix determines the domain.
+	 *	<li><tt>:inventory:code</tt>: The inventory code.
+	 * </ul>
+	 *
+	 * The values will be separated by a <tt>§</tt> character and the full string will be
+	 * enclosed in a pair of <tt>§</tt> characters.
+	 *
+	 * @access public
+	 * @return string				Full text search reference.
+	 */
+	public function getFullTextReference()
+	{
+		//
+		// Init local storage.
+		//
+		$string = Array();
+		
+		//
+		// Init domain.
+		//
+		$string[] = 'ck';
+		
+		//
+		// Set code.
+		//
+		$string[] = $this->offsetGet( ':inventory:code' );
+		
+		//
+		// Set string.
+		//
+		$string = implode( '§', $string );
+		
+		return '§'.$string.'§';														// ==>
+		
+	} // getFullTextReference.
+
 	 
 
 } // class Checklist.

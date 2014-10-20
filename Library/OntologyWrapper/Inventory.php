@@ -366,6 +366,62 @@ class Inventory extends UnitObject
 	
 	} // preCommitPrepare.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED RESOLUTION UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getFullTextReference															*
+	 *==================================================================================*/
+
+	/**
+	 * Retun the object full text reference
+	 *
+	 * In this class we differentiate inventories by code, the returned code will be:
+	 *
+	 * <ul>
+	 *	<li><tt>in</tt>: This prefix determines the domain.
+	 *	<li><tt>:inventory:code</tt>: The inventory code.
+	 * </ul>
+	 *
+	 * The values will be separated by a <tt>§</tt> character and the full string will be
+	 * enclosed in a pair of <tt>§</tt> characters.
+	 *
+	 * @access public
+	 * @return string				Full text search reference.
+	 */
+	public function getFullTextReference()
+	{
+		//
+		// Init local storage.
+		//
+		$string = Array();
+		
+		//
+		// Init domain.
+		//
+		$string[] = 'in';
+		
+		//
+		// Set code.
+		//
+		$string[] = $this->offsetGet( ':inventory:code' );
+		
+		//
+		// Set string.
+		//
+		$string = implode( '§', $string );
+		
+		return '§'.$string.'§';														// ==>
+		
+	} // getFullTextReference.
+
 	 
 
 } // class Inventory.

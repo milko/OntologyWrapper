@@ -826,10 +826,43 @@ echo( urldecode( 'http://pgrdg.grinfo.private/Service.php?op=matchSummaryTagsByL
 	
 /******************************************************************************/
 
+/*
 $string = "P&egrave;re David's peach";
 echo( "$string<br />" );
 echo( html_entity_decode( $string, ENT_COMPAT | ENT_HTML401, 'UTF-8' ) );
 echo( "<br />" );
+*/
+	
+/******************************************************************************/
 
+/*
+//
+// Test pref_match for full-text identifiers.
+//
+$string = '§ck§pippo§';
+echo( "$string<br />" );
+var_dump( preg_match( '/^§.+§$/', $string ) );
+echo( '<hr />' );
+	
+$string = 'pippo';
+echo( "$string<br />" );
+var_dump( preg_match( '/^§.+§$/', $string ) );
+echo( '<hr />' );
+*/
+	
+/******************************************************************************/
+
+//
+// Test array order.
+//
+$array = Array();
+$array[ md5( 'uno' ) ] = 'uno';
+$array[ md5( 'due' ) ] = 'due';
+$array[ md5( 'tre' ) ] = 'tre';
+$array[ md5( 'quattro' ) ] = 'quattro';
+$array[ md5( 'cinque' ) ] = 'cinque';
+var_dump( $array );
+$array = array_values( $array );
+var_dump( $array );
 	
 ?>
