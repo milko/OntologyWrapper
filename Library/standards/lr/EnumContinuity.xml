@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LR CONTINUITY ENUMERATION
+	EnumContinuity.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- LANDRACE continuity enumeration -->
+	
+	<!-- enum:lr:LRCONT -->
+	<META>
+		<NODE term="lr:LRCONT" pid="enum:lr:LRCONT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the <i>if and how the maintainer plans to grow the landrace</i>.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- LANDRACE continuity enumerations -->
+	
+	<!-- lr:LRCONT:10 -->
+	<META>
+		<TERM ns="lr:LRCONT" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Undecided]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRCONT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRCONT:20 -->
+	<META>
+		<TERM ns="lr:LRCONT" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Will stop next year]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRCONT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRCONT:30 -->
+	<META>
+		<TERM ns="lr:LRCONT" lid="30">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Will continue, but considers changing within a few years]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRCONT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRCONT:40 -->
+	<META>
+		<TERM ns="lr:LRCONT" lid="40">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Will continue as long as possible]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRCONT</item>
+		</EDGE>
+	</META>
+</METADATA>

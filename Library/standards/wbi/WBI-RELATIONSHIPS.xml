@@ -3,9 +3,9 @@
 	WBI CROSS REFERENCES
 	WBI-RELATIONSHIPS.xml
 -->
-<ONTOLOGY
+<METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Ontology.xsd">
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
 	<!-- iso:3166 -->
 	
@@ -2953,4 +2953,4 @@
 			</item>
 		</TERM>
 	</UNIT>
-</ONTOLOGY>
+</METADATA>

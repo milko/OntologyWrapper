@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC TYPES
+	Types.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- TYPES -->
+	
+	<!-- http://purl.org/dc/dcmitype/ -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/" lid="dcmitype" pid="http://purl.org/dc/dcmitype/">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Dublin Core Metadata Initiative Type Vocabulary]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The DCMI Type Vocabulary provides a general, cross-domain list of approved terms that may be used as values for the Type element to identify the genre of a resource.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-NAMESPACE</item>
+				<item>:KIND-TYPE</item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/ -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/terms/" lid="dwctype" pid="http://rs.tdwg.org/dwc/dwctype/">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core Type Vocabulary]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The Darwin Core Type Vocabulary extends the DCMI Type Vocabulary and provides a list of approved values that may be used for the basisOfRecord term to identify the specific type of a resource. The terms documented here are also included in the more comprehensive document Darwin Core Terms: A complete history, see [http://rs.tdwg.org/dwc/terms/history/index.htm].]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex" term="http://rs.tdwg.org/dwc/dwctype/">
+			<item const="kTAG_KIND">
+				<item>:KIND-NAMESPACE</item>
+				<item>:KIND-TYPE</item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- LOCAL ATTRIBUTES -->
+	
+	<!-- dwc -->
+	<UNIT>
+		<NODE class="COntologyMasterVertex" term="dwc">
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-TYPE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core local types]]></item>
+				</item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- dwc:status -->
+	<UNIT>
+		<TERM ns="dwc" lid="status">
+			<item const="kTAG_LABEL">
+				<item key="en">Term status</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item key="en">The status of the term - deprecated (not recommended for use), superseded (not recommended for use - replaced by the term or terms shown in the Is Replaced By column), or recommended (ready for use).</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-FEATURE</item>
+				<item>:KIND-SCALE</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">dwc</item>
+		</EDGE>
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">dwc:status</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:ENUM</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-CHOICE</item>
+		</TAG>
+	</UNIT>
+	<!-- dwc:status:deprecated -->
+	<UNIT>
+		<TERM ns="dwc:status" lid="deprecated">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Deprecated]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not recommended for use]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">dwc:status</item>
+		</EDGE>
+	</UNIT>
+	<!-- dwc:status:superseded -->
+	<UNIT>
+		<TERM ns="dwc:status" lid="superseded">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Superseded]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Replaced by another term.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">dwc:status:deprecated</item>
+		</EDGE>
+	</UNIT>
+	<!-- dwc:status:recommended -->
+	<UNIT>
+		<TERM ns="dwc:status" lid="recommended">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Recommended]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ready for use.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">dwc:status</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- dwc:issued -->
+	<UNIT>
+		<TERM ns="dwc" lid="issued">
+			<item const="kTAG_LABEL">
+				<item key="en">Date issued</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item key="en">Date on which the term was first published.</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-FEATURE</item>
+				<item>:KIND-SCALE</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">dwc</item>
+		</EDGE>
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">dwc:issued</item>
+			</item>
+		</TAG>
+	</UNIT>
+	
+	<!-- dwc:modified -->
+	<UNIT>
+		<TERM ns="dwc" lid="modified">
+			<item const="kTAG_LABEL">
+				<item key="en">Date modified</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item key="en">Date on which the term was last changed in any way that would change its meaning or used.</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-FEATURE</item>
+				<item>:KIND-SCALE</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">dwc</item>
+		</EDGE>
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">dwc:modified</item>
+			</item>
+		</TAG>
+	</UNIT>
+	
+	<!-- dwc:decision -->
+	<UNIT>
+		<TERM ns="dwc" lid="decision">
+			<item const="kTAG_LABEL">
+				<item key="en">Decision</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item key="en">The reference to the published decision that resulted in the current version of the term.</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-FEATURE</item>
+				<item>:KIND-SCALE</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:URL</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">dwc</item>
+		</EDGE>
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">dwc:decision</item>
+			</item>
+		</TAG>
+	</UNIT>
+</METADATA>

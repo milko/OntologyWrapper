@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	INVENTORY SCHEMA STRUCTURE
+	SchemaInventory.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- http://rs.tdwg.org/dwc/terms/institutionID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/institutionID">
+			<item const="kTAG_PID">INVENTORY.Schema.DWC:institutionID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema.DWC:institutionID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/collectionID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/collectionID">
+			<item const="kTAG_PID">INVENTORY.Schema.DWC:collectionID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema.DWC:collectionID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/datasetID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/datasetID">
+			<item const="kTAG_PID">INVENTORY.Schema.DWC:datasetID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema.DWC:datasetID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/materialSampleID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/materialSampleID">
+			<item const="kTAG_PID">INVENTORY.Schema.DWC:materialSampleID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema.DWC:materialSampleID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/institutionCode -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/institutionCode">
+			<item const="kTAG_PID">INVENTORY.Schema.DWC:institutionCode</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema.DWC:institutionCode</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/collectionCode -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/collectionCode">
+			<item const="kTAG_PID">INVENTORY.Schema.DWC:collectionCode</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema.DWC:collectionCode</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/datasetName -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/datasetName">
+			<item const="kTAG_PID">INVENTORY.Schema.DWC:datasetName</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema.DWC:datasetName</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/ownerInstitutionCode -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/ownerInstitutionCode">
+			<item const="kTAG_PID">INVENTORY.Schema.DWC:ownerInstitutionCode</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema.DWC:ownerInstitutionCode</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">INVENTORY.Schema</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

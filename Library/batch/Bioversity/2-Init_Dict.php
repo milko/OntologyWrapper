@@ -17,7 +17,7 @@
 
 /*=======================================================================================
  *																						*
- *									Init_Main.php										*
+ *									Init_Dict.php										*
  *																						*
  *======================================================================================*/
 
@@ -110,6 +110,12 @@ try
 	} // Use graph database.
 	
 	//
+	// Load data dictionary.
+	//
+	if( ! $wrapper->dictionaryFilled() )
+		$wrapper->loadTagCache();
+
+	//
 	// Load standards.
 	//
 	$wrapper->loadStandards( TRUE );
@@ -135,24 +141,19 @@ try
 	$wrapper->loadABDHStandards( TRUE );
 	
 	//
+	// Load LR standards.
+	//
+	$wrapper->loadQTLStandards( TRUE );
+	
+	//
+	// Load LR standards.
+	//
+	$wrapper->loadLRStandards( TRUE );
+	
+	//
 	// Load collections.
 	//
 	$wrapper->loadCollections( TRUE );
-	
-	//
-	// Reset units.
-	//
-	$wrapper->resetUnits( TRUE );
-	
-	//
-	// Reset entities.
-	//
-	$wrapper->resetEntities( TRUE );
-	
-	//
-	// Reset dictionary.
-	//
-	$wrapper->loadTagCache();
 }
 
 //

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC IDENTIFICATION TYPE
+	TypeIdentification.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Darwin Core Identification -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/Identification -->
+	<UNIT>
+		<NODE class="COntologyMasterVertex" term="http://rs.tdwg.org/dwc/terms/Identification">
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-TYPE</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core identification type]]></item>
+				</item>
+			</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/Identification]]></item>
+			</item>
+ 	  	</NODE>
+	</UNIT>
+	
+	<!-- Identification attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/identificationID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/identificationID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Identification</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identifiedBy -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/identifiedBy</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Identification</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/dateIdentified -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/dateIdentified</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Identification</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identificationReferences -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/identificationReferences</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Identification</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identificationRemarks -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/identificationRemarks</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Identification</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identificationQualifier -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/identificationQualifier</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Identification</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identificationVerificationStatus -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/identificationVerificationStatus</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Identification</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/typeStatus -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/typeStatus</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Identification</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

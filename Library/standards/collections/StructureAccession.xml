@@ -120,6 +120,24 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
+		<!-- :germplasm:characterisation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:characterisation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :germplasm:evaluation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:evaluation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :germplasm:qtl -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:qtl</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
 		<!-- :germplasm:mt -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:germplasm:mt</item>

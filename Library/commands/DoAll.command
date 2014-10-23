@@ -30,13 +30,13 @@ ditto -c -k --sequesterRsrc --keepParent \
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 ########################################################################################
-#   Initialise data                                                                    #
+#   Initialise dict                                                                    #
 ########################################################################################
 
 #
-# Init main data.
+# Init data structures.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Main.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Dict.php
 
 #
 # Backup and archive main dictionary.
@@ -45,10 +45,32 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 mongodump --directoryperdb \
 		  --db 'BIOVERSITY' \
 		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.2.main.zip"
+rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.2.dict.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.2.main.zip"
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.2.dict.zip"
+rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+
+########################################################################################
+#   Initialise data                                                                    #
+########################################################################################
+
+#
+# Init data collections.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/3-Init_Data.php
+
+#
+# Backup and archive main dictionary.
+#
+rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+mongodump --directoryperdb \
+		  --db 'BIOVERSITY' \
+		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.3.data.zip"
+ditto -c -k --sequesterRsrc --keepParent \
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.3.data.zip"
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 ########################################################################################
@@ -195,10 +217,10 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 mongodump --directoryperdb \
 		  --db 'BIOVERSITY' \
 		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.3.eufgis.zip"
+rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.insitu.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.3.eufgis.zip"
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.insitu.zip"
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 ########################################################################################
@@ -284,10 +306,10 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 mongodump --directoryperdb \
 		  --db 'BIOVERSITY' \
 		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.miss.zip"
+rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.miss.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.miss.zip"
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.miss.zip"
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 ########################################################################################
@@ -299,27 +321,6 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/UpdateMissionRelated.php \
 	"mongodb://localhost:27017/BIOVERSITY"
-
-########################################################################################
-#   Backup and archive database                                                        #
-########################################################################################
-
-#
-# Backup and archive.
-#
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.coll.zip"
-ditto -c -k --sequesterRsrc --keepParent \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.coll.zip"
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-
-########################################################################################
-#   Relate Collecting Missions                                                         #
-########################################################################################
 
 #
 # Relate Collecting Missions.
@@ -338,10 +339,10 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 mongodump --directoryperdb \
 		  --db 'BIOVERSITY' \
 		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.6.samp.zip"
+rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.miss.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.6.samp.zip"
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.miss.zip"
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 ########################################################################################

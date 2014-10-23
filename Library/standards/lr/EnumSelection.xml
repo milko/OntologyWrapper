@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LR SELECTION CRITERIA
+	EnumSelection.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- LANDRACE selection criteria enumeration -->
+	
+	<!-- enum:lr:LRFARMERSELCRI -->
+	<META>
+		<NODE term="lr:LRFARMERSELCRI" pid="enum:lr:LRFARMERSELCRI">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the <i>criteria used by the farmer to propagate the landrace</i>.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- LANDRACE selection criteria enumerations -->
+	
+	<!-- lr:LRFARMERSELCRI:10 -->
+	<META>
+		<TERM ns="lr:LRFARMERSELCRI" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yield]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERSELCRI</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERSELCRI:20 -->
+	<META>
+		<TERM ns="lr:LRFARMERSELCRI" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Organ size]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERSELCRI</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERSELCRI:30 -->
+	<META>
+		<TERM ns="lr:LRFARMERSELCRI" lid="30">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taste]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERSELCRI</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERSELCRI:40 -->
+	<META>
+		<TERM ns="lr:LRFARMERSELCRI" lid="40">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Colour]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERSELCRI</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERSELCRI:50 -->
+	<META>
+		<TERM ns="lr:LRFARMERSELCRI" lid="50">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Shape]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERSELCRI</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERSELCRI:60 -->
+	<META>
+		<TERM ns="lr:LRFARMERSELCRI" lid="60">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Uniformity]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERSELCRI</item>
+		</EDGE>
+	</META>
+</METADATA>

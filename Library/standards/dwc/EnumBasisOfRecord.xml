@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	BASIS OF RECORD ENUMERATION
+	EnumBasisOfRecord.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Basis of record enumerations -->
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/Occurrence -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="Occurrence" pid="http://rs.tdwg.org/dwc/dwctype/Occurrence">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Occurrence]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing an instance of the Occurrence class.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Occurrence</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">Occurrence-2011-10-16</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2008-11-19</item>
+			<item tag="dwc:modified">2011-10-16</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/Event -->
+	<UNIT>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://purl.org/dc/dcmitype/Event</item>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/Location -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="Location" pid="http://rs.tdwg.org/dwc/dwctype/Location">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Location]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing an instance of the Location class.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Location</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">Location-2009-04-24</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2009-01-23</item>
+			<item tag="dwc:modified">2009-04-24</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/Taxon -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="Taxon" pid="http://rs.tdwg.org/dwc/dwctype/Taxon">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxon]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing an instance of the Taxon class.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Taxon</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">Taxon-2009-01-23</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2009-01-23</item>
+			<item tag="dwc:modified">2009-04-24</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/PreservedSpecimen -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="PreservedSpecimen" pid="http://rs.tdwg.org/dwc/dwctype/PreservedSpecimen">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Preserved Specimen]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing a preserved specimen.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PreservedSpecimen</item>
+				<item>RecordBasisEnum/PreservedSpecimen</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">PreservedSpecimen-2011-10-16</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2008-11-19</item>
+			<item tag="dwc:modified">2011-10-16</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/FossilSpecimen -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="FossilSpecimen" pid="http://rs.tdwg.org/dwc/dwctype/FossilSpecimen">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fossil Specimen]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing a fossilized specimen.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>FossilSpecimen</item>
+				<item>RecordBasisEnum/FossileSpecimen</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">FossilSpecimen-2011-10-16</item>
+			<item tag="dwc:decision">http://rs.tdwg.org/dwc/terms/history/decisions/index.htm#Decision-2011-10-16_6</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2008-11-19</item>
+			<item tag="dwc:modified">2011-10-16</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/LivingSpecimen -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="LivingSpecimen" pid="http://rs.tdwg.org/dwc/dwctype/LivingSpecimen">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Living Specimen]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing a living specimen.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>LivingSpecimen</item>
+				<item>RecordBasisEnum/LivingSpecimen</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">LivingSpecimen-2011-10-16</item>
+			<item tag="dwc:decision">http://rs.tdwg.org/dwc/terms/history/decisions/index.htm#Decision-2011-10-16_6</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2008-11-19</item>
+			<item tag="dwc:modified">2011-10-16</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/HumanObservation -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="HumanObservation" pid="http://rs.tdwg.org/dwc/dwctype/HumanObservation">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Human Observation]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing an observation made by one or more people.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>HumanObservation</item>
+				<item>RecordBasisEnum/HumanObservation</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">HumanObservation-2011-10-16</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2008-11-19</item>
+			<item tag="dwc:modified">2011-10-16</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/MachineObservation -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="MachineObservation" pid="http://rs.tdwg.org/dwc/dwctype/MachineObservation">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Machine Observation]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing an observation made by a machine.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>MachineObservation</item>
+				<item>RecordBasisEnum/MachineObservation</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">MachineObservation-2011-10-16</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2008-11-19</item>
+			<item tag="dwc:modified">2011-10-16</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/NomenclaturalChecklist -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="NomenclaturalChecklist" pid="http://rs.tdwg.org/dwc/dwctype/NomenclaturalChecklist">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Nomenclatural Checklist]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing a nomenclatural checklist.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NomenclaturalChecklist</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">NomenclaturalChecklist-2009-01-23</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2009-01-23</item>
+			<item tag="dwc:modified">2009-01-23</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/dwctype/MaterialSample -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/dwctype/" lid="MaterialSample" pid="http://rs.tdwg.org/dwc/dwctype/MaterialSample">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Material Sample]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource describing the physical results of a sampling (or subsampling) event. In biological collections, the material sample is typically collected, and either preserved or destructively processed.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>MaterialSample</item>
+				<item>DataSets/DataSet/Units/Unit</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>http://www.w3.org/2000/01/rdf-schema#Class</item>
+			</item>
+			<item const="kTAG_VERSION">MaterialSample-2013-06-24</item>
+			<item tag="dwc:decision">http://rs.tdwg.org/dwc/terms/history/decisions/index.htm#Decision-2013-10-09_12</item>
+			<item tag="dwc:status">recommended</item>
+			<item tag="dwc:issued">2013-03-28</item>
+			<item tag="dwc:modified">2013-09-26</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/DwCTypeVocabulary]]></item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/dwctype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

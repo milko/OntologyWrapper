@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC EVENT TYPE
+	TypeEvent.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Darwin Core Event -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/Event -->
+	<UNIT>
+		<NODE class="COntologyMasterVertex" term="http://rs.tdwg.org/dwc/terms/Event">
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-TYPE</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core event type]]></item>
+				</item>
+			</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/Event]]></item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- Event attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/eventID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/eventID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/samplingProtocol -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/samplingProtocol</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/samplingEffort -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/samplingEffort</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/eventDate -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/eventDate</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/eventTime -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/eventTime</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/startDayOfYear -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/startDayOfYear</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/endDayOfYear -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/endDayOfYear</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/year -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/year</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/month -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/month</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/day -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/day</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimEventDate -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimEventDate</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/habitat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/habitat</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/fieldNumber -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/fieldNumber</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/fieldNotes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/fieldNotes</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/eventRemarks -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/eventRemarks</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Event</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

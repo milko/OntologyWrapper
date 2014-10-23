@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LR DISTRIBUTION ENUMERATION
+	EnumDistribution.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- LANDRACE distribution enumeration -->
+	
+	<!-- enum:lr:LRDISTR -->
+	<META>
+		<NODE term="lr:LRDISTR" pid="enum:lr:LRDISTR">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses how the <i>landrace is expected to be distributed or exchanged</i>.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- LANDRACE distribution enumerations -->
+	
+	<!-- lr:LRDISTR:10 -->
+	<META>
+		<TERM ns="lr:LRDISTR" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yes]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRDISTR</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRDISTR:11 -->
+	<META>
+		<TERM ns="lr:LRDISTR" lid="11">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To relative]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yes, to relative.]]></item>
+				</item>
+			</item>
+	   	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRDISTR:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRDISTR:12 -->
+	<META>
+		<TERM ns="lr:LRDISTR" lid="12">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To friend or neighbour]]></item>
+				</item>
+			</item>
+  			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yes, to friend or neighbour.]]></item>
+				</item>
+			</item>
+	   	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRDISTR:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRDISTR:13 -->
+	<META>
+		<TERM ns="lr:LRDISTR" lid="13">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To another grower]]></item>
+				</item>
+			</item>
+  			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yes, to another grower.]]></item>
+				</item>
+			</item>
+	   	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRDISTR:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRDISTR:14 -->
+	<META>
+		<TERM ns="lr:LRDISTR" lid="14">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To seed/seedlings-swap event]]></item>
+				</item>
+			</item>
+  			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yes, to seed/seedlings-swap event.]]></item>
+				</item>
+			</item>
+	   	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRDISTR:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRDISTR:15 -->
+	<META>
+		<TERM ns="lr:LRDISTR" lid="15">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To plant genebank]]></item>
+				</item>
+			</item>
+  			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yes, to plant genebank.]]></item>
+				</item>
+			</item>
+	   	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRDISTR:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRDISTR:20 -->
+	<META>
+		<TERM ns="lr:LRDISTR" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[No]]></item>
+				</item>
+			</item>
+	   	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRDISTR</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRDISTR:30 -->
+	<META>
+		<TERM ns="lr:LRDISTR" lid="30">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Undecided]]></item>
+				</item>
+			</item>
+	   	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRDISTR</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LANDRACE STRUCTURE
+	StructureLandrace.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Landrace structure -->
+	
+	<!-- struct::domain:landrace -->
+	<META>
+		<NODE term=":domain:landrace" pid="struct::domain:landrace">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a landrace occurrence.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- Landrace identification -->
+	
+		<!-- schema::inventory -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::inventory</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRRECDATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:UNID</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRNAME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRNAME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- schema::taxon -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- lr:FARMSITE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:FARMSITE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- schema::location -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">lr:FARMSITE</item>
+		</EDGE>
+		
+		<!-- lr:LRSITE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRSITE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- schema::location -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">lr:LRSITE</item>
+		</EDGE>
+		
+		<!-- lr:MAINTAINER -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:MAINTAINER</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- schema:lr:MAINTAINER -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:lr:MAINTAINER</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">lr:MAINTAINER</item>
+		</EDGE>
+		
+		<!-- lr:LANDRACE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LANDRACE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- schema:lr:LANDRACE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:lr:LANDRACE</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">lr:LANDRACE</item>
+		</EDGE>
+		
+		<!-- lr:MONITOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:MONITOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- schema:lr:MONITOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema:lr:MONITOR</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">lr:MONITOR</item>
+		</EDGE>
+		<!-- schema::location:unit:monitor -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location:unit:monitor</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">lr:MONITOR</item>
+		</EDGE>
+		<!-- :germplasm:safety -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:germplasm:safety</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">lr:MONITOR</item>
+		</EDGE>
+		
+		<!-- lr:REMARKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:REMARKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

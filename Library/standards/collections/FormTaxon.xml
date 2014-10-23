@@ -235,6 +235,23 @@
 		</EDGE>
 	</META>
 
+	<!-- Policy -->
+
+	<!-- form::taxon:unit:policy-->
+	<META>
+		<NODE term=":taxon:unit:policy" pid="form::taxon:unit:policy" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
+		</EDGE>
+	
+		<!-- schema::taxon:unit:policy -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:policy</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	</META>
+
 	<!-- Biology -->
 
 	<!-- form::taxon:unit:biology-->

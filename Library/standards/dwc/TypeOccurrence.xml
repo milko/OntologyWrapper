@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC OCCURRENCE TYPE
+	TypeOccurrence.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Darwin Core Occurrence -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/Occurrence -->
+	<UNIT>
+		<NODE class="COntologyMasterVertex" term="http://rs.tdwg.org/dwc/terms/Occurrence">
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-TYPE</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core occurrence type]]></item>
+				</item>
+			</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/Occurrence]]></item>
+			</item>
+ 	  	</NODE>
+	</UNIT>
+	
+	<!-- Occurrence attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/occurrenceID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/occurrenceID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/catalogNumber -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/catalogNumber</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/occurrenceRemarks -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/occurrenceRemarks</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/recordNumber -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/recordNumber</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/recordedBy -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/recordedBy</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/individualID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/individualID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/individualCount -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/individualCount</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/sex -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/sex</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/lifeStage -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/lifeStage</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/reproductiveCondition -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/reproductiveCondition</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/behavior -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/behavior</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/establishmentMeans -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/establishmentMeans</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/occurrenceStatus -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/occurrenceStatus</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/preparations -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/preparations</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/disposition -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/disposition</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/otherCatalogNumbers -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/otherCatalogNumbers</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/previousIdentifications -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/previousIdentifications</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedMedia -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/associatedMedia</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedReferences -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/associatedReferences</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedOccurrences -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/associatedOccurrences</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedSequences -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/associatedSequences</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedTaxa -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/associatedTaxa</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Occurrence</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

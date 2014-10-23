@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	QTL ATTRIBUTES
+	Attributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- QTL references -->
+	
+	<!-- qtl -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
+			<item const="kTAG_DOMAIN">:domain:qtl</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the reference to a QTL.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- QTL standards -->
+	
+	<!-- qtl:UNID -->
+	<META>
+		<TERM ns="qtl" lid="UNID">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">QTL identifier</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unique identifier of the QTL.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:UNID</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-06</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:UNID">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:TRAITNAME -->
+	<META>
+		<TERM ns="qtl" lid="TRAITNAME">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">QTL trait names</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:TRAITNAME</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text-06</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:TRAITNAME">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:NAME -->
+	<META>
+		<TERM ns="qtl" lid="NAME">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">QTL names</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:NAME</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text-06</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:NAME">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:SEQHOM -->
+	<META>
+		<TERM ns="qtl" lid="SEQHOM">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">QTL sequence homology</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:SEQHOM</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:SEQHOM">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:REF -->
+	<META>
+		<TERM ns="qtl" lid="REF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">References</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Any bibliographic references related to the species described, the format should include the author, date, title, journal, volume and page number or the DOI number.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:REF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:REF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:URL -->
+	<META>
+		<TERM ns="qtl" lid="URL">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">URL links</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[URLs linking to additional data about the QTL accession ID.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:URL</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:URL">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:REMARKS -->
+	<META>
+		<TERM ns="qtl" lid="REMARKS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">QTL remarks</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:REMARKS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:REMARKS">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- QTL characteristics -->
+	
+	<!-- qtl:NUMBQTLACCESS -->
+	<META>
+		<TERM ns="qtl" lid="NUMBQTLACCESS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">QTL number identified</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[QTL number identified in the accession and name.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:NUMBQTLACCESS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-06</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:NUMBQTLACCESS">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:PERCVARIATIONQTL -->
+	<META>
+		<TERM ns="qtl" lid="PERCVARIATIONQTL">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Percentage of variation</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Percentage of variation explained per QTL.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:PERCVARIATIONQTL</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:PERCVARIATIONQTL">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:LODSCORE -->
+	<META>
+		<TERM ns="qtl" lid="LODSCORE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">LOD scores</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In genetics, the log of the odds (LOD) score is a statistical estimate of whether two genes, or a gene and a disease gene, are likely to be located near each other on a chromosome and are therefore likely to be inherited. A LOD score of 3 or higher is generally understood to mean that two genes are located close to each other on the chromosome. In terms of significance, a LOD score of 3 means the odds are a thousand to one that the two genes are linked, and therefore inherited together. LOD is an acronym for "logarithmic odds”. The total relative probability, expressed on a logarithmic scale, that a linkage relationship exists among selected loci.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:LODSCORE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:LODSCORE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:GENMAPQTLMAP -->
+	<META>
+		<TERM ns="qtl" lid="GENMAPQTLMAP">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Genetic map and QTL mapping</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:GENMAPQTLMAP</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:GENMAPQTLMAP">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:MARKLINK -->
+	<META>
+		<TERM ns="qtl" lid="MARKLINK">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Markers linked to QTL</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:MARKLINK</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:MARKLINK">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:SNP -->
+	<META>
+		<TERM ns="qtl" lid="SNP">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">SNP sequence</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:SNP</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:SNP">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:PARENTDESCR -->
+	<META>
+		<TERM ns="qtl" lid="PARENTDESCR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Parental description</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Germplasm name for a parent in the population.  Male and Female can be noted.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:PARENTDESCR</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:PARENTDESCR">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:PARENTMEANSD -->
+	<META>
+		<TERM ns="qtl" lid="PARENTMEANSD">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Parental mean standard deviation</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Germplasm link, mean and standard deviation for each parent.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:PARENTMEANSD</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:PARENTMEANSD">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:TONUMBLINK -->
+	<META>
+		<TERM ns="qtl" lid="TONUMBLINK">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Ontology number and link</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The TO (Trait Ontology) number and link. See trait ontology for this http://www.ebi.ac.uk/ontology-lookup/?termId=TO:0000137.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:TONUMBLINK</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:TONUMBLINK">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:characteristics -->
+	<META>
+		<TERM ns="qtl" lid="characteristics">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">QTL characteristics</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:characteristics</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">qtl:NUMBQTLACCESS</item>
+		</TAG>
+		<NODE tag="qtl:characteristics">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- qtl:characteristics:remarks -->
+	<META>
+		<TERM ns="qtl:characteristics" lid="remarks">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Characteristics remarks</item>
+				</item>
+			</item>
+		</TERM>
+	    <TAG>
+			<item const="kTAG_TERMS">
+				<item>qtl:characteristics:remarks</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag="qtl:characteristics:remarks">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

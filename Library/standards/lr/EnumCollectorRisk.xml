@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LR COLLECTOR LOSS RISK ENUMERATION
+	EnumCollectorRisk.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- LANDRACE collecting team risk assessment enumeration -->
+	
+	<!-- enum:lr:LRTHREATCT -->
+	<META>
+		<NODE term="lr:LRTHREATCT" pid="enum:lr:LRTHREATCT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the collecting team risk assessment.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- LANDRACE collecting team risk assessment enumerations -->
+	
+	<!-- lr:LRTHREATCT:10 -->
+	<META>
+		<TERM ns="lr:LRTHREATCT" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unable to judge/assess]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRTHREATCT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRTHREATCT:20 -->
+	<META>
+		<TERM ns="lr:LRTHREATCT" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Null / scarce]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRTHREATCT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRTHREATCT:30 -->
+	<META>
+		<TERM ns="lr:LRTHREATCT" lid="30">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Low]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRTHREATCT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRTHREATCT:40 -->
+	<META>
+		<TERM ns="lr:LRTHREATCT" lid="40">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Medium]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRTHREATCT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRTHREATCT:50 -->
+	<META>
+		<TERM ns="lr:LRTHREATCT" lid="50">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[High]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRTHREATCT</item>
+		</EDGE>
+	</META>
+</METADATA>

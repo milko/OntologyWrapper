@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	EVENT SCHEMA STRUCTURE
+	SchemaEvent.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- http://rs.tdwg.org/dwc/terms/eventID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/eventID">
+			<item const="kTAG_PID">EVENT.Schema.DWC:eventID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:eventID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/samplingProtocol -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/samplingProtocol">
+			<item const="kTAG_PID">EVENT.Schema.DWC:samplingProtocol</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:samplingProtocol</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/samplingEffort -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/samplingEffort">
+			<item const="kTAG_PID">EVENT.Schema.DWC:samplingEffort</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:samplingEffort</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/eventDate -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/eventDate">
+			<item const="kTAG_PID">EVENT.Schema.DWC:eventDate</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:eventDate</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/eventTime -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/eventTime">
+			<item const="kTAG_PID">EVENT.Schema.DWC:eventTime</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:eventTime</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/startDayOfYear -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/startDayOfYear">
+			<item const="kTAG_PID">EVENT.Schema.DWC:startDayOfYear</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:startDayOfYear</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/endDayOfYear -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/endDayOfYear">
+			<item const="kTAG_PID">EVENT.Schema.DWC:endDayOfYear</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:endDayOfYear</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/year -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/year">
+			<item const="kTAG_PID">EVENT.Schema.DWC:year</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:year</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/month -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/month">
+			<item const="kTAG_PID">EVENT.Schema.DWC:month</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:month</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/day -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/day">
+			<item const="kTAG_PID">EVENT.Schema.DWC:day</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:day</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimEventDate -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimEventDate">
+			<item const="kTAG_PID">EVENT.Schema.DWC:verbatimEventDate</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:verbatimEventDate</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/habitat -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/habitat">
+			<item const="kTAG_PID">EVENT.Schema.DWC:habitat</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:habitat</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/fieldNumber -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/fieldNumber">
+			<item const="kTAG_PID">EVENT.Schema.DWC:fieldNumber</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:fieldNumber</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/fieldNotes -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/fieldNotes">
+			<item const="kTAG_PID">EVENT.Schema.DWC:fieldNotes</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:fieldNotes</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/eventRemarks -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/eventRemarks">
+			<item const="kTAG_PID">EVENT.Schema.DWC:eventRemarks</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema.DWC:eventRemarks</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Schema</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

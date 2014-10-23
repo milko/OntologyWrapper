@@ -29,6 +29,18 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :inventory:dataset:report -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset:report</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :inventory:dataset:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :inventory:code -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:inventory:code</item>

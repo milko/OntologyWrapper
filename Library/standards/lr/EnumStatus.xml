@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LR STATUS
+	EnumStatus.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- LANDRACE status enumeration -->
+	
+	<!-- enum:lr:LRSTATUS -->
+	<META>
+		<NODE term="lr:LRSTATUS" pid="enum:lr:LRSTATUS">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the <i>status of the landrace in the farm</i>.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- LANDRACE status enumerations -->
+	
+	<!-- lr:LRSTATUS:10 -->
+	<META>
+		<TERM ns="lr:LRSTATUS" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Does not answer]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRSTATUS</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRSTATUS:20 -->
+	<META>
+		<TERM ns="lr:LRSTATUS" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Inherent]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Should match with LRCULTPER 20 or 33, at least.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRSTATUS</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRSTATUS:30 -->
+	<META>
+		<TERM ns="lr:LRSTATUS" lid="30">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Reintroduced by the family which presently cultivates the LR from a different estate belonging to the same family]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[For example: the very same LR has been grown for several decades and generations in the same family at the same farm/garden, but now it is grown at the summer cottage in different district/neighboring house belonging to the same family. Provide details under REMARKS.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRSTATUS</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRSTATUS:40 -->
+	<META>
+		<TERM ns="lr:LRSTATUS" lid="40">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced/Reintroduced from gene bank]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide Gene Bank name in REMARKS.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRSTATUS</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRSTATUS:50 -->
+	<META>
+		<TERM ns="lr:LRSTATUS" lid="50">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced/Reintroduced from other farms]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRSTATUS</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRSTATUS:51 -->
+	<META>
+		<TERM ns="lr:LRSTATUS" lid="51">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced/Reintroduced from neighbouring farm]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced/Reintroduced from other farms: neighbouring farm.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRSTATUS:50</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRSTATUS:52 -->
+	<META>
+		<TERM ns="lr:LRSTATUS" lid="52">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced/Reintroduced from farm in the same district]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced/Reintroduced from other farms: farm in the same district.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRSTATUS:50</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRSTATUS:53 -->
+	<META>
+		<TERM ns="lr:LRSTATUS" lid="53">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced/Reintroduced from farm in different district/country]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced/Reintroduced from other farms: farm in different district/country.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRSTATUS:50</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRSTATUS:60 -->
+	<META>
+		<TERM ns="lr:LRSTATUS" lid="60">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced/Reintroduced from the seed market]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRSTATUS</item>
+		</EDGE>
+	</META>
+</METADATA>

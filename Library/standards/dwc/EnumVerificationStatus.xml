@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	IDENTIFICATION VERIFICATION STATUS ENUMERATION
+	EnumVerificationStatus.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Identification verification status enumerations -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationVerificationStatus:0 -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/terms/identificationVerificationStatus" lid="0">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not checked]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The name of the record has not been checked by any authority - includes temporary sorting determinations.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/identificationVerificationStatus</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationVerificationStatus:1 -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/terms/identificationVerificationStatus" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[By comparaison]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The name of the record determined by comparison with other named plants.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/identificationVerificationStatus</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationVerificationStatus:2 -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/terms/identificationVerificationStatus" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[By herbarium/library/documented living material]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The name of the record determined by a taxonomist or by other competent persons using herbarium and/or library and/or documented living material.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/identificationVerificationStatus</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationVerificationStatus:3 -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/terms/identificationVerificationStatus" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[By systematic revision of the group]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The name of the plant determined by taxonomist engaged in systematic revision of the group.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/identificationVerificationStatus</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationVerificationStatus:4 -->
+	<UNIT>
+		<TERM ns="http://rs.tdwg.org/dwc/terms/identificationVerificationStatus" lid="4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Type gathering or propagated from type material by asexual methods]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The record is part of type gathering or propagated from type material by asexual methods.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/identificationVerificationStatus</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

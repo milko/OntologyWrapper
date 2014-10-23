@@ -783,6 +783,33 @@
 		</EDGE>
 	</META>
 		
+	<!-- kDOMAIN_QTL -->
+	<META>
+		<TERM ns=":domain" lid="qtl">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">QTL</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Quantitative trait locus.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
+		</EDGE>
+	</META>
+		
 	<!-- kDOMAIN_INVENTORY -->
 	<META>
 		<TERM ns=":domain" lid="inventory">

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC IDENTIFICATION FORM STRUCTURE
+	FormIdentification.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- DWC identification form -->
+	
+	<UNIT>
+		<NODE class="COntologyVertex" term="http://rs.tdwg.org/dwc/terms/Identification">
+			<item const="kTAG_PID">DWC:IDENTIFICATION.Form</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-FORM</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core identification form]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form can be used to search Darwin Core identifications.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- Identification attributes -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/identificationID">
+			<item const="kTAG_PID">DWC:IDENTIFICATION.Form.identificationID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form.identificationID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identifiedBy -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/identifiedBy">
+			<item const="kTAG_PID">DWC:IDENTIFICATION.Form.identifiedBy</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form.identifiedBy</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/dateIdentified -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/dateIdentified">
+			<item const="kTAG_PID">DWC:IDENTIFICATION.Form.dateIdentified</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form.dateIdentified</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationReferences -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/identificationReferences">
+			<item const="kTAG_PID">DWC:IDENTIFICATION.Form.identificationReferences</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form.identificationReferences</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationRemarks -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/identificationRemarks">
+			<item const="kTAG_PID">DWC:IDENTIFICATION.Form.identificationRemarks</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form.identificationRemarks</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationQualifier -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/identificationQualifier">
+			<item const="kTAG_PID">DWC:IDENTIFICATION.Form.identificationQualifier</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form.identificationQualifier</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/identificationVerificationStatus -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/identificationVerificationStatus">
+			<item const="kTAG_PID">DWC:IDENTIFICATION.Form.identificationVerificationStatus</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form.identificationVerificationStatus</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/typeStatus -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/typeStatus">
+			<item const="kTAG_PID">DWC:IDENTIFICATION.Form.typeStatus</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form.typeStatus</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:IDENTIFICATION.Form</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

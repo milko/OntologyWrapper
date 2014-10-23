@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LANDRACE ATTRIBUTES
+	Attributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Inventory attributes -->
+	
+	<META>
+		<!-- :inventory:code -->
+	
+		<!-- lr:NIENUMB -->
+		<TERM ns="lr" lid="NIENUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace National Inventory edition number]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[the first edition that is compiled in 2012 will be coded as 001/2012]]></item>
+				<item><![CDATA[the second edition that is compiled in 2014 will be coded 002/2014]]></item>
+			</item>
+		</TERM>
+	
+		<!-- :inventory:institute -->
+	</META>
+	
+	<!-- Identification attributes -->
+	
+	<META>
+		<!-- lr:LRRECDATE -->
+		<TERM ns="lr" lid="LRRECDATE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace in situ recording date]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[1998]]></item>
+				<item><![CDATA[20020620]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRNUMB -->
+		<TERM ns="lr" lid="LRNUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace number]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[00010]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRNAME -->
+		<TERM ns="lr" lid="LRNAME">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace local names]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[fagiolina, cornetti, fagiolino dall’occhio]]></item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Location attributes -->
+	
+	<META>
+		<!-- lr:FARMSITE -->
+		<TERM ns="lr" lid="FARMSITE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm location]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRSITE -->
+		<TERM ns="lr" lid="LRSITE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace location]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Maintainer attributes -->
+	
+	<META>
+		<!-- lr:FARMERID -->
+		<TERM ns="lr" lid="FARMERID">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farmer identification number]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[NLD001/201200010]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:FARMERYB -->
+		<TERM ns="lr" lid="FARMERYB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farmer year of birth]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[1957]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:FARMHT -->
+		<TERM ns="lr" lid="FARMHT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Holding/tenancy of the farm/estate]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[10;30]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:FIR -->
+		<TERM ns="lr" lid="FIR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farmer identification restrictions]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Landrace attributes -->
+	
+	<META>
+		<!-- lr:LRTOTAREA -->
+		<TERM ns="lr" lid="LRTOTAREA">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace total area]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[125.7]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRCULTPER -->
+		<TERM ns="lr" lid="LRCULTPER">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace cultivation period]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[10]]></item>
+				<item><![CDATA[33]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRSTATUS -->
+		<TERM ns="lr" lid="LRSTATUS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace status]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[30]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRSSS -->
+		<TERM ns="lr" lid="LRSSS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace seed/propagation material supply system]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[20]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRCONT -->
+		<TERM ns="lr" lid="LRCONT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace continuity]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[20]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRDISTR -->
+		<TERM ns="lr" lid="LRDISTR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace distribution]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[12]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRFARMERMOT -->
+		<TERM ns="lr" lid="LRFARMERMOT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farmer motivations for growing the landrace]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[12;21]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRFARMERSELCRI -->
+		<TERM ns="lr" lid="LRFARMERSELCRI">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farmer LR selection criteria]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[12]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:PPU -->
+		<TERM ns="lr" lid="PPU">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Part of the plant used]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[110;70]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRPRODUSE -->
+		<TERM ns="lr" lid="LRPRODUSE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Product use]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[13;16]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRPRODEST -->
+		<TERM ns="lr" lid="LRPRODEST">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Main destination of the product]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[21]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRMARKTDEMAND -->
+		<TERM ns="lr" lid="LRMARKTDEMAND">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace market demand]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[30]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRTHREATF -->
+		<TERM ns="lr" lid="LRTHREATF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Loss risk as for the farmer]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[40]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:LRTHREATCT -->
+		<TERM ns="lr" lid="LRTHREATCT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Loss risk as assessed by the collecting team]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[40]]></item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Monitoring attributes -->
+	
+	<META>
+		<!-- lr:CONSERVACTIONS -->
+		<TERM ns="lr" lid="CONSERVACTIONS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Conservation actions]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[11]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:CONORG -->
+		<TERM ns="lr" lid="CONORG">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Conservation organiser]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[FNR]]></item>
+			</item>
+		</TERM>
+	
+		<!-- lr:EXSECURE -->
+		<TERM ns="lr" lid="EXSECURE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Safety duplication ex situ]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- General attributes. -->
+	
+	<META>
+		<!-- lr:REMARKS -->
+		<TERM ns="lr" lid="REMARKS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remarks]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item><![CDATA[The farmer often observes flower colour instability; PRODUCTUSE: chaff also used for fuel pellet and pillow filling; LRMARKTDEMAND: falling locally but growing in the district nearby.]]></item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

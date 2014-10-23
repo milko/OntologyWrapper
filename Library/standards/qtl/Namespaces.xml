@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	QTL NAMESPACES
+	Namespaces.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Namespaces -->
+	
+	<!-- qtl -->
+	<META>
+		<TERM lid="qtl">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Quantitative trait locus descriptors]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A minimum standard way for documenting where QTLs can be found (position on a chromosome, a figure as well and markers linked to these QTLs).]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

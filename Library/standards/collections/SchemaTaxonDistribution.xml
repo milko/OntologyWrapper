@@ -31,6 +31,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :taxon:occurrence-notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:occurrence-notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :taxon:distribution:notes -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:distribution:notes</item>

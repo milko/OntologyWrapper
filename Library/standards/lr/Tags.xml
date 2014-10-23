@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LANDRACE TAGS
+	Tags.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Inventory attributes -->
+	
+	<!-- lr:NIENUMB -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:NIENUMB</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-06</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the edition of the National in situ LR Inventory made up of the edition number and the year of publication.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:NIENUMB">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Identification attributes -->
+	
+	<!-- lr:LRRECDATE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRRECDATE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date on which the LR was recorded in the current in situ Inventory, as YYYYMMDD. Missing data (MM or DD) should be indicated with zeros. Leading zeros are required.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRRECDATE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:LRNUMB -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRNUMB</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-06</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unique progressive number which identifies the in situ LR in the Inventory, not to be duplicated (i.e. reassigned) for other LRs or the same LR that is cultivated by other farmers in the current Inventory. To be assigned by the institute which is responsible at the national level for the production of the National LR in situ Inventory.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRNUMB">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:LRNAME -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRNAME</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-06</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Local name/s of the LR in the colloquial language of the farm. Free text.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRNAME">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Location attributes -->
+	
+	<!-- lr:FARMSITE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:FARMSITE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Geographic information on the farm location.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:FARMSITE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:LRSITE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRSITE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Geographic information on the landrace location.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRSITE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Maintainer attributes -->
+	
+	<!-- lr:MAINTAINER -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:MAINTAINER</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farmer information.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:MAINTAINER">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:FARMERID -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:FARMERID</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-10</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unique number identifier of the farmer who maintains the LR and provides information (Landrace maintainer unique ID to be held in database). It is assigned by the institute that is responsible at the national level for the production of the National LR in situ Inventory. This number should not be duplicated or reassigned to other UNIT. This number should be composed of the ‘National Inventory Code (NICODE 1.1.)’ + ’National Inventory Edition Number (1.2.NIENUMB)’ + ’Landrace number (3.2. LRNUMB)’.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:FARMERID">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:FARMERYB -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:FARMERYB</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Recorded as YYYY. If not certain, indicate that this is an estimate in REMARKS.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:FARMERYB">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:FARMHT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:FARMHT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Multiple choices are allowed since the farm can be made of several types of holdings. Multiple choices are allowed separated by a semicolon (;) without space.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:FARMHT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:FARMHT</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:FIR -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:FIR</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:boolean</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA["Restriction in making the above mentioned (i.e. 5.2. and 5.3.) farmer data publicly available: ‘Yes’ or ‘No’. If ‘No’ only FARMERID (5.1) will be public.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:FIR">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Landrace attributes -->
+	
+	<!-- lr:LANDRACE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LANDRACE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace information.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LANDRACE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:LRTOTAREA -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRTOTAREA</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The total area (ha) cultivated under the inventoried LR on that farm as from farmer statement.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRTOTAREA">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:LRCULTPER -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRCULTPER</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The length of time the LR was cultivated on that farm as from farmer memory, i.e. cultivated for an unknown number of years, over 50 years, less than 50 years; in the latter case it can be specified the time.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRCULTPER">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRCULTPER</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRSTATUS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRSTATUS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The status of the LR on that farm, i.e. whether inherent the farm or reintroduced in the farm as from farmer statement. For ‘inherent the farm’ a cultivation period over 25 years in that farm should be intended. If introduced/reintroduced from other farms it can be specified from where. To be eventually elaborated in REMARKS.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRSTATUS">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRSTATUS</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRSSS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRSSS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[From where the seed (or propagation material in general) initially came, as from farmer statement.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRSSS">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRSSS</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRCONT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRCONT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Whether the LR maintainer plans to continue to grow LR for the foreseeable future.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRCONT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRCONT</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRDISTR -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRDISTR</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Whether the LR maintainer plans to give/exchange the LR to/with other growers.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRDISTR">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRDISTR</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRFARMERMOT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRFARMERMOT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taken from farmer statement. See codes in the table below. Multiple choices are allowed separated by a semicolon (;) without space.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRFARMERMOT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRFARMERMOT</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRFARMERSELCRI -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRFARMERSELCRI</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The main criteria farmer uses when selecting material for propagation.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRFARMERSELCRI">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRFARMERSELCRI</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:PPU -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:PPU</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Part/s of the plant used by the farmer, as from farmer statement. Multiple choices are allowed separated by a semicolon (;) without space.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:PPU">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:PPU</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRPRODUSE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRPRODUSE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Type of use of the product obtained from the lr: if as direct product or as processed product for larger use, as from farmer statement. Multiple choices are allowed separated by a semicolon (;) without space.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRPRODUSE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRPRODUSE</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRPRODEST -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRPRODEST</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Where the product from the LR is mainly destined for use, as from farmer statement.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRPRODEST">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRPRODEST</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRMARKTDEMAND -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRMARKTDEMAND</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Demand for LR / LR product as from farmer statement.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRMARKTDEMAND">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRMARKTDEMAND</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRTHREATF -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRTHREATF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Risk of losing this LR as perceived by the interviewed farmer. It helps to decide if conservation is needed and plan monitoring actions.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRTHREATF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRTHREATF</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:LRTHREATCT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:LRTHREATCT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Risk of losing this LR as perceived by the team recording data. It helps to decide if conservation is needed and plan monitoring actions.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:LRTHREATCT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:LRTHREATCT</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Monitoring attributes -->
+	
+	<!-- lr:MONITOR -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:MONITOR</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Monitoring information.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:MONITOR">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:CONSERVACTIONS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:CONSERVACTIONS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Whether any structured and funded in situ conservation action related to the LR is in place at the moment of the Inventory compilation.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:CONSERVACTIONS">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum:lr:CONSERVACTIONS</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- lr:CONORG -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:CONORG</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To be compiled if CONSERVACTIONS is ‘Yes’. Name of the Authority/Public subject/Farmer organisation/Foundation that has organised the conservation action. Free text.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:CONORG">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- lr:EXSECURE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:EXSECURE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:boolean</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[State if a sample was collected for safety duplication in gene bank. Yes or No.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:EXSECURE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- General attributes. -->
+	
+	<!-- lr:REMARKS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>lr:REMARKS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The remarks field is used to add notes or to elaborate on descriptors with value 99 or 999 (=Other). Prefix remarks with the field name they refer to and make them follow by a colon (:). Distinct remarks referring to different fields are separated by semicolons (;) without space.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="lr:REMARKS">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

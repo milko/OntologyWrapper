@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	QTL CHARACTERISTICS STRUCTURE
+	StructQtlCharacteristics.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- QTL characteristics structure -->
+	
+	<!-- qtl:characteristics -->
+	<META>
+		<!-- qtl:NUMBQTLACCESS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:NUMBQTLACCESS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	
+		<!-- qtl:PERCVARIATIONQTL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:PERCVARIATIONQTL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	
+		<!-- qtl:LODSCORE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:LODSCORE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	
+		<!-- qtl:GENMAPQTLMAP -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:GENMAPQTLMAP</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	
+		<!-- qtl:MARKLINK -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:MARKLINK</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	
+		<!-- qtl:SNP -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:SNP</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	
+		<!-- qtl:PARENTDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:PARENTDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	
+		<!-- qtl:PARENTMEANSD -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:PARENTMEANSD</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	
+		<!-- qtl:TONUMBLINK -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:TONUMBLINK</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	
+		<!-- qtl:characteristics:remarks -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:characteristics:remarks</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">qtl:characteristics</item>
+		</EDGE>
+	</META>
+</METADATA>

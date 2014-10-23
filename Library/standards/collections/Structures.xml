@@ -32,7 +32,7 @@
 			</item>
 		</NODE>
 		
-		<!-- :domain:accession -->
+		<!-- struct::domain:accession -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">struct::domain:accession</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -56,6 +56,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- struct::domain:trial -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:trial</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :struct::domain:mission:collecting -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">struct::domain:mission:collecting</item>
@@ -65,6 +71,18 @@
 		<!-- struct::domain:sample:collected -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">struct::domain:sample:collected</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- struct::domain:landrace -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:landrace</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- struct::domain:qtl -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">struct::domain:qtl</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

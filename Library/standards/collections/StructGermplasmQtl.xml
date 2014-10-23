@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	GERMPLASM QTL STRUCTURE
+	StructGermplasmQtl.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Evaluation structure -->
+	
+	<!-- :germplasm:qtl -->
+	<META>
+		<!-- :struct-label -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:struct-label</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:qtl</item>
+		</EDGE>
+		
+		<!-- qtl:UNID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:UNID</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:qtl</item>
+		</EDGE>
+	
+		<!-- qtl -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:qtl</item>
+		</EDGE>
+	
+		<!-- qtl:TRAITNAME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:TRAITNAME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:qtl</item>
+		</EDGE>
+		
+		<!-- qtl:NAME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:NAME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:qtl</item>
+		</EDGE>
+		
+		<!-- qtl:URL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:URL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:qtl</item>
+		</EDGE>
+	</META>
+</METADATA>

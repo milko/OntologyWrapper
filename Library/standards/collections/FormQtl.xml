@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	QTL FORM
+	FormQtl.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- QTL form -->
+	
+	<!-- form::domain:qtl -->
+	<META>
+		<NODE term=":domain:qtl" pid="form::domain:qtl">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all specific quantitative trait locus descriptor search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- qtl:UNID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:UNID</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- qtl:TRAITNAME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:TRAITNAME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:NAME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:NAME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:SEQHOM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:SEQHOM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:REF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:REF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:REMARKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:REMARKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- QTL characteristics -->
+
+	<META>
+		<NODE term="qtl:characteristics" pid="form:qtl:characteristics">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession source and biological attributes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::domain:qtl</item>
+		</EDGE>
+	
+		<!-- qtl:NUMBQTLACCESS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:NUMBQTLACCESS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:PERCVARIATIONQTL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:PERCVARIATIONQTL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:LODSCORE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:LODSCORE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:GENMAPQTLMAP -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:GENMAPQTLMAP</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:MARKLINK -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:MARKLINK</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:SNP -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:SNP</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:PARENTDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:PARENTDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:PARENTMEANSD -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:PARENTMEANSD</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:TONUMBLINK -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:TONUMBLINK</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- qtl:characteristics:remarks -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">qtl:characteristics:remarks</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

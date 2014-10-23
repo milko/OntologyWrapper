@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON POLICY UNIT SCHEMA
+	SchemaTaxonPolicy.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema::taxon:unit:policy -->
+	<META>
+		<NODE term=":taxon:unit:policy" pid="schema::taxon:unit:policy">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard properties describing policy regarding the taxon.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Taxon policy -->
+		
+		<!-- :taxon:annex-1 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:annex-1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:annex-1:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:annex-1:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:unit:policy:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:unit:policy:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

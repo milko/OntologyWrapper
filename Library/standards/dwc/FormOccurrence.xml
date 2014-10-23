@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC OCCURRENCE FORM STRUCTURE
+	FormOccurrence.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- DWC occurrence form -->
+	
+	<UNIT>
+		<NODE class="COntologyVertex" term="http://rs.tdwg.org/dwc/terms/Occurrence">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-FORM</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core occurrence form]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form can be used to search Darwin Core occurrence.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- Occurrence attributes -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/occurrenceID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/occurrenceID">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.occurrenceID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.occurrenceID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.occurrenceID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/catalogNumber -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/catalogNumber">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.catalogNumber</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.catalogNumber</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.catalogNumber</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/occurrenceRemarks -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/occurrenceRemarks">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.occurrenceRemarks</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.occurrenceRemarks</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.occurrenceRemarks</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/recordNumber -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/recordNumber">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.recordNumber</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.recordNumber</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.recordNumber</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/recordedBy -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/recordedBy">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.recordedBy</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.recordedBy</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.recordedBy</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/individualID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/individualID">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.individualID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.individualID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.individualID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/individualCount -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/individualCount">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.individualCount</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.individualCount</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.individualCount</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/sex -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/sex">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.sex</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.sex</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.sex</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/lifeStage -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/lifeStage">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.lifeStage</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.lifeStage</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.lifeStage</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/reproductiveCondition -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/reproductiveCondition">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.reproductiveCondition</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.reproductiveCondition</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.reproductiveCondition</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/behavior -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/behavior">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.behavior</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.behavior</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.behavior</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/establishmentMeans -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/establishmentMeans">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.establishmentMeans</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.establishmentMeans</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.establishmentMeans</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/occurrenceStatus -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/occurrenceStatus">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.occurrenceStatus</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.occurrenceStatus</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.occurrenceStatus</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/preparations -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/preparations">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.preparations</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.preparations</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.preparations</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/disposition -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/disposition">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.disposition</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.disposition</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.disposition</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/otherCatalogNumbers -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/otherCatalogNumbers">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.otherCatalogNumbers</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.otherCatalogNumbers</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.otherCatalogNumbers</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/previousIdentifications -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/previousIdentifications">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.previousIdentifications</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.previousIdentifications</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.previousIdentifications</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedMedia -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedMedia">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.associatedMedia</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedMedia</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedMedia</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedReferences -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedReferences">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.associatedReferences</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedReferences</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedReferences</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedOccurrences -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedOccurrences">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.associatedOccurrences</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedOccurrences</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedOccurrences</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedSequences -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedSequences">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.associatedSequences</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedSequences</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedSequences</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedTaxa -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedTaxa">
+			<item const="kTAG_PID">DWC:OCCURRENCE.Form.associatedTaxa</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedTaxa</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:OCCURRENCE.Form.associatedTaxa</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Form</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

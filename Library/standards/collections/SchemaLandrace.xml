@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LANDRACE SCHEMA
+	SchemaLandrace.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema:lr:LANDRACE -->
+	<META>
+		<NODE term="lr:LANDRACE" pid="schema:lr:LANDRACE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all specific properties describing a landrace.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- lr:LRTOTAREA -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRTOTAREA</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRCULTPER -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRCULTPER</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRSTATUS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRSTATUS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRSSS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRSSS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRCONT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRCONT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRDISTR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRDISTR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRFARMERMOT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRFARMERMOT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRFARMERSELCRI -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRFARMERSELCRI</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:PPU -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:PPU</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRPRODUSE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRPRODUSE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRPRODEST -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRPRODEST</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRMARKTDEMAND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRMARKTDEMAND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRTHREATF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRTHREATF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- lr:LRTHREATCT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">lr:LRTHREATCT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

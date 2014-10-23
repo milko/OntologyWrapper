@@ -2141,6 +2141,190 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
+	 *	loadLRStandards																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load landrace standards
+	 *
+	 * This method can be used to load the LR standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadLRStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading LR standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load LR: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load namespace XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading LR namespace files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load attribute XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading LR attribute files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load type XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading LR type files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumCollectorRisk.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumConservation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumContinuity.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumDemand.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumDestination.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumDistribution.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumFarmerRisk.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumMotivation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumPart.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumPeriod.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumSelection.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumStatus.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumSystem.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumTenancy.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumUse.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load tag XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading LR tag files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadLRStandards.
+
+	 
+	/*===================================================================================
+	 *	loadQTLStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load QTL standards
+	 *
+	 * This method can be used to load the QTL standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadQTLStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading QTL standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load QTL: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load namespace XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading QTL namespace files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/qtl/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load attribute XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading QTL attribute files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/qtl/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadQTLStandards.
+
+	 
+	/*===================================================================================
 	 *	loadStandards																	*
 	 *==================================================================================*/
 
@@ -2258,6 +2442,10 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 		
 		$file = kPATH_STANDARDS_ROOT.'/standard/EnvironmentalAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/TrialAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
@@ -2393,6 +2581,10 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 
 		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonEconomy.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonPolicy.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
@@ -2561,6 +2753,18 @@ class Wrapper extends Dictionary
 		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaMaterialTransfer.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLandrace.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLandraceMaintainer.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLandraceMonitoring.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
 		
 		//
 		// Load XML environment sub-structure files.
@@ -2688,6 +2892,10 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructGermplasmEvaluation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
 		$file = kPATH_STANDARDS_ROOT.'/collections/StructCollectingMission.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -2716,6 +2924,17 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructTrialMeasurement.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructQtlCharacteristics.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructGermplasmQtl.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
 		
 		//
 		// Load XML structure files.
@@ -2743,6 +2962,10 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureLandrace.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
 		$file = kPATH_STANDARDS_ROOT.'/collections/StructureHousehold.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -2755,11 +2978,18 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureTrial.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureQtl.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
 		$file = kPATH_STANDARDS_ROOT.'/collections/Structures.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
-		
 		//
 		// Load XML form files.
 		//
@@ -2775,6 +3005,14 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 
 		$file = kPATH_STANDARDS_ROOT.'/collections/FormCollecting.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormTrial.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormQtl.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
@@ -2823,6 +3061,10 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 
 		$file = kPATH_STANDARDS_ROOT.'/collections/FormTaxon.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormLandrace.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 

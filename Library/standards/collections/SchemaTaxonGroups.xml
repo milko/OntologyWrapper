@@ -37,27 +37,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :taxon:annex-1 -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:annex-1</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- :taxon:chromosome-number -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:chromosome-number</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:genepool -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:genepool</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:genepool-ref -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:genepool-ref</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -85,21 +67,45 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :taxon:genepool -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:genepool</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:genepool-ref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:genepool-ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:gp/tg -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:gp/tg</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :taxon:designation -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:designation</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- :taxon:designation:ref -->
+	
+		<!-- :taxon:designation:use -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:ref</item>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:use</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- :taxon:designation:national -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:national</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:designation:ref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:ref</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
@@ -130,12 +136,6 @@
 		<!-- :taxon:rel-crop:names -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:rel-crop:names</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- :taxon:designation:use -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:designation:use</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

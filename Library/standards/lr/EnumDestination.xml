@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LR PRODUCT DESTINATION ENUMERATION
+	EnumDestination.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- LANDRACE product destination enumeration -->
+	
+	<!-- enum:lr:LRPRODEST -->
+	<META>
+		<NODE term="lr:LRPRODEST" pid="enum:lr:LRPRODEST">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the <i>the main destination of the landrace as a product/i>.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- LANDRACE product destination enumerations -->
+	
+	<!-- lr:LRPRODEST:10 -->
+	<META>
+		<TERM ns="lr:LRPRODEST" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Owner's household]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRPRODEST</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRPRODEST:20 -->
+	<META>
+		<TERM ns="lr:LRPRODEST" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Market]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRPRODEST</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRPRODEST:21 -->
+	<META>
+		<TERM ns="lr:LRPRODEST" lid="21">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Local market]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In local market.]]></item>
+				</item>
+			</item>
+   		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRPRODEST:20</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRPRODEST:22 -->
+	<META>
+		<TERM ns="lr:LRPRODEST" lid="22">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[District / regional markets]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In district / regional markets.]]></item>
+				</item>
+			</item>
+   		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRPRODEST:20</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRPRODEST:23 -->
+	<META>
+		<TERM ns="lr:LRPRODEST" lid="23">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National markets]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In national markets.]]></item>
+				</item>
+			</item>
+   		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRPRODEST:20</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRPRODEST:24 -->
+	<META>
+		<TERM ns="lr:LRPRODEST" lid="24">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[International sale]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In international sale.]]></item>
+				</item>
+			</item>
+   		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRPRODEST:20</item>
+		</EDGE>
+	</META>
+</METADATA>

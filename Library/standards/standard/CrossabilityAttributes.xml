@@ -166,19 +166,50 @@
 			<item const="kTAG_TERMS">
 				<item>:taxon:cross:success</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
-				<item>:type:list</item>
+				<item>:type:discrete</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Percentage (%) of success rate for crosses.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Percentage (%) or evaluation of success rate for crosses.]]></item>
 				</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:cross:success">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:cross:population -->
+	<META>
+		<TERM ns=":taxon:cross" lid="population">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Population type</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:cross:population</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Type of cross population.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:cross:population">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

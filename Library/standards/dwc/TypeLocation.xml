@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC LOCATION TYPE
+	TypeLocation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Darwin Core Location -->
+	
+	<!-- http://purl.org/dc/terms/Location -->
+	<UNIT>
+		<NODE class="COntologyMasterVertex" term="http://purl.org/dc/terms/Location">
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-TYPE</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core location type]]></item>
+				</item>
+			</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/Location]]></item>
+			</item>
+ 	  	</NODE>
+	</UNIT>
+	
+	<!-- Location attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/locationID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/locationID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/higherGeographyID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/higherGeographyID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/higherGeography -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/higherGeography</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/continent -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/continent</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">ISO:3166:continent</item>
+			<item const="kTAG_PREDICATE">:SCALE-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/continent</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/waterBody -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/waterBody</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/islandGroup -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/islandGroup</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/island -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/island</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/island</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/islandGroup</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/country -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/country</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/country</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/continent</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/countryCode -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/countryCode</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">ISO:3166:alpha-3</item>
+			<item const="kTAG_PREDICATE">:SCALE-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/countryCode</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/stateProvince -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/stateProvince</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/stateProvince</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/country</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/county -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/county</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/county</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/stateProvince</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/municipality -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/municipality</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/municipality</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/county</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/locality -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/locality</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimLocality -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimLocality</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimElevation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimElevation</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/minimumElevationInMeters -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/minimumElevationInMeters</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/maximumElevationInMeters -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/maximumElevationInMeters</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimDepth -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimDepth</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/minimumDepthInMeters -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/minimumDepthInMeters</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/maximumDepthInMeters -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/maximumDepthInMeters</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/minimumDistanceAboveSurfaceInMeters -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/minimumDistanceAboveSurfaceInMeters</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/maximumDistanceAboveSurfaceInMeters -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/maximumDistanceAboveSurfaceInMeters</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/locationAccordingTo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/locationAccordingTo</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/locationRemarks -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/locationRemarks</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimCoordinates -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimCoordinates</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimLatitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimLatitude</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimLongitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimLongitude</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimCoordinateSystem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimCoordinateSystem</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimSRS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimSRS</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/decimalLatitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/decimalLatitude</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/decimalLongitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/decimalLongitude</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/geodeticDatum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/geodeticDatum</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/coordinatePrecision -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/coordinatePrecision</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/pointRadiusSpatialFit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/pointRadiusSpatialFit</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/footprintWKT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/footprintWKT</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/footprintSRS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/footprintSRS</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/footprintSpatialFit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/footprintSpatialFit</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferencedBy -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/georeferencedBy</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferencedDate -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/georeferencedDate</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferenceProtocol -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/georeferenceProtocol</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferenceSources -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/georeferenceSources</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferenceRemarks -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/georeferenceRemarks</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/Location</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

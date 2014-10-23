@@ -106,6 +106,22 @@
 			</item>
 		</TERM>
 
+		<!-- Trial -->
+		<TERM ns="" lid="trial">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Trial</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information regarding a trial or experiment.]]></item>
+				</item>
+			</item>
+		</TERM>
+
 		<!-- Collecting -->
 		<TERM ns="" lid="collecting">
 			<item const="kTAG_LABEL">

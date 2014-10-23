@@ -98,7 +98,7 @@ if( $argc < 5 )
 //
 $start = 0;
 $limit = 100;
-$page = 5;
+$page = 10;
 $dc_in = $dc_out = $rs = NULL;
 $class = 'OntologyWrapper\Checklist';
 
@@ -218,13 +218,15 @@ try
 	$dc_out->SetFetchMode( ADODB_FETCH_ASSOC );
 	
 	//
-	// Clearing output.
+	// Normalise output table.
 	//
 	if( $last === NULL )
-	{
 		$rs = $dc_out->Execute( "TRUNCATE TABLE `$table`" );
-		$rs->Close();
+	else
+	{
+		$dc_out->Execute( "DELETE FROM `$table` WHERE `id` > $last" );
 	}
+	$rs->Close();
 	
 	//
 	// Import.
@@ -244,7 +246,7 @@ try
 		foreach( $rs as $record )
 		{
 			//
-			// Scan record.
+			// Clean record.
 			//
 			$data = Array();
 			foreach( $record as $key => $value )
@@ -252,8 +254,8 @@ try
 				//
 				// Normalise value.
 				//
-				if( strlen( trim( $value ) ) )
-					$data[ $key ] = trim( $value );
+				if( strlen( $tmp = trim( $value ) ) )
+					$data[ $key ] = $tmp;
 			
 			} // Scanning record.
 			
@@ -286,7 +288,7 @@ try
 					? "INSERT INTO `$table`( "
 					: "REPLACE INTO `$table`( ";
 			$insert .= ("`id`, `class`, `xml` ) VALUES( "
-					   .'0x'.bin2hex( (string) $record[ 'ID' ] ).', '
+					   .$record[ 'id' ].', '
 					   .'0x'.bin2hex( get_class( $object ) ).', '
 					   .'0x'.bin2hex( $xml->asXML() ).' )');
 			$dc_out->Execute( $insert );
@@ -371,34 +373,57 @@ finally
 	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
 		/***********************************************************************
+		 * Compile taxon.
+		 **********************************************************************/
+		
+		//
+		// Set scientific name.
+		//
+		$taxon = Array();
+		if( array_key_exists( 'CK:GENUS', $theData ) )
+			$taxon[] = $theData[ 'CK:GENUS' ];
+		if( array_key_exists( 'CK:SPECIES', $theData ) )
+			$taxon[] = $theData[ 'CK:SPECIES' ];
+		if( array_key_exists( 'CK:SUBTAXON', $theData ) )
+			$taxon[] = $theData[ 'CK:SUBTAXON' ];
+		$taxon = ( count( $taxon ) )
+			   ? implode( ' ', $taxon )
+			   : NULL;
+		
+		/***********************************************************************
 		 * Set unit identification properties.
 		 **********************************************************************/
 		
 		//
 		// Set authority.
 		//
-		$theObject->offsetSet( ':unit:authority', $theData[ ':inventory:INSTCODE' ] );
+		if( array_key_exists( 'CK:INSTCODE', $theData ) )
+			$theObject->offsetSet( ':unit:authority', $theData[ 'CK:INSTCODE' ] );
+		else
+			$theObject->offsetSet( ':unit:authority', $theData[ 'CK:CWRCODE' ] );
 		
 		//
 		// Set collection.
 		//
-		$theObject->offsetSet( ':unit:collection', $theData[ ':taxon:epithet' ] );
+		$theObject->offsetSet( ':unit:collection', $taxon );
 		
 		//
 		// Set identifier.
 		//
 		$tmp = Array();
-		if( array_key_exists( 'cwr:ck:CWRCODE', $theData ) )
-			$tmp[] = $theData[ 'cwr:ck:CWRCODE' ];
-		if( array_key_exists( 'cwr:ck:NUMB', $theData ) )
-			$tmp[] = $theData[ 'cwr:ck:NUMB' ];
+		$tmp[] = $theData[ 'CK:CWRCODE' ];
+		if( array_key_exists( 'CK:NUMB', $theData ) )
+			$tmp[] = $theData[ 'CK:NUMB' ];
+		if( array_key_exists( 'CK:TYPE', $theData ) )
+			$tmp[] = $theData[ 'CK:TYPE' ];
 		if( count( $tmp ) )
 			$theObject->offsetSet( ':unit:identifier', implode( '-', $tmp ) );
 		
 		//
 		// Set version.
 		//
-		$theObject->offsetSet( ':unit:version', $theData[ 'cwr:ck:TYPE' ] );
+		if( array_key_exists( 'Version', $theData ) )
+			$theObject->offsetSet( ':unit:version', $theData[ 'Version' ] );
 		
 		/***********************************************************************
 		 * Set unit inventory properties.
@@ -407,37 +432,32 @@ finally
 		//
 		// Set dataset.
 		//
-		$value = $theData[ 'cwr:ck:CWRCODE' ];
-		$value = ( strlen( $value ) == 3 )
-			   ? "iso:3166:1:alpha-3:".$theData[ 'cwr:ck:CWRCODE' ]
-			   : "iso:3166:2:".$theData[ 'cwr:ck:CWRCODE' ];
-		$tmp = new OntologyWrapper\Term( $theWrapper, $value );
-		$tmp = OntologyWrapper\OntologyObject::SelectLanguageString( $tmp[ kTAG_LABEL ], 'en' );
-		$theObject->offsetSet( ':inventory:dataset', "$tmp crop wild relative checklist" );
+		$theObject->offsetSet( ':inventory:dataset', $theData[ 'Dataset' ] );
 		
 		//
 		// Set inventory code.
 		//
-		$theObject->offsetSet( ':inventory:code', $theData[ 'cwr:ck:CWRCODE' ] );
+		$theObject->offsetSet( ':inventory:code', $theData[ 'CK:CWRCODE' ] );
 		
 		//
 		// Set inventory administrative unit.
 		//
-		$value = $theData[ 'cwr:ck:CWRCODE' ];
+		$value = $theData[ 'CK:CWRCODE' ];
 		if( strlen( $value ) == 3 )
 			$theObject->offsetSet( ':inventory:admin', "iso:3166:1:alpha-3:$value" );
-		elseif( substr( $value, 0, 2 ) == 'GB' )
+		else
 			$theObject->offsetSet( ':inventory:admin', "iso:3166:2:$value" );
 		
 		//
 		// Set inventory institute.
 		//
-		$theObject->offsetSet(
-			':inventory:institute',
-			kDOMAIN_ORGANISATION
-		   .'://http://fao.org/wiews:'
-		   .$theData[ ':inventory:INSTCODE' ]
-		   .kTOKEN_END_TAG );
+		if( array_key_exists( 'CK:INSTCODE', $theData ) )
+			$theObject->offsetSet(
+				':inventory:institute',
+				kDOMAIN_ORGANISATION
+			   .'://http://fao.org/wiews:'
+			   .$theData[ 'CK:INSTCODE' ]
+			   .kTOKEN_END_TAG );
 		
 		/***********************************************************************
 		 * Set other properties.
@@ -446,254 +466,229 @@ finally
 		//
 		// Set checklist code.
 		//
-		$theObject->offsetSet( 'cwr:ck:CWRCODE', $theData[ 'cwr:ck:CWRCODE' ] );
+		$theObject->offsetSet( 'cwr:ck:CWRCODE', $theData[ 'CK:CWRCODE' ] );
 		
 		//
 		// Set checklist number.
 		//
-		$theObject->offsetSet( 'cwr:ck:NUMB', $theData[ 'cwr:ck:NUMB' ] );
+		if( array_key_exists( 'CK:NUMB', $theData ) )
+			$theObject->offsetSet( 'cwr:ck:NUMB', $theData[ 'CK:NUMB' ] );
 		
 		//
 		// Set checklist institute.
 		//
-		$theObject->offsetSet( 'cwr:INSTCODE', $theData[ ':inventory:INSTCODE' ] );
+		if( array_key_exists( 'CK:INSTCODE', $theData ) )
+			$theObject->offsetSet( 'cwr:INSTCODE', $theData[ 'CK:INSTCODE' ] );
 		
 		//
 		// Set checklist type.
 		//
-		$theObject->offsetSet( 'cwr:ck:TYPE',
-							   'cwr:ck:TYPE:'.$theData[ 'cwr:ck:TYPE' ] );
+		if( array_key_exists( 'CK:TYPE', $theData ) )
+			$theObject->offsetSet( 'cwr:ck:TYPE',
+								   'cwr:ck:TYPE:'.$theData[ 'CK:TYPE' ] );
+		
+		//
+		// Set checklist references.
+		//
+		if( array_key_exists( 'CK:REF', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CK:REF' ], '§' ) ) )
+				$theObject->offsetSet( 'cwr:REF', $tmp );
+		}
+		
+		//
+		// Set checklist URLs.
+		//
+		if( array_key_exists( 'CK:URL', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CK:REF' ], '§' ) ) )
+				$theObject->offsetSet( 'cwr:URL', $tmp );
+		}
 		
 		//
 		// Set checklist priority.
 		//
-		if( array_key_exists( 'cwr:in:CRITPRIORI', $theData ) )
+		if( array_key_exists( 'CK:CRITPRIORI', $theData ) )
 		{
-			if( $theData[ 'cwr:in:CRITPRIORI' ] == '5;6' )
-				$theData[ 'cwr:in:CRITPRIORI' ] = '5.6';
-			$value = Array();
-			$list = explode( ';', $theData[ 'cwr:in:CRITPRIORI' ] );
-			foreach( $list as $element )
-				$value[] = "cwr:in:CRITPRIORI:$element";
-			$theObject->offsetSet( 'cwr:in:CRITPRIORI', $value );
+			if( count( $tmp = setList( $theData[ 'CK:CRITPRIORI' ], ';' ) ) )
+			{
+				$list = Array();
+				foreach( $tmp as $item )
+					$list[] = "cwr:in:CRITPRIORI:$item";
+				$theObject->offsetSet( 'cwr:in:CRITPRIORI', $list );
+			}
 		}
 		
 		//
-		// Set endemism.
+		// Set taxon ID.
 		//
-		if( array_key_exists( 'cwr:ENDEMISM', $theData ) )
-			$theObject->offsetSet( 'cwr:ENDEMISM',
-								   'cwr:ENDEMISM:'.$theData[ 'cwr:ENDEMISM' ] );
+		// CK:TAXONID
 		
 		//
 		// Set regnum.
 		//
-		if( array_key_exists( ':taxon:regnum', $theData ) )
-			$theObject->offsetSet( ':taxon:regnum', $theData[ ':taxon:regnum' ] );
-		
+		if( array_key_exists( 'CK:KINGDOM', $theData ) )
+			$theObject->offsetSet( ':taxon:regnum', $theData[ 'CK:KINGDOM' ] );
 		//
 		// Set phylum.
 		//
-		if( array_key_exists( ':taxon:phylum', $theData ) )
-			$theObject->offsetSet( ':taxon:phylum', $theData[ ':taxon:phylum' ] );
-		
+		if( array_key_exists( 'CK:PHYLUM/DIVISION', $theData ) )
+			$theObject->offsetSet( ':taxon:phylum', $theData[ 'CK:PHYLUM/DIVISION' ] );
 		//
 		// Set classis.
 		//
-		if( array_key_exists( ':taxon:classis', $theData ) )
-			$theObject->offsetSet( ':taxon:classis', $theData[ ':taxon:classis' ] );
-		
+		if( array_key_exists( 'CK:CLASS', $theData ) )
+			$theObject->offsetSet( ':taxon:classis', $theData[ 'CK:CLASS' ] );
 		//
 		// Set ordo.
 		//
-		if( array_key_exists( ':taxon:ordo', $theData ) )
-			$theObject->offsetSet( ':taxon:ordo', $theData[ ':taxon:ordo' ] );
-		
+		if( array_key_exists( 'CK:ORDER', $theData ) )
+			$theObject->offsetSet( ':taxon:ordo', $theData[ 'CK:ORDER' ] );
 		//
 		// Set familia.
 		//
-		if( array_key_exists( ':taxon:familia', $theData ) )
-			$theObject->offsetSet( ':taxon:familia', $theData[ ':taxon:familia' ] );
-		
+		if( array_key_exists( 'CK:FAMILY', $theData ) )
+			$theObject->offsetSet( ':taxon:familia', $theData[ 'CK:FAMILY' ] );
 		//
 		// Set subfamilia.
 		//
-		if( array_key_exists( ':taxon:subfamilia', $theData ) )
-			$theObject->offsetSet( ':taxon:subfamilia', $theData[ ':taxon:subfamilia' ] );
-		
+		if( array_key_exists( 'CK:SUBFAMILY', $theData ) )
+			$theObject->offsetSet( ':taxon:subfamilia', $theData[ 'CK:SUBFAMILY' ] );
 		//
 		// Set tribus.
 		//
-		if( array_key_exists( ':taxon:tribus', $theData ) )
-			$theObject->offsetSet( ':taxon:tribus', $theData[ ':taxon:tribus' ] );
-		
+		if( array_key_exists( 'CK:TRIBE', $theData ) )
+			$theObject->offsetSet( ':taxon:tribus', $theData[ 'CK:TRIBE' ] );
 		//
 		// Set subtribus.
 		//
-		if( array_key_exists( ':taxon:subtribus', $theData ) )
-			$theObject->offsetSet( ':taxon:subtribus', $theData[ ':taxon:subtribus' ] );
-		
+		if( array_key_exists( 'CK:SUBTRIBE', $theData ) )
+			$theObject->offsetSet( ':taxon:subtribus', $theData[ 'CK:SUBTRIBE' ] );
 		//
 		// Set genus.
 		//
-		if( array_key_exists( ':taxon:genus', $theData ) )
-			$theObject->offsetSet( ':taxon:genus', $theData[ ':taxon:genus' ] );
-		
+		if( array_key_exists( 'CK:GENUS', $theData ) )
+			$theObject->offsetSet( ':taxon:genus', $theData[ 'CK:GENUS' ] );
 		//
 		// Set species.
 		//
-		if( array_key_exists( ':taxon:species', $theData ) )
-			$theObject->offsetSet( ':taxon:species', $theData[ ':taxon:species' ] );
-		
+		if( array_key_exists( 'CK:SPECIES', $theData ) )
+			$theObject->offsetSet( ':taxon:species', $theData[ 'CK:SPECIES' ] );
 		//
 		// Set species:author.
 		//
-		if( array_key_exists( ':taxon:species:author', $theData ) )
-			$theObject->offsetSet( ':taxon:species:author',
-								   $theData[ ':taxon:species:author' ] );
-		
+		if( array_key_exists( 'CK:SPAUTHOR', $theData ) )
+			$theObject->offsetSet( ':taxon:species:author', $theData[ 'CK:SPAUTHOR' ] );
 		//
 		// Set infraspecies.
 		//
-		if( array_key_exists( ':taxon:infraspecies', $theData ) )
+		if( array_key_exists( 'CK:SUBTAXON', $theData ) )
 			$theObject->offsetSet( ':taxon:infraspecies',
-								   $theData[ ':taxon:infraspecies' ] );
-		
+								   $theData[ 'CK:SUBTAXON' ] );
 		//
 		// Set infraspecies:author.
 		//
-		if( array_key_exists( ':taxon:infraspecies:author', $theData ) )
+		if( array_key_exists( 'CK:SUBTAUTHOR', $theData ) )
 			$theObject->offsetSet( ':taxon:infraspecies:author',
-								   $theData[ ':taxon:infraspecies:author' ] );
+								   $theData[ 'CK:SUBTAUTHOR' ] );
 		
 		//
 		// Set sample species name.
 		//
-		if( array_key_exists( ':taxon:genus', $theData )
-		 && array_key_exists( ':taxon:species', $theData ) )
+		if( array_key_exists( 'CK:GENUS', $theData )
+		 && array_key_exists( 'CK:SPECIES', $theData ) )
 			$theObject->offsetSet(
 				':taxon:species:name',
-				implode( ' ', array( $theData[ ':taxon:genus' ],
-									 $theData[ ':taxon:species' ] ) ) );
+				implode( ' ', array( $theData[ 'CK:GENUS' ],
+									 $theData[ 'CK:SPECIES' ] ) ) );
 		
 		//
 		// Set epithet.
 		//
-		if( array_key_exists( ':taxon:epithet', $theData ) )
-			$theObject->offsetSet( ':taxon:epithet',
-								   $theData[ ':taxon:epithet' ] );
+		if( $taxon !== NULL )
+			$theObject->offsetSet( ':taxon:epithet', $taxon );
 		
 		//
 		// Set taxon reference.
 		//
-		if( array_key_exists( ':taxon:reference', $theData ) )
+		if( array_key_exists( 'CK:TAXREF', $theData ) )
 			$theObject->offsetSet( ':taxon:reference',
-								   array( $theData[ ':taxon:reference' ] ) );
+								   array( $theData[ 'CK:TAXREF' ] ) );
+		
+		//
+		// Set taxon reference ID.
+		//
+		// CK:TAXREFID
+		
+		//
+		// Set taxon synonyms.
+		//
+		// CK:SYNONYMS
+		
+		//
+		// Set taxon synonyms reference.
+		//
+		// CK:SYNREF
+		
+		//
+		// Set vernacular names.
+		//
+		if( array_key_exists( 'CK:COMMONTAXONNAME', $theData ) )
+		{
+			$tmp = setLangStrings( $theData[ 'CK:COMMONTAXONNAME' ] );
+			if( $tmp !== NULL )
+				$theObject->offsetSet( ':taxon:names', array( $tmp ) );
+		}
 		
 		//
 		// Set chromosome number.
 		//
-		if( array_key_exists( 'cwr:CHROMOSNUMB', $theData ) )
+		if( array_key_exists( 'CK:CHROMOSNUMB', $theData ) )
 		{
-			$value = Array();
-			$list = explode( ';', $theData[ 'cwr:CHROMOSNUMB' ] );
-			foreach( $list as $element )
-			{
-				if( strlen( $tmp = trim( $element ) ) )
-					$value[] = $tmp;
-			}
-			if( count( $value ) )
-				$theObject->offsetSet( ':taxon:chromosome-number', $value );
+			if( count( $tmp = setList( $theData[ 'CK:CHROMOSNUMB' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:chromosome-number', $tmp );
 		}
 		
 		//
-		// Set genepool.
+		// Set gene pool.
 		//
-		if( array_key_exists( 'cwr:GENEPOOL', $theData ) )
+		if( array_key_exists( 'CK:GENEPOOL', $theData ) )
 		{
-			$value = Array();
-			$list = explode( ';', $theData[ 'cwr:GENEPOOL' ] );
-			foreach( $list as $element )
-			{
-				if( strlen( $tmp = trim( $element ) ) )
-					$value[] = $tmp;
-			}
-			if( count( $value ) )
-				$theObject->offsetSet( ':taxon:genepool', $value );
+			if( count( $tmp = setList( $theData[ 'CK:GENEPOOL' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:genepool', $tmp );
 		}
+		
+		//
+		// Set gene pool reference.
+		//
+		if( array_key_exists( 'CK:GENEPOOLREF', $theData ) )
+			$theObject->offsetSet( ':taxon:genepool-ref',
+								   $theData[ 'CK:GENEPOOLREF' ] );
 		
 		//
 		// Set taxon group.
 		//
-		if( array_key_exists( 'cwr:TAXONGROUP', $theData ) )
+		if( array_key_exists( 'CK:TAXONGROUP', $theData ) )
 		{
-			$value = Array();
-			$list = explode( ';', $theData[ 'cwr:TAXONGROUP' ] );
-			foreach( $list as $element )
-			{
-				if( strlen( $tmp = trim( $element ) ) )
-					$value[] = $tmp;
-			}
-			if( count( $value ) )
-				$theObject->offsetSet( ':taxon:group', $value );
+			if( count( $tmp = setList( $theData[ 'CK:TAXONGROUP' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:group', $tmp );
 		}
 		
 		//
-		// Set taxon status
+		// Set taxon group reference.
 		//
-		if( array_key_exists( 'cwr:TAXONSTATUS', $theData ) )
+		if( array_key_exists( 'CK:REFTAXONGROUP', $theData ) )
+			$theObject->offsetSet( ':taxon:group-ref',
+								   $theData[ 'CK:REFTAXONGROUP' ] );
+		
+		//
+		// Set taxon designation use.
+		//
+		if( array_key_exists( 'CK:USEOFTAXON', $theData ) )
 		{
-			$value = Array();
-			$list = explode( ';', $theData[ 'cwr:TAXONSTATUS' ] );
-			foreach( $list as $element )
-			{
-				switch( $element )
-				{
-					case '1':
-						$value[] = ":taxon:occurrence-status:100";
-						break;
-					case '2':
-						$value[] = ":taxon:occurrence-status:130";
-						break;
-					case '3':
-						$value[] = ":taxon:occurrence-status:200";
-						break;
-					case '4':
-						$value[] = ":taxon:occurrence-status:300";
-						break;
-					case '5':
-						$value[] = ":taxon:occurrence-status:400";
-						break;
-					case '6':
-						$value[] = ":taxon:occurrence-status:490";
-						break;
-				}
-			}
-			$theObject->offsetSet( ':taxon:occurrence-status', $value );
+			if( count( $tmp = setList( $theData[ 'CK:USEOFTAXON' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:designation:use', $tmp );
 		}
-		
-		//
-		// Set taxon economic value.
-		//
-		if( array_key_exists( 'cwr:ECOVALUE', $theData ) )
-			$theObject->offsetSet( ':taxon:ecovalue',
-								   array( $theData[ 'cwr:ECOVALUE' ] ) );
-		
-		//
-		// Set taxon economic value reference.
-		//
-		if( array_key_exists( 'cwr:ECOVALUEREF', $theData ) )
-			$theObject->offsetSet( ':taxon:ecovalue-ref',
-								   array( $theData[ 'cwr:ECOVALUEREF' ] ) );
-		
-		//
-		// Set country and administrative unit.
-		//
-		$value = $theData[ 'cwr:ck:CWRCODE' ];
-		if( strlen( $value ) == 3 )
-			$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:$value" );
-		elseif( substr( $value, 0, 2 ) == 'GB' )
-			$theObject->offsetSet( ':location:country', "iso:3166:1:alpha-3:GBR" );
 		
 		//
 		// Load threat data.
@@ -709,8 +704,8 @@ finally
 		//
 		// Set checklist remarks.
 		//
-		if( array_key_exists( 'cwr:REMARKS', $theData ) )
-			$theObject->offsetSet( 'cwr:ck:REMARKS', $theData[ 'cwr:REMARKS' ] );
+		if( array_key_exists( 'REMARKS', $theData ) )
+			$theObject->offsetSet( 'cwr:REMARKS', $theData[ 'REMARKS' ] );
 
 	} // loadUnit.
 	
@@ -718,15 +713,15 @@ finally
 	/**
 	 * Load threat data.
 	 *
-	 * This function will load the threat data related to the provided <b>$theUnit</b>
+	 * This function will load the threat data related to the provided <b>$theData</b>
 	 * parameter into the container provided in the <b>$theContainer</b> parameter.
 	 *
 	 * @param array					$theContainer		Container.
-	 * @param array					$theUnit			Unit data.
+	 * @param array					$theData			Unit data.
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param ADOConnection			$theDatabase		SQL connection.
 	 */
-	function loadThreat( &$theContainer, $theUnit, $theWrapper, $theDatabase )
+	function loadThreat( &$theContainer, $theData, $theWrapper, $theDatabase )
 	{
 		//
 		// Init local storage.
@@ -734,82 +729,235 @@ finally
 		$sub = Array();
 		
 		//
+		// Set structure label.
+		//
+		if( array_key_exists( 'CK:REGIONASS', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CK:REGIONASS' ];
+		elseif( array_key_exists( 'CK:IUCNCRIT', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CK:IUCNCRIT' ];
+		elseif( array_key_exists( 'CK:REDLISTCAT', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CK:REDLISTCAT' ];
+		else
+			$sub[ kTAG_STRUCT_LABEL ] = 'threat';
+		
+		//
 		// Set assessment level.
 		//
-		if( array_key_exists( 'cwr:ASSLEVEL', $theUnit ) )
+		if( array_key_exists( 'CK:ASSLEVEL', $theData ) )
 			$sub[ getTag( ':taxon:threat:assessment' ) ]
-				= ':taxon:threat:assessment:'.$theUnit[ 'cwr:ASSLEVEL' ];
+				= ':taxon:threat:assessment:'.$theData[ 'CK:ASSLEVEL' ];
 		
 		//
 		// Set assessment region.
 		//
-		if( array_key_exists( 'cwr:REGIONASS', $theUnit ) )
+		if( array_key_exists( 'CK:REGIONASS', $theData ) )
 			$sub[ getTag( ':taxon:threat:region' ) ]
-				= $theUnit[ 'cwr:REGIONASS' ];
+				= $theData[ 'CK:REGIONASS' ];
+		
+		//
+		// Set country and administrative unit.
+		//
+		$value = $theData[ 'CK:CWRCODE' ];
+		if( strlen( $value ) == 3 )
+		{
+			$sub[ getTag( ':location:country' ) ] = "iso:3166:1:alpha-3:$value";
+			$sub[ getTag( ':inventory:admin' ) ] = "iso:3166:1:alpha-3:$value";
+		}
+		else
+		{
+			$sub[ getTag( ':location:country' ) ] = "iso:3166:1:alpha-3:GBR";
+			$sub[ getTag( ':inventory:admin' ) ] = "iso:3166:2:$value";
+		}
 		
 		//
 		// Set iucn category
 		//
-		if( array_key_exists( 'iucn:category', $theUnit ) )
+		if( array_key_exists( 'CK:IUCNCAT', $theData ) )
 		{
-			$value = Array();
-			$list = explode( ';', $theUnit[ 'iucn:category' ] );
-			foreach( $list as $element )
+			if( count( $list = setList( $theData[ 'CK:IUCNCAT' ], ';' ) ) )
 			{
-				switch( $element )
+				$value = Array();
+				foreach( $list as $element )
 				{
-					case '1':
-						$element = 'EX';
-						break;
-					case '2':
-						$element = 'EW';
-						break;
-					case '3':
-						$element = 'CR';
-						break;
-					case '4':
-						$element = 'EN';
-						break;
-					case '5':
-						$element = 'VU';
-						break;
-					case '6':
-						$element = 'NT';
-						break;
-					case '7':
-						$element = 'LC';
-						break;
-					case '8':
-						$element = 'DD';
-						break;
-					case '9':
-						$element = 'NE';
-						break;
-					case '10':
-						$element = NULL;
-						break;
+					switch( $element )
+					{
+						case '1':
+							$element = 'EX';
+							break;
+						case '2':
+							$element = 'EW';
+							break;
+						case '3':
+							$element = 'CR';
+							break;
+						case '4':
+							$element = 'EN';
+							break;
+						case '5':
+							$element = 'VU';
+							break;
+						case '6':
+							$element = 'NT';
+							break;
+						case '7':
+							$element = 'LC';
+							break;
+						case '8':
+							$element = 'DD';
+							break;
+						case '9':
+							$element = 'NE';
+							break;
+						case '10':
+							$element = NULL;
+							break;
+					}
+					if( $element !== NULL )
+						$value[] = "iucn:category:$element";
 				}
-				if( $element !== NULL )
-					$value[] = "iucn:category:$element";
+				if( count( $value ) )
+					$sub[ getTag( 'iucn:category' ) ]
+						= $value;
 			}
-			if( count( $value ) )
-				$sub[ getTag( 'iucn:category' ) ]
-					= $value;
 		}
 		
 		//
-		// Set structure label.
+		// Set IUCN criteria citation.
 		//
-		if( array_key_exists( getTag( ':taxon:threat:region' ), $sub ) )
-			$sub[ kTAG_STRUCT_LABEL ]
-				= $sub[ getTag( ':taxon:threat:region' ) ];
-		elseif( array_key_exists( getTag( ':taxon:threat:assessment' ), $sub ) )
-			$sub[ kTAG_STRUCT_LABEL ]
-				= getEnum( $sub[ getTag( ':taxon:threat:assessment' ) ] );
-		elseif( array_key_exists( getTag( 'iucn:category' ), $sub ) )
-			$sub[ kTAG_STRUCT_LABEL ]
-				= getEnum( $sub[ getTag( 'iucn:category' ) ][ 0 ] );
+		if( array_key_exists( 'CK:IUCNCRIT', $theData ) )
+			$sub[ getTag( 'iucn:criteria-citation' ) ]
+			 = $theData[ 'CK:IUCNCRIT' ];
 		
+		//
+		// Set IUCN threat class.
+		//
+		if( array_key_exists( 'CK:IUCNTHREATCLSS', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CK:IUCNTHREATCLSS' ], ';' ) ) )
+			{
+				$list = Array();
+				foreach( $tmp as $item )
+					$list[] = "iucn:threat:$item";
+				$sub[ getTag( 'iucn:threat' ) ]
+				 = $list;
+			}
+		}
+		
+		//
+		// Set IUCN occurrence period.
+		//
+		if( array_key_exists( 'CK:OCCURTHREAT', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CK:OCCURTHREAT' ], ';' ) ) )
+			{
+				$list = Array();
+				foreach( $tmp as $item )
+					$list[] = ":taxon:threat:period:$item";
+				$sub[ getTag( ':taxon:threat:period' ) ]
+				 = $list;
+			}
+		}
+		
+		//
+		// Set other red list category.
+		//
+		if( array_key_exists( 'CK:REDLISTCAT', $theData ) )
+			$sub[ getTag( ':taxon:threat:other-red-list-criteria' ) ]
+			 = $theData[ 'CK:REDLISTCAT' ];
+		
+		//
+		// Set red list URL.
+		//
+		if( array_key_exists( 'CK:URLPUBREDLISTASS', $theData ) )
+			$sub[ getTag( ':taxon:threat:assessment:url' ) ]
+			 = $theData[ 'CK:URLPUBREDLISTASS' ];
+		
+		//
+		// Set red list references.
+		//
+		if( array_key_exists( 'CK:REFREDLISTASS', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CK:REFREDLISTASS' ], ';' ) ) )
+				$sub[ getTag( ':taxon:threat:assessment:ref' ) ]
+					= $tmp;
+		}
+		
+		//
+		// Set taxon status
+		//
+		if( array_key_exists( 'CK:TAXONSTATUS', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CK:TAXONSTATUS' ], ';' ) ) )
+			{
+				$value = Array();
+				foreach( $tmp as $item )
+				{
+					switch( $theData[ 'CK:TAXONSTATUS' ] )
+					{
+						case '1':
+							$value[] = ":taxon:occurrence-status:100";
+							break;
+						case '2':
+							$value[] = ":taxon:occurrence-status:130";
+							break;
+						case '3':
+							$value[] = ":taxon:occurrence-status:200";
+							break;
+						case '4':
+							$value[] = ":taxon:occurrence-status:300";
+							break;
+						case '5':
+							$value[] = ":taxon:occurrence-status:400";
+							break;
+						case '6':
+							$value[] = ":taxon:occurrence-status:490";
+							break;
+					}
+				}
+		
+				if( count( $value ) )
+					$sub[ getTag( ':taxon:occurrence-status' ) ]
+						= $value;
+			}
+		}
+		
+		//
+		// Set endemism.
+		//
+		if( array_key_exists( 'CK:ENDEMISM', $theData ) )
+		{
+			switch( $tmp = trim( $theData[ 'CK:ENDEMISM' ] ) )
+			{
+				case '0':
+					$sub[ getTag( 'cwr:ENDEMISM' ) ] = 'cwr:ENDEMISM:0';
+					break;
+				case '1':
+					$sub[ getTag( 'cwr:ENDEMISM' ) ] = 'cwr:ENDEMISM:1';
+					break;
+			}
+		}
+		
+		//
+		// Set taxon economic value.
+		//
+		if( array_key_exists( 'CK:ECOVALUE', $theData ) )
+			$sub[ getTag( ':taxon:ecovalue' ) ]
+				= array( $theData[ 'CK:ECOVALUE' ] );
+		
+		//
+		// Set taxon economic value reference.
+		//
+		if( array_key_exists( 'CK:ECOVALUEREF', $theData ) )
+			$sub[ getTag( ':taxon:ecovalue-ref' ) ]
+				= array( $theData[ 'CK:ECOVALUEREF' ] );
+		
+		//
+		// Set taxon occurrence notes.
+		//
+		if( array_key_exists( ':taxon:occurrence-notes', $theData ) )
+			$sub[ getTag( ':taxon:occurrence-notes' ) ]
+				= $theData[ ':taxon:occurrence-notes' ];
+
 		//
 		// Load sub-structure.
 		//
@@ -854,5 +1002,94 @@ finally
 				$term[ kTAG_LABEL ], 'en' );										// ==>
 
 	} // getEnum.
+	
+
+	/**
+	 * Set language strings.
+	 *
+	 * This function will return a language strings record.
+	 *
+	 * @param string				$theString			Strings.
+	 * @return array				Language strings or an empty array.
+	 */
+	function setLangStrings( $theString )
+	{
+		//
+		// Init local storage.
+		//
+		$list = Array();
+		$lang = $name = NULL;
+		
+		//
+		// Split language.
+		//
+		$item = setList( $theString, '@' );
+		
+		//
+		// Handle no language.
+		//
+		if( count( $item ) == 1 )
+			$names = setList( $item[ 0 ], ';' );
+		
+		//
+		// Handle language.
+		//
+		elseif( count( $item ) == 2 )
+		{
+			$lang = $item[ 0 ];
+			$names = setList( $item[ 1 ], ';' );
+		}
+		
+		//
+		// Return property.
+		//
+		if( count( $names ) )
+		{
+			//
+			// Handle language.
+			//
+			if( $lang !== NULL )
+				$list[ kTAG_LANGUAGE ] = $lang;
+			
+			//
+			// Set names.
+			//
+			$list[ kTAG_TEXT ] = $names;
+		}
+			
+		return $list;																// ==>
+
+	} // setLangStrings.
+	
+
+	/**
+	 * Set list.
+	 *
+	 * This function will return a trimmed list.
+	 *
+	 * @param string				$theString			Strings.
+	 * @param string				$theDivider			List divider.
+	 * @return array				Trimmed list or an empty array.
+	 */
+	function setList( $theString, $theDivider )
+	{
+		//
+		// Init local storage.
+		//
+		$list = Array();
+		
+		//
+		// Split string.
+		//
+		foreach( explode( $theDivider, $theString ) as $item )
+		{
+			$item = trim( $item );
+			if( strlen( $item ) )
+				$list[] = $item;
+		}
+		
+		return $list;																// ==>
+
+	} // setList.
 
 ?>

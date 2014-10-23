@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC GEOLOGICAL CONTEXT FORM STRUCTURE
+	FormGeology.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- DWC geology form -->
+	
+	<UNIT>
+		<NODE class="COntologyVertex" term="http://rs.tdwg.org/dwc/terms/GeologicalContext">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-FORM</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core geological context form]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form can be used to search Darwin Core geological contexts.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- Geology attributes -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/geologicalContextID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/geologicalContextID">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.geologicalContextID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.geologicalContextID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.earliestEonOrLowestEonothem</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.earliestEonOrLowestEonothem</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.latestEonOrHighestEonothem</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.latestEonOrHighestEonothem</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.earliestEraOrLowestErathem</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.earliestEraOrLowestErathem</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.latestEraOrHighestErathem</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.latestEraOrHighestErathem</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.earliestPeriodOrLowestSystem</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.earliestPeriodOrLowestSystem</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.latestPeriodOrHighestSystem</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.latestPeriodOrHighestSystem</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.earliestEpochOrLowestSeries</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.earliestEpochOrLowestSeries</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.latestEpochOrHighestSeries</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.latestEpochOrHighestSeries</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.earliestAgeOrLowestStage</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.earliestAgeOrLowestStage</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.latestAgeOrHighestStage</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.latestAgeOrHighestStage</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.lowestBiostratigraphicZone</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.lowestBiostratigraphicZone</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/highestBiostratigraphicZone -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/highestBiostratigraphicZone">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.highestBiostratigraphicZone</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.highestBiostratigraphicZone</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/lithostratigraphicTerms -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/lithostratigraphicTerms">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.lithostratigraphicTerms</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.lithostratigraphicTerms</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/group -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/group">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.group</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.group</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/formation -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/formation">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.formation</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.formation</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/member -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/member">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.member</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.member</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/bed -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/bed">
+			<item const="kTAG_PID">DWC:GEOLOGY.Form.bed</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form.bed</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:GEOLOGY.Form</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

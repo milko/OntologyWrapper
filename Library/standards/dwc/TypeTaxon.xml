@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC TAXON TYPE
+	TypeTaxon.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Darwin Core Taxon -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/Taxon -->
+	<UNIT>
+		<NODE class="COntologyMasterVertex" term="http://rs.tdwg.org/dwc/terms/Taxon">
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-TYPE</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core taxon type]]></item>
+				</item>
+			</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/Taxon]]></item>
+			</item>
+ 	  	</NODE>
+	</UNIT>
+	
+	<!-- Taxon attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/taxonID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/taxonID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/scientificNameID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/scientificNameID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/acceptedNameUsageID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/acceptedNameUsageID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/parentNameUsageID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/parentNameUsageID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/originalNameUsageID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/originalNameUsageID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/nameAccordingToID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/nameAccordingToID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/namePublishedInID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/namePublishedInID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/taxonConceptID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/taxonConceptID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/scientificName -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/scientificName</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/acceptedNameUsage -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/acceptedNameUsage</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/parentNameUsage -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/parentNameUsage</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/originalNameUsage -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/originalNameUsage</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/nameAccordingTo -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/nameAccordingTo</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/namePublishedIn -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/namePublishedIn</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/namePublishedInYear -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/namePublishedInYear</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/higherClassification -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/higherClassification</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/kingdom -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/kingdom</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/phylum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/phylum</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/phylum</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/kingdom</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/class -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/class</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/class</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/phylum</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/order -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/order</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/order</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/class</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/family -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/family</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/family</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/order</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/genus -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/genus</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/genus</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/family</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/subgenus -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/subgenus</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/subgenus</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/genus</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/specificEpithet -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/specificEpithet</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/specificEpithet</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/subgenus</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/infraspecificEpithet -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/infraspecificEpithet</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/infraspecificEpithet</item>
+			<item const="kTAG_PREDICATE">:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/specificEpithet</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/taxonRank -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/taxonRank</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimTaxonRank -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/verbatimTaxonRank</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/scientificNameAuthorship -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/scientificNameAuthorship</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/vernacularName -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/vernacularName</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/nomenclaturalCode -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/nomenclaturalCode</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/taxonomicStatus -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/taxonomicStatus</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/nomenclaturalStatus -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/nomenclaturalStatus</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/taxonRemarks -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/taxonRemarks</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/Taxon</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LR FARMER MOTIVATIONS ENUMERATION
+	EnumMotivation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- LANDRACE farmer motivations enumeration -->
+	
+	<!-- enum:lr:LRFARMERMOT -->
+	<META>
+		<NODE term="lr:LRFARMERMOT" pid="enum:lr:LRFARMERMOT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies why <i>the farmer chose the landrace</i>.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- LANDRACE farmer motivations enumerations -->
+	
+	<!-- lr:LRFARMERMOT:10 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Agronomical traits]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERMOT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:11 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="11">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Easy/simple cultivation required]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:12 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="12">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Precocity]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Precocity (early development or maturity).]]></item>
+				</item>
+			</item>
+	   	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:13 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="13">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Lateness]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:14 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="14">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Lodging resistance]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:15 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="15">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[High yield]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:16 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="16">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Stable yield]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:10</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:20 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Resistance to stresses]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERMOT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:21 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="21">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Abiotic factors]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:20</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:211 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="211">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cold]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Abiotic factors: cold.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:21</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:212 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="212">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Drought]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Abiotic factors: drought.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:21</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:213 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="213">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[High humidity]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Abiotic factors: high humidity.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:21</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:214 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="214">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Salinity]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Abiotic factors: salinity.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:21</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:22 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="22">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Biotic factors]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:20</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:221 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="221">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fungal/bacterial/virus]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Biotic factors: fungal/bacterial/virus.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:22</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:222 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="222">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Insect/nematode/etc]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Biotic factors: insect/nematode/etc.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:22</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:30 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="30">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cultural and religious motivations]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERMOT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:31 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="31">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Personal affection]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:30</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:32 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="32">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Special family food preparations]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:30</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:33 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="33">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Special family ceremonies]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:30</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:34 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="34">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ritual or religious use of the community]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:30</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:35 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="35">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Local fairs/festivals]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:30</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:36 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="36">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Historical/collector/ amateur interest]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">lr:LRFARMERMOT:30</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:40 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="40">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Quality traits]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Quality traits (taste, fragrance, colour, etc.).]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERMOT</item>
+		</EDGE>
+	</META>
+	<!-- lr:LRFARMERMOT:50 -->
+	<META>
+		<TERM ns="lr:LRFARMERMOT" lid="50">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Market traits]]></item>
+				</item>
+			</item>
+ 			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Market traits (good storability, easy transformation etc.).]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum:lr:LRFARMERMOT</item>
+		</EDGE>
+	</META>
+</METADATA>

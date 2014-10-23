@@ -147,6 +147,15 @@ define( "kDOMAIN_SPECIMEN",						':domain:specimen' );
 define( "kDOMAIN_TAXON",						':domain:taxon' );
 
 /**
+ * QTL.
+ *
+ * A quantitative trait locus.
+ *
+ * This represents the domain of QTLs.
+ */
+define( "kDOMAIN_QTL",							':domain:qtl' );
+
+/**
  * Inventory.
  *
  * An inventory.

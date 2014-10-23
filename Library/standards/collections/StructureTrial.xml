@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TRIAL STRUCTURE
+	StructureTrial.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Trial structure -->
+	
+	<!-- struct::domain:trial -->
+	<META>
+		<NODE term=":domain:trial" pid="struct::domain:trial">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a trial or experiment.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- :trial:code -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:trial:code</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :inventory:dataset -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :inventory:dataset:notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset:notes</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :inventory:dataset:report -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:dataset:report</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :name -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:name</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :trial:description -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:trial:description</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :trial:start -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:trial:start</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :trial:end -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:trial:end</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::location -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	
+		<!-- :environment -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :trial:measurements -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:trial:measurements</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

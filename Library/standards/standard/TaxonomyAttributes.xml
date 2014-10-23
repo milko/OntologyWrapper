@@ -84,6 +84,22 @@
 			</item>
 		</TERM>
 		
+		<!-- :taxon:unit:biology -->
+		<TERM ns=":taxon:unit" lid="biology">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxon biology</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Biologic information.</item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- :taxon:unit:economy -->
 		<TERM ns=":taxon:unit" lid="economy">
 			<item const="kTAG_LABEL">
@@ -100,18 +116,18 @@
 			</item>
 		</TERM>
 		
-		<!-- :taxon:unit:biology -->
-		<TERM ns=":taxon:unit" lid="biology">
+		<!-- :taxon:unit:policy -->
+		<TERM ns=":taxon:unit" lid="policy">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Taxon biology</item>
+					<item const="kTAG_TEXT">Taxon policy</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Biologic information.</item>
+					<item const="kTAG_TEXT">Policy regarding taxon.</item>
 				</item>
 			</item>
 		</TERM>
@@ -3639,157 +3655,6 @@
 		</EDGE>
 	</META>
 	
-	<!-- :taxon:annex-1 -->
-	<META>
-		<TERM ns=":taxon" lid="annex-1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Annex 1 group</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Group covering the list of crops covered in the Annex 1 of the International Treaty on Plant Genetic Resources for Food and Agriculture.</item>
-				</item>
-			</item>
-		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:taxon:annex-1</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-				<item>:type:full-text-03</item>
-				<item>:type:summary</item>
-			</item>
-		</TAG>
-		<NODE tag=":taxon:annex-1">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-		<NODE term=":taxon:annex-1">
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type enumerates the list of crops covered in the Annex 1 of the International Treaty on Plant Genetic Resources for Food and Agriculture.]]></item>
-				</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:taxon:annex-1</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:annex-1</item>
-		</EDGE>
-	</META>
-	<!-- :taxon:annex-1:100 -->
-	<META>
-		<TERM ns=":taxon:annex-1" lid="100">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Food crops]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:annex-1</item>
-		</EDGE>
-	</META>
-	<!-- :taxon:annex-1:200 -->
-	<META>
-		<TERM ns=":taxon:annex-1" lid="200">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forages]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:annex-1</item>
-		</EDGE>
-	</META>
-	<!-- :taxon:annex-1:210 -->
-	<META>
-		<TERM ns=":taxon:annex-1" lid="210">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Legumes]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:annex-1:200</item>
-		</EDGE>
-	</META>
-	<!-- :taxon:annex-1:220 -->
-	<META>
-		<TERM ns=":taxon:annex-1" lid="220">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Grasses]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:annex-1:200</item>
-		</EDGE>
-	</META>
-	<!-- :taxon:annex-1:230 -->
-	<META>
-		<TERM ns=":taxon:annex-1" lid="230">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Other forages]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:annex-1:200</item>
-		</EDGE>
-	</META>
-	
 	<!-- Taxonomic reference attributes -->
 	
 	<!-- :taxon:id -->
@@ -4050,10 +3915,43 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:list</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:group-ref">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:gp/tg -->
+	<META>
+		<TERM ns=":taxon" lid="gp/tg">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">GP/TG group concept</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Genepool/taxon group concept.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:gp/tg</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:gp/tg">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
@@ -4526,6 +4424,60 @@
 			</item>
 		</TAG>
 		<NODE tag=":taxon:ecovalue">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:ecovalue:country -->
+	<META>
+		<TERM ns=":taxon:ecovalue" lid="country">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Economic value related country</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:ecovalue:country</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:ecovalue:country">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:ecovalue:rank -->
+	<META>
+		<TERM ns=":taxon:ecovalue" lid="rank">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Economic value ranking in country</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:ecovalue:rank</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:ecovalue:rank">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
@@ -6006,6 +5958,39 @@
 		</EDGE>
 	</META>
 	
+	<!-- :taxon:occurrence-notes -->
+	<META>
+		<TERM ns=":taxon" lid="occurrence-notes">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Occurrence notes</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:occurrence-notes</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Notes on taxon occurrence or status.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:occurrence-notes">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- :taxon:distribution:notes -->
 	<META>
 		<TERM ns=":taxon:distribution" lid="notes">
@@ -6848,5 +6833,212 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:threat:period</item>
 		</EDGE>
+	</META>
+		
+	<!-- Policy attributes -->
+	
+	<!-- :taxon:annex-1 -->
+	<META>
+		<TERM ns=":taxon" lid="annex-1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Annex 1 group</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Group covering the list of crops covered in the Annex 1 of the International Treaty on Plant Genetic Resources for Food and Agriculture.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:annex-1</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:annex-1">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:annex-1">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type enumerates the list of crops covered in the Annex 1 of the International Treaty on Plant Genetic Resources for Food and Agriculture.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:annex-1</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:annex-1</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:annex-1:100 -->
+	<META>
+		<TERM ns=":taxon:annex-1" lid="100">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Food crops]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:annex-1</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:annex-1:200 -->
+	<META>
+		<TERM ns=":taxon:annex-1" lid="200">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forages]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:annex-1</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:annex-1:210 -->
+	<META>
+		<TERM ns=":taxon:annex-1" lid="210">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Legumes]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:annex-1:200</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:annex-1:220 -->
+	<META>
+		<TERM ns=":taxon:annex-1" lid="220">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Grasses]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:annex-1:200</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:annex-1:230 -->
+	<META>
+		<TERM ns=":taxon:annex-1" lid="230">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Other forages]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:annex-1:200</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:annex-1:notes -->
+	<META>
+		<TERM ns=":taxon:annex-1" lid="notes">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Annex 1 notes</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:annex-1:notes</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:annex-1:notes">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:unit:policy:notes -->
+	<META>
+		<TERM ns=":taxon:unit:policy" lid="notes">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxon policy notes</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:unit:policy:notes</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:unit:policy:notes">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 </METADATA>

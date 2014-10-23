@@ -48,5 +48,11 @@
 			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:success</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+	
+		<!-- :taxon:cross:population -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:population</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	</META>
 </METADATA>

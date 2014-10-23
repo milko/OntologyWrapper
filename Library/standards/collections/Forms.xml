@@ -31,6 +31,60 @@
 				<item>:type:node:form</item>
 			</item>
 		</NODE>
+				
+		<!-- form::taxon -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::taxon</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- form::location -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::location</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- form::environment -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::environment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- form::inventory -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::inventory</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- form::domain:inventory:cwr -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory:cwr</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- form::domain:inventory:checklist:cwr -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory:checklist:cwr</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- form:cwr:population -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form:cwr:population</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- form::domain:forest -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:forest</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- form::domain:landrace -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:landrace</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 		
 		<!-- form::domain:accession -->
 		<EDGE>
@@ -50,39 +104,21 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- form::domain:mission -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:mission</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- form::domain:mission:collecting -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">form::domain:mission:collecting</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- form::domain:inventory:checklist:cwr -->
+		<!-- form::domain:trial -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory:checklist:cwr</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- form::domain:inventory:cwr -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::domain:inventory:cwr</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- form:cwr:population -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form:cwr:population</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- form::environment -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::environment</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- form::domain:forest -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::domain:forest</item>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:trial</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -92,33 +128,15 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- form::inventory -->
+		<!-- form::domain:qtl -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::inventory</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- form::location -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::location</item>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:qtl</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- form::germplasm:mt -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">form::germplasm:mt</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- form::mission -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::mission</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-				
-		<!-- form::taxon -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">form::taxon</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

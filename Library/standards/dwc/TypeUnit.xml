@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC UNIT TYPE
+	TypeUnit.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Darwin Core Unit -->
+	
+	<!-- http://purl.org/dc/dcterms -->
+	<UNIT>
+		<NODE class="COntologyMasterVertex" term="http://purl.org/dc/dcterms">
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-TYPE</item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- Unit attributes -->
+	
+	<UNIT>
+		<!-- http://purl.org/dc/terms/type -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://purl.org/dc/terms/type</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://purl.org/dc/terms/modified -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://purl.org/dc/terms/modified</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://purl.org/dc/terms/language -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://purl.org/dc/terms/language</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://purl.org/dc/terms/rights -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://purl.org/dc/terms/rights</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://purl.org/dc/terms/rightsHolder -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://purl.org/dc/terms/rightsHolder</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://purl.org/dc/terms/accessRights -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://purl.org/dc/terms/accessRights</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://purl.org/dc/terms/bibliographicCitation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://purl.org/dc/terms/bibliographicCitation</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://purl.org/dc/terms/references -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://purl.org/dc/terms/references</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/institutionID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/institutionID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/collectionID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/collectionID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/datasetID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/datasetID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/materialSampleID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/materialSampleID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/institutionCode -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/institutionCode</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/collectionCode -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/collectionCode</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/datasetName -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/datasetName</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/ownerInstitutionCode -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/ownerInstitutionCode</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/basisOfRecord -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/informationWithheld -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/informationWithheld</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/dataGeneralizations -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/dataGeneralizations</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/dynamicProperties -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/dynamicProperties</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcterms</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

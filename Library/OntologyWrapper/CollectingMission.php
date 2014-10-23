@@ -498,8 +498,12 @@ class CollectingMission extends Mission
 					//
 					if( ($lat !== NULL )
 					 && ($lon !== NULL ) )
-						$coordinates[ md5( array( $lon, $lat ), TRUE ) ]
+					{
+						$lat = round( $lat, 6 );
+						$lon = round( $lon, 6 );
+						$coordinates[ implode( ';', array( $lon, $lat ) ) ]
 							= array( $lon, $lat );
+					}
 				}
 				
 				//

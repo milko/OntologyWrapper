@@ -104,8 +104,7 @@ class Inventory extends UnitObject
 		//
 		$this->isInited( parent::isInited() &&
 						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
-						 \ArrayObject::offsetExists( kTAG_COLLECTION ) &&
-						 \ArrayObject::offsetExists( kTAG_VERSION ) );
+						 \ArrayObject::offsetExists( kTAG_COLLECTION ) );
 
 	} // Constructor.
 
@@ -242,8 +241,7 @@ class Inventory extends UnitObject
 		//
 		$this->isInited( parent::isInited() &&
 						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
-						 \ArrayObject::offsetExists( kTAG_COLLECTION ) &&
-						 \ArrayObject::offsetExists( kTAG_VERSION ) );
+						 \ArrayObject::offsetExists( kTAG_COLLECTION ) );
 	
 	} // postOffsetSet.
 
@@ -275,8 +273,7 @@ class Inventory extends UnitObject
 		//
 		$this->isInited( parent::isInited() &&
 						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
-						 \ArrayObject::offsetExists( kTAG_COLLECTION ) &&
-						 \ArrayObject::offsetExists( kTAG_VERSION ) );
+						 \ArrayObject::offsetExists( kTAG_COLLECTION ) );
 	
 	} // postOffsetUnset.
 
@@ -310,6 +307,25 @@ class Inventory extends UnitObject
 	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{
 		//
+		// Set taxon.
+		//
+		if( ! $this->offsetExists( ':taxon:epithet' ) )
+		{
+			$taxon = Array();
+			$taxon[] = $this->offsetGet( ':taxon:genus' );
+			if( $this->offsetExists( ':taxon:species' ) )
+				$taxon[] = $this->offsetGet( ':taxon:species' );
+			if( $this->offsetExists( ':taxon:infraspecies' ) )
+				$taxon[] = $this->offsetGet( ':taxon:infraspecies' );
+			if( count( $taxon ) )
+			{
+				$taxon = implode( ' ', $taxon );
+				$this->offsetSet( ':taxon:epithet', $taxon );
+			}
+		
+		} // Taxon not yet set.
+		
+		//
 		// Check domain.
 		//
 		if( ! $this->offsetExists( kTAG_DOMAIN ) )
@@ -329,29 +345,6 @@ class Inventory extends UnitObject
 			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( ':inventory:code' )
 											  .'-'
 											  .$this->offsetGet( 'cwr:in:NIENUMB' ) );
-		
-		//
-		// Set taxon.
-		//
-		if( ! $this->offsetExists( ':taxon:epithet' ) )
-		{
-			//
-			// Start with genus.
-			//
-			if( $this->offsetExists( ':taxon:genus' ) )
-			{
-				$taxon = Array();
-				$taxon[] = $this->offsetGet( ':taxon:genus' );
-				if( $this->offsetExists( ':taxon:species' ) )
-					$taxon[] = $this->offsetGet( ':taxon:species' );
-				if( $this->offsetExists( ':taxon:infraspecies' ) )
-					$taxon[] = $this->offsetGet( ':taxon:infraspecies' );
-				$taxon = implode( ' ', $taxon );
-				$this->offsetSet( ':taxon:epithet', $taxon );
-			
-			} // Has genus.
-		
-		} // Taxon not yet set.
 		
 		//
 		// Check collection.

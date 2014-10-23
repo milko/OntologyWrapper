@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LANDRACE NAMESPACES
+	Namespaces.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+    <!-- lr -->
+    <META>
+        <TERM lid="lr">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In situ landrace inventory descriptor]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Descriptors For Web-Enabled National In Situ Landrace (lr) Inventories.]]></item>
+				</item>
+			</item>
+    	</TERM>
+    </META>
+	
+	<!-- Landrace categories -->
+	
+	<!-- lr:INVENTORY -->
+	<META>
+		<TERM ns="lr" lid="INVENTORY">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace inventory identification]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Descriptors identifying the inventory and origin of the landrace or population.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex" />
+	</META>
+	
+	<!-- lr:IDENTIFICATION -->
+	<META>
+		<TERM ns="lr" lid="IDENTIFICATION">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace/population identification]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Descriptors identifying the specific landrace or population.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex" />
+	</META>
+	
+	<!-- lr:MAINTAINER -->
+	<META>
+		<TERM ns="lr" lid="MAINTAINER">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace farmer (i.e. the maintainer)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Descriptors identifying the maintainer of the landrace or population.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex" />
+	</META>
+	
+	<!-- lr:LANDRACE -->
+	<META>
+		<TERM ns="lr" lid="LANDRACE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Descriptors describing the landrace.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex" />
+	</META>
+	
+	<!-- lr:MONITOR -->
+	<META>
+		<TERM ns="lr" lid="MONITOR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace conservation and monitoring]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Descriptors covering conservation and maintenance of the landrace or population.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex" />
+	</META>
+</METADATA>

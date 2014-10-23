@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC GEOLOGICAL CONTEXT TYPE
+	TypeGeology.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Darwin Core Geological Context -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/GeologicalContext -->
+	<UNIT>
+		<NODE class="COntologyMasterVertex" term="http://rs.tdwg.org/dwc/terms/GeologicalContext">
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-TYPE</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core geological context type]]></item>
+				</item>
+			</item>
+			<item const="kTAG_NOTE">
+				<item key="en"><![CDATA[For discussion see http://code.google.com/p/darwincore/wiki/GeologicalContext]]></item>
+			</item>
+ 	  	</NODE>
+	</UNIT>
+	
+	<!-- Geological context attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/geologicalContextID -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/geologicalContextID</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/highestBiostratigraphicZone -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/highestBiostratigraphicZone</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/lithostratigraphicTerms -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/lithostratigraphicTerms</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/group -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/group</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/formation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/formation</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/member -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/member</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/bed -->
+		<EDGE>
+			<item const="kTAG_SUBJECT">http://rs.tdwg.org/dwc/terms/bed</item>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://rs.tdwg.org/dwc/terms/GeologicalContext</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

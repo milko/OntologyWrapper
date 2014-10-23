@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	OCCURRENCE SCHEMA STRUCTURE
+	SchemaOccurrence.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- http://rs.tdwg.org/dwc/terms/occurrenceID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/occurrenceID">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:occurrenceID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:occurrenceID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/catalogNumber -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/catalogNumber">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:catalogNumber</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:catalogNumber</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/occurrenceRemarks -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/occurrenceRemarks">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:occurrenceRemarks</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:occurrenceRemarks</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/recordNumber -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/recordNumber">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:recordNumber</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:recordNumber</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/recordedBy -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/recordedBy">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:recordedBy</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:recordedBy</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/individualID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/individualID">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:individualID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:individualID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/individualCount -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/individualCount">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:individualCount</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:individualCount</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/sex -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/sex">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:sex</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:sex</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/lifeStage -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/lifeStage">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:lifeStage</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:lifeStage</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/reproductiveCondition -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/reproductiveCondition">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:reproductiveCondition</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:reproductiveCondition</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/behavior -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/behavior">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:behavior</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:behavior</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/establishmentMeans -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/establishmentMeans">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:establishmentMeans</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:establishmentMeans</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/occurrenceStatus -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/occurrenceStatus">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:occurrenceStatus</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:occurrenceStatus</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/preparations -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/preparations">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:preparations</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:preparations</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/disposition -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/disposition">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:disposition</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:disposition</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/otherCatalogNumbers -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/otherCatalogNumbers">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:otherCatalogNumbers</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:otherCatalogNumbers</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/previousIdentifications -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/previousIdentifications">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:previousIdentifications</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:previousIdentifications</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedMedia -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedMedia">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:associatedMedia</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:associatedMedia</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedReferences -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedReferences">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:associatedReferences</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:associatedReferences</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedOccurrences -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedOccurrences">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:associatedOccurrences</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:associatedOccurrences</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedSequences -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedSequences">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:associatedSequences</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:associatedSequences</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/associatedTaxa -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/associatedTaxa">
+			<item const="kTAG_PID">OCCURRENCE.Schema.DWC:associatedTaxa</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema.DWC:associatedTaxa</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">OCCURRENCE.Schema</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

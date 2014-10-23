@@ -83,5 +83,11 @@
 			<item const="kTAG_SUBJECT" node="tag">cwr:population</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+		
+		<!-- cwr:REMARKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:REMARKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	</META>
 </METADATA>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	GERMPLASM EVALUATION STRUCTURE
+	StructGermplasmEvaluation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Germplasm evaluation structure -->
+	
+	<!-- :germplasm:evaluation -->
+	<META>
+		<!-- :struct-label -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:struct-label</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:evaluation</item>
+		</EDGE>
+		
+		<!-- :trial -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:trial</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:evaluation</item>
+		</EDGE>
+		
+		<!-- :trial:code -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:trial:code</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:evaluation</item>
+		</EDGE>
+		
+		<!-- :name -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:name</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:germplasm:evaluation</item>
+		</EDGE>
+		
+		<!-- Here goes the list of traits -->
+		
+	</META>
+</METADATA>

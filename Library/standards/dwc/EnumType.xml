@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DARWIN CORE TYPE ENUMERATION
+	EnumType.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Type enumerations -->
+	
+	<!-- http://purl.org/dc/dcmitype/Collection -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="Collection" pid="http://purl.org/dc/dcmitype/Collection">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Collection]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An aggregation of resources.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A collection is described as a group; its parts may also be separately described.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/Dataset -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="Dataset" pid="http://purl.org/dc/dcmitype/Dataset">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Dataset]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Data encoded in a defined structure.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Dataset</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Examples include lists, tables, and databases. A dataset may be useful for direct machine processing.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/Event -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="Event" pid="http://purl.org/dc/dcmitype/Event">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Event]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A non-persistent, time-based occurrence.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Event</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Metadata for an event provides descriptive information that is the basis for discovery of the purpose, location, duration, and responsible agents associated with an event. Examples include an exhibition, webcast, conference, workshop, open day, performance, battle, trial, wedding, tea party, conflagration.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/Image -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="Image" pid="http://purl.org/dc/dcmitype/Image">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Image]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A visual representation other than text.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Image</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Examples include images and photographs of physical objects, paintings, prints, drawings, other images and graphics, animations and moving pictures, film, diagrams, maps, musical notation. Note that Image may include both electronic and physical representations.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/InteractiveResource -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="InteractiveResource" pid="http://purl.org/dc/dcmitype/InteractiveResource">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Interactive Resource]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource requiring interaction from the user to be understood, executed, or experienced.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>InteractiveResource</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Examples include forms on Web pages, applets, multimedia learning objects, chat services, or virtual reality environments.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/MovingImage -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="MovingImage" pid="http://purl.org/dc/dcmitype/MovingImage">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Moving Image]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A series of visual representations imparting an impression of motion when shown in succession.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>MovingImage</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Examples include animations, movies, television programs, videos, zoetropes, or visual output from a simulation. Instances of the type Moving Image must also be describable as instances of the broader type Image.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/PhysicalObject -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="PhysicalObject" pid="http://purl.org/dc/dcmitype/PhysicalObject">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Physical Object]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An inanimate, three-dimensional object or substance.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PhysicalObject</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Note that digital representations of, or surrogates for, these objects should use Image, Text or one of the other types.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/Service -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="Service" pid="http://purl.org/dc/dcmitype/Service">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Service]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A system that provides one or more functions.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Service</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Examples include a photocopying service, a banking service, an authentication service, interlibrary loans, a Z39.50 or Web server.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/Software -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="Software" pid="http://purl.org/dc/dcmitype/Software">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Software]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A computer program in source or compiled form.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Software</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Examples include a C source file, MS-Windows .exe executable, or Perl script.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/Sound -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="Sound" pid="http://purl.org/dc/dcmitype/Sound">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sound]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource primarily intended to be heard.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Sound</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Examples include a music playback file format, an audio compact disc, and recorded speech or sounds.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/StillImage -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="StillImage" pid="http://purl.org/dc/dcmitype/StillImage">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Still Image]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A static visual representation.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>StillImage</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Examples include paintings, drawings, graphic designs, plans and maps. Recommended best practice is to assign the type Text to images of textual materials. Instances of the type Still Image must also be describable as instances of the broader type Image.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/dcmitype/Text -->
+	<UNIT>
+		<TERM ns="http://purl.org/dc/dcmitype/" lid="Text" pid="http://purl.org/dc/dcmitype/Text">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Text]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A resource consisting primarily of words for reading.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Text</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_KIND">
+				<item>:KIND-ENUMERATION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Examples include books, letters, dissertations, poems, newspapers, articles, archives of mailing lists. Note that facsimiles or images of texts are still of the genre Text.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/dcmitype/</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:ENUM-OF</item>
+			<item const="kTAG_OBJECT">http://purl.org/dc/terms/type</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

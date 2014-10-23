@@ -78,9 +78,9 @@
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
-		<!-- cwr:ck:REMARKS -->
+		<!-- cwr:REMARKS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REMARKS</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:REMARKS</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

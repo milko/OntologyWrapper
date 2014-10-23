@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LOCATION SCHEMA STRUCTURE
+	SchemaLocation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- http://rs.tdwg.org/dwc/terms/locationID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/locationID">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:locationID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:locationID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/higherGeographyID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/higherGeographyID">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:higherGeographyID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:higherGeographyID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/higherGeography -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/higherGeography">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:higherGeography</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:higherGeography</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/continent/:SCALE-OF/ISO:3166:continent -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/continent/:SCALE-OF/ISO:3166:continent">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:continent</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:continent</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/waterBody -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/waterBody">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:waterBody</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:waterBody</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/islandGroup -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/islandGroup">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:islandGroup</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:islandGroup</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/island -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/island">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:island</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:island</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/country -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/country">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:country</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:country</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/countryCode/:SCALE-OF/ISO:3166:alpha-3 -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/countryCode/:SCALE-OF/ISO:3166:alpha-3">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:countryCode</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:countryCode</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/stateProvince -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/stateProvince">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:stateProvince</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:stateProvince</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/county -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/county">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:county</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:county</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/municipality -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/municipality">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:municipality</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:municipality</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/locality -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/locality">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:locality</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:locality</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimLocality -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimLocality">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:verbatimLocality</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:verbatimLocality</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimElevation -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimElevation">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:verbatimElevation</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:verbatimElevation</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/minimumElevationInMeters -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/minimumElevationInMeters">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:minimumElevationInMeters</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:minimumElevationInMeters</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/maximumElevationInMeters -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/maximumElevationInMeters">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:maximumElevationInMeters</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:maximumElevationInMeters</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimDepth -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimDepth">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:verbatimDepth</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:verbatimDepth</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/minimumDepthInMeters -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/minimumDepthInMeters">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:minimumDepthInMeters</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:minimumDepthInMeters</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/maximumDepthInMeters -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/maximumDepthInMeters">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:maximumDepthInMeters</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:maximumDepthInMeters</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/minimumDistanceAboveSurfaceInMeters -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/minimumDistanceAboveSurfaceInMeters">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:minimumDistanceAboveSurfaceInMeters</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:minimumDistanceAboveSurfaceInMeters</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/maximumDistanceAboveSurfaceInMeters -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/maximumDistanceAboveSurfaceInMeters">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:maximumDistanceAboveSurfaceInMeters</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:maximumDistanceAboveSurfaceInMeters</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/locationAccordingTo -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/locationAccordingTo">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:locationAccordingTo</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:locationAccordingTo</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/locationRemarks -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/locationRemarks">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:locationRemarks</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:locationRemarks</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimCoordinates -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimCoordinates">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:verbatimCoordinates</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:verbatimCoordinates</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimLatitude -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimLatitude">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:verbatimLatitude</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:verbatimLatitude</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimLongitude -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimLongitude">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:verbatimLongitude</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:verbatimLongitude</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimCoordinateSystem -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimCoordinateSystem">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:verbatimCoordinateSystem</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:verbatimCoordinateSystem</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimSRS -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimSRS">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:verbatimSRS</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:verbatimSRS</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/decimalLatitude -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/decimalLatitude">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:decimalLatitude</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:decimalLatitude</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/decimalLongitude -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/decimalLongitude">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:decimalLongitude</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:decimalLongitude</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/geodeticDatum -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/geodeticDatum">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:geodeticDatum</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:geodeticDatum</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:coordinateUncertaintyInMeters</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:coordinateUncertaintyInMeters</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/coordinatePrecision -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/coordinatePrecision">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:coordinatePrecision</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:coordinatePrecision</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/pointRadiusSpatialFit -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/pointRadiusSpatialFit">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:pointRadiusSpatialFit</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:pointRadiusSpatialFit</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/footprintWKT -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/footprintWKT">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:footprintWKT</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:footprintWKT</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/footprintSRS -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/footprintSRS">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:footprintSRS</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:footprintSRS</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/footprintSpatialFit -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/footprintSpatialFit">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:footprintSpatialFit</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:footprintSpatialFit</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/georeferencedBy -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/georeferencedBy">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:georeferencedBy</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:georeferencedBy</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/georeferencedDate -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/georeferencedDate">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:georeferencedDate</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:georeferencedDate</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/georeferenceProtocol -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/georeferenceProtocol">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:georeferenceProtocol</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:georeferenceProtocol</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/georeferenceSources -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/georeferenceSources">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:georeferenceSources</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:georeferenceSources</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:georeferenceVerificationStatus</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:georeferenceVerificationStatus</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/georeferenceRemarks -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/georeferenceRemarks">
+			<item const="kTAG_PID">LOCATION.Schema.DWC:georeferenceRemarks</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema.DWC:georeferenceRemarks</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">LOCATION.Schema</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

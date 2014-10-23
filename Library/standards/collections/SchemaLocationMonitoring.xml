@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :location:unit:monitor -->
+	<!-- schema::location:unit:monitor -->
 	<META>
 		<NODE term=":location:unit:monitor" pid="schema::location:unit:monitor">
 			<item const="kTAG_NODE_TYPE">

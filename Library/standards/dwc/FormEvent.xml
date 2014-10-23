@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC UNIT FORM STRUCTURE
+	FormEvent.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- DWC event form -->
+	
+	<UNIT>
+		<NODE class="COntologyVertex" term="http://rs.tdwg.org/dwc/terms/Event">
+			<item const="kTAG_PID">DWC:EVENT.Form</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-FORM</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core event form]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form can be used to search Darwin Core events.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- Event attributes -->
+	
+	<!-- http://rs.tdwg.org/dwc/terms/eventID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/eventID">
+			<item const="kTAG_PID">DWC:EVENT.Form.eventID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.eventID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.eventID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/samplingProtocol -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/samplingProtocol">
+			<item const="kTAG_PID">DWC:EVENT.Form.samplingProtocol</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.samplingProtocol</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.samplingProtocol</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/samplingEffort -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/samplingEffort">
+			<item const="kTAG_PID">DWC:EVENT.Form.samplingEffort</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.samplingEffort</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.samplingEffort</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/eventDate -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/eventDate">
+			<item const="kTAG_PID">DWC:EVENT.Form.eventDate</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.eventDate</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.eventDate</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/eventTime -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/eventTime">
+			<item const="kTAG_PID">DWC:EVENT.Form.eventTime</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.eventTime</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.eventTime</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/startDayOfYear -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/startDayOfYear">
+			<item const="kTAG_PID">DWC:EVENT.Form.startDayOfYear</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.startDayOfYear</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.startDayOfYear</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/endDayOfYear -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/endDayOfYear">
+			<item const="kTAG_PID">DWC:EVENT.Form.endDayOfYear</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.endDayOfYear</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.endDayOfYear</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/year -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/year">
+			<item const="kTAG_PID">DWC:EVENT.Form.year</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.year</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.year</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/month -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/month">
+			<item const="kTAG_PID">DWC:EVENT.Form.month</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.month</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.month</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/day -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/day">
+			<item const="kTAG_PID">DWC:EVENT.Form.day</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.day</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.day</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimEventDate -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimEventDate">
+			<item const="kTAG_PID">DWC:EVENT.Form.verbatimEventDate</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.verbatimEventDate</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.verbatimEventDate</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/habitat -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/habitat">
+			<item const="kTAG_PID">DWC:EVENT.Form.habitat</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.habitat</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.habitat</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/fieldNumber -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/fieldNumber">
+			<item const="kTAG_PID">DWC:EVENT.Form.fieldNumber</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.fieldNumber</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.fieldNumber</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/fieldNotes -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/fieldNotes">
+			<item const="kTAG_PID">DWC:EVENT.Form.fieldNotes</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.fieldNotes</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.fieldNotes</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/eventRemarks -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/eventRemarks">
+			<item const="kTAG_PID">DWC:EVENT.Form.eventRemarks</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.eventRemarks</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form</item>
+		</EDGE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:EVENT.Form.eventRemarks</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">EVENT.Form</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

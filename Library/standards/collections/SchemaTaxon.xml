@@ -49,6 +49,12 @@
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
+		<!-- schema::taxon:unit:policy -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:policy</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
 		<!-- Structures -->
 	
 		<!-- :taxon:cross -->

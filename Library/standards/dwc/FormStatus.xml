@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	STATUS SCHEMA STRUCTURE
+	FormStatus.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Status form -->
+	
+	<!-- http://purl.org/dc/terms/type -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/type">
+			<item const="kTAG_PID">STATUS.Form.DWC:type</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:type</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/modified -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/modified">
+			<item const="kTAG_PID">STATUS.Form.DWC:modified</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:modified</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/language -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/language">
+			<item const="kTAG_PID">STATUS.Form.DWC:language</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:language</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/rights -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/rights">
+			<item const="kTAG_PID">STATUS.Form.DWC:rights</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:rights</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/rightsHolder -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/rightsHolder">
+			<item const="kTAG_PID">STATUS.Form.DWC:rightsHolder</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:rightsHolder</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/accessRights -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/accessRights">
+			<item const="kTAG_PID">STATUS.Form.DWC:accessRights</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:accessRights</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/bibliographicCitation -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/bibliographicCitation">
+			<item const="kTAG_PID">STATUS.Form.DWC:bibliographicCitation</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:bibliographicCitation</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/references -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/references">
+			<item const="kTAG_PID">STATUS.Form.DWC:references</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:references</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/basisOfRecord -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/basisOfRecord">
+			<item const="kTAG_PID">STATUS.Form.DWC:basisOfRecord</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:basisOfRecord</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/informationWithheld -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/informationWithheld">
+			<item const="kTAG_PID">STATUS.Form.DWC:informationWithheld</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:informationWithheld</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/dataGeneralizations -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/dataGeneralizations">
+			<item const="kTAG_PID">STATUS.Form.DWC:dataGeneralizations</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:dataGeneralizations</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/dynamicProperties -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/dynamicProperties">
+			<item const="kTAG_PID">STATUS.Form.DWC:dynamicProperties</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form.DWC:dynamicProperties</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">STATUS.Form</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

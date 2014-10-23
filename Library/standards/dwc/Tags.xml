@@ -1,0 +1,2396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC TAGS
+	Tags.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+		
+	<!-- Unit attributes -->
+	
+	<UNIT>
+		<!-- http://purl.org/dc/terms/type -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://purl.org/dc/terms/type</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:ENUM</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:CATEGORICAL</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-CHOICE</item>
+		</TAG>
+	
+		<!-- http://purl.org/dc/terms/modified -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://purl.org/dc/terms/modified</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://purl.org/dc/terms/language -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://purl.org/dc/terms/language</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://purl.org/dc/terms/rights -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://purl.org/dc/terms/rights</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LEGAL</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://purl.org/dc/terms/rightsHolder -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://purl.org/dc/terms/rightsHolder</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LEGAL</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://purl.org/dc/terms/accessRights -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://purl.org/dc/terms/accessRights</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LEGAL</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://purl.org/dc/terms/bibliographicCitation -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://purl.org/dc/terms/bibliographicCitation</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://purl.org/dc/terms/references -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://purl.org/dc/terms/references</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/institutionID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/institutionID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/collectionID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/collectionID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/datasetID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/datasetID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/materialSampleID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/materialSampleID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/institutionCode -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/institutionCode</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/collectionCode -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/collectionCode</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/datasetName -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/datasetName</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/ownerInstitutionCode -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/ownerInstitutionCode</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+				<item>:LEGAL</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/basisOfRecord -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/basisOfRecord</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:SET</item>
+				<item>:REQUIRED</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-MULTIPLE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/informationWithheld -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/informationWithheld</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/dataGeneralizations -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/dataGeneralizations</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/dynamicProperties -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/dynamicProperties</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:INVENTORY</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	</UNIT>
+		
+	<!-- Event attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/eventID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/eventID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/samplingProtocol -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/samplingProtocol</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+				<item>:EXPERIMENT</item>
+				<item>:MANAGEMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/samplingEffort -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/samplingEffort</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+				<item>:EXPERIMENT</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/eventDate -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/eventDate</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/eventTime -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/eventTime</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/startDayOfYear -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/startDayOfYear</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/endDayOfYear -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/endDayOfYear</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/year -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/year</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/month -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/month</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/day -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/day</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimEventDate -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimEventDate</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/habitat -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/habitat</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/fieldNumber -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/fieldNumber</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/fieldNotes -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/fieldNotes</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+				<item>:COMMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/eventRemarks -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/eventRemarks</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:EVENT</item>
+				<item>:COMMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	</UNIT>
+	
+	<!-- Geological attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/geologicalContextID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/geologicalContextID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/highestBiostratigraphicZone -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/highestBiostratigraphicZone</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/lithostratigraphicTerms -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/lithostratigraphicTerms</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/group -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/group</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/formation -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/formation</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/member -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/member</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/bed -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/bed</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:GEOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	</UNIT>
+	
+	<!-- Identification attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/identificationID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/identificationID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identifiedBy -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/identifiedBy</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/dateIdentified -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/dateIdentified</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identificationReferences -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/identificationReferences</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identificationRemarks -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/identificationRemarks</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:COMMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identificationQualifier -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/identificationQualifier</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:COMMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/identificationVerificationStatus -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/identificationVerificationStatus</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:ENUM</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:STATUS</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-CHOICE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/typeStatus -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/typeStatus</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:STATUS</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	</UNIT>
+	
+	<!-- Location attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/locationID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/locationID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/higherGeographyID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/higherGeographyID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/higherGeography -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/higherGeography</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/continent/:SCALE-OF/ISO:3166:continent -->
+    	<TAG>
+			<item const="kTAG_PATH">
+				<item>http://rs.tdwg.org/dwc/terms/continent</item>
+				<item>:SCALE-OF</item>
+				<item>ISO:3166:continent</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:ENUM</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-CHOICE</item>
+    	</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/waterBody -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/waterBody</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/islandGroup -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/islandGroup</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/island -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/island</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/country -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/country</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/countryCode/:SCALE-OF/ISO:3166:alpha-3 -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/countryCode</item>
+				<item>:SCALE-OF</item>
+				<item node="term">ISO:3166:alpha-3</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:ENUM</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-CHOICE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/stateProvince -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/stateProvince</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/county -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/county</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/municipality -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/municipality</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/locality -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/locality</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimLocality -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimLocality</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimElevation -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimElevation</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/minimumElevationInMeters -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/minimumElevationInMeters</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/maximumElevationInMeters -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/maximumElevationInMeters</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimDepth -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimDepth</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/minimumDepthInMeters -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/minimumDepthInMeters</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/maximumDepthInMeters -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/maximumDepthInMeters</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/minimumDistanceAboveSurfaceInMeters -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/minimumDistanceAboveSurfaceInMeters</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:FLOAT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/maximumDistanceAboveSurfaceInMeters -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/maximumDistanceAboveSurfaceInMeters</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:FLOAT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/locationAccordingTo -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/locationAccordingTo</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/locationRemarks -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/locationRemarks</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:COMMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimCoordinates -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimCoordinates</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimLatitude -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimLatitude</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimLongitude -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimLongitude</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimCoordinateSystem -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimCoordinateSystem</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimSRS -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimSRS</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/decimalLatitude -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/decimalLatitude</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:FLOAT</item>
+				<item>:HIDDEN</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/decimalLongitude -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/decimalLongitude</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:FLOAT</item>
+				<item>:HIDDEN</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/geodeticDatum -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/geodeticDatum</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/coordinatePrecision -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/coordinatePrecision</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:FLOAT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/pointRadiusSpatialFit -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/pointRadiusSpatialFit</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:FLOAT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/footprintWKT -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/footprintWKT</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/footprintSRS -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/footprintSRS</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/footprintSpatialFit -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/footprintSpatialFit</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferencedBy -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/georeferencedBy</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:OBSERVATION</item>
+				<item>:MANAGEMENT</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferencedDate -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/georeferencedDate</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:OBSERVATION</item>
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferenceProtocol -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/georeferenceProtocol</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:OBSERVATION</item>
+				<item>:MANAGEMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferenceSources -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/georeferenceSources</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:STATUS</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/georeferenceRemarks -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/georeferenceRemarks</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:LOCATION</item>
+				<item>:COMMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	</UNIT>
+	
+	<!-- Occurrence attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/occurrenceID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/occurrenceID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/catalogNumber -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/catalogNumber</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/occurrenceRemarks -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/occurrenceRemarks</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:COMMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/recordNumber -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/recordNumber</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/recordedBy -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/recordedBy</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/individualID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/individualID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/individualCount -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/individualCount</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/sex -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/sex</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:BIOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/lifeStage -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/lifeStage</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:BIOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/reproductiveCondition -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/reproductiveCondition</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:BIOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/behavior -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/behavior</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:BIOLOGY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/establishmentMeans -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/establishmentMeans</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:BIOLOGY</item>
+				<item>:ENVIRONMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/occurrenceStatus -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/occurrenceStatus</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:STATUS</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/preparations -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/preparations</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:MANAGEMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/disposition -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/disposition</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:STATISTIC</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/otherCatalogNumbers -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/otherCatalogNumbers</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/previousIdentifications -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/previousIdentifications</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedMedia -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/associatedMedia</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedReferences -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/associatedReferences</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedOccurrences -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/associatedOccurrences</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedSequences -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/associatedSequences</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:MOLECULAR</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/associatedTaxa -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/associatedTaxa</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:OCCURRENCE</item>
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	</UNIT>
+	
+	<!-- Taxon attributes -->
+	
+	<UNIT>
+		<!-- http://rs.tdwg.org/dwc/terms/taxonID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/taxonID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/scientificNameID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/scientificNameID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/acceptedNameUsageID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/acceptedNameUsageID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/parentNameUsageID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/parentNameUsageID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/originalNameUsageID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/originalNameUsageID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/nameAccordingToID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/nameAccordingToID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/namePublishedInID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/namePublishedInID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/taxonConceptID -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/taxonConceptID</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:INVENTORY</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/scientificName -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/scientificName</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/acceptedNameUsage -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/acceptedNameUsage</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/parentNameUsage -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/parentNameUsage</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/originalNameUsage -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/originalNameUsage</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/nameAccordingTo -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/nameAccordingTo</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/namePublishedIn -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/namePublishedIn</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/namePublishedInYear -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/namePublishedInYear</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:INT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:PUBLICATION</item>
+				<item>:EVENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-RANGE</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/higherClassification -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/higherClassification</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/kingdom -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/kingdom</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/phylum -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/phylum</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/class -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/class</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/order -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/order</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/family -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/family</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/genus -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/genus</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/subgenus -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/subgenus</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/specificEpithet -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/specificEpithet</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/infraspecificEpithet -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/infraspecificEpithet</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/taxonRank -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/taxonRank</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/verbatimTaxonRank -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/verbatimTaxonRank</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/scientificNameAuthorship -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/scientificNameAuthorship</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/vernacularName -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/vernacularName</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/nomenclaturalCode -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/nomenclaturalCode</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+				<item>:ARRAY</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:PUBLICATION</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/taxonomicStatus -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/taxonomicStatus</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:STATUS</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/nomenclaturalStatus -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/nomenclaturalStatus</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:STRING</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:STATUS</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXT</item>
+		</TAG>
+	
+		<!-- http://rs.tdwg.org/dwc/terms/taxonRemarks -->
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">http://rs.tdwg.org/dwc/terms/taxonRemarks</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:TEXT</item>
+			</item>
+			<item const="kTAG_CATEGORY">
+				<item>:TAXON</item>
+				<item>:COMMENT</item>
+			</item>
+			<item const="kTAG_INPUT">:INPUT-TEXTAREA</item>
+		</TAG>
+	</UNIT>
+</METADATA>

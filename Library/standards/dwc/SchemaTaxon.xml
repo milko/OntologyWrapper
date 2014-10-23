@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXON SCHEMA STRUCTURE
+	SchemaTaxon.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- http://rs.tdwg.org/dwc/terms/taxonID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/taxonID">
+			<item const="kTAG_PID">TAXON.Schema.DWC:taxonID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:taxonID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/scientificNameID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/scientificNameID">
+			<item const="kTAG_PID">TAXON.Schema.DWC:scientificNameID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:scientificNameID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/acceptedNameUsageID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/acceptedNameUsageID">
+			<item const="kTAG_PID">TAXON.Schema.DWC:acceptedNameUsageID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:acceptedNameUsageID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/parentNameUsageID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/parentNameUsageID">
+			<item const="kTAG_PID">TAXON.Schema.DWC:parentNameUsageID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:parentNameUsageID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/originalNameUsageID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/originalNameUsageID">
+			<item const="kTAG_PID">TAXON.Schema.DWC:originalNameUsageID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:originalNameUsageID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/nameAccordingToID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/nameAccordingToID">
+			<item const="kTAG_PID">TAXON.Schema.DWC:nameAccordingToID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:nameAccordingToID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/namePublishedInID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/namePublishedInID">
+			<item const="kTAG_PID">TAXON.Schema.DWC:namePublishedInID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:namePublishedInID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/taxonConceptID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/taxonConceptID">
+			<item const="kTAG_PID">TAXON.Schema.DWC:taxonConceptID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:taxonConceptID</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/scientificName -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/scientificName">
+			<item const="kTAG_PID">TAXON.Schema.DWC:scientificName</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:scientificName</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/acceptedNameUsage -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/acceptedNameUsage">
+			<item const="kTAG_PID">TAXON.Schema.DWC:acceptedNameUsage</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:acceptedNameUsage</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/parentNameUsage -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/parentNameUsage">
+			<item const="kTAG_PID">TAXON.Schema.DWC:parentNameUsage</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:parentNameUsage</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/originalNameUsage -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/originalNameUsage">
+			<item const="kTAG_PID">TAXON.Schema.DWC:originalNameUsage</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:originalNameUsage</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/nameAccordingTo -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/nameAccordingTo">
+			<item const="kTAG_PID">TAXON.Schema.DWC:nameAccordingTo</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:nameAccordingTo</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/namePublishedIn -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/namePublishedIn">
+			<item const="kTAG_PID">TAXON.Schema.DWC:namePublishedIn</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:namePublishedIn</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/namePublishedInYear -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/namePublishedInYear">
+			<item const="kTAG_PID">TAXON.Schema.DWC:namePublishedInYear</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:namePublishedInYear</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/higherClassification -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/higherClassification">
+			<item const="kTAG_PID">TAXON.Schema.DWC:higherClassification</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:higherClassification</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/kingdom -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/kingdom">
+			<item const="kTAG_PID">TAXON.Schema.DWC:kingdom</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:kingdom</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/phylum -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/phylum">
+			<item const="kTAG_PID">TAXON.Schema.DWC:phylum</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:phylum</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/class -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/class">
+			<item const="kTAG_PID">TAXON.Schema.DWC:class</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:class</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/order -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/order">
+			<item const="kTAG_PID">TAXON.Schema.DWC:order</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:order</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/family -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/family">
+			<item const="kTAG_PID">TAXON.Schema.DWC:family</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:family</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/genus -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/genus">
+			<item const="kTAG_PID">TAXON.Schema.DWC:genus</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:genus</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/subgenus -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/subgenus">
+			<item const="kTAG_PID">TAXON.Schema.DWC:subgenus</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:subgenus</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/specificEpithet -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/specificEpithet">
+			<item const="kTAG_PID">TAXON.Schema.DWC:specificEpithet</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:specificEpithet</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/infraspecificEpithet -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/infraspecificEpithet">
+			<item const="kTAG_PID">TAXON.Schema.DWC:infraspecificEpithet</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:infraspecificEpithet</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/taxonRank -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/taxonRank">
+			<item const="kTAG_PID">TAXON.Schema.DWC:taxonRank</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:taxonRank</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/verbatimTaxonRank -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/verbatimTaxonRank">
+			<item const="kTAG_PID">TAXON.Schema.DWC:verbatimTaxonRank</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:verbatimTaxonRank</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/scientificNameAuthorship -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/scientificNameAuthorship">
+			<item const="kTAG_PID">TAXON.Schema.DWC:scientificNameAuthorship</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:scientificNameAuthorship</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/vernacularName -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/vernacularName">
+			<item const="kTAG_PID">TAXON.Schema.DWC:vernacularName</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:vernacularName</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/nomenclaturalCode -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/nomenclaturalCode">
+			<item const="kTAG_PID">TAXON.Schema.DWC:nomenclaturalCode</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:nomenclaturalCode</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/taxonomicStatus -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/taxonomicStatus">
+			<item const="kTAG_PID">TAXON.Schema.DWC:taxonomicStatus</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:taxonomicStatus</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/nomenclaturalStatus -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/nomenclaturalStatus">
+			<item const="kTAG_PID">TAXON.Schema.DWC:nomenclaturalStatus</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:nomenclaturalStatus</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/taxonRemarks -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/taxonRemarks">
+			<item const="kTAG_PID">TAXON.Schema.DWC:taxonRemarks</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema.DWC:taxonRemarks</item>
+			<item const="kTAG_PREDICATE">:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="pid">TAXON.Schema</item>
+		</EDGE>
+	</UNIT>
+</METADATA>

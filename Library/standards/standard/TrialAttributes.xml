@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TRIAL ATTRIBUTES
+	TrialAttributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Trial reference -->
+	
+	<!-- :trial -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:trial</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
+			<item const="kTAG_DOMAIN">:domain:trial</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the reference to the trial or experiment.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":trial">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Trial attributes -->
+	
+	<!-- :trial:code -->
+	<META>
+		<TERM ns=":trial" lid="code">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Trial code</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:trial:code</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-06</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the trial or experiment.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":trial:code">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :trial:description -->
+	<META>
+		<TERM ns=":trial" lid="description">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Trial description</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:trial:description</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-06</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Text describing the methods and conditions under which the trial or experiment was conducted.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":trial:description">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :trial:start -->
+	<META>
+		<TERM ns=":trial" lid="start">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Trial start date</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:trial:start</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the trial start date.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":trial:start">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :trial:end -->
+	<META>
+		<TERM ns=":trial" lid="end">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Trial end date</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:trial:end</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the trial end date.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":trial:end">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :trial:measurements -->
+	<META>
+		<TERM ns=":trial" lid="measurements">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Trial measurements</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:trial:measurements</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:struct-label</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the list of trial or experiment measurements grouped by germplasm.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":trial:measurements">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

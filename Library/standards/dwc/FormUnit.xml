@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DWC UNIT FORM STRUCTURE
+	FormUnit.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- DWC unit form -->
+	
+	<UNIT>
+		<NODE class="COntologyVertex" term="http://purl.org/dc/dcterms">
+			<item const="kTAG_PID">DWC:UNIT.Form</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ROOT</item>
+				<item>:KIND-FORM</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Darwin Core unit form]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form can be used to search Darwin Core units.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</UNIT>
+	
+	<!-- Unit attributes -->
+	
+	<!-- http://purl.org/dc/terms/type -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/type">
+			<item const="kTAG_PID">DWC:UNIT.Form.type</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.type</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/modified -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/modified">
+			<item const="kTAG_PID">DWC:UNIT.Form.modified</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.modified</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/language -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/language">
+			<item const="kTAG_PID">DWC:UNIT.Form.language</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.language</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/rights -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/rights">
+			<item const="kTAG_PID">DWC:UNIT.Form.rights</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.rights</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/rightsHolder -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/rightsHolder">
+			<item const="kTAG_PID">DWC:UNIT.Form.rightsHolder</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.rightsHolder</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/accessRights -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/accessRights">
+			<item const="kTAG_PID">DWC:UNIT.Form.accessRights</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.accessRights</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/bibliographicCitation -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/bibliographicCitation">
+			<item const="kTAG_PID">DWC:UNIT.Form.bibliographicCitation</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.bibliographicCitation</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://purl.org/dc/terms/references -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://purl.org/dc/terms/references">
+			<item const="kTAG_PID">DWC:UNIT.Form.references</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.references</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/institutionID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/institutionID">
+			<item const="kTAG_PID">DWC:UNIT.Form.institutionID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.institutionID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/collectionID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/collectionID">
+			<item const="kTAG_PID">DWC:UNIT.Form.collectionID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.collectionID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/datasetID -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/datasetID">
+			<item const="kTAG_PID">DWC:UNIT.Form.datasetID</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.datasetID</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/institutionCode -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/institutionCode">
+			<item const="kTAG_PID">DWC:UNIT.Form.institutionCode</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.institutionCode</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/collectionCode -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/collectionCode">
+			<item const="kTAG_PID">DWC:UNIT.Form.collectionCode</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.collectionCode</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/datasetName -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/datasetName">
+			<item const="kTAG_PID">DWC:UNIT.Form.datasetName</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.datasetName</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/ownerInstitutionCode -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/ownerInstitutionCode">
+			<item const="kTAG_PID">DWC:UNIT.Form.ownerInstitutionCode</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.ownerInstitutionCode</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/basisOfRecord -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/basisOfRecord">
+			<item const="kTAG_PID">DWC:UNIT.Form.basisOfRecord</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.basisOfRecord</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/informationWithheld -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/informationWithheld">
+			<item const="kTAG_PID">DWC:UNIT.Form.informationWithheld</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.informationWithheld</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/dataGeneralizations -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/dataGeneralizations">
+			<item const="kTAG_PID">DWC:UNIT.Form.dataGeneralizations</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.dataGeneralizations</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+	
+	<!-- http://rs.tdwg.org/dwc/terms/dynamicProperties -->
+	<UNIT>
+		<NODE class="COntologyVertex" tag="http://rs.tdwg.org/dwc/terms/dynamicProperties">
+			<item const="kTAG_PID">DWC:UNIT.Form.dynamicProperties</item>
+			<item const="kTAG_KIND">
+				<item>:KIND-ATTRIBUTE</item>
+			</item>
+		</NODE>
+		<EDGE master="false">
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form.dynamicProperties</item>
+			<item const="kTAG_PREDICATE">:PART-OF</item>
+			<item const="kTAG_OBJECT" node="pid">DWC:UNIT.Form</item>
+		</EDGE>
+	</UNIT>
+</METADATA>
