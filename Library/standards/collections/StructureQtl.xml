@@ -114,12 +114,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :taxon:cross -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:cross</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- qtl:REMARKS -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">qtl:REMARKS</item>

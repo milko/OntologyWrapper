@@ -751,7 +751,7 @@ finally
 		// Set assessment region.
 		//
 		if( array_key_exists( 'CK:REGIONASS', $theData ) )
-			$sub[ getTag( ':taxon:threat:region' ) ]
+			$sub[ getTag( ':location:region' ) ]
 				= $theData[ 'CK:REGIONASS' ];
 		
 		//

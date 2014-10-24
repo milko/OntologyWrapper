@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :taxon:threat -->
+	<!-- schema::taxon:threat -->
 	<META>
 		<NODE term=":taxon:threat" pid="schema::taxon:threat">
 			<item const="kTAG_NODE_TYPE">
@@ -28,18 +28,6 @@
 		<!-- :taxon:threat:assessment -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:assessment</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:threat:region -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:region</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:threat:country -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:country</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

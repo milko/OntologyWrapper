@@ -31,5 +31,12 @@
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:taxon:distribution</item>
 		</EDGE>
+		
+		<!-- schema::taxon:unit:economy -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon:unit:economy</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:distribution</item>
+		</EDGE>
 	</META>
 </METADATA>

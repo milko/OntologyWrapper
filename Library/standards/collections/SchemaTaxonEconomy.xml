@@ -31,6 +31,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :taxon:ecovalue:rank -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue:rank</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :taxon:ecovalue-ref -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue-ref</item>

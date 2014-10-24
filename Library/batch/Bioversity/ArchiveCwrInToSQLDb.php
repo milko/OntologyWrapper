@@ -97,10 +97,15 @@ if( $argc < 5 )
 // Init local storage.
 //
 $start = 0;
-$limit = 20;
-$page = 4;
+$limit = 100;
+$page = 5;
 $dc_in = $dc_out = $rs = NULL;
 $class = 'OntologyWrapper\Inventory';
+
+//
+// Init base query.
+//
+$base_query = "SELECT * from `cwr_in`";
 
 //
 // Load arguments.
@@ -111,29 +116,6 @@ $table = $argv[ 3 ];
 $mongo = $argv[ 4 ];
 $graph = ( ($argc > 5) && strlen( $argv[ 5 ] ) ) ? $argv[ 5 ] : NULL;
 $last = ( $argc > 6 ) ? $argv[ 6 ] : NULL;
-
-//
-// Init base query.
-//
-$base_query = <<<EOT
-SELECT DISTINCT
-	`HASH`,
-	`:inventory:NICODE`,
-	`:inventory:INSTCODE`,
-	`cwr:in:NIENUMB`,
-	`:taxon:familia`,
-	`:taxon:genus`,
-	`:taxon:species`,
-	`:taxon:species:author`,
-	`:taxon:infraspecies`,
-	`:taxon:infraspecies:author`,
-	`:taxon:epithet`
-FROM
-	`$table`
-ORDER BY
-	`HASH` ASC
-
-EOT;
 
 //
 // Inform.
@@ -236,23 +218,25 @@ try
 	$dc_out->SetFetchMode( ADODB_FETCH_ASSOC );
 	
 	//
-	// Clearing output.
+	// Normalise output table.
 	//
 	if( $last === NULL )
-	{
 		$rs = $dc_out->Execute( "TRUNCATE TABLE `$table`" );
-		$rs->Close();
+	else
+	{
+		$dc_out->Execute( "DELETE FROM `$table` WHERE `id` > $last" );
 	}
+	$rs->Close();
 	
 	//
-	// Iterate hashes.
+	// Import.
 	//
 	$pages = $page;
 	echo( "  • Exporting\n" );
 	$query = $base_query;
 	if( $last !== NULL )
-		$query .= " WHERE `HASH` > $last";
-	$query .= "LIMIT $start,$limit";
+		$query .= " WHERE `ID` > $last";
+	$query .= " ORDER BY `ID` LIMIT $start,$limit";
 	$rs = $dc_in->execute( $query );
 	while( $rs->RecordCount() )
 	{
@@ -262,7 +246,7 @@ try
 		foreach( $rs as $record )
 		{
 			//
-			// Scan record.
+			// Clean record.
 			//
 			$data = Array();
 			foreach( $record as $key => $value )
@@ -270,8 +254,8 @@ try
 				//
 				// Normalise value.
 				//
-				if( strlen( trim( $value ) ) )
-					$data[ $key ] = trim( $value );
+				if( strlen( $tmp = trim( $value ) ) )
+					$data[ $key ] = $tmp;
 			
 			} // Scanning record.
 			
@@ -287,9 +271,9 @@ try
 			$object = new $class( $wrapper );
 			
 			//
-			// Load identifier.
+			// Load unit.
 			//
-			loadIdentifier( $object, $data, $wrapper, $dc_in );
+			loadUnit( $object, $data, $wrapper, $dc_in );
 			
 			//
 			// Validate object.
@@ -304,7 +288,7 @@ try
 					? "INSERT INTO `$table`( "
 					: "REPLACE INTO `$table`( ";
 			$insert .= ("`id`, `class`, `xml` ) VALUES( "
-					   .'0x'.bin2hex( (string) $record[ 'HASH' ] ).', '
+					   .$record[ 'id' ].', '
 					   .'0x'.bin2hex( get_class( $object ) ).', '
 					   .'0x'.bin2hex( $xml->asXML() ).' )');
 			$dc_out->Execute( $insert );
@@ -334,8 +318,8 @@ try
 		$start += $limit;
 		$query = $base_query;
 		if( $last !== NULL )
-			$query .= " WHERE `HASH` > $last";
-		$query .= "LIMIT $start,$limit";
+			$query .= " WHERE `ID` > $last";
+		$query .= " ORDER BY `ID` LIMIT $start,$limit";
 		$rs = $dc_in->execute( $query );
 	
 	} // Records left.
@@ -374,7 +358,7 @@ finally
  *======================================================================================*/
 
 	/**
-	 * Load identifier data.
+	 * Load unit data.
 	 *
 	 * This function will load the unit data provided in the <b>$theData</b> parameter
 	 * into the object provided in the <b>$theObject</b> parameter.
@@ -386,8 +370,26 @@ finally
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param ADOConnection			$theDatabase		SQL connection.
 	 */
-	function loadIdentifier( $theObject, $theData, $theWrapper, $theDatabase )
+	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
+		/***********************************************************************
+		 * Compile taxon.
+		 **********************************************************************/
+		
+		//
+		// Set scientific name.
+		//
+		$taxon = Array();
+		if( array_key_exists( 'CWRNI:GENUS', $theData ) )
+			$taxon[] = $theData[ 'CWRNI:GENUS' ];
+		if( array_key_exists( 'CWRNI:SPECIES', $theData ) )
+			$taxon[] = $theData[ 'CWRNI:SPECIES' ];
+		if( array_key_exists( 'CWRNI:SUBTAXA', $theData ) )
+			$taxon[] = $theData[ 'CWRNI:SUBTAXA' ];
+		$taxon = ( count( $taxon ) )
+			   ? implode( ' ', $taxon )
+			   : NULL;
+		
 		/***********************************************************************
 		 * Set unit identification properties.
 		 **********************************************************************/
@@ -395,23 +397,32 @@ finally
 		//
 		// Set authority.
 		//
-		$theObject->offsetSet( ':unit:authority', $theData[ ':inventory:INSTCODE' ] );
+		if( array_key_exists( 'CWRNI:INSTCODE', $theData ) )
+			$theObject->offsetSet( ':unit:authority', $theData[ 'CWRNI:INSTCODE' ] );
+		else
+			$theObject->offsetSet( ':unit:authority', $theData[ 'CWRNI:CWRCODE' ] );
 		
 		//
 		// Set collection.
 		//
-		$theObject->offsetSet( ':unit:collection', $theData[ ':taxon:epithet' ] );
+		$theObject->offsetSet( ':unit:collection', $taxon );
 		
 		//
 		// Set identifier.
 		//
-		$theObject->offsetSet( ':unit:identifier', $theData[ ':inventory:NICODE' ].'-001' );
+		$tmp = Array();
+		$tmp[] = $theData[ 'CWRNI:CWRCODE' ];
+		if( array_key_exists( 'CWRNI:NIENUMB', $theData ) )
+			$tmp[] = $theData[ 'CWRNI:NIENUMB' ];
+		if( count( $tmp ) )
+			$theObject->offsetSet( ':unit:identifier', implode( '-', $tmp ) );
 		
 		//
 		// Set version.
 		//
-		$theObject->offsetSet( ':unit:version', '2014' );
-				
+		if( array_key_exists( 'Version', $theData ) )
+			$theObject->offsetSet( ':unit:version', $theData[ 'Version' ] );
+		
 		/***********************************************************************
 		 * Set unit inventory properties.
 		 **********************************************************************/
@@ -419,524 +430,389 @@ finally
 		//
 		// Set dataset.
 		//
-		$theObject->offsetSet(
-			':inventory:dataset',
-			'United Kingdom crop wild relatives inventory' );
+		$theObject->offsetSet( ':inventory:dataset', $theData[ 'Dataset' ] );
 		
 		//
 		// Set inventory code.
 		//
-		$theObject->offsetSet( ':inventory:code', $theData[ ':inventory:NICODE' ] );
+		$theObject->offsetSet( ':inventory:code', $theData[ 'CWRNI:CWRCODE' ] );
 		
 		//
 		// Set inventory administrative unit.
 		//
-		$theObject->offsetSet( ':inventory:admin',
-							   "iso:3166:1:alpha-3:".$theData[ ':inventory:NICODE' ] );
+		$value = $theData[ 'CWRNI:CWRCODE' ];
+		if( strlen( $value ) == 3 )
+			$theObject->offsetSet( ':inventory:admin', "iso:3166:1:alpha-3:$value" );
+		else
+			$theObject->offsetSet( ':inventory:admin', "iso:3166:2:$value" );
 		
 		//
 		// Set inventory institute.
 		//
-		$theObject->offsetSet(
-			':inventory:institute',
-			kDOMAIN_ORGANISATION
-		   .'://http://fao.org/wiews:'
-		   .$theData[ ':inventory:INSTCODE' ]
-		   .kTOKEN_END_TAG );
+		if( array_key_exists( 'CWRNI:INSTCODE', $theData ) )
+			$theObject->offsetSet(
+				':inventory:institute',
+				kDOMAIN_ORGANISATION
+			   .'://http://fao.org/wiews:'
+			   .$theData[ 'CWRNI:INSTCODE' ]
+			   .kTOKEN_END_TAG );
 		
 		/***********************************************************************
 		 * Set other properties.
 		 **********************************************************************/
 		
 		//
-		// Set inventory institute code.
+		// Set checklist code.
 		//
-		$theObject->offsetSet( 'cwr:INSTCODE', $theData[ ':inventory:INSTCODE' ] );
+		$theObject->offsetSet( 'cwr:ck:CWRCODE', $theData[ 'CWRNI:CWRCODE' ] );
 		
+		//
+		// Set checklist number.
+		//
+		if( array_key_exists( 'CWRNI:NIENUMB', $theData ) )
+			$theObject->offsetSet( 'cwr:ck:NUMB', $theData[ 'CWRNI:NIENUMB' ] );
+		
+		//
+		// Set checklist institute.
+		//
+		if( array_key_exists( 'CWRNI:INSTCODE', $theData ) )
+			$theObject->offsetSet( 'cwr:INSTCODE', $theData[ 'CWRNI:INSTCODE' ] );
+		
+		//
+		// Set checklist priority.
+		//
+		if( array_key_exists( 'CWRNI:CRITPRIORI', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CWRNI:CRITPRIORI' ], ';' ) ) )
+			{
+				$list = Array();
+				foreach( $tmp as $item )
+					$list[] = "cwr:in:CRITPRIORI:$item";
+				$theObject->offsetSet( 'cwr:in:CRITPRIORI', $list );
+			}
+		}
+		
+		//
+		// Set checklist priority method.
+		//
+		if( array_key_exists( 'CWRNI:METHCRITPRIORI', $theData ) )
+			$theObject->offsetSet( 'cwr:in:METHCRITPRIORI',
+								   $theData[ 'CWRNI:METHCRITPRIORI' ] );
+		
+		//
+		// Set checklist references.
+		//
+		if( array_key_exists( 'CWR:REF', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CWR:REF' ], '§' ) ) )
+				$theObject->offsetSet( 'cwr:REF', $tmp );
+		}
+		
+		//
+		// Set checklist URLs.
+		//
+		if( array_key_exists( 'CWR:URL', $theData ) )
+			$theObject->offsetSet( 'cwr:URL', $theData[ 'CWR:URL' ] );
+		
+		//
+		// Set regnum.
+		//
+		if( array_key_exists( 'CWRNI:KINGDOM', $theData ) )
+			$theObject->offsetSet( ':taxon:regnum', $theData[ 'CWRNI:KINGDOM' ] );
+		//
+		// Set phylum.
+		//
+		if( array_key_exists( 'CWRNI:PHYLUM/DIVISION', $theData ) )
+			$theObject->offsetSet( ':taxon:phylum', $theData[ 'CWRNI:PHYLUM/DIVISION' ] );
+		//
+		// Set classis.
+		//
+		if( array_key_exists( 'CWRNI:CLASS', $theData ) )
+			$theObject->offsetSet( ':taxon:classis', $theData[ 'CWRNI:CLASS' ] );
+		//
+		// Set ordo.
+		//
+		if( array_key_exists( 'CWRNI:ORDER', $theData ) )
+			$theObject->offsetSet( ':taxon:ordo', $theData[ 'CWRNI:ORDER' ] );
 		//
 		// Set familia.
 		//
-		if( array_key_exists( ':taxon:familia', $theData ) )
-			$theObject->offsetSet( ':taxon:familia',
-								   $theData[ ':taxon:familia' ] );
-		
+		if( array_key_exists( 'CWRNI:FAMILY', $theData ) )
+			$theObject->offsetSet( ':taxon:familia', $theData[ 'CWRNI:FAMILY' ] );
+		//
+		// Set subfamilia.
+		//
+		if( array_key_exists( 'CWRNI:SUBFAMILY', $theData ) )
+			$theObject->offsetSet( ':taxon:subfamilia', $theData[ 'CWRNI:SUBFAMILY' ] );
+		//
+		// Set tribus.
+		//
+		if( array_key_exists( 'CWRNI:TRIBE', $theData ) )
+			$theObject->offsetSet( ':taxon:tribus', $theData[ 'CWRNI:TRIBE' ] );
+		//
+		// Set subtribus.
+		//
+		if( array_key_exists( 'CWRNI:SUBTRIBE', $theData ) )
+			$theObject->offsetSet( ':taxon:subtribus', $theData[ 'CWRNI:SUBTRIBE' ] );
 		//
 		// Set genus.
 		//
-		if( array_key_exists( ':taxon:genus', $theData ) )
-			$theObject->offsetSet( ':taxon:genus',
-								   $theData[ ':taxon:genus' ] );
-		
+		if( array_key_exists( 'CWRNI:GENUS', $theData ) )
+			$theObject->offsetSet( ':taxon:genus', $theData[ 'CWRNI:GENUS' ] );
 		//
 		// Set species.
 		//
-		if( array_key_exists( ':taxon:species', $theData ) )
-			$theObject->offsetSet( ':taxon:species',
-								   $theData[ ':taxon:species' ] );
-		
+		if( array_key_exists( 'CWRNI:SPECIES', $theData ) )
+			$theObject->offsetSet( ':taxon:species', $theData[ 'CWRNI:SPECIES' ] );
 		//
-		// Set species authority.
+		// Set species:author.
 		//
-		if( array_key_exists( ':taxon:species:author', $theData ) )
-			$theObject->offsetSet( ':taxon:species:author',
-								   $theData[ ':taxon:species:author' ] );
-		
+		if( array_key_exists( 'CWRNI:SPAUTHOR', $theData ) )
+			$theObject->offsetSet( ':taxon:species:author', $theData[ 'CWRNI:SPAUTHOR' ] );
 		//
-		// Set infraspecific epithet.
+		// Set infraspecies.
 		//
-		if( array_key_exists( ':taxon:infraspecies', $theData ) )
+		if( array_key_exists( 'CWRNI:SUBTAXA', $theData ) )
 			$theObject->offsetSet( ':taxon:infraspecies',
-								   $theData[ ':taxon:infraspecies' ] );
-		
+								   $theData[ 'CWRNI:SUBTAXA' ] );
 		//
-		// Set infraspecific authority.
+		// Set infraspecies:author.
 		//
-		if( array_key_exists( ':taxon:infraspecies:author', $theData ) )
+		if( array_key_exists( 'CWRNI:SUBTAUTHOR', $theData ) )
 			$theObject->offsetSet( ':taxon:infraspecies:author',
-								   $theData[ ':taxon:infraspecies:author' ] );
+								   $theData[ 'CWRNI:SUBTAUTHOR' ] );
 		
 		//
-		// Set sspecies name.
+		// Set sample species name.
 		//
-		if( array_key_exists( ':taxon:genus', $theData )
-		 && array_key_exists( ':taxon:species', $theData ) )
+		if( array_key_exists( 'CWRNI:GENUS', $theData )
+		 && array_key_exists( 'CWRNI:SPECIES', $theData ) )
 			$theObject->offsetSet(
 				':taxon:species:name',
-				implode( ' ', array( $theData[ ':taxon:genus' ],
-									 $theData[ ':taxon:species' ] ) ) );
+				implode( ' ', array( $theData[ 'CWRNI:GENUS' ],
+									 $theData[ 'CWRNI:SPECIES' ] ) ) );
 		
 		//
-		// Set scientific name.
+		// Set epithet.
 		//
-		if( array_key_exists( ':taxon:epithet', $theData ) )
-			$theObject->offsetSet( ':taxon:epithet',
-								   $theData[ ':taxon:epithet' ] );
+		if( $taxon !== NULL )
+			$theObject->offsetSet( ':taxon:epithet', $taxon );
 		
 		//
-		// Handle unit data.
+		// Set author.
 		//
-		loadUnit( $theObject, $theData[ 'HASH' ], $theWrapper, $theDatabase );
-		
-	} // loadIdentifier.
-	
-
-	/**
-	 * Load unit data.
-	 *
-	 * This function will load the unit data identified by the <b>$theHash</b> parameter
-	 * into the object provided in the <b>$theObject</b> parameter.
-	 *
-	 * The function will take care of loading the target species data.
-	 *
-	 * @param PersistentObject		$theObject			Object.
-	 * @param array					$theHash			Data.
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param ADOConnection			$theDatabase		SQL connection.
-	 */
-	function loadUnit( $theObject, $theHash, $theWrapper, $theDatabase )
-	{
-		//
-		// Iterate unit data.
-		//
-		$query = "SELECT DISTINCT "
-				."`cwr:in:CRITPRIORI`, "
-				."`cwr:TAXREF`, "
-				."`__LANG`, "
-				."`:taxon:names`, "
-				."`cwr:GENEPOOL`, "
-				."`cwr:GENEPOOLREF`, "
-				."`cwr:TAXONGROUP`, "
-				."`cwr:REFTAXONGROUP` "
-				."FROM `cwr_in` "
-				."WHERE( `HASH` = '$theHash' )";
-		$all = $theDatabase->GetAll( $query );
+		if( array_key_exists( ':taxon:author', $theData ) )
+			$theObject->offsetSet( ':taxon:author',
+								   $theData[ ':taxon:author' ] );
 		
 		//
-		// Clean records.
+		// Set taxon reference.
 		//
-		$records = Array();
-		foreach( $all as $record )
+		if( array_key_exists( 'CWRNI:TAXREF', $theData ) )
+			$theObject->offsetSet( ':taxon:reference',
+								   array( $theData[ 'CWRNI:TAXREF' ] ) );
+		
+		//
+		// Set taxon reference ID.
+		//
+		// CK:TAXREFID
+		
+		//
+		// Set taxon synonyms.
+		//
+		if( array_key_exists( 'CK:SYNONYMS', $theData ) )
 		{
-			$data = Array();
-			foreach( $record as $key => $value )
-			{
-				if( strlen( $value = trim( $value ) ) )
-					$data[ $key ] = $value;
-			}
-			if( count( $data ) )
-				$records[] = $data;
+			if( count( $tmp = setList( $theData[ 'CK:SYNONYMS' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:synonym', $tmp );
+		}
+		
+		//
+		// Set taxon synonyms reference.
+		//
+		if( array_key_exists( 'CWRNI:SYNREF', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CWRNI:SYNREF' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:synref', $tmp );
 		}
 		
 		//
 		// Set vernacular names.
 		//
-		$list = Array();
-		foreach( $records as $record )
+		if( array_key_exists( 'CWRNI:COMMONTAXONNAME', $theData ) )
 		{
-			if( array_key_exists( ':taxon:names', $record ) )
-			{
-				if( strlen( $item = trim( $record[ ':taxon:names' ] ) ) )
-				{
-					if( ! in_array( $item, $list ) )
-						$list[] = $item;
-				}
-			}
+			$tmp = setLangStrings( $theData[ 'CWRNI:COMMONTAXONNAME' ] );
+			if( $tmp !== NULL )
+				$theObject->offsetSet( ':taxon:names', array( $tmp ) );
 		}
-		if( count( $list ) )
-			$theObject->offsetSet( ':taxon:names',
-								   array( array( kTAG_LANGUAGE => 'en',
-												 kTAG_TEXT => $list ) ) );
 		
 		//
-		// Set priority criteria.
+		// Set chromosome number.
 		//
-		$property = Array();
-		foreach( $records as $record )
+		if( array_key_exists( 'CWRNI:CHROMOSNUMB', $theData ) )
 		{
-			if( array_key_exists( 'cwr:in:CRITPRIORI', $record ) )
-			{
-				foreach( explode( ';', $record[ 'cwr:in:CRITPRIORI' ] ) as $item )
-				{
-					if( strlen( $item = trim( $item ) ) )
-					{
-						$item = "cwr:in:CRITPRIORI:$item";
-						if( ! in_array( $item, $property ) )
-							$property[] = $item;
-					}
-				}
-			}
+			if( count( $tmp = setList( $theData[ 'CWRNI:CHROMOSNUMB' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:chromosome-number', $tmp );
 		}
-		if( count( $property ) )
-			$theObject->offsetSet( 'cwr:in:CRITPRIORI', $property );
 		
 		//
-		// Set taxon reference.
+		// Set genepool/taxon group.
 		//
-		$property = Array();
-		foreach( $records as $record )
+		if( array_key_exists( ':taxon:gp/tg', $theData ) )
 		{
-			if( array_key_exists( 'cwr:TAXREF', $record ) )
-			{
-				if( strlen( $item = trim( $record[ 'cwr:TAXREF' ] ) ) )
-				{
-					if( ! in_array( $item, $property ) )
-						$property[] = $item;
-				}
-			}
+			if( count( $tmp = setList( $theData[ ':taxon:gp/tg' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:gp/tg', $tmp );
 		}
-		if( count( $property ) )
-			$theObject->offsetSet( ':taxon:reference', $property );
 		
 		//
-		// Set genepool.
+		// Set gene pool.
 		//
-		$property = Array();
-		foreach( $records as $record )
+		if( array_key_exists( 'CWRNI:GENEPOOL', $theData ) )
 		{
-			if( array_key_exists( 'cwr:GENEPOOL', $record ) )
-			{
-				foreach( explode( ';', $record[ 'cwr:GENEPOOL' ] ) as $item )
-				{
-					if( strlen( $item = trim( $item ) ) )
-					{
-						if( ! in_array( $item, $property ) )
-							$property[] = $item;
-					}
-				}
-			}
+			if( count( $tmp = setList( $theData[ 'CWRNI:GENEPOOL' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:genepool', $tmp );
 		}
-		if( count( $property ) )
-			$theObject->offsetSet( ':taxon:genepool', $property );
 		
 		//
-		// Set genepool reference.
+		// Set gene pool reference.
 		//
-		$property = Array();
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'cwr:GENEPOOLREF', $record ) )
-			{
-				if( strlen( $item = trim( $record[ 'cwr:GENEPOOLREF' ] ) ) )
-				{
-					if( ! in_array( $item, $property ) )
-						$property[] = $item;
-				}
-			}
-		}
-		if( count( $property ) )
-			$theObject->offsetSet( ':taxon:genepool-ref', $property );
+		if( array_key_exists( 'CWRNI:GENEPOOLREF', $theData ) )
+			$theObject->offsetSet( ':taxon:genepool-ref',
+								   array( $theData[ 'CWRNI:GENEPOOLREF' ] ) );
 		
 		//
 		// Set taxon group.
 		//
-		$property = Array();
-		foreach( $records as $record )
+		if( array_key_exists( 'CWRNI:TAXONGROUP', $theData ) )
 		{
-			if( array_key_exists( 'cwr:TAXONGROUP', $record ) )
-			{
-				foreach( explode( ';', $record[ 'cwr:TAXONGROUP' ] ) as $item )
-				{
-					if( strlen( $item = trim( $item ) ) )
-					{
-						if( ! in_array( $item, $property ) )
-							$property[] = $item;
-					}
-				}
-			}
+			if( count( $tmp = setList( $theData[ 'CWRNI:TAXONGROUP' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:group', $tmp );
 		}
-		if( count( $property ) )
-			$theObject->offsetSet( ':taxon:group', $property );
 		
 		//
 		// Set taxon group reference.
 		//
-		$property = Array();
-		foreach( $records as $record )
+		if( array_key_exists( 'CWRNI:REFTAXONGROUP', $theData ) )
+			$theObject->offsetSet( ':taxon:group-ref',
+								   $theData[ 'CWRNI:REFTAXONGROUP' ] );
+		
+		//
+		// Set taxon designation use.
+		//
+		if( array_key_exists( ':taxon:designation:use', $theData ) )
 		{
-			if( array_key_exists( 'cwr:REFTAXONGROUP', $record ) )
-			{
-				if( strlen( $item = trim( $record[ 'cwr:REFTAXONGROUP' ] ) ) )
-				{
-					if( ! in_array( $item, $property ) )
-						$property[] = $item;
-				}
-			}
+			if( count( $tmp = setList( $theData[ ':taxon:designation:use' ], ';' ) ) )
+				$theObject->offsetSet( ':taxon:designation:use', $tmp );
 		}
-		if( count( $property ) )
-			$theObject->offsetSet( ':taxon:group-ref', $property );
 		
 		//
-		// Handle distribution.
+		// Set annex 1 code.
 		//
-		loadDistribution( $theObject, $theHash, $theWrapper, $theDatabase );
-	
-		//
-		// Handle crossability.
-		//
-		loadCrossability( $theObject, $theHash, $theWrapper, $theDatabase );
+		if( array_key_exists( ':taxon:annex-1', $theData ) )
+			$theObject->offsetSet( ':taxon:annex-1',
+								   ":taxon:annex-1:".$theData[ ':taxon:annex-1' ] );
 		
 		//
-		// Handle threats.
+		// Set annex 1 notes.
 		//
-		loadThreats( $theObject, $theHash, $theWrapper, $theDatabase );
-	
+		if( array_key_exists( ':taxon:annex-1:notes', $theData ) )
+			$theObject->offsetSet( ':taxon:annex-1:notes',
+								   $theData[ ':taxon:annex-1:notes' ] );
+		
+		//
+		// Set taxon policy notes notes.
+		//
+		if( array_key_exists( ':taxon:unit:policy:notes', $theData ) )
+			$theObject->offsetSet( ':taxon:unit:policy:notes',
+								   $theData[ ':taxon:unit:policy:notes' ] );
+		
+		//
+		// Load crossability data.
+		//
+		$sub = Array();
+		loadCrossability( $sub,
+						  $theData,
+						  $theWrapper,
+						  $theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':taxon:cross', $sub );
+		
+		//
+		// Load threat data.
+		//
+		$sub = Array();
+		loadThreat(	$sub,
+					$theData,
+					$theWrapper,
+					$theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':taxon:threat', $sub );
+		
+		//
+		// Load distribution data.
+		//
+		$sub = Array();
+		loadDistribution( $sub,
+						  $theData,
+						  $theWrapper,
+						  $theDatabase );
+		if( count( $sub ) )
+			$theObject->offsetSet( ':taxon:distribution', $sub );
+		
+		//
+		// Set checklist remarks.
+		//
+		if( array_key_exists( 'REMARKS', $theData ) )
+			$theObject->offsetSet( 'cwr:REMARKS', $theData[ 'REMARKS' ] );
+
 	} // loadUnit.
-	
-
-	/**
-	 * Load distribution data.
-	 *
-	 * This function will load the unit data identified by the <b>$theHash</b> parameter
-	 * into the object provided in the <b>$theObject</b> parameter.
-	 *
-	 * The function will take care of loading the target species data.
-	 *
-	 * @param PersistentObject		$theObject			Object.
-	 * @param array					$theHash			Data.
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param ADOConnection			$theDatabase		SQL connection.
-	 */
-	function loadDistribution( $theObject, $theHash, $theWrapper, $theDatabase )
-	{
-		//
-		// Init local storage.
-		//
-		$struct = Array();
-		
-		//
-		// Iterate crossability data.
-		//
-		$query = "SELECT DISTINCT "
-				."`cwr:in:DISTCOUNTRYCODE`, "
-				."`cwr:TAXONSTATUS` "
-				."FROM `cwr_in` "
-				."WHERE( `HASH` = '$theHash' )";
-		$records = $theDatabase->GetAll( $query );
-		foreach( $records as $record )
-		{
-			//
-			// Scan record.
-			//
-			$data = Array();
-			foreach( $record as $key => $value )
-			{
-				//
-				// Normalise value.
-				//
-				if( strlen( trim( $value ) ) )
-					$data[ $key ] = trim( $value );
-			
-			} // Scanning record.
-			
-			//
-			// Skip empty records.
-			//
-			if( ! count( $data ) )
-				continue;													// =>
-			
-			//
-			// Set distribution region.
-			//
-			if( array_key_exists( 'cwr:in:DISTCOUNTRYCODE', $data ) )
-			{
-				//
-				// Init loop storage.
-				//
-				$dist = Array();
-				$tag_dist = getTag( ':location:admin' );
-				$tag_dist_reg = getTag( ':location:region' );
-				$tag_dist_occur = getTag( ':taxon:occurrence-status' );
-				
-				//
-				// Set region code.
-				//
-				$code = "iso:3166:2:".$data[ 'cwr:in:DISTCOUNTRYCODE' ];
-				$dist[ $tag_dist ] = $code;
-				
-				//
-				// Set region name.
-				//
-				$region = new OntologyWrapper\Term( $theWrapper, $code );
-				$dist[ $tag_dist_reg ]
-					= OntologyWrapper\OntologyObject::SelectLanguageString(
-						$region[ kTAG_LABEL ], 'en' );
-		
-				//
-				// Set taxon occurrence status.
-				//
-				if( array_key_exists( 'cwr:TAXONSTATUS', $record ) )
-				{
-					switch( trim( $record[ 'cwr:TAXONSTATUS' ] ) )
-					{
-						case '1':
-							$dist[ $tag_dist_occur ] = array( ':taxon:occurrence-status:100' );
-							break;
-						case '5':
-							$dist[ $tag_dist_occur ] = array( ':taxon:occurrence-status:400' );
-							break;
-					}
-				}
-				
-				//
-				// Set element.
-				//
-				if( count( $dist ) )
-					$struct[] = $dist;
-			
-			} // Has distribution.
-		
-		} // Iterating distribution data.
-		
-		//
-		// Set structure.
-		//
-		if( count( $struct ) )
-			$theObject->offsetSet( ':taxon:distribution', $struct );
-
-	} // loadDistribution.
 	
 
 	/**
 	 * Load crossability data.
 	 *
-	 * This function will load the unit data identified by the <b>$theHash</b> parameter
-	 * into the object provided in the <b>$theObject</b> parameter.
+	 * This function will load the threat data related to the provided <b>$theData</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
 	 *
-	 * The function will take care of loading the target species data.
-	 *
-	 * @param PersistentObject		$theObject			Object.
-	 * @param array					$theHash			Data.
+	 * @param array					$theContainer		Container.
+	 * @param array					$theData			Unit data.
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param ADOConnection			$theDatabase		SQL connection.
 	 */
-	function loadCrossability( $theObject, $theHash, $theWrapper, $theDatabase )
+	function loadCrossability( &$theContainer, $theData, $theWrapper, $theDatabase )
 	{
 		//
-		// Init local storage.
+		// Check cross species.
 		//
-		$struct = Array();
-		
-		//
-		// Iterate crossability data.
-		//
-		$query = "SELECT DISTINCT `cwr:LISTSPCROSS` "
-				."FROM `cwr_in` "
-				."WHERE( `HASH` = '$theHash' )";
-		$records = $theDatabase->GetAll( $query );
-		foreach( $records as $record )
+		if( array_key_exists( 'CWRNI:LISTSPCROSS', $theData ) )
 		{
 			//
-			// Init loop storage.
+			// Init local storage.
 			//
-			$properties = Array();
+			$sub = Array();
+			
 			
 			//
-			// Scan record.
+			// Get species.
 			//
-			$data = Array();
-			foreach( $record as $key => $value )
+			$species = setList( $theData[ 'CWRNI:LISTSPCROSS' ], ';' );
+			if( count( $species ) )
 			{
 				//
-				// Normalise value.
+				// Set label.
 				//
-				if( strlen( trim( $value ) ) )
-					$data[ $key ] = trim( $value );
-			
-			} // Scanning record.
-			
-			//
-			// Skip empty records.
-			//
-			if( ! count( $data ) )
-				continue;													// =>
-			
-			//
-			// Set list of species crosses.
-			//
-			if( array_key_exists( 'cwr:LISTSPCROSS', $data ) )
-			{
-				//
-				// Collect species.
-				//
-				$list = Array();
-				foreach( explode( ';', $data[ 'cwr:LISTSPCROSS' ] ) as $species )
-				{
-					if( strlen( $species = trim( $species ) ) )
-						$list[] = $species;
-				}
+				$sub[ kTAG_STRUCT_LABEL ] = 'crosses';
 				
 				//
-				// Handle species.
+				// Set species.
 				//
-				if( count( $list ) )
-				{
-					//
-					// Set structure label.
-					//
-					$properties[ kTAG_STRUCT_LABEL ] = implode( ', ', $list );
-				
-					//
-					// Set list of species crosses.
-					//
-					$properties[ getTag( ':taxon:cross:species' ) ] = $list;
-				
-				} // Found species.
-				
-			} // Has species crosses.
-			
-			//
-			// Add to struct.
-			//
-			if( count( $properties ) )
-				$struct[] = $properties;
-		
-		} // Iterating crossability data.
-		
-		//
-		// Set structure.
-		//
-		if( count( $struct ) )
-			$theObject->offsetSet( ':taxon:cross', $struct );
+				$sub[ getTag( ':taxon:cross:species' ) ] = $species;
+	
+				//
+				// Load sub-structure.
+				//
+				$theContainer[] = $sub;
+			}
+		}
 
 	} // loadCrossability.
 	
@@ -944,250 +820,297 @@ finally
 	/**
 	 * Load threat data.
 	 *
-	 * This function will load the unit data identified by the <b>$theHash</b> parameter
-	 * into the object provided in the <b>$theObject</b> parameter.
+	 * This function will load the threat data related to the provided <b>$theData</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
 	 *
-	 * The function will take care of loading the target species data.
-	 *
-	 * @param PersistentObject		$theObject			Object.
-	 * @param array					$theHash			Data.
+	 * @param array					$theContainer		Container.
+	 * @param array					$theData			Unit data.
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param ADOConnection			$theDatabase		SQL connection.
 	 */
-	function loadThreats( $theObject, $theHash, $theWrapper, $theDatabase )
+	function loadThreat( &$theContainer, $theData, $theWrapper, $theDatabase )
 	{
 		//
 		// Init local storage.
 		//
-		$struct = $properties = Array();
-		
-		//
-		// Iterate crossability data.
-		//
-		$query = <<<EOT
-SELECT DISTINCT
-	`cwr:ASSLEVEL`,
-	`cwr:in:COUNTRYCODEASS`,
-	`iucn:category`,
-	`iucn:criteria`,
-	`cwr:YEARREDLISTASS`,
-	`cwr:URLPUBREDLISTASS`,
-	`cwr:REFREDLISTASS`,
-	`cwr:in:COUNTRYCODE`,
-	`cwr:in:NUNITCODE`,
-	`cwr:in:NUNITDESCR`,
-	`cwr:in:NUNITAUTHOR`,
-	`iucn:threat`
-FROM
-	`cwr_in`
-WHERE( `HASH` = '$theHash' )
-EOT;
-		$all = $theDatabase->GetAll( $query );
-		
-		//
-		// Clean records.
-		//
-		$records = Array();
-		foreach( $all as $record )
-		{
-			$data = Array();
-			foreach( $record as $key => $value )
-			{
-				if( strlen( $value = trim( $value ) ) )
-					$data[ $key ] = $value;
-			}
-			if( count( $data ) )
-				$records[] = $data;
-		}
+		$sub = Array();
 		
 		//
 		// Set structure label.
 		//
-		$cou = $year = $ass = $code = NULL;
-		foreach( $records as $record )
-		{
-			if( ($cou === NULL)
-			 && array_key_exists( 'cwr:in:COUNTRYCODEASS', $record ) )
-				$cou = $record[ 'cwr:in:COUNTRYCODEASS' ];
-			if( ($year === NULL)
-			 && array_key_exists( 'cwr:YEARREDLISTASS', $record ) )
-				$year = $record[ 'cwr:YEARREDLISTASS' ];
-			if( ($ass === NULL)
-			 && array_key_exists( 'cwr:ASSLEVEL', $record ) )
-				$ass = $record[ 'cwr:ASSLEVEL' ];
-			if( ($code === NULL)
-			 && array_key_exists( 'cwr:in:NUNITCODE', $record ) )
-				$code = $record[ 'cwr:in:NUNITCODE' ];
-			elseif( ($code === NULL)
-				 && array_key_exists( 'iucn:criteria', $record ) )
-				$code = $record[ 'iucn:criteria' ];
-		}
-		$label = Array();
-		if( $cou !== NULL )
-			$label[] = $cou;
-		if( $year !== NULL )
-			$label[] = $year;
-		if( $ass !== NULL )
-			$label[] = $ass;
-		if( $code !== NULL )
-			$label[] = $code;
-		if( count( $label ) )
-			$properties[ kTAG_STRUCT_LABEL ] = implode( '/', $label );
-	
+		if( array_key_exists( 'CWRNI:COUNTRYCODEASS', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:COUNTRYCODEASS' ];
+		elseif( array_key_exists( 'CWRNI:COUNTRYCODE', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:COUNTRYCODE' ];
+		elseif( array_key_exists( 'CWRNI:REGIONASS', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:REGIONASS' ];
+		elseif( array_key_exists( 'CWRNI:IUCNCRIT', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:IUCNCRIT' ];
+		elseif( array_key_exists( 'CWRNI:REDLISTCAT', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:REDLISTCAT' ];
+		else
+			$sub[ kTAG_STRUCT_LABEL ] = 'threat';
+		
 		//
-		// Set threat assessment level.
+		// Set assessment level.
 		//
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'cwr:ASSLEVEL', $record ) )
-			{
-				$properties[ getTag( ':taxon:threat:assessment' ) ]
-					= ':taxon:threat:assessment:'.$record[ 'cwr:ASSLEVEL' ];
-				break;
-			}
-		}
-	
+		if( array_key_exists( 'CWRNI:ASSLEVEL', $theData ) )
+			$sub[ getTag( ':taxon:threat:assessment' ) ]
+				= ':taxon:threat:assessment:'.$theData[ 'CWRNI:ASSLEVEL' ];
+		
+		//
+		// Set assessment region.
+		//
+		if( array_key_exists( 'CWRNI:REGIONASS', $theData ) )
+			$sub[ getTag( ':location:region' ) ]
+				= $theData[ 'CWRNI:REGIONASS' ];
+		
 		//
 		// Set threat country.
 		//
-		foreach( $records as $record )
+		if( array_key_exists( 'CWRNI:COUNTRYCODEASS', $theData ) )
+			$sub[ getTag( ':location:country' ) ]
+				= "iso:3166:1:alpha-3:".$theData[ 'CWRNI:COUNTRYCODEASS' ];
+		
+		//
+		// Set red list year.
+		//
+		if( array_key_exists( 'CWRNI:YEARASS', $theData ) )
+			$sub[ getTag( ':taxon:threat:assessment:year' ) ]
+			 = $theData[ 'CWRNI:YEARASS' ];
+		
+		//
+		// Set iucn category
+		//
+		if( array_key_exists( 'CWRNI:IUCNCAT', $theData ) )
 		{
-			if( array_key_exists( 'cwr:in:COUNTRYCODEASS', $record ) )
+			if( count( $list = setList( $theData[ 'CWRNI:IUCNCAT' ], ';' ) ) )
 			{
-				$properties[ getTag( ':taxon:threat:country' ) ]
-					= 'iso:3166:1:alpha-3:'.$record[ 'cwr:in:COUNTRYCODEASS' ];
-				break;
-			}
-		}
-	
-		//
-		// Set iucn category.
-		//
-		$property = Array();
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'iucn:category', $record ) )
-			{
-				$item = 'iucn:category:'.$record[ 'iucn:category' ];
-				if( ! in_array( $item, $property ) )
-					$property[] = $item;
-			}
-		}
-		if( count( $property ) )
-			$properties[ getTag( 'iucn:category' ) ]
-				= $property;
-	
-		//
-		// Set iucn criteria citation.
-		//
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'iucn:criteria', $record ) )
-			{
-				$properties[ getTag( 'iucn:criteria-citation' ) ]
-					= $record[ 'iucn:criteria' ];
-				break;
-			}
-		}
-	
-		//
-		// Set red list assessment year.
-		//
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'cwr:YEARREDLISTASS', $record ) )
-			{
-				$properties[ getTag( ':taxon:threat:assessment:year' ) ]
-					= $record[ 'cwr:YEARREDLISTASS' ];
-				break;
-			}
-		}
-	
-		//
-		// Set red list assessment URL.
-		//
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'cwr:URLPUBREDLISTASS', $record ) )
-			{
-				$properties[ getTag( ':taxon:threat:assessment:url' ) ]
-					= $record[ 'cwr:URLPUBREDLISTASS' ];
-				break;
-			}
-		}
-	
-		//
-		// Set red list assessment references.
-		//
-		$property = Array();
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'cwr:REFREDLISTASS', $record ) )
-			{
-				if( ! in_array( $item = $record[ 'cwr:REFREDLISTASS' ], $property ) )
-					$property[] = $item;
-			}
-		}
-	
-		//
-		// Set national unit code.
-		//
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'cwr:in:NUNITCODE', $record ) )
-			{
-				$properties[ getTag( ':taxon:threat:national:ucode' ) ]
-					= $record[ 'cwr:in:NUNITCODE' ];
-				break;
-			}
-		}
-	
-		//
-		// Set national unit description.
-		//
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'cwr:in:NUNITDESCR', $record ) )
-			{
-				$properties[ getTag( ':taxon:threat:national:udescr' ) ]
-					= $record[ 'cwr:in:NUNITDESCR' ];
-				break;
-			}
-		}
-	
-		//
-		// Set national unit authority.
-		//
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'cwr:in:NUNITAUTHOR', $record ) )
-			{
-				$properties[ getTag( ':taxon:threat:national:uauth' ) ]
-					= $record[ 'cwr:in:NUNITAUTHOR' ];
-				break;
-			}
-		}
-	
-		//
-		// Set national threat code.
-		//
-		foreach( $records as $record )
-		{
-			if( array_key_exists( 'iucn:threat', $record ) )
-			{
-				$properties[ getTag( ':taxon:threat:national' ) ]
-					= $record[ 'iucn:threat' ];
-				break;
+				$value = Array();
+				foreach( $list as $element )
+					$value[] = "iucn:category:$element";
+				if( count( $value ) )
+					$sub[ getTag( 'iucn:category' ) ]
+						= $value;
 			}
 		}
 		
 		//
-		// Add to object.
+		// Set IUCN criteria citation.
 		//
-		if( count( $properties ) )
-			$theObject->offsetSet( ':taxon:threat', array( $properties ) );
+		if( array_key_exists( 'CWRNI:IUCNCRIT', $theData ) )
+			$sub[ getTag( 'iucn:criteria-citation' ) ]
+			 = $theData[ 'CWRNI:IUCNCRIT' ];
+		
+		//
+		// Set IUCN threat class.
+		//
+		if( array_key_exists( 'CK:IUCNTHREATCLSS', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CK:IUCNTHREATCLSS' ], ';' ) ) )
+			{
+				$list = Array();
+				foreach( $tmp as $item )
+					$list[] = "iucn:threat:$item";
+				$sub[ getTag( 'iucn:threat' ) ]
+				 = $list;
+			}
+		}
+		
+		//
+		// Set IUCN occurrence period.
+		//
+		if( array_key_exists( 'CK:OCCURTHREAT', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CK:OCCURTHREAT' ], ';' ) ) )
+			{
+				$list = Array();
+				foreach( $tmp as $item )
+					$list[] = ":taxon:threat:period:$item";
+				$sub[ getTag( ':taxon:threat:period' ) ]
+				 = $list;
+			}
+		}
+		
+		//
+		// Set other red list category.
+		//
+		if( array_key_exists( 'CWRNI:REDLISTCAT', $theData ) )
+			$sub[ getTag( ':taxon:threat:other-red-list-criteria' ) ]
+			 = $theData[ 'CWRNI:REDLISTCAT' ];
+		
+		//
+		// Set red list URL.
+		//
+		if( array_key_exists( 'CWRNI:URLPUBREDLISTASS', $theData ) )
+			$sub[ getTag( ':taxon:threat:assessment:url' ) ]
+			 = $theData[ 'CWRNI:URLPUBREDLISTASS' ];
+		
+		//
+		// Set red list references.
+		//
+		if( array_key_exists( 'CWRNI:REFREDLISTASS', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CWRNI:REFREDLISTASS' ], ';' ) ) )
+				$sub[ getTag( ':taxon:threat:assessment:ref' ) ]
+					= $tmp;
+		}
+		
+		//
+		// Set threaten status according to national riteria.
+		//
+		if( array_key_exists( 'CWRNI:THREATSTATUS', $theData ) )
+			$sub[ getTag( ':taxon:threat:national' ) ]
+				= $theData[ 'CWRNI:THREATSTATUS' ];
+		
+		//
+		// Set national unit code.
+		//
+		if( array_key_exists( 'CWRNI:NUNITCODE', $theData ) )
+			$sub[ getTag( ':taxon:threat:national:ucode' ) ]
+				= $theData[ 'CWRNI:NUNITCODE' ];
+		
+		//
+		// Set national unit description.
+		//
+		if( array_key_exists( 'CWRNI:NUNITDESCR', $theData ) )
+			$sub[ getTag( ':taxon:threat:national:udescr' ) ]
+				= $theData[ 'CWRNI:NUNITDESCR' ];
+		
+		//
+		// Set national unit authority.
+		//
+		if( array_key_exists( 'CWRNI:NUNITAUTHOR', $theData ) )
+			$sub[ getTag( ':taxon:threat:national:uauth' ) ]
+				= $theData[ 'CWRNI:NUNITAUTHOR' ];
+		
+		//
+		// Load sub-structure.
+		//
+		if( count( $sub ) )
+			$theContainer[] = $sub;
 
-	} // loadThreats.
+	} // loadThreat.
+	
+
+	/**
+	 * Load distribution data.
+	 *
+	 * This function will load the threat data related to the provided <b>$theData</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theData			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadDistribution( &$theContainer, $theData, $theWrapper, $theDatabase )
+	{
+		//
+		// Init local storage.
+		//
+		$sub = Array();
+		
+		//
+		// Set location region.
+		//
+		if( array_key_exists( 'CWRNI:DISTCOUNTRYCODE', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:DISTCOUNTRYCODE' ];
+		elseif( array_key_exists( ':taxon:occurrence-notes', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ ':taxon:occurrence-notes' ];
+		elseif( array_key_exists( ':taxon:ecovalue:country', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ ':taxon:ecovalue:country' ];
+		else
+			$sub[ kTAG_STRUCT_LABEL ] = 'distribution';
+		
+		//
+		// Set distribution country and region.
+		//
+		if( array_key_exists( 'CWRNI:DISTCOUNTRYCODE', $theData )
+		 || array_key_exists( ':taxon:ecovalue:country', $theData ) )
+		{
+			$value = (array_key_exists( 'CWRNI:DISTCOUNTRYCODE', $theData ) )
+				   ? $theData[ 'CWRNI:DISTCOUNTRYCODE' ]
+				   : $theData[ ':taxon:ecovalue:country' ];
+			if( strlen( $value ) == 3 )
+			{
+				$sub[ getTag( ':location:country' ) ] = "iso:3166:1:alpha-3:$value";
+				$sub[ getTag( ':location:admin' ) ] = "iso:3166:1:alpha-3:$value";
+			}
+			else
+			{
+				$sub[ getTag( ':location:country' ) ] = "iso:3166:1:alpha-3:GBR";
+				$sub[ getTag( ':location:admin' ) ] = "iso:3166:2:$value";
+			}
+		}
+		
+		//
+		// Set taxon status
+		//
+		if( array_key_exists( 'CWRNI:TAXONSTATUS', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CWRNI:TAXONSTATUS' ], ';' ) ) )
+			{
+				$value = Array();
+				foreach( $tmp as $item )
+				{
+					switch( $theData[ 'CWRNI:TAXONSTATUS' ] )
+					{
+						case '1':
+							$value[] = ":taxon:occurrence-status:100";
+							break;
+						case '2':
+							$value[] = ":taxon:occurrence-status:130";
+							break;
+						case '3':
+							$value[] = ":taxon:occurrence-status:200";
+							break;
+						case '4':
+							$value[] = ":taxon:occurrence-status:300";
+							break;
+						case '5':
+							$value[] = ":taxon:occurrence-status:400";
+							break;
+						case '6':
+							$value[] = ":taxon:occurrence-status:490";
+							break;
+					}
+				}
+		
+				if( count( $value ) )
+					$sub[ getTag( ':taxon:occurrence-status' ) ]
+						= $value;
+			}
+		}
+		
+		//
+		// Set taxon economic value.
+		//
+		if( array_key_exists( ':taxon:ecovalue', $theData ) )
+			$sub[ getTag( ':taxon:ecovalue' ) ]
+				= array( $theData[ ':taxon:ecovalue' ] );
+		
+		//
+		// Set taxon economic value rank.
+		//
+		if( array_key_exists( ':taxon:ecovalue:rank', $theData ) )
+			$sub[ getTag( ':taxon:ecovalue:rank' ) ]
+				= $theData[ ':taxon:ecovalue:rank' ];
+		
+		//
+		// Set taxon occurrence notes.
+		//
+		if( array_key_exists( ':taxon:occurrence-notes', $theData ) )
+			$sub[ getTag( ':taxon:occurrence-notes' ) ]
+				= $theData[ ':taxon:occurrence-notes' ];
+		
+		//
+		// Load sub-structure.
+		//
+		if( count( $sub ) )
+			$theContainer[] = $sub;
+
+	} // loadDistribution.
 	
 
 	/**
@@ -1225,5 +1148,94 @@ EOT;
 				$term[ kTAG_LABEL ], 'en' );										// ==>
 
 	} // getEnum.
+	
+
+	/**
+	 * Set language strings.
+	 *
+	 * This function will return a language strings record.
+	 *
+	 * @param string				$theString			Strings.
+	 * @return array				Language strings or an empty array.
+	 */
+	function setLangStrings( $theString )
+	{
+		//
+		// Init local storage.
+		//
+		$list = Array();
+		$lang = $name = NULL;
+		
+		//
+		// Split language.
+		//
+		$item = setList( $theString, '@' );
+		
+		//
+		// Handle no language.
+		//
+		if( count( $item ) == 1 )
+			$names = setList( $item[ 0 ], ';' );
+		
+		//
+		// Handle language.
+		//
+		elseif( count( $item ) == 2 )
+		{
+			$lang = $item[ 0 ];
+			$names = setList( $item[ 1 ], ';' );
+		}
+		
+		//
+		// Return property.
+		//
+		if( count( $names ) )
+		{
+			//
+			// Handle language.
+			//
+			if( $lang !== NULL )
+				$list[ kTAG_LANGUAGE ] = $lang;
+			
+			//
+			// Set names.
+			//
+			$list[ kTAG_TEXT ] = $names;
+		}
+			
+		return $list;																// ==>
+
+	} // setLangStrings.
+	
+
+	/**
+	 * Set list.
+	 *
+	 * This function will return a trimmed list.
+	 *
+	 * @param string				$theString			Strings.
+	 * @param string				$theDivider			List divider.
+	 * @return array				Trimmed list or an empty array.
+	 */
+	function setList( $theString, $theDivider )
+	{
+		//
+		// Init local storage.
+		//
+		$list = Array();
+		
+		//
+		// Split string.
+		//
+		foreach( explode( $theDivider, $theString ) as $item )
+		{
+			$item = trim( $item );
+			if( strlen( $item ) )
+				$list[] = $item;
+		}
+		
+		return $list;																// ==>
+
+	} // setList.
 
 ?>

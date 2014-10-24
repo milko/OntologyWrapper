@@ -299,9 +299,10 @@
 			<item const="kTAG_TERMS">
 				<item>qtl:PERCVARIATIONQTL</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag="qtl:PERCVARIATIONQTL">
@@ -317,7 +318,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">LOD scores</item>
+					<item const="kTAG_TEXT">LOD score</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -331,9 +332,10 @@
 			<item const="kTAG_TERMS">
 				<item>qtl:LODSCORE</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag="qtl:LODSCORE">
@@ -360,7 +362,6 @@
 			<item const="kTAG_DATA_TYPE">:type:url</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:list</item>
 			</item>
 		</TAG>
 		<NODE tag="qtl:GENMAPQTLMAP">
@@ -481,6 +482,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
@@ -514,7 +516,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text-03</item>
+				<item>:type:full-text-10</item>
 			</item>
 		</TAG>
 		<NODE tag="qtl:TONUMBLINK">

@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :taxon:cross -->
+	<!-- schema::taxon:cross -->
 	<META>
 		<NODE term=":taxon:cross" pid="schema::taxon:cross">
 			<item const="kTAG_NODE_TYPE">
