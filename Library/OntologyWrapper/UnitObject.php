@@ -1114,21 +1114,27 @@ abstract class UnitObject extends PersistentObject
 			// Data domains.
 			//
 			case kDOMAIN_ACCESSION:
-				return array( 'mcpd:INSTCODE', 'mcpd:ACCENUMB',
-							  ':taxon:epithet' );									// ==>
+				return array( ':taxon:epithet',
+							  'mcpd:INSTCODE', 'mcpd:ACCENUMB',
+							  'mcpd:COLLSRC', 'mcpd:SAMPSTAT',
+							  ':taxon:epithet',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
 		
 			case kDOMAIN_FOREST:
 				return array( 'fcu:unit:number', 'fcu:unit:data-collection',
 							  ':location:country', ':location:admin-1',
-							  ':location:admin-2', ':location:admin-3' );			// ==>
+							  ':location:admin-2', ':location:admin-3',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
 		
 			case kDOMAIN_CHECKLIST:
 				return array( ':taxon:epithet', 'cwr:ck:TYPE', 'cwr:ck:CWRCODE',
-							  'cwr:ck:NUMB', ':location:admin' );					// ==>
+							  'cwr:ck:NUMB', ':location:admin',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
 		
 			case kDOMAIN_INVENTORY:
-				return array( ':taxon:epithet', ':inventory:code',
-							  'cwr:in:NIENUMB', ':unit:version' );					// ==>
+				return array( ':taxon:epithet',
+							  'cwr:in:NIENUMB', ':unit:version',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
 		
 			case kDOMAIN_HH_ASSESSMENT:
 				return array( 'abdh:ID_HOUSEHOLD',
@@ -1137,18 +1143,24 @@ abstract class UnitObject extends PersistentObject
 		
 			case kDOMAIN_MISSION:
 				return array( ':mission:identifier',
-							  ':mission:start', ':mission:end' );					// ==>
+							  ':mission:start', ':mission:end',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
 		
 			case kDOMAIN_COLLECTING_MISSION:
 				return array( ':mission:identifier', ':mission:collecting:identifier',
 							  ':mission:collecting:start', ':mission:collecting:end',
-							  ':location:country' );								// ==>
+							  ':location:country',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
 		
 			case kDOMAIN_SAMPLE_COLLECTED:
 				return array( ':germplasm:identifier', 'mcpd:COLLDATE',
 							  'mcpd:COLLSRC', 'mcpd:SAMPSTAT', ':taxon:epithet',
-							  ':location:country' );								// ==>
+							  ':location:country',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
 		
+			case kDOMAIN_QTL:
+				return array( 'qtl:UNID', ':taxon:epithet',
+							  ':inventory:dataset', ':inventory:code' );			// ==>		
 		} // Parsed domain.
 		
 		return Array();																// ==>

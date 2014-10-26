@@ -836,22 +836,6 @@ finally
 		$sub = Array();
 		
 		//
-		// Set structure label.
-		//
-		if( array_key_exists( 'CWRNI:COUNTRYCODEASS', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:COUNTRYCODEASS' ];
-		elseif( array_key_exists( 'CWRNI:COUNTRYCODE', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:COUNTRYCODE' ];
-		elseif( array_key_exists( 'CWRNI:REGIONASS', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:REGIONASS' ];
-		elseif( array_key_exists( 'CWRNI:IUCNCRIT', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:IUCNCRIT' ];
-		elseif( array_key_exists( 'CWRNI:REDLISTCAT', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:REDLISTCAT' ];
-		else
-			$sub[ kTAG_STRUCT_LABEL ] = 'threat';
-		
-		//
 		// Set assessment level.
 		//
 		if( array_key_exists( 'CWRNI:ASSLEVEL', $theData ) )
@@ -985,6 +969,22 @@ finally
 				= $theData[ 'CWRNI:NUNITAUTHOR' ];
 		
 		//
+		// Set structure label.
+		//
+		if( array_key_exists( 'CWRNI:COUNTRYCODEASS', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:COUNTRYCODEASS' ];
+		elseif( array_key_exists( 'CWRNI:COUNTRYCODE', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:COUNTRYCODE' ];
+		elseif( array_key_exists( 'CWRNI:REGIONASS', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:REGIONASS' ];
+		elseif( array_key_exists( 'CWRNI:IUCNCRIT', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:IUCNCRIT' ];
+		elseif( array_key_exists( 'CWRNI:REDLISTCAT', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:REDLISTCAT' ];
+		elseif( count( $sub ) )
+			$sub[ kTAG_STRUCT_LABEL ] = 'threat';
+		
+		//
 		// Load sub-structure.
 		//
 		if( count( $sub ) )
@@ -1010,18 +1010,6 @@ finally
 		// Init local storage.
 		//
 		$sub = Array();
-		
-		//
-		// Set location region.
-		//
-		if( array_key_exists( 'CWRNI:DISTCOUNTRYCODE', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:DISTCOUNTRYCODE' ];
-		elseif( array_key_exists( ':taxon:occurrence-notes', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ ':taxon:occurrence-notes' ];
-		elseif( array_key_exists( ':taxon:ecovalue:country', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ ':taxon:ecovalue:country' ];
-		else
-			$sub[ kTAG_STRUCT_LABEL ] = 'distribution';
 		
 		//
 		// Set distribution country and region.
@@ -1103,6 +1091,18 @@ finally
 		if( array_key_exists( ':taxon:occurrence-notes', $theData ) )
 			$sub[ getTag( ':taxon:occurrence-notes' ) ]
 				= $theData[ ':taxon:occurrence-notes' ];
+		
+		//
+		// Set structure label.
+		//
+		if( array_key_exists( 'CWRNI:DISTCOUNTRYCODE', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CWRNI:DISTCOUNTRYCODE' ];
+		elseif( array_key_exists( ':taxon:occurrence-notes', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ ':taxon:occurrence-notes' ];
+		elseif( array_key_exists( ':taxon:ecovalue:country', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ ':taxon:ecovalue:country' ];
+		elseif( count( $sub ) )
+			$sub[ kTAG_STRUCT_LABEL ] = 'distribution';
 		
 		//
 		// Load sub-structure.

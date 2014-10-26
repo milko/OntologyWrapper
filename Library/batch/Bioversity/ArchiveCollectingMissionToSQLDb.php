@@ -1243,6 +1243,16 @@ finally
 			if( array_key_exists( 'Comments', $data ) )
 				$sub[ getTag( ':notes' ) ]
 					= array( $data[ 'Comments' ] );
+		
+			//
+			// Set label.
+			//
+			$tmp = Array();
+			if( array_key_exists( kTAG_NAME, $sub ) )
+				$tmp[] = $sub[ kTAG_NAME ];
+			if( array_key_exists( getTag( ':taxon:epithet' ), $sub ) )
+				$tmp[] = '('.$sub[ getTag( ':taxon:epithet' ) ].')';
+			$sub[ kTAG_STRUCT_LABEL ] = implode( ' ', $tmp );
 			
 			//
 			// Set element.

@@ -588,7 +588,7 @@ finally
 		//
 		if( array_key_exists( 'DesignationUse', $theData ) )
 			$theObject->offsetSet( ':taxon:designation:use',
-									implode( '§', $theData[ 'DesignationUse' ] ) );
+								   explode( '§', $theData[ 'DesignationUse' ] ) );
 		
 		//
 		// Set crop.

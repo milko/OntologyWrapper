@@ -370,7 +370,8 @@ class CollectingMission extends Mission
 		//
 		// Init local storage.
 		//
-		$list = Array();
+		$taxa = $samples = Array();
+		$this->offsetUnset( ':mission:collecting:taxa' );
 		$this->offsetUnset( ':mission:collecting:samples' );
 		
 		//
@@ -403,17 +404,69 @@ class CollectingMission extends Mission
 				//
 				// Set collected samples list.
 				//
-				$element = $record->attributesList();
-				if( count( $element ) )
-					$list[] = $element;
+				$sample = $record->attributesList();
+				if( count( $sample ) )
+				{
+					//
+					// Load sample.
+					//
+					// MILKO - Disabled, since there are too many.
+				//	$samples[] = $sample;
+					
+					//
+					// Init taxon.
+					//
+					$taxon = Array();
+					
+					//
+					// Check epithet.
+					//
+					if( array_key_exists(
+							($tag = $this->resolveOffset( ':taxon:epithet', TRUE )),
+							$sample ) )
+					{
+						//
+						// Set epithet.
+						//
+						$taxon[ $tag ] = $sample[ $tag ];
+						
+						//
+						// Set genus.
+						//
+						if( array_key_exists(
+								($tag = $this->resolveOffset( ':taxon:genus', TRUE )),
+								$sample ) )
+							$taxon[ $tag ] = $sample[ $tag ];
+						
+						//
+						// Set species name.
+						//
+						if( array_key_exists(
+								($tag = $this->resolveOffset( ':taxon:species:name', TRUE )),
+								$sample ) )
+							$taxon[ $tag ] = $sample[ $tag ];
+					}
+					
+					//
+					// Set taxon.
+					//
+					if( count( $taxon ) )
+						$taxa[] = $taxon;
+				}
 				
 			} // Iterating 
 			
 			//
 			// Set collected samples list.
 			//
-			if( count( $list ) )
-				$this->offsetSet( ':mission:collecting:samples', $list );
+			if( count( $samples ) )
+				$this->offsetSet( ':mission:collecting:samples', $samples );
+			
+			//
+			// Set collected taxa list.
+			//
+			if( count( $taxa ) )
+				$this->offsetSet( ':mission:collecting:taxa', $samples );
 		
 		} // Has collecting missions.
 	

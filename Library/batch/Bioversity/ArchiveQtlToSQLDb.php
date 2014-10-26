@@ -615,16 +615,6 @@ finally
 			//
 			if( ! count( $data ) )
 				continue;													// =>
-			
-			//
-			// Set structure label.
-			//
-			if( array_key_exists( 'QTL:TYPEPOP', $data ) )
-				$sub[ kTAG_STRUCT_LABEL ] = $data[ 'QTL:TYPEPOP' ];
-			elseif( array_key_exists( 'QTL:SUCCROSSREF', $data ) )
-				$sub[ kTAG_STRUCT_LABEL ] = $data[ 'QTL:SUCCROSSREF' ];
-			else
-				$sub[ kTAG_STRUCT_LABEL ] = 'cross';
 		
 			//
 			// Set QTL cross species.
@@ -666,6 +656,16 @@ finally
 			if( array_key_exists( 'QTL:TYPEPOP', $data ) )
 				$sub[ getTag( ':taxon:cross:population' ) ]
 					= $data[ 'QTL:TYPEPOP' ];
+			
+			//
+			// Set structure label.
+			//
+			if( array_key_exists( 'QTL:TYPEPOP', $data ) )
+				$sub[ kTAG_STRUCT_LABEL ] = $data[ 'QTL:TYPEPOP' ];
+			elseif( array_key_exists( 'QTL:SUCCROSSREF', $data ) )
+				$sub[ kTAG_STRUCT_LABEL ] = $data[ 'QTL:SUCCROSSREF' ];
+			elseif( count( $sub ) )
+				$sub[ kTAG_STRUCT_LABEL ] = 'cross';
 			
 			//
 			// Set element.

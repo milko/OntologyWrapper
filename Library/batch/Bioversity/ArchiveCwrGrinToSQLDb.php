@@ -936,22 +936,6 @@ finally
 		$sub = Array();
 		
 		//
-		// Set structure label.
-		//
-		if( array_key_exists( 'US_ESA', $theUnit ) )
-			$sub[ kTAG_STRUCT_LABEL ] 
-				= $theUnit[ 'US_ESA' ];
-		elseif( array_key_exists( 'IUCN_RL', $theUnit ) )
-			$sub[ kTAG_STRUCT_LABEL ] 
-				= $theUnit[ 'IUCN_RL' ];
-		elseif( array_key_exists( 'NatServe', $theUnit ) )
-			$sub[ kTAG_STRUCT_LABEL ] 
-				= $theUnit[ 'NatServe' ];
-		else
-			$sub[ kTAG_STRUCT_LABEL ] 
-				= 'Details';
-		
-		//
 		// Set national threat.
 		//
 		if( array_key_exists( 'US_ESA', $theUnit ) )
@@ -971,6 +955,22 @@ finally
 		if( array_key_exists( 'IUCN_RL', $theUnit ) )
 			$sub[ getTag( 'iucn:criteria-citation' ) ]
 				= $theUnit[ 'IUCN_RL' ];
+		
+		//
+		// Set structure label.
+		//
+		if( array_key_exists( 'US_ESA', $theUnit ) )
+			$sub[ kTAG_STRUCT_LABEL ] 
+				= $theUnit[ 'US_ESA' ];
+		elseif( array_key_exists( 'IUCN_RL', $theUnit ) )
+			$sub[ kTAG_STRUCT_LABEL ] 
+				= $theUnit[ 'IUCN_RL' ];
+		elseif( array_key_exists( 'NatServe', $theUnit ) )
+			$sub[ kTAG_STRUCT_LABEL ] 
+				= $theUnit[ 'NatServe' ];
+		elseif( count( $sub ) )
+			$sub[ kTAG_STRUCT_LABEL ] 
+				= 'Details';
 		
 		//
 		// Set threat.

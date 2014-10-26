@@ -641,6 +641,22 @@ finally
 		}
 		
 		//
+		// Set endemism.
+		//
+		if( array_key_exists( 'CK:ENDEMISM', $theData ) )
+		{
+			switch( $tmp = trim( $theData[ 'CK:ENDEMISM' ] ) )
+			{
+				case '0':
+					$sub[ getTag( 'cwr:ENDEMISM' ) ] = 'cwr:ENDEMISM:0';
+					break;
+				case '1':
+					$sub[ getTag( 'cwr:ENDEMISM' ) ] = 'cwr:ENDEMISM:1';
+					break;
+			}
+		}
+		
+		//
 		// Set chromosome number.
 		//
 		if( array_key_exists( 'CK:CHROMOSNUMB', $theData ) )
@@ -711,6 +727,119 @@ finally
 	
 
 	/**
+	 * Load distribution data.
+	 *
+	 * This function will load the threat data related to the provided <b>$theData</b>
+	 * parameter into the container provided in the <b>$theContainer</b> parameter.
+	 *
+	 * @param array					$theContainer		Container.
+	 * @param array					$theData			Unit data.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param ADOConnection			$theDatabase		SQL connection.
+	 */
+	function loadDistribution( &$theContainer, $theData, $theWrapper, $theDatabase )
+	{
+		//
+		// Init local storage.
+		//
+		$sub = Array();
+		
+		//
+		// Set taxon status
+		//
+		if( array_key_exists( 'CK:TAXONSTATUS', $theData ) )
+		{
+			if( count( $tmp = setList( $theData[ 'CK:TAXONSTATUS' ], ';' ) ) )
+			{
+				$value = Array();
+				foreach( $tmp as $item )
+				{
+					switch( $theData[ 'CK:TAXONSTATUS' ] )
+					{
+						case '1':
+							$value[] = ":taxon:occurrence-status:100";
+							break;
+						case '2':
+							$value[] = ":taxon:occurrence-status:130";
+							break;
+						case '3':
+							$value[] = ":taxon:occurrence-status:200";
+							break;
+						case '4':
+							$value[] = ":taxon:occurrence-status:300";
+							break;
+						case '5':
+							$value[] = ":taxon:occurrence-status:400";
+							break;
+						case '6':
+							$value[] = ":taxon:occurrence-status:490";
+							break;
+					}
+				}
+		
+				if( count( $value ) )
+					$sub[ getTag( ':taxon:occurrence-status' ) ]
+						= $value;
+			}
+		}
+		
+		//
+		// Set taxon economic value.
+		//
+		if( array_key_exists( 'CK:ECOVALUE', $theData ) )
+			$sub[ getTag( ':taxon:ecovalue' ) ]
+				= array( $theData[ 'CK:ECOVALUE' ] );
+		
+		//
+		// Set taxon economic value reference.
+		//
+		if( array_key_exists( 'CK:ECOVALUEREF', $theData ) )
+			$sub[ getTag( ':taxon:ecovalue-ref' ) ]
+				= array( $theData[ 'CK:ECOVALUEREF' ] );
+		
+		//
+		// Set taxon occurrence notes.
+		//
+		if( array_key_exists( ':taxon:occurrence-notes', $theData ) )
+			$sub[ getTag( ':taxon:occurrence-notes' ) ]
+				= $theData[ ':taxon:occurrence-notes' ];
+		
+		//
+		// Handle fixed data.
+		//
+		if( count( $sub ) )
+		{
+			//
+			// Set country and administrative unit.
+			//
+			$value = $theData[ 'CK:CWRCODE' ];
+			if( strlen( $value ) == 3 )
+			{
+				$sub[ getTag( ':location:country' ) ] = "iso:3166:1:alpha-3:$value";
+				$sub[ getTag( ':inventory:admin' ) ] = "iso:3166:1:alpha-3:$value";
+			}
+			else
+			{
+				$sub[ getTag( ':location:country' ) ] = "iso:3166:1:alpha-3:GBR";
+				$sub[ getTag( ':inventory:admin' ) ] = "iso:3166:2:$value";
+			}
+		
+			//
+			// Set structure label.
+			//
+			$sub[ kTAG_STRUCT_LABEL ] = $value;
+		}
+		
+		//
+		// Load sub-structure.
+		//
+		if( count( $sub ) )
+			$theContainer[] = $sub;
+
+	} // loadDistribution.
+	
+
+	/**
 	 * Load threat data.
 	 *
 	 * This function will load the threat data related to the provided <b>$theData</b>
@@ -729,18 +858,6 @@ finally
 		$sub = Array();
 		
 		//
-		// Set structure label.
-		//
-		if( array_key_exists( 'CK:REGIONASS', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CK:REGIONASS' ];
-		elseif( array_key_exists( 'CK:IUCNCRIT', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CK:IUCNCRIT' ];
-		elseif( array_key_exists( 'CK:REDLISTCAT', $theData ) )
-			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CK:REDLISTCAT' ];
-		else
-			$sub[ kTAG_STRUCT_LABEL ] = 'threat';
-		
-		//
 		// Set assessment level.
 		//
 		if( array_key_exists( 'CK:ASSLEVEL', $theData ) )
@@ -753,21 +870,6 @@ finally
 		if( array_key_exists( 'CK:REGIONASS', $theData ) )
 			$sub[ getTag( ':location:region' ) ]
 				= $theData[ 'CK:REGIONASS' ];
-		
-		//
-		// Set country and administrative unit.
-		//
-		$value = $theData[ 'CK:CWRCODE' ];
-		if( strlen( $value ) == 3 )
-		{
-			$sub[ getTag( ':location:country' ) ] = "iso:3166:1:alpha-3:$value";
-			$sub[ getTag( ':inventory:admin' ) ] = "iso:3166:1:alpha-3:$value";
-		}
-		else
-		{
-			$sub[ getTag( ':location:country' ) ] = "iso:3166:1:alpha-3:GBR";
-			$sub[ getTag( ':inventory:admin' ) ] = "iso:3166:2:$value";
-		}
 		
 		//
 		// Set iucn category
@@ -883,80 +985,16 @@ finally
 		}
 		
 		//
-		// Set taxon status
+		// Set structure label.
 		//
-		if( array_key_exists( 'CK:TAXONSTATUS', $theData ) )
-		{
-			if( count( $tmp = setList( $theData[ 'CK:TAXONSTATUS' ], ';' ) ) )
-			{
-				$value = Array();
-				foreach( $tmp as $item )
-				{
-					switch( $theData[ 'CK:TAXONSTATUS' ] )
-					{
-						case '1':
-							$value[] = ":taxon:occurrence-status:100";
-							break;
-						case '2':
-							$value[] = ":taxon:occurrence-status:130";
-							break;
-						case '3':
-							$value[] = ":taxon:occurrence-status:200";
-							break;
-						case '4':
-							$value[] = ":taxon:occurrence-status:300";
-							break;
-						case '5':
-							$value[] = ":taxon:occurrence-status:400";
-							break;
-						case '6':
-							$value[] = ":taxon:occurrence-status:490";
-							break;
-					}
-				}
-		
-				if( count( $value ) )
-					$sub[ getTag( ':taxon:occurrence-status' ) ]
-						= $value;
-			}
-		}
-		
-		//
-		// Set endemism.
-		//
-		if( array_key_exists( 'CK:ENDEMISM', $theData ) )
-		{
-			switch( $tmp = trim( $theData[ 'CK:ENDEMISM' ] ) )
-			{
-				case '0':
-					$sub[ getTag( 'cwr:ENDEMISM' ) ] = 'cwr:ENDEMISM:0';
-					break;
-				case '1':
-					$sub[ getTag( 'cwr:ENDEMISM' ) ] = 'cwr:ENDEMISM:1';
-					break;
-			}
-		}
-		
-		//
-		// Set taxon economic value.
-		//
-		if( array_key_exists( 'CK:ECOVALUE', $theData ) )
-			$sub[ getTag( ':taxon:ecovalue' ) ]
-				= array( $theData[ 'CK:ECOVALUE' ] );
-		
-		//
-		// Set taxon economic value reference.
-		//
-		if( array_key_exists( 'CK:ECOVALUEREF', $theData ) )
-			$sub[ getTag( ':taxon:ecovalue-ref' ) ]
-				= array( $theData[ 'CK:ECOVALUEREF' ] );
-		
-		//
-		// Set taxon occurrence notes.
-		//
-		if( array_key_exists( ':taxon:occurrence-notes', $theData ) )
-			$sub[ getTag( ':taxon:occurrence-notes' ) ]
-				= $theData[ ':taxon:occurrence-notes' ];
+		if( array_key_exists( 'CK:REGIONASS', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CK:REGIONASS' ];
+		elseif( array_key_exists( 'CK:IUCNCRIT', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CK:IUCNCRIT' ];
+		elseif( array_key_exists( 'CK:REDLISTCAT', $theData ) )
+			$sub[ kTAG_STRUCT_LABEL ] = $theData[ 'CK:REDLISTCAT' ];
+		elseif( count( $sub ) )
+			$sub[ kTAG_STRUCT_LABEL ] = 'threat';
 
 		//
 		// Load sub-structure.
