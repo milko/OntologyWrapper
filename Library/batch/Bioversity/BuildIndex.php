@@ -65,11 +65,18 @@ try
 					 || (strtolower( $argv[ 3 ] ) == 'true') );
 	
 	//
+	// Parse database.
+	//
+	$parts = parse_url( $database );
+	
+	//
 	// Inform.
 	//
 	echo( "\n"
 		 ."Tag:              $tag\n"
-		 ."Database:         $database\n"
+		 ."Host:             ".$parts[ 'host' ]."\n"
+		 ."Port:             ".$parts[ 'port' ]."\n"
+		 ."Database:         ".substr( $parts[ 'path' ], 1 )."\n"
 		 ."Background build: "
 		 .( ( $background ) ? "Yes" : "No" )
 		 ."\n" );
@@ -86,14 +93,11 @@ try
 	// Set databases.
 	//
 	$meta = $wrapper->Metadata(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/$database?connect=1" ) );
+		new OntologyWrapper\MongoDatabase( $database ) );
 	$wrapper->Entities(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/$database?connect=1" ) );
+		new OntologyWrapper\MongoDatabase( $database ) );
 	$wrapper->Units(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/$database?connect=1" ) );
+		new OntologyWrapper\MongoDatabase( $database ) );
 
 	//
 	// Load data dictionary.
@@ -117,7 +121,10 @@ try
 	// Build index.
 	//
 	$indexes = OntologyWrapper\UnitObject::CreateIndex( $wrapper, $tag );
-	echo( implode( ', ', $indexes )."\n" );
+	if( is_array( $indexes ) )
+		echo( implode( ', ', $indexes )."\n" );
+	else
+		echo( "No data\n" );
 }
 
 //

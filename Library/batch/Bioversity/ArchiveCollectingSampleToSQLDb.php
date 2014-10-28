@@ -1255,20 +1255,6 @@ finally
 			} // Not an institute or not known institite.
 		
 			//
-			// Set entity type.
-			//
-			if( array_key_exists( 'ORGTYPE', $instrec ) )
-				$sub[ getTag( ':type:entity' ) ]
-					= explode( ';', $instrec[ 'ORGTYPE' ] );
-		
-			//
-			// Set entity kind.
-			//
-			if( array_key_exists( 'ORGKIND', $instrec ) )
-				$sub[ getTag( ':kind:entity' ) ]
-					= explode( ';', $instrec[ 'ORGKIND' ] );
-		
-			//
 			// Set accession number.
 			//
 			$sub[ getTag( 'mcpd:ACCENUMB' ) ]

@@ -1682,10 +1682,24 @@ class Service extends ContainerObject
 		//
 		// Add shape offset to criteria.
 		//
+		// MILKO - Need to check if this is right.
+		//
 		elseif( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET )
 			 && (! $this->offsetExists( kAPI_PARAM_GROUP )) )
-			$criteria[ (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
-				= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE );
+		{
+			//
+			// Get shape offset.
+			//
+			$tmp = (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
+			
+			//
+			// Add shape if not already there.
+			//
+			if( ! array_key_exists( $tmp, $criteria ) )
+				$criteria[ $tmp ]
+					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE );
+		
+		} // Has shape offset and not grouping.
 		
 		//
 		// Update criteria.
@@ -2282,6 +2296,11 @@ class Service extends ContainerObject
 					if( ! array_key_exists( kAPI_PARAM_SHAPE, $criteria ) )
 						throw new \Exception(
 							"Missing shape [$tag]." );							// !@! ==>
+					
+					//
+					// Validate shape.
+					//
+					$this->validateShape( $criteria[ kAPI_PARAM_SHAPE ] );
 			
 					break;
 				

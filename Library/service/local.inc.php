@@ -57,7 +57,8 @@ define( "kSTANDARDS_DDICT_PORT",		11211 );
  *
  * This tag indicates the standard graqph database DSN.
  */
-define( "kSTANDARDS_GRAPH_DB",			'neo4j://localhost:7474' );
+//define( "kSTANDARDS_GRAPH_DB",			'neo4j://localhost:7474' );
+define( "kSTANDARDS_GRAPH_DB",			FALSE );
 
 /*=======================================================================================
  *	STANDARD DATABASE DSNs																*
@@ -69,7 +70,6 @@ define( "kSTANDARDS_GRAPH_DB",			'neo4j://localhost:7474' );
  * This tag indicates the standard metadata database DSN.
  */
 define( "kSTANDARDS_METADATA_DB",		'mongodb://localhost:27017/BIOVERSITY?connect=1' );
-//define( "kSTANDARDS_METADATA_DB",		'mongodb://localhost:27017/TEST?connect=1' );
 
 /**
  * Default entities database.
@@ -77,7 +77,6 @@ define( "kSTANDARDS_METADATA_DB",		'mongodb://localhost:27017/BIOVERSITY?connect
  * This tag indicates the standard entities database DSN.
  */
 define( "kSTANDARDS_ENTITIES_DB",		'mongodb://localhost:27017/BIOVERSITY?connect=1' );
-//define( "kSTANDARDS_ENTITIES_DB",		'mongodb://localhost:27017/TEST?connect=1' );
 
 /**
  * Default units database.
@@ -85,7 +84,6 @@ define( "kSTANDARDS_ENTITIES_DB",		'mongodb://localhost:27017/BIOVERSITY?connect
  * This tag indicates the standard units database DSN.
  */
 define( "kSTANDARDS_UNITS_DB",		'mongodb://localhost:27017/BIOVERSITY?connect=1' );
-//define( "kSTANDARDS_UNITS_DB",		'mongodb://localhost:27017/TEST?connect=1' );
 
 /*=======================================================================================
  *	DEFAULT VALUES																		*

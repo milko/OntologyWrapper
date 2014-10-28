@@ -58,21 +58,15 @@
 					<item const="kTAG_TEXT">Dataset report</item>
 				</item>
 			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Dataset report or link.]]></item>
-				</item>
-			</item>
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:inventory:dataset:report</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_TYPE">:type:url</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text-03</item>
+				<item>:type:list</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>

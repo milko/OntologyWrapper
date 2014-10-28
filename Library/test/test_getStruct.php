@@ -113,7 +113,7 @@ try
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_NODE => 'struct::domain:hh-assessment',
+		kAPI_PARAM_NODE => 'struct::domain:trial',
 		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
 	);
 	$request = "$base_url?op=".kAPI_OP_GET_NODE_STRUCT;

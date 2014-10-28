@@ -426,9 +426,14 @@ class CollectingMission extends Mission
 							$sample ) )
 					{
 						//
+						// Save epithet.
+						//
+						$epithet = $sample[ $tag ];
+						
+						//
 						// Set epithet.
 						//
-						$taxon[ $tag ] = $sample[ $tag ];
+						$taxon[ $tag ] = $epithet;
 						
 						//
 						// Set genus.
@@ -451,7 +456,7 @@ class CollectingMission extends Mission
 					// Set taxon.
 					//
 					if( count( $taxon ) )
-						$taxa[] = $taxon;
+						$taxa[ $epithet ] = $taxon;
 				}
 				
 			} // Iterating 
@@ -466,7 +471,7 @@ class CollectingMission extends Mission
 			// Set collected taxa list.
 			//
 			if( count( $taxa ) )
-				$this->offsetSet( ':mission:collecting:taxa', $samples );
+				$this->offsetSet( ':mission:collecting:taxa', array_values( $taxa ) );
 		
 		} // Has collecting missions.
 	

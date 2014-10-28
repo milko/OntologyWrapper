@@ -363,10 +363,10 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 mongodump --directoryperdb \
 		  --db 'BIOVERSITY' \
 		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.miss.zip"
+rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.6.miss.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.miss.zip"
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.6.miss.zip"
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 ########################################################################################

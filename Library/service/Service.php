@@ -92,9 +92,16 @@ try
 	//
 	// Set graph database.
 	//
-	$wrapper->Graph(
-		new OntologyWrapper\Neo4jGraph(
-			kSTANDARDS_GRAPH_DB ) );
+	if( kSTANDARDS_GRAPH_DB !== FALSE )
+		$wrapper->Graph(
+			new OntologyWrapper\Neo4jGraph(
+				kSTANDARDS_GRAPH_DB ) );
+
+	//
+	// Load data dictionary.
+	//
+	if( ! $wrapper->dictionaryFilled() )
+		$wrapper->loadTagCache();
 }
 catch( Exception $error )
 {

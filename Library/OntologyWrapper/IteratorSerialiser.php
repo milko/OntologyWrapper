@@ -1332,20 +1332,28 @@ class IteratorSerialiser
 				$theOffset );
 		
 		//
-		// Allocate property.
+		// Skip structure label.
 		//
-		$theContainer[ $tag[ kTAG_ID_SEQUENCE ] ] = Array();
-		$ref = & $theContainer[ $tag[ kTAG_ID_SEQUENCE ] ];
+		if( (! array_key_exists( kTAG_ID_SEQUENCE, $tag ))
+		 || ($tag[ kTAG_ID_SEQUENCE ] != kTAG_STRUCT_LABEL) )
+		{
+			//
+			// Allocate property.
+			//
+			$theContainer[ $tag[ kTAG_ID_SEQUENCE ] ] = Array();
+			$ref = & $theContainer[ $tag[ kTAG_ID_SEQUENCE ] ];
 
-		//
-		// Set labels.
-		//
-		$this->setTagLabel( $ref, $tag );
+			//
+			// Set labels.
+			//
+			$this->setTagLabel( $ref, $tag );
 
-		//
-		// Set values.
-		//
-		$this->setDataValue( $ref, $theValue, $tag );
+			//
+			// Set values.
+			//
+			$this->setDataValue( $ref, $theValue, $tag );
+			
+		} // Not a structure label.
 		
 	} // setProperty.
 
@@ -1375,7 +1383,7 @@ class IteratorSerialiser
 		if( array_key_exists( kTAG_LABEL, $theTag ) )
 			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
 				= $theTag[ kTAG_LABEL ];
-		
+	
 		//
 		// Set description.
 		//
@@ -1416,7 +1424,7 @@ class IteratorSerialiser
 			//
 			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 				= kAPI_PARAM_RESPONSE_TYPE_STRUCT;
-			
+		
 			//
 			// Save container structure index offset.
 			//
@@ -1426,7 +1434,7 @@ class IteratorSerialiser
 							->dictionary()
 								->getSerial( $theTag[ kTAG_TAG_STRUCT_IDX ] )
 					: NULL;
-			
+		
 			//
 			// Handle structures list.
 			//
@@ -1438,7 +1446,7 @@ class IteratorSerialiser
 				//
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
 				$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
-				
+			
 				//
 				// Iterate structures.
 				//
@@ -1449,25 +1457,25 @@ class IteratorSerialiser
 					//
 					$list[] = Array();
 					$ref = & $list[ count( $list ) - 1 ];
-					
+				
 					//
 					// Set type.
 					//
 					$ref[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 						= kAPI_PARAM_RESPONSE_TYPE_STRUCT;
-			
+		
 					//
 					// Set structure index string.
 					//
 					if( array_key_exists( $offset, $struct ) )
 						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
 							= $struct[ $offset ];
-				
+			
 					//
 					// Allocate structure.
 					//
 					$ref[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
-					
+				
 					//
 					// Iterate structure properties.
 					//
@@ -1481,13 +1489,13 @@ class IteratorSerialiser
 								$ref[ kAPI_PARAM_RESPONSE_FRMT_DOCU ],
 								$key,
 								$value );
-					
-					} // Iterating structure properties.
 				
+					} // Iterating structure properties.
+			
 				} // Iterating list.
-			
+		
 			} // Structures list.
-			
+		
 			//
 			// Handle scalar structure.
 			//
@@ -1499,12 +1507,12 @@ class IteratorSerialiser
 				if( array_key_exists( $offset, $theValue ) )
 					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
 						= $theValue[ $offset ];
-			
+		
 				//
 				// Allocate structure.
 				//
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
-				
+			
 				//
 				// Iterate structure properties.
 				//
@@ -1518,13 +1526,13 @@ class IteratorSerialiser
 							$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ],
 							$key,
 							$value );
-				
+			
 				} // Iterating structure properties.
-			
-			} // Scalar structure.
-			
-		} // Structure.
 		
+			} // Scalar structure.
+		
+		} // Structure.
+	
 		//
 		// Handle scalars.
 		//
@@ -1554,7 +1562,7 @@ class IteratorSerialiser
 						//
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
 						$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-						
+					
 						//
 						// Iterate elements.
 						//
@@ -1564,7 +1572,7 @@ class IteratorSerialiser
 							// Allocate element.
 							//
 							$list[] = Array();
-							
+						
 							//
 							// Format element.
 							//
@@ -1572,11 +1580,11 @@ class IteratorSerialiser
 								$list[ count( $list ) - 1 ],
 								$value,
 								$theTag );
-						
+					
 						} // Iterating list.
-						
+					
 						break;
-	
+
 					//
 					// Miscellanea.
 					//
@@ -1592,24 +1600,24 @@ class IteratorSerialiser
 					case kTYPE_TEXT:
 					case kTYPE_YEAR:
 					case kTYPE_DATE:
-			
+		
 					//
 					// Other.
 					//
 					default:
 						$this->formatDataValue( $theContainer, $theValue, $theTag );
 						break;
-		
+	
 				} // Parsed data type.
-			
+		
 			} // List of scalars.
-			
+		
 			//
 			// Scalar.
 			//
 			else
 				$this->formatDataValue( $theContainer, $theValue, $theTag );
-		
+	
 		} // Scalar.
 		
 	} // setDataValue.
@@ -3503,7 +3511,8 @@ class IteratorSerialiser
 					= array_merge(
 						$class::DynamicOffsets(),
 						$class::InternalOffsets(),
-						array( kTAG_GEO_SHAPE_DISP ) );	// Excluded display shape.
+						array( kTAG_GEO_SHAPE, kTAG_GEO_SHAPE_DISP ) );
+				// MILKO - Excluded display shapes.
 				
 				break;
 			
