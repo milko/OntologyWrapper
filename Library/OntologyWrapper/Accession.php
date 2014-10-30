@@ -69,49 +69,6 @@ class Accession extends UnitObject
 
 	 
 	/*===================================================================================
-	 *	__construct																		*
-	 *==================================================================================*/
-
-	/**
-	 * Instantiate class.
-	 *
-	 * In this class we link the inited status with the presence of all the default
-	 * identifier properties.
-	 *
-	 * The constructor will automatically set the object domain to the default class domain.
-	 *
-	 * @param ConnectionObject		$theContainer		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 *
-	 * @access public
-	 *
-	 * @uses instantiateObject()
-	 * @uses TermCount()
-	 * @uses isInited()
-	 */
-	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
-	{
-		//
-		// Load object with contents.
-		//
-		parent::__construct( $theContainer, $theIdentifier );
-		
-		//
-		// Set default domain.
-		//
-		if( ! $this->offsetExists( kTAG_DOMAIN ) )
-			$this->offsetSet( kTAG_DOMAIN, static::kDEFAULT_DOMAIN );
-		
-		//
-		// Set initialised status.
-		//
-		$this->isInited( parent::isInited() &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) );
-
-	} // Constructor.
-
-	 
-	/*===================================================================================
 	 *	__toString																		*
 	 *==================================================================================*/
 
@@ -407,78 +364,6 @@ class Accession extends UnitObject
 									'struct::domain:accession' ) );					// ==>
 	
 	} // DefaultOffsets.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED ARRAY ACCESS INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	postOffsetSet																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle offset and value after setting it
-	 *
-	 * In this class we link the inited status with the presence of the default identifiers.
-	 *
-	 * @param reference				$theOffset			Offset reference.
-	 * @param reference				$theValue			Offset value reference.
-	 *
-	 * @access protected
-	 *
-	 * @see kTAG_VERSION
-	 */
-	protected function postOffsetSet( &$theOffset, &$theValue )
-	{
-		//
-		// Call parent method to resolve offset.
-		//
-		parent::postOffsetSet( $theOffset, $theValue );
-		
-		//
-		// Set initialised status.
-		//
-		$this->isInited( parent::isInited() &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) );
-	
-	} // postOffsetSet.
-
-	 
-	/*===================================================================================
-	 *	postOffsetUnset																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle offset after deleting it
-	 *
-	 * In this class we link the inited status with the presence of the default identifiers.
-	 *
-	 * @param reference				$theOffset			Offset reference.
-	 *
-	 * @access protected
-	 *
-	 * @see kTAG_VERSION
-	 */
-	protected function postOffsetUnset( &$theOffset )
-	{
-		//
-		// Call parent method to resolve offset.
-		//
-		parent::postOffsetUnset( $theOffset );
-		
-		//
-		// Set initialised status.
-		//
-		$this->isInited( parent::isInited() &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) );
-	
-	} // postOffsetUnset.
 
 		
 

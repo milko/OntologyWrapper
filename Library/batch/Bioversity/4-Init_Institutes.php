@@ -1,9 +1,12 @@
 <?php
 
 /**
- * Data initialisation procedure.
+ * Main data initialisation procedure.
  *
- * This file contains routines to initialise all data.
+ * This file contains routines to initialise main data, which includes standards metadata
+ * and organisation units.
+ *
+ * <em>Note that this implies that you call InitBase.php before</em>.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
@@ -14,7 +17,7 @@
 
 /*=======================================================================================
  *																						*
- *									Init_Test.php										*
+ *									Init_Institutes.php									*
  *																						*
  *======================================================================================*/
 
@@ -73,7 +76,7 @@ try
 	echo( "  • Setting metadata.\n" );
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
+			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
 	//
 	// Set units.
@@ -81,7 +84,7 @@ try
 	echo( "  • Setting units.\n" );
 	$units = $wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
+			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
 	//
 	// Set entities.
@@ -89,7 +92,7 @@ try
 	echo( "  • Setting entities.\n" );
 	$entities = $wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
+			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
 	//
 	// Check graph database.
@@ -105,70 +108,19 @@ try
 				"neo4j://localhost:7474" ) );
 	
 	} // Use graph database.
+
+	//
+	// Load data dictionary.
+	//
+	if( ! $wrapper->dictionaryFilled() )
+		$wrapper->loadTagCache();
 	
 	//
-	// Inform.
+	// Load FAO institutes.
 	//
-	echo( "  • Loading test properties.\n" );
+	echo( "  • Loading FAO Institutes.\n" );
 	
-	//
-	// Load XML schema files.
-	//
-	$file = kPATH_STANDARDS_ROOT.'/test/Namespaces.xml';
-	echo( "    - $file\n" );
-	$wrapper->loadXMLFile( $file );
-	
-	$file = kPATH_STANDARDS_ROOT.'/test/Attributes.xml';
-	echo( "    - $file\n" );
-	$wrapper->loadXMLFile( $file );
-	
-	$file = kPATH_STANDARDS_ROOT.'/test/Types.xml';
-	echo( "    - $file\n" );
-	$wrapper->loadXMLFile( $file );
-	
-	$file = kPATH_STANDARDS_ROOT.'/test/Tags.xml';
-	echo( "    - $file\n" );
-	$wrapper->loadXMLFile( $file );
-	
-	//
-	// Load XML data files.
-	//
-	$file = kPATH_STANDARDS_ROOT.'/test/Data.xml';
-	echo( "    - $file\n" );
-	$wrapper->loadXMLFile( $file );
-	
-	//
-	// Get units collection.
-	//
-	$collection = $units->collection( OntologyWrapper\UnitObject::kSEQ_NAME, TRUE );
-	
-	//
-	// Set test indexes.
-	//
-	$collection->createIndex(
-		array( $wrapper->getSerial( ':test:feature2', TRUE ) => 1 ),
-		array( "name" => "TEST_INDEX_1" ) );
-	
-	$collection->createIndex(
-		array( $wrapper->getSerial( ':test:feature2/:predicate:SCALE-OF/:test:scale1', TRUE ) => 1 ),
-		array( "name" => "TEST_INDEX_2" ) );
-	
-	$collection->createIndex(
-		array( $wrapper->getSerial( ':test:feature2/:predicate:SCALE-OF/:test:scale2', TRUE ) => 1 ),
-		array( "name" => "TEST_INDEX_3" ) );
-	
-	$collection->createIndex(
-		array( $wrapper->getSerial( ':test:feature2/:predicate:SCALE-OF/:test:scale3', TRUE ) => 1 ),
-		array( "name" => "TEST_INDEX_4" ) );
-	
-	$collection->createIndex(
-		array( $wrapper->getSerial( ':test:feature5', TRUE ) => 1 ),
-		array( "name" => "TEST_INDEX_5" ) );
-	
-	//
-	// Reset dictionary.
-	//
-	$wrapper->loadTagCache();
+	OntologyWrapper\FAOInstitute::Maintain( $wrapper );
 }
 
 //
@@ -177,7 +129,6 @@ try
 catch( \Exception $error )
 {
 	echo( $error->xdebug_message );
-	echo( "\n\nTRACE:\n" );
 	print_r( $error->getTrace() );
 }
 

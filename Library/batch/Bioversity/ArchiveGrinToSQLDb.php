@@ -384,16 +384,6 @@ finally
 		 **********************************************************************/
 		
 		//
-		// Set authority.
-		//
-		$theObject->offsetSet( kTAG_AUTHORITY, $theData[ 'INSTCODE' ] );
-		
-		//
-		// Set collection.
-		//
-		$theObject->offsetSet( kTAG_COLLECTION, $theData[ 'COLLECTION' ] );
-		
-		//
 		// Set identifier.
 		//
 		$theObject->offsetSet( kTAG_IDENTIFIER, $theData[ 'ACCENUMB' ] );

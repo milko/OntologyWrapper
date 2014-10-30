@@ -451,7 +451,8 @@ finally
 		//
 		// Set collection.
 		//
-		$theObject->offsetSet( kTAG_COLLECTION, $theData[ 'GENUS' ] );
+		if( array_key_exists( 'GENUS', $theData ) )
+			$theObject->offsetSet( kTAG_COLLECTION, $theData[ 'GENUS' ] );
 		
 		//
 		// Set identifier.

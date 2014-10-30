@@ -872,13 +872,7 @@ class Wrapper extends Dictionary
 		Individual::CreateIndexes( $this->mUnits );
 		Institution::CreateIndexes( $this->mUnits );
 		
-		//
-		// Load FAO institutes.
-		//
-		if( $doLog )
-			echo( "  • Loading FAO Institutes.\n" );
-		
-		return FAOInstitute::Maintain( $this );										// ==>
+		return NULL;																// ==>
 	
 	} // resetUnits.
 

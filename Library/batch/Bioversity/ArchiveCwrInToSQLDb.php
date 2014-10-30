@@ -790,7 +790,6 @@ finally
 			//
 			$sub = Array();
 			
-			
 			//
 			// Get species.
 			//

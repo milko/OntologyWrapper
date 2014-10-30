@@ -1,0 +1,2883 @@
+
+	<!-- :taxon:crop:category:1 -->
+	<META>
+		<TERM ns=":taxon:crop:category" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Major food crop]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:category:2 -->
+	<META>
+		<TERM ns=":taxon:crop:category" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Minor food crop]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category</item>
+		</EDGE>
+	</META>
+
+	<!-- :taxon:crop:group:1 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Beans]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:2 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Beans and other legumes]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:3 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Beverage crops]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:4 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cereals]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:5 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="5">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cereals and pseudo-cereals]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:6 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="6">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fruit vegetables]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:7 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="7">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fruits]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:8 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="8">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Leaf and flower vegetables]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:9 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="9">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Leaf vegetables]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:10 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Legume forages]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:11 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="11">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Oil crops]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:12 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="12">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Roots and tubers]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:13 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="13">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Spices and flavours]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:14 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="14">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sugar crops]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:15 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="15">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Tree nuts]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:16 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="16">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Tubers]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+	</META>
+
+	<!-- :taxon:crop:23 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="23">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Almond]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:24 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="24">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Apple]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:25 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="25">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Apricot]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:26 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="26">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Artichoke]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:8</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:27 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="27">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Avocado]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:1 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Banana, plantain]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:2 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Barley]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:4</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:3 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Beans]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:1</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:28 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="28">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Blackcurrant]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:29 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="29">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Brazil nut]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:15</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:4 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breadfruit]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:30 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="30">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cabbage]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:9</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:31 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="31">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cardamom]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:13</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:32 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="32">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Carrot]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:12</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:5 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="5">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cassava]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:16</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:33 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="33">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cherry]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:6 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="6">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Chickpea]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:34 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="34">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Chili pepper, sweet pepper]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:13</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:35 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="35">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cocoa]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:3</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:7 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="7">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Coconut]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:36 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="36">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Coffee]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:3</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:37 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="37">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cotton seed]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:8 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="8">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cowpea]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:38 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="38">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cucumber]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:6</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:39 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="39">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:40 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="40">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Eggplant]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:6</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:10 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Faba bean]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:41 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="41">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fig]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:42 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="42">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Filbert]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:15</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:43 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="43">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fonio]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:5</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:44 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="44">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Garlic]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:13</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:45 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="45">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Grape]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:46 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="46">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Grapefruit]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:12 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="12">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Grass pea]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:10</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:47 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="47">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Groundnut]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:48 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="48">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Hazel]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:15</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:49 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="49">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Lemon]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:13 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="13">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Lentil]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:50 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="50">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Lettuce]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:8</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:51 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="51">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Lime]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:52 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="52">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Lupin]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:14 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="14">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Maize]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:4</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:53 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="53">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Mango]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:54 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="54">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Mate]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:3</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:55 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="55">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Melon]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:6</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:56 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="56">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Melon seed/watermelon]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:6</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:11 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="11">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Millets]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:4</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:57 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="57">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Mustard seed]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:58 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="58">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Oats]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:5</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:59 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="59">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Oil palm]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:60 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="60">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Olive]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:61 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="61">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Onion]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:13</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:62 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="62">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Papaya]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:63 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="63">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pea]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:64 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="64">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pear]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:15 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="15">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pearl millet]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:4</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:65 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="65">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pepper]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:13</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:16 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="16">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pigeonpea]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:66 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="66">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pimento]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:13</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:67 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="67">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pineapple]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:68 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="68">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pistachio]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:15</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:69 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="69">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Plum]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:70 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="70">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pomelo]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:9 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="9">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Potato]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:16</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:71 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="71">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pumpkin, squash, gourd]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:72 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="72">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Quinoa]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:5</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:73 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="73">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Rapeseed]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:74 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="74">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Redcurrant]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:17 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="17">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Rice]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:4</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:75 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="75">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Rye]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:4</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:76 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="76">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Safflower seed]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:77 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="77">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sesame seed]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:78 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="78">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Shea nut]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:18 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="18">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sorghum]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:4</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:79 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="79">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Soybean]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:80 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="80">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Spinach]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:8</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:81 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="81">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Strawberry]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:82 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="82">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sugar beet]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:14</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:83 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="83">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sugarcane]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:14</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:84 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="84">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sunflower seed]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:11</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:85 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="85">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sweet orange]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:19 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="19">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sweet potato]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:12</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:86 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="86">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Tangerine]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:7</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:87 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="87">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Tannia]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:12</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:20 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taro]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:12</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:88 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="88">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Tea]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:3</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:89 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="89">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Tomato]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:6</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:90 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="90">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Walnut]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:15</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:21 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="21">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wheat]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:4</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:22 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="22">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yam]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:16</item>
+		</EDGE>
+	</META>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TRAIT NAMESPACES
+	Namespaces.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Trait namespaces -->
+	
+	<META>
+		<!-- :trait -->
+		<TERM ns="" lid="trait">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Trait</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Measurement traits.]]></item>
+				</item>
+			</item>
+		</TERM>
+
+		<!-- Trait categories -->
+	
+		<!-- :trait:morphology -->
+		<TERM ns=":trait" lid="morphology">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Morphology</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:chemical -->
+		<TERM ns=":trait" lid="chemical">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Chemical</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:disease -->
+		<TERM ns=":trait" lid="disease">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Disease</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:insect -->
+		<TERM ns=":trait" lid="insect">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Insect</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:stress -->
+		<TERM ns=":trait" lid="stress">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Stress</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:growth -->
+		<TERM ns=":trait" lid="growth">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Growth</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:phenology -->
+		<TERM ns=":trait" lid="phenology">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Phenology</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:cytology -->
+		<TERM ns=":trait" lid="cytology">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Cytological</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:nematode -->
+		<TERM ns=":trait" lid="nematode">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Nematode</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:production -->
+		<TERM ns=":trait" lid="production">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Production</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:molecular -->
+		<TERM ns=":trait" lid="molecular">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Molecular</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:physiology -->
+		<TERM ns=":trait" lid="physiology">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Physiology</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:flower-fruit -->
+		<TERM ns=":trait" lid="flower-fruit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Flower/Fruit</item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- :trait:quality -->
+		<TERM ns=":trait" lid="quality">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Quality</item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>
