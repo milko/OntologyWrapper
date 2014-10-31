@@ -126,7 +126,8 @@ try
 	// Generate crop categories.
 	//
 	echo( "  • Generating crop categories\n" );
-	$query = "SELECT DISTINCT `Category`, `CodeCategory` FROM `Crops` ORDER BY `CodeCategory` ASC";
+	$query = "SELECT DISTINCT `Category`, `CodeCategory` "
+			."FROM `crop_enum` ORDER BY `CodeCategory` ASC";
 	$rs = $dc_in->execute( $query );
 	$fp->fwrite( "\n" );
 	foreach( $rs as $category )
@@ -181,11 +182,18 @@ try
 	// Generate crop groups.
 	//
 	echo( "  • Generating crop groups\n" );
-	$query = "SELECT DISTINCT `Group`, `CodeGroup` FROM `Crops` ORDER BY `Group` ASC";
+	$query = "SELECT DISTINCT `Category`, `CodeCategory`, `Group`, `CodeGroup` "
+			."FROM `crop_enum` "
+			."ORDER BY `Group` ASC";
 	$rs = $dc_in->execute( $query );
 	$fp->fwrite( "\n" );
 	foreach( $rs as $group )
 	{
+		//
+		// Get category.
+		//
+		$kid = $category[ 'CodeCategory' ];
+		
 		//
 		// Get group.
 		//
@@ -204,6 +212,7 @@ try
 		$xml .= "\t\t\t\t\t<item const=\"kTAG_TEXT\"><![CDATA[$gname]]></item>\n";
 		$xml .= "\t\t\t\t</item>\n";
 		$xml .= "\t\t\t</item>\n";
+		$xml .= "\t\t\t<item tag=\":taxon:category\">:taxon:crop:category:$kid</item>\n";
 		$xml .= "\t\t</TERM>\n";
 		
 		//
@@ -217,6 +226,10 @@ try
 		$xml .= "\t\t<EDGE>\n";
 		$xml .= "\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:ENUM-OF</item>\n";
 		$xml .= "\t\t\t<item const=\"kTAG_OBJECT\" node=\"term\">:taxon:crop:group</item>\n";
+		$xml .= "\t\t</EDGE>\n";
+		$xml .= "\t\t<EDGE>\n";
+		$xml .= "\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:SUBSET-OF</item>\n";
+		$xml .= "\t\t\t<item const=\"kTAG_OBJECT\" node=\"term\">:taxon:crop:category:$kid</item>\n";
 		$xml .= "\t\t</EDGE>\n";
 		$xml .= "\t</META>\n";
 		
@@ -236,7 +249,12 @@ try
 	// Generate crops.
 	//
 	echo( "  • Generating crops\n" );
-	$query = "SELECT * FROM `Crops` ORDER BY `Crop` ASC";
+	$query = "SELECT DISTINCT "
+			."`Category`, `CodeCategory`, "
+			."`Group`, `CodeGroup`, "
+			."`Crop`, `CodeCrop` "
+			."FROM `crop_enum` "
+			."ORDER BY `Crop` ASC";
 	$rs = $dc_in->execute( $query );
 	$fp->fwrite( "\n" );
 	foreach( $rs as $crop )
@@ -258,6 +276,14 @@ try
 		$cname = $crop[ 'Crop' ];
 		
 		//
+		// Collect taxa.
+		//
+		$query = "SELECT `Family`, `Genus`, `Species` "
+				."FROM `crop_enum` "
+				."WHERE `CodeCrop` = $cid";
+		$taxa = $dc_in->GetAll( $query );
+		
+		//
 		// Set crop term.
 		//
 		$xml = "\t<!-- :taxon:crop:$cid -->\n";
@@ -269,6 +295,95 @@ try
 		$xml .= "\t\t\t\t\t<item const=\"kTAG_TEXT\"><![CDATA[$cname]]></item>\n";
 		$xml .= "\t\t\t\t</item>\n";
 		$xml .= "\t\t\t</item>\n";
+		$xml .= "\t\t\t<item tag=\":taxon:category\">:taxon:crop:category:$kid</item>\n";
+		$xml .= "\t\t\t<item tag=\":taxon:group\">:taxon:crop:group:$gid</item>\n";
+		
+		//
+		// Handle taxa.
+		//
+		if( count( $taxa ) )
+		{
+			//
+			// Open section.
+			//
+			$xml .= "\t\t\t<item tag=\":taxon:crop:taxa\">\n";
+			
+			foreach( $taxa as $taxon )
+			{
+				//
+				// Open element
+				$xml .= "\t\t\t\t<item>\n";
+				
+				//
+				// Determine label.
+				//
+				$label = Array();
+				if( array_key_exists( 'Genus', $taxon ) )
+					$label[] = $taxon[ 'Genus' ];
+				if( array_key_exists( 'Species', $taxon ) )
+					$label[] = $taxon[ 'Species' ];
+				$label = count( $label )
+					   ? implode( ' ', $label )
+					   : 'taxon';
+				
+				//
+				// Add label.
+				//
+				$xml .= "\t\t\t\t\t<item tag=\":struct-label\">$label</item>\n";
+				
+				//
+				// Add taxa.
+				//
+				foreach( $taxon as $key => $value )
+				{
+					//
+					// Check value.
+					//
+					if( strlen( trim( $value ) ) )
+					{
+						//
+						// Parse epithet.
+						//
+						switch( $key )
+						{
+							case 'Family':
+								$tag = ':taxon:familia';
+								break;
+							case 'Genus':
+								$tag = ':taxon:genus';
+								break;
+							case 'Species':
+								$tag = ':taxon:species';
+								break;
+							
+							default:
+								$tag = NULL;
+								break;
+						}
+						
+						//
+						// Add epithet.
+						//
+						if( $tag !== NULL )
+							$xml .= "\t\t\t\t\t<item tag=\"$tag\">$value</item>\n";
+					}
+				}
+				
+				//
+				// Close element.
+				//
+				$xml .= "\t\t\t\t</item>\n";
+			}
+			
+			//
+			// Close section.
+			//
+			$xml .= "\t\t\t</item>\n";
+		}
+		
+		//
+		// Close term.
+		//
 		$xml .= "\t\t</TERM>\n";
 	
 		//
@@ -282,10 +397,6 @@ try
 		$xml .= "\t\t<EDGE>\n";
 		$xml .= "\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:ENUM-OF</item>\n";
 		$xml .= "\t\t\t<item const=\"kTAG_OBJECT\" node=\"term\">:taxon:crop</item>\n";
-		$xml .= "\t\t</EDGE>\n";
-		$xml .= "\t\t<EDGE>\n";
-		$xml .= "\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:SUBSET-OF</item>\n";
-		$xml .= "\t\t\t<item const=\"kTAG_OBJECT\" node=\"term\">:taxon:crop:category:$kid</item>\n";
 		$xml .= "\t\t</EDGE>\n";
 		$xml .= "\t\t<EDGE>\n";
 		$xml .= "\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:SUBSET-OF</item>\n";

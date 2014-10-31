@@ -3146,6 +3146,39 @@
 			<item const="kTAG_OBJECT" node="tag">:taxon:crop:category</item>
 		</EDGE>
 	</META>
+	
+	<!-- :taxon:crop:taxa -->
+	<META>
+		<TERM ns=":taxon:crop" lid="taxa">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Crop taxa</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:crop:taxa</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:struct-label</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">List of taxonomic epithets defining the crop.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:crop:taxa">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 
 	<!-- :taxon:crop:category:1 -->
 	<META>
@@ -3197,6 +3230,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Beans]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3206,6 +3240,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:2 -->
@@ -3217,6 +3255,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Beans and other legumes]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3226,6 +3265,35 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:2 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Beans and other legumes]]></item>
+				</item>
+			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:3 -->
@@ -3237,6 +3305,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Beverage crops]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3246,6 +3315,35 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:3 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Beverage crops]]></item>
+				</item>
+			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:4 -->
@@ -3257,6 +3355,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Cereals]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3266,6 +3365,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:5 -->
@@ -3277,6 +3380,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Cereals and pseudo-cereals]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3286,6 +3390,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:6 -->
@@ -3297,6 +3405,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Fruit vegetables]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3306,6 +3415,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:7 -->
@@ -3317,6 +3430,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Fruits]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3326,6 +3440,35 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:7 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="7">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fruits]]></item>
+				</item>
+			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:8 -->
@@ -3337,6 +3480,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Leaf and flower vegetables]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3346,6 +3490,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:9 -->
@@ -3357,6 +3505,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Leaf vegetables]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3366,6 +3515,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:10 -->
@@ -3377,6 +3530,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Legume forages]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3386,6 +3540,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:11 -->
@@ -3397,6 +3555,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Oil crops]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3406,6 +3565,35 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:11 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="11">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Oil crops]]></item>
+				</item>
+			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:12 -->
@@ -3417,6 +3605,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Roots and tubers]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3426,6 +3615,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:13 -->
@@ -3437,6 +3630,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Spices and flavours]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3446,6 +3640,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:14 -->
@@ -3457,6 +3655,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Sugar crops]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3466,6 +3665,35 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:group:14 -->
+	<META>
+		<TERM ns=":taxon:crop:group" lid="14">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sugar crops]]></item>
+				</item>
+			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:15 -->
@@ -3477,6 +3705,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Tree nuts]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3486,6 +3715,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 	<!-- :taxon:crop:group:16 -->
@@ -3497,6 +3730,7 @@
 					<item const="kTAG_TEXT"><![CDATA[Tubers]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3506,6 +3740,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 	</META>
 
@@ -3518,6 +3756,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Almond]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Prunus dulcis</item>
+					<item tag=":taxon:familia">Rosaceae</item>
+					<item tag=":taxon:genus">Prunus</item>
+					<item tag=":taxon:species">dulcis</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3527,10 +3775,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3546,6 +3790,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Apple]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Malus domestica</item>
+					<item tag=":taxon:familia">Rosaceae</item>
+					<item tag=":taxon:genus">Malus</item>
+					<item tag=":taxon:species">domestica</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3555,10 +3809,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3574,6 +3824,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Apricot]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Prunus armeniaca</item>
+					<item tag=":taxon:familia">Rosaceae</item>
+					<item tag=":taxon:genus">Prunus</item>
+					<item tag=":taxon:species">armeniaca</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3583,10 +3843,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3602,6 +3858,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Artichoke]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:8</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Cynara scolymus</item>
+					<item tag=":taxon:familia">Compositae</item>
+					<item tag=":taxon:genus">Cynara</item>
+					<item tag=":taxon:species">scolymus</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3611,10 +3877,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3630,6 +3892,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Avocado]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Persea americana</item>
+					<item tag=":taxon:familia">Lauraceae</item>
+					<item tag=":taxon:genus">Persea</item>
+					<item tag=":taxon:species">americana</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3639,10 +3911,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3658,6 +3926,15 @@
 					<item const="kTAG_TEXT"><![CDATA[Banana, plantain]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Musa </item>
+					<item tag=":taxon:familia">Musaceae</item>
+					<item tag=":taxon:genus">Musa</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3667,10 +3944,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3686,6 +3959,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Barley]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:4</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Hordeum vulgare</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Hordeum</item>
+					<item tag=":taxon:species">vulgare</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3695,10 +3978,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3714,6 +3993,34 @@
 					<item const="kTAG_TEXT"><![CDATA[Beans]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:1</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Lablab purpureus</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Lablab</item>
+					<item tag=":taxon:species">purpureus</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Phaseolus lunatus</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Phaseolus</item>
+					<item tag=":taxon:species">lunatus</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Phaseolus vulgaris</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Phaseolus</item>
+					<item tag=":taxon:species">vulgaris</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Vigna unguiculata</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Vigna</item>
+					<item tag=":taxon:species">unguiculata</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3723,10 +4030,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3742,6 +4045,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Blackcurrant]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Ribes nigrum</item>
+					<item tag=":taxon:familia">Grossulariaceae</item>
+					<item tag=":taxon:genus">Ribes</item>
+					<item tag=":taxon:species">nigrum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3751,10 +4064,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3770,6 +4079,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Brazil nut]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:15</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Bertholletia excelsa</item>
+					<item tag=":taxon:familia">Lecythidaceae</item>
+					<item tag=":taxon:genus">Bertholletia</item>
+					<item tag=":taxon:species">excelsa</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3779,10 +4098,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3798,6 +4113,14 @@
 					<item const="kTAG_TEXT"><![CDATA[Breadfruit]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Artocarpus </item>
+					<item tag=":taxon:genus">Artocarpus</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3807,10 +4130,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3826,6 +4145,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Cabbage]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:9</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Brassica oleracea</item>
+					<item tag=":taxon:familia">Cruciferae</item>
+					<item tag=":taxon:genus">Brassica</item>
+					<item tag=":taxon:species">oleracea</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3835,10 +4164,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3854,6 +4179,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Cardamom]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:13</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Elettaria cardamomum</item>
+					<item tag=":taxon:familia">Zingiberaceae</item>
+					<item tag=":taxon:genus">Elettaria</item>
+					<item tag=":taxon:species">cardamomum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3863,10 +4198,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3882,6 +4213,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Carrot]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:12</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Daucus carota</item>
+					<item tag=":taxon:familia">Umbelliferae</item>
+					<item tag=":taxon:genus">Daucus</item>
+					<item tag=":taxon:species">carota</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3891,10 +4232,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3910,6 +4247,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Cassava]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:16</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Manihot esculenta</item>
+					<item tag=":taxon:familia">Euphorbiaceae</item>
+					<item tag=":taxon:genus">Manihot</item>
+					<item tag=":taxon:species">esculenta</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3919,10 +4266,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3938,6 +4281,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Cherry]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Prunus avium</item>
+					<item tag=":taxon:familia">Rosaceae</item>
+					<item tag=":taxon:genus">Prunus</item>
+					<item tag=":taxon:species">avium</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3947,10 +4300,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3966,6 +4315,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Chickpea]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:2</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Cicer arietinum</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Cicer</item>
+					<item tag=":taxon:species">arietinum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -3975,10 +4334,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -3994,6 +4349,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Chili pepper, sweet pepper]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:13</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Capsicum annuum</item>
+					<item tag=":taxon:familia">Solanaceae</item>
+					<item tag=":taxon:genus">Capsicum</item>
+					<item tag=":taxon:species">annuum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4003,10 +4368,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4022,6 +4383,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Cocoa]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:3</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Theobroma cacao</item>
+					<item tag=":taxon:familia">Sterculiaceae</item>
+					<item tag=":taxon:genus">Theobroma</item>
+					<item tag=":taxon:species">cacao</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4031,10 +4402,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4050,6 +4417,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Coconut]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Cocos nucifera</item>
+					<item tag=":taxon:familia">Palmae</item>
+					<item tag=":taxon:genus">Cocos</item>
+					<item tag=":taxon:species">nucifera</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4059,10 +4436,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4078,6 +4451,22 @@
 					<item const="kTAG_TEXT"><![CDATA[Coffee]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:3</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Coffea arabica</item>
+					<item tag=":taxon:familia">Rubiaceae</item>
+					<item tag=":taxon:genus">Coffea</item>
+					<item tag=":taxon:species">arabica</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Coffea canephora</item>
+					<item tag=":taxon:familia">Rubiaceae</item>
+					<item tag=":taxon:genus">Coffea</item>
+					<item tag=":taxon:species">canephora</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4087,10 +4476,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4106,6 +4491,22 @@
 					<item const="kTAG_TEXT"><![CDATA[Cotton seed]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Gossypium barbadense</item>
+					<item tag=":taxon:familia">Malvaceae</item>
+					<item tag=":taxon:genus">Gossypium</item>
+					<item tag=":taxon:species">barbadense</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Gossypium hirsutum</item>
+					<item tag=":taxon:familia">Malvaceae</item>
+					<item tag=":taxon:genus">Gossypium</item>
+					<item tag=":taxon:species">hirsutum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4115,10 +4516,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4134,6 +4531,15 @@
 					<item const="kTAG_TEXT"><![CDATA[Cowpea]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:2</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Vigna </item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Vigna</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4143,10 +4549,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4162,6 +4564,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Cucumber]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:6</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Cucumis sativus</item>
+					<item tag=":taxon:familia">Cucurbitaceae</item>
+					<item tag=":taxon:genus">Cucumis</item>
+					<item tag=":taxon:species">sativus</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4171,10 +4583,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4190,6 +4598,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Date]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Phoenix dactylifera</item>
+					<item tag=":taxon:familia">Palmae</item>
+					<item tag=":taxon:genus">Phoenix</item>
+					<item tag=":taxon:species">dactylifera</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4199,10 +4617,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4218,6 +4632,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Eggplant]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:6</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Solanum melongena</item>
+					<item tag=":taxon:familia">Solanaceae</item>
+					<item tag=":taxon:genus">Solanum</item>
+					<item tag=":taxon:species">melongena</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4227,10 +4651,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4246,6 +4666,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Faba bean]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:2</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Vicia faba</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Vicia</item>
+					<item tag=":taxon:species">faba</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4255,10 +4685,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4274,6 +4700,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Fig]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Ficus carica</item>
+					<item tag=":taxon:familia">Moraceae</item>
+					<item tag=":taxon:genus">Ficus</item>
+					<item tag=":taxon:species">carica</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4283,10 +4719,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4302,32 +4734,14 @@
 					<item const="kTAG_TEXT"><![CDATA[Filbert]]></item>
 				</item>
 			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:15</item>
-		</EDGE>
-	</META>
-	<!-- :taxon:crop:43 -->
-	<META>
-		<TERM ns=":taxon:crop" lid="43">
-			<item const="kTAG_LABEL">
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:15</item>
+			<item tag=":taxon:crop:taxa">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Fonio]]></item>
+					<item tag=":struct-label">Corylus maxima</item>
+					<item tag=":taxon:familia">Betulaceae</item>
+					<item tag=":taxon:genus">Corylus</item>
+					<item tag=":taxon:species">maxima</item>
 				</item>
 			</item>
 		</TERM>
@@ -4342,7 +4756,71 @@
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:15</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:91 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="91">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Finger millet]]></item>
+				</item>
+			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:4</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Eleusine coracana</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Eleusine</item>
+					<item tag=":taxon:species">coracana</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:4</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:crop:43 -->
+	<META>
+		<TERM ns=":taxon:crop" lid="43">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fonio]]></item>
+				</item>
+			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:5</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Digitaria exilis</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Digitaria</item>
+					<item tag=":taxon:species">exilis</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4358,6 +4836,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Garlic]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:13</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Allium sativum</item>
+					<item tag=":taxon:familia">Alliaceae</item>
+					<item tag=":taxon:genus">Allium</item>
+					<item tag=":taxon:species">sativum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4367,10 +4855,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4386,6 +4870,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Grape]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Vitis vinifera</item>
+					<item tag=":taxon:familia">Vitaceae</item>
+					<item tag=":taxon:genus">Vitis</item>
+					<item tag=":taxon:species">vinifera</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4395,10 +4889,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4414,6 +4904,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Grapefruit]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Citrus paradisi</item>
+					<item tag=":taxon:familia">Rutaceae</item>
+					<item tag=":taxon:genus">Citrus</item>
+					<item tag=":taxon:species">paradisi</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4423,10 +4923,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4442,6 +4938,14 @@
 					<item const="kTAG_TEXT"><![CDATA[Grass pea]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:10</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Lathyrus </item>
+					<item tag=":taxon:genus">Lathyrus</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4451,10 +4955,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4470,6 +4970,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Groundnut]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Arachis hypogaea</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Arachis</item>
+					<item tag=":taxon:species">hypogaea</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4479,10 +4989,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4498,6 +5004,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Hazel]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:15</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Corylus avellana</item>
+					<item tag=":taxon:familia">Betulaceae</item>
+					<item tag=":taxon:genus">Corylus</item>
+					<item tag=":taxon:species">avellana</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4507,10 +5023,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4526,6 +5038,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Lemon]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Citrus limon</item>
+					<item tag=":taxon:familia">Rutaceae</item>
+					<item tag=":taxon:genus">Citrus</item>
+					<item tag=":taxon:species">limon</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4535,10 +5057,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4554,6 +5072,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Lentil]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:2</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Lens culinaris</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Lens</item>
+					<item tag=":taxon:species">culinaris</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4563,10 +5091,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4582,6 +5106,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Lettuce]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:8</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Lactuca sativa</item>
+					<item tag=":taxon:familia">Compositae</item>
+					<item tag=":taxon:genus">Lactuca</item>
+					<item tag=":taxon:species">sativa</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4591,10 +5125,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4610,6 +5140,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Lime]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Citrus aurantiifolia</item>
+					<item tag=":taxon:familia">Rutaceae</item>
+					<item tag=":taxon:genus">Citrus</item>
+					<item tag=":taxon:species">aurantiifolia</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4619,10 +5159,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4638,6 +5174,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Lupin]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:2</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Lupinus mutabilis</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Lupinus</item>
+					<item tag=":taxon:species">mutabilis</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4647,10 +5193,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4666,6 +5208,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Maize]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:4</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Zea mays</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Zea</item>
+					<item tag=":taxon:species">mays</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4675,10 +5227,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4694,6 +5242,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Mango]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Mangifera indica</item>
+					<item tag=":taxon:familia">Anacardiaceae</item>
+					<item tag=":taxon:genus">Mangifera</item>
+					<item tag=":taxon:species">indica</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4703,10 +5261,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4722,6 +5276,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Mate]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:3</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Ilex paraguariensis</item>
+					<item tag=":taxon:familia">Aquifoliaceae</item>
+					<item tag=":taxon:genus">Ilex</item>
+					<item tag=":taxon:species">paraguariensis</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4731,10 +5295,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4750,6 +5310,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Melon]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:6</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Cucumis melo</item>
+					<item tag=":taxon:familia">Cucurbitaceae</item>
+					<item tag=":taxon:genus">Cucumis</item>
+					<item tag=":taxon:species">melo</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4759,10 +5329,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4778,6 +5344,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Melon seed/watermelon]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:6</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Citrullus lanatus</item>
+					<item tag=":taxon:familia">Cucurbitaceae</item>
+					<item tag=":taxon:genus">Citrullus</item>
+					<item tag=":taxon:species">lanatus</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4787,10 +5363,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4806,6 +5378,28 @@
 					<item const="kTAG_TEXT"><![CDATA[Millets]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:4</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Echinochloa frumentacea</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Echinochloa</item>
+					<item tag=":taxon:species">frumentacea</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Panicum miliaceum</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Panicum</item>
+					<item tag=":taxon:species">miliaceum</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Setaria italica</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Setaria</item>
+					<item tag=":taxon:species">italica</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4815,10 +5409,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4834,6 +5424,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Mustard seed]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Brassica juncea</item>
+					<item tag=":taxon:familia">Cruciferae</item>
+					<item tag=":taxon:genus">Brassica</item>
+					<item tag=":taxon:species">juncea</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4843,10 +5443,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4862,6 +5458,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Oats]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:5</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Avena sativa</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Avena</item>
+					<item tag=":taxon:species">sativa</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4871,10 +5477,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4890,6 +5492,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Oil palm]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Elaeis guineensis</item>
+					<item tag=":taxon:familia">Palmae</item>
+					<item tag=":taxon:genus">Elaeis</item>
+					<item tag=":taxon:species">guineensis</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4899,10 +5511,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4918,6 +5526,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Olive]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Olea europaea</item>
+					<item tag=":taxon:familia">Oleaceae</item>
+					<item tag=":taxon:genus">Olea</item>
+					<item tag=":taxon:species">europaea</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4927,10 +5545,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4946,6 +5560,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Onion]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:13</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Allium cepa</item>
+					<item tag=":taxon:familia">Alliaceae</item>
+					<item tag=":taxon:genus">Allium</item>
+					<item tag=":taxon:species">cepa</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4955,10 +5579,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -4974,6 +5594,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Papaya]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Carica papaya</item>
+					<item tag=":taxon:familia">Caricaceae</item>
+					<item tag=":taxon:genus">Carica</item>
+					<item tag=":taxon:species">papaya</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -4983,10 +5613,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5002,6 +5628,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Pea]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:2</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Pisum sativum</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Pisum</item>
+					<item tag=":taxon:species">sativum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5011,10 +5647,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5030,6 +5662,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Pear]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Pyrus communis</item>
+					<item tag=":taxon:familia">Rosaceae</item>
+					<item tag=":taxon:genus">Pyrus</item>
+					<item tag=":taxon:species">communis</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5039,10 +5681,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5058,6 +5696,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Pearl millet]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:4</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Pennisetum glaucum</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Pennisetum</item>
+					<item tag=":taxon:species">glaucum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5067,10 +5715,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5086,6 +5730,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Pepper]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:13</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Piper nigrum</item>
+					<item tag=":taxon:familia">Piperaceae</item>
+					<item tag=":taxon:genus">Piper</item>
+					<item tag=":taxon:species">nigrum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5095,10 +5749,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5114,6 +5764,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Pigeonpea]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:2</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Cajanus cajan</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Cajanus</item>
+					<item tag=":taxon:species">cajan</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5123,10 +5783,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5142,6 +5798,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Pimento]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:13</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Pimenta dioica</item>
+					<item tag=":taxon:familia">Myrtaceae</item>
+					<item tag=":taxon:genus">Pimenta</item>
+					<item tag=":taxon:species">dioica</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5151,10 +5817,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5170,6 +5832,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Pineapple]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Ananas comosus</item>
+					<item tag=":taxon:familia">Bromeliaceae</item>
+					<item tag=":taxon:genus">Ananas</item>
+					<item tag=":taxon:species">comosus</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5179,10 +5851,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5198,6 +5866,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Pistachio]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:15</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Pistacia vera</item>
+					<item tag=":taxon:familia">Anacardiaceae</item>
+					<item tag=":taxon:genus">Pistacia</item>
+					<item tag=":taxon:species">vera</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5207,10 +5885,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5226,6 +5900,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Plum]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Prunus domestica</item>
+					<item tag=":taxon:familia">Rosaceae</item>
+					<item tag=":taxon:genus">Prunus</item>
+					<item tag=":taxon:species">domestica</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5235,10 +5919,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5254,6 +5934,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Pomelo]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Citrus maxima</item>
+					<item tag=":taxon:familia">Rutaceae</item>
+					<item tag=":taxon:genus">Citrus</item>
+					<item tag=":taxon:species">maxima</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5263,10 +5953,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5282,6 +5968,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Potato]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:16</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Solanum tuberosum</item>
+					<item tag=":taxon:familia">Solanaceae</item>
+					<item tag=":taxon:genus">Solanum</item>
+					<item tag=":taxon:species">tuberosum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5291,10 +5987,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5310,6 +6002,40 @@
 					<item const="kTAG_TEXT"><![CDATA[Pumpkin, squash, gourd]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Cucurbita maxima</item>
+					<item tag=":taxon:familia">Cucurbitae</item>
+					<item tag=":taxon:genus">Cucurbita</item>
+					<item tag=":taxon:species">maxima</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Cucurbita ficifolia</item>
+					<item tag=":taxon:familia">Cucurbitae</item>
+					<item tag=":taxon:genus">Cucurbita</item>
+					<item tag=":taxon:species">ficifolia</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Cucurbita moschata</item>
+					<item tag=":taxon:familia">Cucurbitae</item>
+					<item tag=":taxon:genus">Cucurbita</item>
+					<item tag=":taxon:species">moschata</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Cucurbita pepo</item>
+					<item tag=":taxon:familia">Cucurbitae</item>
+					<item tag=":taxon:genus">Cucurbita</item>
+					<item tag=":taxon:species">pepo</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Cucurbita argyrosperma</item>
+					<item tag=":taxon:familia">Cucurbitae</item>
+					<item tag=":taxon:genus">Cucurbita</item>
+					<item tag=":taxon:species">argyrosperma</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5319,10 +6045,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5338,6 +6060,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Quinoa]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:5</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Chenopodium quinoa</item>
+					<item tag=":taxon:familia">Chenopodiaceae</item>
+					<item tag=":taxon:genus">Chenopodium</item>
+					<item tag=":taxon:species">quinoa</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5347,10 +6079,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5366,6 +6094,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Rapeseed]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Brassica napus</item>
+					<item tag=":taxon:familia">Cruciferae</item>
+					<item tag=":taxon:genus">Brassica</item>
+					<item tag=":taxon:species">napus</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5375,10 +6113,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5394,6 +6128,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Redcurrant]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Ribes rubrum</item>
+					<item tag=":taxon:familia">Grossulariaceae</item>
+					<item tag=":taxon:genus">Ribes</item>
+					<item tag=":taxon:species">rubrum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5403,10 +6147,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5422,6 +6162,22 @@
 					<item const="kTAG_TEXT"><![CDATA[Rice]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:4</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Oryza sativa</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Oryza</item>
+					<item tag=":taxon:species">sativa</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Oryza glaberrima</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Oryza</item>
+					<item tag=":taxon:species">glaberrima</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5431,10 +6187,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5450,6 +6202,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Rye]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:4</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Secale cereale</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Secale</item>
+					<item tag=":taxon:species">cereale</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5459,10 +6221,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5478,6 +6236,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Safflower seed]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Carthamus tinctorius</item>
+					<item tag=":taxon:familia">Compositae</item>
+					<item tag=":taxon:genus">Carthamus</item>
+					<item tag=":taxon:species">tinctorius</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5487,10 +6255,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5506,6 +6270,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Sesame seed]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Sesamum orientale</item>
+					<item tag=":taxon:familia">Pedaliaceae</item>
+					<item tag=":taxon:genus">Sesamum</item>
+					<item tag=":taxon:species">orientale</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5515,10 +6289,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5534,6 +6304,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Shea nut]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Vitellaria paradoxa</item>
+					<item tag=":taxon:familia">Sapotaceae</item>
+					<item tag=":taxon:genus">Vitellaria</item>
+					<item tag=":taxon:species">paradoxa</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5543,10 +6323,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5562,6 +6338,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Sorghum]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:4</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Sorghum bicolor</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Sorghum</item>
+					<item tag=":taxon:species">bicolor</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5571,10 +6357,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5590,6 +6372,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Soybean]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Glycine max</item>
+					<item tag=":taxon:familia">Leguminosae</item>
+					<item tag=":taxon:genus">Glycine</item>
+					<item tag=":taxon:species">max</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5599,10 +6391,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5618,6 +6406,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Spinach]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:8</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Spinacia oleracea</item>
+					<item tag=":taxon:familia">Chenopodiaceae</item>
+					<item tag=":taxon:genus">Spinacia</item>
+					<item tag=":taxon:species">oleracea</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5627,10 +6425,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5646,6 +6440,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Strawberry]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Fragaria x ananassa</item>
+					<item tag=":taxon:familia">Rosaceae</item>
+					<item tag=":taxon:genus">Fragaria</item>
+					<item tag=":taxon:species">x ananassa</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5655,10 +6459,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5674,6 +6474,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Sugar beet]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:14</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Beta vulgaris</item>
+					<item tag=":taxon:familia">Chenopodiaceae</item>
+					<item tag=":taxon:genus">Beta</item>
+					<item tag=":taxon:species">vulgaris</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5683,10 +6493,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5702,6 +6508,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Sugarcane]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:14</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Saccharum officianarum</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Saccharum</item>
+					<item tag=":taxon:species">officianarum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5711,10 +6527,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5730,6 +6542,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Sunflower seed]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:11</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Helianthus annuus</item>
+					<item tag=":taxon:familia">Compositae</item>
+					<item tag=":taxon:genus">Helianthus</item>
+					<item tag=":taxon:species">annuus</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5739,10 +6561,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5758,6 +6576,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Sweet orange]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Citrus sinensis</item>
+					<item tag=":taxon:familia">Rutaceae</item>
+					<item tag=":taxon:genus">Citrus</item>
+					<item tag=":taxon:species">sinensis</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5767,10 +6595,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5786,6 +6610,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Sweet potato]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:12</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Ipomoea batatas</item>
+					<item tag=":taxon:familia">Convolvulaceae</item>
+					<item tag=":taxon:genus">Ipomoea</item>
+					<item tag=":taxon:species">batatas</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5795,10 +6629,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5814,6 +6644,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Tangerine]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:7</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Citrus reticulata</item>
+					<item tag=":taxon:familia">Rutaceae</item>
+					<item tag=":taxon:genus">Citrus</item>
+					<item tag=":taxon:species">reticulata</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5823,10 +6663,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5842,6 +6678,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Tannia]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:12</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Xanthosoma sagittifolium</item>
+					<item tag=":taxon:familia">Araceae</item>
+					<item tag=":taxon:genus">Xanthosoma</item>
+					<item tag=":taxon:species">sagittifolium</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5851,10 +6697,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5870,6 +6712,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Taro]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:12</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Colocasia esculenta</item>
+					<item tag=":taxon:familia">Araceae</item>
+					<item tag=":taxon:genus">Colocasia</item>
+					<item tag=":taxon:species">esculenta</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5879,10 +6731,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5898,6 +6746,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Tea]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:3</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Camellia sinensis</item>
+					<item tag=":taxon:familia">Theaceae</item>
+					<item tag=":taxon:genus">Camellia</item>
+					<item tag=":taxon:species">sinensis</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5907,10 +6765,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5926,6 +6780,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Tomato]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:6</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Lycopersicon esculentum</item>
+					<item tag=":taxon:familia">Solanaceae</item>
+					<item tag=":taxon:genus">Lycopersicon</item>
+					<item tag=":taxon:species">esculentum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5935,10 +6799,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5954,6 +6814,16 @@
 					<item const="kTAG_TEXT"><![CDATA[Walnut]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:15</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Juglans regia</item>
+					<item tag=":taxon:familia">Juglandaceae</item>
+					<item tag=":taxon:genus">Juglans</item>
+					<item tag=":taxon:species">regia</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5963,10 +6833,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -5982,6 +6848,22 @@
 					<item const="kTAG_TEXT"><![CDATA[Wheat]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:4</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Triticum turgidum</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Triticum</item>
+					<item tag=":taxon:species">turgidum</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Triticum aestivum</item>
+					<item tag=":taxon:familia">Gramineae</item>
+					<item tag=":taxon:genus">Triticum</item>
+					<item tag=":taxon:species">aestivum</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -5991,10 +6873,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
@@ -6010,6 +6888,52 @@
 					<item const="kTAG_TEXT"><![CDATA[Yam]]></item>
 				</item>
 			</item>
+			<item tag=":taxon:category">:taxon:crop:category:2</item>
+			<item tag=":taxon:group">:taxon:crop:group:16</item>
+			<item tag=":taxon:crop:taxa">
+				<item>
+					<item tag=":struct-label">Dioscorea trifida</item>
+					<item tag=":taxon:familia">Dioscoreaceae</item>
+					<item tag=":taxon:genus">Dioscorea</item>
+					<item tag=":taxon:species">trifida</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Dioscorea alata</item>
+					<item tag=":taxon:familia">Dioscoreaceae</item>
+					<item tag=":taxon:genus">Dioscorea</item>
+					<item tag=":taxon:species">alata</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Dioscorea bulbifera</item>
+					<item tag=":taxon:familia">Dioscoreaceae</item>
+					<item tag=":taxon:genus">Dioscorea</item>
+					<item tag=":taxon:species">bulbifera</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Dioscorea cayenensis</item>
+					<item tag=":taxon:familia">Dioscoreaceae</item>
+					<item tag=":taxon:genus">Dioscorea</item>
+					<item tag=":taxon:species">cayenensis</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Dioscorea dumetorum</item>
+					<item tag=":taxon:familia">Dioscoreaceae</item>
+					<item tag=":taxon:genus">Dioscorea</item>
+					<item tag=":taxon:species">dumetorum</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Dioscorea rotundata</item>
+					<item tag=":taxon:familia">Dioscoreaceae</item>
+					<item tag=":taxon:genus">Dioscorea</item>
+					<item tag=":taxon:species">rotundata</item>
+				</item>
+				<item>
+					<item tag=":struct-label">Dioscorea esculenta</item>
+					<item tag=":taxon:familia">Dioscoreaceae</item>
+					<item tag=":taxon:genus">Dioscorea</item>
+					<item tag=":taxon:species">esculenta</item>
+				</item>
+			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -6019,41 +6943,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop:category:2</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBSET-OF</item>
 			<item const="kTAG_OBJECT" node="term">:taxon:crop:group:16</item>
-		</EDGE>
-	</META>
-
-	<!-- :taxon:crop:999 -->
-	<META>
-		<TERM ns=":taxon:crop" lid="999">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Other]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Other]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:crop</item>
 		</EDGE>
 	</META>
 	
