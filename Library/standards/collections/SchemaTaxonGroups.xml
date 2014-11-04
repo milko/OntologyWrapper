@@ -31,6 +31,18 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :taxon:crop:category -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:crop:category</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:crop:group -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:crop:group</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :taxon:crop -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:crop</item>
