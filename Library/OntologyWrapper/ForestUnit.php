@@ -525,8 +525,8 @@ class ForestUnit extends UnitObject
 			//
 			// Init local storage.
 			//
-			$tag_genus = $this->getSerial( ':taxon:genus', TRUE );
-			$tag_species = $this->getSerial( ':taxon:species', TRUE );
+			$tag_genus = $this->resolveOffset( ':taxon:genus', TRUE );
+			$tag_species = $this->resolveOffset( ':taxon:species', TRUE );
 			
 			//
 			// Iterate populations.
