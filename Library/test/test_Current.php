@@ -448,7 +448,6 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-*/
 	
 	//
 	// Try getUnit formatted.
@@ -484,6 +483,15 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+	echo( '<hr>' );
+*/
+	//
+	// Resolve taxon groups.
+	//
+	$genus = 'Triticum';
+	$species = 'durum';
+	$list = OntologyWrapper\Term::ResolveTaxonGroup( $wrapper, $genus, $species );
+	var_dump( $list );
 	echo( '<hr>' );
 
 }

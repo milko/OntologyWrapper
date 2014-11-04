@@ -363,6 +363,34 @@ class Checklist extends UnitObject
 			$this->offsetSet( kTAG_COLLECTION, $this->offsetGet( ':taxon:epithet' ) );
 		
 		//
+		// Set taxon categories.
+		//
+		if( $this->offsetExists( ':taxon:genus' ) )
+		{
+			//
+			// Get categories.
+			//
+			$cats = ( $this->offsetExists( ':taxon:species' ) )
+				  ? Term::ResolveTaxonGroup(
+				  		$this->mDictionary,
+				  		$this->offsetGet( ':taxon:genus' ),
+				  		$this->offsetGet( ':taxon:species' ) )
+				  : Term::ResolveTaxonGroup(
+				  		$this->mDictionary,
+				  		$this->offsetGet( ':taxon:genus' ) );
+			
+			//
+			// Set categories.
+			//
+			if( count( $cats ) )
+			{
+				foreach( $cats as $key => $value )
+					$this->offsetSet( $key, $value );
+			}
+		
+		} // Has genus.
+		
+		//
 		// Call parent method.
 		//
 		parent::preCommitPrepare( $theTags, $theRefs );

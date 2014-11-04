@@ -8301,7 +8301,7 @@ $rs_units = & $rs_units[ 'result' ];
 					array( '$geoWithin'
 						=> array( '$centerSphere'
 							=> array( array( $geom[ 0 ], $geom[ 1 ] ),
-									  $theShape[ kTAG_RADIUS ] ) ) );								// ==>
+									  $theShape[ kTAG_RADIUS ] / 6371000 ) ) );								// ==>
 			
 			case 'Rect':
 				return

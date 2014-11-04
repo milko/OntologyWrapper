@@ -547,6 +547,162 @@ class Term extends MetadataObject
 	
 	} // ResolveCountryCode.
 
+	 
+	/*===================================================================================
+	 *	ResolveTaxonGroup																*
+	 *==================================================================================*/
+
+	/**
+	 * Get taxon group
+	 *
+	 * This method will return the crop, crop group, crop category and annex-1 groups
+	 * according to the provided genus and species.
+	 *
+	 * The method will return an array indexed by crop, crop group, crop category and
+	 * annex-1 groups containing the relative values; if there is no match, the method
+	 * will return an empty array.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param string				$theGenus			Genus.
+	 * @param string				$theSpecies			Species.
+	 *
+	 * @static
+	 * @return array				The list of taxon groups.
+	 */
+	static function ResolveTaxonGroup( Wrapper $theWrapper, $theGenus, $theSpecies = NULL )
+	{
+		//
+		// Init local storage.
+		//
+		$list = Array();
+		$t_genus = (string) $theWrapper->getSerial( ':taxon:genus', TRUE );
+		$t_species = (string) $theWrapper->getSerial( ':taxon:species', TRUE );
+		$t_crop = (string) $theWrapper->getSerial( ':taxon:crop', TRUE );
+		$t_group = (string) $theWrapper->getSerial( ':taxon:crop:group', TRUE );
+		$t_category = (string) $theWrapper->getSerial( ':taxon:crop:category', TRUE );
+		$t_annex1 = (string) $theWrapper->getSerial( ':taxon:annex-1', TRUE );
+		$t_included = (string) $theWrapper->getSerial( ':taxon:group:taxa', TRUE );
+		$t_excluded = (string) $theWrapper->getSerial( ':taxon:group:taxa:excluded', TRUE );
+		$collection
+			= Term::ResolveCollection(
+				Term::ResolveDatabase( $theWrapper ) );
+		
+		//
+		// Normalise species.
+		//
+		if( ($theSpecies == 'sp')
+		 || ($theSpecies == 'sp.') )
+			$theSpecies = NULL;
+		
+		//
+		// Query crop.
+		//
+		$query = array( kTAG_NAMESPACE => ':taxon:crop' );
+		if( strlen( $theSpecies ) )
+			$query[ $t_included ] = array(
+				'$elemMatch' => array(
+					$t_genus => $theGenus,
+					$t_species => $theSpecies ) );
+		else
+			$query[ $t_included ] = array(
+				'$elemMatch' => array(
+					$t_genus => $theGenus,
+					$t_species => array(
+						'$exists' => FALSE ) ) );
+		
+		//
+		// Find crop.
+		//
+		$term = $collection->matchOne( $query, kQUERY_OBJECT );
+		
+		//
+		// Check genus only.
+		//
+		if( ($term === NULL)
+		 && strlen( $theSpecies ) )
+		{
+			//
+			// Update query.
+			//
+			$query[ $t_included ][ '$elemMatch' ][ $t_species ]
+				= array( '$exists' => FALSE );
+			$term = $collection->matchOne( $query, kQUERY_OBJECT );
+		
+		} // Found crops.
+		
+		//
+		// Check crop.
+		//
+		if( $term !== NULL )
+		{
+			//
+			// Load crop.
+			//
+			$list[ $t_crop ] = $term[ kTAG_NID ];
+			if( ($tmp = $term[ $t_group ]) !== NULL )
+				$list[ $t_group ] = $tmp;
+			if( ($tmp = $term[ $t_category ]) !== NULL )
+				$list[ $t_category ] = $tmp;
+		
+		} // Found crop.
+		
+		//
+		// Query annex 1.
+		//
+		$query = array( kTAG_NAMESPACE => ':taxon:annex-1' );
+		if( strlen( $theSpecies ) )
+			$query[ $t_included ] = array(
+				'$elemMatch' => array(
+					$t_genus => $theGenus,
+					$t_species => $theSpecies ) );
+		else
+			$query[ $t_included ] = array(
+				'$elemMatch' => array(
+					$t_genus => $theGenus,
+					$t_species => array(
+						'$exists' => FALSE ) ) );
+		
+		//
+		// Find annex 1.
+		//
+		$term = $collection->matchOne( $query, kQUERY_OBJECT );
+		
+		//
+		// Check genus only.
+		//
+		if( ($term === NULL)
+		 && strlen( $theSpecies ) )
+		{
+			//
+			// Update query.
+			//
+			$query[ $t_included ][ '$elemMatch' ][ $t_species ]
+				= array( '$exists' => FALSE );
+			$query[ $t_excluded ] = array(
+				'$not' => array(
+					'$elemMatch' => array(
+						$t_genus => $theGenus,
+						$t_species => $theSpecies ) ) );
+			$term = $collection->matchOne( $query, kQUERY_OBJECT );
+		
+		} // Found crops.
+		
+		//
+		// Check annex 1.
+		//
+		if( $term !== NULL )
+		{
+			//
+			// Load annex 1.
+			//
+			$list[ $t_annex1 ] = $term[ kTAG_NID ];
+		
+		} // Found crop.
+		
+		return $list;																// ==>
+	
+	} // ResolveTaxonGroup.
+
 		
 
 /*=======================================================================================

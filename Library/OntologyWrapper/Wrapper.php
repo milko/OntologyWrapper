@@ -2442,6 +2442,30 @@ class Wrapper extends Dictionary
 		$file = kPATH_STANDARDS_ROOT.'/standard/TrialAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
+		
+		//
+		// Create species name index for terms.
+		//
+		if( $doLog )
+			echo( "  • Creating species name index for terms.\n" );
+		
+		$included = (string) $this->getSerial( ':taxon:group:taxa', TRUE );
+		$excluded = (string) $this->getSerial( ':taxon:group:taxa:excluded', TRUE );
+		$collection
+			= Term::ResolveCollection(
+				Term::ResolveDatabase( $this ) );
+		
+		$collection
+			->createIndex(
+				array( $included => 1 ),
+				array( "name" => "TAXA_INCLUDED",
+					   "sparse" => TRUE ) );
+		
+		$collection
+			->createIndex(
+				array( $excluded => 1 ),
+				array( "name" => "TAXA_EXCLUDED",
+					   "sparse" => TRUE ) );
 	
 	} // loadStandards.
 

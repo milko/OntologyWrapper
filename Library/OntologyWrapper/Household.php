@@ -407,6 +407,68 @@ class Household extends UnitObject
 		}
 		
 		//
+		// Set taxon categories.
+		//
+		if( $this->offsetExists( 'abdh:species' ) )
+		{
+			//
+			// Init local storage.
+			//
+			$tag_genus = $this->getSerial( ':taxon:genus', TRUE );
+			$tag_species = $this->getSerial( ':taxon:species', TRUE );
+			
+			//
+			// Iterate species.
+			//
+			$populations = $this->offsetGet( 'abdh:species' );
+			foreach( $populations as $key => $value )
+			{
+				//
+				// Check genus.
+				//
+				if( array_key_exists( $tag_genus, $value ) )
+				{
+					//
+					// Get categories.
+					//
+					$cats = ( array_key_exists( $tag_species, $value ) )
+						  ? Term::ResolveTaxonGroup(
+								$this->mDictionary,
+								$value[ $tag_genus ],
+								$value[ $tag_species ] )
+						  : Term::ResolveTaxonGroup(
+								$this->mDictionary,
+								$value[ $tag_genus ] );
+			
+					//
+					// Set categories.
+					//
+					if( count( $cats ) )
+					{
+						//
+						// Update population.
+						//
+						foreach( $cats as $tag => $cat )
+							$value[ $tag ] = $cat;
+						
+						//
+						// Update populations.
+						//
+						$populations[ $key ] = $value;
+					}
+		
+				} // Has genus.
+			
+			} // Iterating populations.
+			
+			//
+			// Update populations.
+			//
+			$this->offsetSet( 'abdh:species', $populations );
+		
+		} // Has populations.
+		
+		//
 		// Create shape.
 		//
 		$this->setObjectShapes( TRUE );

@@ -518,6 +518,68 @@ class ForestUnit extends UnitObject
 							  $this->offsetGet( 'fcu:unit:data-collection' ) );
 		
 		//
+		// Set taxon categories.
+		//
+		if( $this->offsetExists( 'fcu:population' ) )
+		{
+			//
+			// Init local storage.
+			//
+			$tag_genus = $this->getSerial( ':taxon:genus', TRUE );
+			$tag_species = $this->getSerial( ':taxon:species', TRUE );
+			
+			//
+			// Iterate populations.
+			//
+			$populations = $this->offsetGet( 'fcu:population' );
+			foreach( $populations as $key => $value )
+			{
+				//
+				// Check genus.
+				//
+				if( array_key_exists( $tag_genus, $value ) )
+				{
+					//
+					// Get categories.
+					//
+					$cats = ( array_key_exists( $tag_species, $value ) )
+						  ? Term::ResolveTaxonGroup(
+								$this->mDictionary,
+								$value[ $tag_genus ],
+								$value[ $tag_species ] )
+						  : Term::ResolveTaxonGroup(
+								$this->mDictionary,
+								$value[ $tag_genus ] );
+			
+					//
+					// Set categories.
+					//
+					if( count( $cats ) )
+					{
+						//
+						// Update population.
+						//
+						foreach( $cats as $tag => $cat )
+							$value[ $tag ] = $cat;
+						
+						//
+						// Update populations.
+						//
+						$populations[ $key ] = $value;
+					}
+		
+				} // Has genus.
+			
+			} // Iterating populations.
+			
+			//
+			// Update populations.
+			//
+			$this->offsetSet( 'fcu:population', $populations );
+		
+		} // Has populations.
+		
+		//
 		// Set shape.
 		//
 		$this->setObjectShapes( TRUE );
