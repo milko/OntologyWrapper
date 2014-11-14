@@ -49,10 +49,11 @@ use OntologyWrapper\CollectionObject;
  * {@link kTOKEN_INDEX_SEPARATOR} becomes the object global identifier which is stored in
  * the object's native identifier offset.
  *
- * Tags have another offset, {@link kTAG_ID_SEQUENCE}, which is an integer sequence number:
- * this value must be unique within the tags domain of the current ontology. Unlike global
- * identifiers, this value may change across implementations, but this is the value used to
- * uniquely identify tags among the other elements of the ontology and database.
+ * Tags have another offset, {@link kTAG_ID_HASH}, which is a hex sequence number prefixed
+ * by the {@link kTOKEN_TAG_PREFIX} token: this value must be unique within the tags domain
+ * of the current ontology. Unlike global identifiers, this value may change across
+ * implementations, but this is the value used to uniquely identify tags among the other
+ * elements of the ontology and database.
  *
  * <em>All offsets in all classes, including this one, are tag sequence numbers, which makes
  * the Tag class key in the structure and behaviour of all the elements implemented in this
@@ -67,13 +68,13 @@ use OntologyWrapper\CollectionObject;
  *		the concatenation of all term references stored in the current object's branch,
  *		{@link kTAG_TERMS}. This attribute must be managed with its offset; in derived
  *		classes it will be automatically assigned end only available as read-only.
- *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: <em>Sequence</em>. This required attribute holds
- *		an integer value which represents the current object's sequence number, as with the
- *		global identifier, this value must be unique, except that it may change across
- *		implementations. All offset keys in all objects derived from this class ancestor are
- *		references to this sequence number. This attribute must be managed with its offset;
- *		in derived classes it will be automatically assigned end only available as
- *		read-only.
+ *	<li><tt>{@link kTAG_ID_HASH}</tt>: <em>Sequence</em>. This required attribute holds
+ *		a hexadecimal string preceded by the {@link kTOKEN_TAG_PREFIX} token which
+ *		represents the current object's sequence number, as with the global identifier, this
+ *		value must be unique, except that it may change across implementations. All offset
+ *		keys in all objects derived from this class ancestor are references to this sequence
+ *		number. This attribute must be managed with its offset; in derived classes it will
+ *		be automatically assigned and only available as read-only.
  *	<li><tt>{@link kTAG_ID_SYMBOL}</tt>: <em>Symbol</em>. This optional attribute holds
  *		a string value which represents the current object's symbol or variable name. This
  *		value will be used to reference the current tag in data templates, so it is
@@ -199,8 +200,6 @@ use OntologyWrapper\CollectionObject;
  * The object is considered initialised, {@link isInited()}, if it has at least the terms
  * path, {@link kTAG_TERMS}, with an odd number of elements, the data type,
  * {@link kTAG_DATA_TYPE}, and the label, {@link kTAG_LABEL}.
- *
- * In this class we set the sequence number, {@link kTAG_ID_SEQUENCE}, by retrieving a 
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
@@ -474,7 +473,7 @@ class Tag extends MetadataObject
 	 * In this class we index the following offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Sequence number.
+	 *	<li><tt>{@link kTAG_ID_HASH}</tt>: Sequence number.
 	 *	<li><tt>{@link kTAG_TERMS}</tt>: Terms path.
 	 *	<li><tt>{@link kTAG_LABEL}</tt>: Labels.
 	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tags count.
@@ -506,7 +505,7 @@ class Tag extends MetadataObject
 		//
 		// Set sequence identifier index.
 		//
-		$collection->createIndex( array( kTAG_ID_SEQUENCE => 1 ),
+		$collection->createIndex( array( kTAG_ID_HASH => 1 ),
 								  array( "name" => "SEQUENCE",
 								  		 "unique" => TRUE ) );
 		
@@ -632,7 +631,7 @@ class Tag extends MetadataObject
 	 * @throws Exception
 	 */
 	static function UpdateRange( Wrapper $theWrapper, $theBounds,
-													  $theOffset = kTAG_ID_SEQUENCE )
+													  $theOffset = kTAG_ID_HASH )
 	{
 		//
 		// Check bounds.
@@ -735,7 +734,7 @@ class Tag extends MetadataObject
 	 * In this class we return:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Tag offset number.
+	 *	<li><tt>{@link kTAG_ID_HASH}</tt>: Tag offset number.
 	 *	<li><tt>{@link kTAG_TERMS}</tt>: Tag terms path.
 	 *	<li><tt>{@link kTAG_DATA_TYPE}</tt>: Tag data type.
 	 *	<li><tt>{@link kTAG_DATA_KIND}</tt>: Tag data kind.
@@ -755,7 +754,7 @@ class Tag extends MetadataObject
 	static function DefaultOffsets()
 	{
 		return array_merge( parent::DefaultOffsets(),
-							array( kTAG_ID_SEQUENCE,
+							array( kTAG_ID_HASH,
 								   kTAG_TERMS,
 								   kTAG_DATA_TYPE, kTAG_DATA_KIND,
 								   kTAG_LABEL, kTAG_DESCRIPTION,
@@ -820,48 +819,6 @@ class Tag extends MetadataObject
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	preOffsetSet																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle offset and value before setting it
-	 *
-	 * In this class we cast the value of the sequence number into an integer.
-	 *
-	 * @param reference				$theOffset			Offset reference.
-	 * @param reference				$theValue			Offset value reference.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
-	 *
-	 * @see kTAG_NAMESPACE
-	 */
-	protected function preOffsetSet( &$theOffset, &$theValue )
-	{
-		//
-		// Call parent method to resolve offset.
-		//
-		$ok = parent::preOffsetSet( $theOffset, $theValue );
-		if( $ok === NULL )
-		{
-			//
-			// Intercept custom offsets.
-			//
-			switch( $theOffset )
-			{
-				case kTAG_ID_SEQUENCE:
-					$theValue = (int) $theValue;
-					break;
-			}
-			
-		} // Passed preflight.
-		
-		return $ok;																	// ==>
-	
-	} // preOffsetSet.
 
 	 
 	/*===================================================================================
@@ -1111,7 +1068,7 @@ class Tag extends MetadataObject
 	 *
 	 * In this class we set the native identifier, if not yet filled, with the global
 	 * identifier generated by the {@link __toString()} method and we set the sequence
-	 * number, {@link kTAG_ID_SEQUENCE}, if it is not yet set, by requesting it from the
+	 * number, {@link kTAG_ID_HASH}, if it is not yet set, by requesting it from the
 	 * database of the current object's container.
 	 *
 	 * We only perform the above operations if the object is not committed.
@@ -1131,14 +1088,6 @@ class Tag extends MetadataObject
 			parent::preCommitObjectIdentifiers();
 			
 			//
-			// Init local storage.
-			//
-			$graph = $this->mDictionary->Graph();
-			$collection
-				= static::ResolveCollection(
-					static::ResolveDatabase( $this->mDictionary ) );
-		
-			//
 			// Set native identifier.
 			//
 			if( ! \ArrayObject::offsetExists( kTAG_NID ) )
@@ -1147,10 +1096,14 @@ class Tag extends MetadataObject
 			//
 			// Set sequence number.
 			//
-			if( ! \ArrayObject::offsetExists( kTAG_ID_SEQUENCE ) )
+			if( ! \ArrayObject::offsetExists( kTAG_ID_HASH ) )
 				$this->offsetSet(
-					kTAG_ID_SEQUENCE,
-					(int) $collection->getSequenceNumber( static::kSEQ_NAME ) );
+					kTAG_ID_HASH,
+					kTOKEN_TAG_PREFIX
+				   .dechex(
+				   		(int) static::ResolveCollection(
+							static::ResolveDatabase( $this->mDictionary ) )
+								->getSequenceNumber( static::kSEQ_NAME ) ) );
 		
 		} // Not committed.
 	
@@ -1218,20 +1171,20 @@ class Tag extends MetadataObject
 	/**
 	 * Check if object is ready
 	 *
-	 * In this class we ensure the object has the sequence number, {@link kTAG_ID_SEQUENCE}
+	 * In this class we ensure the object has the sequence number, {@link kTAG_ID_HASH}
 	 * and the native identifier, {@link kTAG_NID}.
 	 *
 	 * @access protected
 	 * @return Boolean				<tt>TRUE</tt> means ready.
 	 *
-	 * @see kTAG_NID kTAG_ID_SEQUENCE
+	 * @see kTAG_NID kTAG_ID_HASH
 	 *
 	 * @uses isInited()
 	 */
 	protected function isReady()
 	{
 		return ( parent::isReady()
-			  && $this->offsetExists( kTAG_ID_SEQUENCE )
+			  && $this->offsetExists( kTAG_ID_HASH )
 			  && $this->offsetExists( kTAG_NID ) );									// ==>
 	
 	} // isReady.
@@ -1253,18 +1206,18 @@ class Tag extends MetadataObject
 	/**
 	 * Return list of locked offsets
 	 *
-	 * In this class we return the {@link kTAG_ID_SEQUENCE}, {@link kTAG_TERMS},
+	 * In this class we return the {@link kTAG_ID_HASH}, {@link kTAG_TERMS},
 	 * {@link kTAG_DATA_TYPE} and the {@link kTAG_DATA_KIND} offsets.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
 	 *
-	 * @see kTAG_ID_SEQUENCE kTAG_TERMS kTAG_DATA_TYPE kTAG_DATA_KIND
+	 * @see kTAG_ID_HASH kTAG_TERMS kTAG_DATA_TYPE kTAG_DATA_KIND
 	 */
 	protected function lockedOffsets()
 	{
 		return array_merge( parent::lockedOffsets(),
-							array( kTAG_ID_SEQUENCE, kTAG_TERMS,
+							array( kTAG_ID_HASH, kTAG_TERMS,
 								   kTAG_DATA_TYPE, kTAG_DATA_KIND ) );				// ==>
 	
 	} // lockedOffsets.

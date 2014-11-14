@@ -853,8 +853,12 @@ echo( '<hr />' );
 /******************************************************************************/
 
 	//
-	// Test index.
+	// Test hashed serial identifiers.
 	//
+	
+	require_once( "includes.inc.php" );
+	require_once( "local.inc.php" );
+	require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
 	
 	//
 	// Connect.
@@ -863,62 +867,7 @@ echo( '<hr />' );
 	$d = $m->selectDB( 'test' );
 	$c = $d->selectCollection( 'indexes' );
 	$c->drop();
-
-	//
-	// Insert records.
-	//
-	$record = array(
-		"1" => "pippo",
-		"2" => array(
-			"1" => "pappa",
-			"3" => "peppe" ),
-		"4" => array(
-			array(
-				"1" => "pippi" ),
-			array(
-				"1" => "pupu" ) ) );
 	
-/*	
-	//
-	// Insert records.
-	//
-	$record = array(
-		"a1" => "pippo",
-		"a2" => array(
-			"a1" => "pappa",
-			"a3" => "peppe" ),
-		"a4" => array(
-			array(
-				"a1" => "pippi" ),
-			array(
-				"a1" => "pupu" ) ) );
-*/
-	
-	//
-	// Insert record.
-	//
-	$c->insert( $record );
-
-	//
-	// Index.
-	//
-	echo( '"1"<br>' );
-	$c->ensureIndex( array( '1' => 1 ) );
-	echo( '"2.1"<br>' );
-	$c->ensureIndex( array( '2.1' => 1 ) );
-	echo( '"4.1"<br>' );
-	$c->ensureIndex( array( '4.1' => 1 ) );
-	
-/*	
-	//
-	// Index.
-	//
-	echo( '"a1"<br>' );
-	$c->ensureIndex( array( 'a1' => 1 ) );
-	echo( '"a2.a1"<br>' );
-	$c->ensureIndex( array( 'a2.a1' => 1 ) );
-	echo( '"a4.a1"<br>' );
-	$c->ensureIndex( array( 'a4.a1' => 1 ) );
-*/
+	var_dump( kTAG_LABEL );
 	
 ?>

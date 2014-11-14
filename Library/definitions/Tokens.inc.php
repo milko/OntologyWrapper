@@ -20,6 +20,13 @@
  *======================================================================================*/
 
 /**
+ * Tag prefix token.
+ *
+ * This value defines the token that prefixes tag serial identifiers.
+ */
+define( "kTOKEN_TAG_PREFIX",		    '#' );		    	// Tag prefix token.
+
+/**
  * Domain separator token.
  *
  * This value defines the token that separates the object domain from other elements.

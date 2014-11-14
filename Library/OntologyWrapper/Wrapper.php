@@ -3499,6 +3499,11 @@ class Wrapper extends Dictionary
 	 */
 	protected function loadXMLUsers( \SimpleXMLElement $theXML )
 	{
+		//
+		// Iterate meta-blocks.
+		//
+		foreach( $theXML->{kIO_XML_TRANS_UNITS} as $block )
+			$this->loadXMLUnit( $block );
 	
 	} // loadXMLUsers.
 
@@ -4075,7 +4080,7 @@ class Wrapper extends Dictionary
 						$value
 							= Node::GetTagMaster(
 								$this,
-								(int) (string) $theElement,
+								(string) $theElement,
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
@@ -4315,14 +4320,14 @@ class Wrapper extends Dictionary
 								->matchOne(
 									array( kTAG_NID => $node[ kTAG_TAG ] ),
 									kQUERY_ASSERT | kQUERY_ARRAY,
-									array( kTAG_ID_SEQUENCE => TRUE,
+									array( kTAG_ID_HASH => TRUE,
 										   kTAG_DATA_TYPE => TRUE ) );
 					
 					//
 					// Save identifiers.
 					//
 					$id = $tag[ kTAG_NID ];
-					$seq = $tag[ kTAG_ID_SEQUENCE ];
+					$seq = $tag[ kTAG_ID_HASH ];
 					
 					//
 					// Handle structure.

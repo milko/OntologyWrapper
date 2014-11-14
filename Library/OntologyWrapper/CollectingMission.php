@@ -528,9 +528,9 @@ class CollectingMission extends Mission
 					array( $this->resolveOffset( ':mission:collecting' )
 							=> $this->offsetGet( kTAG_NID ) ),
 					array( kTAG_OBJECT_TAGS
-							=> (int) $this->resolveOffset( ':location:site:latitude' ) ),
+							=> $this->resolveOffset( ':location:site:latitude' ) ),
 					array( kTAG_OBJECT_TAGS
-							=> (int) $this->resolveOffset( ':location:site:longitude' ) ) ) );
+							=> $this->resolveOffset( ':location:site:longitude' ) ) ) );
 		
 			//
 			// Load collected samples.

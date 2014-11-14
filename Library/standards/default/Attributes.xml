@@ -169,26 +169,42 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The sequence number is a global unique identifier which is dynamically assigned, this identifier is serial, in that it is assigned at commit time and subsequently incremented.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The sequence number is a global unique identifier which is dynamically assigned, this identifier is serial, in that it is assigned at commit time and subsequently incremented. This value is an unsigned integer]]></item>
 				</item>
 			</item>
 		</TERM>
-	
-		<!-- kTAG_ID_GRAPH -->
-		<TERM ns="" lid="id-graph">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Graph reference</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The graph reference is the unique identifier of a graph element.]]></item>
-				</item>
-			</item>
-		</TERM>
+
+        <!-- kTAG_ID_HASH -->
+        <TERM ns="" lid="id-hash">
+            <item const="kTAG_LABEL">
+                <item>
+                    <item const="kTAG_LANGUAGE">en</item>
+                    <item const="kTAG_TEXT">Sequence hash</item>
+                </item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item>
+                    <item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The sequence number is a global unique identifier which is dynamically assigned, this identifier is serial, in that it is assigned at commit time and subsequently incremented. This value is a hexadecimal number prefixed by a hash.]]></item>
+                </item>
+            </item>
+        </TERM>
+
+        <!-- kTAG_ID_GRAPH -->
+        <TERM ns="" lid="id-graph">
+            <item const="kTAG_LABEL">
+                <item>
+                    <item const="kTAG_LANGUAGE">en</item>
+                    <item const="kTAG_TEXT">Graph reference</item>
+                </item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item>
+                    <item const="kTAG_LANGUAGE">en</item>
+                    <item const="kTAG_TEXT"><![CDATA[The graph reference is the unique identifier of a graph element.]]></item>
+                </item>
+            </item>
+        </TERM>
 	</META>
 	
 	<!-- Unit identification attributes -->

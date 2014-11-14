@@ -291,8 +291,8 @@ abstract class OntologyObject extends ContainerObject
 	 * is done by using a {@link Dictionary} object stored in the current object's
 	 * {@link $mDictionary} data member.
 	 *
-	 * If you provide an integer or a numeric string, the method will simply cast the value
-	 * to an integer and return it.
+	 * If you provide a string prefixed by the {@link kTOKEN_TAG_PREFIX} token, the method
+	 * will simply return it.
 	 *
 	 * All other types of offsets, except those returned by the {@link InternalOffsets()}
 	 * method, will be used to locate the tag native identifier using a {@link Dictionary}
@@ -303,11 +303,11 @@ abstract class OntologyObject extends ContainerObject
 	 *
 	 * The method will raise an exception if the tag cache is not set.
 	 *
-	 * @param mixed					$theOffset			Data offset.
+	 * @param string				$theOffset			Data offset.
 	 * @param boolean				$doAssert			Assert offset tag reference.
 	 *
 	 * @access public
-	 * @return mixed				Resolved offset.
+	 * @return string				Resolved offset.
 	 *
 	 * @throws Exception
 	 *
@@ -316,11 +316,10 @@ abstract class OntologyObject extends ContainerObject
 	public function resolveOffset( $theOffset, $doAssert = FALSE )
 	{
 		//
-		// Handle numeric offsets.
+		// Handle sequence hash.
 		//
-		if( is_int( $theOffset )
-		 || ctype_digit( $theOffset ) )
-			return (int) $theOffset;												// ==>
+		if( substr( $theOffset, 0, 1 ) == kTOKEN_TAG_PREFIX )
+			return $theOffset;														// ==>
 		
 		//
 		// Handle internal offsets.
@@ -374,7 +373,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 		{
 			//
 			// Check dictionary.
@@ -423,7 +422,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 		{
 			//
 			// handle missing offset.
@@ -477,7 +476,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 			$this->nestedOffsetSet( $theOffset, $theValue,
 									$root_offset, $root_value,
 									$current_offset, $current_value );
@@ -513,7 +512,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 			return $this->nestedOffsetUnset( $theOffset, $toot, $value );			// ==>
 		
 		return parent::offsetUnset( $theOffset );									// ==>
@@ -757,8 +756,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Resolve offset.
 		//
-		if( (! is_int( $theOffset ))
-		 && (! ctype_digit( $theOffset )) )
+		if( substr( $theOffset, 0, 1 ) != kTOKEN_TAG_PREFIX )
 			$theOffset = $theDictionary->getSerial( $theOffset, $doAssert );
 		
 		//
@@ -1131,7 +1129,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetExists( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset );
+			$theOffset = $this->resolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	
@@ -1161,7 +1159,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetGet( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset );
+			$theOffset = $this->resolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	
@@ -1192,7 +1190,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetSet( $theOffset, $theValue );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset, TRUE );
+			$theOffset = $this->resolveOffset( $theOffset, TRUE );
 		
 		return $ok;																	// ==>
 	
@@ -1222,7 +1220,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetUnset( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset );
+			$theOffset = $this->resolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	

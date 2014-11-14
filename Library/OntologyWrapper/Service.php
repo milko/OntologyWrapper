@@ -1044,12 +1044,11 @@ class Service extends ContainerObject
 					{
 						foreach( $tmp as $key => $value )
 						{
-							if( (! is_int( $value ))
-							 && (! ctype_digit( $value )) )
+							if( substr( $value, 0, 1 ) != kTOKEN_TAG_PREFIX )
 								$value = $this->mWrapper->getSerial( $value, TRUE );
 							$value
 								= $this->mWrapper
-									->getObject( $value, TRUE )[ kTAG_ID_SEQUENCE ];
+									->getObject( $value, TRUE )[ kTAG_ID_HASH ];
 							$tmp[ $key ] = $value;
 						}
 						$this->offsetSet( kAPI_PARAM_EXCLUDED_TAGS, array_unique( $tmp ) );
@@ -1110,10 +1109,9 @@ class Service extends ContainerObject
 			//
 			// Handle serial number.
 			//
-			if( is_int( $tag )
-			 || ctype_digit( $tag ) )
+			if( substr( $tag, 0, 1 ) == kTOKEN_TAG_PREFIX )
 			{
-				$tag = $this->mWrapper->getObject( (int) $tag, FALSE );
+				$tag = $this->mWrapper->getObject( $tag, FALSE );
 				if( $tag )
 					$tag = $tag[ kTAG_NID ];
 			}
@@ -1186,8 +1184,7 @@ class Service extends ContainerObject
 		//
 		// Handle string offsets.
 		//
-		if( (! is_int( $tag ))
-		 && (! ctype_digit( $tag )) )
+		if( substr( $tag, 0, 1 ) != kTOKEN_TAG_PREFIX )
 			$tag = $this->mWrapper->getSerial( $tag, TRUE );
 		
 		//
@@ -1428,8 +1425,7 @@ class Service extends ContainerObject
 		foreach( $tmp as $key => $value )
 		{
 			if( ($key != kAPI_PARAM_FULL_TEXT_OFFSET)
-			 && ( (! is_int( $key ))
-			   || (! ctype_digit( $key )) ) )
+			 && (substr( $key, 0, 1 ) != kTOKEN_TAG_PREFIX) )
 				$key = $this->mWrapper->getSerial( $key, TRUE );
 			
 			$criteria[ $key ] = $value;
@@ -1630,16 +1626,9 @@ class Service extends ContainerObject
 			$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
 			
 			//
-			// Handle numeric offsets.
+			// Handle native tag identifier.
 			//
-			if( is_int( $shape )
-			 || ctype_digit( $shape ) )
-				$shape = (int) $shape;
-			
-			//
-			// Handle textual offsets.
-			//
-			else
+			if( substr( $shape, 0, 1 ) != kTOKEN_TAG_PREFIX )
 				$this->offsetSet(
 					kAPI_PARAM_SHAPE_OFFSET,
 					$this->mWrapper->getSerial(
@@ -1903,7 +1892,7 @@ class Service extends ContainerObject
 				//
 				foreach( explode( '.', $key ) as $offset )
 				{
-					$tag = $this->mWrapper->getObject( (int) $offset, TRUE )[ kTAG_NID ];
+					$tag = $this->mWrapper->getObject( $offset, TRUE )[ kTAG_NID ];
 					if( ! in_array( $tag, $tags ) )
 						$tags[] = $tag;
 				}
@@ -1923,9 +1912,8 @@ class Service extends ContainerObject
 					//
 					// Handle tag sequence numbers.
 					//
-					if( is_int( $key )
-					 || ctype_digit( $key ) )
-						$key = $this->mWrapper->getObject( (int) $key, TRUE )[ kTAG_NID ];
+					if( substr( $key, 0, 1 ) == kTOKEN_TAG_PREFIX )
+						$key = $this->mWrapper->getObject( $key, TRUE )[ kTAG_NID ];
 			
 					//
 					// Add tag.
@@ -1963,7 +1951,7 @@ class Service extends ContainerObject
 		//
 		// Select tag fields.
 		//
-		$fields = array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
+		$fields = array( kTAG_NID => TRUE, kTAG_ID_HASH => TRUE,
 						 kTAG_TERMS => TRUE, kTAG_DATA_TYPE => TRUE,
 						 $offsets_tag => TRUE );
 		
@@ -2130,7 +2118,7 @@ class Service extends ContainerObject
 				//
 				// Get tag sequence number.
 				//
-				$tag_sequence = (int) $tag_object[ kTAG_ID_SEQUENCE ];
+				$tag_sequence = $tag_object[ kTAG_ID_HASH ];
 			
 				//
 				// Get cluster key.
@@ -2862,17 +2850,16 @@ class Service extends ContainerObject
 			//
 			// Handle tag serial number.
 			//
-			if( is_int( $element )
-			 || ctype_digit( $element ) )
-			 	$tag = $this->mWrapper->getObject( (int) $element, TRUE );
+			if( substr( $element, 0, 1 ) == kTOKEN_TAG_PREFIX )
+			 	$tag = $this->mWrapper->getObject( $element, TRUE );
 		
 			//
 			// Handle tag native identifier.
 			//
 			elseif( ($tmp = $this->mWrapper->getSerial( $element, FALSE )) !== NULL )
 			{
-			 	$tag = $this->mWrapper->getObject( (int) $tmp, TRUE );
-			 	$element = $tag[ kTAG_ID_SEQUENCE ];
+			 	$tag = $this->mWrapper->getObject( $tmp, TRUE );
+			 	$element = $tag[ kTAG_ID_HASH ];
 			 }
 		
 			//
@@ -2887,7 +2874,7 @@ class Service extends ContainerObject
 				if( count( $tmp ) > 1 )
 				 	$tag
 				 		= $this->mWrapper->getObject(
-				 			(int) $tmp[ count( $tmp ) - 1 ], TRUE );
+				 			$tmp[ count( $tmp ) - 1 ], TRUE );
 			
 				else
 					throw new \Exception(
@@ -2912,7 +2899,7 @@ class Service extends ContainerObject
 			//
 			// Set index.
 			//
-			$index = $tag[ kTAG_ID_SEQUENCE ];
+			$index = $tag[ kTAG_ID_HASH ];
 		
 			//
 			// Load element info.
@@ -2929,7 +2916,7 @@ class Service extends ContainerObject
 				$count++;
 			foreach( $structs as $struct )
 			{
-				$tag = $this->mWrapper->getObject( (int) $struct, TRUE );
+				$tag = $this->mWrapper->getObject( $struct, TRUE );
 				if( array_key_exists( kTAG_DATA_KIND, $tag )
 				 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
 					$count++;
@@ -4494,7 +4481,7 @@ class Service extends ContainerObject
 			$excluded = ( $this->offsetExists( kAPI_PARAM_EXCLUDED_TAGS ) )
 					  ? $this->offsetGet( kAPI_PARAM_EXCLUDED_TAGS )
 					  : Array();
-			$criteria[ (string) kTAG_ID_SEQUENCE ]
+			$criteria[ kTAG_ID_HASH ]
 				= array( '$nin' => array_values(
 					array_unique(
 						array_merge(
@@ -5363,15 +5350,14 @@ $rs_units = & $rs_units[ 'result' ];
 				//
 				// Handle numeric offset.
 				//
-				if( is_int( $offset )
-				 || ctype_digit( $offset ) )
-					$offsets[ (string) $offset ] = TRUE;
+				if( substr( $offset, 0, 1 ) == kTOKEN_TAG_PREFIX )
+					$offsets[ $offset ] = TRUE;
 				
 				//
 				// Resolve offset.
 				//
 				else
-					$offsets[ (string) $this->mWrapper->getSerial( $offset ) ] = TRUE;
+					$offsets[ $this->mWrapper->getSerial( $offset ) ] = TRUE;
 			}
 			$pipeline[] = array( '$project' => $offsets );
 			
@@ -7977,7 +7963,7 @@ $rs_units = & $rs_units[ 'result' ];
 					//
 					// Set tag reference.
 					//
-					$offset_ref[ kAPI_PARAM_TAG ] = $object->offsetGet( kTAG_ID_SEQUENCE );
+					$offset_ref[ kAPI_PARAM_TAG ] = $object->offsetGet( kTAG_ID_HASH );
 					
 					//
 					// Reference structure.
@@ -7999,9 +7985,9 @@ $rs_units = & $rs_units[ 'result' ];
 						//
 						// Resolve structure tag.
 						//
-						$tag = ( $struct == $object[ kTAG_ID_SEQUENCE ] )
+						$tag = ( $struct == $object[ kTAG_ID_HASH ] )
 							 ? $object
-							 : $this->mWrapper->getObject( (int) $struct, TRUE );
+							 : $this->mWrapper->getObject( $struct, TRUE );
 			
 						//
 						// Set tag label.
@@ -8371,7 +8357,7 @@ $rs_units = & $rs_units[ 'result' ];
 				//
 				$match = ( $criteria_count > 1 )
 					   ? array( '$in' => array_keys( $cluster[ kAPI_PARAM_CRITERIA ] ) )
-					   :  (int) key( $cluster[ kAPI_PARAM_CRITERIA ] );
+					   :  key( $cluster[ kAPI_PARAM_CRITERIA ] );
 				
 				//
 				// Load tag match clause.
@@ -8486,9 +8472,9 @@ $rs_units = & $rs_units[ 'result' ];
 					if( $criteria === NULL )
 					{
 						if( $parent_cri !== NULL )
-							$criteria_ref[] = array( kTAG_OBJECT_TAGS => (int) $tag );
+							$criteria_ref[] = array( kTAG_OBJECT_TAGS => $tag );
 						else
-							$criteria_ref[ kTAG_OBJECT_TAGS ] = (int) $tag;
+							$criteria_ref[ kTAG_OBJECT_TAGS ] = $tag;
 					
 					} // No value.
 					
@@ -8503,9 +8489,9 @@ $rs_units = & $rs_units[ 'result' ];
 						if( ! $criteria[ kAPI_PARAM_INDEX ] )
 						{
 							if( $parent_cri !== NULL )
-								$criteria_ref[] = array( kTAG_OBJECT_TAGS => (int) $tag );
+								$criteria_ref[] = array( kTAG_OBJECT_TAGS => $tag );
 							else
-								$criteria_ref[ kTAG_OBJECT_TAGS ] = (int) $tag;
+								$criteria_ref[ kTAG_OBJECT_TAGS ] = $tag;
 						
 						} // Not indexed.
 			
@@ -8769,11 +8755,6 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		$tag = explode( '.', $theOffset );
 		$tag = $tag[ count( $tag ) - 1 ];
-		if( is_int( $tag )
-		 || ctype_digit( $tag ) )
-			$tag = (int) $tag;
-		else
-			$tag = $this->mWrapper->getSerial( $tag, TRUE );
 		$tag = $this->mWrapper->getObject( $tag, TRUE );
 		
 		//

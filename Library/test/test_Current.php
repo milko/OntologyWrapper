@@ -62,7 +62,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 //
 // Init local storage.
 //
-$base_url = 'http://localhost/weblib/OntologyWrapper/Library/service/Service.php';
+$base_url = 'http://localhost/weblib/OntologyWrapperNew/Library/service/Service.php';
  
 //
 // Test class.
@@ -165,9 +165,9 @@ try
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_REQUEST_LANGUAGE => 'en',
-	//	kAPI_PARAM_TAG => 'mcpd:ACCENUMB'
+		kAPI_PARAM_TAG => 'mcpd:ACCENUMB'
 	//	kAPI_PARAM_TAG => array( 'mcpd:ACCENUMB', 'mcpd:ACCENAME' )
-		kAPI_PARAM_TAG => 'pippo'
+	//	kAPI_PARAM_TAG => 'pippo'
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_IDENTIFIER;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -202,8 +202,8 @@ try
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
-		kAPI_PARAM_PATTERN => 'Genus',
-		kAPI_PARAM_OPERATOR => array( kOPERATOR_EQUAL )
+		kAPI_PARAM_PATTERN => 'adm',
+		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
 	//	kAPI_PARAM_REF_COUNT => array( kAPI_PARAM_COLLECTION_TERM,
 	//								   kAPI_PARAM_COLLECTION_NODE )
 	);
@@ -450,6 +450,17 @@ try
 	echo( '<hr>' );
 	
 	//
+	// Resolve taxon groups.
+	//
+	$genus = 'Triticum';
+	$species = 'durum';
+	$list = OntologyWrapper\Term::ResolveTaxonGroup( $wrapper, $genus, $species );
+	var_dump( $list );
+	echo( '<hr>' );
+	echo( '<hr>' );
+*/
+
+	//
 	// Try getUnit formatted.
 	//
 	echo( '<h4>Try getUnit formatted</h4>' );
@@ -465,7 +476,7 @@ try
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT,
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD,
 		kAPI_PARAM_ID => ':domain:mission:collecting://ITA406/CN007:CN007;'
 	);
 	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
@@ -484,16 +495,7 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-*/
-	//
-	// Resolve taxon groups.
-	//
-	$genus = 'Triticum';
-	$species = 'durum';
-	$list = OntologyWrapper\Term::ResolveTaxonGroup( $wrapper, $genus, $species );
-	var_dump( $list );
-	echo( '<hr>' );
-
+	
 }
 
 //

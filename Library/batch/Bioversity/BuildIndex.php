@@ -108,14 +108,18 @@ try
 	//
 	// Check tag.
 	//
-	if( is_int( $tag )
-	 || ctype_digit( $tag ) )
+	if( substr( $tag, 0, 1 ) == kTOKEN_TAG_PREFIX )
 	{
-		if( $wrapper->getObject( (int) $tag, FALSE ) === NULL )
+		if( $wrapper->getObject( $tag, FALSE ) === NULL )
 			exit( "Unknown tag [$tag]\n" );											// ==>
 	}
-	elseif( $wrapper->getSerial( $tag, FALSE ) === NULL )
-		exit( "Unknown tag [$tag]\n" );												// ==>
+	else
+	{
+		$tmp = $wrapper->getSerial( $tag, FALSE );
+		if( $tmp === NULL )
+			exit( "Unknown tag [$tag]\n" );											// ==>
+		$tag = $tmp;
+	}
 	
 	//
 	// Build index.
