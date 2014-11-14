@@ -491,7 +491,7 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_OBJECT_TAGS => array
 		(
 			kTAG_NID	=> ':object-tags',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTYPE_LIST,
 									  kTAG_PRIVATE_SEARCH,

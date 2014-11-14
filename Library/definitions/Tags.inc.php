@@ -850,7 +850,7 @@ define( "kTAG_UNIT_OFFSETS",			kTOKEN_TAG_PREFIX.'31' );
  * Object tags (<code>:object-tags</code)
  *
  * <ul>
- *	<li><em>Type</em>: {@link kTYPE_INT}
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
  *	<li><em>Kind</em>: {@link kTYPE_LIST},
  *					   {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
