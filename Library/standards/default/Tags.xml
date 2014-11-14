@@ -1517,7 +1517,7 @@
 			<item const="kTAG_TERMS">
 				<item>:object-tags</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:list</item>
