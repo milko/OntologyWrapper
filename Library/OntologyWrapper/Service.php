@@ -1858,7 +1858,7 @@ class Service extends ContainerObject
 	 * present.
 	 *
 	 * While validating the criteria, the method will cluster the criteria in the filter
-	 * fata member.
+	 * data member.
 	 *
 	 * @access protected
 	 *
@@ -2062,14 +2062,16 @@ class Service extends ContainerObject
 				//
 				// Extract leaf tag.
 				//
+			/*
 				$tmp = explode( '.', $tag );
 				$tmp = kTAG_OBJECT_OFFSETS.'.'.$tmp[ count( $tmp ) - 1 ];
+			*/
 				
 				//
 				// Allocate criteria.
 				//
-				$criteria_ref[ $tmp ] = Array();
-				$criteria_ref = & $criteria_ref[ $tmp ];
+				$criteria_ref[ kTAG_OBJECT_OFFSETS ] = Array();
+				$criteria_ref = & $criteria_ref[ kTAG_OBJECT_OFFSETS ];
 							 
 				//
 				// Set input and data types.
@@ -2367,8 +2369,15 @@ class Service extends ContainerObject
 			//
 			// Set index flag.
 			//
+		// MILKO - Was boolean, now is an array: should revise or rewrite resolveFilter().
+		/*
 			$criteria_ref[ kAPI_PARAM_INDEX ]
 				= ( array_key_exists( $tag_sequence, $indexes ) );
+		*/
+			$criteria_ref[ kAPI_PARAM_INDEX ]
+				= ( array_key_exists( $tag_sequence, $indexes ) )
+				? $indexes[ $tag_sequence ]
+				: FALSE;
 			
 			//
 			// Check criteria.
@@ -8393,17 +8402,12 @@ $rs_units = & $rs_units[ 'result' ];
 									   : $criteria[ kAPI_PARAM_OFFSETS ][ 0 ];
 						
 								//
-								// Set tag offset.
-								//
-								$tmp = kTAG_OBJECT_OFFSETS.'.'.$tag;
-						
-								//
 								// Load offset match clause.
 								//
 								if( $cluster_count > 1 )
-									$root[] = array( $tmp => $match );
+									$root[] = array( kTAG_OBJECT_OFFSETS => $match );
 								else
-									$root[ $tmp ] = $match;
+									$root[ kTAG_OBJECT_OFFSETS ] = $match;
 						
 							} // Has offsets.
 						
@@ -8494,7 +8498,7 @@ $rs_units = & $rs_units[ 'result' ];
 								$criteria_ref[ kTAG_OBJECT_TAGS ] = $tag;
 						
 						} // Not indexed.
-			
+						
 						//
 						// Handle many offsets.
 						//
@@ -8513,7 +8517,7 @@ $rs_units = & $rs_units[ 'result' ];
 							}
 			
 						} // Has many offsets.
-					
+						
 						//
 						// Iterate criteria offsets.
 						//

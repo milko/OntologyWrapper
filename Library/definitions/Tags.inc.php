@@ -864,13 +864,12 @@ define( "kTAG_OBJECT_TAGS",				kTOKEN_TAG_PREFIX.'32' );
  * Object offsets (<code>:object-offsets</code)
  *
  * <ul>
- *	<li><em>Type</em>: {@link kTYPE_ARRAY}
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ *	<li><em>Kind</em>: {@link kTYPE_LIST},
  *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
- * This tag holds a <em>list of elements/em> holding a <em>tag sequence number</em>
- * as the key and as value the <em>list of offset paths</em> where the tag was used as a
- * leaf offset.
+ * This tag holds the list of <em>offset paths for all tags representing leaf offsets</em>.
  */
 define( "kTAG_OBJECT_OFFSETS",			kTOKEN_TAG_PREFIX.'33' );
 

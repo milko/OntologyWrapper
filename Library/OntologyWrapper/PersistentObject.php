@@ -94,10 +94,8 @@ require_once( kPATH_DEFINITIONS_ROOT."/ImportExport.xml.inc.php" );
  *		as leaf offsets in the current object. This means all tags referenced by object
  *		offsets which hold a value and are not structures. This property is managed
  *		internally.
- *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This property is an array holding the same
- *		number of elements as {@link kTAG_OBJECT_TAGS}, in this case the array key is the
- *		tag sequence number and the value is the list of offset paths in which the tag was
- *		referenced in the current object as a leaf offset.
+ *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This property is an array holding the list of
+ *		offset paths in which the tag was referenced in the current object as a leaf offset.
  *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: This property is an array holding the list
  *		of object references featured by the object, the array is indexed by collection name
  *		and the values represent the native identifiers of the objects in the collection.
@@ -501,8 +499,9 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_OBJECT_OFFSETS => array
 		(
 			kTAG_NID	=> ':object-offsets',
-			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
 									  kTAG_PRIVATE_SEARCH,
 									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
@@ -2417,6 +2416,77 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // GetReferenceCounts.
 
+	 
+	/*===================================================================================
+	 *	ClusterObjectOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Cluster object offsets
+	 *
+	 * This method expects a list of offsets and will return the list clustered by tag: the
+	 * resulting array will be indexed by tag and the value will hold all offsets featuring
+	 * that tag as the leaf node.
+	 *
+	 * The method will raise an exception if iot founds a nested array.
+	 *
+	 * @param array					$theOffsets			Offsets to normalise.
+	 *
+	 * @access protected
+	 * @return array				Clustered offsets
+	 */
+	protected function ClusterObjectOffsets( $theOffsets )
+	{
+		//
+		// Init local storage.
+		//
+		$clustered = Array();
+		
+		//
+		// Check parameter.
+		//
+		if( is_array( $theOffsets )
+		 && count( $theOffsets ) )
+		{
+			//
+			// Iterate offsets.
+			//
+			foreach( $theOffsets as $offset )
+			{
+				//
+				// Check array value.
+				//
+				if( is_scalar( $offset ) )
+				{
+					//
+					// Parse tag.
+					//
+					$tag = explode( '.',$offset );
+					$tag = $tag[ count( $tag ) - 1 ];
+				
+					//
+					// Update offsets.
+					//
+					if( array_key_exists( $tag, $clustered ) )
+						$clustered[ $tag ][] = $offset;
+					else
+						$clustered[ $tag ] = array( $offset );
+				
+				} // Scalar value.
+				
+				else
+					throw new \Exception(
+						"Unable to cluster offsets: "
+					   ."found a nested array." );								// !@! ==>
+			
+			} // Iterating offsets.
+		
+		} // Provided non-empty array.
+		
+		return $clustered;																// ==>
+	
+	} // ClusterObjectOffsets.
+
 		
 
 /*=======================================================================================
@@ -3466,7 +3536,14 @@ abstract class PersistentObject extends OntologyObject
 				// Select leaf tags.
 				//
 				if( array_key_exists( kTAG_OBJECT_OFFSETS, $info ) )
-					$offsets[ $tag ] = $info[ kTAG_OBJECT_OFFSETS ];
+				{
+					//
+					// Load offsets.
+					//
+					foreach( $info[ kTAG_OBJECT_OFFSETS ] as $offset )
+						$offsets[] = $offset;
+				
+				} // Has offsets.
 			
 			} // Iterating tags.
 			
@@ -3653,6 +3730,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		if( $theOffsets === NULL )
 			$theOffsets = Array();
+		else
+			$theOffsets = static::ClusterObjectOffsets( $theOffsets );
 		if( $theReferences === NULL )
 			$theReferences = Array();
 		
@@ -3787,6 +3866,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		if( $theOffsets === NULL )
 			$theOffsets = Array();
+		else
+			$theOffsets = static::ClusterObjectOffsets( $theOffsets );
 		if( $theReferences === NULL )
 			$theReferences = Array();
 		
@@ -3805,7 +3886,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Save offsets and references.
 		//
-		$offsets = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		$offsets = static::ClusterObjectOffsets( $this->offsetGet( kTAG_OBJECT_OFFSETS ) );
 		$references = $this->offsetGet( kTAG_OBJECT_REFERENCES );
 		
 		//
@@ -5748,7 +5829,7 @@ MILKO - Need to check.
 		// Init local storage.
 		//
 		$bounds = Array();
-		$tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		$tags = static::ClusterObjectOffsets( $this->offsetGet( kTAG_OBJECT_OFFSETS ) );
 		
 		//
 		// Iterate offsets.

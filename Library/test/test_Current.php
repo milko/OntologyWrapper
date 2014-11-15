@@ -352,6 +352,42 @@ try
 	echo( '<hr>' );
 	
 	//
+	// Try getUnit formatted.
+	//
+	echo( '<h4>Try getUnit formatted</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD,
+		kAPI_PARAM_ID => ':domain:mission:collecting://ITA406/CN007:CN007;'
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
 	// Test single field with data (group).
 	//
 	echo( '<h4>Test single field with data (group)</h4>' );
@@ -368,15 +404,16 @@ try
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':location:country' => array
+			':taxon:genus' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'iso:3166:1:alpha-3:ITA',
+				kAPI_PARAM_PATTERN => 'brassica',
 				kAPI_PARAM_OPERATOR => array
 				(
 					kOPERATOR_CONTAINS,
 					kOPERATOR_NOCASE
-				)
+				),
+				kAPI_PARAM_OFFSETS => array( '#256.#fc' )
 			)
 		),
 		kAPI_PARAM_GROUP => Array()
@@ -461,9 +498,9 @@ try
 */
 
 	//
-	// Try getUnit formatted.
+	// Test multiple fields with multiple offsets indexed (group).
 	//
-	echo( '<h4>Try getUnit formatted</h4>' );
+	echo( '<h4>Test multiple fields field with multiple offsets indexed (group)</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -474,12 +511,35 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+	//	kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD,
-		kAPI_PARAM_ID => ':domain:mission:collecting://ITA406/CN007:CN007;'
+		kAPI_PARAM_CRITERIA => array
+		(
+			':taxon:genus' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+				kAPI_PARAM_PATTERN => 'aegilops',
+				kAPI_PARAM_OPERATOR => array
+				(
+					kOPERATOR_CONTAINS,
+					kOPERATOR_NOCASE
+				),
+				kAPI_PARAM_OFFSETS => array( '#fc', '#256.#fc' )
+			),
+			':taxon:species' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+				kAPI_PARAM_PATTERN => 'cylindrica',
+				kAPI_PARAM_OPERATOR => array
+				(
+					kOPERATOR_CONTAINS,
+					kOPERATOR_NOCASE
+				)
+			)
+		),
+		kAPI_PARAM_GROUP => kTAG_DOMAIN
 	);
-	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );
@@ -495,7 +555,7 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-	
+
 }
 
 //
