@@ -1547,10 +1547,9 @@
 			<item const="kTAG_TERMS">
 				<item>:object-offsets</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_TYPE">:type:array</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:list</item>
 				<item>:type:private-search</item>
 				<item>:type:private-modify</item>
 				<item>:type:private-display</item>
@@ -1559,7 +1558,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the list of  offset paths for all tags represented in the object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of elements in which the the key represents the tag sequence number and the value is the list offset paths in which the tag is used as a leaf offset.]]></item>
 				</item>
 			</item>
 		</TAG>

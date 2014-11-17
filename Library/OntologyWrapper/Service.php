@@ -2497,14 +2497,35 @@ class Service extends ContainerObject
 			} // Parsing by input type.
 			
 			//
-			// Add offsets to filter.
+			// Handle offsets subset.
 			//
 			if( array_key_exists( kAPI_PARAM_OFFSETS, $criteria ) )
-				$criteria_ref[ kAPI_PARAM_OFFSETS ]
-					= $criteria[ kAPI_PARAM_OFFSETS ];
+			{
+				//
+				// Set provided offsets.
+				//
+				$criteria_ref[ kAPI_PARAM_OFFSETS ] = $criteria[ kAPI_PARAM_OFFSETS ];
+				
+				//
+				// Check tag offsets.
+				//
+				if( array_key_exists( $offsets_tag, $tag_object ) )
+					$criteria_ref[ kAPI_QUERY_OFFSETS ]
+						= ( count( array_diff( $tag_object[ $offsets_tag ],
+											   $criteria[ kAPI_PARAM_OFFSETS ] ) ) > 0 );
+			
+			} // Provided offsets.
+			
+			//
+			// Load tag offsets.
+			//
 			elseif( array_key_exists( $offsets_tag, $tag_object ) )
 				$criteria_ref[ kAPI_PARAM_OFFSETS ]
 					= $tag_object[ $offsets_tag ];
+			
+			//
+			// Complain if missing.
+			//
 			else
 				throw new \Exception(
 					"Missing selection offsets for tag [$tag]." );				// !@! ==>
@@ -8492,12 +8513,107 @@ $rs_units = & $rs_units[ 'result' ];
 						//
 						if( ! $criteria[ kAPI_PARAM_INDEX ] )
 						{
-							if( $parent_cri !== NULL )
-								$criteria_ref[] = array( kTAG_OBJECT_TAGS => $tag );
+							//
+							// Use tag reference.
+							//
+							if( (! array_key_exists( kAPI_QUERY_OFFSETS, $criteria ))
+							 || (! $criteria[ kAPI_QUERY_OFFSETS ]) )
+							{
+								if( $parent_cri !== NULL )
+									$criteria_ref[] = array( kTAG_OBJECT_TAGS => $tag );
+								else
+									$criteria_ref[ kTAG_OBJECT_TAGS ] = $tag;
+							
+							} // Resolve using tag.
+							
+							//
+							// Use offset reference.
+							//
 							else
-								$criteria_ref[ kTAG_OBJECT_TAGS ] = $tag;
+							{
+								//
+								// Handle single offset.
+								//
+								if( count( $criteria[ kAPI_PARAM_OFFSETS ] ) == 1 )
+								{
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array(
+												kTAG_OBJECT_OFFSETS
+											 => $criteria[ kAPI_PARAM_OFFSETS ][ 0 ] );
+									else
+										$criteria_ref[ kTAG_OBJECT_OFFSETS ]
+											= $criteria[ kAPI_PARAM_OFFSETS ][ 0 ];
+								
+								} // One offset.
+								
+								//
+								// handle multiple offsets.
+								//
+								elseif( count( $criteria[ kAPI_PARAM_OFFSETS ] ) > 1 )
+								{
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array(
+												kAPI_PARAM_OFFSETS => array(
+													'$in' => $criteria[ kAPI_PARAM_OFFSETS ]
+												) );
+									else
+										$criteria_ref[ kAPI_PARAM_OFFSETS ]
+											= array(
+												'$in' => $criteria[ kAPI_PARAM_OFFSETS ] );
+								
+								} // many offsets.
+							
+							} // Resolve using offsets.
 						
 						} // Not indexed.
+						
+						//
+						// Handle indexed.
+						//
+						elseif( is_array( $criteria[ kAPI_PARAM_INDEX ] ) )
+						{
+							//
+							// Intercept unindexed offsets.
+							//
+							$tmp = array_diff( $criteria[ kAPI_PARAM_OFFSETS ],
+											   $criteria[ kAPI_PARAM_INDEX ] );
+							if( count( $tmp ) )
+							{
+								//
+								// Handle single offset.
+								//
+								if( count( $tmp ) == 1 )
+								{
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array( kTAG_OBJECT_OFFSETS => $tmp[ 0 ] );
+									else
+										$criteria_ref[ kTAG_OBJECT_OFFSETS ]
+											= $tmp[ 0 ];
+								
+								} // One offset.
+								
+								//
+								// handle multiple offsets.
+								//
+								else
+								{
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array(
+												kAPI_PARAM_OFFSETS
+													=> array( '$in' => $tmp ) );
+									else
+										$criteria_ref[ kAPI_PARAM_OFFSETS ]
+											= array( '$in' => $tmp );
+								
+								} // many offsets.
+							
+							} // Has unindexed offsets.
+						
+						} // Indexed.
 						
 						//
 						// Handle many offsets.

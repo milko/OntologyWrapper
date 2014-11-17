@@ -2264,5 +2264,17 @@ define( "kAPI_PARAM_GROUP_LIST",				'group-list' );
  */
 define( "kAPI_SHAPE_TAG",						':shape-disp' );
 
+/**
+ * Offsets subset (boolean).
+ *
+ * This parameter is set if a subset of the offsets related to a criteria is provided, this
+ * means that the search will not operate on all offsets.
+ *
+ * The outcome is that if not set, unindexed properties will be search-optimised with the
+ * {@link kTAG_OBJECT_TAGS}, while if set, the {@link kTAG_OBJECT_OFFSETS} property will be
+ * used.
+ */
+define( "kAPI_QUERY_OFFSETS",					'query-offsets' );
+
 
 ?>

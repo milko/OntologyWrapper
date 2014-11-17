@@ -62,7 +62,8 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 //
 // Init local storage.
 //
-$base_url = 'http://localhost/weblib/OntologyWrapperNew/Library/service/Service.php';
+$base_url = 'http://localhost/weblib/OntologyWrapper/Library/service/Service.php';
+$base_url = 'http://localhost/services/Bioversity/Service.php';
  
 //
 // Test class.
@@ -497,6 +498,49 @@ try
 	echo( '<hr>' );
 */
 
+/*
+	//
+	// TEST.
+	//
+	echo( '<h4>TEST</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+	//	kAPI_PAGING_LIMIT => 10,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_CRITERIA => Array(),
+		kAPI_PARAM_GROUP => kTAG_DOMAIN
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+var_dump( 'http://localhost/services/Bioversity/Service.php?op=matchUnits&ln=en&pr=%7B%22log-request%22:true,%22criteria%22:%5B%5D,%22grouping%22:%22#9%22%7D' );
+var_dump( $request );
+var_dump( urldecode( '%7B%22log-request%22:true,%22criteria%22:%5B%5D,%22grouping%22:%22#9%22%7D' ) );
+var_dump( json_encode( $param ) );
+exit;
+*/
+
 	//
 	// Test multiple fields with multiple offsets indexed (group).
 	//
@@ -515,6 +559,16 @@ try
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
+			':location:admin' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
+			),
+			':location:country' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+				kAPI_RESULT_ENUM_TERM => array( 'iso:3166:1:alpha-3:ITA' ),
+				kAPI_PARAM_OFFSETS => array( '#13b.#94' )
+			),
 			':taxon:genus' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
@@ -524,7 +578,7 @@ try
 					kOPERATOR_CONTAINS,
 					kOPERATOR_NOCASE
 				),
-				kAPI_PARAM_OFFSETS => array( '#fc', '#256.#fc' )
+				kAPI_PARAM_OFFSETS => array( '#255.#fc' )
 			),
 			':taxon:species' => array
 			(
