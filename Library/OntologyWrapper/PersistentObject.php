@@ -6238,7 +6238,7 @@ MILKO - Need to check.
 				//
 				// Handle only sequence hash offsets.
 				//
-				if( substr( $theOffset, 0, 1 ) == kTOKEN_TAG_PREFIX )
+				if( substr( $offset, 0, 1 ) == kTOKEN_TAG_PREFIX )
 				{
 					//
 					// Load tag.
