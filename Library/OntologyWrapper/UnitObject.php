@@ -945,6 +945,12 @@ abstract class UnitObject extends PersistentObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		//
 		// Set domain index.
 		//
 		$collection->createIndex( array( kTAG_DOMAIN => 1 ),

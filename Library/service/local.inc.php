@@ -83,7 +83,7 @@ define( "kSTANDARDS_ENTITIES_DB",		'mongodb://localhost:27017/BIOVERSITY?connect
  *
  * This tag indicates the standard units database DSN.
  */
-define( "kSTANDARDS_UNITS_DB",		'mongodb://localhost:27017/BIOVERSITY?connect=1' );
+define( "kSTANDARDS_UNITS_DB",			'mongodb://localhost:27017/BIOVERSITY?connect=1' );
 
 /*=======================================================================================
  *	DEFAULT VALUES																		*

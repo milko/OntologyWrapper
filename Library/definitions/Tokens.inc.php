@@ -24,7 +24,7 @@
  *
  * This value defines the token that prefixes tag serial identifiers.
  */
-define( "kTOKEN_TAG_PREFIX",		    '#' );		    	// Tag prefix token.
+define( "kTOKEN_TAG_PREFIX",		    '@' );		    	// Tag prefix token.
 
 /**
  * Domain separator token.

@@ -97,16 +97,14 @@ try
 	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
 	
-/*	
 	//
-	// Index genus.
+	// Set offsets.
 	//
-	$indexes = OntologyWrapper\UnitObject::CreateIndex( $wrapper, ':taxon:genus' );
-	
-	var_dump( $indexes );
+	$collection = OntologyWrapper\UnitObject::ResolveCollectionByName( $wrapper, OntologyWrapper\UnitObject::kSEQ_NAME );
+	$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+							  array( "name" => "OFFSETS" ) );
 	
 	exit;
-*/
 
 /*
 	//
@@ -559,36 +557,10 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':location:admin' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
-			),
 			':location:country' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
-				kAPI_RESULT_ENUM_TERM => array( 'iso:3166:1:alpha-3:ITA' ),
-				kAPI_PARAM_OFFSETS => array( '#13b.#94' )
-			),
-			':taxon:genus' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'aegilops',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_CONTAINS,
-					kOPERATOR_NOCASE
-				),
-				kAPI_PARAM_OFFSETS => array( '#255.#fc' )
-			),
-			':taxon:species' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'cylindrica',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_CONTAINS,
-					kOPERATOR_NOCASE
-				)
+				kAPI_PARAM_TERM => 'iso:3166:1:alpha-3:ITA'
 			)
 		),
 		kAPI_PARAM_GROUP => kTAG_DOMAIN
