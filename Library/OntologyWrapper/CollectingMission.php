@@ -398,7 +398,6 @@ class CollectingMission extends Mission
 			//
 			// Iterate collected samples.
 			//
-			$rs->sort( array( $this->resolveOffset( 'mcpd:COLLDATE', TRUE ) => 1 ) );
 			foreach( $rs as $record )
 			{
 				//
@@ -511,6 +510,9 @@ class CollectingMission extends Mission
 			// Init local storage.
 			//
 			$coordinates = Array();
+			$lat_tag = $this->resolveOffset( ':location:site:latitude' );
+			$lon_tag = $this->resolveOffset( ':location:site:longitude' );
+			$date_tag = $this->resolveOffset( 'mcpd:COLLDATE' );
 		
 			//
 			// Resolve collection.
@@ -527,29 +529,34 @@ class CollectingMission extends Mission
 					array( kTAG_DOMAIN => kDOMAIN_SAMPLE_COLLECTED ),
 					array( $this->resolveOffset( ':mission:collecting' )
 							=> $this->offsetGet( kTAG_NID ) ),
-					array( kTAG_OBJECT_TAGS
-							=> $this->resolveOffset( ':location:site:latitude' ) ),
-					array( kTAG_OBJECT_TAGS
-							=> $this->resolveOffset( ':location:site:longitude' ) ) ) );
+					array( kTAG_OBJECT_OFFSETS => $lat_tag ),
+					array( kTAG_OBJECT_OFFSETS => $lon_tag ) ) );
+			
+			//
+			// Set fields list.
+			//
+			$fields = array( $lat_tag => TRUE,
+							 $lon_tag => TRUE,
+							 $date_tag => TRUE );
 		
 			//
 			// Load collected samples.
 			//
-			$rs = $collection->matchAll( $query, kQUERY_OBJECT );
+			$rs = $collection->matchAll( $query, kQUERY_ARRAY, $fields );
 			if( $rs->count() )
 			{
 				//
 				// Iterate collected samples.
 				//
-				$rs->sort( array( $this->resolveOffset( 'mcpd:COLLDATE', TRUE ) => 1 ) );
+				$rs->sort( array( $date_tag => 1 ) );
 				foreach( $rs as $record )
 				{
 					//
 					// Init local storage.
 					//
 					$index = count( $coordinates );
-					$lat = $record->offsetGet( ':location:site:latitude' );
-					$lon = $record->offsetGet( ':location:site:longitude' );
+					$lat = $record[ $tag_lat ];
+					$lon = $record[ $tag_lon ];
 					
 					//
 					// Check coordinates.
