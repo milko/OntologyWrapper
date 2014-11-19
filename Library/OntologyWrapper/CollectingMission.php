@@ -546,29 +546,44 @@ class CollectingMission extends Mission
 			if( $rs->count() )
 			{
 				//
-				// Iterate collected samples.
+				// Collect sample data.
 				//
-				$rs->sort( array( $date_tag => 1 ) );
+				$idx = 0;
+				$samples = Array();
 				foreach( $rs as $record )
 				{
 					//
-					// Init local storage.
+					// Set stamp.
 					//
-					$index = count( $coordinates );
-					$lat = $record[ $lat_tag ];
-					$lon = $record[ $lon_tag ];
+					$stamp = ( array_key_exists( $date_tag, $record ) )
+						   ? ('A'.$record[ $date_tag ])
+						   : $idx++;
 					
+					//
+					// Set sample.
+					//
+					$samples[ $stamp ]
+						= array( round( $record[ $lon_tag ], 6 ),
+								 round( $record[ $lat_tag ], 6 ) );
+				}
+				
+				//
+				// Sort array.
+				//
+				ksort( $samples );
+				
+				//
+				// Collect coordinates.
+				//
+				foreach( $samples as $record )
+				{
 					//
 					// Check coordinates.
 					//
-					if( ($lat !== NULL )
-					 && ($lon !== NULL ) )
-					{
-						$lat = round( $lat, 6 );
-						$lon = round( $lon, 6 );
-						$coordinates[ implode( ';', array( $lon, $lat ) ) ]
-							= array( $lon, $lat );
-					}
+					if( ($record[ 1 ] !== NULL )
+					 && ($record[ 0 ] !== NULL ) )
+						$coordinates[ implode( ';', array( $record[ 0 ], $record[ 1 ] ) ) ]
+							= array( $record[ 0 ], $record[ 1 ] );
 				}
 				
 				//
