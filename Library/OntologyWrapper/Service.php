@@ -1480,22 +1480,10 @@ class Service extends ContainerObject
 					continue;												// =>
 				
 				//
-				// Get leaf offset.
-				//
-				$offset = explode( '.', $tag );
-				$offset = $offset[ count( $offset ) - 1 ];
-				
-				//
 				// Skip existing.
 				//
-				if( array_key_exists( $offset, $criteria ) )
+				if( array_key_exists( $tag, $criteria ) )
 					continue;												// =>
-				
-				//
-				// Add tag to criteria.
-				//
-				$criteria[ $offset ]
-					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT );
 				
 				//
 				// Add offset to criteria.
@@ -1863,9 +1851,6 @@ class Service extends ContainerObject
 	 * @access protected
 	 *
 	 * @throws Exception
-	 *
-	 * @see kAPI_PARAM_INPUT_TEXT kAPI_PARAM_INPUT_STRING
-	 * @see kAPI_PARAM_INPUT_RANGE kAPI_PARAM_INPUT_ENUM
 	 */
 	protected function validateSearchCriteria()
 	{
@@ -2060,14 +2045,6 @@ class Service extends ContainerObject
 				$criteria_ref = & $cluster_ref[ kAPI_PARAM_CRITERIA ];
 				
 				//
-				// Extract leaf tag.
-				//
-			/*
-				$tmp = explode( '.', $tag );
-				$tmp = kTAG_OBJECT_OFFSETS.'.'.$tmp[ count( $tmp ) - 1 ];
-			*/
-				
-				//
 				// Allocate criteria.
 				//
 				$criteria_ref[ kTAG_OBJECT_OFFSETS ] = Array();
@@ -2097,7 +2074,7 @@ class Service extends ContainerObject
 				//
 				// Set offsets.
 				//
-				$criteria_ref[ kAPI_PARAM_OFFSETS ] = array( $tmp );
+				$criteria_ref[ kAPI_PARAM_OFFSETS ] = array( kTAG_OBJECT_OFFSETS );
 				
 				continue;													// =>
 			
@@ -2878,45 +2855,54 @@ class Service extends ContainerObject
 			$structs = Array();
 			
 			//
-			// Handle tag serial number.
+			// Handle tag serial.
 			//
 			if( substr( $element, 0, 1 ) == kTOKEN_TAG_PREFIX )
-			 	$tag = $this->mWrapper->getObject( $element, TRUE );
-		
+			{
+				//
+				// Handle offset.
+				//
+				if( strpos( $element, '.' ) )	// Cannot have period.
+				{
+					//
+					// Split structures.
+					//
+					$tmp = explode( '.', $element );
+					if( count( $tmp ) > 1 )
+						$tag
+							= $this->mWrapper->getObject(
+								$tmp[ count( $tmp ) - 1 ], TRUE );
+			
+					else
+						throw new \Exception(
+							"Invalid group element [$element]." );				// !@! ==>
+				
+					//
+					// Collect structures.
+					//
+					for( $i = 0; $i < (count( $tmp ) - 1); $i++ )
+						$structs[ $i ] = $tmp[ $i ];
+				
+				} // Offset.
+				
+				//
+				// Handle serial.
+				//
+				else
+				 	$tag = $this->mWrapper->getObject( $element, TRUE );
+			
+			} // Serial or offset.
+			
 			//
 			// Handle tag native identifier.
 			//
-			elseif( ($tmp = $this->mWrapper->getSerial( $element, FALSE )) !== NULL )
-			{
-			 	$tag = $this->mWrapper->getObject( $tmp, TRUE );
-			 	$element = $tag[ kTAG_ID_HASH ];
-			 }
-		
-			//
-			// Handle offset.
-			//
 			else
 			{
-				//
-				// Split structures.
-				//
-				$tmp = explode( '.', $element );
-				if( count( $tmp ) > 1 )
-				 	$tag
-				 		= $this->mWrapper->getObject(
-				 			$tmp[ count( $tmp ) - 1 ], TRUE );
+				$tmp = $this->mWrapper->getSerial( $element, TRUE );
+			 	$tag = $this->mWrapper->getObject( $tmp, TRUE );
+			 	$element = $tag[ kTAG_ID_HASH ];
 			
-				else
-					throw new \Exception(
-						"Invalid group element [$element]." );					// !@! ==>
-				
-				//
-				// Collect structures.
-				//
-				for( $i = 0; $i < (count( $tmp ) - 1); $i++ )
-					$structs[ $i ] = $tmp[ $i ];
-		
-			} // Offset.
+			} // Native identifier.
 		
 			//
 			// Check kind.

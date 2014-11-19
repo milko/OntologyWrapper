@@ -2237,7 +2237,7 @@ abstract class PersistentObject extends OntologyObject
 	{
 		return array_merge(
 			parent::DynamicOffsets(),
-			array( kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES.
+			array( kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES,
 				   kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 ) );		// ==>
 	
 	} // DynamicOffsets.

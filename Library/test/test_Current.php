@@ -97,6 +97,7 @@ try
 	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
 	
+/*
 	//
 	// Set offsets.
 	//
@@ -105,6 +106,7 @@ try
 							  array( "name" => "OFFSETS" ) );
 	
 	exit;
+*/
 
 /*
 	//
@@ -555,6 +557,7 @@ exit;
 	(
 	//	kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
 			':location:country' => array
@@ -563,7 +566,7 @@ exit;
 				kAPI_PARAM_TERM => 'iso:3166:1:alpha-3:ITA'
 			)
 		),
-		kAPI_PARAM_GROUP => kTAG_DOMAIN
+		kAPI_PARAM_GROUP => array( '@255.@fc', '@255.@10c' )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
