@@ -555,8 +555,8 @@ class CollectingMission extends Mission
 					// Init local storage.
 					//
 					$index = count( $coordinates );
-					$lat = $record[ $tag_lat ];
-					$lon = $record[ $tag_lon ];
+					$lat = $record[ $lat_tag ];
+					$lon = $record[ $lon_tag ];
 					
 					//
 					// Check coordinates.
