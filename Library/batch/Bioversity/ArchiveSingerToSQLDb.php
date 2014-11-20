@@ -1600,6 +1600,27 @@ finally
 									$theWrapper, $data[ 'CooperatorCountryCode' ] ) )
 						$sub[ getTag( ':entity:nationality' ) ] = $tmp;
 				}
+				
+				//
+				// Set label.
+				//
+				$label = Array();
+				if( array_key_exists( getTag( ':name' ), $sub ) )
+					$label[] = $sub[ getTag( ':name' ) ];
+				elseif( array_key_exists( getTag( ':entity:identifier' ), $sub ) )
+					$label[] = $sub[ getTag( ':entity:identifier' ) ];
+				elseif( array_key_exists( getTag( ':inventory:institute' ), $sub ) )
+					$label[] = $sub[ getTag( ':inventory:institute' ) ];
+				if( array_key_exists( getTag( ':germplasm:mt:date' ), $sub ) )
+					$label[] = parseDate( $sub[ getTag( ':germplasm:mt:date' ) ] );
+				if( array_key_exists( getTag( ':germplasm:mt:samples-intended' ), $sub ) )
+					$label[]
+						= ( $sub[ getTag( ':germplasm:mt:samples-intended' ) ] > 1 )
+						? ($sub[ getTag( ':germplasm:mt:samples-intended' ) ].' samples')
+						: ($sub[ getTag( ':germplasm:mt:samples-intended' ) ].' sample');
+				if( count( $label ) )
+					$sub[ getTag( ':struct-label' ) ]
+						= implode( ' ', $label );
 		
 				//
 				// Load record.
@@ -1653,5 +1674,94 @@ finally
 		return $wrapper->getSerial( $theIdentifier, TRUE );							// ==>
 
 	} // getTag.
+	
+
+	/**
+	 * Parse date.
+	 *
+	 * This function will return a textual representation of the provided date.
+	 *
+	 * @param string				$theDate			Date.
+	 * @return string				Parsed date.
+	 */
+	function parseDate( $theDate )
+	{
+		//
+		// Handle month.
+		//
+		if( strlen( $theDate ) >= 6 )
+		{
+			//
+			// Get month.
+			//
+			switch( (int) substr( $theDate, 4, 2 ) )
+			{
+				case 1:
+					$date = 'Jan';
+					break;
+				case 2:
+					$date = 'Feb';
+					break;
+				case 3:
+					$date = 'Mar';
+					break;
+				case 4:
+					$date = 'Apr';
+					break;
+				case 5:
+					$date = 'May';
+					break;
+				case 6:
+					$date = 'Jun';
+					break;
+				case 7:
+					$date = 'Jul';
+					break;
+				case 8:
+					$date = 'Aug';
+					break;
+				case 9:
+					$date = 'Sep';
+					break;
+				case 10:
+					$date = 'Oct';
+					break;
+				case 11:
+					$date = 'Nov';
+					break;
+				case 12:
+					$date = 'Dec';
+					break;
+				default:
+					return $theDate;												// ==>
+			}
+			
+			//
+			// Handle day.
+			//
+			if( strlen( $theDate ) == 8 )
+				$date .= (' '.(int) substr( $theDate, 6, 2 ).',');
+			
+			//
+			// Handle garbled.
+			//
+			else
+				return $theDate;													// ==>
+			
+			//
+			// Set year.
+			//
+			$date .= (' '.substr( $theDate, 0, 4 ));
+		}
+		
+		//
+		// Handle year only.
+		//
+		else
+			return $theDate;														// ==>
+		
+		return $date;																// ==>
+
+	} // parseDate.
 
 ?>

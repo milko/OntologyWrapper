@@ -8534,18 +8534,18 @@ $rs_units = & $rs_units[ 'result' ];
 								} // One offset.
 								
 								//
-								// handle multiple offsets.
+								// Handle multiple offsets.
 								//
 								elseif( count( $criteria[ kAPI_PARAM_OFFSETS ] ) > 1 )
 								{
 									if( $parent_cri !== NULL )
 										$criteria_ref[]
 											= array(
-												kAPI_PARAM_OFFSETS => array(
+												kTAG_OBJECT_OFFSETS => array(
 													'$in' => $criteria[ kAPI_PARAM_OFFSETS ]
 												) );
 									else
-										$criteria_ref[ kAPI_PARAM_OFFSETS ]
+										$criteria_ref[ kTAG_OBJECT_OFFSETS ]
 											= array(
 												'$in' => $criteria[ kAPI_PARAM_OFFSETS ] );
 								
@@ -8563,8 +8563,10 @@ $rs_units = & $rs_units[ 'result' ];
 							//
 							// Intercept unindexed offsets.
 							//
-							$tmp = array_diff( $criteria[ kAPI_PARAM_OFFSETS ],
-											   $criteria[ kAPI_PARAM_INDEX ] );
+							$tmp
+								= array_values(
+									array_diff( $criteria[ kAPI_PARAM_OFFSETS ],
+											   $criteria[ kAPI_PARAM_INDEX ] ) );
 							if( count( $tmp ) )
 							{
 								//
@@ -8582,17 +8584,17 @@ $rs_units = & $rs_units[ 'result' ];
 								} // One offset.
 								
 								//
-								// handle multiple offsets.
+								// Handle multiple offsets.
 								//
 								else
 								{
 									if( $parent_cri !== NULL )
 										$criteria_ref[]
 											= array(
-												kAPI_PARAM_OFFSETS
+												kTAG_OBJECT_OFFSETS
 													=> array( '$in' => $tmp ) );
 									else
-										$criteria_ref[ kAPI_PARAM_OFFSETS ]
+										$criteria_ref[ kTAG_OBJECT_OFFSETS ]
 											= array( '$in' => $tmp );
 								
 								} // many offsets.
@@ -8673,7 +8675,8 @@ $rs_units = & $rs_units[ 'result' ];
 											$criteria[ kAPI_PARAM_RANGE_MAX ],
 											$criteria[ kAPI_PARAM_OPERATOR ] );
 									
-									if( $parent_cri !== NULL )
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
 										$criteria_ref[] = array( $offset => $clause );
 									else
 										$criteria_ref[ $offset ] = $clause;
@@ -8691,7 +8694,8 @@ $rs_units = & $rs_units[ 'result' ];
 											=> $criteria[ kAPI_RESULT_ENUM_TERM ] )
 										: $criteria[ kAPI_RESULT_ENUM_TERM ][ 0 ];
 									
-									if( $parent_cri !== NULL )
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
 										$criteria_ref[] = array( $offset => $clause );
 									else
 										$criteria_ref[ $offset ] = $clause;
@@ -8706,7 +8710,8 @@ $rs_units = & $rs_units[ 'result' ];
 										= $this->shapeMatchPattern(
 											$criteria[ kAPI_PARAM_SHAPE ] );
 									
-									if( $parent_cri !== NULL )
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
 										$criteria_ref[] = array( $offset => $clause );
 									else
 										$criteria_ref[ $offset ] = $clause;
@@ -8714,7 +8719,8 @@ $rs_units = & $rs_units[ 'result' ];
 									break;
 				
 								default:
-									if( $parent_cri !== NULL )
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
 										$criteria_ref[]
 											= array( $offset
 												=> $criteria[ kAPI_PARAM_PATTERN ] );
