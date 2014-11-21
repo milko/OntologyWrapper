@@ -130,16 +130,17 @@ try
 	} // Use graph database.
 	
 	//
+	// Load data dictionary.
+	//
+	if( ! $wrapper->dictionaryFilled() )
+		$wrapper->loadTagCache();
+	
+	//
 	// Load default XML files.
 	//
 	echo( "  • Loading file\n" );
 	echo( "    - $file\n" );
 	$wrapper->loadXMLFile( $file );
-		
-	//
-	// Reset dictionary.
-	//
-	$wrapper->loadTagCache();
 }
 
 //
