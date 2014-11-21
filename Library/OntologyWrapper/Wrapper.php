@@ -2383,6 +2383,10 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading XML attribute files.\n" );
 		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Units.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		$file = kPATH_STANDARDS_ROOT.'/standard/InventoryAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
