@@ -45,7 +45,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
-				<item>type:categorica</item>
+				<item>type:categorical</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -62,7 +62,7 @@
 		</NODE>
 		<NODE tag="UO:0000000">
 			<item const="kTAG_NODE_TYPE">
-				<item>kind:property-nod</item>
+				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 		<EDGE>
