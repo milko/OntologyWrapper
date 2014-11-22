@@ -197,12 +197,37 @@ EOT;
 		//
 		if( $tag == 'UO:0000000' )
 		{
-			$xml .= ("\t\t<NODE>\n");
+			$xml .= ("\t\t<TAG>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_TERMS\">\n");
+			$xml .= ("\t\t\t\t<item>$ns:$id</item>\n");
+			$xml .= ("\t\t\t</item>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_DATA_TYPE\">:type:enum</item>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_DATA_KIND\">\n");
+			$xml .= ("\t\t\t\t<item>type:categorica</item>\n");
+			$xml .= ("\t\t\t</item>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_DESCRIPTION\">\n");
+			$xml .= ("\t\t\t\t<item>\n");
+			$xml .= ("\t\t\t\t\t<item const=\"kTAG_LANGUAGE\">en</item>\n");
+			$xml .= ("\t\t\t\t\t<item const=\"kTAG_TEXT\"><![CDATA[This attribute holds the enumerated value describing the unit.]]></item>\n");
+			$xml .= ("\t\t\t\t</item>\n");
+			$xml .= ("\t\t\t</item>\n");
+			$xml .= ("\t\t</TAG>\n");
+			$xml .= ("\t\t<NODE term=\"$ns:$id\">\n");
 			$xml .= ("\t\t\t<item const=\"kTAG_NODE_TYPE\">\n");
 			$xml .= ("\t\t\t\t<item>:type:node:type</item>\n");
 			$xml .= ("\t\t\t\t<item>:kind:enumerated-node</item>\n");
 			$xml .= ("\t\t\t</item>\n");
 			$xml .= ("\t\t</NODE>\n");
+			$xml .= ("\t\t<NODE tag=\"$ns:$id\">\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_NODE_TYPE\">\n");
+			$xml .= ("\t\t\t\t<item>kind:property-nod</item>\n");
+			$xml .= ("\t\t\t</item>\n");
+			$xml .= ("\t\t</NODE>\n");
+			$xml .= ("\t\t<EDGE>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_SUBJECT\" node=\"term\">$ns:$id</item>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:TYPE-OF</item>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_OBJECT\" node=\"tag\">$ns:$id</item>\n");
+			$xml .= ("\t\t</EDGE>\n");
 		
 		} // Type term.
 		
