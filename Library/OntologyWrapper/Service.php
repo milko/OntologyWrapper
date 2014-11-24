@@ -1483,7 +1483,24 @@ class Service extends ContainerObject
 				// Skip existing.
 				//
 				if( array_key_exists( $tag, $criteria ) )
+				{
+					//
+					// Add offset to criteria.
+					//
+					if( ! array_key_exists( kAPI_PARAM_OFFSETS, $criteria[ $tag ] ) )
+						$criteria[ $tag ][ kAPI_PARAM_OFFSETS ]
+							= array( $data[ kAPI_PARAM_OFFSETS ] );
+					
+					//
+					// Append offset to criteria.
+					//
+					elseif( ! in_array( $data[ kAPI_PARAM_OFFSETS ],
+										$criteria[ $tag ][ kAPI_PARAM_OFFSETS ] ) )
+						$criteria[ $tag ][ kAPI_PARAM_OFFSETS ][]
+							= $data[ kAPI_PARAM_OFFSETS ];
+						
 					continue;												// =>
+				}
 				
 				//
 				// Add offset to criteria.
@@ -5189,7 +5206,9 @@ $rs_units = & $rs_units[ 'result' ];
 				//
 				// Get value.
 				//
-				$value = $record[ '_id' ][ $tag ];
+				$value = ( array_key_exists( $tag, $record[ '_id' ] ) )
+					   ? $record[ '_id' ][ $tag ]
+					   : '';
 				
 				//
 				// Create element.

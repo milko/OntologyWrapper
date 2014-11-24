@@ -22,6 +22,6 @@ SOCKET="socket=/tmp/mysql.sock"
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"abdh" \
-	"mongodb://localhost:27017/MAURICIO"
+	"mongodb://localhost:27017/BIOVERSITY"
 
 exit
