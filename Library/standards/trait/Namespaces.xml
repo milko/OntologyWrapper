@@ -26,6 +26,22 @@
 			</item>
 		</TERM>
 
+		<!-- :trait:scale -->
+		<TERM ns=":trait" lid="scale">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Trait scale</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Trait scale or unit.]]></item>
+				</item>
+			</item>
+		</TERM>
+
 		<!-- Trait categories -->
 	
 		<!-- :trait:morphology -->
