@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Generate Genesys enumerations.
+ * Normalise Genesys methods.
  *
- * This file contains routines to generate the Genesys enumeration SQL records.
+ * This file contains routines to normalise the Genesys method SQL records.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Utilities
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 26/11/2014
+ *	@version	1.00 27/11/2014
  */
 
 /*=======================================================================================
  *																						*
- *								GenerateGenesysEnums.php								*
+ *								NormaliseGenesysMethods.php								*
  *																						*
  *======================================================================================*/
 
@@ -77,7 +77,7 @@ require_once( "/Library/WebServer/Library/adodb/adodb-exceptions.inc.php" );
 //
 // Inform.
 //
-echo( "\n==> Generating Genesys enumerations.\n" );
+echo( "\n==> Normalising Genesys methods.\n" );
 
 //
 // Parse arguments.
@@ -95,8 +95,7 @@ $db_in = $argv[ 1 ];
 //
 // Set tables.
 //
-$table_in = 'types';
-$table_out = 'enums';
+$table = 'methods';
 
 /*=======================================================================================
  *	TRY																					*
@@ -110,7 +109,7 @@ try
 	//
 	// Init local storage.
 	//
-	$rs = $rs_out = $dc = NULL;
+	$rs = $dc = NULL;
 	
 	//
 	// Connect to database.
@@ -120,76 +119,48 @@ try
 	$dc = NewADOConnection( $db_in );
 	$dc->Execute( "SET CHARACTER SET 'utf8'" );
 	$dc->SetFetchMode( ADODB_FETCH_ASSOC );
-	$rs = $dc->Execute( "TRUNCATE TABLE `$table_out`" );
-	$rs->Close();
-	$rs = NULL;
 
 	//
 	// Inform.
 	//
-	echo( "\n==> Loading enumerations.\n" );
+	echo( "\n==> Iterating methods.\n" );
 	
 	//
 	// Iterate types.
 	//
-	$query = "SELECT * FROM `$table_in`";
+	$query = "SELECT * FROM `$table`";
 	$rs = $dc->execute( $query );
 	foreach( $rs as $record )
 	{
 		//
 		// Set type.
 		//
-		$type = $record[ 'ID' ];
-		
-		//
-		// Load options.
-		//
-		$options = parseOptions( $record[ 'Options' ] );
-		foreach( $options as $key => $value )
-		{
-			//
-			// Build query.
-			//
-			$query = "INSERT INTO `$table_out` "
-					."VALUES( $type, "
-					.'0x'.bin2hex( $key ).', '
-					.'0x'.bin2hex( $value ).', '
-					.'0x'.bin2hex( ':trait:scale:'.$key ).' )';
-			
-			//
-			// Insert record.
-			//
-			$rs_out = $dc->Execute( $query );
-			$rs_out->Close();
-			$rs_out = NULL;
-		
-		} // Iterating options.
+		$id = $record[ 'Method_Id' ];
 		
 		//
 		// Update label.
 		//
-		if( substr( $record[ 'Label' ], strlen( $record[ 'Label' ] ) - 1, 1 ) == '.' )
+		if( substr( $record[ 'Method' ], strlen( $record[ 'Method' ] ) - 1, 1 ) == '.' )
 		{
-			$query = "UPDATE `$table_in` SET `Label` = 0x"
-					.bin2hex( substr( $record[ 'Label' ],
+			$query = "UPDATE `$table` SET `Method` = 0x"
+					.bin2hex( substr( $record[ 'Method' ],
 							  0,
-							  strlen( $record[ 'Label' ] ) - 1 ) )
-					." WHERE `ID` = "
-					.$record[ 'ID' ];
+							  strlen( $record[ 'Method' ] ) - 1 ) )
+					." WHERE `Method_Id` = $id";
 			$rs_out = $dc->execute( $query );
 			$rs_out->Close();
 			$rs_out = NULL;
 		}
 	
-	} // Scanning input table.
+		//
+		// Update hashes.
+		//
+		$query = "UPDATE `$table` SET `MethodHash` = MD5( `Method` )";
+		$rs_out = $dc->execute( $query );
+		$rs_out->Close();
+		$rs_out = NULL;
 	
-	//
-	// Update hashes.
-	//
-	$query = "UPDATE `$table_in` SET `Hash` = MD5( `Label` )";
-	$rs_out = $dc->execute( $query );
-	$rs_out->Close();
-	$rs_out = NULL;
+	} // Scanning input table.
 
 	echo( "\nDone!\n" );
 
