@@ -287,12 +287,12 @@ abstract class OntologyObject extends ContainerObject
 	/**
 	 * Resolve offset
 	 *
-	 * This method will resolve the provided offset into a {@link Tag} native
-	 * identifier, this is done by using a {@link Dictionary} object stored in the current
-	 * object's {@link $mDictionary} data member.
+	 * This method will resolve the provided offset into a {@link Tag} serial number, this
+	 * is done by using a {@link Dictionary} object stored in the current object's
+	 * {@link $mDictionary} data member.
 	 *
-	 * If you provide an integer or a numeric string, the method will simply cast the value
-	 * to an integer and return it.
+	 * If you provide a string prefixed by the {@link kTOKEN_TAG_PREFIX} token, the method
+	 * will simply return it.
 	 *
 	 * All other types of offsets, except those returned by the {@link InternalOffsets()}
 	 * method, will be used to locate the tag native identifier using a {@link Dictionary}
@@ -303,11 +303,11 @@ abstract class OntologyObject extends ContainerObject
 	 *
 	 * The method will raise an exception if the tag cache is not set.
 	 *
-	 * @param mixed					$theOffset			Data offset.
+	 * @param string				$theOffset			Data offset.
 	 * @param boolean				$doAssert			Assert offset tag reference.
 	 *
 	 * @access public
-	 * @return mixed				Resolved offset.
+	 * @return string				Resolved offset.
 	 *
 	 * @throws Exception
 	 *
@@ -316,11 +316,10 @@ abstract class OntologyObject extends ContainerObject
 	public function resolveOffset( $theOffset, $doAssert = FALSE )
 	{
 		//
-		// Handle numeric offsets.
+		// Handle sequence hash.
 		//
-		if( is_int( $theOffset )
-		 || ctype_digit( $theOffset ) )
-			return (int) $theOffset;												// ==>
+		if( substr( $theOffset, 0, 1 ) == kTOKEN_TAG_PREFIX )
+			return $theOffset;														// ==>
 		
 		//
 		// Handle internal offsets.
@@ -365,6 +364,8 @@ abstract class OntologyObject extends ContainerObject
 	 * @access public
 	 * @return boolean				<tt>TRUE</tt> the offset exists.
 	 *
+	 * @throws Exception
+	 *
 	 * @uses nestedOffsetExists()
 	 */
 	public function offsetExists( $theOffset )
@@ -372,8 +373,24 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
-			return $this->nestedOffsetExists( $theOffset, $value );					// ==>
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
+		{
+			//
+			// Check dictionary.
+			//
+			if( ! ($this->mDictionary instanceof Dictionary) )
+				throw new \Exception(
+					"Unable to resolve nested offset: "
+				   ."the object is missing its dictionary." );					// !@! ==>
+		
+			//
+			// Handle nested offset.
+			//
+			$value = NULL;
+			$offsets = explode( '.', $theOffset );
+			return $this->nestedOffsetExists( $offsets, $value );					// ==>
+		
+		} // Nested offset.
 		
 		return parent::offsetExists( $theOffset );									// ==>
 	
@@ -396,6 +413,8 @@ abstract class OntologyObject extends ContainerObject
 	 * @access public
 	 * @return mixed				Offset value or <tt>NULL</tt>.
 	 *
+	 * @throws Exception
+	 *
 	 * @uses nestedOffsetGet()
 	 */
 	public function offsetGet( $theOffset )
@@ -403,8 +422,31 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
-			return $this->nestedOffsetGet( $theOffset, $value );					// ==>
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
+		{
+			//
+			// handle missing offset.
+			//
+			if( ! $this->offsetExists( $theOffset ) )
+				return NULL;														// ==>
+			
+			//
+			// Check dictionary.
+			//
+			if( ! ($this->mDictionary instanceof Dictionary) )
+				throw new \Exception(
+					"Unable to resolve nested offset: "
+				   ."the object is missing its dictionary." );					// !@! ==>
+			
+			//
+			// Handle nested offset.
+			//
+			$found = NULL;
+			$value = NULL;
+			$offsets = explode( '.', $theOffset );
+			return $this->nestedOffsetGet( $offsets, $value, $found );				// ==>
+		
+		} // Nested offset.
 		
 		return parent::offsetGet( $theOffset );										// ==>
 	
@@ -434,7 +476,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 			$this->nestedOffsetSet( $theOffset, $theValue,
 									$root_offset, $root_value,
 									$current_offset, $current_value );
@@ -470,7 +512,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 			return $this->nestedOffsetUnset( $theOffset, $toot, $value );			// ==>
 		
 		return parent::offsetUnset( $theOffset );									// ==>
@@ -487,6 +529,160 @@ abstract class OntologyObject extends ContainerObject
 
 
 	 
+	/*===================================================================================
+	 *	InternalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return internal offsets
+	 *
+	 * This method will return the list of internal offsets for the current class, these
+	 * offsets are not defined in the data dictionary and are private to the object. This
+	 * method is used to exclude these offsets from the default offset resolution workflow.
+	 *
+	 * These offsets:
+	 *
+	 * <ul>
+	 *	<li>Will not be part of the offset management framework.
+	 * </ul>
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_NID}</tt>: Native identifier.
+	 *	<li><tt>{@link kTAG_CLASS}</tt>: Object class name.
+	 *	<li><tt>{@link kTAG_TYPE}</tt>: Property type.
+	 *	<li><tt>{@link kTAG_LANGUAGE}</tt>: Property language.
+	 *	<li><tt>{@link kTAG_TEXT}</tt>: Property text.
+	 *	<li><tt>{@link kTAG_URL}</tt>: Property URL.
+	 *	<li><tt>{@link kTAG_GEOMETRY}</tt>: Shape property geometry.
+	 *	<li><tt>{@link kTAG_RADIUS}</tt>: Shape property radius.
+	 *	<li><tt>{@link kTAG_FULL_TEXT_10}</tt>: Full-text values, weight 10.
+	 *	<li><tt>{@link kTAG_FULL_TEXT_06}</tt>: Full-text values, weight 6.
+	 *	<li><tt>{@link kTAG_FULL_TEXT_03}</tt>: Full-text values, weight 3.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of internal offsets.
+	 */
+	static function InternalOffsets()
+	{
+		return array( kTAG_NID, kTAG_CLASS,
+					  kTAG_TYPE, kTAG_LANGUAGE,
+					  kTAG_TEXT, kTAG_URL, kTAG_GEOMETRY, kTAG_RADIUS,
+					  kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 );	// ==>
+	
+	} // InternalOffsets.
+
+	 
+	/*===================================================================================
+	 *	ExternalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return external offsets
+	 *
+	 * This method will return the list of external offsets for the current class. These are
+	 * offsets which are managed neither by clients nor by the object itself, these will
+	 * generally be managed by events triggered by other objects.
+	 *
+	 * These offsets:
+	 *
+	 * <ul>
+	 *	<li>Will not be part of the offset management framework.
+	 * </ul>
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of external offsets.
+	 */
+	static function ExternalOffsets()									{	return Array();	}
+
+	 
+	/*===================================================================================
+	 *	DynamicOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return dynamic offsets
+	 *
+	 * This method will return the list of dynamic offsets for the current class. These are
+	 * offsets which are managed by the object itself, and should not be modified by
+	 * clients.
+	 *
+	 * These offsets:
+	 *
+	 * <ul>
+	 *	<li>Will not be part of the offset management framework.
+	 *	<li>Will be reset each time the object is committed.
+	 * </ul>
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of dynamic offsets.
+	 */
+	static function DynamicOffsets()									{	return Array();	}
+
+	 
+	/*===================================================================================
+	 *	UnmanagedOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Return unmanaged offsets
+	 *
+	 * This method will return the list of offsets which should be excluded from the offset
+	 * management framework.
+	 *
+	 * By default we include offsets returned by:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link ExternalOffsets()}</tt>: External offsets.
+	 *	<li><tt>{@link DynamicOffsets()}</tt>: Synamic offsets.
+	 * </ul>
+	 *
+	 * Note that internal offsets, {@link InternalOffsets()}, are also not managed, but
+	 * since those offsets do not have a sequence number, we need to treat them separately.
+	 *
+	 * Derived classes may overload this method to add custom offsets.
+	 *
+	 * @static
+	 * @return array				List of unmanaged offsets.
+	 */
+	static function UnmanagedOffsets()
+	{
+		return array_merge(
+			static::ExternalOffsets(),
+			static::DynamicOffsets() );												// ==>
+	
+	} // UnmanagedOffsets.
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * This method will return the list of default offsets for the current class, these
+	 * are the properties known to be part of the current class: since objects may feature
+	 * any defined tag, this selection provides an indication of which properties one could
+	 * expect.
+	 *
+	 * This selection can also be used as the minimum set of properties which an object may
+	 * feature.
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()									{	return Array();	}
+
+		
 	/*===================================================================================
 	 *	OffsetTypes																		*
 	 *==================================================================================*/
@@ -560,8 +756,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Resolve offset.
 		//
-		if( (! is_int( $theOffset ))
-		 && (! ctype_digit( $theOffset )) )
+		if( substr( $theOffset, 0, 1 ) != kTOKEN_TAG_PREFIX )
 			$theOffset = $theDictionary->getSerial( $theOffset, $doAssert );
 		
 		//
@@ -589,60 +784,6 @@ abstract class OntologyObject extends ContainerObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	InternalOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return internal offsets
-	 *
-	 * This method will return the current object list of internal offsets, these offsets
-	 * are not defined in the data dictionary and are private to the object. This method
-	 * is used to exclude these offsets from the default offset resolution workflow.
-	 *
-	 * In this class we return {@link kTAG_NID} and {@link kTAG_CLASS}, which all persistent
-	 * objects share.
-	 *
-	 * @static
-	 * @return array				List of internal offsets.
-	 */
-	static function InternalOffsets()
-	{
-		return array( kTAG_NID, kTAG_CLASS, kTAG_SHAPE_TYPE, kTAG_SHAPE_GEOMETRY );	// ==>
-	
-	} // InternalOffsets.
-
-	 
-	/*===================================================================================
-	 *	DefaultOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return default offsets
-	 *
-	 * This method will return the current object list of default offsets, these offsets
-	 * represent the default offsets of the object, which means that all objects derived
-	 * from this class may feature these offsets. This method is used to exclude these
-	 * offsets from statistical procedures, such as {@link CollectOffsets()}, since it is
-	 * implied that these offsets will be there.
-	 *
-	 * In this class we return an empty array.
-	 *
-	 * @static
-	 * @return array				List of default offsets.
-	 */
-	static function DefaultOffsets()									{	return Array();	}
-
-		
-
-/*=======================================================================================
- *																						*
  *								STATIC PARSING INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -656,9 +797,9 @@ abstract class OntologyObject extends ContainerObject
 	/**
 	 * Return language string
 	 *
-	 * This method expects the value from a property of type {@link kTYPE_LANGUAGE_STRINGS}
-	 * and a language code, its duty is to return the string matching the language code, or
-	 * the default string.
+	 * This method expects the value from a property of type {@link kTYPE_LANGUAGE_STRING}
+	 * or {@link kTYPE_LANGUAGE_STRINGS} and a language code, its duty is to return the
+	 * string matching the language code, or the default string.
 	 *
 	 * The method will perform the following steps:
 	 *
@@ -672,7 +813,7 @@ abstract class OntologyObject extends ContainerObject
 	 * @param string				$theLanguage		Selected language code.
 	 *
 	 * @static
-	 * @return array				List of internal offsets.
+	 * @return string				The string in the provided language.
 	 */
 	static function SelectLanguageString( $theStrings, $theLanguage )
 	{
@@ -721,6 +862,244 @@ abstract class OntologyObject extends ContainerObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC CASTING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	CastScalar																		*
+	 *==================================================================================*/
+
+	/**
+	 * Cast scalar
+	 *
+	 * The duty of this method is to cast the provided scalar property to the provided data
+	 * type.
+	 *
+	 * @param mixed					$theProperty		Property.
+	 * @param string				$theType			Data type.
+	 *
+	 * @static
+	 */
+	static function CastScalar( &$theProperty, $theType )
+	{
+		//
+		// Cast property.
+		//
+		switch( $theType )
+		{
+			//
+			// Strings.
+			//
+			case kTYPE_STRING:
+			case kTYPE_ENUM:
+			case kTYPE_URL:
+			case kTYPE_REF_TAG:
+			case kTYPE_REF_TERM:
+			case kTYPE_REF_EDGE:
+			case kTYPE_REF_UNIT:
+			case kTYPE_REF_ENTITY:
+				$theProperty = (string) $theProperty;
+				break;
+			
+			//
+			// Integers.
+			//
+			case kTYPE_INT:
+			case kTYPE_REF_NODE:
+				$theProperty = (int) $theProperty;
+				break;
+	
+			//
+			// Floats.
+			//
+			case kTYPE_FLOAT:
+				$theProperty = (double) $theProperty;
+				break;
+	
+			//
+			// Enumerated sets.
+			//
+			case kTYPE_SET:
+				//
+				// Iterate set.
+				//
+				$idxs = array_keys( $theProperty );
+				foreach( $idxs as $idx )
+					$theProperty[ $idx ] = (string) $theProperty[ $idx ];
+				break;
+	
+			//
+			// Language strings.
+			//
+			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRING:
+			case kTYPE_LANGUAGE_STRINGS:
+				//
+				// To DO.
+				//
+				break;
+	
+			//
+			// Shapes.
+			//
+			case kTYPE_SHAPE:
+				//
+				// Cast geometry.
+				//
+				static::CastShapeGeometry( $theProperty );
+				break;
+	
+		} // Parsed type.
+	
+	} // CastScalar.
+
+
+	/*===================================================================================
+	 *	CastShapeGeometry																*
+	 *==================================================================================*/
+
+	/**
+	 * Cast shape geometry
+	 *
+	 * The duty of this method is to verify and cast the geometry of the provided shape.
+	 * The method expects the shape to have a correct root structure, that is, it must have
+	 * the shape type and geometry array, this method will traverse the geometry and
+	 * its structure.
+	 *
+	 * @param reference				$theShape			Shape.
+	 *
+	 * @static
+	 */
+	static function CastShapeGeometry( &$theShape )
+	{
+		//
+		// Init local storage.
+		//
+		$type = & $theShape[ kTAG_TYPE ];
+		$geom = & $theShape[ kTAG_GEOMETRY ];
+		
+		//
+		// Parse by type.
+		//
+		switch( $type )
+		{
+			case 'Point':
+			case 'Circle':
+				//
+				// Check geometry.
+				//
+				if( is_array( $geom ) )
+				{
+					//
+					// Check if both are there.
+					//
+					if( count( $geom ) == 2 )
+					{
+						$geom[ 0 ] = (double) $geom[ 0 ];
+						$geom[ 1 ] = (double) $geom[ 1 ];
+					}
+					else
+						throw new \Exception(
+							"Invalid point shape structure." );					// !@! ==>
+				}
+				else
+					throw new \Exception(
+						"Invalid shape structure." );							// !@! ==>
+				
+				//
+				// Handle circle.
+				//
+				if( $type == 'Circle' )
+				{
+					//
+					// Check radius.
+					//
+					if( array_key_exists( kTAG_RADIUS, $theShape ) )
+					{
+						if( is_scalar( $theShape[ kTAG_RADIUS ] ) )
+						{
+							if( is_int( $theShape[ kTAG_RADIUS ] )
+							 || ctype_digit( $theShape[ kTAG_RADIUS ] ) )
+								$theShape[ kTAG_RADIUS ] = (int) $theShape[ kTAG_RADIUS ];
+						}
+						else
+							throw new \Exception(
+								"Invalid circle radius value." );				// !@! ==>
+					}
+					else
+						throw new \Exception(
+							"Missing circle radius." );							// !@! ==>
+				}
+				break;
+			
+			case 'MultiPoint':
+			case 'LineString':
+				//
+				// Check geometry.
+				//
+				if( is_array( $geom ) )
+				{
+					//
+					// Iterate coordinates.
+					//
+					$idxs = array_keys( $geom );
+					foreach( $idxs as $idx )
+					{
+						//
+						// Recurse with points.
+						//
+						$shape = array( kTAG_TYPE => 'Point',
+										kTAG_GEOMETRY => $geom[ $idx ] );
+						static::CastShapeGeometry( $shape );
+						$geom[ $idx ] = $shape[ kTAG_GEOMETRY ];
+					}
+				}
+				else
+					throw new \Exception(
+						"Invalid shape structure." );							// !@! ==>
+				break;
+			
+			case 'Polygon':
+				//
+				// Check geometry.
+				//
+				if( is_array( $geom ) )
+				{
+					//
+					// Iterate rings.
+					//
+					$idxs = array_keys( $geom );
+					foreach( $idxs as $idx )
+					{
+						//
+						// Recurse with line strings.
+						//
+						$shape = array( kTAG_TYPE => 'LineString',
+										kTAG_GEOMETRY => $geom[ $idx ] );
+						static::CastShapeGeometry( $shape );
+						$geom[ $idx ] = $shape[ kTAG_GEOMETRY ];
+					}
+				}
+				else
+					throw new \Exception(
+						"Invalid shape structure." );							// !@! ==>
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid or unsupported shape type [$type]." );				// !@! ==>
+		
+		} // Parsed type.
+	
+	} // CastShapeGeometry.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -750,7 +1129,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetExists( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset );
+			$theOffset = $this->resolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	
@@ -780,7 +1159,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetGet( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset );
+			$theOffset = $this->resolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	
@@ -811,7 +1190,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetSet( $theOffset, $theValue );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset, TRUE );
+			$theOffset = $this->resolveOffset( $theOffset, TRUE );
 		
 		return $ok;																	// ==>
 	
@@ -841,7 +1220,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetUnset( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset );
+			$theOffset = $this->resolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	
@@ -868,14 +1247,14 @@ abstract class OntologyObject extends ContainerObject
 	 * method will traverse the current value until it finds the offset, if at any level
 	 * an offset is not resolved, the method will return <tt>FALSE</tt>.
 	 *
-	 * It is assumed that all offsets except the last one must be arrays, if that is not
+	 * It is assumed that all offsets except the last one must be structures, if that is not
 	 * the case, the method will return <tt>FALSE</tt>.
 	 *
 	 * The provided offset must be a valid nested offset, which is a sequence of numerics
 	 * separated by a period; this check must have been performed by the caller.
 	 *
-	 * @param mixed					$theOffset			Offset.
-	 * @param array					$theValue			Current value.
+	 * @param array					$theOffset			Offsets path.
+	 * @param mixed					$theValue			Parent offset value.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> the offset exists.
@@ -883,48 +1262,90 @@ abstract class OntologyObject extends ContainerObject
 	protected function nestedOffsetExists( $theOffset, &$theValue )
 	{
 		//
-		// Handle root offset.
-		// Note that we know the offset to have at least two levels.
+		// Get root offset.
 		//
-		if( $theValue === NULL)
-		{
-			//
-			// Convert offset.
-			//
-			$theOffset = explode( '.', $theOffset );
-			
-			//
-			// Get offset value.
-			//
-			$theValue = parent::offsetGet( array_shift( $theOffset ) );
-		
-		} // Root offset.
+		$parent = array_shift( $theOffset );
+		$tag = $this->mDictionary->getObject( $parent, TRUE );
 		
 		//
-		// Check value.
+		// Assert structure.
 		//
-		if( ! is_array( $theValue ) )
+		if( $tag[ kTAG_DATA_TYPE ] != kTYPE_STRUCT )
 			return FALSE;															// ==>
-	
+		
+		//
+		// Get parent value.
+		//
+		if( $theValue === NULL )
+		{
+			$theValue = parent::offsetGet( $parent );
+			if( $theValue === NULL )
+				return FALSE;														// ==>
+		}
+		
 		//
 		// Get current offset.
 		//
-		$offset = array_shift( $theOffset );
-	
-		//
-		// Check offset.
-		//
-		if( ! array_key_exists( $offset, $theValue ) )
-			return FALSE;															// ==>
-	
-		//
-		// Handle leaf offset.
-		//
-		if( ! count( $theOffset ) )
-			return TRUE;															// ==>
+		$offset = $theOffset[ 0 ];
 		
-		return $this->nestedOffsetExists( $theOffset, $theValue[ $offset ] );		// ==>
-	
+		//
+		// Handle structures list.
+		//
+		if( array_key_exists( kTAG_DATA_KIND, $tag )
+		 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+		{
+			//
+			// Iterate structures list.
+			//
+			foreach( $theValue as $value )
+			{
+				//
+				// Handle match.
+				//
+				if( array_key_exists( $offset, $value ) )
+				{
+					//
+					// Handle leaf offset.
+					//
+					if( count( $theOffset ) == 1 )
+						return TRUE;												// ==>
+					
+					//
+					// Recurse.
+					//
+					return $this->nestedOffsetExists(
+								$theOffset, $value[ $offset ] );					// ==>
+				
+				} // Matched offset.
+			
+			} // Iterating structures list.
+			
+			return FALSE;															// ==>
+		
+		} // Structures list.
+		
+		//
+		// Handle scalar structure.
+		//
+		if( array_key_exists( $offset, $theValue ) )
+		{
+			//
+			// Handle leaf node.
+			//
+			if( count( $theOffset ) == 1 )
+				return TRUE;														// ==>
+			
+			//
+			// Recurse.
+			//
+			else
+				return $this->nestedOffsetExists(
+							$theOffset, $theValue[ $offset ] );						// ==>
+		
+		} // Matched in scalar structure.
+		
+		return FALSE;																// ==>
+		
 	} // nestedOffsetExists.
 
 	 
@@ -945,56 +1366,128 @@ abstract class OntologyObject extends ContainerObject
 	 * The provided offset must be a valid nested offset, which is a sequence of numerics
 	 * separated by a period; this check must have been performed by the caller.
 	 *
+	 * If at any stage of the path there is a list of structures, the result will be an
+	 * array of all found values.
+	 *
+	 * Note that this method will only be called if the offset exists, so it must find it.
+	 *
 	 * @param mixed					$theOffset			Offset.
 	 * @param array					$theValue			Current value.
+	 * @param mixed					$theFound			Found value.
 	 *
 	 * @access public
 	 * @return mixed				Offset value or <tt>NULL</tt>.
 	 */
-	public function nestedOffsetGet( $theOffset, &$theValue )
+	public function nestedOffsetGet( $theOffset, &$theValue, &$theFound )
 	{
 		//
-		// Handle root offset.
-		// Note that we know the offset to have at least two levels.
+		// Get root offset.
 		//
-		if( $theValue === NULL)
+		$parent = array_shift( $theOffset );
+		$tag = $this->mDictionary->getObject( $parent, TRUE );
+		
+		//
+		// Assert structure.
+		//
+		if( $tag[ kTAG_DATA_TYPE ] != kTYPE_STRUCT )
 		{
-			//
-			// Convert offset.
-			//
-			$theOffset = explode( '.', $theOffset );
-			
-			//
-			// Get offset value.
-			//
-			$theValue = parent::offsetGet( array_shift( $theOffset ) );
-		
-		} // Root offset.
+			$theFound = NULL;
+				return NULL;														// ==>
+		}
 		
 		//
-		// Check value.
+		// Get parent value.
 		//
-		if( ! is_array( $theValue ) )
-			return NULL;															// ==>
-	
+		if( $theValue === NULL )
+		{
+			$theValue = parent::offsetGet( $parent );
+			if( $theValue === NULL )
+				return NULL;														// ==>
+		}
+		
 		//
 		// Get current offset.
 		//
-		$offset = array_shift( $theOffset );
-	
-		//
-		// Check offset.
-		//
-		if( ! array_key_exists( $offset, $theValue ) )
-			return NULL;															// ==>
-	
-		//
-		// Handle leaf offset.
-		//
-		if( ! count( $theOffset ) )
-			return $theValue[ $offset ];											// ==>
+		$offset = $theOffset[ 0 ];
 		
-		return $this->nestedOffsetGet( $theOffset, $theValue[ $offset ] );			// ==>
+		//
+		// Handle structures list.
+		//
+		if( array_key_exists( kTAG_DATA_KIND, $tag )
+		 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+		{
+			//
+			// Set found value to array.
+			//
+			if( ! is_array( $theFound ) )
+				$theFound = Array();
+			
+			//
+			// Iterate structures list.
+			//
+			foreach( $theValue as $value )
+			{
+				//
+				// Handle match.
+				//
+				if( array_key_exists( $offset, $value ) )
+				{
+					//
+					// Handle leaf offset.
+					//
+					if( count( $theOffset ) == 1 )
+						$theFound[] = $value[ $offset ];
+					
+					//
+					// Recurse.
+					//
+					else
+						$this->nestedOffsetGet(
+								$theOffset, $value[ $offset ], $theFound );
+				
+				} // Matched offset.
+			
+			} // Iterating structures list.
+		
+		} // Structures list.
+		
+		//
+		// Handle scalar structure.
+		//
+		else
+		{
+			//
+			// Handle match.
+			//
+			if( array_key_exists( $offset, $theValue ) )
+			{
+				//
+				// Handle leaf offset.
+				//
+				if( count( $theOffset ) == 1 )
+				{
+					if( is_array( $theFound ) )
+						$theFound[] = $theValue[ $offset ];
+					else
+						$theFound = $theValue[ $offset ];
+				}
+				
+				//
+				// Recurse.
+				//
+				else
+					$this->nestedOffsetGet(
+							$theOffset, $theValue[ $offset ], $theFound );
+			
+			} // Matched.
+		
+		} // Scalar structure.
+		
+		return ( is_array( $theFound ) )
+			 ? ( ( count( $theFound ) )
+			   ? $theFound															// ==>
+			   : NULL )																// ==>
+			 : $theFound;															// ==>
 	
 	} // nestedOffsetGet.
 
@@ -1332,6 +1825,7 @@ abstract class OntologyObject extends ContainerObject
 			//
 			if( ($type == kTYPE_SET)
 			 || ($type == kTYPE_TYPED_LIST)
+			 || ($type == kTYPE_LANGUAGE_STRING)
 			 || ($type == kTYPE_LANGUAGE_STRINGS)
 			 || in_array( kTYPE_LIST, $kind ) )
 				return TRUE;														// ==>

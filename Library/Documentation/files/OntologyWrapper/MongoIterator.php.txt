@@ -20,13 +20,13 @@ use OntologyWrapper\MongoCollection;
 /**
  * Mongo iterator object
  *
- * This <i>concrete</i> class derived from {@link IteratorObject} implements a query
+ * This <i>concrete</i> class derived from {@link ObjectIterator} implements a query
  * iterator which uses a {@link MongoCursor} instance as the object cursor.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/03/2014
  */
-class MongoIterator extends IteratorObject
+class MongoIterator extends ObjectIterator
 {
 		
 
@@ -65,6 +65,7 @@ class MongoIterator extends IteratorObject
 	 * @param CollectionObject		$theCollection		Query collection.
 	 * @param array					$theCriteria		Query criteria.
 	 * @param array					$theFields			Query fields.
+	 * @param mixed					$theKey				Iterator key.
 	 * @param bitfield				$theResult			Result type.
 	 *
 	 * @access public
@@ -73,7 +74,8 @@ class MongoIterator extends IteratorObject
 								 CollectionObject $theCollection,
 								 				  $theCriteria,
 								 				  $theFields = Array(),
-												  $theResult = kQUERY_ARRAY)
+								 				  $theKey = NULL,
+												  $theResult = kQUERY_ARRAY )
 	{
 		//
 		// Check cursor.
@@ -92,7 +94,10 @@ class MongoIterator extends IteratorObject
 		//
 		// Call parent constructor.
 		//
-		parent::__construct( $theCursor, $theCollection, $theResult );
+		parent::__construct( $theCursor,
+							 $theCollection, $theCriteria,
+							 $theFields, $theKey,
+							 $theResult );
 		
 	} // Constructor.
 

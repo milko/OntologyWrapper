@@ -109,7 +109,7 @@ class Institution extends EntityObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -122,7 +122,12 @@ class Institution extends EntityObject
 	/**
 	 * Return default offsets
 	 *
-	 * In this class we return all the default offsets.
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ENTITY_ACRONYM}</tt>: Institution acronym.
+	 *	<li><tt>{@link kTAG_ENTITY_LINK}</tt>: Institution web page.
+	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.

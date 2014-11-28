@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\PersistentObject;
+use OntologyWrapper\MetadataObject;
 use OntologyWrapper\Term;
 use OntologyWrapper\Node;
 use OntologyWrapper\ServerObject;
@@ -87,7 +87,7 @@ use OntologyWrapper\CollectionObject;
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 11/02/2014
  */
-class Edge extends PersistentObject
+class Edge extends MetadataObject
 {
 	/**
 	 * Default collection name.
@@ -197,6 +197,42 @@ class Edge extends PersistentObject
 	 * @access public
 	 */
 	public function setAlias( $doSet = TRUE )											   {}
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the edge's {@link kTAG_NAME} property.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		//
+		// Check name.
+		//
+		if( $this->offsetExists( kTAG_NAME ) )
+			return $this->offsetGet( kTAG_NAME );									// ==>
+		
+		return NULL;																// ==>
+	
+	} // getName.
 
 		
 
@@ -402,6 +438,12 @@ class Edge extends PersistentObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		//
 		// Set graph node identifier index.
 		//
 		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
@@ -440,6 +482,43 @@ class Edge extends PersistentObject
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_SUBJECT}</tt>: Edge subject node reference.
+	 *	<li><tt>{@link kTAG_PREDICATE}</tt>: Edge predicate term reference.
+	 *	<li><tt>{@link kTAG_OBJECT}</tt>: Edge object node reference.
+	 *	<li><tt>{@link kTAG_NAME}</tt>: Edge path name.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_SUBJECT, kTAG_PREDICATE, kTAG_OBJECT,
+								   kTAG_TAG, kTAG_NAME ) );							// ==>
+	
+	} // DefaultOffsets.
 
 		
 
@@ -764,6 +843,36 @@ class Edge extends PersistentObject
 								   kTAG_PREDICATE ) );								// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>EDGE</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		return parent::xmlUnitElement( $theRoot )->addChild( kIO_XML_META_EDGE );	// ==>
+	
+	} // xmlUnitElement.
 
 		
 

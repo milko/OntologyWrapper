@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\PersistentObject;
+use OntologyWrapper\MetadataObject;
 use OntologyWrapper\Term;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
@@ -49,10 +49,11 @@ use OntologyWrapper\CollectionObject;
  * {@link kTOKEN_INDEX_SEPARATOR} becomes the object global identifier which is stored in
  * the object's native identifier offset.
  *
- * Tags have another offset, {@link kTAG_ID_SEQUENCE}, which is an integer sequence number:
- * this value must be unique within the tags domain of the current ontology. Unlike global
- * identifiers, this value may change across implementations, but this is the value used to
- * uniquely identify tags among the other elements of the ontology and database.
+ * Tags have another offset, {@link kTAG_ID_HASH}, which is a hex sequence number prefixed
+ * by the {@link kTOKEN_TAG_PREFIX} token: this value must be unique within the tags domain
+ * of the current ontology. Unlike global identifiers, this value may change across
+ * implementations, but this is the value used to uniquely identify tags among the other
+ * elements of the ontology and database.
  *
  * <em>All offsets in all classes, including this one, are tag sequence numbers, which makes
  * the Tag class key in the structure and behaviour of all the elements implemented in this
@@ -67,13 +68,19 @@ use OntologyWrapper\CollectionObject;
  *		the concatenation of all term references stored in the current object's branch,
  *		{@link kTAG_TERMS}. This attribute must be managed with its offset; in derived
  *		classes it will be automatically assigned end only available as read-only.
- *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: <em>Sequence</em>. This required attribute holds
- *		an integer value which represents the current object's sequence number, as with the
- *		global identifier, this value must be unique, except that it may change across
- *		implementations. All offset keys in all objects derived from this class ancestor are
- *		references to this sequence number. This attribute must be managed with its offset;
- *		in derived classes it will be automatically assigned end only available as
- *		read-only.
+ *	<li><tt>{@link kTAG_ID_HASH}</tt>: <em>Sequence</em>. This required attribute holds
+ *		a hexadecimal string preceded by the {@link kTOKEN_TAG_PREFIX} token which
+ *		represents the current object's sequence number, as with the global identifier, this
+ *		value must be unique, except that it may change across implementations. All offset
+ *		keys in all objects derived from this class ancestor are references to this sequence
+ *		number. This attribute must be managed with its offset; in derived classes it will
+ *		be automatically assigned and only available as read-only.
+ *	<li><tt>{@link kTAG_ID_SYMBOL}</tt>: <em>Symbol</em>. This optional attribute holds
+ *		a string value which represents the current object's symbol or variable name. This
+ *		value will be used to reference the current tag in data templates, so it is
+ *		important that this value be unique within all templates in which the tag is
+ *		referenced; ideally, this value should be equivalent to the global unique
+ *		identifier.
  *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Property graph node</em>. If the wrapper uses
  *		a graph database, this property will be used to reference the graph node which
  *		represents the current tag as a data property; it is an integer value which is
@@ -97,7 +104,7 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label represents the <i>name or
  *		short description</i> of the data property that the current object defines. All tags
  *		<em>should</em> have a label, since this is how human users will be able to identify
- *		and select them. This attribute has the {@link kTYPE_LANGUAGE_STRINGS} data type,
+ *		and select them. This attribute has the {@link kTYPE_LANGUAGE_STRING} data type,
  *		which is constituted by a list of elements in which the {@link kTAG_LANGUAGE} item
  *		holdsthe label language code and the {@link kTAG_TEXT} holds the label text. To
  *		populate and handle labels by language, use the {@link Label()} offset accessor
@@ -109,7 +116,7 @@ use OntologyWrapper\CollectionObject;
  *		to context, the description adds to the definition the elements added by the current
  *		context. All tags <em>should</em> have a description, if the tag label is not enough
  *		to provide a sufficient description or definition. Descriptions have the
- *		{@link kTYPE_LANGUAGE_STRINGS} data type, which is constituted by a list of elements
+ *		{@link kTYPE_LANGUAGE_STRING} data type, which is constituted by a list of elements
  *		in which the {@link kTAG_LANGUAGE} item holds the description language code and the
  *		{@link kTAG_TEXT} holds the description text. To populate and handle
  *		descriptions by language, use the {@link Description()} offset accessor method.
@@ -119,9 +126,15 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_MIN_VAL}</tt>: <em>Minimum value</em>. This attribute is a floating
  *		point value representing the <em>minimum</em> of the <em>range of values</em>
  *		featured by the tag.
+ *	<li><tt>{@link kTAG_MIN_RANGE}</tt>: <em>Minimum range</em>. This attribute is a
+ *		floating point value representing the <em>minimum</em> value that the current tag
+ *		may take.
  *	<li><tt>{@link kTAG_MAX_VAL}</tt>: <em>Maximum value</em>. This attribute is a floating
  *		point value representing the <em>maximum</em> of the <em>range of values</em>
  *		featured by the tag.
+ *	<li><tt>{@link kTAG_MAX_RANGE}</tt>: <em>Maximum range</em>. This attribute is a
+ *		floating point value representing the <em>maximum</em> value that the current tag
+ *		may take.
  *	<li><tt>{@link kTAG_PATTERN}</tt>: <em>Regular expression pattern</em>. This attribute
  *		holds a <em>string</em> which represents a <em>regular expression pattern</em> which
  *		can be used to <em>validate data identified by this tag</em>.
@@ -188,12 +201,10 @@ use OntologyWrapper\CollectionObject;
  * path, {@link kTAG_TERMS}, with an odd number of elements, the data type,
  * {@link kTAG_DATA_TYPE}, and the label, {@link kTAG_LABEL}.
  *
- * In this class we set the sequence number, {@link kTAG_ID_SEQUENCE}, by retrieving a 
- *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
  */
-class Tag extends PersistentObject
+class Tag extends MetadataObject
 {
 	/**
 	 * Label trait.
@@ -326,46 +337,6 @@ class Tag extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC PERSISTENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	commit																			*
-	 *==================================================================================*/
-
-	/**
-	 * Insert the object
-	 *
-	 * We overload this method to add the object to the data dictionary cache.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 *
-	 * @access public
-	 * @return mixed				The object's native identifier.
-	 */
-	public final function commit( $theWrapper = NULL )
-	{
-		//
-		// Call parent method
-		//
-		$id = parent::commit( $theWrapper );
-		
-		//
-		// Set cache.
-		//
-		$this->mDictionary->setTag( $this, 0 );
-		
-		return $id;																	// ==>
-	
-	} // commit.
-
-		
-
-/*=======================================================================================
- *																						*
  *							PUBLIC MASTER MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -386,6 +357,43 @@ class Tag extends PersistentObject
 	 * @access public
 	 */
 	public function setAlias( $doSet = TRUE )											   {}
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the tag's label.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		//
+		// Check label.
+		//
+		if( $this->offsetExists( kTAG_LABEL ) )
+			return OntologyObject::SelectLanguageString(
+				$this->offsetGet( kTAG_LABEL ), $theLanguage );						// ==>
+		
+		return NULL;																// ==>
+	
+	} // getName.
 
 		
 
@@ -465,7 +473,7 @@ class Tag extends PersistentObject
 	 * In this class we index the following offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Sequence number.
+	 *	<li><tt>{@link kTAG_ID_HASH}</tt>: Sequence number.
 	 *	<li><tt>{@link kTAG_TERMS}</tt>: Terms path.
 	 *	<li><tt>{@link kTAG_LABEL}</tt>: Labels.
 	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tags count.
@@ -489,9 +497,15 @@ class Tag extends PersistentObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		//
 		// Set sequence identifier index.
 		//
-		$collection->createIndex( array( kTAG_ID_SEQUENCE => 1 ),
+		$collection->createIndex( array( kTAG_ID_HASH => 1 ),
 								  array( "name" => "SEQUENCE",
 								  		 "unique" => TRUE ) );
 		
@@ -555,9 +569,247 @@ class Tag extends PersistentObject
 								  array( "name" => "ENTITIES_COUNT",
 								  		 "sparse" => TRUE ) );
 		
+		//
+		// Set minimum index.
+		//
+		$collection->createIndex( array( kTAG_MIN_VAL => 1 ),
+								  array( "name" => "MINIMUM_VALUE",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set maximum index.
+		//
+		$collection->createIndex( array( kTAG_MAX_VAL => 1 ),
+								  array( "name" => "MAXIMUM_VALUE",
+								  		 "sparse" => TRUE ) );
+		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC UPDATE INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	UpdateRange																		*
+	 *==================================================================================*/
+
+	/**
+	 * Update range
+	 *
+	 * This method should update the range of the provided tags, the method will first
+	 * update the minimum, {@link kTAG_MIN_VAL}, and the maximum, {@link kTAG_MAX_VAL},
+	 * properties of the provided tag(s).
+	 *
+	 * Once these properties are update, the method will update the tag's
+	 * {@link kTAG_OBJECT_TAGS}, {@link kTAG_TAG_OFFSETS} and {@link kTAG_OBJECT_OFFSETS}
+	 * with the above bounds tags.
+	 *
+	 * The method expects an array containing the tag identifiers and the bounds:
+	 *
+	 * <ul>
+	 *	<li><tt>index</tt>: The array index should contain the tag identifier corresponding
+	 *		to the provided offset parameter.
+	 *	<li><tt>value</tt>: The array value should be an array indexed by
+	 *		{@link kTAG_MIN_VAL} and/or {@link kTAG_MAX_VAL} with the corresponding values
+	 *		being the bounds.
+	 * </ul>
+	 *
+	 * @param Wrapper				$theWrapper			Database wrapper.
+	 * @param array					$theBounds			Tag identifiers and range bounds.
+	 * @param int					$theOffset			Tag identifier sequence number.
+	 *
+	 * @static
+	 *
+	 * @throws Exception
+	 */
+	static function UpdateRange( Wrapper $theWrapper, $theBounds,
+													  $theOffset = kTAG_ID_HASH )
+	{
+		//
+		// Check bounds.
+		//
+		if( ! is_array( $theBounds ) )
+			throw new \Exception(
+				"Invalid bounds parameter: "
+			   ."expecting an array." );										// !@! ==>
+		
+		//
+		// Validate tag identifier.
+		//
+		$theWrapper->getObject( $theOffset, TRUE );
+		
+		// Resolve tag collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper ) );
+		
+		//
+		// Iterate bounds.
+		//
+		foreach( $theBounds as $tag => $bounds )
+			$collection->modify(
+				array( $theOffset => $tag ),
+				array( '$min' => array( (string) kTAG_MIN_VAL
+											  => $bounds[ kTAG_MIN_VAL ] ),
+					   '$max' => array( (string) kTAG_MAX_VAL
+					   						  => $bounds[ kTAG_MAX_VAL ] ) ),
+				array( 'multi' => FALSE, 'upsert' => FALSE ) );
+		
+	} // UpdateRange.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ExternalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return external offsets
+	 *
+	 * In this class we return the offsets featured by tag objects which record tag usage
+	 * statistics:
+	 *
+	 * <ul>
+	 *	<li><em>Offset paths</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all tags in which it is referenced.
+	 *		<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all terms in which it is referenced.
+	 *		<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all nodes in which it is referenced.
+	 *		<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all edges in which it is referenced.
+	 *		<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all units in which it is referenced.
+	 *		<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: List of offset paths used by the
+	 *			current tag in all entities in which it is referenced.
+	 *	 </ul>
+	 *	<li><em>Usage ranges</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_MIN_VAL}</tt>: Minimum range value.
+	 *		<li><tt>{@link kTAG_MAX_VAL}</tt>: Maximum range value.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of external offsets.
+	 */
+	static function ExternalOffsets()
+	{
+		return array_merge(
+			parent::ExternalOffsets(),
+			array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS,
+				   kTAG_NODE_OFFSETS, kTAG_EDGE_OFFSETS,
+				   kTAG_UNIT_OFFSETS, kTAG_ENTITY_OFFSETS ),
+			array( kTAG_MIN_VAL, kTAG_MAX_VAL ) );									// ==>
+	
+	} // ExternalOffsets.
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_HASH}</tt>: Tag offset number.
+	 *	<li><tt>{@link kTAG_TERMS}</tt>: Tag terms path.
+	 *	<li><tt>{@link kTAG_DATA_TYPE}</tt>: Tag data type.
+	 *	<li><tt>{@link kTAG_DATA_KIND}</tt>: Tag data kind.
+	 *	<li><tt>{@link kTAG_LABEL}</tt>: Tag label.
+	 *	<li><tt>{@link kTAG_DESCRIPTION}</tt>: Tag description.
+	 *	<li><tt>{@link kTAG_SYNONYM}</tt>: Tag synonyms.
+	 *	<li><tt>{@link kTAG_MIN_VAL}</tt>: Minimum featured value.
+	 *	<li><tt>{@link kTAG_MAX_VAL}</tt>: Maximum featured value.
+	 *	<li><tt>{@link kTAG_MIN_RANGE}</tt>: Minimum allowed value.
+	 *	<li><tt>{@link kTAG_MAX_RANGE}</tt>: Maximum allowed value.
+	 *	<li><tt>{@link kTAG_PATTERN}</tt>: Regular expression pattern.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_ID_HASH,
+								   kTAG_TERMS,
+								   kTAG_DATA_TYPE, kTAG_DATA_KIND,
+								   kTAG_LABEL, kTAG_DESCRIPTION,
+								   kTAG_LABEL, kTAG_DESCRIPTION, kTAG_SYNONYM,
+								   kTAG_MIN_VAL, kTAG_MAX_VAL,
+								   kTAG_MAX_RANGE, kTAG_MAX_RANGE,
+								   kTAG_PATTERN ) );								// ==>
+	
+	} // DefaultOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC CLUSTER INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	GetClusterKey																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get cluster key
+	 *
+	 * This method will return the tag cluster key associated to the provided terms list.
+	 *
+	 * By default we cluster tags by feature term.
+	 *
+	 * @param mixed					$theValue			Tag or tag terms.
+	 *
+	 * @static
+	 * @return string				Tag cluster key.
+	 */
+	static function GetClusterKey( $theValue )
+	{
+		//
+		// Handle tag.
+		//
+		if( $theValue instanceof Tag )
+			return ( is_array( $tmp = $theValue[ kTAG_TERMS ] ) )
+				 ? $tmp[ 0 ]														// ==>
+				 : NULL;															// ==>
+		
+		//
+		// handle terms path.
+		//
+		if( is_array( $theValue ) )
+			return $theValue[ 0 ];													// ==>
+		
+		return NULL;																// ==>
+	
+	} // GetClusterKey.
 
 		
 
@@ -567,48 +819,6 @@ class Tag extends PersistentObject
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	preOffsetSet																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle offset and value before setting it
-	 *
-	 * In this class we cast the value of the sequence number into an integer.
-	 *
-	 * @param reference				$theOffset			Offset reference.
-	 * @param reference				$theValue			Offset value reference.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
-	 *
-	 * @see kTAG_NAMESPACE
-	 */
-	protected function preOffsetSet( &$theOffset, &$theValue )
-	{
-		//
-		// Call parent method to resolve offset.
-		//
-		$ok = parent::preOffsetSet( $theOffset, $theValue );
-		if( $ok === NULL )
-		{
-			//
-			// Intercept custom offsets.
-			//
-			switch( $theOffset )
-			{
-				case kTAG_ID_SEQUENCE:
-					$theValue = (int) $theValue;
-					break;
-			}
-			
-		} // Passed preflight.
-		
-		return $ok;																	// ==>
-	
-	} // preOffsetSet.
 
 	 
 	/*===================================================================================
@@ -698,12 +908,12 @@ class Tag extends PersistentObject
 	/**
 	 * Delete the object
 	 *
-	 * We overload this method to remove the tag from the data dictionary.
+	 * We overload this method to remove the object from the data dictionary cache.
 	 *
 	 * @access protected
 	 * @return mixed				Native identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
 	 */
-	protected final function deleteObject()
+	protected function deleteObject()
 	{
 		//
 		// Call parent method
@@ -720,40 +930,6 @@ class Tag extends PersistentObject
 		return $id;																	// ==>
 	
 	} // deleteObject.
-
-	 
-	/*===================================================================================
-	 *	modifyObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Modify object
-	 *
-	 * We overload this method to update the object in the data dictionary cache.
-	 *
-	 * @param mixed					$theOffsets			Offsets to be modified.
-	 * @param boolean				$doSet				<tt>TRUE</tt> means add or replace.
-	 *
-	 * @access protected
-	 * return integer				Number of objects affected.
-	 *
-	 * @throws Exception
-	 */
-	protected function modifyObject( $theOffsets, $doSet )
-	{
-		//
-		// Call parent method.
-		//
-		$ok = parent::modifyObject( $theOffsets, $doSet );
-		
-		//
-		// Set cache.
-		//
-		$this->mDictionary->setTag( $this, 0 );
-		
-		return $ok;																	// ==>
-	
-	} // modifyObject.
 
 		
 
@@ -849,12 +1025,17 @@ class Tag extends PersistentObject
 		if( $this->offsetExists( kTAG_TAG_STRUCT_IDX ) )
 		{
 			//
+			// Get data type and kind.
+			//
+			$type = $this->offsetGet( kTAG_DATA_TYPE );
+			$kind = $this->offsetGet( kTAG_DATA_KIND );
+			
+			//
 			// Assert current tag is a list of structures.
 			//
-			if( (! $this->offsetExists( kTAG_DATA_TYPE ))
-			 || ($this->offsetGet( kTAG_DATA_TYPE ) != kTYPE_STRUCT)
-			 || (! offsetExists( kTAG_DATA_KIND ))
-			 || (! array_key_exists( kTYPE_LIST, $this->offsetGet( kTAG_DATA_KIND ) )) )
+			if( ($type != kTYPE_STRUCT)
+			 || ($kind === NULL)
+			 || (! in_array( kTYPE_LIST, $kind )) )
 				throw new \Exception(
 					"Cannot be a structure list index: "
 				   ."The current tag is not a structure and not a list." );		// !@! ==>
@@ -887,7 +1068,7 @@ class Tag extends PersistentObject
 	 *
 	 * In this class we set the native identifier, if not yet filled, with the global
 	 * identifier generated by the {@link __toString()} method and we set the sequence
-	 * number, {@link kTAG_ID_SEQUENCE}, if it is not yet set, by requesting it from the
+	 * number, {@link kTAG_ID_HASH}, if it is not yet set, by requesting it from the
 	 * database of the current object's container.
 	 *
 	 * We only perform the above operations if the object is not committed.
@@ -907,14 +1088,6 @@ class Tag extends PersistentObject
 			parent::preCommitObjectIdentifiers();
 			
 			//
-			// Init local storage.
-			//
-			$graph = $this->mDictionary->Graph();
-			$collection
-				= static::ResolveCollection(
-					static::ResolveDatabase( $this->mDictionary ) );
-		
-			//
 			// Set native identifier.
 			//
 			if( ! \ArrayObject::offsetExists( kTAG_NID ) )
@@ -923,15 +1096,63 @@ class Tag extends PersistentObject
 			//
 			// Set sequence number.
 			//
-			if( ! \ArrayObject::offsetExists( kTAG_ID_SEQUENCE ) )
+			if( ! \ArrayObject::offsetExists( kTAG_ID_HASH ) )
 				$this->offsetSet(
-					kTAG_ID_SEQUENCE,
-					$collection->getSequenceNumber(
-						static::kSEQ_NAME ) );
+					kTAG_ID_HASH,
+					kTOKEN_TAG_PREFIX
+				   .dechex(
+				   		(int) static::ResolveCollection(
+							static::ResolveDatabase( $this->mDictionary ) )
+								->getSequenceNumber( static::kSEQ_NAME ) ) );
 		
 		} // Not committed.
 	
 	} // preCommitObjectIdentifiers.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED POST-COMMIT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postInsert																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after insert
+	 *
+	 * We overload this method to add/update the object in the data dictionary cache.
+	 *
+	 * @param array					$theOffsets			Tag offsets to be added.
+	 * @param array					$theReferences		Object references to be incremented.
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @uses ResolveOffsetsTag()
+	 * @uses updateObjectReferenceCount()
+	 */
+	protected function postInsert( $theOffsets, $theReferences, $theOptions )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postInsert( $theOffsets, $theReferences, $theOptions );
+		
+		//
+		// Set cache.
+		//
+		$this->mDictionary
+			->setTag(
+				array_intersect_key(
+					$this->getArrayCopy(),
+					$this->mDictionary->getTagOffsets() ),
+				0 );
+	
+	} // postInsert.
 
 		
 
@@ -950,20 +1171,20 @@ class Tag extends PersistentObject
 	/**
 	 * Check if object is ready
 	 *
-	 * In this class we ensure the object has the sequence number, {@link kTAG_ID_SEQUENCE}
+	 * In this class we ensure the object has the sequence number, {@link kTAG_ID_HASH}
 	 * and the native identifier, {@link kTAG_NID}.
 	 *
 	 * @access protected
 	 * @return Boolean				<tt>TRUE</tt> means ready.
 	 *
-	 * @see kTAG_NID kTAG_ID_SEQUENCE
+	 * @see kTAG_NID kTAG_ID_HASH
 	 *
 	 * @uses isInited()
 	 */
 	protected function isReady()
 	{
 		return ( parent::isReady()
-			  && $this->offsetExists( kTAG_ID_SEQUENCE )
+			  && $this->offsetExists( kTAG_ID_HASH )
 			  && $this->offsetExists( kTAG_NID ) );									// ==>
 	
 	} // isReady.
@@ -985,21 +1206,51 @@ class Tag extends PersistentObject
 	/**
 	 * Return list of locked offsets
 	 *
-	 * In this class we return the {@link kTAG_ID_SEQUENCE}, {@link kTAG_TERMS},
+	 * In this class we return the {@link kTAG_ID_HASH}, {@link kTAG_TERMS},
 	 * {@link kTAG_DATA_TYPE} and the {@link kTAG_DATA_KIND} offsets.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
 	 *
-	 * @see kTAG_ID_SEQUENCE kTAG_TERMS kTAG_DATA_TYPE kTAG_DATA_KIND
+	 * @see kTAG_ID_HASH kTAG_TERMS kTAG_DATA_TYPE kTAG_DATA_KIND
 	 */
 	protected function lockedOffsets()
 	{
 		return array_merge( parent::lockedOffsets(),
-							array( kTAG_ID_SEQUENCE, kTAG_TERMS,
+							array( kTAG_ID_HASH, kTAG_TERMS,
 								   kTAG_DATA_TYPE, kTAG_DATA_KIND ) );				// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>TAG</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		return parent::xmlUnitElement( $theRoot )->addChild( kIO_XML_META_TAG );	// ==>
+	
+	} // xmlUnitElement.
 
 		
 

@@ -47,11 +47,25 @@ require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
 require_once( kPATH_DEFINITIONS_ROOT."/Tokens.inc.php" );
 
 /**
+ * Predicates.
+ *
+ * This file contains the default predicate definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Predicates.inc.php" );
+
+/**
  * ISO definitions.
  *
  * This file contains the default ISO definitions.
  */
 require_once( kPATH_STANDARDS_ROOT."/iso/iso.inc.php" );
+
+/**
+ * Import/Export API.
+ *
+ * This file contains the import/export API definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/ImportExport.xml.inc.php" );
 
 /**
  * Wrapper
@@ -603,12 +617,13 @@ class Wrapper extends Dictionary
 	 * these databases useless</em></b>.
 	 *
 	 * @param boolean				$doLog				Log operations.
+	 * @param boolean				$doDrop				Drop collections.
 	 *
 	 * @access public
 	 *
 	 * @throws Exception
 	 */
-	public function resetOntology( $doLog = FALSE )
+	public function resetOntology( $doLog = FALSE, $doDrop = FALSE )
 	{
 		//
 		// Inform.
@@ -636,7 +651,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting tags.\n" );
-		$this->mMetadata->collection( Tag::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mMetadata->collection( Tag::kSEQ_NAME, TRUE )->drop();
 		Tag::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -644,7 +660,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting terms.\n" );
-		$this->mMetadata->collection( Term::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mMetadata->collection( Term::kSEQ_NAME, TRUE )->drop();
 		Term::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -652,7 +669,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting nodes.\n" );
-		$this->mMetadata->collection( Node::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mMetadata->collection( Node::kSEQ_NAME, TRUE )->drop();
 		Node::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -660,7 +678,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting edges.\n" );
-		$this->mMetadata->collection( Edge::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mMetadata->collection( Edge::kSEQ_NAME, TRUE )->drop();
 		Edge::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -744,19 +763,31 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading default XML schema files.\n" );
 		
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaRecord.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		$file = kPATH_STANDARDS_ROOT.'/default/SchemaRefCount.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/default/SchemaUnitIdentification.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaObjectOffsets.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/default/SchemaInstitution.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaUnit.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaOrganisation.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
 		$file = kPATH_STANDARDS_ROOT.'/default/SchemaIndividual.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaEntity.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -766,27 +797,84 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading default XML structure files.\n" );
 		
-		$file = kPATH_STANDARDS_ROOT.'/default/StructTag.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureTag.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-		$file = kPATH_STANDARDS_ROOT.'/default/StructTerm.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureTerm.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-		$file = kPATH_STANDARDS_ROOT.'/default/StructNode.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureNode.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-		$file = kPATH_STANDARDS_ROOT.'/default/StructEdge.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureEdge.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-		$file = kPATH_STANDARDS_ROOT.'/default/StructEntity.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/StructureEntity.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
 	} // resetOntology.
+
+	 
+	/*===================================================================================
+	 *	resetUnits																		*
+	 *==================================================================================*/
+
+	/**
+	 * Reset units
+	 *
+	 * This method can be used to reset the units database, it will erase the current units
+	 * collection and load the FAO insatitutes.
+	 *
+	 * The method will take care of setting the necessary indexes.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 * @param boolean				$doDrop				Drop collections.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function resetUnits( $doLog = FALSE, $doDrop = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Resetting units.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset entities: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Reset units collection.
+		//
+		if( $doLog )
+			echo( "  • Resetting collection.\n" );
+		if( $doDrop )
+			$this->mUnits->collection( User::kSEQ_NAME, TRUE )->drop();
+		
+		//
+		// Create units collection entity indexes.
+		//
+		if( $doLog )
+			echo( "  • Creating unit entity indexes.\n" );
+		Individual::CreateIndexes( $this->mUnits );
+		Institution::CreateIndexes( $this->mUnits );
+		
+		return NULL;																// ==>
+	
+	} // resetUnits.
 
 	 
 	/*===================================================================================
@@ -802,13 +890,14 @@ class Wrapper extends Dictionary
 	 * The method will take care of setting the necessary indexes.
 	 *
 	 * @param boolean				$doLog				Log operations.
+	 * @param boolean				$doDrop				Drop collections.
 	 *
 	 * @access public
 	 * @return array				Statistics.
 	 *
 	 * @throws Exception
 	 */
-	public function resetEntities( $doLog = FALSE )
+	public function resetEntities( $doLog = FALSE, $doDrop = FALSE )
 	{
 		//
 		// Inform.
@@ -828,96 +917,14 @@ class Wrapper extends Dictionary
 		// Reset entity collection.
 		//
 		if( $doLog )
-			echo( "  • Resetting entities.\n" );
-		$this->mEntities->collection( EntityObject::kSEQ_NAME, TRUE )->drop();
-		Individual::CreateIndexes( $this->mEntities );
-		Institution::CreateIndexes( $this->mEntities );
+			echo( "  • Resetting collection.\n" );
+		if( $doDrop )
+			$this->mEntities->collection( User::kSEQ_NAME, TRUE )->drop();
+		User::CreateIndexes( $this->mEntities );
 		
-		//
-		// Load FAO institutes.
-		//
-		if( $doLog )
-			echo( "  • Loading FAO Institutes.\n" );
-		
-		return FAOInstitute::Maintain( $this );										// ==>
+		return NULL;																// ==>
 	
 	} // resetEntities.
-
-	 
-	/*===================================================================================
-	 *	LoadStandards																	*
-	 *==================================================================================*/
-
-	/**
-	 * Reset standards
-	 *
-	 * This method can be used to reset the standards in the metadata database, it will
-	 * load the standards XML files.
-	 *
-	 * Note that this method expects other standards to have been loaded.
-	 *
-	 * @param boolean				$doLog				Log operations.
-	 *
-	 * @access public
-	 * @return array				Statistics.
-	 *
-	 * @throws Exception
-	 */
-	public function LoadStandards( $doLog = FALSE )
-	{
-		//
-		// Inform.
-		//
-		if( $doLog )
-			echo( "\n==> Loading standards.\n" );
-		
-		//
-		// Check if object is connected.
-		//
-		if( ! $this->isConnected() )
-			throw new \Exception(
-				"Unable to reset entities: "
-			   ."object is not connected." );									// !@! ==>
-		
-		//
-		// Load XML namespace files.
-		//
-		if( $doLog )
-			echo( "  • Loading XML namespace files.\n" );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/Namespaces.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		//
-		// Load XML attribute files.
-		//
-		if( $doLog )
-			echo( "  • Loading XML attribute files.\n" );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/TaxonomyAttributes.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/LocationAttributes.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		//
-		// Load XML schema files.
-		//
-		if( $doLog )
-			echo( "  • Loading XML schema files.\n" );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaTaxon.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaLocation.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-	
-	} // LoadStandards.
 
 	 
 	/*===================================================================================
@@ -930,7 +937,7 @@ class Wrapper extends Dictionary
 	 * This method can be used to reset the tag cache.
 	 *
 	 * The method will return <tt>TRUE</tt> if the object is connected and the operation was
-	 * executes and <tt>FALSE</tt> if the object is not connected, or if the metadata is
+	 * executed and <tt>FALSE</tt> if the object is not connected, or if the metadata is
 	 * missing.
 	 *
 	 * Note that although the operation might have been executed, this doesn't mean that the
@@ -959,16 +966,15 @@ class Wrapper extends Dictionary
 			$this->dictionaryFlush( 0 );
 		
 			//
-			// Get tags collection.
+			// Set dictionary.
 			//
-			$collection = $this->mMetadata->collection( Tag::kSEQ_NAME );
-		
-			//
-			// Load all tags.
-			//
-			$tags = $collection->getAll();
-			foreach( $tags as $tag )
-				$this->setTag( $tag, 0 );
+			$this->setTagsByIterator(
+				new MongoIterator(
+					$this->mMetadata->collection( Tag::kSEQ_NAME )
+						->getAll( $this->getTagOffsets() ),
+					$this->mMetadata->collection( Tag::kSEQ_NAME ),
+					Array() ),
+				0 );
 			
 			return TRUE;															// ==>
 		
@@ -1170,14 +1176,14 @@ class Wrapper extends Dictionary
 
 /*=======================================================================================
  *																						*
- *						PUBLIC STANDARDS INITIALISATION INTERFACE								*
+ *						PUBLIC STANDARDS INITIALISATION INTERFACE						*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	initISOStandards																*
+	 *	loadISOStandards																*
 	 *==================================================================================*/
 
 	/**
@@ -1191,7 +1197,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function initISOStandards( $doLog = FALSE )
+	public function loadISOStandards( $doLog = FALSE )
 	{
 		//
 		// Inform.
@@ -1204,7 +1210,7 @@ class Wrapper extends Dictionary
 		//
 		if( ! $this->isConnected() )
 			throw new \Exception(
-				"Unable to reset ontology: "
+				"Unable to load ISO: "
 			   ."object is not connected." );									// !@! ==>
 		
 		//
@@ -1339,9 +1345,9 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 
 		//
-		// Load XML location cross reference files.
+		// Load XML location region cross reference files.
 		//
-		$file = kPATH_STANDARDS_ROOT.'/iso/ISO3166-locations.xml';
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO3166-regions.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -1389,11 +1395,11 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-	} // initISOStandards.
+	} // loadISOStandards.
 
 	 
 	/*===================================================================================
-	 *	initWBIStandards																*
+	 *	loadWBIStandards																*
 	 *==================================================================================*/
 
 	/**
@@ -1407,7 +1413,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function initWBIStandards( $doLog = FALSE )
+	public function loadWBIStandards( $doLog = FALSE )
 	{
 		//
 		// Inform.
@@ -1420,7 +1426,7 @@ class Wrapper extends Dictionary
 		//
 		if( ! $this->isConnected() )
 			throw new \Exception(
-				"Unable to reset ontology: "
+				"Unable to load WBI: "
 			   ."object is not connected." );									// !@! ==>
 		
 		//
@@ -1455,11 +1461,1645 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-	} // initWBIStandards.
+	} // loadWBIStandards.
 
 	 
 	/*===================================================================================
-	 *	initEntities																	*
+	 *	loadIUCNStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load IUCN standards
+	 *
+	 * This method can be used to load the IUCN standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadIUCNStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading IUCN standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load IUCN: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iucn/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iucn/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iucn/Types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iucn/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadIUCNStandards.
+
+	 
+	/*===================================================================================
+	 *	loadNatServeStandards															*
+	 *==================================================================================*/
+
+	/**
+	 * Load NatureServe standards
+	 *
+	 * This method can be used to load the NatureServe standards in the metadata database,
+	 * it will load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadNatServeStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading NatureServe standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load NaturalServe: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/natserve/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/natserve/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadNatServeStandards.
+
+	 
+	/*===================================================================================
+	 *	loadFAOStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load FAO standards
+	 *
+	 * This method can be used to load the FAO standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadFAOStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading FAO standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load FAO: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fao/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fao/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadFAOStandards.
+
+	 
+	/*===================================================================================
+	 *	loadEECStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load EEC standards
+	 *
+	 * This method can be used to load the EEC standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadEECStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading EEC standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load EEC: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/eec/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/eec/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadEECStandards.
+
+	 
+	/*===================================================================================
+	 *	loadGENSStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load GENS standards
+	 *
+	 * This method can be used to load the GENS standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadGENSStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading GENS standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load GENS: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/gens/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/gens/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadGENSStandards.
+
+	 
+	/*===================================================================================
+	 *	loadGLOBCOVStandards															*
+	 *==================================================================================*/
+
+	/**
+	 * Load GLOBCOV standards
+	 *
+	 * This method can be used to load the GLOBCOV standards in the metadata database, it
+	 * will load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadGLOBCOVStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading GLOBCOV standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load GLOBCOV: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/globcov/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/globcov/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadGLOBCOVStandards.
+
+	 
+	/*===================================================================================
+	 *	loadHWSDStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load HWSD standards
+	 *
+	 * This method can be used to load the HWSD standards in the metadata database, it
+	 * will load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadHWSDStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading HWSD standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load HWSD: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/hwsd/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/hwsd/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadHWSDStandards.
+
+	 
+	/*===================================================================================
+	 *	loadMCPDStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load Multicrop Passport Descriptors standards
+	 *
+	 * This method can be used to load the MCPD standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadMCPDStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading MCPD standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load MCPD: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load MCPD namespace XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading MCPD files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/mcpd/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/mcpd/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadMCPDStandards.
+
+	 
+	/*===================================================================================
+	 *	loadFCUStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load Forest Fene Conservation Unit standards
+	 *
+	 * This method can be used to load the FCU standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadFCUStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading FCU standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load FCU: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load namespace XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading FCU files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadFCUStandards.
+
+	 
+	/*===================================================================================
+	 *	loadCWRStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load crop wild relative standards
+	 *
+	 * This method can be used to load the CWR standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadCWRStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading CWR standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load CWR: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load namespace XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading CWR namespace files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/cwr/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load attribute XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading CWR attribute files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/cwr/CommonAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/ChecklistAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/InventoryAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/PopulationAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadCWRStandards.
+
+	 
+	/*===================================================================================
+	 *	loadABDHStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load agro bio-diversity household assessment standards
+	 *
+	 * This method can be used to load the ABDH standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadABDHStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading ABDH standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load ABDH: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load namespace XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading ABDH namespace files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/abdh/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load attribute XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading ABDH attribute files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/abdh/HouseholdAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/RespondentAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/SpeciesAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/AnnualPlantsAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/PerennialPlantsAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/WildPlantsAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/DomesticatedAnimalAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/EconomicAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/MarketAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/SocialAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/RiskAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadABDHStandards.
+
+	 
+	/*===================================================================================
+	 *	loadLRStandards																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load landrace standards
+	 *
+	 * This method can be used to load the LR standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadLRStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading LR standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load LR: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load namespace XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading LR namespace files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load attribute XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading LR attribute files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load type XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading LR type files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumCollectorRisk.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumConservation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumContinuity.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumDemand.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumDestination.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumDistribution.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumFarmerRisk.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumMotivation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumPart.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumPeriod.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumSelection.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumStatus.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumSystem.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumTenancy.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/EnumUse.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load tag XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading LR tag files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/lr/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadLRStandards.
+
+	 
+	/*===================================================================================
+	 *	loadQTLStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load QTL standards
+	 *
+	 * This method can be used to load the QTL standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadQTLStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading QTL standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load QTL: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load namespace XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading QTL namespace files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/qtl/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load attribute XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading QTL attribute files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/qtl/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadQTLStandards.
+
+	 
+	/*===================================================================================
+	 *	loadStandards																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load standards
+	 *
+	 * This method can be used to load the standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load standards: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load standards additions files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML additions files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Additions_ISO.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Categories.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML base attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Units.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/InventoryAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/LocationAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/SiteAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/TaxonomyAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/GermplasmAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/MissionAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/CollectingMissionAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/CollectingEventAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/BreedingEventAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/CrossabilityAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/PrecipitationAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/TemperatureAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/ClimaticAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/EnvironmentalAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/TrialAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Create species name index for terms.
+		//
+		if( $doLog )
+			echo( "  • Creating species name index for terms.\n" );
+		
+		$included = (string) $this->getSerial( ':taxon:group:taxa', TRUE );
+		$excluded = (string) $this->getSerial( ':taxon:group:taxa:excluded', TRUE );
+		$collection
+			= Term::ResolveCollection(
+				Term::ResolveDatabase( $this ) );
+		
+		$collection
+			->createIndex(
+				array( $included => 1 ),
+				array( "name" => "TAXA_INCLUDED",
+					   "sparse" => TRUE ) );
+		
+		$collection
+			->createIndex(
+				array( $excluded => 1 ),
+				array( "name" => "TAXA_EXCLUDED",
+					   "sparse" => TRUE ) );
+	
+	} // loadStandards.
+
+	 
+	/*===================================================================================
+	 *	loadCollections																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load collections
+	 *
+	 * This method can be used to load the standards collection elements in the metadata
+	 * database, it will load the collection XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded, so it must be
+	 * called as the last element.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadCollections( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading collections.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load collections: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML default relations files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML default relations files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/DefaultTypeRelations.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML taxonomy schema files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML taxonomy schema files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankClass.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankFamily.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankGenus.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankInfraspecific.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankKingdom.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankLegion.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankOrder.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankPhylum.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankSpecies.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonRankTribe.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonEpithets.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonGroups.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonNames.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonReferences.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonThreat.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonBiology.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonConservation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonCrossability.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonDistribution.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonEconomy.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxonPolicy.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxon.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML location schema files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML location schema files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationCoordinates.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationDirections.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationEnumerations.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationGeoreference.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationHabitat.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationIdent.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationLegal.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationMonitoring.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationNames.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationProtection.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationSoil.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocationUse.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML household schema files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML household schema files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHousehold.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdAnimalSpecies.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdAnnualSpecies.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdCultivatedSpecies.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdFamily.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdHousing.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdIncome.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdInterview.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdLand.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdLandOther.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdMarket.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdOwnership.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdPerennialSpecies.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdRisk.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdSocialNetworking.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdSocialStatus.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdSpecies.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdWater.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaHouseholdWildSpecies.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		//
+		// Load XML other schema files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML other schema files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaInventory.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaCooperator.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaCwrPopulation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaMaterialTransfer.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLandrace.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLandraceMaintainer.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLandraceMonitoring.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML environment sub-structure files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML environment sub-structure files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructBioclimatic.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructPrecipitation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructTemperature.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructEnvironment.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML taxonomy sub-structure files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML taxonomy sub-structure files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructTaxonConservation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructTaxonThreat.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructTaxonCrossability.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructTaxonDistribution.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML common sub-structure files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML common sub-structure files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructBreedingEntities.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructCollectingEntities.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructSafetyDuplicates.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructGermplasmNeighbourhood.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructMaterialTransfers.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML household sub-structure files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML household sub-structure files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructHouseholdEconomy.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructHouseholdInterview.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructHouseholdMarket.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructHouseholdRisk.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructHouseholdSocial.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructHouseholdSpecies.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML other sub-structure files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML other sub-structure files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructAccessionBreeding.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructAccessionCollecting.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructAccessionManagement.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructAccessionSource.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructAccessionStatus.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructGermplasmEvaluation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructCollectingMission.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructCollectingMissionTaxa.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructCollectingSamples.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructCwrPopulation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructForestPopulation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructMissionLocations.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructMissionTaxa.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructTrialMeasurement.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructQtlCharacteristics.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructGermplasmQtl.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML structure files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML structure files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureAccession.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureCollectingMission.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureCwrChecklist.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureCwrInventory.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureForest.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureLandrace.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureHousehold.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureMission.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureCollectingSample.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureTrial.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureQtl.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/Structures.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		//
+		// Load XML form files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML form files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormAccession.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormBreeding.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCollecting.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormTrial.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormQtl.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCollectingMission.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCwrChecklist.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCwrInventory.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCwrPopulation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormEnvironment.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormForest.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormHousehold.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormInventory.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormLocation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormMaterialTransfer.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormMission.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormTaxon.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormLandrace.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/collections/Forms.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+	
+	} // loadCollections.
+
+	 
+	/*===================================================================================
+	 *	loadFAOInstitutes																*
 	 *==================================================================================*/
 
 	/**
@@ -1473,7 +3113,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function initEntities( $doLog = FALSE )
+	public function loadFAOInstitutes( $doLog = FALSE )
 	{
 		//
 		// Inform.
@@ -1498,7 +3138,7 @@ class Wrapper extends Dictionary
 		$institutes = new FAOInstitute();
 		$institutes->Maintain( $this );
 	
-	} // initEntities.
+	} // loadFAOInstitutes.
 
 		
 
@@ -1557,16 +3197,16 @@ class Wrapper extends Dictionary
 		$xml = new \SimpleXMLElement( $theFile, NULL, TRUE );
 		switch( $root = $xml->getName() )
 		{
-			case 'METADATA':
+			case kIO_XML_METADATA:
 				$this->loadXMLMetadata( $xml );
 				break;
 		
-			case 'ENTITIES':
-				$this->loadXMLEntities( $xml );
+			case kIO_XML_UNITS:
+				$this->loadXMLUnits( $xml );
 				break;
 		
-			case 'UNITS':
-				$this->loadXMLUnits( $xml );
+			case kIO_XML_USERS:
+				$this->loadXMLUsers( $xml );
 				break;
 			
 			default:
@@ -1577,6 +3217,104 @@ class Wrapper extends Dictionary
 		} // Parsed root node.
 	
 	} // loadXMLFile.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC TRAVERSING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectStructureOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Get structure offsets.
+	 *
+	 * This method will return the list of offsets belonging to the provided structure or
+	 * schema node.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theNode</b>: The structure or schema node native or persistent identifier.
+	 *	<li><b>$theType</b>: This parameter indicates the requested output format:
+	 *	 <ul>
+	 *		<li><tt>0</tt>: The returned array will hold the flattened list of all leaf
+	 *			offsets.
+	 *		<li><tt>1</tt>: The returned array will hold the list of tag sequence numbers
+	 *			structured as the schema, holding the tag references in the key.
+	 *		<li><tt>2</tt>: The returned array will hold the list of tag native identifiers
+	 *			structured as the schema, holding the tag references in the key.
+	 *	 </ul>
+	 *		If omitted, the method will use the <tt>0</tt> value by default.
+	 * </ul>
+	 *
+	 * If the node cannot be resolved, the method will raise an exception.
+	 *
+	 * All schema and structure elements present as sub-elements will be resolved.
+	 *
+	 * @param mixed					$theNode			Node reference.
+	 * @param int					$theType			Result type.
+	 *
+	 * @access public
+	 * @return array				List of offsets belonging to the structure.
+	 *
+	 * @throws Exception
+	 */
+	public function collectStructureOffsets( $theNode, $theType = 0 )
+	{
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to traverse structure: "
+			   ."object is not connected." );									// !@! ==>
+
+		//
+		// Check type.
+		//
+		switch( $theType )
+		{
+			case 0:
+			case 1:
+			case 2:
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid traversal type parameter [$theType]." );			// !@! ==>
+		}
+
+		//
+		// Init local storage.
+		//
+		$offsets = Array();
+		
+		//
+		// Resolve node.
+		//
+		if( ! is_int( $theNode ) )
+			$theNode
+				= Node::ResolveCollection(
+					Node::ResolveDatabase( $this ) )
+						->matchOne(
+							array( kTAG_ID_PERSISTENT => $theNode ),
+							kQUERY_ASSERT | kQUERY_NID );
+		
+		//
+		// Traverse root structure.
+		//
+		$this->traverseStructureOffsets( $offsets, $theNode, $theType, $level );
+		
+		return $offsets;															// ==>
+		
+	} // collectStructureOffsets.
 
 		
 
@@ -1635,7 +3373,7 @@ class Wrapper extends Dictionary
 				return Edge::ResolveCollection(
 						Edge::ResolveDatabase( $this, TRUE ) );						// ==>
 				
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				return EntityObject::ResolveCollection(
 						EntityObject::ResolveDatabase( $this, TRUE ) );				// ==>
 				
@@ -1696,7 +3434,7 @@ class Wrapper extends Dictionary
 			case Edge::kSEQ_NAME:
 				return 'OntologyWrapper\Edge';										// ==>
 				
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				return 'OntologyWrapper\EntityObject';								// ==>
 				
 			case UnitObject::kSEQ_NAME:
@@ -1741,14 +3479,14 @@ class Wrapper extends Dictionary
 		//
 		// Iterate meta-blocks.
 		//
-		foreach( $theXML->{'META'} as $block )
-			$this->loadXMLMetadataBlock( $block );
+		foreach( $theXML->{kIO_XML_TRANS_META} as $block )
+			$this->loadXMLRootBlock( $block );
 	
 	} // loadXMLMetadata.
 
 	 
 	/*===================================================================================
-	 *	loadXMLEntities																	*
+	 *	loadXMLUsers																	*
 	 *==================================================================================*/
 
 	/**
@@ -1763,10 +3501,15 @@ class Wrapper extends Dictionary
 	 *
 	 * @access protected
 	 */
-	protected function loadXMLEntities( \SimpleXMLElement $theXML )
+	protected function loadXMLUsers( \SimpleXMLElement $theXML )
 	{
+		//
+		// Iterate meta-blocks.
+		//
+		foreach( $theXML->{kIO_XML_TRANS_UNITS} as $block )
+			$this->loadXMLUnit( $block );
 	
-	} // loadXMLEntities.
+	} // loadXMLUsers.
 
 	 
 	/*===================================================================================
@@ -1776,35 +3519,40 @@ class Wrapper extends Dictionary
 	/**
 	 * Parse and load entities
 	 *
-	 * This method will parse and load the provided entities XML structure.
+	 * This method will parse and load the provided units XML structure.
 	 *
 	 * It is assumed that the object has its comnnections open and that the provided XML
 	 * structure has the correct root element.
 	 *
-	 * @param SimpleXMLElement		$theXML				Entities XML.
+	 * @param SimpleXMLElement		$theXML				Units XML.
 	 *
 	 * @access protected
 	 */
 	protected function loadXMLUnits( \SimpleXMLElement $theXML )
 	{
+		//
+		// Iterate meta-blocks.
+		//
+		foreach( $theXML->{kIO_XML_TRANS_UNITS} as $block )
+			$this->loadXMLUnit( $block );
 	
 	} // loadXMLUnits.
 
 	 
 	/*===================================================================================
-	 *	loadXMLMetadataBlock															*
+	 *	loadXMLRootBlock																*
 	 *==================================================================================*/
 
 	/**
-	 * Parse and load metadata block
+	 * Parse and load root block
 	 *
-	 * This method will parse and load the provided metadata transaction block.
+	 * This method will parse and load the provided rot transaction block.
 	 *
-	 * @param SimpleXMLElement		$theXML				Metadata transaction block.
+	 * @param SimpleXMLElement		$theXML				Root transaction block.
 	 *
 	 * @access protected
 	 */
-	protected function loadXMLMetadataBlock( \SimpleXMLElement $theXML )
+	protected function loadXMLRootBlock( \SimpleXMLElement $theXML )
 	{
 		//
 		// Init cache.
@@ -1814,28 +3562,34 @@ class Wrapper extends Dictionary
 		//
 		// Iterate terms.
 		//
-		foreach( $theXML->{'TERM'} as $item )
+		foreach( $theXML->{kIO_XML_META_TERM} as $item )
 			$this->loadXMLTerm( $item, $cache );
 	
 		//
 		// Iterate tags.
 		//
-		foreach( $theXML->{'TAG'} as $item )
+		foreach( $theXML->{kIO_XML_META_TAG} as $item )
 			$this->loadXMLTag( $item, $cache );
 	
 		//
 		// Iterate nodes.
 		//
-		foreach( $theXML->{'NODE'} as $item )
+		foreach( $theXML->{kIO_XML_META_NODE} as $item )
 			$this->loadXMLNode( $item, $cache );
 	
 		//
 		// Iterate edges.
 		//
-		foreach( $theXML->{'EDGE'} as $item )
+		foreach( $theXML->{kIO_XML_META_EDGE} as $item )
 			$this->loadXMLEdge( $item, $cache );
 	
-	} // loadXMLMetadataBlock.
+		//
+		// Iterate edges.
+		//
+		foreach( $theXML->{kIO_XML_TRANS_UNITS} as $item )
+			$this->loadXMLUnit( $item );
+	
+	} // loadXMLRootBlock.
 
 	 
 	/*===================================================================================
@@ -1859,16 +3613,16 @@ class Wrapper extends Dictionary
 		//
 		// Instantiate object.
 		//
-		if( isset( $theXML[ 'set' ] ) )
-			$object = new Tag( $this, (string) $theXML[ 'set' ] );
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new Tag( $this, (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
 		else
 			$object = new Tag( $this );
 		
 		//
 		// Load properties.
 		//
-		foreach( $theXML->{'item'} as $element )
-			$this->loadXMLElement( $element, $object );
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
 		
 		//
 		// Commit.
@@ -1906,17 +3660,17 @@ class Wrapper extends Dictionary
 		//
 		// Instantiate object.
 		//
-		if( isset( $theXML[ 'set' ] ) )
-			$object = new Term( $this, (string) $theXML[ 'set' ] );
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new Term( $this, (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
 		else
 			$object = new Term( $this );
 		
 		//
 		// Load attributes.
 		//
-		$tmp = array( 'ns' => kTAG_NAMESPACE,
-					  'lid' => kTAG_ID_LOCAL,
-					  'pid' => kTAG_NID );
+		$tmp = array( kIO_XML_ATTR_NAMESPACE => kTAG_NAMESPACE,
+					  kIO_XML_ATTR_ID_LOCAL => kTAG_ID_LOCAL,
+					  kIO_XML_ATTR_ID_PERSISTENT => kTAG_NID );
 		foreach( $tmp as $key => $tag )
 		{
 			if( isset( $theXML[ $key ] ) )
@@ -1926,8 +3680,8 @@ class Wrapper extends Dictionary
 		//
 		// Load properties.
 		//
-		foreach( $theXML->{'item'} as $element )
-			$this->loadXMLElement( $element, $object );
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
 		
 		//
 		// Commit.
@@ -1965,17 +3719,17 @@ class Wrapper extends Dictionary
 		//
 		// Instantiate object.
 		//
-		if( isset( $theXML[ 'set' ] ) )
-			$object = new Node( $this, (int) (string) $theXML[ 'set' ] );
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new Node( $this, (int) (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
 		else
 			$object = new Node( $this );
 		
 		//
 		// Get tag or term from attributes.
 		//
-		$tmp = array( 'tag' => kTAG_TAG,
-					  'term' => kTAG_TERM,
-					  'pid' => kTAG_ID_PERSISTENT );
+		$tmp = array( kIO_XML_ATTR_REF_TAG => kTAG_TAG,
+					  kIO_XML_ATTR_REF_TERM => kTAG_TERM,
+					  kIO_XML_ATTR_ID_PERSISTENT => kTAG_ID_PERSISTENT );
 		foreach( $tmp as $key => $tag )
 		{
 			if( isset( $theXML[ $key ] ) )
@@ -2012,8 +3766,8 @@ class Wrapper extends Dictionary
 		//
 		// Load properties.
 		//
-		foreach( $theXML->{'item'} as $element )
-			$this->loadXMLElement( $element, $object );
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
 		
 		//
 		// Commit.
@@ -2051,16 +3805,16 @@ class Wrapper extends Dictionary
 		//
 		// Instantiate object.
 		//
-		if( isset( $theXML[ 'set' ] ) )
-			$object = new Edge( $this, (string) $theXML[ 'set' ] );
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new Edge( $this, (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
 		else
 			$object = new Edge( $this );
 		
 		//
 		// Load properties.
 		//
-		foreach( $theXML->{'item'} as $element )
-			$this->loadXMLElement( $element, $object );
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
 		
 		//
 		// Load subject from cache.
@@ -2150,7 +3904,51 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
-	 *	loadXMLElement																	*
+	 *	loadXMLUnit																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load XML unit
+	 *
+	 * This method will parse and load the provided unit XML structure.
+	 *
+	 * @param SimpleXMLElement		$theXML				Unit XML structure.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function loadXMLUnit( \SimpleXMLElement $theXML )
+	{
+		//
+		// Get class.
+		//
+		$class = (string) $theXML[ kIO_XML_ATTR_QUAL_CLASS ];
+		
+		//
+		// Instantiate object.
+		//
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new $class( $this, (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
+		else
+			$object = new $class( $this );
+		
+		//
+		// Load properties.
+		//
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
+		
+		//
+		// Commit.
+		//
+		$object->commit();
+	
+	} // loadXMLUnit.
+
+	 
+	/*===================================================================================
+	 *	parseXMLElement																	*
 	 *==================================================================================*/
 
 	/**
@@ -2173,7 +3971,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	protected function loadXMLElement( \SimpleXMLElement $theElement,
+	protected function parseXMLElement( \SimpleXMLElement $theElement,
 									   PersistentObject  $theObject )
 	{
 		//
@@ -2238,29 +4036,31 @@ class Wrapper extends Dictionary
 		//
 		// Determine tag.
 		//
-		if( isset( $theElement[ 'tag' ] ) )
-			$key = $theObject->resolveOffset( (string) $theElement[ 'tag' ], TRUE );
-		elseif( isset( $theElement[ 'seq' ] ) )
-			$key = (string) $theElement[ 'seq' ];
-		elseif( isset( $theElement[ 'const' ] ) )
-			$key = constant( (string) $theElement[ 'const' ] );
+		if( isset( $theElement[ kIO_XML_ATTR_REF_TAG ] ) )
+			$key
+				= $theObject->resolveOffset(
+					(string) $theElement[ kIO_XML_ATTR_REF_TAG ], TRUE );
+		elseif( isset( $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ] ) )
+			$key = (string) $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ];
+		elseif( isset( $theElement[ kIO_XML_ATTR_QUAL_CONST ] ) )
+			$key = constant( (string) $theElement[ kIO_XML_ATTR_QUAL_CONST ] );
 		
 		//
 		// Handle array element key.
 		//
-		elseif( isset( $theElement[ 'key' ] ) )
-			$key = (string) $theElement[ 'key' ];
+		elseif( isset( $theElement[ kIO_XML_ATTR_QUAL_KEY ] ) )
+			$key = (string) $theElement[ kIO_XML_ATTR_QUAL_KEY ];
 		
 		//
 		// Handle node reference.
 		//
-		if( isset( $theElement[ 'node' ] ) )
-			$theNode = (string) $theElement[ 'node' ];
+		if( isset( $theElement[ kIO_XML_ATTR_REF_NODE ] ) )
+			$theNode = (string) $theElement[ kIO_XML_ATTR_REF_NODE ];
 		
 		//
 		// Handle scalar.
 		//
-		if( ! count( $theElement->{'item'} ) )
+		if( ! count( $theElement->{kIO_XML_DATA} ) )
 		{
 			//
 			// Resolve node.
@@ -2272,7 +4072,7 @@ class Wrapper extends Dictionary
 				//
 				switch( $theNode )
 				{
-					case 'tag':
+					case kIO_XML_ATTR_NODE_TAG:
 						$value
 							= Node::GetTagMaster(
 								$this,
@@ -2280,15 +4080,15 @@ class Wrapper extends Dictionary
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
-					case 'seq':
+					case kIO_XML_ATTR_NODE_SEQ:
 						$value
 							= Node::GetTagMaster(
 								$this,
-								(int) (string) $theElement,
+								(string) $theElement,
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
-					case 'term':
+					case kIO_XML_ATTR_NODE_TERM:
 						$value
 							= Node::GetTermMaster(
 								$this,
@@ -2296,7 +4096,7 @@ class Wrapper extends Dictionary
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
-					case 'pid':
+					case kIO_XML_ATTR_NODE_PID:
 						$value
 							= Node::GetPidNode(
 								$this,
@@ -2304,7 +4104,7 @@ class Wrapper extends Dictionary
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
-					case 'node':
+					case kIO_XML_ATTR_NODE_ID:
 						$value = (string) $theElement;
 						break;
 					
@@ -2396,12 +4196,235 @@ class Wrapper extends Dictionary
 			//
 			// Load elements.
 			//
-			foreach( $theElement->{'item'} as $element )
+			foreach( $theElement->{kIO_XML_DATA} as $element )
 				$this->parseXMLItem( $value, $element, $theObject, $theNode );
 	
 		} // Array property.
 	
 	} // parseXMLItem.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED TRAVERSING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	traverseStructureOffsets														*
+	 *==================================================================================*/
+
+	/**
+	 * Traverse structure offsets.
+	 *
+	 * This method will traverse the relationships of the provided node, filling the
+	 * provided array container with the list of matched offsets.
+	 *
+	 * The main duty of this method is to iterate all nodes pointing to the provided node
+	 * via the {@link kPREDICATE_PROPERTY_OF} or {@link kPREDICATE_SUBCLASS_OF} predicates,
+	 * loading the provided array container with the encountered tag offsets according to
+	 * the provided type parameter, eventually recursing nested structures and schemas.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffsets</b>: This parameter will receive the matched offsets.
+	 *	<li><b>$theNode</b>: The structure or schema node native identifier.
+	 *	<li><b>$theType</b>: This parameter indicates the requested output format:
+	 *	 <ul>
+	 *		<li><tt>0</tt>: Collects flattened list of leaf offsets.
+	 *		<li><tt>1</tt>: Collects structured list of tag sequence numbers.
+	 *		<li><tt>2</tt>: Collects structured list of tag native identifiers.
+	 *	 </ul>
+	 *	<li><b>$theLevel</b>: This parameter is initialised and handled by this method, it
+	 *		holds an array of elements holding the nested level tag sequence numbers, this
+	 *		array will only hold tags of type {@link kTYPE_STRUCT}.
+	 * </ul>
+	 *
+	 * If the node cannot be resolved, the method will raise an exception.
+	 *
+	 * All schema and structure elements present as sub-elements will be resolved.
+	 *
+	 * @param array					$theOffsets			Receives offsets.
+	 * @param int					$theNode			Node native identifier.
+	 * @param int					$theType			Result type.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseStructureOffsets( &$theOffsets,
+												  $theNode, $theType,
+												 &$theLevel )
+	{
+		//
+		// Init level.
+		//
+		if( ! is_array( $theLevel ) )
+			$theLevel = Array();
+		
+		//
+		// Locate edges.
+		//
+		$edges
+			= Edge::ResolveCollection(
+				Edge::ResolveDatabase( $this ) )
+					->matchAll(
+						array( kTAG_OBJECT => $theNode,
+							   kTAG_PREDICATE
+									=> array( '$in'
+										=> array( kPREDICATE_PROPERTY_OF,
+												  kPREDICATE_SUBCLASS_OF ) ) ),
+						kQUERY_ASSERT | kQUERY_OBJECT,
+						array( kTAG_SUBJECT => TRUE,
+							   kTAG_PREDICATE => TRUE ) );
+		
+		//
+		// Iterate results.
+		//
+		foreach( $edges as $edge )
+		{
+			//
+			// Recurse schemas.
+			//
+			if( $edge[ kTAG_PREDICATE ] == kPREDICATE_SUBCLASS_OF )
+				$this->traverseStructureOffsets(
+					$theOffsets, $edge[ kTAG_SUBJECT ], $theType, $theLevel );
+			
+			//
+			// Load offset.
+			//
+			else
+			{
+				//
+				// Get subject node.
+				//
+				$node
+					= Node::ResolveCollection(
+						Node::ResolveDatabase( $this ) )
+							->matchOne(
+								array( kTAG_NID => $edge[ kTAG_SUBJECT ] ),
+								kQUERY_ASSERT | kQUERY_ARRAY,
+								array( kTAG_TAG => TRUE ) );
+				
+				//
+				// Assert it points to a tag.
+				//
+				if( array_key_exists( kTAG_TAG, $node ) )
+				{
+					//
+					// Get tag.
+					//
+					$tag
+						= Tag::ResolveCollection(
+							Tag::ResolveDatabase( $this ) )
+								->matchOne(
+									array( kTAG_NID => $node[ kTAG_TAG ] ),
+									kQUERY_ASSERT | kQUERY_ARRAY,
+									array( kTAG_ID_HASH => TRUE,
+										   kTAG_DATA_TYPE => TRUE ) );
+					
+					//
+					// Save identifiers.
+					//
+					$id = $tag[ kTAG_NID ];
+					$seq = $tag[ kTAG_ID_HASH ];
+					
+					//
+					// Handle structure.
+					//
+					if( $tag[ kTAG_DATA_TYPE ] == kTYPE_STRUCT )
+					{
+						//
+						// Push structure.
+						//
+						$theLevel[] = $seq;
+						
+						//
+						// Allocate and reference structure container.
+						//
+						switch( $theType )
+						{
+							case 1:
+								$theOffsets[ $seq ] = Array();
+								$ref = & $theOffsets[ $seq ];
+								break;
+						
+							case 2:
+								$theOffsets[ $id ] = Array();
+								$ref = & $theOffsets[ $id ];
+								break;
+							
+							default:
+								$ref = & $theOffsets;
+								break;
+						
+						} // By result type.
+						
+						//
+						// Recurse structure.
+						//
+						$this->traverseStructureOffsets(
+							$ref,
+							$edge[ kTAG_SUBJECT ],
+							$theType,
+							$theLevel );
+						
+						//
+						// Pop structure.
+						//
+						array_pop( $theLevel );
+					
+					} // Structure tag.
+					
+					//
+					// Handle property.
+					//
+					else
+					{
+						//
+						// Load property.
+						//
+						switch( $theType )
+						{
+							case 0:
+								$theOffsets[]
+									= implode(
+										'.',
+										array_merge(
+											$theLevel,
+											array( $seq ) ) );
+								break;
+						
+							case 1:
+								$theOffsets[ $seq ] = $seq;
+								break;
+						
+							case 2:
+								$theOffsets[ $id ] = $id;
+								break;
+						
+						} // By result type.
+					
+					} // Property tag.
+				
+				} // Tag node.
+				
+				else
+					throw new \Exception(
+						"Invalid structure element pointing to [$theNode]: "
+					   ."node ["
+					   .$node[ kTAG_NID]
+					   ."] should reference a tag." );							// !@! ==>
+			
+			} // Not a schema.
+		
+		} // Iterating edges.
+		
+	} // traverseStructureOffsets.
 
 		
 

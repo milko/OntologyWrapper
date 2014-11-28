@@ -41,11 +41,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  *		to the object, it indicates <em>who</em> is responsible for the object information
  *		and identification.
  *	<li><tt>{@link kTAG_COLLECTION}</tt>: The unit collection provides a means for
- *		<em>disambiguation</em> of the object's <em>local identifier</em>, it acts as the
- *		namespace for an identifier, making the combination of local identifier and
- *		collection unique among all units of the same domain and authority.
- *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The unit local identifier is a code that should
- *		uniquely identify the object within the realm of its authority and collection.
+ *		<em>disambiguation</em> of the object's <em>identifier</em>, it acts as the
+ *		namespace for an identifier, making the combination of identifier and collection
+ *		unique among all units of the same domain and authority.
+ *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The unit identifier is a code that should uniquely
+ *		identify the object within the realm of its authority and collection.
  *	<li><tt>{@link kTAG_VERSION}</tt>: The unit version provides a means to have different
  *		versions of the same formal object.
  *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Unit graph node</em>. If the wrapper uses
@@ -54,10 +54,9 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  * </ul>
  *
  * All the above attributes concur in building the object's persistent identifier, which is
- * the concatenation of the domain, authority, collection, local identifier and version.
+ * the concatenation of the domain, authority, collection, identifier and version.
  *
- * A unit can be considered initialised when it has at least the domain, the authority and
- * the local identifier.
+ * A unit can be considered initialised when it has at least the domain and the identifier.
  *
  * This class is declared abstract, you must derive the class to instantiate it.
  *
@@ -103,12 +102,13 @@ abstract class UnitObject extends PersistentObject
 	 * Instantiate class.
 	 *
 	 * In this class we link the inited status with the presence of the unit domain,
-	 * authority and local identifier.
+	 * authority and identifier.
 	 *
 	 * The constructor will automatically set the object domain to the default class domain.
 	 *
-	 * @param ConnectionObject		$theContainer		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theContainer		Data wrapper or properties.
+	 * @param mixed					$theIdentifier		Object identifier or properties.
+	 * @param boolean				$doAssert			Raise exception if not resolved.
 	 *
 	 * @access public
 	 *
@@ -116,12 +116,14 @@ abstract class UnitObject extends PersistentObject
 	 * @uses TermCount()
 	 * @uses isInited()
 	 */
-	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	public function __construct( $theContainer = NULL,
+								 $theIdentifier = NULL,
+								 $doAssert = TRUE )
 	{
 		//
 		// Load object with contents.
 		//
-		parent::__construct( $theContainer, $theIdentifier );
+		parent::__construct( $theContainer, $theIdentifier, $doAssert );
 		
 		//
 		// Set default domain.
@@ -133,7 +135,6 @@ abstract class UnitObject extends PersistentObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_DOMAIN ) &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
 						 \ArrayObject::offsetExists( kTAG_IDENTIFIER ) );
 
 	} // Constructor.
@@ -147,7 +148,7 @@ abstract class UnitObject extends PersistentObject
 	 * <h4>Return global identifier</h4>
 	 *
 	 * The global identifier of units is the combination of the object's domain, authority,
-	 * collection, local identifier and version, the identifier is computed as follows:
+	 * collection, identifier and version, the identifier is computed as follows:
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kTAG_DOMAIN}</tt>: The domain is followed by the
@@ -162,8 +163,8 @@ abstract class UnitObject extends PersistentObject
 	 *	<li><tt>{@link kTOKEN_END_TAG}</tt>: This tag closes the whole identifier.
 	 * </ul>
 	 *
-	 * Only the domain, authority and local identifier are required, all missing attributes
-	 * will get omitted, along with the token that follows them.
+	 * Only the domain and identifier are required, all missing attributes will get omitted,
+	 * along with the token that follows them.
 	 *
 	 * @access public
 	 * @return string				The global identifier.
@@ -191,7 +192,7 @@ abstract class UnitObject extends PersistentObject
 			$gid .= ($this->offsetGet( kTAG_COLLECTION ).kTOKEN_NAMESPACE_SEPARATOR);
 		
 		//
-		// Handle local identifier.
+		// Handle identifier.
 		//
 		if( $this->offsetExists( kTAG_IDENTIFIER ) )
 			$gid .= $this->offsetGet( kTAG_IDENTIFIER );
@@ -230,6 +231,61 @@ abstract class UnitObject extends PersistentObject
 	 * @access public
 	 */
 	public function setAlias( $doSet = TRUE )											   {}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the domain name, derived classes should first call the parent
+	 * method and catenate the local name with the parent name.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		//
+		// Check wrapper.
+		//
+		if( ($this->mDictionary !== NULL)
+		 && $this->offsetExists( kTAG_DOMAIN ) )
+		{
+			//
+			// Get domain.
+			//
+			$domain
+				= Term::ResolveCollection(
+					Term::ResolveDatabase(
+						$this->mDictionary ) )
+							->matchOne(
+								array( kTAG_NID => $this->offsetGet( kTAG_DOMAIN ) ),
+								kQUERY_ARRAY,
+								array( kTAG_LABEL => TRUE ) );
+			
+			return OntologyObject::SelectLanguageString(
+						$domain[ kTAG_LABEL ],
+						$theLanguage );												// ==>
+		
+		} // Has wrapper and domain.
+		
+		return NULL;																// ==>
+	
+	} // getName.
 
 		
 
@@ -293,6 +349,566 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC CLIMATE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	GetClimateData																	*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Retrieve climatic data</h4>
+	 *
+	 * This method will retrieve the climatic data for the provided parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theShape</b>: The coordinates, point, polygon or rect, of the area for
+	 *		which the climate is requested. This parameter must be a GeoJSON shape array.
+	 *	<li><b>$theRange</b>: This optional parameter represents the elevation range as an
+	 *		array of two elements representing respectively the minimum and maximum
+	 *		elevation. If the parameter is provided as a scalar, not a range, the method
+	 *		will ignore it.
+	 *	<li><b>$theDistance</b>: This parameter represents the maximum distance from the
+	 *		provided geometry, if provided, it will be used to limit the matches only to
+	 *		those tiles within that distance. <i>This value is equivalent to the "coordinate
+	 *		uncertainty in meters", which represents the radius of the circle representing
+	 *		the area: thus, the value that will be passed to the service will be multiplied
+	 *		by two</i>.
+	 * </ul>
+	 *
+	 * The method will return an array containing the list of all climate variables, no
+	 * elements are nested.
+	 *
+	 * The provided shape format is expected to follow the GeoJson standard.
+	 *
+	 * If the climate data was not found, the method will return an empty array.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theShape			Site shape.
+	 * @param array					$theRange			Elevation range.
+	 * @param int					$theDistance		Coordinate uncertainty.
+	 *
+	 * @static
+	 * @return array
+	 *
+	 * @throws Exception
+	 */
+	static function GetClimateData( $theWrapper, $theShape, $theRange = NULL,
+															$theDistance = NULL )
+	{
+		//
+		// Check shape.
+		//
+		if( is_array( $theShape )
+		 && array_key_exists( kTAG_TYPE, $theShape )
+		 && array_key_exists( kTAG_GEOMETRY, $theShape ) )
+		{
+			//
+			// Init local storage.
+			//
+			$error = NULL;
+			$cmd = NULL;
+			$range = FALSE;
+			$climate = Array();
+			$request = Array();
+			
+			//
+			// Parse by shape type.
+			//
+			switch( $theShape[ kTAG_TYPE ] )
+			{
+				case 'Point':
+					$request[] = 'point='.implode( ',', $theShape[ kTAG_GEOMETRY ] );
+					break;
+			
+				case 'Rect':
+					$range = TRUE;
+					$cmd = 'contains';
+					$tmp = 'rect=';
+					$tmp .= implode( ',', $theShape[ kTAG_GEOMETRY ][ 0 ] );
+					$tmp .= ';';
+					$tmp .= implode( ',', $theShape[ kTAG_GEOMETRY ][ 1 ] );
+					$request[] = $tmp;
+					break;
+			
+				case 'Polygon':
+					$range = TRUE;
+					$cmd = 'contains';
+					$first = TRUE;
+					$tmp = 'polygon=';
+					foreach( $theShape[ kTAG_GEOMETRY ][ 0 ] as $coord )
+					{
+						if( ! $first )
+							$tmp .= ';';
+						else
+							$first = FALSE;
+						$tmp .= ($coord[ 0 ].','.$coord[ 1 ]);
+					}
+					$request[] = $tmp;
+					break;
+				
+				default:
+					$tmp = $theShape[ kTAG_TYPE ];
+					throw new \Exception(
+						"Unable to get climate data: "
+					   ."unsupported shape type [$tmp]." );						// !@! ==>
+			
+			} // Parsed shape type.
+
+			//
+			// Handle elevation range.
+			//
+			if( is_array( $theRange ) )
+			{
+				$range = TRUE;
+				$request[] = 'elevation='.implode( ',', $theRange );
+	
+			} // Elevation.
+	
+			//
+			// Handle uncertainty.
+			//
+			if( $theDistance !== NULL )
+			{
+				//
+				// Cast to integer.
+				//
+				$theDistance = (int) $theDistance;
+				
+				//
+				// Handle valid uncertainty.
+				//
+				if( ($theDistance >= kCLIMATE_MIN_DIST)		// Minimum bound.
+				 && ($theDistance <= kCLIMATE_MAX_DIST) )
+				{
+					$range = TRUE;
+					$request[] = "distance=".$theDistance * 2;
+				
+				} // Valid distance.
+				
+				else
+					$theDistance = NULL;
+			
+			} // Provided uncertainty.
+			
+			//
+			// Handle missing command.
+			//
+			if( $cmd === NULL )
+				$cmd = ( $range ) ? 'near' : 'contains';
+			
+			//
+			// Set command and range.
+			//
+			$request[] = $cmd;
+			if( $range )
+				$request[] = 'range';
+			
+			//
+			// Check range distance.
+			//
+			if( in_array( 'range', $request )
+			 && ($theDistance === NULL) )
+				throw new \Exception(
+					"Unable to get climate data: "
+				   ."range queries require the distance, "
+				   ."it is either missing or larger than "
+				   .kCLIMATE_MAX_DIST
+				   ." meters." );												// !@! ==>
+		
+			//
+			// Get climate data.
+			//
+			$request = kCLIMATE_URL.'?'.implode( '&', $request );
+			$data = @file_get_contents( $request );
+			$data = ( strlen( $data ) )
+				  ? json_decode( $data, TRUE )
+				  : Array();
+		
+			//
+			// Set climate data.
+			//
+			if( is_array( $data )
+			 && array_key_exists( 'status', $data )
+			 && array_key_exists( 'state', $data[ 'status' ] )
+			 && ($data[ 'status' ][ 'state' ] == 'OK') )
+			{
+				//
+				// Check if it found something.
+				//
+				if( array_key_exists( 'data', $data )
+				 && count( $data[ 'data' ] ) )
+				{
+					//
+					// Set tiles count.
+					//
+					if( array_key_exists( 'total', $data[ 'status' ] ) )
+						$climate[ (string) $theWrapper->getSerial( ':environment:tiles' ) ]
+							= (int) $data[ 'status' ][ 'total' ];
+				
+					//
+					// Point to data.
+					//
+					if( $range )
+						$data = & $data[ 'data' ];
+					else
+						$data = array_shift( $data[ 'data' ] );
+			
+					//
+					// Set environmental data elevation range.
+					//
+					if( array_key_exists( 'elev', $data ) )
+					{
+						$ref = & $data[ 'elev' ];
+						if( $range )
+						{
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:elevation-min' ) ] = (int) $ref[ 'l' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:elevation-mean' ) ] = (int) $ref[ 'm' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:elevation-max' ) ] = (int) $ref[ 'h' ];
+						}
+						else
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:elevation-mean' ) ] = (int) $ref;
+					}
+			
+					//
+					// Set environmental data distance range.
+					//
+					if( array_key_exists( 'dist', $data ) )
+					{
+						if( $range )
+						{
+							$ref = & $data[ 'dist' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:distance-min' ) ] = (int) $ref[ 'l' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:distance-mean' ) ] = (int) $ref[ 'm' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:distance-max' ) ] = (int) $ref[ 'h' ];
+						}
+					}
+			
+					//
+					// Point to climatic data.
+					//
+					if( array_key_exists( 'clim', $data )
+					 && is_array( $data[ 'clim' ] ) )
+					{
+						//
+						// Point to current climatic data.
+						//
+						$data = & $data[ 'clim' ];
+						if( array_key_exists( '2000', $data )
+						 && is_array( $data[ '2000' ] ) )
+						{
+							//
+							// Point to data.
+							//
+							$data = & $data[ '2000' ];
+			
+							//
+							// Set environment stratification data.
+							//
+							if( array_key_exists( 'gens', $data )
+							 && is_array( $data[ 'gens' ] ) )
+							{
+								$ref = & $data[ 'gens' ];
+								if( $range )
+								{
+									if( array_key_exists( 'id', $ref )
+									 && is_array( $ref[ 'id' ] )
+									 && count( $ref[ 'id' ] ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens' );
+										$climate[ $tag ] = Array();
+										foreach( $ref[ 'id' ] as $tmp )
+											$climate[ $tag ][] = $tmp;
+									}
+								
+									if( array_key_exists( 'c', $ref )
+									 && is_array( $ref[ 'c' ] )
+									 && count( $ref[ 'c' ] ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens:clim' );
+										$climate[ $tag ] = Array();
+										foreach( $ref[ 'c' ] as $tmp )
+											$climate[ $tag ][] = "gens:clim:$tmp";
+									}
+								
+									if( array_key_exists( 'e', $ref )
+									 && is_array( $ref[ 'e' ] )
+									 && count( $ref[ 'e' ] ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens:zone' );
+										$climate[ $tag ] = Array();
+										foreach( $ref[ 'e' ] as $tmp )
+											$climate[ $tag ][] = "gens:zone:$tmp";
+									}
+								}
+								else
+								{
+									if( array_key_exists( 'id', $ref )
+									 && strlen( trim( $ref[ 'id' ] ) ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens' );
+										$climate[ $tag ] = array( $ref[ 'id' ] );
+									}
+									if( array_key_exists( 'c', $ref )
+									 && strlen( trim( $ref[ 'c' ] ) ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens:clim' );
+										$tmp = $ref[ 'c' ];
+										$climate[ $tag ] = array( "gens:clim:$tmp" );
+									}
+									if( array_key_exists( 'e', $ref )
+									 && strlen( trim( $ref[ 'e' ] ) ) )
+									{
+										$tag = (string) $theWrapper
+															->getSerial( 'gens:zone' );
+										$tmp = $ref[ 'e' ];
+										$climate[ $tag ] = array( "gens:zone:$tmp" );
+									}
+								}
+							}
+			
+							//
+							// Set harmonized world soil data.
+							//
+							if( array_key_exists( 'hwsd', $data ) )
+							{
+								$ref = & $data[ 'hwsd' ];
+								$tag = (string) $theWrapper->getSerial( 'hwsd' );
+								if( $range )
+								{
+									if( count( $ref ) )
+									{
+										$climate[ $tag ] = Array();
+										foreach( $ref as $tmp )
+											$climate[ $tag ][] = "hwsd:$tmp";
+									}
+								}
+								elseif( strlen( trim( $ref ) ) )
+									$climate[ $tag ] = array( "hwsd:$ref" );
+							}
+			
+							//
+							// Set global human footprint.
+							//
+							if( array_key_exists( 'ghf', $data ) )
+							{
+								$ref = & $data[ 'ghf' ];
+								$tag = (string) $theWrapper->getSerial(
+													':environment:ghf' );
+								if( $range )
+								{
+									if( count( $ref ) )
+									{
+										$climate[ $tag ] = Array();
+										foreach( $ref as $tmp )
+											$climate[ $tag ][] = $tmp;
+									}
+								}
+								elseif( strlen( trim( $ref ) ) )
+									$climate[ $tag ] = array( $ref );
+							}
+			
+							//
+							// Set global cover data.
+							//
+							if( array_key_exists( 'gcov', $data ) )
+							{
+								$ref = & $data[ 'gcov' ];
+								$tag = (string) $theWrapper->getSerial( 'globcov' );
+								if( $range )
+								{
+									if( count( $ref ) )
+									{
+										$climate[ $tag ] = Array();
+										foreach( $ref as $tmp )
+											$climate[ $tag ][] = "globcov:$tmp";
+									}
+								}
+								elseif( strlen( trim( $ref ) ) )
+									$climate[ $tag ] = array( "globcov:$ref" );
+							}
+			
+							//
+							// Set bio-climatic data.
+							//
+							if( array_key_exists( 'bio', $data )
+							 && count( $data[ 'bio' ] ) )
+							{
+								$tag = (string) $theWrapper->getSerial(
+													':environment:bio' );
+								$climate[ $tag ] = Array();
+								$ref = & $data[ 'bio' ];
+								foreach( $ref as $key => $value )
+								{
+									//
+									// Set element tag.
+									//
+									$sub = (string) $theWrapper->getSerial(
+										':environment:bio:'.sprintf( '%02d', (int) $key ) );
+									
+									//
+									// Parse by variable.
+									//
+									switch( $key )
+									{
+										case '1':
+										case '2':
+										case '5':
+										case '6':
+										case '8':
+										case '9':
+										case '10':
+										case '11':
+											$climate[ $tag ][ $sub ]
+												= ( $range )
+												? round( $value[ 'm' ]
+													   / 10, 1 )
+												: round( $value / 10, 1 );
+											break;
+					
+										default:
+											$climate[ $tag ][ $sub ]
+												= ($range)
+												? round( $value[ 'm' ], 2 )
+												: round( $value, 2 );
+											break;
+									}
+								}
+							}
+			
+							//
+							// Set precipitation data.
+							//
+							if( array_key_exists( 'prec', $data )
+							 && count( $data[ 'prec' ] ) )
+							{
+								$tag = (string) $theWrapper->getSerial(
+													':environment:precipitation' );
+								$ref = & $data[ 'prec' ];
+								foreach( $ref as $key => $value )
+								{
+									//
+									// Set element prefix.
+									//
+									$pre = ':environment:precipitation:'
+										  .sprintf( '%02d', (int) $key );
+									$smin = (string) $theWrapper->getSerial( "$pre-min" );
+									$smea = (string) $theWrapper->getSerial( "$pre-mean" );
+									$smax = (string) $theWrapper->getSerial( "$pre-max" );
+									
+									if( $range )
+									{
+										$climate[ $tag ][ $smin ] = (int) $value[ 'l' ];
+										$climate[ $tag ][ $smea ] = (int) $value[ 'm' ];
+										$climate[ $tag ][ $smax ] = (int) $value[ 'h' ];
+									}
+									else
+										$climate[ $tag ][ $smea ] = (int) $value;
+			
+								} // Iterating precipitation.
+							}
+			
+							//
+							// Set temperature data.
+							//
+							if( array_key_exists( 'temp', $data )
+							 && count( $data[ 'temp' ] ) )
+							{
+								$tag = (string) $theWrapper->getSerial(
+													':environment:temperature' );
+								$ref = & $data[ 'temp' ];
+								foreach( $ref as $key => $value )
+								{
+									switch( $key )
+									{
+										case 'm':
+											$pre = 'mean';
+											break;
+										case 'l':
+											$pre = 'min';
+											break;
+										case 'h':
+											$pre = 'max';
+											break;
+									}
+									
+									foreach( $value as $month => $temp )
+									{
+										$month = sprintf( '%02d', (int) $month );
+										if( $range )
+										{
+											foreach( $temp as $rng => $deg )
+											{
+												switch( $rng )
+												{
+													case 'm':
+														$suf = 'mean';
+														break;
+													case 'l':
+														$suf = 'min';
+														break;
+													case 'h':
+														$suf = 'max';
+														break;
+												}
+												$sub = (string) $theWrapper->getSerial(
+															":environment:temperature:"
+														   ."$month-$pre-$suf" );
+												$climate[ $tag ][ $sub ]
+													= round( $deg / 10, 1 );
+											}
+										}
+										else
+										{
+											$sub = (string) $theWrapper->getSerial(
+														":environment:temperature:"
+													   ."$month-$pre-mean" );
+											$climate[ $tag ][ $sub ]
+												= round( $temp / 10, 1 );
+										}
+									}
+			
+								} // Iterating temperature.
+							}
+						
+						} // Has current climatic data.
+						
+					} // Has climatic data.
+				
+				} // Found something.
+			
+			} // Received data.
+			
+			return $climate;														// ==>
+		
+		} // Has type and geometry.
+		
+		else
+			throw new \Exception(
+				"Unable to get climate data: "
+			   ."invalid shape structure." );									// !@! ==>
+		
+	} // GetClimateData.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -327,6 +943,12 @@ abstract class UnitObject extends PersistentObject
 		// Set parent indexes and retrieve collection.
 		//
 		$collection = parent::CreateIndexes( $theDatabase );
+		
+		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
 		
 		//
 		// Set domain index.
@@ -366,6 +988,13 @@ abstract class UnitObject extends PersistentObject
 		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
 								  array( "name" => "GRAPH" ) );
 		
+		//
+		// Set geographic unit index.
+		//
+		$collection->createIndex( array( kTAG_GEO_SHAPE_DISP => "2dsphere" ),
+								  array( "name" => "SHAPE",
+								  		 "sparse" => TRUE ) );
+		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
@@ -374,30 +1003,39 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	InternalOffsets																	*
+	 *	UnmanagedOffsets																*
 	 *==================================================================================*/
 
 	/**
-	 * Return internal offsets
+	 * Return unmanaged offsets
 	 *
-	 * In this class we add the {@link kTAG_OBJECT_TAGS} offset which is handled internally.
+	 * In this class we return the offsets that are required by the object:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_DOMAIN}</tt>: Object domain.
+	 *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: Object identifier.
+	 * </ul>
+	 *
+	 * These tags will not be part of the offset management framework, since they are
+	 * required.
 	 *
 	 * @static
-	 * @return array				List of internal offsets.
+	 * @return array				List of unmanaged offsets.
 	 */
-	static function InternalOffsets()
+	static function UnmanagedOffsets()
 	{
-		return array_merge( parent::InternalOffsets(),
-							array( kTAG_OBJECT_TAGS ) );							// ==>
+		return array_merge(
+			parent::UnmanagedOffsets(),
+			array( kTAG_DOMAIN, kTAG_IDENTIFIER ) );								// ==>
 	
-	} // InternalOffsets.
+	} // UnmanagedOffsets.
 
 	 
 	/*===================================================================================
@@ -407,8 +1045,15 @@ abstract class UnitObject extends PersistentObject
 	/**
 	 * Return default offsets
 	 *
-	 * In this class we return the default offsets comprising the object's persistent
-	 * identifier..
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_DOMAIN}</tt>: Unit domain.
+	 *	<li><tt>{@link kTAG_AUTHORITY}</tt>: Unit authority.
+	 *	<li><tt>{@link kTAG_COLLECTION}</tt>: Unit collection.
+	 *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: Unit identifier.
+	 *	<li><tt>{@link kTAG_VERSION}</tt>: Unit version.
+	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.
@@ -421,6 +1066,142 @@ abstract class UnitObject extends PersistentObject
 								   kTAG_VERSION ) );								// ==>
 	
 	} // DefaultOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ListOffsets																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return list offsets
+	 *
+	 * The list offsets are those that will be used to provide a table view of objects
+	 * belonging to the provided domain.
+	 *
+	 * @param string				$theDomain			Object domain.
+	 *
+	 * @static
+	 * @return array				List of list offsets.
+	 */
+	static function ListOffsets( $theDomain )
+	{
+		//
+		// Parse domain.
+		//
+		switch( $theDomain )
+		{
+			//
+			// Default domains.
+			//
+			case kDOMAIN_UNIT:
+				return array( kTAG_DOMAIN, kTAG_AUTHORITY,
+							  kTAG_COLLECTION, kTAG_IDENTIFIER,
+							  kTAG_VERSION );										// ==>
+		
+			case kDOMAIN_ENTITY:
+				return array( kTAG_NAME );											// ==>
+		
+			case kDOMAIN_INDIVIDUAL:
+				return array( kTAG_NAME );											// ==>
+		
+			case kDOMAIN_ORGANISATION:
+				return array( kTAG_IDENTIFIER, kTAG_ENTITY_ACRONYM, kTAG_NAME );	// ==>
+			
+			//
+			// Data domains.
+			//
+			case kDOMAIN_ACCESSION:
+				return array( ':taxon:epithet',
+							  'mcpd:INSTCODE', 'mcpd:ACCENUMB',
+							  'mcpd:COLLSRC', 'mcpd:SAMPSTAT',
+							  ':taxon:epithet',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
+		
+			case kDOMAIN_FOREST:
+				return array( 'fcu:unit:number', 'fcu:unit:data-collection',
+							  ':location:country', ':location:admin-1',
+							  ':location:admin-2', ':location:admin-3',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
+		
+			case kDOMAIN_CHECKLIST:
+				return array( ':taxon:epithet', 'cwr:ck:TYPE', 'cwr:ck:CWRCODE',
+							  'cwr:ck:NUMB', ':location:admin',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
+		
+			case kDOMAIN_INVENTORY:
+				return array( ':taxon:epithet',
+							  'cwr:in:NIENUMB', ':unit:version',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
+		
+			case kDOMAIN_HH_ASSESSMENT:
+				return array( 'abdh:ID_HOUSEHOLD',
+							  'abdh:STATE', 'abdh:DISTRICT', 'abdh:BLOCKS', 'abdh:VILLAGE',
+							  ':unit:version' );									// ==>
+		
+			case kDOMAIN_MISSION:
+				return array( ':mission:identifier',
+							  ':mission:start', ':mission:end',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
+		
+			case kDOMAIN_COLLECTING_MISSION:
+				return array( ':mission:identifier', ':mission:collecting:identifier',
+							  ':mission:collecting:start', ':mission:collecting:end',
+							  ':location:country',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
+		
+			case kDOMAIN_SAMPLE_COLLECTED:
+				return array( ':germplasm:identifier', 'mcpd:COLLDATE',
+							  'mcpd:COLLSRC', 'mcpd:SAMPSTAT', ':taxon:epithet',
+							  ':location:country',
+							  ':inventory:dataset', ':inventory:code' );			// ==>
+		
+			case kDOMAIN_QTL:
+				return array( 'qtl:UNID', ':taxon:epithet',
+							  ':inventory:dataset', ':inventory:code' );			// ==>		
+		} // Parsed domain.
+		
+		return Array();																// ==>
+	
+	} // ListOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC EXPORT INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	XMLRootElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML root element
+	 *
+	 * In this class we return the <tt>UNITS</tt> root element.
+	 *
+	 * @static
+	 * @return SimpleXMLElement		XML export root element.
+	 */
+	static function XMLRootElement()
+	{
+		return new \SimpleXMLElement(
+						str_replace(
+							'@@@', kIO_XML_UNITS, kXML_STANDARDS_BASE ) );			// ==>
+	
+	} // XMLRootElement.
 
 		
 
@@ -447,7 +1228,7 @@ abstract class UnitObject extends PersistentObject
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_DATA_TYPE kTAG_LABEL
+	 * @see kTAG_DOMAIN kTAG_AUTHORITY kTAG_IDENTIFIER
 	 *
 	 * @uses TermCount()
 	 */
@@ -462,7 +1243,6 @@ abstract class UnitObject extends PersistentObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_DOMAIN ) &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
 						 \ArrayObject::offsetExists( kTAG_IDENTIFIER ) );
 	
 	} // postOffsetSet.
@@ -482,7 +1262,7 @@ abstract class UnitObject extends PersistentObject
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_DATA_TYPE kTAG_LABEL
+	 * @see kTAG_DOMAIN kTAG_AUTHORITY kTAG_IDENTIFIER
 	 *
 	 * @uses TermCount()
 	 */
@@ -497,10 +1277,67 @@ abstract class UnitObject extends PersistentObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_DOMAIN ) &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
 						 \ArrayObject::offsetExists( kTAG_IDENTIFIER ) );
 	
 	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PRE-COMMIT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitFinalise																*
+	 *==================================================================================*/
+
+	/**
+	 * Finalise object before commit
+	 *
+	 * We overload this method here to add the {@link kTAG_IDENTIFIER} value to the
+	 * full-text search property: we need to do this here because both the
+	 * {@link kTAG_IDENTIFIER} and {@link kTAG_COLLECTION} properties are not included in
+	 * the managed tags, since they are both required.
+	 *
+	 * @param reference				$theTags			Object tags.
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @uses addToFullText()
+	 */
+	protected function preCommitFinalise( &$theTags, &$theRefs )
+	{
+		//
+		// Check identifier.
+		//
+		if( $this->offsetExists( kTAG_IDENTIFIER ) )
+		{
+			//
+			// Get identifier info.
+			//
+			$tag = $this->mDictionary->getObject( kTAG_IDENTIFIER, TRUE );
+			
+			//
+			// Add identifier to full-text search.
+			//
+			$this->addToFullText( $this->offsetGet( kTAG_IDENTIFIER ),
+								  kSTANDARDS_LANGUAGE,
+								  $tag[ kTAG_DATA_TYPE ],
+								  $tag[ kTAG_DATA_KIND ] );
+		
+		} // Has identifier.
+		
+		//
+		// Call parent method.
+		//
+		parent::preCommitFinalise( $theTags, $theRefs );
+	
+	} // preCommitFinalise.
 
 		
 
@@ -520,9 +1357,7 @@ abstract class UnitObject extends PersistentObject
 	 * Load object identifiers
 	 *
 	 * In this class we set the native identifier, if not yet filled, with the global
-	 * identifier generated by the {@link __toString()} method and we set the sequence
-	 * number, {@link kTAG_ID_SEQUENCE}, if it is not yet set, by requesting it from the
-	 * database of the current object's container.
+	 * identifier generated by the {@link __toString()} metho.
 	 *
 	 * @access protected
 	 */
@@ -565,15 +1400,12 @@ abstract class UnitObject extends PersistentObject
 	/**
 	 * Check if object is ready
 	 *
-	 * In this class we ensure the object has the sequence number, {@link kTAG_ID_SEQUENCE}
-	 * and the native identifier, {@link kTAG_NID}.
+	 * In this class we ensure the object has the native identifier, {@link kTAG_NID}.
 	 *
 	 * @access protected
 	 * @return Boolean				<tt>TRUE</tt> means ready.
 	 *
-	 * @see kTAG_NID kTAG_ID_SEQUENCE
-	 *
-	 * @uses isInited()
+	 * @see kTAG_NID
 	 */
 	protected function isReady()
 	{
@@ -617,43 +1449,35 @@ abstract class UnitObject extends PersistentObject
 	
 	} // lockedOffsets.
 
-	
+		
 
 /*=======================================================================================
  *																						*
- *								PROTECTED OFFSET UTILITIES								*
+ *								PROTECTED EXPORT INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	loadObjectTag																	*
+	 *	xmlUnitElement																	*
 	 *==================================================================================*/
 
 	/**
-	 * Load object tags
+	 * Return XML unit element
 	 *
-	 * In this class we add the tag if it is not among the {@link DefaultOffsets()} and it
-	 * is not indexed.
+	 * In this class we return the <tt>UNIT</tt> element.
 	 *
-	 * @param integer				$theTag				Tag sequence number.
-	 * @param reference				$theInfo			Tag information.
-	 * @param reference				$theTags			Receives tags list.
-	 * @param reference				$theIndexes			List of collection indexes.
+	 * @param SimpleXMLElement		$theRoot			Root container.
 	 *
 	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
 	 */
-	protected function loadObjectTag( $theTag, &$theInfo, &$theTags, &$theIndexes )
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
 	{
-		//
-		// Check if eligible.
-		//
-		if( (! in_array( $theTag, static::DefaultOffsets() ))
-		 && (! in_array( (string) $theTag, $theIndexes )) )
-			parent::loadObjectTag( $theTag, $theInfo, $theTags, $theIndexes );
+		return $theRoot->addChild( kIO_XML_TRANS_UNITS );							// ==>
 	
-	} // loadObjectTag.
+	} // xmlUnitElement.
 
 		
 
@@ -698,6 +1522,48 @@ abstract class UnitObject extends PersistentObject
 		$theProperties[ 'GID' ] = $this->offsetGet( kTAG_NID );
 	
 	} // setGraphProperties.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	exportXMLObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Export the current object in XML format
+	 *
+	 * We overload this method to add the class name to the unit element.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Dump container.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLObject( \SimpleXMLElement $theContainer,
+										Wrapper			  $theWrapper,
+														  $theUntracked )
+	{
+		//
+		// Create unit.
+		//
+		$unit = static::xmlUnitElement( $theContainer );
+		$unit->addAttribute( kIO_XML_ATTR_QUAL_CLASS, get_class( $this ) );
+		
+		//
+		// Traverse object.
+		//
+		$this->exportXMLStructure( $this, $unit, $theWrapper, $theUntracked );
+	
+	} // exportXMLObject.
 
 	 
 
