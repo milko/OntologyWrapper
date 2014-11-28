@@ -436,8 +436,12 @@ EOT;
 		//
 		// Iterate types.
 		//
-		$query = "SELECT * "
+		$query = "SELECT `tags`.*, `Features`.`Label` AS `FeatureLabel`, `Scales`.`Label` AS `ScaleLabel` "
 				."FROM `tags` "
+				."LEFT JOIN `terms` `Features` "
+				."ON( `Features`.`ID` = `tags`.`FeatureTerm` ) "
+				."LEFT JOIN `terms` `Scales` "
+				."ON( `Scales`.`ID` = `tags`.`ScaleTerm` ) "
 				."ORDER BY `ID` ASC";
 		$rs = $theConnection->execute( $query );
 		foreach( $rs as $record )
@@ -446,7 +450,9 @@ EOT;
 			// Load type elements.
 			//
 			$feature = $record[ 'FeatureTerm' ];
+			$feature_lab = $record[ 'FeatureLabel' ];
 			$scale = $record[ 'ScaleTerm' ];
+			$scale_lab = $record[ 'ScaleLabel' ];
 			$type = $record[ 'Type' ];
 			$unit = $record[ 'Unit' ];
 			$synonyms = ( $record[ 'Synonyms' ] !== NULL )
@@ -489,6 +495,20 @@ EOT;
 					break;
 			}
 			$xml .= ("\t\t\t</item>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_LABEL\">\n");
+			$xml .= ("\t\t\t\t<item>\n");
+			$xml .= ("\t\t\t\t\t<item const=\"kTAG_LANGUAGE\">en</item>\n");
+			$xml .= ("\t\t\t\t\t<item const=\"kTAG_TEXT\"><![CDATA[$feature_lab]]></item>\n");
+			$xml .= ("\t\t\t\t</item>\n");
+			$xml .= ("\t\t\t</item>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_DESCRIPTION\">\n");
+			$xml .= ("\t\t\t\t<item>\n");
+			$xml .= ("\t\t\t\t\t<item const=\"kTAG_LANGUAGE\">en</item>\n");
+			$xml .= ("\t\t\t\t\t<item const=\"kTAG_TEXT\"><![CDATA[$scale_lab]]></item>\n");
+			$xml .= ("\t\t\t\t</item>\n");
+			$xml .= ("\t\t\t</item>\n");
+			if( $unit !== NULL )
+				$xml .= ("\t\t\t<item tag=\"UO:0000000\">$unit</item>\n");
 			if( is_array( $synonyms ) )
 			{
 				$xml .= ("\t\t\t<item const=\"kTAG_SYNONYM\">\n");
@@ -513,7 +533,7 @@ EOT;
 			if( $type == ':type:enum' )
 			{
 				$xml .= ("\t\t<EDGE>\n");
-				$xml .= ("\t\t\t<item const=\"kTAG_SUBJECY\" node=\"term\">$theNamespace:$scale</item>\n");
+				$xml .= ("\t\t\t<item const=\"kTAG_SUBJECT\" node=\"term\">$theNamespace:$scale</item>\n");
 				$xml .= ("\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:TYPE-OF</item>\n");
 				$xml .= ("\t\t</EDGE>\n");
 			}
