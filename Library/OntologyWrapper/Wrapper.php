@@ -2475,6 +2475,84 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
+	 *	loadTraits																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load traits
+	 *
+	 * This method can be used to load the traits in the metadata database, it will
+	 * load the trait XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadTraits( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading traits.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load traits: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/trait/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML term files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML term files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/trait/Terms.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML type files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML type files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/trait/Types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML tag files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML tag files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/trait/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadTraits.
+
+	 
+	/*===================================================================================
 	 *	loadCollections																	*
 	 *==================================================================================*/
 

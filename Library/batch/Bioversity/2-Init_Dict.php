@@ -119,6 +119,11 @@ try
 	// Load standards.
 	//
 	$wrapper->loadStandards( TRUE );
+
+	//
+	// Load traits.
+	//
+	$wrapper->loadTraits( TRUE );
 	
 	//
 	// Load MCPD standards.

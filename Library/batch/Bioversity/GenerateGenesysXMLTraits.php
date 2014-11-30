@@ -78,7 +78,8 @@ require_once( "/Library/WebServer/Library/adodb/adodb-exceptions.inc.php" );
 // Init global storage.
 //
 $theNamespace = ':trait:term';
-$path = "/Library/WebServer/Library/OntologyWrapper/Library/standards/trait";
+$path1 = "/Library/WebServer/Library/OntologyWrapper/Library/standards/trait";
+$path2 = "/Library/WebServer/Library/OntologyWrapper/Library/standards/collections";
 
 //
 // Inform.
@@ -125,19 +126,25 @@ try
 	// Generate terms.
 	//
 	echo( "==> Generating terms.\n" );
-	generateTerms( $dc, $theNamespace, "$path/Terms.xml" );
+	generateTerms( $dc, $theNamespace, "$path1/Terms.xml" );
 
 	//
 	// Generate types.
 	//
 	echo( "==> Generating types.\n" );
-	generateTypes( $dc, $theNamespace, "$path/Types.xml" );
+	generateTypes( $dc, $theNamespace, "$path1/Types.xml" );
 
 	//
-	// Generate types.
+	// Generate tags.
 	//
 	echo( "==> Generating tags.\n" );
-	generateTags( $dc, $theNamespace, "$path/Tags.xml" );
+	generateTags( $dc, $theNamespace, "$path1/Tags.xml" );
+
+	//
+	// Generate forms.
+	//
+	echo( "==> Generating forms.\n" );
+	generateForms( $dc, $theNamespace, "$path2/FormTrait.xml" );
 
 	echo( "\nDone!\n" );
 
@@ -434,7 +441,7 @@ EOT;
 EOT;
 		
 		//
-		// Iterate types.
+		// Iterate tags.
 		//
 		$query = "SELECT `tags`.*, `Features`.`Label` AS `FeatureLabel`, `Scales`.`Label` AS `ScaleLabel` "
 				."FROM `tags` "
@@ -442,12 +449,12 @@ EOT;
 				."ON( `Features`.`ID` = `tags`.`FeatureTerm` ) "
 				."LEFT JOIN `terms` `Scales` "
 				."ON( `Scales`.`ID` = `tags`.`ScaleTerm` ) "
-				."ORDER BY `ID` ASC";
+				."ORDER BY `tags`.`ID` ASC";
 		$rs = $theConnection->execute( $query );
 		foreach( $rs as $record )
 		{
 			//
-			// Load type elements.
+			// Load tag elements.
 			//
 			$feature = $record[ 'FeatureTerm' ];
 			$feature_lab = $record[ 'FeatureLabel' ];
@@ -495,6 +502,13 @@ EOT;
 					break;
 			}
 			$xml .= ("\t\t\t</item>\n");
+			if( $cats = getTagCategories( $theConnection, $record[ 'ID' ] ) )
+			{
+				$xml .= ("\t\t\t<item const=\"kTAG_CATEGORY\">\n");
+				foreach( $cats as $cat )
+					$xml .= ("\t\t\t\t<item>$cat</item>\n");
+				$xml .= ("\t\t\t</item>\n");
+			}
 			$xml .= ("\t\t\t<item const=\"kTAG_LABEL\">\n");
 			$xml .= ("\t\t\t\t<item>\n");
 			$xml .= ("\t\t\t\t\t<item const=\"kTAG_LANGUAGE\">en</item>\n");
@@ -556,6 +570,151 @@ EOT;
 		file_put_contents( $theFile, $xml );
 
 	} // generateTags.
+	
+	
+	/**
+	 * Generate forms.
+	 *
+	 * This function will generate the forms XML file.
+	 *
+	 * @param ADOConnection			$theConnection		Database connection.
+	 * @param string				$theNamespace		Terms namespace.
+	 * @param string				$theFile			XML file path.
+	 *
+	 * @return array				The parsed options.
+	 */
+	function generateForms( ADOConnection $theConnection, $theNamespace, $theFile )
+	{
+		//
+		// Init local storage.
+		//
+		$xml = <<<EOT
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TRAIT FORM
+	FormTrait.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- FORM -->
+
+	<!-- form::trait -->
+	<META>
+		<NODE term=":trait" pid="form::trait">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common trait search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+
+EOT;
+		
+		//
+		// Iterate categories.
+		//
+		$query = "SELECT `ID`, `Term` FROM `categories`";
+		$cats = $theConnection->GetAll( $query );
+		foreach( $cats as $cat )
+		{
+			//
+			// Init local storage.
+			//
+			$cat_id = $cat[ 'ID' ];
+			$cat_term = $cat[ 'Term' ];
+			
+			//
+			// Open category block.
+			//
+			$xml .= ("\n\t<!-- form:$cat_term -->\n");
+			$xml .= ("\t<META>\n");
+			$xml .= ("\t\t<NODE term=\"$cat_term\" pid=\"form:$cat_term\" />\n");
+			$xml .= ("\t\t<EDGE>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:PROPERTY-OF</item>\n");
+			$xml .= ("\t\t\t<item const=\"kTAG_OBJECT\" node=\"pid\">form::trait</item>\n");
+			$xml .= ("\t\t</EDGE>\n");
+			
+			//
+			// Iterate category tags.
+			//
+			$query = "SELECT DISTINCT `tags`.`FeatureTerm`, `tags`.`ScaleTerm` "
+					."FROM `groups` "
+					."LEFT JOIN `tags` "
+					."ON( `tags`.`ID` = `groups`.`Tag` ) "
+					."WHERE `groups`.`Category` = $cat_id "
+					."ORDER BY `tags`.`ID` ASC";
+			$rs = $theConnection->execute( $query );
+			foreach( $rs as $record )
+			{
+				//
+				// Load tag elements.
+				//
+				$feature = $record[ 'FeatureTerm' ];
+				$scale = $record[ 'ScaleTerm' ];
+		
+				//
+				// Write tag block.
+				//
+				$xml .= ("\n\t<!-- $theNamespace:$feature/:predicate:SCALE-OF/$theNamespace:$scale -->\n");
+				$xml .= ("\t\t<EDGE>\n");
+				$xml .= ("\t\t\t<item const=\"kTAG_SUBJECT\" node=\"tag\">$theNamespace:$feature/:predicate:SCALE-OF/$theNamespace:$scale</item>\n");
+				$xml .= ("\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:PROPERTY-OF</item>\n");
+				$xml .= ("\t\t</EDGE>\n");
+		
+			} $rs->Close();
+			
+			//
+			// Close category block.
+			//
+			$xml .= ("\t</META>\n");
+		
+		} // Iterating categories.
+		
+		//
+		// Close metadata.
+		//
+		$xml .= ("</METADATA>\n");
+	
+		//
+		// Write XML file.
+		//
+		file_put_contents( $theFile, $xml );
+
+	} // generateForms.
+	
+
+	/**
+	 * Get tag categories.
+	 *
+	 * This function will parse the provided options and return a list of options structured
+	 * as an array with key as key and value as label.
+	 *
+	 * @param ADOConnection			$theConnection		Database connection.
+	 * @param int					$theTag				Tag local identifier.
+	 *
+	 * @return array				The tag's category terms list.
+	 */
+	function getTagCategories( $theConnection, $theTag )
+	{
+		//
+		// Select categories.
+		//
+		$query = "SELECT DISTINCT `categories`.`Term` "
+				."FROM `groups` "
+				."LEFT JOIN `categories` "
+				."ON( `categories`.`ID` = `groups`.`Category` ) "
+				."WHERE `groups`.`Tag` = $theTag";
+		return $theConnection->GetCol( $query );									// ==>
+
+	} // getTagCategories.
 	
 
 	/**
