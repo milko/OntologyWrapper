@@ -443,7 +443,10 @@ EOT;
 		//
 		// Iterate tags.
 		//
-		$query = "SELECT `tags`.*, `Features`.`Label` AS `FeatureLabel`, `Scales`.`Label` AS `ScaleLabel` "
+		$query = "SELECT DISTINCT "
+				."`tags`.`ID`, `tags`.`FeatureTerm`, `tags`.`ScaleTerm`, "
+				."`tags`.`Type`, `tags`.`Unit`, `tags`.`Synonyms`, "
+				."`Features`.`Label` AS `FeatureLabel`, `Scales`.`Label` AS `ScaleLabel` "
 				."FROM `tags` "
 				."LEFT JOIN `terms` `Features` "
 				."ON( `Features`.`ID` = `tags`.`FeatureTerm` ) "
@@ -663,7 +666,7 @@ EOT;
 				//
 				// Write tag block.
 				//
-				$xml .= ("\n\t<!-- $theNamespace:$feature/:predicate:SCALE-OF/$theNamespace:$scale -->\n");
+				$xml .= ("\n\t\t<!-- $theNamespace:$feature/:predicate:SCALE-OF/$theNamespace:$scale -->\n");
 				$xml .= ("\t\t<EDGE>\n");
 				$xml .= ("\t\t\t<item const=\"kTAG_SUBJECT\" node=\"tag\">$theNamespace:$feature/:predicate:SCALE-OF/$theNamespace:$scale</item>\n");
 				$xml .= ("\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:PROPERTY-OF</item>\n");

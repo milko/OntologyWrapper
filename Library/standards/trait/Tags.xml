@@ -8221,44 +8221,6 @@
 		</NODE>
 	</META>
 
-	<!-- :trait:term:102/:predicate:SCALE-OF/:trait:term:1431 -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:trait:term:102</item>
-				<item>:predicate:SCALE-OF</item>
-				<item>:trait:term:1431</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
-			</item>
-			<item const="kTAG_CATEGORY">
-				<item>:trait:cytology</item>
-			</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Chromosome number]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Laboratory determination of chromosome number]]></item>
-				</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item><![CDATA[PLOIDY]]></item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-
 	<!-- :trait:term:470/:predicate:SCALE-OF/:trait:term:902 -->
 	<META>
 		<TAG>
@@ -27567,44 +27529,6 @@
 		</NODE>
 	</META>
 
-	<!-- :trait:term:686/:predicate:SCALE-OF/:trait:term:1305 -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:trait:term:686</item>
-				<item>:predicate:SCALE-OF</item>
-				<item>:trait:term:1305</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
-			</item>
-			<item const="kTAG_CATEGORY">
-				<item>:trait:morphology</item>
-			</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Seeds per pod]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Average number of seeds per pod]]></item>
-				</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item><![CDATA[SEEDSPOD]]></item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-
 	<!-- :trait:term:217/:predicate:SCALE-OF/:trait:term:1129 -->
 	<META>
 		<TAG>
@@ -35965,6 +35889,7 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item><![CDATA[NOSEEDP]]></item>
+				<item><![CDATA[SEEDPLANT]]></item>
 			</item>
 		</TAG>
 		<NODE>
@@ -39388,44 +39313,6 @@
 			<item tag="UO:0000000">UO:0000015</item>
 			<item const="kTAG_SYNONYM">
 				<item><![CDATA[PODHIGHT]]></item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-
-	<!-- :trait:term:685/:predicate:SCALE-OF/:trait:term:1528 -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:trait:term:685</item>
-				<item>:predicate:SCALE-OF</item>
-				<item>:trait:term:1528</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
-			</item>
-			<item const="kTAG_CATEGORY">
-				<item>:trait:morphology</item>
-			</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Seeds per plant]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Number of seeds per plant]]></item>
-				</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item><![CDATA[SEEDPLANT]]></item>
 			</item>
 		</TAG>
 		<NODE>

@@ -45,7 +45,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
-				<item>type:categorical</item>
+				<item>:type:categorical</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>

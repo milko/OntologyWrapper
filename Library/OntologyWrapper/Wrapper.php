@@ -3112,6 +3112,10 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormTrait.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
 		$file = kPATH_STANDARDS_ROOT.'/collections/FormQtl.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );

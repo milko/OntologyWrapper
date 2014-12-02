@@ -100,7 +100,7 @@
 		
 		<!-- form::trait -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">fform::traitt</item>
+			<item const="kTAG_SUBJECT" node="pid">form::trait</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
