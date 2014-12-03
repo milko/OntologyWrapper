@@ -460,6 +460,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_STATS}</tt>: List statistics by domain.
+	 *	<li><tt>{@link kAPI_OP_LIST_DOMAINS}</tt>: List domains and unit counts.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
@@ -496,6 +497,7 @@ class Service extends ContainerObject
 			case kAPI_OP_LIST_OPERATORS:
 			case kAPI_OP_LIST_REF_COUNTS:
 			case kAPI_OP_LIST_STATS:
+			case kAPI_OP_LIST_DOMAINS:
 			case kAPI_OP_MATCH_TAG_LABELS:
 			case kAPI_OP_MATCH_TAG_SUMMARY_LABELS:
 			case kAPI_OP_MATCH_TERM_LABELS:
@@ -800,6 +802,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_STATS}</tt>: List statistics by domain.
+	 *	<li><tt>{@link kAPI_OP_LIST_DOMAINS}</tt>: List domains and unit counts.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
@@ -837,6 +840,7 @@ class Service extends ContainerObject
 			case kAPI_OP_LIST_CONSTANTS:
 			case kAPI_OP_LIST_OPERATORS:
 			case kAPI_OP_LIST_REF_COUNTS:
+			case kAPI_OP_LIST_DOMAINS:
 				break;
 			
 			case kAPI_OP_LIST_STATS:
@@ -3184,6 +3188,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_STATS}</tt>: List statistics by domain.
+	 *	<li><tt>{@link kAPI_OP_LIST_DOMAINS}</tt>: List domains and unit counts.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
@@ -3230,6 +3235,10 @@ class Service extends ContainerObject
 			
 			case kAPI_OP_LIST_STATS:
 				$this->executeListStats();
+				break;
+			
+			case kAPI_OP_LIST_DOMAINS:
+				$this->executeListDomains();
 				break;
 				
 			case kAPI_OP_MATCH_TAG_LABELS:
@@ -3386,9 +3395,11 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_LIST_CONSTANTS" ] = kAPI_OP_LIST_CONSTANTS;
 		$ref[ "kAPI_OP_LIST_OPERATORS" ] = kAPI_OP_LIST_OPERATORS;
 		$ref[ "kAPI_OP_LIST_REF_COUNTS" ] = kAPI_OP_LIST_REF_COUNTS;
+		$ref[ "kAPI_OP_LIST_STATS" ] = kAPI_OP_LIST_STATS;
+		$ref[ "kAPI_OP_LIST_DOMAINS" ] = kAPI_OP_LIST_DOMAINS;
 		$ref[ "kAPI_OP_MATCH_TAG_LABELS" ] = kAPI_OP_MATCH_TAG_LABELS;
-		$ref[ "kAPI_OP_MATCH_TERM_LABELS" ] = kAPI_OP_MATCH_TERM_LABELS;
 		$ref[ "kAPI_OP_MATCH_TAG_SUMMARY_LABELS" ] = kAPI_OP_MATCH_TAG_SUMMARY_LABELS;
+		$ref[ "kAPI_OP_MATCH_TERM_LABELS" ] = kAPI_OP_MATCH_TERM_LABELS;
 		$ref[ "kAPI_OP_MATCH_TAG_BY_LABEL" ] = kAPI_OP_MATCH_TAG_BY_LABEL;
 		$ref[ "kAPI_OP_MATCH_TAG_BY_IDENTIFIER" ] = kAPI_OP_MATCH_TAG_BY_IDENTIFIER;
 		$ref[ "kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL" ] = kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL;
@@ -3689,6 +3700,78 @@ class Service extends ContainerObject
 							  $this->offsetGet( kAPI_PARAM_DOMAIN ) );
 		
 	} // executeListStats.
+
+	 
+	/*===================================================================================
+	 *	executeListDomains																*
+	 *==================================================================================*/
+
+	/**
+	 * Execute list domains request.
+	 *
+	 * This method will handle the {@link kAPI_OP_LIST_DOMAINS} operation.
+	 *
+	 * @access protected
+	 */
+	protected function executeListDomains()
+	{
+		//
+		// Init local storage.
+		//
+		$lang = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		$fields = array( kTAG_LABEL => TRUE, kTAG_DEFINITION => TRUE );
+		$col_terms = $this->mWrapper->resolveCollection( Term::kSEQ_NAME );
+		$col_units = $this->mWrapper->resolveCollection( UnitObject::kSEQ_NAME );
+		
+		//
+		// Initialise results.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		$ref = & $this->mResponse[ kAPI_RESPONSE_RESULTS ];
+		
+		//
+		// Get domains.
+		//
+		$domains = $col_units->connection()->distinct( kTAG_DOMAIN );
+		
+		//
+		// Load domains.
+		//
+		$rs = $col_terms->matchAll( array( kTAG_NID => array( '$in' => $domains ) ),
+									kQUERY_ARRAY,
+									$fields );
+		
+		//
+		// Load domains.
+		//
+		foreach( $rs as $term )
+		{
+			//
+			// Allocate entry.
+			//
+			$ref[ $term[ kTAG_NID ] ] = Array();
+			$ref_item = & $ref[ $term[ kTAG_NID ] ];
+			
+			//
+			// Get label and definition.
+			//
+			$ref_item[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+				= OntologyObject::SelectLanguageString( $term[ kTAG_LABEL ], $lang );
+			if( array_key_exists( kTAG_DEFINITION, $term ) )
+				$ref_item[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= OntologyObject::SelectLanguageString( $term[ kTAG_DEFINITION ],
+															$lang );
+			
+			//
+			// Get count.
+			//
+			$ref_item[ kAPI_PARAM_RESPONSE_COUNT ]
+				= $col_units->matchOne( array( kTAG_DOMAIN => $term[ kTAG_NID ] ),
+										kQUERY_COUNT );
+		
+		} // Iterating domain tags.
+		
+	} // executeListDomains.
 
 	 
 	/*===================================================================================

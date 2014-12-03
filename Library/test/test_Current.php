@@ -541,6 +541,7 @@ var_dump( json_encode( $param ) );
 exit;
 */
 
+/*
 	//
 	// Test multiple fields with multiple offsets indexed (group).
 	//
@@ -584,6 +585,36 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+*/
+
+	//
+	// Test domains list and count.
+	//
+	echo( '<h4>Test domains list and count</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$request = "$base_url?op=".kAPI_OP_LIST_DOMAINS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
 
 }
 

@@ -379,6 +379,34 @@ define( "kAPI_OP_LIST_REF_COUNTS",				'listRefCounts' );
 define( "kAPI_OP_LIST_STATS",					'listStats' );
 
 /**
+ * List domains.
+ *
+ * This tag defines the list domains operation.
+ *
+ * This operation will return the list of featured domains with their relative units count,
+ * the service expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ * </ul>
+ *
+ * The response format is an array organised as follows:
+ *
+ * <ul>
+ *	<li><tt>key</tt>: The domain code.
+ *	<li><tt>value</tt>: The domain details:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The statistics name or label.
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The statistics description.
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_COUNT}</tt>: The number or unit records.
+ *	 </ul>
+ * </ul>
+ */
+define( "kAPI_OP_LIST_DOMAINS",					'listDomains' );
+
+/**
  * Match tag labels.
  *
  * This tag defines the match tag labels operation.
