@@ -708,18 +708,18 @@ define( "kAPI_PARAM_COLLECTION_NODE",			'_nodes' );
 define( "kAPI_PARAM_COLLECTION_EDGE",			'_edges' );
 
 /**
+ * Entities (string).
+ *
+ * This parameter indicates a reference to the entities collection.
+ */
+define( "kAPI_PARAM_COLLECTION_USER",			'_users' );
+
+/**
  * Units (string).
  *
  * This parameter indicates a reference to the units collection.
  */
 define( "kAPI_PARAM_COLLECTION_UNIT",			'_units' );
-
-/**
- * Entities (string).
- *
- * This parameter indicates a reference to the entities collection.
- */
-define( "kAPI_PARAM_COLLECTION_ENTITY",			'_entities' );
 
 /*=======================================================================================
  *	FORM INPUT TYPE ENUMERATED SET														*

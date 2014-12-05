@@ -555,6 +555,12 @@ abstract class OntologyObject extends ContainerObject
 	 *	<li><tt>{@link kTAG_LANGUAGE}</tt>: Property language.
 	 *	<li><tt>{@link kTAG_TEXT}</tt>: Property text.
 	 *	<li><tt>{@link kTAG_URL}</tt>: Property URL.
+	 *	<li><tt>{@link kTAG_TAG_REF}</tt>: Tag object reference.
+	 *	<li><tt>{@link kTAG_TERM_REF}</tt>: Term object reference.
+	 *	<li><tt>{@link kTAG_NODE_REF}</tt>: Node object reference.
+	 *	<li><tt>{@link kTAG_EDGE_REF}</tt>: Edge object reference.
+	 *	<li><tt>{@link kTAG_USER_REF}</tt>: User object reference.
+	 *	<li><tt>{@link kTAG_UNIT_REF}</tt>: Unit object reference.
 	 *	<li><tt>{@link kTAG_GEOMETRY}</tt>: Shape property geometry.
 	 *	<li><tt>{@link kTAG_RADIUS}</tt>: Shape property radius.
 	 *	<li><tt>{@link kTAG_FULL_TEXT_10}</tt>: Full-text values, weight 10.
@@ -568,8 +574,10 @@ abstract class OntologyObject extends ContainerObject
 	static function InternalOffsets()
 	{
 		return array( kTAG_NID, kTAG_CLASS,
-					  kTAG_TYPE, kTAG_LANGUAGE,
-					  kTAG_TEXT, kTAG_URL, kTAG_GEOMETRY, kTAG_RADIUS,
+					  kTAG_TYPE, kTAG_LANGUAGE, kTAG_TEXT, kTAG_URL,
+					  kTAG_TAG_REF, kTAG_TERM_REF, kTAG_NODE_REF, kTAG_EDGE_REF,
+					  kTAG_USER_REF, kTAG_UNIT_REF,
+					  kTAG_GEOMETRY, kTAG_RADIUS,
 					  kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 );	// ==>
 	
 	} // InternalOffsets.
@@ -900,7 +908,7 @@ abstract class OntologyObject extends ContainerObject
 			case kTYPE_REF_TERM:
 			case kTYPE_REF_EDGE:
 			case kTYPE_REF_UNIT:
-			case kTYPE_REF_ENTITY:
+			case kTYPE_REF_USER:
 				$theProperty = (string) $theProperty;
 				break;
 			

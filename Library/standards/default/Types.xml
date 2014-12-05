@@ -370,18 +370,18 @@
 			</item>
 		</TERM>
 		
-		<!-- kTYPE_REF_ENTITY -->
-		<TERM ns=":type:ref" lid="entity">
+		<!-- kTYPE_REF_USER -->
+		<TERM ns=":type:ref" lid="user">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity reference</item>
+					<item const="kTAG_TEXT">User reference</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An entity reference is a string that must correspond to the native identifier of an Entity object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A user reference is a string that must correspond to the native identifier of a user object.]]></item>
 				</item>
 			</item>
 		</TERM>

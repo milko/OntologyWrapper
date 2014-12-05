@@ -863,11 +863,8 @@ echo( '<hr />' );
 	//
 	// Connect.
 	//
-	$m = new MongoClient( 'mongodb://localhost:27017' );
-	$d = $m->selectDB( 'test' );
-	$c = $d->selectCollection( 'indexes' );
-	$c->drop();
-	
-	var_dump( kTAG_LABEL );
+	$m = new MongoClient( 'mongodb://bio-mongo-1-4.scientific-computing.8100.mongodbdns.com:27000' );
+	$d = $m->selectDB( 'GEO' );
+	$c = $d->selectCollection( 'LAYERS-30' );
 	
 ?>

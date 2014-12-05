@@ -43,7 +43,7 @@ trait EntityAffiliation
 	 * Manage affiliation
 	 *
 	 * This method can be used to add, retrieve and delete individual affiliations by type,
-	 * while managing all the mails as a whole can be done using the
+	 * while managing all the elements as a whole can be done using the
 	 * {@link kTAG_ENTITY_AFFILIATION} offset.
 	 *
 	 * The method expects the following parameters:
@@ -57,9 +57,13 @@ trait EntityAffiliation
 	 *	 <ul>
 	 *		<li><tt>NULL</tt>: Return the affiliation of the provided type.
 	 *		<li><tt>FALSE</tt>: Delete the affiliation of the provided type.
-	 *		<li><i>other</i>: Any other value is cast to string and interpreted as the
-	 *			entity reference of provided type which will be inserted, or that will
-	 *			replace an existing entry.
+	 *		<li><i>other</i>: Any other value is is:
+!!! MILKO - Must add value type !!!
+	 *		 <ul>
+	 *			<li><tt>{@link kTAG_TEXT}</tt>: A string.
+	 *			<li><tt>{@link kTAG_URL}</tt>: An URL.
+	 *			<li><tt>{@link kTAG_TAG_REF}</tt>: A reference to a tag object.
+	 *		 </ul>
 	 *	 </ul>
 	 *	<li><tt>$getOld</tt>: Determines what the method will return:
 	 *	 <ul>
@@ -81,7 +85,7 @@ trait EntityAffiliation
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_ENTITY_AFFILIATION kTAG_TYPE kTAG_ENTITY
+	 * @see kTAG_ENTITY_AFFILIATION kTAG_TYPE kTAG_USER
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
@@ -93,10 +97,10 @@ trait EntityAffiliation
 		if( ($theValue !== NULL)
 		 && ($theValue !== FALSE) )
 			$this->validateReference(
-				$theValue, kTYPE_REF_ENTITY, "EntityObject", kTAG_ENTITY_AFFILIATION );
+				$theValue, kTYPE_REF_USER, "EntityObject", kTAG_ENTITY_AFFILIATION );
 		
 		return $this->manageElementMatchOffset(
-				kTAG_ENTITY_AFFILIATION, kTAG_TYPE, kTAG_ENTITY,
+				kTAG_ENTITY_AFFILIATION, kTAG_TYPE, kTAG_USER,
 				$theType, $theValue, $getOld );										// ==>
 	
 	} // EntityAffiliation.

@@ -94,8 +94,8 @@ if( $argc < 4 )
 // Init local storage.
 //
 $start = 0;
-$limit = 200;
-$backup = 10000;
+$limit = 600;
+$backup = 24000;
 $dc = $dc_out = $rs = NULL;
 
 //

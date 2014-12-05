@@ -55,9 +55,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_ENTITY_COUNT -->
+		<!-- kTAG_USER_COUNT -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:ref-count:entity</item>
+			<item const="kTAG_SUBJECT" node="tag">:ref-count:user</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

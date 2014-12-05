@@ -695,17 +695,17 @@
 	</META>
 	
 	<!-- @18 -->
-	<!-- kTAG_ENTITY -->
+	<!-- kTAG_USER -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:entity</item>
+				<item>:entity:user</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:ref:entity</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:user</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_USER</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1130,28 +1130,28 @@
 	</META>
 	
 	<!-- @27 -->
-	<!-- kTAG_ENTITY_COUNT -->
+	<!-- kTAG_USER_COUNT -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:ref-count:entity</item>
+				<item>:ref-count:user</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 				<item>:type:private-modify</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_COUNT</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_USER_COUNT</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity references count</item>
+					<item const="kTAG_TEXT">User references count</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer value representing the number of tag objects featuring the current property. This is generally used to assess tag usage frequency in entity objects.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer value representing the number of user objects featuring the current property. This is generally used to assess tag usage frequency in user objects.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -2653,9 +2653,9 @@
 	
 	<!-- Management attributes -->
 	
+	<!-- @59 -->
+	<!-- kTAG_ROLES -->
 	<META>
-		<!-- @59 -->
-		<!-- kTAG_ROLES -->
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:roles</item>
@@ -2670,6 +2670,84 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of strings representing the roles a user or service may cover in the current system.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @5a -->
+	<!-- kTAG_INVITES -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:invites</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_INVITES</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of user invitation codes.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @5b -->
+	<!-- kTAG_CLASS_NAME -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:class</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CLASS_NAME</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string representing a class name.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @5c -->
+	<!-- kTAG_TOKEN -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:token</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TOKEN</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a character or string which indicates a separation pattern.]]></item>
 				</item>
 			</item>
 		</TAG>

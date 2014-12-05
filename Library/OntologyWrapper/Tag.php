@@ -481,7 +481,7 @@ class Tag extends MetadataObject
 	 *	<li><tt>{@link kTAG_NODE_COUNT}</tt>: Nodes count.
 	 *	<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Edges count.
 	 *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Units count.
-	 *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Entities count.
+	 *	<li><tt>{@link kTAG_USER_COUNT}</tt>: Users count.
 	 * </ul>
 	 *
 	 * @param DatabaseObject		$theDatabase		Database reference.
@@ -565,8 +565,8 @@ class Tag extends MetadataObject
 		//
 		// Set entities count index.
 		//
-		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
-								  array( "name" => "ENTITIES_COUNT",
+		$collection->createIndex( array( kTAG_USER_COUNT => 1 ),
+								  array( "name" => "USERS_COUNT",
 								  		 "sparse" => TRUE ) );
 		
 		//

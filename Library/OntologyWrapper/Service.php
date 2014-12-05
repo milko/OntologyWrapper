@@ -2709,7 +2709,7 @@ class Service extends ContainerObject
 	 *
 	 * @see kAPI_PARAM_COLLECTION_TAG kAPI_PARAM_COLLECTION_TERM
 	 * @see kAPI_PARAM_COLLECTION_NODE kAPI_PARAM_COLLECTION_EDGE
-	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_ENTITY
+	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_USER
 	 */
 	protected function validateCollection( $theValue )
 	{
@@ -2724,7 +2724,7 @@ class Service extends ContainerObject
 			$collections
 				= array( kAPI_PARAM_COLLECTION_TAG, kAPI_PARAM_COLLECTION_TERM,
 						 kAPI_PARAM_COLLECTION_NODE, kAPI_PARAM_COLLECTION_EDGE,
-						 kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_ENTITY );
+						 kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_USER );
 			
 			//
 			// Iterate values.
@@ -3531,7 +3531,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_COLLECTION_NODE" ] = Node::kSEQ_NAME;
 		$ref[ "kAPI_PARAM_COLLECTION_EDGE" ] = Edge::kSEQ_NAME;
 		$ref[ "kAPI_PARAM_COLLECTION_UNIT" ] = UnitObject::kSEQ_NAME;
-		$ref[ "kAPI_PARAM_COLLECTION_ENTITY" ] = User::kSEQ_NAME;
+		$ref[ "kAPI_PARAM_COLLECTION_USER" ] = User::kSEQ_NAME;
 		
 		//
 		// Load form input enumerated set.
@@ -3668,7 +3668,7 @@ class Service extends ContainerObject
 		$ref[ kAPI_PARAM_COLLECTION_NODE ] = kTAG_NODE_COUNT;
 		$ref[ kAPI_PARAM_COLLECTION_EDGE ] = kTAG_EDGE_COUNT;
 		$ref[ kAPI_PARAM_COLLECTION_UNIT ] = kTAG_UNIT_COUNT;
-		$ref[ kAPI_PARAM_COLLECTION_ENTITY ] = kTAG_ENTITY_COUNT;
+		$ref[ kAPI_PARAM_COLLECTION_USER ] = kTAG_USER_COUNT;
 		
 	} // executeListReferenceCountParameters.
 
@@ -4190,8 +4190,8 @@ class Service extends ContainerObject
 						$ref_count = (string) kTAG_UNIT_COUNT;
 						break;
 					
-					case kAPI_PARAM_COLLECTION_ENTITY:
-						$ref_count = (string) kTAG_ENTITY_COUNT;
+					case kAPI_PARAM_COLLECTION_USER:
+						$ref_count = (string) kTAG_USER_COUNT;
 						break;
 				}
 			}
@@ -4373,6 +4373,13 @@ class Service extends ContainerObject
 	protected function executeGetUser()
 	{
 		//
+		// Return boghey stuff.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= array( 'message' => 'Vattelappesca!!!' );
+		
+	/*
+		//
 		// Set filter.
 		//
 		$param = $this->offsetGet( kAPI_PARAM_ID );
@@ -4420,6 +4427,7 @@ class Service extends ContainerObject
 				break;
 		
 		} // Parsed result type.
+	*/
 		
 	} // executeGetUser.
 
@@ -4613,7 +4621,7 @@ class Service extends ContainerObject
 										  kTYPE_TYPED_LIST,
 										  kTYPE_SHAPE, kTYPE_REF_TAG, kTYPE_REF_TERM,
 										  kTYPE_REF_NODE, kTYPE_REF_EDGE, kTYPE_REF_UNIT,
-										  kTYPE_REF_ENTITY, kTYPE_REF_SELF,
+										  kTYPE_REF_USER, kTYPE_REF_SELF,
 										  kTYPE_TIME_STAMP ) );
 		
 		} // Searching tags
@@ -4650,8 +4658,8 @@ class Service extends ContainerObject
 						$criteria[ (string) kTAG_UNIT_COUNT ] = array( '$gt' => 0 );
 						break;
 					
-					case kAPI_PARAM_COLLECTION_ENTITY:
-						$criteria[ (string) kTAG_ENTITY_COUNT ] = array( '$gt' => 0 );
+					case kAPI_PARAM_COLLECTION_USER:
+						$criteria[ (string) kTAG_USER_COUNT ] = array( '$gt' => 0 );
 						break;
 				}
 			}
@@ -8913,7 +8921,7 @@ $rs_units = & $rs_units[ 'result' ];
 				case kAPI_PARAM_COLLECTION_NODE: return kTAG_NODE_COUNT;			// ==>
 				case kAPI_PARAM_COLLECTION_EDGE: return kTAG_EDGE_COUNT;			// ==>
 				case kAPI_PARAM_COLLECTION_UNIT: return kTAG_UNIT_COUNT;			// ==>
-				case kAPI_PARAM_COLLECTION_ENTITY: return kTAG_ENTITY_COUNT;		// ==>
+				case kAPI_PARAM_COLLECTION_USER: return kTAG_USER_COUNT;		// ==>
 			}
 			
 			return NULL;															// ==>

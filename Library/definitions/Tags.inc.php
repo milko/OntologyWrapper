@@ -93,6 +93,66 @@ define( "kTAG_TEXT",					'text' );
 define( "kTAG_URL",						'url' );
 
 /**
+ * Tag (<code>tag</code>)
+ *
+ * Data type: kTYPE_REF_TAG
+ *
+ * This tag holds a <em>string</em> which represents a reference to a tag, the latter's
+ * native identifier.
+ */
+define( "kTAG_TAG_REF",					'tag' );
+
+/**
+ * Term (<code>term</code>)
+ *
+ * Data type: kTYPE_REF_TERM
+ *
+ * This tag holds a <em>string</em> which represents a reference to a term, the latter's
+ * native identifier.
+ */
+define( "kTAG_TERM_REF",				'term' );
+
+/**
+ * Node (<code>node</code>)
+ *
+ * Data type: kTYPE_REF_NODE
+ *
+ * This tag holds an <em>integer</em> which represents a reference to a node, the latter's
+ * native identifier.
+ */
+define( "kTAG_NODE_REF",				'node' );
+
+/**
+ * Edge (<code>edge</code>)
+ *
+ * Data type: kTYPE_REF_EDGE
+ *
+ * This tag holds a <em>string</em> which represents a reference to an edge, the latter's
+ * native identifier.
+ */
+define( "kTAG_EDGE_REF",				'edge' );
+
+/**
+ * User (<code>user</code>)
+ *
+ * Data type: kTYPE_REF_USER
+ *
+ * This tag holds a <em>string</em> which represents a reference to a user, the latter's
+ * native identifier.
+ */
+define( "kTAG_USER_REF",				'user' );
+
+/**
+ * Unit (<code>unit</code>)
+ *
+ * Data type: kTYPE_REF_UNIT
+ *
+ * This tag holds a <em>string</em> which represents a reference to a unit, the latter's
+ * native identifier.
+ */
+define( "kTAG_UNIT_REF",				'unit' );
+
+/**
  * Geometry (<code>coordinates</code>)
  *
  * Data type: kTYPE_FLOAT
@@ -484,16 +544,16 @@ define( "kTAG_OBJECT",					'@16' );
 define( "kTAG_GRAPH_OBJECT",			'@17' );
 
 /**
- * Entity reference (<code>:entity</code)
+ * User reference (<code>:entity:user</code)
  *
  * <ul>
- *	<li><em>Type</em>: {@link kTYPE_REF_ENTITY}
+ *	<li><em>Type</em>: {@link kTYPE_REF_USER}
  * </ul>
  *
- * This tag holds a <em>string</em> representing an <em>entity native identifier</em>, it is
- * a <em>reference to an entity object</em>.
+ * This tag holds a <em>string</em> representing a <em>user native identifier</em>, it is
+ * a <em>reference to a user object</em>.
  */
-define( "kTAG_ENTITY",					'@18' );
+define( "kTAG_USER",					'@18' );
 
 /**
  * Master (<code>:master</code)
@@ -680,7 +740,7 @@ define( "kTAG_STRUCT_LABEL",			'@25' );
  *======================================================================================*/
 
 /**
- * Units count (<code>:unit-count</code)
+ * Units count (<code>:ref-count:unit</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
@@ -694,7 +754,7 @@ define( "kTAG_STRUCT_LABEL",			'@25' );
 define( "kTAG_UNIT_COUNT",				'@26' );
 
 /**
- * Entity count (<code>:entity-count</code)
+ * Users count (<code>:ref-count:user</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
@@ -705,10 +765,10 @@ define( "kTAG_UNIT_COUNT",				'@26' );
  * featuring a specific property</em>. This is generally used to assess <em>tag usage
  * frequency in entity objects</em>.
  */
-define( "kTAG_ENTITY_COUNT",			'@27' );
+define( "kTAG_USER_COUNT",			'@27' );
 
 /**
- * Tag count (<code>:tag-count</code)
+ * Tag count (<code>:ref-count:tag</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
@@ -721,7 +781,7 @@ define( "kTAG_ENTITY_COUNT",			'@27' );
 define( "kTAG_TAG_COUNT",				'@28' );
 
 /**
- * Term count (<code>:term-count</code)
+ * Term count (<code>:ref-count:term</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
@@ -734,7 +794,7 @@ define( "kTAG_TAG_COUNT",				'@28' );
 define( "kTAG_TERM_COUNT",				'@29' );
 
 /**
- * Node count (<code>:node-count</code)
+ * Node count (<code>:ref-count:node</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
@@ -747,7 +807,7 @@ define( "kTAG_TERM_COUNT",				'@29' );
 define( "kTAG_NODE_COUNT",				'@2a' );
 
 /**
- * Edge count (<code>:node-count</code)
+ * Edge count (<code>:ref-count:edge</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
@@ -1357,13 +1417,51 @@ define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@58' );
  *======================================================================================*/
 
 /**
- * Roles
+ * Roles (<code>:roles</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_SET}
+ * </ul>
  *
  * This tag indicates the list of roles a user or service has in regards to the system, the
  * value is a set of string values which are defined and managed by the user interface
  * system.
  */
 define( "kTAG_ROLES",					'@59' );
+
+/**
+ * Invites (<code>:invites</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ *	<li><em>Kind</em>: {@link kTYPE_LIST}
+ * </ul>
+ *
+ * This tag indicates the list of invitations.
+ */
+define( "kTAG_INVITES",					'@5a' );
+
+/**
+ * Class (<code>:class</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ * </ul>
+ *
+ * This tag indicates a class name.
+ */
+define( "kTAG_CLASS_NAME",				'@5b' );
+
+/**
+ * Token (<code>:token</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ * </ul>
+ *
+ * This tag indicates a token.
+ */
+define( "kTAG_TOKEN",					'@5c' );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*
@@ -1385,7 +1483,7 @@ define( "kTAG_OPERATION_APPEND",		'@6f' );
 /**
  * Dynamic tag sequence origin
  *
- * This defines the first dynamically assigned sequence tag number.
+ * This defines the first dynamically assigned sequence tag number [0x70].
  */
 define( "kTAG_SEQUENCE_START",			112 );
 

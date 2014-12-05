@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DEFAULT ADMINISTRATOR USER
+	Admin.xml
+-->
+<UNITS
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Admin user -->
+	
+	<UNIT class="OntologyWrapper\User">
+		<item const="kTAG_AUTHORITY">ITA406</item>
+		<item const="kTAG_COLLECTION">pgrdiversity</item>
+		<item const="kTAG_IDENTIFIER">admin</item>
+		<item const="kTAG_NAME">Gateway Administrator</item>
+		<item const="kTAG_ENTITY_FNAME">Milko</item>
+		<item const="kTAG_ENTITY_LNAME">Škofič</item>
+		<item const="kTAG_ENTITY_TYPE">
+			<item>:type:entity:100</item>
+			<item>:type:entity:120</item>
+		</item>
+		<item const="kTAG_ROLES">
+			<item>:roles:user-invite</item>
+		</item>
+		<item const="kTAG_ENTITY_EMAIL">
+			<item>
+				<item key="type">Work</item>
+				<item key="text">m.skofic@cgiar.org</item>
+			</item>
+		</item>
+		<item const="kTAG_ENTITY_PHONE">
+			<item>
+				<item key="type">Work</item>
+				<item key="text">+39 06 6118286</item>
+			</item>
+		</item>
+		<item const="kTAG_ENTITY_AFFILIATION">
+			<item>
+				<item key="type">Institute</item>
+				<item key="unit">:domain:organisation://http://fao.org/wiews:ITA406</item>
+			</item>
+		</item>
+	</UNIT>
+</UNITS>

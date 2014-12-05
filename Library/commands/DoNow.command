@@ -13,6 +13,28 @@
 SOCKET="socket=/tmp/mysql.sock"
 
 ########################################################################################
+#   Initialise database                                                                #
+########################################################################################
+
+#
+# Init data dictionary.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
+
+#
+# Backup and archive base dictionary.
+#
+rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+mongodump --directoryperdb \
+		  --db 'BIOVERSITY' \
+		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.1.base.zip"
+ditto -c -k --sequesterRsrc --keepParent \
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.1.base.zip"
+rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+
+########################################################################################
 #   Initialise dict                                                                    #
 ########################################################################################
 

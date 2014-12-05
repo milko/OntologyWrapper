@@ -674,18 +674,18 @@
 			</item>
 		</TERM>
 	
-		<!-- kTAG_ENTITY_COUNT -->
-		<TERM ns=":ref-count" lid="entity">
+		<!-- kTAG_USER_COUNT -->
+		<TERM ns=":ref-count" lid="user">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entities count</item>
+					<item const="kTAG_TEXT">Users count</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the number of entity objects featuring a specific property.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the number of user objects featuring a specific property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1220,6 +1220,22 @@
 	<!-- Entity attributes -->
 	
 	<META>
+		<!-- kTAG_USER -->
+		<TERM ns=":entity" lid="user">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">User</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A user reference.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
 		<!-- kTAG_ENTITY_IDENT -->
 		<TERM ns=":entity" lid="identifier">
 			<item const="kTAG_LABEL">
@@ -1508,6 +1524,54 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[The list of roles a user or service covers in the hosting system.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_INVITES -->
+		<TERM ns="" lid="invites">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Invites</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A list of user invitations.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_CLASS_NAME -->
+		<TERM ns="" lid="class">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Class</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Class name.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_TOKEN -->
+		<TERM ns="" lid="token">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Token</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A token character or string.]]></item>
 				</item>
 			</item>
 		</TERM>

@@ -456,10 +456,10 @@ define( "kAPI_OP_LIST_DOMAINS",					'listDomains' );
  *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
  *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_USER}</tt>: <em>User references</em>.
+ *			Select only those tags which have their {@link kTAG_USER_COUNT} greater than
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
  *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
- *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
- *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
  *			zero.
  *	 </ul>
  *		The filter will be chained in <tt>AND</tt>.
@@ -537,11 +537,10 @@ define( "kAPI_OP_MATCH_TAG_SUMMARY_LABELS",		'matchTagSummaryLabels' );
  *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
  *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_USER}</tt>: <em>User references</em>.
+ *			Select only those tags which have their {@link kTAG_USER_COUNT} greater than
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
  *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
- *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
- *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
- *			zero.
  *	 </ul>
  *		The filter will be chained in <tt>AND</tt>.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
@@ -601,11 +600,10 @@ define( "kAPI_OP_MATCH_TERM_LABELS",			'matchTermLabels' );
  *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
  *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_USER}</tt>: <em>User references</em>.
+ *			Select only those tags which have their {@link kTAG_USER_COUNT} greater than
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
  *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
- *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
- *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
- *			zero.
  *	 </ul>
  *		The filter will be chained in <tt>AND</tt>.
  *	<li><tt>{@link kAPI_PARAM_EXCLUDED_TAGS}</tt>: <em>Tags to skip</em>. This optional
@@ -722,11 +720,10 @@ define( "kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL",	'matchSummaryTagsByLabel' );
  *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
  *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_USER}</tt>: <em>User references</em>.
+ *			Select only those tags which have their {@link kTAG_USER_COUNT} greater than
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
  *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
- *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
- *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
- *			zero.
  *	 </ul>
  *		The filter will be chained in <tt>AND</tt>.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
@@ -769,11 +766,10 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermsByLabel' );
  *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
  *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_USER}</tt>: <em>User references</em>.
+ *			Select only those tags which have their {@link kTAG_USER_COUNT} greater than
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
  *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
- *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
- *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
- *			zero.
  *	 </ul>
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This parameter is required and
  *		considered only if the {@link kAPI_PARAM_RECURSE} parameter is not provided: it
@@ -834,11 +830,10 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
  *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
  *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_USER}</tt>: <em>User references</em>.
+ *			Select only those tags which have their {@link kTAG_USER_COUNT} greater than
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
  *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
- *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
- *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
- *			zero.
  *	 </ul>
  * </ul>
  *
@@ -886,11 +881,10 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
  *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_USER}</tt>: <em>User references</em>.
+ *			Select only those tags which have their {@link kTAG_USER_COUNT} greater than
  *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
  *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
- *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
- *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
- *			zero.
  *	 </ul>
  *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: <em>Recurse flag</em>. This optional flag, if
  *		set, will allow traversing root form nodes; if not set, root form nodes will not be
@@ -1265,8 +1259,8 @@ define( "kAPI_PARAM_PATTERN",					'pattern' );
  *	<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: Terms.
  *	<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: Nodes.
  *	<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: Edges.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_USER}</tt>: Users.
  *	<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: Units.
- *	<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: Entities.
  * </ul>
  *
  * The service will only select those tags which have values in the provided collections.
@@ -2070,18 +2064,18 @@ define( "kAPI_PARAM_COLLECTION_NODE",			'_nodes' );
 define( "kAPI_PARAM_COLLECTION_EDGE",			'_edges' );
 
 /**
+ * Entities (string).
+ *
+ * This parameter indicates a reference to the entities collection.
+ */
+define( "kAPI_PARAM_COLLECTION_USER",			'_users' );
+
+/**
  * Units (string).
  *
  * This parameter indicates a reference to the units collection.
  */
 define( "kAPI_PARAM_COLLECTION_UNIT",			'_units' );
-
-/**
- * Entities (string).
- *
- * This parameter indicates a reference to the entities collection.
- */
-define( "kAPI_PARAM_COLLECTION_ENTITY",			'_entities' );
 
 /*=======================================================================================
  *	FORM INPUT TYPE ENUMERATED SET														*
