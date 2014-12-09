@@ -94,7 +94,7 @@ try
 	//
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase( $database ) );
-	$wrapper->Entities(
+	$wrapper->Users(
 		new OntologyWrapper\MongoDatabase( $database ) );
 	$wrapper->Units(
 		new OntologyWrapper\MongoDatabase( $database ) );

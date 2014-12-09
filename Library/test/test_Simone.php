@@ -85,7 +85,7 @@ try
 	$wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->Entities(
+	$wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	$wrapper->Units(

@@ -4373,13 +4373,6 @@ class Service extends ContainerObject
 	protected function executeGetUser()
 	{
 		//
-		// Return boghey stuff.
-		//
-		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
-			= array( 'message' => 'Vattelappesca!!!' );
-		
-	/*
-		//
 		// Set filter.
 		//
 		$param = $this->offsetGet( kAPI_PARAM_ID );
@@ -4427,7 +4420,6 @@ class Service extends ContainerObject
 				break;
 		
 		} // Parsed result type.
-	*/
 		
 	} // executeGetUser.
 

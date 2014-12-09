@@ -2660,10 +2660,11 @@
 			<item const="kTAG_TERMS">
 				<item>:roles</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:list</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_ID_SYMBOL">kTAG_ROLES</item>
 			<item const="kTAG_DEFINITION">

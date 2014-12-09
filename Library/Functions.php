@@ -510,6 +510,149 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 
 /*=======================================================================================
  *																						*
+ *									ENCRYPTION UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Encrypt																			*
+	 *==================================================================================*/
+
+	/**
+	 * Encrypt data
+	 *
+	 * This function will encrypt the provided data using the provided key, if the function
+	 * returns <tt>FALSE</tt>, it means that there is an error.
+	 *
+	 * Note: <em>do not use spaces or control characters in the string</em>.
+	 *
+	 * @param string				$theData			Data to encrypt.
+	 * @param string				$theKey				Encryption key (8 characters).
+	 *
+	 * @return mixed				<tt>FALSE</tt> means error.
+	 */
+	function Encrypt( $theData, $theKey )
+	{
+		//
+		// Init local storage.
+		//
+		$algo = MCRYPT_BLOWFISH;
+		$mode = MCRYPT_MODE_CBC;
+		
+		//
+		// Get encryption module.
+		//
+		$module = mcrypt_module_open( $algo, '', $mode, '' );
+		if( $module !== FALSE )
+		{
+			//
+			// Normalise key.
+			//
+			$theKey = substr( $theKey, 0, mcrypt_enc_get_key_size( $module ) );
+			
+			//
+			// Get IV.
+			//
+			$iv = mcrypt_create_iv( mcrypt_enc_get_iv_size( $module ), MCRYPT_RAND );
+			
+			//
+			// Init encryption handle.
+			//
+			if( mcrypt_generic_init( $module, $theKey, $iv ) == 0 )
+			{
+				//
+				// Encrypt data.
+				//
+				$encrypted = mcrypt_generic( $module, $theData );
+				
+				//
+				// Deinitialise module.
+				//
+				mcrypt_generic_deinit( $module );
+				mcrypt_module_close( $module );
+				
+				return $encrypted;													// ==>
+			
+			} // Initialised handle.
+		
+		} // Opened module.
+		
+		return FALSE;																// ==>
+	
+	} // Encrypt.
+
+	 
+	/*===================================================================================
+	 *	Decrypt																			*
+	 *==================================================================================*/
+
+	/**
+	 * Decrypt data
+	 *
+	 * This function will decrypt the provided data using the provided key, if the function
+	 * returns <tt>FALSE</tt>, it means that there is an error.
+	 *
+	 * @param string				$theData			Data to decrypt.
+	 * @param string				$theKey				Encryption key.
+	 *
+	 * @return mixed				<tt>FALSE</tt> means error.
+	 */
+	function Decrypt( $theData, $theKey )
+	{
+		//
+		// Init local storage.
+		//
+		$algo = MCRYPT_BLOWFISH;
+		$mode = MCRYPT_MODE_CBC;
+		
+		//
+		// Get decryption module.
+		//
+		$module = mcrypt_module_open( $algo, '', $mode, '' );
+		if( $module !== FALSE )
+		{
+			//
+			// Normalise key.
+			//
+			$theKey = substr( $theKey, 0, mcrypt_enc_get_key_size( $module ) );
+			
+			//
+			// Get IV.
+			//
+			$iv = mcrypt_create_iv( mcrypt_enc_get_iv_size( $module ), MCRYPT_RAND );
+			
+			//
+			// Init decryption handle.
+			//
+			if( mcrypt_generic_init( $module, $theKey, $iv ) == 0 )
+			{
+				//
+				// Decrypt data.
+				//
+				$decrypted = mdecrypt_generic( $module, $theData );
+				
+				//
+				// Deinitialise module.
+				//
+				mcrypt_generic_deinit( $module );
+				mcrypt_module_close( $module );
+				
+				return $decrypted;													// ==>
+			
+			} // Initialised handle.
+		
+		} // Opened module.
+		
+		return FALSE;																// ==>
+	
+	} // Decrypt.
+
+
+
+/*=======================================================================================
+ *																						*
  *									GENERIC UTILITIES									*
  *																						*
  *======================================================================================*/

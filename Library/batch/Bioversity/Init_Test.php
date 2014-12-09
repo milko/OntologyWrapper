@@ -87,8 +87,8 @@ try
 	//
 	// Set entities.
 	//
-	echo( "  • Setting entities.\n" );
-	$entities = $wrapper->Entities(
+	echo( "  • Setting users.\n" );
+	$entities = $wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	

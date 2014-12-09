@@ -111,8 +111,8 @@ try
 	//
 	// Set entities.
 	//
-	echo( "  • Setting entities.\n" );
-	$wrapper->Entities( $database );
+	echo( "  • Setting users.\n" );
+	$wrapper->Users( $database );
 	
 	//
 	// Check graph database.

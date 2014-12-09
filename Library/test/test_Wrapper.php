@@ -142,8 +142,8 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$test->Metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
 	$test->Metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
-	echo( '$test->Entities( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
-	$test->Entities( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	echo( '$test->Users( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
+	$test->Users( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
 	echo( '$test->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
 	$test->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
 	echo( kSTYLE_HEAD_POS );

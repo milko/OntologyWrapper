@@ -708,7 +708,7 @@ define( "kAPI_PARAM_COLLECTION_NODE",			'_nodes' );
 define( "kAPI_PARAM_COLLECTION_EDGE",			'_edges' );
 
 /**
- * Entities (string).
+ * Users (string).
  *
  * This parameter indicates a reference to the entities collection.
  */

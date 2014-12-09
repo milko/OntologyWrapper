@@ -130,7 +130,7 @@ try
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
-	$entities = $wrapper->Entities(
+	$users = $wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	$units = $wrapper->Units(

@@ -282,7 +282,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Entities representing an individual.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Entity object representing an individual.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -309,7 +309,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Entities representing an organisation.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Entity object representing an organisation.]]></item>
 				</item>
 			</item>
 		</TERM>

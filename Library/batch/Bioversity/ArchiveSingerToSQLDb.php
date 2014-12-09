@@ -182,8 +182,8 @@ try
 	//
 	// Set entities.
 	//
-	echo( "  • Setting entities.\n" );
-	$wrapper->Entities( $mongo );
+	echo( "  • Setting users.\n" );
+	$wrapper->Users( $mongo );
 	
 	//
 	// Check graph database.

@@ -1214,20 +1214,19 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Data type</em>. This required parameter
  *		indicates how the unit data should be formatted:
  *	 <ul>
- *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: The service will return a
- *			table set.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
  *			{@link IteratorSerialiser} class.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
  *			formatted record set.
- *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
- *			fed to a map, it will be an array holding the following elements:
- *		 <ul>
- *			<li><tt>kAPI_PARAM_ID</tt>: The unit native identifier.
- *			<li><tt>kAPI_PARAM_DOMAIN</tt>: The unit domain.
- *			<li><tt>kAPI_PARAM_SHAPE</tt>: The unit shape geometry.
- *		 </ul>
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
+ *			geographic markers, each element will contain the user {@link kTAG_NID} and the
+ *			value contained in the offset provided in the {@link kAPI_PARAM_SHAPE_OFFSET},
+ *			which is required in this case.
  *	 </ul>
+ *	<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: <em>Shape offset</em>. This parameter is
+ *		the tag reference of the shape, it is required if the
+ *		{@link kAPI_RESULT_ENUM_DATA_MARKER} value was provided for the
+ *		{@link kAPI_PARAM_DATA} parameter.
  * </ul>
  */
 define( "kAPI_OP_GET_USER",						'getUser' );
@@ -2064,7 +2063,7 @@ define( "kAPI_PARAM_COLLECTION_NODE",			'_nodes' );
 define( "kAPI_PARAM_COLLECTION_EDGE",			'_edges' );
 
 /**
- * Entities (string).
+ * Users (string).
  *
  * This parameter indicates a reference to the entities collection.
  */

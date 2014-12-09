@@ -150,7 +150,7 @@ try
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	$meta->drop();
-	$wrapper->Entities(
+	$wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	$wrapper->Units(

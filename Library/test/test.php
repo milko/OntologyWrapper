@@ -1,5 +1,20 @@
 <?php
 
+//
+// Global includes.
+//
+require_once( 'includes.inc.php' );
+
+//
+// local includes.
+//
+require_once( 'local.inc.php' );
+
+//
+// Functions.
+//
+require_once( kPATH_LIBRARY_ROOT."/Functions.php" );
+
 /*	
 	//
 	// Connect.
@@ -852,6 +867,7 @@ echo( '<hr />' );
 	
 /******************************************************************************/
 
+/*
 	//
 	// Test hashed serial identifiers.
 	//
@@ -863,8 +879,55 @@ echo( '<hr />' );
 	//
 	// Connect.
 	//
-	$m = new MongoClient( 'mongodb://bio-mongo-1-4.scientific-computing.8100.mongodbdns.com:27000' );
-	$d = $m->selectDB( 'GEO' );
-	$c = $d->selectCollection( 'LAYERS-30' );
+	$m = new MongoClient( 'mongodb://localhost:27017' );
+	$d = $m->selectDB( 'BIOVERSITY' );
+	$c = $d->selectCollection( '_units' );
 	
+	//
+	// Select records.
+	//
+	$rs = $c->find( array( '@9' => ':domain:sample:collected' ),
+					array( '@c' => TRUE ) );
+	
+	//
+	// Limit record.
+	//
+	$rs->limit( 1 );
+	
+	//
+	// Sort records.
+	//
+	$rs->sort( array('@3e' => -1 ) );
+	
+	//
+	// Get first element.
+	//
+	foreach( $rs as $record )
+		print_r( $record );
+*/
+	
+/******************************************************************************/
+
+	//
+	// Test encrypt/decrypt.
+	//
+	
+	//
+	// Init local storage.
+	//
+    $key = 'this is a very long key, even too long for the cipher';
+    $data = 'very important data';
+    
+    //
+    // Encrypt.
+    //
+    $encrypted = Encrypt( $data, $key );
+    var_dump( $encrypted );
+    
+    //
+    // Decrypt.
+    //
+    $decrypted = Decrypt( $encrypted, $key );
+    var_dump( $decrypted );
+
 ?>
