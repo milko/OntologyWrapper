@@ -497,7 +497,7 @@ class Node extends MetadataObject
 	 *	<li><b>$theIdentifier</b>: This parameter represents the tag identifier:
 	 *	 <ul>
 	 *		<li><tt>integer</tt>: If the value is an integer, the method will match the
-	 *			identifier with the {@link kTAG_ID_SEQUENCE} offset of the tag;
+	 *			identifier with the {@link kTAG_ID_HASH} offset of the tag;
 	 *		<li><tt>string</tt>: Any other type will be cast to a string, the method will
 	 *			match the identifier with the {@link kTAG_NID} offset of the tag.
 	 *	 </ul>
@@ -534,7 +534,7 @@ class Node extends MetadataObject
 		//
 		// Resolve sequence number.
 		//
-		if( is_int( $theIdentifier ) )
+		if( substr( $theIdentifier, 0, 1 ) == kTOKEN_TAG_PREFIX )
 		{
 			//
 			// Init local storage.
@@ -551,7 +551,7 @@ class Node extends MetadataObject
 			//
 			// Set criteria.
 			//
-			$criteria = array( kTAG_ID_SEQUENCE => $theIdentifier );
+			$criteria = array( kTAG_ID_HASH => $theIdentifier );
 			
 			//
 			// Locate tag.
@@ -998,7 +998,7 @@ class Node extends MetadataObject
 		// Get master.
 		//
 		$master = ( $this->offsetExists( kTAG_TAG ) )
-				? static::GetTagMaster( $this->mDictionary, (int) $ref, kQUERY_NID )
+				? static::GetTagMaster( $this->mDictionary, $ref, kQUERY_NID )
 				: static::GetTermMaster( $this->mDictionary, $ref, kQUERY_NID );
 	
 		//

@@ -152,8 +152,8 @@ try
 	//
 	// Set entities.
 	//
-	echo( "  • Setting entities.\n" );
-	$wrapper->Entities( $mongo );
+	echo( "  • Setting users.\n" );
+	$wrapper->Users( $mongo );
 	
 	//
 	// Check graph database.
@@ -188,33 +188,24 @@ try
 	// Update.
 	//
 	echo( "  • Updating\n" );
+	$count = $limit;
 	$rs = $collection->matchAll( $query, kQUERY_OBJECT );
-	if( $start )
-		$rs->skip( $start );
-	$rs->limit( $limit );
-	while( $rs->count() )
+	foreach( $rs as $object )
 	{
 		//
-		// Iterate page.
+		// Commit object.
 		//
-		foreach( $rs as $object )
-			$object->commit( NULL, kFLAG_OPT_REL_MANY );
+		$object->commit( NULL, kFLAG_OPT_REL_MANY );
 		
 		//
 		// Inform.
 		//
-		echo( '.' );
-		
-		//
-		// Read next.
-		//
-		$start += $limit;
-		$rs = $collection->matchAll( $query, kQUERY_OBJECT );
-		if( $start )
-			$rs->skip( $start );
-		$rs->limit( $limit );
-	
-	} // Records left.
+		if( ! $count-- )
+		{
+			echo( '.' );
+			$count = $limit;
+		}
+	}
 
 	echo( "\nDone!\n" );
 

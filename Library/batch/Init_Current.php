@@ -96,8 +96,8 @@ try
 	//
 	// Set entities.
 	//
-	echo( "  • Setting entities.\n" );
-	$entities = $wrapper->Entities(
+	echo( "  • Setting users.\n" );
+	$entities = $wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	
@@ -175,7 +175,7 @@ try
 	//
 	// Reset entities.
 	//
-	$wrapper->resetEntities( TRUE );
+	$wrapper->resetUsers( TRUE );
 	
 	//
 	// Get units collection.

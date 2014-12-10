@@ -3,7 +3,7 @@
 /**
  * Data initialisation procedure.
  *
- * This file contains routines to initialise entities data.
+ * This file contains routines to initialise users data.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
@@ -84,10 +84,10 @@ try
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	
 	//
-	// Set entities.
+	// Set users.
 	//
-	echo( "  • Setting entities.\n" );
-	$entities = $wrapper->Entities(
+	echo( "  • Setting users.\n" );
+	$users = $wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	
@@ -107,9 +107,9 @@ try
 	} // Use graph database.
 	
 	//
-	// Reset entities.
+	// Reset users.
 	//
-	$wrapper->resetEntities( TRUE );
+	$wrapper->resetUsers( TRUE );
 	
 	//
 	// Reset dictionary.

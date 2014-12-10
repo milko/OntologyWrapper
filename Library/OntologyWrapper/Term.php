@@ -47,6 +47,7 @@ use OntologyWrapper\CollectionObject;
  *		is a string that represents the current term unique identifier within its namespace.
  *		The combination of the current term's namespace and this attribute form the term's
  *		global identifier. This attribute must be managed with its offset.
+ *		<em>Codes may not begin with the {@link kTOKEN_TAG_PREFIX} token.</em>
  *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Attribute graph node</em>. If the wrapper uses
  *		a graph database, this property will be used to reference the graph node which
  *		represents the current term as a data attribute of a tag; it is an integer value
@@ -770,10 +771,15 @@ class Term extends MetadataObject
 	 * In this class we set the {@link isInited()} status if the object has the local
 	 * identifier and the label.
 	 *
+	 * We also ensure that no local identifier is prefixed with the
+	 * {@link kTOKEN_TAG_PREFIX} token.
+	 *
 	 * @param reference				$theOffset			Offset reference.
 	 * @param reference				$theValue			Offset value reference.
 	 *
 	 * @access protected
+	 *
+	 * @throws Exception
 	 *
 	 * @see kTAG_ID_LOCAL kTAG_LABEL
 	 *
@@ -785,6 +791,17 @@ class Term extends MetadataObject
 		// Call parent method.
 		//
 		parent::postOffsetSet( $theOffset, $theValue );
+		
+		//
+		// Validate local identifier.
+		//
+		if( ($theOffset == kTAG_ID_LOCAL)
+		 && (substr( $theValue, 0, 1 ) == kTOKEN_TAG_PREFIX) )
+			throw new \Exception(
+				"Unable to set local identifier: "
+			   ."the '"
+			   .kTOKEN_TAG_PREFIX
+			   ."' character is not allowed as the identifier prefix." );		// !@! ==>
 		
 		//
 		// Set initialised status.

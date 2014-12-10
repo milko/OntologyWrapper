@@ -1,0 +1,2949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Ontology Wrapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">3</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1019669159"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1019669159" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1504928653"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-1504928653" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1285604666"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-1285604666" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityPhone.html">EntityPhone</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorOffset.html">AccessorOffset</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityMail.html">EntityMail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityFax.html">EntityFax</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Category.html">Category</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityKind.html">EntityKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Synonym.html">Synonym</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAffiliation.html">EntityAffiliation</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityType.html">EntityType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityEmail.html">EntityEmail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.TermType.html">TermType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorProperty.html">AccessorProperty</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityLink.html">EntityLink</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.NodeType.html">NodeType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAcronym.html">EntityAcronym</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseGraph.html">DatabaseGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.EntityObject.html">EntityObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Individual.html">Individual</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoIterator.html">MongoIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Institution.html">Institution</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.UnitObject.html">UnitObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.FAOInstitute.html">FAOInstitute</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Service.html">Service</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Neo4jGraph.html">Neo4jGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Accession.html">Accession</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ArrayCursorIterator.html">ArrayCursorIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Checklist.html">Checklist</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectingMission.html">CollectingMission</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectingSample.html">CollectingSample</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ForestUnit.html">ForestUnit</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Household.html">Household</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Inventory.html">Inventory</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.IteratorSerialiser.html">IteratorSerialiser</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MetadataObject.html">MetadataObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Mission.html">Mission</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ObjectIterator.html">ObjectIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Qtl.html">Qtl</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Sample.html">Sample</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.User.html">User</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\OntologyWrapper</small>IteratorSerialiser</h1>
+                    <p><em>Iterator serialiser</em></p>
+                    <p>The duty of this class is to serialise query data returned by the services into a
+formatted set of data. The goal is to serialise the paged results into a single structure
+tagged by the API, providing a resolved set of data suited to be handled by user
+interface clients.</p>
+<p>The class manages five main elements:</p>
+<ul>
+<li><tt>{@link iterator()}</tt>: The iterator is an object derived from the
+    {@link mIteratorObject} class which holds the results of a query on the units
+    collection. The iterator must have been previously paged and sorted.
+<li><tt>{@link format()}</tt>: The format in which the iterator is to be serialised in:
+ <ul>
+    <li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: Column view. The
+        {@link UnitObject::ListOffsets()} method will be used to select the object
+        properties to be included.
+    <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: Formatted view. The data will
+        contain the set of properties of the objects.
+    <li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: Record view. The data will
+        contain the actual objects and related objects in their original format.
+    <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: Marker view. The data will
+        contain marker data for the selected objects.
+ </ul>
+<li><tt>{@link domain()}</tt>: The domain of the objects featured by the iterator, this
+    property is required only if the format is {@link kAPI_RESULT_ENUM_DATA_COLUMN},
+    since in that case all objects should belong to the same domain.
+<li><tt>{@link shape()}</tt>: The shape offset, this property is required only if the
+    format is {@link kAPI_RESULT_ENUM_DATA_MARKER} to indicate which object property
+    contains the geographic shape.
+<li><tt>{@link language()}</tt>: The strings default language.
+</ul>
+<p>When requesting the {@link kAPI_RESULT_ENUM_DATA_COLUMN} or the
+{@link kAPI_RESULT_ENUM_DATA_FORMAT} format, the results will be encoded as an array
+indexed by object native identifier, containing the object data encoded as follows:</p>
+<ul>
+<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: This element holds the data property
+    name or label, both at the property level as well as the value level.
+<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: This element holds the data property
+    and value information or description.
+<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This element holds the data property
+    display string, or list of display elements.
+<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This element holds the URL for
+    properties that represent an internet links.
+<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SERV}</tt>: If the property is an object
+    reference, this element holds the list of parameters that can be used to call the
+    service that will retrieve the data of the referenced object.
+<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: If the property is a sub-structure,
+    this element will hold the sub-structure data formatted in the same way as the root
+    structure.
+</ul>
+<p>Once serialised, the iterator data is available via the {@link paging()},
+{@link dictionary()} and {@link data()} methods which return respectively the paging, the
+dictionary and the serialised data.</p>
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_iterator" class="">iterator()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_format" class="">format()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_domain" class="">domain()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_shape" class="">shape()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_language" class="">language()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_paging" class="">paging()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_dictionary" class="">dictionary()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_data" class="">data()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_serialise" class="">serialise()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_serialiseColumns" class="">serialiseColumns()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_serialiseFormatted" class="">serialiseFormatted()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_serialiseMarkers" class="">serialiseMarkers()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_serialiseRecords" class="">serialiseRecords()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_setColumns" class="">setColumns()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_setRecord" class="">setRecord()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_setProperty" class="">setProperty()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_setTagLabel" class="">setTagLabel()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_setDataValue" class="">setDataValue()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_aggregateProperty" class="">aggregateProperty()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatDataValue" class="">formatDataValue()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatEnumeration" class="">formatEnumeration()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatTypedList" class="">formatTypedList()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatLanguageStrings" class="">formatLanguageStrings()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatUnitReference" class="">formatUnitReference()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatShape" class="">formatShape()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatBoolean" class="">formatBoolean()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatInteger" class="">formatInteger()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatFloat" class="">formatFloat()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatTimeStamp" class="">formatTimeStamp()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_formatScalar" class="">formatScalar()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_cacheTag" class="">cacheTag()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_cacheTerm" class="">cacheTerm()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_cacheNode" class="">cacheNode()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_cacheEdge" class="">cacheEdge()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_cacheUnit" class="">cacheUnit()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_cacheUser" class="">cacheUser()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_cacheObject" class="">cacheObject()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_setHiddenTags" class="">setHiddenTags()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_clusterTags" class="">clusterTags()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#method_CollectOffsetTags" class="">CollectOffsetTags()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mIterator" class="">$mIterator</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mFormat" class="">$mFormat</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mDomain" class="">$mDomain</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mOffset" class="">$mOffset</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mShape" class="">$mShape</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mLanguage" class="">$mLanguage</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mPaging" class="">$mPaging</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mDictionary" class="">$mDictionary</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mData" class="">$mData</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mCache" class="">$mCache</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mProcessed" class="">$mProcessed</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mStructs" class="">$mStructs</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mCurrentUnit" class="">$mCurrentUnit</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorSerialiser.html#property_mHidden" class="">$mHidden</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/OntologyWrapper.IteratorSerialiser.php.html"><div class="path-wrapper">OntologyWrapper/IteratorSerialiser.php</div></a></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\OntologyWrapper\IteratorSerialiser</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                version
+                            </th>
+                            <td>
+                                                                    <p>30/06/2014</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                todo
+                            </th>
+                            <td>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mIterator" name="property_mIterator" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mIterator</h3>
+                <pre class="signature">$mIterator : \OntologyWrapper\ObjectIterator</pre>
+                <p><em>Iterator.</em></p>
+                <p>This protected data member holds the iterator.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/OntologyWrapper.ObjectIterator.html">\OntologyWrapper\ObjectIterator</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mFormat" name="property_mFormat" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mFormat</h3>
+                <pre class="signature">$mFormat : string</pre>
+                <p><em>Format.</em></p>
+                <p>This protected data member holds the data format.</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mDomain" name="property_mDomain" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mDomain</h3>
+                <pre class="signature">$mDomain : string</pre>
+                <p><em>Domain.</em></p>
+                <p>This protected data member holds the iterator objects domain.</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mOffset" name="property_mOffset" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mOffset</h3>
+                <pre class="signature">$mOffset : string</pre>
+                <p><em>Offsets tag.</em></p>
+                <p>This protected data member holds the offsets tag to be tracked, this is relevant when
+serialising tags, the value corresponds to the tag offset which records the offsets
+found in a particular collection, these are the valid values:</p>
+<ul>
+<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag offsets.
+<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: Term offsets.
+<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node offsets.
+<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge offsets.
+<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit offsets.
+<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity offsets.
+</ul>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mShape" name="property_mShape" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mShape</h3>
+                <pre class="signature">$mShape : int</pre>
+                <p><em>Shape.</em></p>
+                <p>This protected data member holds the default shape offset as the tag's serial number.</p>
+
+                                <h4>Type</h4>
+                int
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mLanguage" name="property_mLanguage" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mLanguage</h3>
+                <pre class="signature">$mLanguage : string</pre>
+                <p><em>Language.</em></p>
+                <p>This protected data member holds the default language.</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mPaging" name="property_mPaging" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mPaging</h3>
+                <pre class="signature">$mPaging : array</pre>
+                <p><em>Paging.</em></p>
+                <p>This protected data member holds the paging information.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mDictionary" name="property_mDictionary" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mDictionary</h3>
+                <pre class="signature">$mDictionary : array</pre>
+                <p><em>Dictionary.</em></p>
+                <p>This protected data member holds the dictionary information.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mData" name="property_mData" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mData</h3>
+                <pre class="signature">$mData : array</pre>
+                <p><em>Data.</em></p>
+                <p>This protected data member holds the serialised data for the iterator.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mCache" name="property_mCache" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mCache</h3>
+                <pre class="signature">$mCache : array</pre>
+                <p><em>Cache.</em></p>
+                <p>This protected data member holds the object cache.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mProcessed" name="property_mProcessed" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mProcessed</h3>
+                <pre class="signature">$mProcessed : boolean</pre>
+                <p><em>Processed flag.</em></p>
+                <p>This protected data member holds the processed flag, which is set when the iterator
+is serialised.</p>
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mStructs" name="property_mStructs" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mStructs</h3>
+                <pre class="signature">$mStructs : boolean</pre>
+                <p><em>Traverse sub-structures flag.</em></p>
+                <p>This protected data member holds the flag that determines whether to traverse
+sub-substructures.</p>
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mCurrentUnit" name="property_mCurrentUnit" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mCurrentUnit</h3>
+                <pre class="signature">$mCurrentUnit : \OntologyWrapper\PersistentObject</pre>
+                <p><em>Current unit.</em></p>
+                <p>This protected data member holds the current unit object.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/OntologyWrapper.PersistentObject.html">\OntologyWrapper\PersistentObject</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mHidden" name="property_mHidden" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mHidden</h3>
+                <pre class="signature">$mHidden : array</pre>
+                <p><em>Hidden tags.</em></p>
+                <p>This protected data member holds the list of tags that will be hidden.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(\OntologyWrapper\ObjectIterator <span class="argument">$theIterator</span>, string <span class="argument">$theFormat</span>, string <span class="argument">$theLanguage</span>, string <span class="argument">$theDomain</span>, string <span class="argument">$theShape</span>)</pre>
+                <p><em>Instantiate class.</em></p>
+                <p>The constructor accepts all required object properties, the iterator, format and
+language are required, the other parameters may be set via the member accessor
+methods and are required depending on the type of format.</p>
+<p>The iterator should have been paged by the caller: in this class we do not handle
+paging and sorting, we simply scan the iterator.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.ObjectIterator.html">\OntologyWrapper\ObjectIterator</a></td>
+                                <td>$theIterator</td>
+                                <td><p>Iterator.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theFormat</td>
+                                <td><p>Data format.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theLanguage</td>
+                                <td><p>Default language.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theDomain</td>
+                                <td><p>Optional domain for columns.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theShape</td>
+                                <td><p>Optional shape for markers.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_iterator" name="method_iterator" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">iterator()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">iterator(\OntologyWrapper\ObjectIterator <span class="argument">$theIterator</span>, boolean <span class="argument">$getOld</span>) : \OntologyWrapper\ObjectIterator</pre>
+                <p><em>Manage iterator</em></p>
+                <p>This method can be used to set the iterator, each time the iterator is set, the
+{@link paging()} information will be updated.</p>
+<p>If the provided parameter is not an iterator, the method will return the current
+iterator.</p>
+<p>Whenever the iterator is modified, the method will reset the processed flag, the
+paging information and the serialised data.</p>
+<p>The method does not allow resetting the iterator.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.ObjectIterator.html">\OntologyWrapper\ObjectIterator</a></td>
+                                <td>$theIterator</td>
+                                <td><p>Iterator.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$getOld</td>
+                                <td><p>TRUE get old value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/OntologyWrapper.ObjectIterator.html">\OntologyWrapper\ObjectIterator</a>
+                                            &mdash; <p>Current or previous iterator.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_format" name="method_format" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">format()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">format(string <span class="argument">$theFormat</span>, boolean <span class="argument">$getOld</span>) : string</pre>
+                <p><em>Manage format</em></p>
+                <p>This method can be used to set the format, the method will check if the provided
+value is correct.</p>
+<p>Provide <tt>NULL</tt> to retrieve the current format.</p>
+<p>Whenever the format is modified, the method will reset the processed flag, the
+paging information and the serialised data.</p>
+<p>The method does not allow resetting the format.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theFormat</td>
+                                <td><p>Format.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$getOld</td>
+                                <td><p>TRUE get old value.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Current or previous format.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_domain" name="method_domain" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">domain()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">domain(string <span class="argument">$theDomain</span>, boolean <span class="argument">$getOld</span>) : array</pre>
+                <p><em>Manage domain</em></p>
+                <p>This method can be used to set the domain, the method will cache the provided domain
+and set the data member as a reference to the cached array object.</p>
+<p>Provide <tt>NULL</tt> to retrieve the current domain.</p>
+<p>Whenever the domain is modified, the method will reset the processed flag, the
+paging information and the serialised data.</p>
+<p>The method does not allow resetting the domain.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theDomain</td>
+                                <td><p>Domain.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$getOld</td>
+                                <td><p>TRUE get old value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Current or previous domain array object.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_shape" name="method_shape" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">shape()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">shape(string <span class="argument">$theShape</span>, boolean <span class="argument">$getOld</span>) : array</pre>
+                <p><em>Manage shape</em></p>
+                <p>This method can be used to set the shape, the method will cache the provided shape
+and set the data member as a reference to the cached array object.</p>
+<p>Provide <tt>NULL</tt> to retrieve the current shape.</p>
+<p>Whenever the shape is modified, the method will reset the processed flag, the
+paging information and the serialised data.</p>
+<p>The method does not allow resetting the shape.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theShape</td>
+                                <td><p>Shape.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$getOld</td>
+                                <td><p>TRUE get old value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Current or previous shape array object.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_language" name="method_language" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">language()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">language(string <span class="argument">$theLanguage</span>, boolean <span class="argument">$getOld</span>) : array</pre>
+                <p><em>Manage language</em></p>
+                <p>This method can be used to set the language, the method will set the language data
+member to the provided value.</p>
+<p>Provide <tt>NULL</tt> to retrieve the current language.</p>
+<p>The method does not allow resetting the language.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theLanguage</td>
+                                <td><p>Language.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$getOld</td>
+                                <td><p>TRUE get old value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Current or previous language.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_paging" name="method_paging" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">paging()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">paging() : array</pre>
+                <p><em>Return paging information</em></p>
+                <p>This method will return the paging information; if the iterator was not yet
+serialised, the method will return <tt>NULL</tt>.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Paging information or <tt>NULL</tt>.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_dictionary" name="method_dictionary" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">dictionary()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">dictionary() : array</pre>
+                <p><em>Return dictionary information</em></p>
+                <p>This method will return the dictionary information; if the iterator was not yet
+serialised, the method will return <tt>NULL</tt>.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Dictionary information or <tt>NULL</tt>.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_data" name="method_data" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">data()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">data() : array</pre>
+                <p><em>Return serialised data</em></p>
+                <p>This method will return the serialised data; if the iterator was not yet serialised,
+the method will return <tt>NULL</tt>.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Serialised data or <tt>NULL</tt>.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_serialise" name="method_serialise" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">serialise()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">serialise()</pre>
+                <p><em>Serialise iterator</em></p>
+                <p>This method will serialise the iterator according to the parameters provided at
+instantiation.</p>
+<p>If the iterator was previously serialised, the method will do nothing.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_serialiseColumns" name="method_serialiseColumns" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">serialiseColumns()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">serialiseColumns()</pre>
+                <p><em>Serialise columns</em></p>
+                <p>This method will serialise the iterator data for columns</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_serialiseFormatted" name="method_serialiseFormatted" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">serialiseFormatted()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">serialiseFormatted()</pre>
+                <p><em>Serialise formatted</em></p>
+                <p>This method will serialise the iterator data for formatted records</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_serialiseMarkers" name="method_serialiseMarkers" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">serialiseMarkers()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">serialiseMarkers()</pre>
+                <p><em>Serialise markers</em></p>
+                <p>This method will serialise the iterator data for markers.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_serialiseRecords" name="method_serialiseRecords" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">serialiseRecords()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">serialiseRecords()</pre>
+                <p><em>Serialise records</em></p>
+                <p>This method will serialise the iterator data for aggregated records.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setColumns" name="method_setColumns" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setColumns()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setColumns()</pre>
+                <p><em>Set table columns</em></p>
+                <p>The duty of this method is to set the table column information according to the
+current domain.</p>
+<p>The method will format the columns in two ways, depending on the data format:</p>
+<ul>
+<li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: The dictionary
+    {@link kAPI_DICTIONARY_LIST_COLS} element will be loaded with an array of
+    elements holding the column tag label and description.
+<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The dictionary
+    {@link kAPI_DICTIONARY_LIST_COLS} element will be loaded with an array indexed
+    by tag serial numbers with tag native identifiers as value.
+</ul>
+<p>This method expects the domain parameter to have been set.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setRecord" name="method_setRecord" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setRecord()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setRecord( <span class="argument">$theContainer</span>,  <span class="argument">$theObject</span>)</pre>
+                <p><em>Set record</em></p>
+                <p>The duty of this method is to aggregate the provided object and all related objects
+in the provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$theContainer</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$theObject</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setProperty" name="method_setProperty" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setProperty()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setProperty(array <span class="argument">$theContainer</span>, string <span class="argument">$theOffset</span>, mixed <span class="argument">$theValue</span>)</pre>
+                <p><em>Set property</em></p>
+                <p>The duty of this method is to cache the property tag, allocate the property in the
+provided container, set the property labels and format the property value.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theOffset</td>
+                                <td><p>Data offset.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTagLabel" name="method_setTagLabel" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setTagLabel()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTagLabel(array <span class="argument">$theContainer</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Set tag label</em></p>
+                <p>The duty of this method is to set the provided container with the label and description
+of the provided tag.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Tag array object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">kAPI_PARAM_RESPONSE_FRMT_INFO</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setDataValue" name="method_setDataValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setDataValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setDataValue(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Set value</em></p>
+                <p>The duty of this method is to set the provided container with the provided data
+value.</p>
+<p>This method expects the current offset tag to have been cached.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Tag array object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_aggregateProperty" name="method_aggregateProperty" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">aggregateProperty()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">aggregateProperty(string <span class="argument">$theClass</span>, string <span class="argument">$theOffset</span>, mixed <span class="argument">$theValue</span>, boolean <span class="argument">$doTags</span>)</pre>
+                <p><em>Aggregate property</em></p>
+                <p>The duty of this method is to aggregate the provided offset tag and parse the
+eventual structured value.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theClass</td>
+                                <td><p>Object class.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theOffset</td>
+                                <td><p>Data offset.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doTags</td>
+                                <td><p>TRUE means recurse tags.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatDataValue" name="method_formatDataValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatDataValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatDataValue(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format value</em></p>
+                <p>The duty of this method is to format and set the provided container with the provided
+data value.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Tag array object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatEnumeration" name="method_formatEnumeration" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatEnumeration()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatEnumeration(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format enumerated value</em></p>
+                <p>The duty of this method is to format the provided enumerated value and set into the
+provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatTypedList" name="method_formatTypedList" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatTypedList()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatTypedList(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format typed list value</em></p>
+                <p>The duty of this method is to format the provided typed list value and set into the
+provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatLanguageStrings" name="method_formatLanguageStrings" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatLanguageStrings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatLanguageStrings(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format language strings value</em></p>
+                <p>The duty of this method is to format the provided language strings and set into the
+provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatUnitReference" name="method_formatUnitReference" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatUnitReference()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatUnitReference(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format unit reference value</em></p>
+                <p>The duty of this method is to format the provided unit reference and set into the
+provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatShape" name="method_formatShape" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatShape()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatShape(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format shape value</em></p>
+                <p>The duty of this method is to format the provided shape and set into the provided
+container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatBoolean" name="method_formatBoolean" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatBoolean()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatBoolean(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format boolean value</em></p>
+                <p>The duty of this method is to format the provided boolean value and set into the
+provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatInteger" name="method_formatInteger" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatInteger()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatInteger(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format integer value</em></p>
+                <p>The duty of this method is to format the provided integer value and set into the
+provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatFloat" name="method_formatFloat" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatFloat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatFloat(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format float value</em></p>
+                <p>The duty of this method is to format the provided float value and set into the
+provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatTimeStamp" name="method_formatTimeStamp" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatTimeStamp()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatTimeStamp(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format time stamp value</em></p>
+                <p>The duty of this method is to format the provided time stamp value and set into the
+provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatScalar" name="method_formatScalar" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">formatScalar()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatScalar(array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, array <span class="argument">$theTag</span>)</pre>
+                <p><em>Format scalar value</em></p>
+                <p>The duty of this method is to format the provided scalar value and set into the
+provided container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data value.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theTag</td>
+                                <td><p>Offset tag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cacheTag" name="method_cacheTag" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">cacheTag()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cacheTag(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, boolean <span class="argument">$doSequence</span>) : mixed</pre>
+                <p><em>Load tag in cache</em></p>
+                <p>This method will load the provided tag into the provided container, if not yet there,
+and return the cached tag as an array object.</p>
+<p>The provided parameter may be an array, in that case the method will interpret the
+parameter as a list of references, add all the resolved objects to the provided
+container and return an array indexed by object identifier, with as value the object
+array.</p>
+<p>If the last parameter is <tt>TRUE</tt>, the tag identifier will be its sequence
+number; if <tt>FALSE</tt>, its native identifier.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Tag reference or object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doSequence</td>
+                                <td><p>TRUE, use sequence as identifier.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The cached tag or tags.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cacheTerm" name="method_cacheTerm" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">cacheTerm()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cacheTerm(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>) : mixed</pre>
+                <p><em>Load term in cache</em></p>
+                <p>This method will load the provided term into the provided container, if not yet
+there, and return the cached term as an array object.</p>
+<p>The provided parameter may be an array, in that case the method will interpret the
+parameter as a list of references, add all the resolved objects to the provided
+container and return an array indexed by object identifier, with as value the object
+array.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Term reference or object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The cached term or terms.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cacheNode" name="method_cacheNode" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">cacheNode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cacheNode(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>) : mixed</pre>
+                <p><em>Load node in cache</em></p>
+                <p>This method will load the provided node into the provided container, if not yet
+there, and return the node object as an array.</p>
+<p>The provided parameter may be an array, in that case the method will add all the
+provided nodes and return an array of node array objects indexed by node native
+identifier.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Node reference or object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The cached node or nodes.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cacheEdge" name="method_cacheEdge" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">cacheEdge()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cacheEdge(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>) : mixed</pre>
+                <p><em>Load edge in cache</em></p>
+                <p>This method will load the provided edge into the provided container, if not yet
+there, and return the edge object as an array.</p>
+<p>The provided parameter may be an array, in that case the method will add all the
+provided edges and return an array of edge array objects indexed by edge native
+identifier.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Edge reference or object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The cached edge or edges.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cacheUnit" name="method_cacheUnit" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">cacheUnit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cacheUnit(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, boolean <span class="argument">$doObject</span>) : mixed</pre>
+                <p><em>Load unit in cache</em></p>
+                <p>This method will load the provided unit into the provided container, if not yet
+there, and return the unit object as an array.</p>
+<p>The provided parameter may be an array, in that case the method will add all the
+provided units and return an array of unit objects indexed by unit native identifier.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Unit reference or object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doObject</td>
+                                <td><p>TRUE means cache object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The cached unit or units.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cacheUser" name="method_cacheUser" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">cacheUser()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cacheUser(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, array <span class="argument">$theContainer</span>, mixed <span class="argument">$theValue</span>, boolean <span class="argument">$doObject</span>) : mixed</pre>
+                <p><em>Load user in cache</em></p>
+                <p>This method will load the provided user into the provided container, if not yet
+there, and return the user object as an array.</p>
+<p>The provided parameter may be an array, in that case the method will add all the
+provided users and return an array of user array objects indexed by term native
+identifier.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>User reference or object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doObject</td>
+                                <td><p>TRUE means cache object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The cached user or users.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cacheObject" name="method_cacheObject" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">cacheObject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cacheObject(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, array <span class="argument">$theContainer</span>, string <span class="argument">$theClass</span>, array <span class="argument">$theStrings</span>, mixed <span class="argument">$theValue</span>, boolean <span class="argument">$doObject</span>) : mixed</pre>
+                <p><em>Load object in cache</em></p>
+                <p>This method will load the provided node into the provided container, if not yet
+there, and return the cached node as an object or array object.</p>
+<p>The provided parameter may be an array, in that case the method will interpret the
+parameter as a list of references, add all the resolved objects to the provided
+container and return an array indexed by object identifier, with as value the object
+or array object.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Data container.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theClass</td>
+                                <td><p>Object class name.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theStrings</td>
+                                <td><p>Language string offsets.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Object reference or object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doObject</td>
+                                <td><p>TRUE means cache object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The cached object or objects.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setHiddenTags" name="method_setHiddenTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setHiddenTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setHiddenTags(\OntologyWrapper\PersistentObject <span class="argument">$theObject</span>)</pre>
+                <p><em>Set hidden tags</em></p>
+                <p>The duty of this method is to set the list of tags that should not be published.</p>
+<p>This is done according to the current data format, only the
+<tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt> is relevant in this case, since the
+<tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt> has a fixed set, the
+<tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt> uses only the object native identifier
+and the shape tag, and the <tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt> format
+selects all properties.</p>
+<p>Once the method has completed, the {@link $mHidden} data member will hold the
+list of tag sequence numbers which will not be published.</p>
+<p>By default we hide the object's internal and dynamic offsets.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.PersistentObject.html">\OntologyWrapper\PersistentObject</a></td>
+                                <td>$theObject</td>
+                                <td><p>Object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_clusterTags" name="method_clusterTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">clusterTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">clusterTags()</pre>
+                <p><em>Cluster tags</em></p>
+                <p>This method will update the response dictionary cluster.</p>
+<p>This method should only be called on tags query collections.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_CollectOffsetTags" name="method_CollectOffsetTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">CollectOffsetTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">CollectOffsetTags(array <span class="argument">$theContainer</span>, \OntologyWrapper\PersistentObject <span class="argument">$theTag</span>)</pre>
+                <p><em>Collect offset tags</em></p>
+                <p>This method will collect the offset tag objects of the provided tag into the provided
+container.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer</td>
+                                <td><p>Receives tag objects.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.PersistentObject.html">\OntologyWrapper\PersistentObject</a></td>
+                                <td>$theTag</td>
+                                <td><p>Tag object or array object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">IteratorSerialiser.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/OntologyWrapper/IteratorSerialiser.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on November 28th, 2014 at 12:56.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

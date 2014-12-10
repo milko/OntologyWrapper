@@ -1,0 +1,302 @@
+<?php
+
+/*=======================================================================================
+ *																						*
+ *								ImportExport.xml.inc.php								*
+ *																						*
+ *======================================================================================*/
+ 
+/**
+ * Import-export definitions.
+ *
+ * This file contains the default tags used for exporting and importing data.
+ *
+ *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@version	1.00 18/07/2014
+ */
+
+/*=======================================================================================
+ *	XML DOCUMENT TAGS																	*
+ *======================================================================================*/
+
+/**
+ * Metadata.
+ *
+ * Metadata document.
+ */
+define( "kIO_XML_METADATA",						'METADATA' );
+
+/**
+ * Units.
+ *
+ * Units document.
+ */
+define( "kIO_XML_UNITS",						'UNITS' );
+
+/**
+ * Users.
+ *
+ * Users document.
+ */
+define( "kIO_XML_USERS",						'USERS' );
+
+/*=======================================================================================
+ *	XML TRANSACTION TAGS																*
+ *======================================================================================*/
+
+/**
+ * Metadata.
+ *
+ * Metadata transaction unit.
+ */
+define( "kIO_XML_TRANS_META",					'META' );
+
+/**
+ * Units.
+ *
+ * Units transaction unit.
+ */
+define( "kIO_XML_TRANS_UNITS",					'UNIT' );
+
+/**
+ * Users.
+ *
+ * Users transaction unit.
+ */
+define( "kIO_XML_TRANS_USERS",					'USER' );
+
+/*=======================================================================================
+ *	XML METADATA UNITS																	*
+ *======================================================================================*/
+
+/**
+ * Tag.
+ *
+ * Tag object.
+ */
+define( "kIO_XML_META_TAG",						'TAG' );
+
+/**
+ * Term.
+ *
+ * Term object.
+ */
+define( "kIO_XML_META_TERM",					'TERM' );
+
+/**
+ * Node.
+ *
+ * Node object.
+ */
+define( "kIO_XML_META_NODE",					'NODE' );
+
+/**
+ * Edge.
+ *
+ * Edge object.
+ */
+define( "kIO_XML_META_EDGE",					'EDGE' );
+
+/*=======================================================================================
+ *	XML DATA ELEMENT																	*
+ *======================================================================================*/
+
+/**
+ * Data element.
+ *
+ * The element that wraps all data.
+ */
+define( "kIO_XML_DATA",							'item' );
+
+/*=======================================================================================
+ *	XML OPERATION ATTRIBUTES															*
+ *======================================================================================*/
+
+/**
+ * Update reference.
+ *
+ * This attribute contains the native identifier of the object to be updated.
+ */
+define( "kIO_XML_ATTR_UPDATE",					'set' );
+
+/*=======================================================================================
+ *	XML IDENTIFICATION ATTRIBUTES														*
+ *======================================================================================*/
+
+/**
+ * Namespace.
+ *
+ * This attribute contains the namespace.
+ */
+define( "kIO_XML_ATTR_NAMESPACE",				'ns' );
+
+/**
+ * Local identifier.
+ *
+ * This attribute contains the local identifier.
+ */
+define( "kIO_XML_ATTR_ID_LOCAL",				'lid' );
+
+/**
+ * Persistent identifier.
+ *
+ * This attribute contains the persistent identifier.
+ */
+define( "kIO_XML_ATTR_ID_PERSISTENT",			'pid' );
+
+/*=======================================================================================
+ *	XML REFERENCE ATTRIBUTES															*
+ *======================================================================================*/
+
+/**
+ * Tag native identifier.
+ *
+ * This attribute contains the tag object native identifier.
+ */
+define( "kIO_XML_ATTR_REF_TAG",					'tag' );
+
+/**
+ * Tag sequence number.
+ *
+ * This attribute contains the tag object sequence number.
+ */
+define( "kIO_XML_ATTR_REF_TAG_SEQ",				'seq' );
+
+/**
+ * Term reference.
+ *
+ * This attribute contains the term object native identifier.
+ */
+define( "kIO_XML_ATTR_REF_TERM",				'term' );
+
+/**
+ * Node reference.
+ *
+ * This attribute is used in elements referencing nodes, it holds an enumerated set that
+ * determines the kind of reference:
+ *
+ * <ul>
+ *	<li><tt>{@link kIO_XML_ATTR_NODE_TAG}</tt>: The value contains a tag native identifier,
+ *		the node will be resolved into the master node pointing to that tag.
+ *	<li><tt>{@link kIO_XML_ATTR_NODE_SEQ}</tt>: The value contains a tag sequence number,
+ *		the node will be resolved into the master node pointing to that tag.
+ *	<li><tt>{@link kIO_XML_ATTR_NODE_TERM}</tt>: The value contains a term native
+ *		identifier, the node will be resolved into the master node pointing to that term.
+ *	<li><tt>{@link kIO_XML_ATTR_NODE_ID}</tt>: The value contains a node native identifier.
+ *	<li><tt>{@link kIO_XML_ATTR_NODE_PID}</tt>: The value contains a node persistent
+ *		identifier.
+ * </ul>
+ */
+define( "kIO_XML_ATTR_REF_NODE",				'node' );
+
+/*=======================================================================================
+ *	XML QUALIFIER ATTRIBUTES															*
+ *======================================================================================*/
+
+/**
+ * Class name.
+ *
+ * This attribute contains the object's class name.
+ */
+define( "kIO_XML_ATTR_QUAL_CLASS",				'class' );
+
+/**
+ * Key qualifier.
+ *
+ * The attribute value contains a value which represents the key of the current element,
+ * this is generally used to express a jey/value element of an array.
+ */
+define( "kIO_XML_ATTR_QUAL_KEY",				'key' );
+
+/**
+ * Constant qualifier.
+ *
+ * The attribute value contains a constant variable name, the parsing software is
+ * responsible of resolving it.
+ */
+define( "kIO_XML_ATTR_QUAL_CONST",				'const' );
+
+/*=======================================================================================
+ *	XML STRUCTURE ATTRIBUTES															*
+ *======================================================================================*/
+
+/**
+ * Structure reference.
+ *
+ * The value of this attribute is a tag object reference, the element holding this tag is
+ * supposed to be stored as a member of the referenced tag.
+ */
+define( "kIO_XML_ATTR_STRUCT_REF",				'struct' );
+
+/**
+ * Structure index.
+ *
+ * The value of this attribute is a tag object reference, this attribute requires the
+ * presence of the {@link kIO_XML_ATTR_STRUCT_REF} attribute which should reference a list
+ * of structures: it indicates which offset of the list element should be used as the list
+ * index.
+ * 
+ */
+define( "kIO_XML_ATTR_STRUCT_IDX",				'index' );
+
+/**
+ * Structure value.
+ *
+ * The value of this attribute is a tag object reference, this attribute requires the
+ * presence of the {@link kIO_XML_ATTR_STRUCT_REF} and {@link kIO_XML_ATTR_STRUCT_IDX}
+ * attributes which should reference a list of structures: it provides the value that will
+ * be matched with the list element offset in {@link kIO_XML_ATTR_STRUCT_IDX} to select the
+ * desired list element.
+ */
+define( "kIO_XML_ATTR_STRUCT_VAL",				'value' );
+
+/*=======================================================================================
+ *	XML NODE REFERENCE TYPE																*
+ *======================================================================================*/
+
+/**
+ * Tag native identifier.
+ *
+ * This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+ * that the element value contains a tag native identifier: the node will be resolved by
+ * selecting the master node.
+ */
+define( "kIO_XML_ATTR_NODE_TAG",				'tag' );
+
+/**
+ * Tag sequence number.
+ *
+ * This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+ * that the element value contains a tag sequence number: the node will be resolved by
+ * selecting the master node.
+ */
+define( "kIO_XML_ATTR_NODE_SEQ",				'seq' );
+
+/**
+ * Tag sequence number.
+ *
+ * This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+ * that the element value contains a term native identifier: the node will be resolved by
+ * selecting the master node.
+ */
+define( "kIO_XML_ATTR_NODE_TERM",				'term' );
+
+/**
+ * Node native identifier.
+ *
+ * This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+ * that the element value contains a node native identifier.
+ */
+define( "kIO_XML_ATTR_NODE_ID",					'node' );
+
+/**
+ * Node persistent identifier.
+ *
+ * This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+ * that the element value contains a node persistent identifier.
+ */
+define( "kIO_XML_ATTR_NODE_PID",				'pid' );
+
+
+?>
+

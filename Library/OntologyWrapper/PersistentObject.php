@@ -88,16 +88,14 @@ require_once( kPATH_DEFINITIONS_ROOT."/ImportExport.xml.inc.php" );
  *		number of edge objects referencing the current object.
  *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: This property holds an integer indicating the
  *		number of unit objects referencing the current object.
- *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: This property holds an integer indicating the
- *		number of entity objects referencing the current object.
+ *	<li><tt>{@link kTAG_USER_COUNT}</tt>: This property holds an integer indicating the
+ *		number of user objects referencing the current object.
  *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: This property is an array listing all tags used
  *		as leaf offsets in the current object. This means all tags referenced by object
  *		offsets which hold a value and are not structures. This property is managed
  *		internally.
- *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This property is an array holding the same
- *		number of elements as {@link kTAG_OBJECT_TAGS}, in this case the array key is the
- *		tag sequence number and the value is the list of offset paths in which the tag was
- *		referenced in the current object as a leaf offset.
+ *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This property is an array holding the list of
+ *		offset paths in which the tag was referenced in the current object as a leaf offset.
  *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: This property is an array holding the list
  *		of object references featured by the object, the array is indexed by collection name
  *		and the values represent the native identifiers of the objects in the collection.
@@ -164,6 +162,12 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':id-sequence',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_ID_HASH => array
+		(
+			kTAG_NID	=> ':id-hash',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
 		kTAG_ID_GRAPH => array
@@ -276,10 +280,10 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTAG_PRIVATE_MODIFY )
 		),
-		kTAG_ENTITY => array
+		kTAG_USER => array
 		(
-			kTAG_NID	=> ':entity',
-			kTAG_DATA_TYPE	=> kTYPE_REF_ENTITY,
+			kTAG_NID	=> ':entity:user',
+			kTAG_DATA_TYPE	=> kTYPE_REF_USER,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
 		kTAG_MASTER => array
@@ -387,9 +391,9 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
 		),
-		kTAG_ENTITY_COUNT => array
+		kTAG_USER_COUNT => array
 		(
-			kTAG_NID	=> ':ref-count:entity',
+			kTAG_NID	=> ':ref-count:user',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
@@ -485,7 +489,7 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_OBJECT_TAGS => array
 		(
 			kTAG_NID	=> ':object-tags',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTYPE_LIST,
 									  kTAG_PRIVATE_SEARCH,
@@ -495,8 +499,9 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_OBJECT_OFFSETS => array
 		(
 			kTAG_NID	=> ':object-offsets',
-			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
 									  kTAG_PRIVATE_SEARCH,
 									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
@@ -754,9 +759,27 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_ROLES => array
 		(
 			kTAG_NID	=> ':roles',
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+		),
+		kTAG_INVITES => array
+		(
+			kTAG_NID	=> ':invites',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTYPE_LIST )
+		),
+		kTAG_CLASS_NAME => array
+		(
+			kTAG_NID	=> ':class',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_TOKEN => array
+		(
+			kTAG_NID	=> ':token',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		)
 	);
 
@@ -1724,7 +1747,7 @@ abstract class PersistentObject extends OntologyObject
 	 * The method will return the list of indexed offsets.
 	 *
 	 * @param Wrapper				$theWrapper			Wrapper.
-	 * @param mixed					$theOffset			Tag offset.
+	 * @param string				$theOffset			Tag offset.
 	 * @param boolean				$doBackground		Background creation.
 	 *
 	 * @static
@@ -1735,8 +1758,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve tag native identifier.
 		//
-		if( is_int( $theOffset )
-		 || ctype_digit( $theOffset ) )
+		if( substr( $theOffset, 0, 1 ) == kTOKEN_TAG_PREFIX )
 			$theOffset = $theWrapper->getObject( $theOffset, TRUE )[ kTAG_NID ];
 		
 		//
@@ -1856,8 +1878,8 @@ abstract class PersistentObject extends OntologyObject
 		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
 								  array( "name" => "UNIT-REFS",
 								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
-								  array( "name" => "ENTITY-REFS",
+		$collection->createIndex( array( kTAG_USER_COUNT => 1 ),
+								  array( "name" => "USER-REFS",
 								  		 "sparse" => TRUE ) );
 		
 		return $collection;															// ==>
@@ -2070,7 +2092,7 @@ abstract class PersistentObject extends OntologyObject
 				return kTAG_EDGE_COUNT;												// ==>
 		
 			case User::kSEQ_NAME:
-				return kTAG_ENTITY_COUNT;											// ==>
+				return kTAG_USER_COUNT;											// ==>
 		
 			case UnitObject::kSEQ_NAME:
 				return kTAG_UNIT_COUNT;												// ==>
@@ -2139,6 +2161,70 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // ResolveOffsetsTag.
 
+	 
+	/*===================================================================================
+	 *	Offsets2Tags																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve offset tags
+	 *
+	 * This method will expects an array coming from the {@link kTAG_OBJECT_OFFSETS}
+	 * property and will return the corresponding array formatted as the
+	 * {@link kTAG_OBJECT_TAGS} property.
+	 *
+	 * If the provided offsets are not an array, the method will raise an exception.
+	 *
+	 * @param array					$theOffsets			Offsets.
+	 *
+	 * @access protected
+	 * @return array				The offsets tags.
+	 *
+	 * @see kTAG_OBJECT_OFFSETS kTAG_OBJECT_TAGS
+	 */
+	static function Offsets2Tags( $theOffsets )
+	{
+		//
+		// Check offsets.
+		//
+		if( is_array( $theOffsets ) )
+		{
+			//
+			// Init local storage.
+			//
+			$tags = Array();
+		
+			//
+			// Collect tags.
+			//
+			foreach( $theOffsets as $offset )
+			{
+				//
+				// Parse offset.
+				//
+				$offsets = explode( '.', $offset );
+				
+				//
+				// Add tag.
+				//
+				if( ! in_array( ($tag = $offsets[ count( $offsets ) - 1 ]), $tags ) )
+					$tags[] = $tag;
+			
+			} // Iterating offsets.
+			
+			return $tags;															// ==>
+		
+		} // Provided array.
+		
+		elseif( $theOffsets === NULL )
+			return Array();															// ==>
+		
+		throw new \Exception(
+			"Cannot resolve offsets: "
+		   ."invalid parameter, expecting an array." );							// !@! ==>
+	
+	} // Offsets2Tags.
+
 		
 
 /*=======================================================================================
@@ -2171,8 +2257,8 @@ abstract class PersistentObject extends OntologyObject
 	 *			object.
 	 *		<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Number of units referencing the current
 	 *			object.
-	 *		<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Number of entities referencing the
-	 *			current object.
+	 *		<li><tt>{@link kTAG_USER_COUNT}</tt>: Number of users referencing the current
+	 *			object.
 	 *	 </ul>
 	 *	<li><em>Offset tracking offsets</em>:
 	 *	 <ul>
@@ -2199,7 +2285,7 @@ abstract class PersistentObject extends OntologyObject
 			parent::ExternalOffsets(),
 			array( kTAG_TAG_COUNT, kTAG_TERM_COUNT,
 				   kTAG_NODE_COUNT, kTAG_EDGE_COUNT,
-				   kTAG_UNIT_COUNT, kTAG_ENTITY_COUNT ),
+				   kTAG_UNIT_COUNT, kTAG_USER_COUNT ),
 			array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS,
 				   kTAG_NODE_OFFSETS, kTAG_EDGE_OFFSETS,
 				   kTAG_UNIT_OFFSETS, kTAG_ENTITY_OFFSETS ),
@@ -2233,7 +2319,7 @@ abstract class PersistentObject extends OntologyObject
 	{
 		return array_merge(
 			parent::DynamicOffsets(),
-			array( kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES.
+			array( kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES,
 				   kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 ) );		// ==>
 	
 	} // DynamicOffsets.
@@ -2383,7 +2469,7 @@ abstract class PersistentObject extends OntologyObject
 	static function GetReferenceTypes()
 	{
 		return array( kTYPE_REF_TAG, kTYPE_REF_TERM, kTYPE_REF_NODE, kTYPE_REF_EDGE,
-					  kTYPE_REF_ENTITY, kTYPE_REF_UNIT,
+					  kTYPE_REF_USER, kTYPE_REF_UNIT,
 					  kTYPE_REF_SELF,
 					  kTYPE_ENUM, kTYPE_SET );										// ==>
 	
@@ -2407,10 +2493,81 @@ abstract class PersistentObject extends OntologyObject
 		return array
 		(
 			kTAG_TAG_COUNT, kTAG_TERM_COUNT, kTAG_NODE_COUNT,
-			kTAG_EDGE_COUNT, kTAG_UNIT_COUNT, kTAG_ENTITY_COUNT
+			kTAG_EDGE_COUNT, kTAG_UNIT_COUNT, kTAG_USER_COUNT
 		);																			// ==>
 	
 	} // GetReferenceCounts.
+
+	 
+	/*===================================================================================
+	 *	ClusterObjectOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Cluster object offsets
+	 *
+	 * This method expects a list of offsets and will return the list clustered by tag: the
+	 * resulting array will be indexed by tag and the value will hold all offsets featuring
+	 * that tag as the leaf node.
+	 *
+	 * The method will raise an exception if iot founds a nested array.
+	 *
+	 * @param array					$theOffsets			Offsets to normalise.
+	 *
+	 * @access protected
+	 * @return array				Clustered offsets
+	 */
+	protected function ClusterObjectOffsets( $theOffsets )
+	{
+		//
+		// Init local storage.
+		//
+		$clustered = Array();
+		
+		//
+		// Check parameter.
+		//
+		if( is_array( $theOffsets )
+		 && count( $theOffsets ) )
+		{
+			//
+			// Iterate offsets.
+			//
+			foreach( $theOffsets as $offset )
+			{
+				//
+				// Check array value.
+				//
+				if( is_scalar( $offset ) )
+				{
+					//
+					// Parse tag.
+					//
+					$tag = explode( '.',$offset );
+					$tag = $tag[ count( $tag ) - 1 ];
+				
+					//
+					// Update offsets.
+					//
+					if( array_key_exists( $tag, $clustered ) )
+						$clustered[ $tag ][] = $offset;
+					else
+						$clustered[ $tag ] = array( $offset );
+				
+				} // Scalar value.
+				
+				else
+					throw new \Exception(
+						"Unable to cluster offsets: "
+					   ."found a nested array." );								// !@! ==>
+			
+			} // Iterating offsets.
+		
+		} // Provided non-empty array.
+		
+		return $clustered;																// ==>
+	
+	} // ClusterObjectOffsets.
 
 		
 
@@ -3461,7 +3618,14 @@ abstract class PersistentObject extends OntologyObject
 				// Select leaf tags.
 				//
 				if( array_key_exists( kTAG_OBJECT_OFFSETS, $info ) )
-					$offsets[ $tag ] = $info[ kTAG_OBJECT_OFFSETS ];
+				{
+					//
+					// Load offsets.
+					//
+					foreach( $info[ kTAG_OBJECT_OFFSETS ] as $offset )
+						$offsets[] = $offset;
+				
+				} // Has offsets.
 			
 			} // Iterating tags.
 			
@@ -3648,6 +3812,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		if( $theOffsets === NULL )
 			$theOffsets = Array();
+		else
+			$theOffsets = static::ClusterObjectOffsets( $theOffsets );
 		if( $theReferences === NULL )
 			$theReferences = Array();
 		
@@ -3675,7 +3841,7 @@ abstract class PersistentObject extends OntologyObject
 			$this->updateObjectReferenceCount(
 				Tag::kSEQ_NAME,								// Tags collection.
 				array_keys( $theOffsets ),					// Tags identifiers.
-				kTAG_ID_SEQUENCE,							// Tags identifiers offset.
+				kTAG_ID_HASH,								// Tags identifiers offset.
 				1 );										// Reference count.
 		
 			//
@@ -3683,8 +3849,8 @@ abstract class PersistentObject extends OntologyObject
 			//
 			foreach( $theOffsets as $key => $value )
 				$tag_collection->updateSet(
-					(int) $key,								// Tag identifiers.
-					kTAG_ID_SEQUENCE,						// Tag identifiers offset.
+					$key,									// Tag identifiers.
+					kTAG_ID_HASH,							// Tags identifiers offset.
 					array( $offsets_tag => $value ),		// Offsets set.
 					TRUE );									// Add to set.
 		
@@ -3782,6 +3948,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		if( $theOffsets === NULL )
 			$theOffsets = Array();
+		else
+			$theOffsets = static::ClusterObjectOffsets( $theOffsets );
 		if( $theReferences === NULL )
 			$theReferences = Array();
 		
@@ -3800,7 +3968,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Save offsets and references.
 		//
-		$offsets = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		$offsets = static::ClusterObjectOffsets( $this->offsetGet( kTAG_OBJECT_OFFSETS ) );
 		$references = $this->offsetGet( kTAG_OBJECT_REFERENCES );
 		
 		//
@@ -3817,7 +3985,7 @@ abstract class PersistentObject extends OntologyObject
 			$this->updateObjectReferenceCount(
 				Tag::kSEQ_NAME,							// Tags collection.
 				array_values( $tags ),					// Tags identifiers.
-				kTAG_ID_SEQUENCE,						// Tags identifiers offset.
+				kTAG_ID_HASH,							// Tags identifiers offset.
 				1 );									// Reference count.
 		
 		//
@@ -3826,8 +3994,8 @@ abstract class PersistentObject extends OntologyObject
 		$list = $this->compareObjectOffsets( $offsets, $theOffsets, TRUE );
 		foreach( $list as $key => $value )
 			$tag_collection->updateSet(
-				(int) $key,								// Tag identifiers.
-				kTAG_ID_SEQUENCE,						// Tag identifiers offset.
+				$key,									// Tag identifiers.
+				kTAG_ID_HASH,							// Tags identifiers offset.
 				array( $offsets_tag
 						=> array_values( $value ) ),	// Offsets set.
 				TRUE );									// Add to set.
@@ -3851,7 +4019,7 @@ abstract class PersistentObject extends OntologyObject
 			$this->updateObjectReferenceCount(
 				Tag::kSEQ_NAME,							// Tags collection.
 				array_values( $tags ),					// Tags identifiers.
-				kTAG_ID_SEQUENCE,						// Tags identifiers offset.
+				kTAG_ID_HASH,							// Tags identifiers offset.
 				-1 );									// Reference count.
 		
 		//
@@ -3869,8 +4037,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		foreach( $list as $key => $value )
 			$tag_collection->updateSet(
-				(int) $key,								// Tag identifiers.
-				kTAG_ID_SEQUENCE,						// Tag identifiers offset.
+				$key,									// Tag identifiers.
+				kTAG_ID_HASH,							// Tags identifiers offset.
 				array( $offsets_tag
 						=> array_values( $value ) ),	// Offsets set.
 				FALSE );								// Pull from set.
@@ -3985,7 +4153,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> the object can be deleted.
 	 *
-	 * @see kTAG_UNIT_COUNT kTAG_ENTITY_COUNT
+	 * @see kTAG_UNIT_COUNT kTAG_USER_COUNT
 	 * @see kTAG_TAG_COUNT kTAG_TERM_COUNT kTAG_NODE_COUNT kTAG_EDGE_COUNT
 	 */
 	protected function preDeletePrepare()
@@ -3998,7 +4166,7 @@ abstract class PersistentObject extends OntologyObject
 		 || $this->offsetGet( kTAG_TERM_COUNT )
 		 || $this->offsetGet( kTAG_NODE_COUNT )
 		 || $this->offsetGet( kTAG_EDGE_COUNT )
-		 || $this->offsetGet( kTAG_ENTITY_COUNT ) )
+		 || $this->offsetGet( kTAG_USER_COUNT ) )
 			return FALSE;															// ==>
 		
 		return TRUE;																// ==>
@@ -4112,6 +4280,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		if( $theOffsets === NULL )
 			$theOffsets = Array();
+		else
+			$theOffsets = static::ClusterObjectOffsets( $theOffsets );
 		if( $theReferences === NULL )
 			$theReferences = Array();
 		
@@ -4139,7 +4309,7 @@ abstract class PersistentObject extends OntologyObject
 			$this->updateObjectReferenceCount(
 				Tag::kSEQ_NAME,							// Tags collection.
 				array_keys( $theOffsets ),				// Tags identifiers.
-				kTAG_ID_SEQUENCE,						// Tags identifiers offset.
+				kTAG_ID_HASH,							// Tags identifiers offset.
 				-1 );									// Reference count.
 		
 			//
@@ -4152,8 +4322,8 @@ abstract class PersistentObject extends OntologyObject
 			//
 			foreach( $theOffsets as $key => $value )
 				$tag_collection->updateSet(
-					(int) $key,								// Tag identifiers.
-					kTAG_ID_SEQUENCE,						// Tag identifiers offset.
+					$key,									// Tag identifiers.
+					kTAG_ID_HASH,							// Tags identifiers offset.
 					array( $tag_ref_count
 							=> array_values( $value ) ),	// Offsets set.
 					FALSE );								// Pull from set.
@@ -5021,7 +5191,7 @@ MILKO - Need to check.
 			case kTYPE_ENUM:
 			case kTYPE_REF_TERM:
 			case kTYPE_REF_EDGE:
-			case kTYPE_REF_ENTITY:
+			case kTYPE_REF_USER:
 			case kTYPE_REF_UNIT:
 				$theProperty = (string) $theProperty;
 				break;
@@ -5378,22 +5548,23 @@ MILKO - Need to check.
 	 * The method expects the tags parameter to be an array.
 	 *
 	 * @param CollectionObject		$theCollection		Collection.
-	 * @param array					$theTags			Object tags.
+	 * @param array					$theOffsets			Object tags.
 	 *
 	 * @access protected
 	 */
-	protected function filterExistingOffsets( CollectionObject $theCollection, &$theTags )
+	protected function filterExistingOffsets( CollectionObject $theCollection,
+															  &$theOffsets )
 	{
 		//
 		// Iterate tag offsets.
 		//
-		$tags = array_keys( $theTags );
+		$tags = array_keys( $theOffsets );
 		foreach( $tags as $tag )
 		{
 			//
 			// Init loop storage.
 			//
-			$ref = & $theTags[ $tag ];
+			$ref = & $theOffsets[ $tag ];
 
 			//
 			// Iterate offsets.
@@ -5404,7 +5575,7 @@ MILKO - Need to check.
 				// Check offset.
 				//
 				if( $theCollection->matchAll(
-					array( kTAG_OBJECT_OFFSETS.".$tag" => (string) $offset ),
+					array( kTAG_OBJECT_OFFSETS => $offset ),
 					kQUERY_ARRAY ) )
 					unset( $ref[ $offset ] );
 		
@@ -5414,7 +5585,7 @@ MILKO - Need to check.
 			// Handle empty list.
 			//
 			if( ! count( $ref ) )
-				unset( $theTags[ $tag ] );
+				unset( $theOffsets[ $tag ] );
 		
 		} // Iterating tag offsets.
 	
@@ -5541,11 +5712,11 @@ MILKO - Need to check.
 			case kTYPE_REF_EDGE:
 				return 'OntologyWrapper\Edge';										// ==>
 		
+			case kTYPE_REF_USER:
+				return 'OntologyWrapper\User';										// ==>
+		
 			case kTYPE_REF_UNIT:
 				return 'OntologyWrapper\UnitObject';								// ==>
-		
-			case kTYPE_REF_ENTITY:
-				return 'OntologyWrapper\EntityObject';								// ==>
 		
 			case kTYPE_REF_SELF:
 				if( $this instanceof Tag )
@@ -5556,10 +5727,10 @@ MILKO - Need to check.
 					return 'OntologyWrapper\Node';									// ==>
 				elseif( $this instanceof Edge )
 					return 'OntologyWrapper\Edge';									// ==>
+				elseif( $this instanceof User )
+					return 'OntologyWrapper\User';									// ==>
 				elseif( $this instanceof UnitObject )
 					return 'OntologyWrapper\UnitObject';							// ==>
-				elseif( $this instanceof EntityObject )
-					return 'OntologyWrapper\EntityObject';							// ==>
 				break;
 		
 		} // Parsed collection name.
@@ -5608,11 +5779,11 @@ MILKO - Need to check.
 			case kTYPE_REF_EDGE:
 				return Edge::kSEQ_NAME;												// ==>
 		
+			case kTYPE_REF_USER:
+				return User::kSEQ_NAME;												// ==>
+		
 			case kTYPE_REF_UNIT:
 				return UnitObject::kSEQ_NAME;										// ==>
-		
-			case kTYPE_REF_ENTITY:
-				return User::kSEQ_NAME;										// ==>
 		
 			case kTYPE_REF_SELF:
 				return static::kSEQ_NAME;											// ==>
@@ -5743,7 +5914,7 @@ MILKO - Need to check.
 		// Init local storage.
 		//
 		$bounds = Array();
-		$tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		$tags = static::ClusterObjectOffsets( $this->offsetGet( kTAG_OBJECT_OFFSETS ) );
 		
 		//
 		// Iterate offsets.
@@ -5893,7 +6064,7 @@ MILKO - Need to check.
 		// Apply modifications.
 		//
 		if( count( $bounds ) )
-			Tag::UpdateRange( $this->mDictionary, $bounds, kTAG_ID_SEQUENCE );
+			Tag::UpdateRange( $this->mDictionary, $bounds, kTAG_ID_HASH );
 		
 	} // updateTagRanges.
 
@@ -6150,10 +6321,9 @@ MILKO - Need to check.
 			foreach( $theStructure as $offset => $property )
 			{
 				//
-				// Handle only numeric offsets.
+				// Handle only sequence hash offsets.
 				//
-				if( is_int( $offset )
-				 || ctype_digit( $offset ) )
+				if( substr( $offset, 0, 1 ) == kTOKEN_TAG_PREFIX )
 				{
 					//
 					// Load tag.
@@ -6163,7 +6333,7 @@ MILKO - Need to check.
 					//
 					// Skip dynamic tags.
 					//
-					if( ! in_array( $tag[ kTAG_ID_SEQUENCE ], $theUntracked ) )
+					if( ! in_array( $tag[ kTAG_ID_HASH ], $theUntracked ) )
 					{
 						//
 						// Create element.
@@ -6206,7 +6376,7 @@ MILKO - Need to check.
 		
 					} // Not a dynamic tag.
 				
-				} // Numeric offset.
+				} // Sequence hash offset.
 		
 			} // Traversing structure.
 		
@@ -6333,7 +6503,7 @@ MILKO - Need to check.
 			case kTYPE_REF_TERM:
 			case kTYPE_REF_NODE:
 			case kTYPE_REF_EDGE:
-			case kTYPE_REF_ENTITY:
+			case kTYPE_REF_USER:
 			case kTYPE_REF_UNIT:
 			case kTYPE_REF_SELF:
 				SetAsCDATA( $theContainer, $theProperty );
@@ -6618,7 +6788,7 @@ MILKO - Need to check.
 		// Get offset from tag sequence number.
 		//
 		elseif( $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ] !== NULL )
-			return (int) (string) $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ];			// ==>
+			return (string) $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ];				// ==>
 		
 		//
 		// Get offset from constant.

@@ -291,8 +291,8 @@ abstract class OntologyObject extends ContainerObject
 	 * is done by using a {@link Dictionary} object stored in the current object's
 	 * {@link $mDictionary} data member.
 	 *
-	 * If you provide an integer or a numeric string, the method will simply cast the value
-	 * to an integer and return it.
+	 * If you provide a string prefixed by the {@link kTOKEN_TAG_PREFIX} token, the method
+	 * will simply return it.
 	 *
 	 * All other types of offsets, except those returned by the {@link InternalOffsets()}
 	 * method, will be used to locate the tag native identifier using a {@link Dictionary}
@@ -303,11 +303,11 @@ abstract class OntologyObject extends ContainerObject
 	 *
 	 * The method will raise an exception if the tag cache is not set.
 	 *
-	 * @param mixed					$theOffset			Data offset.
+	 * @param string				$theOffset			Data offset.
 	 * @param boolean				$doAssert			Assert offset tag reference.
 	 *
 	 * @access public
-	 * @return mixed				Resolved offset.
+	 * @return string				Resolved offset.
 	 *
 	 * @throws Exception
 	 *
@@ -316,11 +316,10 @@ abstract class OntologyObject extends ContainerObject
 	public function resolveOffset( $theOffset, $doAssert = FALSE )
 	{
 		//
-		// Handle numeric offsets.
+		// Handle sequence hash.
 		//
-		if( is_int( $theOffset )
-		 || ctype_digit( $theOffset ) )
-			return (int) $theOffset;												// ==>
+		if( substr( $theOffset, 0, 1 ) == kTOKEN_TAG_PREFIX )
+			return $theOffset;														// ==>
 		
 		//
 		// Handle internal offsets.
@@ -374,7 +373,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 		{
 			//
 			// Check dictionary.
@@ -423,7 +422,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 		{
 			//
 			// handle missing offset.
@@ -477,7 +476,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 			$this->nestedOffsetSet( $theOffset, $theValue,
 									$root_offset, $root_value,
 									$current_offset, $current_value );
@@ -513,7 +512,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
 			return $this->nestedOffsetUnset( $theOffset, $toot, $value );			// ==>
 		
 		return parent::offsetUnset( $theOffset );									// ==>
@@ -556,6 +555,12 @@ abstract class OntologyObject extends ContainerObject
 	 *	<li><tt>{@link kTAG_LANGUAGE}</tt>: Property language.
 	 *	<li><tt>{@link kTAG_TEXT}</tt>: Property text.
 	 *	<li><tt>{@link kTAG_URL}</tt>: Property URL.
+	 *	<li><tt>{@link kTAG_TAG_REF}</tt>: Tag object reference.
+	 *	<li><tt>{@link kTAG_TERM_REF}</tt>: Term object reference.
+	 *	<li><tt>{@link kTAG_NODE_REF}</tt>: Node object reference.
+	 *	<li><tt>{@link kTAG_EDGE_REF}</tt>: Edge object reference.
+	 *	<li><tt>{@link kTAG_USER_REF}</tt>: User object reference.
+	 *	<li><tt>{@link kTAG_UNIT_REF}</tt>: Unit object reference.
 	 *	<li><tt>{@link kTAG_GEOMETRY}</tt>: Shape property geometry.
 	 *	<li><tt>{@link kTAG_RADIUS}</tt>: Shape property radius.
 	 *	<li><tt>{@link kTAG_FULL_TEXT_10}</tt>: Full-text values, weight 10.
@@ -569,8 +574,10 @@ abstract class OntologyObject extends ContainerObject
 	static function InternalOffsets()
 	{
 		return array( kTAG_NID, kTAG_CLASS,
-					  kTAG_TYPE, kTAG_LANGUAGE,
-					  kTAG_TEXT, kTAG_URL, kTAG_GEOMETRY, kTAG_RADIUS,
+					  kTAG_TYPE, kTAG_LANGUAGE, kTAG_TEXT, kTAG_URL,
+					  kTAG_TAG_REF, kTAG_TERM_REF, kTAG_NODE_REF, kTAG_EDGE_REF,
+					  kTAG_USER_REF, kTAG_UNIT_REF,
+					  kTAG_GEOMETRY, kTAG_RADIUS,
 					  kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 );	// ==>
 	
 	} // InternalOffsets.
@@ -757,8 +764,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Resolve offset.
 		//
-		if( (! is_int( $theOffset ))
-		 && (! ctype_digit( $theOffset )) )
+		if( substr( $theOffset, 0, 1 ) != kTOKEN_TAG_PREFIX )
 			$theOffset = $theDictionary->getSerial( $theOffset, $doAssert );
 		
 		//
@@ -902,7 +908,7 @@ abstract class OntologyObject extends ContainerObject
 			case kTYPE_REF_TERM:
 			case kTYPE_REF_EDGE:
 			case kTYPE_REF_UNIT:
-			case kTYPE_REF_ENTITY:
+			case kTYPE_REF_USER:
 				$theProperty = (string) $theProperty;
 				break;
 			
@@ -1131,7 +1137,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetExists( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset );
+			$theOffset = $this->resolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	
@@ -1161,7 +1167,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetGet( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset );
+			$theOffset = $this->resolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	
@@ -1192,7 +1198,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetSet( $theOffset, $theValue );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset, TRUE );
+			$theOffset = $this->resolveOffset( $theOffset, TRUE );
 		
 		return $ok;																	// ==>
 	
@@ -1222,7 +1228,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetUnset( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->resolveOffset( $theOffset );
+			$theOffset = $this->resolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	

@@ -398,7 +398,6 @@ class CollectingMission extends Mission
 			//
 			// Iterate collected samples.
 			//
-			$rs->sort( array( $this->resolveOffset( 'mcpd:COLLDATE', TRUE ) => 1 ) );
 			foreach( $rs as $record )
 			{
 				//
@@ -511,6 +510,9 @@ class CollectingMission extends Mission
 			// Init local storage.
 			//
 			$coordinates = Array();
+			$lat_tag = $this->resolveOffset( ':location:site:latitude' );
+			$lon_tag = $this->resolveOffset( ':location:site:longitude' );
+			$date_tag = $this->resolveOffset( 'mcpd:COLLDATE' );
 		
 			//
 			// Resolve collection.
@@ -527,41 +529,61 @@ class CollectingMission extends Mission
 					array( kTAG_DOMAIN => kDOMAIN_SAMPLE_COLLECTED ),
 					array( $this->resolveOffset( ':mission:collecting' )
 							=> $this->offsetGet( kTAG_NID ) ),
-					array( kTAG_OBJECT_TAGS
-							=> (int) $this->resolveOffset( ':location:site:latitude' ) ),
-					array( kTAG_OBJECT_TAGS
-							=> (int) $this->resolveOffset( ':location:site:longitude' ) ) ) );
+					array( kTAG_OBJECT_OFFSETS => $lat_tag ),
+					array( kTAG_OBJECT_OFFSETS => $lon_tag ) ) );
+			
+			//
+			// Set fields list.
+			//
+			$fields = array( $lat_tag => TRUE,
+							 $lon_tag => TRUE,
+							 $date_tag => TRUE );
 		
 			//
 			// Load collected samples.
 			//
-			$rs = $collection->matchAll( $query, kQUERY_OBJECT );
+			$rs = $collection->matchAll( $query, kQUERY_ARRAY, $fields );
 			if( $rs->count() )
 			{
 				//
-				// Iterate collected samples.
+				// Collect sample data.
 				//
-				$rs->sort( array( $this->resolveOffset( 'mcpd:COLLDATE', TRUE ) => 1 ) );
+				$idx = 0;
+				$samples = Array();
 				foreach( $rs as $record )
 				{
 					//
-					// Init local storage.
+					// Set stamp.
 					//
-					$index = count( $coordinates );
-					$lat = $record->offsetGet( ':location:site:latitude' );
-					$lon = $record->offsetGet( ':location:site:longitude' );
+					$stamp = ( array_key_exists( $date_tag, $record ) )
+						   ? ('A'.$record[ $date_tag ])
+						   : $idx++;
 					
+					//
+					// Set sample.
+					//
+					$samples[ $stamp ]
+						= array( round( $record[ $lon_tag ], 6 ),
+								 round( $record[ $lat_tag ], 6 ) );
+				}
+				
+				//
+				// Sort array.
+				//
+				ksort( $samples );
+				
+				//
+				// Collect coordinates.
+				//
+				foreach( $samples as $record )
+				{
 					//
 					// Check coordinates.
 					//
-					if( ($lat !== NULL )
-					 && ($lon !== NULL ) )
-					{
-						$lat = round( $lat, 6 );
-						$lon = round( $lon, 6 );
-						$coordinates[ implode( ';', array( $lon, $lat ) ) ]
-							= array( $lon, $lat );
-					}
+					if( ($record[ 1 ] !== NULL )
+					 && ($record[ 0 ] !== NULL ) )
+						$coordinates[ implode( ';', array( $record[ 0 ], $record[ 1 ] ) ) ]
+							= array( $record[ 0 ], $record[ 1 ] );
 				}
 				
 				//

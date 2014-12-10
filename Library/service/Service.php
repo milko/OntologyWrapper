@@ -78,7 +78,7 @@ try
 	//
 	// Set entities database.
 	//
-	$wrapper->Entities(
+	$wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			kSTANDARDS_ENTITIES_DB ) );
 

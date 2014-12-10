@@ -84,10 +84,10 @@ try
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	
 	//
-	// Set entities.
+	// Set users.
 	//
-	echo( "  • Setting entities.\n" );
-	$entities = $wrapper->Entities(
+	echo( "  • Setting users.\n" );
+	$users = $wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	

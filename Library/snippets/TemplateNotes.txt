@@ -1,0 +1,31 @@
+TEMPLATES:
+
+The template root is a TERM NODE of kTAG_NODE_TYPE: kTYPE_NODE_ROOT and kTYPE_NODE_TEMPLATE.
+The root term contains the label and definition of the template;
+the root node contains the elements defining the template characteristics:
+	kTAG_NAME:			The name of the template (used as identifier).
+	kTAG_CLASS_NAME:	Name of the class of the object for which the template is.
+
+A sub-template is a TAG NODE in which the tag MUST be a STRUCT and the node's kTAG_NODE_TYPE
+must have kTYPE_NODE_TEMPLATE. Sub-templates are used to represent sub-structures as tables,
+each sub-template is related to the root or parent template via a common property.
+Sub-template nodes feature the following properties:
+	kTAG_NAME:			The name of the sub-template (used as identifier).
+	kTAG_ID_SYMBOL:		In this case the property value contains the column identifier of
+						the parent template to which the current sub-template record is
+						related. This means that the symbol must exist in the parent
+						template and that there must be an element of the parent template
+						which matches the value of the current template property of that
+						symbol.
+
+Templates and sub-templates are related to TAG NODES which represet the template properties.
+These property nodes must contain the following attributes:
+	kTAG_ID_SYMBOL:		This string represents the column identifier of the template,
+						this symbol and the tag to which the node is related to represent
+						the dictionary.
+	kTAG_TOKEN:			This optional property contains the pattern tokens used to separate
+						list property elements.
+No property node may be of type struct.
+
+Templates, sub-templates and properties are all related via the [:predicate:PROPERTY-OF]
+predicate.

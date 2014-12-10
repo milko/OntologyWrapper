@@ -1,5 +1,20 @@
 <?php
 
+//
+// Global includes.
+//
+require_once( 'includes.inc.php' );
+
+//
+// local includes.
+//
+require_once( 'local.inc.php' );
+
+//
+// Functions.
+//
+require_once( kPATH_LIBRARY_ROOT."/Functions.php" );
+
 /*	
 	//
 	// Connect.
@@ -852,73 +867,67 @@ echo( '<hr />' );
 	
 /******************************************************************************/
 
+/*
 	//
-	// Test index.
+	// Test hashed serial identifiers.
 	//
+	
+	require_once( "includes.inc.php" );
+	require_once( "local.inc.php" );
+	require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
 	
 	//
 	// Connect.
 	//
 	$m = new MongoClient( 'mongodb://localhost:27017' );
-	$d = $m->selectDB( 'test' );
-	$c = $d->selectCollection( 'indexes' );
-	$c->drop();
-
-	//
-	// Insert records.
-	//
-	$record = array(
-		"1" => "pippo",
-		"2" => array(
-			"1" => "pappa",
-			"3" => "peppe" ),
-		"4" => array(
-			array(
-				"1" => "pippi" ),
-			array(
-				"1" => "pupu" ) ) );
+	$d = $m->selectDB( 'BIOVERSITY' );
+	$c = $d->selectCollection( '_units' );
 	
-/*	
 	//
-	// Insert records.
+	// Select records.
 	//
-	$record = array(
-		"a1" => "pippo",
-		"a2" => array(
-			"a1" => "pappa",
-			"a3" => "peppe" ),
-		"a4" => array(
-			array(
-				"a1" => "pippi" ),
-			array(
-				"a1" => "pupu" ) ) );
+	$rs = $c->find( array( '@9' => ':domain:sample:collected' ),
+					array( '@c' => TRUE ) );
+	
+	//
+	// Limit record.
+	//
+	$rs->limit( 1 );
+	
+	//
+	// Sort records.
+	//
+	$rs->sort( array('@3e' => -1 ) );
+	
+	//
+	// Get first element.
+	//
+	foreach( $rs as $record )
+		print_r( $record );
 */
 	
-	//
-	// Insert record.
-	//
-	$c->insert( $record );
+/******************************************************************************/
 
 	//
-	// Index.
+	// Test encrypt/decrypt.
 	//
-	echo( '"1"<br>' );
-	$c->ensureIndex( array( '1' => 1 ) );
-	echo( '"2.1"<br>' );
-	$c->ensureIndex( array( '2.1' => 1 ) );
-	echo( '"4.1"<br>' );
-	$c->ensureIndex( array( '4.1' => 1 ) );
 	
-/*	
 	//
-	// Index.
+	// Init local storage.
 	//
-	echo( '"a1"<br>' );
-	$c->ensureIndex( array( 'a1' => 1 ) );
-	echo( '"a2.a1"<br>' );
-	$c->ensureIndex( array( 'a2.a1' => 1 ) );
-	echo( '"a4.a1"<br>' );
-	$c->ensureIndex( array( 'a4.a1' => 1 ) );
-*/
-	
+    $key = 'this is a very long key, even too long for the cipher';
+    $data = 'very important data';
+    
+    //
+    // Encrypt.
+    //
+    $encrypted = Encrypt( $data, $key );
+    var_dump( $encrypted );
+    
+    //
+    // Decrypt.
+    //
+    $decrypted = Decrypt( $encrypted, $key );
+    var_dump( $decrypted );
+
 ?>

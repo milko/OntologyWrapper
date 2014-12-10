@@ -901,7 +901,7 @@
 		//
 		$ref_types = array( kTYPE_REF_TAG, kTYPE_REF_TERM,
 							kTYPE_REF_NODE, kTYPE_REF_EDGE,
-							kTYPE_REF_ENTITY, kTYPE_REF_UNIT );
+							kTYPE_REF_USER, kTYPE_REF_UNIT );
 		
 		//
 		// Verify value.
@@ -1391,7 +1391,7 @@
 							  kTYPE_REF_TERM => 'OntologyWrapper\Term',
 							  kTYPE_REF_NODE => 'OntologyWrapper\Node',
 							  kTYPE_REF_EDGE => 'OntologyWrapper\Edge',
-							  kTYPE_REF_ENTITY => 'OntologyWrapper\Entity',
+							  kTYPE_REF_USER => 'OntologyWrapper\Entity',
 							  kTYPE_REF_UNIT => 'OntologyWrapper\Unit' );
 		
 			//
@@ -1481,7 +1481,7 @@
 					$value = (string) $value;
 					break;
 		
-				case kTYPE_REF_ENTITY:
+				case kTYPE_REF_USER:
 					$collection
 						= Entity::ResolveCollection(
 							Entity::ResolveDatabase( $this->dictionary(), TRUE ) );
@@ -1570,7 +1570,7 @@
 				$collection = Edge::kSEQ_NAME;
 				break;
 		
-			case kTYPE_REF_ENTITY:
+			case kTYPE_REF_USER:
 				$collection = Entity::kSEQ_NAME;
 				break;
 		

@@ -25,6 +25,11 @@
 require_once( 'includes.inc.php' );
 
 //
+// local includes.
+//
+require_once( 'local.inc.php' );
+
+//
 // Style includes.
 //
 require_once( 'styles.inc.php' );
@@ -63,6 +68,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 // Init local storage.
 //
 $base_url = 'http://localhost/weblib/OntologyWrapper/Library/service/Service.php';
+$base_url = 'http://localhost/services/Bioversity/Service.php';
  
 //
 // Test class.
@@ -83,7 +89,7 @@ try
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
-	$wrapper->Entities(
+	$wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	$wrapper->Units(
@@ -96,13 +102,13 @@ try
 	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
 	
-/*	
+/*
 	//
-	// Index genus.
+	// Set offsets.
 	//
-	$indexes = OntologyWrapper\UnitObject::CreateIndex( $wrapper, ':taxon:genus' );
-	
-	var_dump( $indexes );
+	$collection = OntologyWrapper\UnitObject::ResolveCollectionByName( $wrapper, OntologyWrapper\UnitObject::kSEQ_NAME );
+	$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+							  array( "name" => "OFFSETS" ) );
 	
 	exit;
 */
@@ -165,9 +171,9 @@ try
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_REQUEST_LANGUAGE => 'en',
-	//	kAPI_PARAM_TAG => 'mcpd:ACCENUMB'
+		kAPI_PARAM_TAG => 'mcpd:ACCENUMB'
 	//	kAPI_PARAM_TAG => array( 'mcpd:ACCENUMB', 'mcpd:ACCENAME' )
-		kAPI_PARAM_TAG => 'pippo'
+	//	kAPI_PARAM_TAG => 'pippo'
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_IDENTIFIER;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -202,8 +208,8 @@ try
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
-		kAPI_PARAM_PATTERN => 'Genus',
-		kAPI_PARAM_OPERATOR => array( kOPERATOR_EQUAL )
+		kAPI_PARAM_PATTERN => 'adm',
+		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
 	//	kAPI_PARAM_REF_COUNT => array( kAPI_PARAM_COLLECTION_TERM,
 	//								   kAPI_PARAM_COLLECTION_NODE )
 	);
@@ -352,6 +358,42 @@ try
 	echo( '<hr>' );
 	
 	//
+	// Try getUnit formatted.
+	//
+	echo( '<h4>Try getUnit formatted</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD,
+		kAPI_PARAM_ID => ':domain:mission:collecting://ITA406/CN007:CN007;'
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
 	// Test single field with data (group).
 	//
 	echo( '<h4>Test single field with data (group)</h4>' );
@@ -368,15 +410,16 @@ try
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':location:country' => array
+			':taxon:genus' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'iso:3166:1:alpha-3:ITA',
+				kAPI_PARAM_PATTERN => 'brassica',
 				kAPI_PARAM_OPERATOR => array
 				(
 					kOPERATOR_CONTAINS,
 					kOPERATOR_NOCASE
-				)
+				),
+				kAPI_PARAM_OFFSETS => array( '#256.#fc' )
 			)
 		),
 		kAPI_PARAM_GROUP => Array()
@@ -450,9 +493,21 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Try getUnit formatted.
+	// Resolve taxon groups.
 	//
-	echo( '<h4>Try getUnit formatted</h4>' );
+	$genus = 'Triticum';
+	$species = 'durum';
+	$list = OntologyWrapper\Term::ResolveTaxonGroup( $wrapper, $genus, $species );
+	var_dump( $list );
+	echo( '<hr>' );
+	echo( '<hr>' );
+*/
+
+/*
+	//
+	// TEST.
+	//
+	echo( '<h4>TEST</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -463,12 +518,63 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+	//	kAPI_PAGING_LIMIT => 10,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_CRITERIA => Array(),
+		kAPI_PARAM_GROUP => kTAG_DOMAIN
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+var_dump( 'http://localhost/services/Bioversity/Service.php?op=matchUnits&ln=en&pr=%7B%22log-request%22:true,%22criteria%22:%5B%5D,%22grouping%22:%22#9%22%7D' );
+var_dump( $request );
+var_dump( urldecode( '%7B%22log-request%22:true,%22criteria%22:%5B%5D,%22grouping%22:%22#9%22%7D' ) );
+var_dump( json_encode( $param ) );
+exit;
+*/
+
+/*
+	//
+	// Test multiple fields with multiple offsets indexed (group).
+	//
+	echo( '<h4>Test multiple fields field with multiple offsets indexed (group)</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+	//	kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT,
-		kAPI_PARAM_ID => ':domain:mission:collecting://ITA406/CN007:CN007;'
+		kAPI_PARAM_CRITERIA => array
+		(
+			':location:country' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+				kAPI_PARAM_TERM => 'iso:3166:1:alpha-3:ITA'
+			)
+		),
+		kAPI_PARAM_GROUP => array( '@255.@fc', '@255.@10c' )
 	);
-	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );
@@ -485,14 +591,77 @@ try
 	echo( '<hr>' );
 	echo( '<hr>' );
 */
+
+/*
 	//
-	// Resolve taxon groups.
+	// Test domains list and count.
 	//
-	$genus = 'Triticum';
-	$species = 'durum';
-	$list = OntologyWrapper\Term::ResolveTaxonGroup( $wrapper, $genus, $species );
-	var_dump( $list );
+	echo( '<h4>Test domains list and count</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$request = "$base_url?op=".kAPI_OP_LIST_DOMAINS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+	echo( '<hr>' );
+*/
+
+	//
+	// Test getUser.
+	//
+	echo( '<h4>Test getUser</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+	//	kAPI_PARAM_ID => array( 'gatewayadmin', 'gatewayadmin' ),
+		kAPI_PARAM_ID => ':domain:individual://ITA406/pgrdiversity:admin;',
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE_DISP,
+	//	kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
+	//	kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_USER;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
 
 }
 

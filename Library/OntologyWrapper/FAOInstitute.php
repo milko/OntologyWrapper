@@ -783,6 +783,13 @@ class FAOInstitute extends Institution
 			$this->offsetSet( kTAG_COLLECTION, 'wiews' );
 		
 		//
+		// Check dataset.
+		//
+		if( ! $this->offsetExists( ':inventory:dataset' ) )
+			$this->offsetSet( ':inventory:dataset',
+							  'FAO World Information and Early Warning System' );
+		
+		//
 		// Check name.
 		//
 		if( ! $this->offsetExists( kTAG_NAME ) )
