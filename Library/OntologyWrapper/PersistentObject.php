@@ -2161,6 +2161,70 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // ResolveOffsetsTag.
 
+	 
+	/*===================================================================================
+	 *	Offsets2Tags																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve offset tags
+	 *
+	 * This method will expects an array coming from the {@link kTAG_OBJECT_OFFSETS}
+	 * property and will return the corresponding array formatted as the
+	 * {@link kTAG_OBJECT_TAGS} property.
+	 *
+	 * If the provided offsets are not an array, the method will raise an exception.
+	 *
+	 * @param array					$theOffsets			Offsets.
+	 *
+	 * @access protected
+	 * @return array				The offsets tags.
+	 *
+	 * @see kTAG_OBJECT_OFFSETS kTAG_OBJECT_TAGS
+	 */
+	static function Offsets2Tags( $theOffsets )
+	{
+		//
+		// Check offsets.
+		//
+		if( is_array( $theOffsets ) )
+		{
+			//
+			// Init local storage.
+			//
+			$tags = Array();
+		
+			//
+			// Collect tags.
+			//
+			foreach( $theOffsets as $offset )
+			{
+				//
+				// Parse offset.
+				//
+				$offsets = explode( '.', $offset );
+				
+				//
+				// Add tag.
+				//
+				if( ! in_array( ($tag = $offsets[ count( $offsets ) - 1 ]), $tags ) )
+					$tags[] = $tag;
+			
+			} // Iterating offsets.
+			
+			return $tags;															// ==>
+		
+		} // Provided array.
+		
+		elseif( $theOffsets === NULL )
+			return Array();															// ==>
+		
+		throw new \Exception(
+			"Cannot resolve offsets: "
+		   ."invalid parameter, expecting an array." );							// !@! ==>
+	
+	} // Offsets2Tags.
+
 		
 
 /*=======================================================================================
@@ -4216,6 +4280,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		if( $theOffsets === NULL )
 			$theOffsets = Array();
+		else
+			$theOffsets = static::ClusterObjectOffsets( $theOffsets );
 		if( $theReferences === NULL )
 			$theReferences = Array();
 		
@@ -5482,22 +5548,23 @@ MILKO - Need to check.
 	 * The method expects the tags parameter to be an array.
 	 *
 	 * @param CollectionObject		$theCollection		Collection.
-	 * @param array					$theTags			Object tags.
+	 * @param array					$theOffsets			Object tags.
 	 *
 	 * @access protected
 	 */
-	protected function filterExistingOffsets( CollectionObject $theCollection, &$theTags )
+	protected function filterExistingOffsets( CollectionObject $theCollection,
+															  &$theOffsets )
 	{
 		//
 		// Iterate tag offsets.
 		//
-		$tags = array_keys( $theTags );
+		$tags = array_keys( $theOffsets );
 		foreach( $tags as $tag )
 		{
 			//
 			// Init loop storage.
 			//
-			$ref = & $theTags[ $tag ];
+			$ref = & $theOffsets[ $tag ];
 
 			//
 			// Iterate offsets.
@@ -5508,7 +5575,7 @@ MILKO - Need to check.
 				// Check offset.
 				//
 				if( $theCollection->matchAll(
-					array( kTAG_OBJECT_OFFSETS.".$tag" => (string) $offset ),
+					array( kTAG_OBJECT_OFFSETS => $offset ),
 					kQUERY_ARRAY ) )
 					unset( $ref[ $offset ] );
 		
@@ -5518,7 +5585,7 @@ MILKO - Need to check.
 			// Handle empty list.
 			//
 			if( ! count( $ref ) )
-				unset( $theTags[ $tag ] );
+				unset( $theOffsets[ $tag ] );
 		
 		} // Iterating tag offsets.
 	

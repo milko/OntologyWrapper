@@ -3460,8 +3460,8 @@ class Wrapper extends Dictionary
 						Edge::ResolveDatabase( $this, TRUE ) );						// ==>
 				
 			case User::kSEQ_NAME:
-				return EntityObject::ResolveCollection(
-						EntityObject::ResolveDatabase( $this, TRUE ) );				// ==>
+				return User::ResolveCollection(
+						User::ResolveDatabase( $this, TRUE ) );						// ==>
 				
 			case UnitObject::kSEQ_NAME:
 				return UnitObject::ResolveCollection(
