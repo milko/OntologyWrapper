@@ -34,6 +34,13 @@ define( "kAPI_REQUEST_OPERATION",				'op' );
 define( "kAPI_REQUEST_LANGUAGE",				'ln' );
 
 /**
+ * User.
+ *
+ * This tag identifies the user who requested the service.
+ */
+define( "kAPI_REQUEST_USER",					'us' );
+
+/**
  * Parameters.
  *
  * This tag identifies the service request parameters.

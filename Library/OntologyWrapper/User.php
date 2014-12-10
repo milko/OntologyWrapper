@@ -337,16 +337,26 @@ class User extends Individual
 			// Call parent method.
 			//
 			parent::preCommitObjectIdentifiers();
+			
+			//
+			// Get sequence number.
+			//
+			$sequence
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary, TRUE ) )
+						->getSequenceNumber(
+							static::kSEQ_NAME );
 	
 			//
 			// Set sequence number.
 			//
-			$this->offsetSet(
-				kTAG_ID_SEQUENCE,
-				static::ResolveCollection(
-					static::ResolveDatabase( $this->mDictionary, TRUE ) )
-						->getSequenceNumber(
-							static::kSEQ_NAME ) );
+			$this->offsetSet( kTAG_ID_SEQUENCE, $sequence );
+			
+			//
+			// Set user database name.
+			//
+			if( ! $this->offsetExists( kTAG_CONN_BASE ) )
+				$this->offsetSet( kTAG_CONN_BASE, kTOKEN_UDB_PREFIX.$sequence );
 		
 		} // Not committed.
 	

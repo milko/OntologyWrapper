@@ -27,6 +27,13 @@
 define( "kTOKEN_TAG_PREFIX",		    '@' );		    	// Tag prefix token.
 
 /**
+ * User database name prefix.
+ *
+ * This value represents the user database name prefix.
+ */
+define( "kTOKEN_UDB_PREFIX",		    'UDB' );	    	// User database name prefix.
+
+/**
  * Domain separator token.
  *
  * This value defines the token that separates the object domain from other elements.

@@ -553,6 +553,68 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	parseUser																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse user.
+	 *
+	 * The duty of this method is to parse the provided user, check whether a user is
+	 * required and set the wrapper to point to the user's units.
+	 *
+	 * If the user is not resolved, or the operation requires the missing user, the method
+	 * will raise an exception.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_REQUEST_USER kTOKEN_UDB_PREFIX
+	 */
+	protected function parseUser()
+	{
+		//
+		// Resolve user.
+		//
+		if( array_key_exists( kAPI_REQUEST_USER, $_REQUEST ) )
+		{
+			//
+			// Init local storage.
+			//
+			$user = NULL;
+			$op = $_REQUEST[ kAPI_REQUEST_OPERATION ];
+			$server = $this->mWrapper->Users()->parent();
+			$collection = $this->mWrapper->resolveCollection( User::kSEQ_NAME );
+		
+			//
+			// Resolve user.
+			//
+			$user = $collection->matchOne(
+						array( kTAG_NID => $_REQUEST[ kAPI_REQUEST_USER ] ),
+						kQUERY_OBJECT | kQUERY_ASSERT );
+			
+			//
+			// Redirect units.
+			//
+			$dbname = $user[ kTAG_CONN_BASE ];
+			if( $dbname !== NULL )
+				$this->mWrapper->Units(
+					$server->Database( kTOKEN_UDB_PREFIX.$dbmane, TRUE ) );
+			else
+				throw new \Exception(
+					"Requesting user lacks sequence identifier." );				// !@! ==>
+			
+			//
+			// Save user.
+			//
+			$this->offsetSet( kAPI_REQUEST_USER, $user );
+		
+		} // Provided user.
+		
+	} // parseUser.
+
+	 
+	/*===================================================================================
 	 *	parseParameters																	*
 	 *==================================================================================*/
 
@@ -3342,6 +3404,7 @@ class Service extends ContainerObject
 		//
 		$ref[ "kAPI_REQUEST_OPERATION" ] = kAPI_REQUEST_OPERATION;
 		$ref[ "kAPI_REQUEST_LANGUAGE" ] = kAPI_REQUEST_LANGUAGE;
+		$ref[ "kAPI_REQUEST_USER" ] = kAPI_REQUEST_USER;
 		$ref[ "kAPI_REQUEST_PARAMETERS" ] = kAPI_REQUEST_PARAMETERS;
 		
 		//
