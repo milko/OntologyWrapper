@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Ontology Wrapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">3</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-463553273"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-463553273" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-788462537"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-788462537" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-345211417"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-345211417" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityPhone.html">EntityPhone</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorOffset.html">AccessorOffset</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityMail.html">EntityMail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityFax.html">EntityFax</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Category.html">Category</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityKind.html">EntityKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Synonym.html">Synonym</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAffiliation.html">EntityAffiliation</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityType.html">EntityType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityEmail.html">EntityEmail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.TermType.html">TermType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorProperty.html">AccessorProperty</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityLink.html">EntityLink</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.NodeType.html">NodeType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAcronym.html">EntityAcronym</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseGraph.html">DatabaseGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.EntityObject.html">EntityObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Individual.html">Individual</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoIterator.html">MongoIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Institution.html">Institution</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.UnitObject.html">UnitObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.FAOInstitute.html">FAOInstitute</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Service.html">Service</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Neo4jGraph.html">Neo4jGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Accession.html">Accession</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ArrayCursorIterator.html">ArrayCursorIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Checklist.html">Checklist</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectingMission.html">CollectingMission</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectingSample.html">CollectingSample</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ForestUnit.html">ForestUnit</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Household.html">Household</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Inventory.html">Inventory</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.IteratorSerialiser.html">IteratorSerialiser</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MetadataObject.html">MetadataObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Mission.html">Mission</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ObjectIterator.html">ObjectIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Qtl.html">Qtl</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Sample.html">Sample</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.User.html">User</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\OntologyWrapper</small>ObjectIterator</h1>
+                    <p><em>Object iterator</em></p>
+                    <p>This <i>abstract</i> class represents the template of iterators which are used to scan
+a set of objects belonging to the same collection. The class implements the
+{@link Iterator} and {@link Countable} interfaces and it declares a series of prototypes
+to be implemented by derived concrete classes.</p>
+<p>In this class the {@link Iterator} and {@link Countable} interfaces are proxies of the
+cursor data member, all calls are routed to the cursor, in concrete derived classes you
+can overload these methods to handle custom cursors.</p>
+<p>The class declares another set of virtual methods which perform specific actions on the
+cursor:</p>
+<ul>
+<li><tt>{@link affectedCount()</tt>: Return cursor affected count.
+<li><tt>{@link keys()</tt>: Return cursor keys.
+<li><tt>{@link skip()</tt>: Skip a number of elements before iterating.
+<li><tt>{@link limit()</tt>: Limit the maximum number of iterations.
+<li><tt>{@link sort()</tt>: Sort the cursor.
+</ul>
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_cursor" class="">cursor()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_collection" class="">collection()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_criteria" class="">criteria()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_resultType" class="">resultType()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_setKeyOffset" class="">setKeyOffset()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_current" class="">current()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_key" class="">key()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_next" class="">next()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_rewind" class="">rewind()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_valid" class="">valid()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_count" class="">count()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_affectedCount" class="">affectedCount()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_keys" class="">keys()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_skip" class="">skip()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_limit" class="">limit()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_fields" class="">fields()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_sort" class="">sort()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_setTimeout" class="">setTimeout()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#method_shapeResult" class="">shapeResult()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#property_mCursor" class="">$mCursor</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#property_mCollection" class="">$mCollection</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#property_mCriteria" class="">$mCriteria</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#property_mFields" class="">$mFields</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#property_mKey" class="">$mKey</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ObjectIterator.html#property_mResultType" class="">$mResultType</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                            <span class="label label-info">abstract</span>
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/OntologyWrapper.ObjectIterator.php.html"><div class="path-wrapper">OntologyWrapper/ObjectIterator.php</div></a></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\OntologyWrapper\ObjectIterator</div>
+                            </dd>
+
+                        
+                                                                                    <dt>Uses traits</dt>
+                                                        <dd>
+                                <a href="../classes/OntologyWrapper.traits.AccessorProperty.html">                                    <div class="namespace-wrapper">\OntologyWrapper\traits\AccessorProperty</div>
+                                </a>                            </dd>
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                version
+                            </th>
+                            <td>
+                                                                    <p>07/03/2014</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                todo
+                            </th>
+                            <td>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mCursor" name="property_mCursor" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mCursor</h3>
+                <pre class="signature">$mCursor : \OntologyWrapper\Iterator</pre>
+                <p><em>Cursor.</em></p>
+                <p>This data member holds the query cursor.</p>
+
+                                <h4>Type</h4>
+                \OntologyWrapper\Iterator
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mCollection" name="property_mCollection" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mCollection</h3>
+                <pre class="signature">$mCollection : \OntologyWrapper\CollectionObject</pre>
+                <p><em>Collection.</em></p>
+                <p>This data member holds the collection.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/OntologyWrapper.CollectionObject.html">\OntologyWrapper\CollectionObject</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mCriteria" name="property_mCriteria" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mCriteria</h3>
+                <pre class="signature">$mCriteria : array</pre>
+                <p><em>Criteria.</em></p>
+                <p>This data member holds the query criteria.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mFields" name="property_mFields" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mFields</h3>
+                <pre class="signature">$mFields : array</pre>
+                <p><em>Fields.</em></p>
+                <p>This data member holds the selection fields.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mKey" name="property_mKey" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mKey</h3>
+                <pre class="signature">$mKey : string</pre>
+                <p><em>Key.</em></p>
+                <p>This data member holds the iterator key field.</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mResultType" name="property_mResultType" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mResultType</h3>
+                <pre class="signature">$mResultType : \OntologyWrapper\bitfield</pre>
+                <p><em>Result.</em></p>
+                <p>This data member holds an enumerated value determining what the iterator should
+return:</p>
+<ul>
+<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
+<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
+<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native identifier.
+</ul>
+
+                                <h4>Type</h4>
+                \OntologyWrapper\bitfield
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(\OntologyWrapper\Iterator <span class="argument">$theCursor</span>, \OntologyWrapper\CollectionObject <span class="argument">$theCollection</span>, array <span class="argument">$theCriteria</span>, array <span class="argument">$theFields</span>, mixed <span class="argument">$theKey</span>, \OntologyWrapper\bitfield <span class="argument">$theResult</span>)</pre>
+                <p><em>Instantiate class.</em></p>
+                <p>The constructor expects the following parameters:</p>
+<ul>
+<li><b>$theCursor</b>: The query result cursor.
+<li><b>$theCollection</b>: The collection to which the query was applied.
+<li><b>$theCriteria</b>: The query filter.
+<li><b>$theFields</b>: The query fields.
+<li><b>$theKey</b>: The iterator key.
+<li><b>$theResult</b>: A bitfield value determining what kind of data the iterator
+    will return:
+ <ul>
+    <li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
+    <li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
+    <li><tt>{@link kQUERY_NID}</tt>: Return the matched object native identifier.
+ </ul>
+</ul>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\Iterator</td>
+                                <td>$theCursor</td>
+                                <td><p>Query cursor.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.CollectionObject.html">\OntologyWrapper\CollectionObject</a></td>
+                                <td>$theCollection</td>
+                                <td><p>Query collection.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theCriteria</td>
+                                <td><p>Query criteria.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theFields</td>
+                                <td><p>Query fields.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theKey</td>
+                                <td><p>Iterator key.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\bitfield</td>
+                                <td>$theResult</td>
+                                <td><p>Result type.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cursor" name="method_cursor" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">cursor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cursor() : \OntologyWrapper\Iterator</pre>
+                <p><em>&lt;h4&gt;Return cursor&lt;/h4&gt;</em></p>
+                <p>This method can be used to retrieve the current object's cursor, which is the native
+cursor returned by the query.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    \OntologyWrapper\Iterator
+                                            &mdash; <p>Query cursor.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_collection" name="method_collection" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">collection()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">collection() : \OntologyWrapper\CollectionObject</pre>
+                <p><em>&lt;h4&gt;Return collection&lt;/h4&gt;</em></p>
+                <p>This method can be used to retrieve the current object's collection, which is the
+collection object that was queried.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/OntologyWrapper.CollectionObject.html">\OntologyWrapper\CollectionObject</a>
+                                            &mdash; <p>Query collection.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_criteria" name="method_criteria" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">criteria()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">criteria() : array</pre>
+                <p><em>&lt;h4&gt;Return criteria&lt;/h4&gt;</em></p>
+                <p>This method can be used to retrieve the current object's criteria, which is the query
+filter.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Query filter.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_resultType" name="method_resultType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">resultType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">resultType(mixed <span class="argument">$theValue</span>, boolean <span class="argument">$getOld</span>) : mixed</pre>
+                <p><em>Manage result type</em></p>
+                <p>This method can be used to manage the <i>result type</i>, it accepts a parameter
+which represents either the result type code or the requested operation, depending on
+its value:</p>
+<ul>
+<li><tt>NULL</tt>: Return the current value.
+<li><tt>FALSE</tt>: Delete the current value.
+<li><tt>{@link kQUERY_OBJECT}</tt>: Return an object.
+<li><tt>{@link kQUERY_ARRAY}</tt>: Return the object array.
+<li><tt>{@link kQUERY_NID}</tt>: Return the object native identifier.
+<li><i>other</i>: Will raise an exception.
+</ul>
+<p>The second parameter is a boolean which if <tt>TRUE</tt> will return the <i>old</i>
+value when replacing or resetting; if <tt>FALSE</tt>, it will return the current
+value.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data source name or operation.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$getOld</td>
+                                <td><p><tt>TRUE</tt> get old value.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p><i>New</i> or <i>old</i> result type code.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>manageProperty()</dd>
+                                            <dd>resultType()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setKeyOffset" name="method_setKeyOffset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setKeyOffset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setKeyOffset(mixed <span class="argument">$theOffset</span>)</pre>
+                <p><em>Set key offset</em></p>
+                <p>This method can be used to set the key offset, it expects a parameter which represents
+the offset in the current element from which to get the current key value.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theOffset</td>
+                                <td><p>Key offset.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_current" name="method_current" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">current()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">current() : mixed</pre>
+                <p><em>&lt;h4&gt;Return the value of the current element&lt;/h4&gt;</em></p>
+                <p>In this class we take the result of the cursor and pass it to the
+{@link shapeResult()} method which takes care of returning the desired type of value.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Current element value.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>shapeResult()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_key" name="method_key" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">key()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">key() : mixed</pre>
+                <p><em>&lt;h4&gt;Return the key of the current element&lt;/h4&gt;</em></p>
+                <p>In this class we use the current element's native identifier as the key, or the
+cursor's key if the former is not available.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Current element's key.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_next" name="method_next" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">next()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">next()</pre>
+                <p><em>&lt;h4&gt;Advance to the next element&lt;/h4&gt;</em></p>
+                <p>We act as a proxy for the cursor.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_rewind" name="method_rewind" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">rewind()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">rewind()</pre>
+                <p><em>&lt;h4&gt;Rewind iterator&lt;/h4&gt;</em></p>
+                <p>We act as a proxy for the cursor.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_valid" name="method_valid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">valid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">valid() : boolean</pre>
+                <p><em>&lt;h4&gt;Check if iterator is valid&lt;/h4&gt;</em></p>
+                <p>We act as a proxy for the cursor.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_count" name="method_count" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">count()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">count() : int</pre>
+                <p><em>&lt;h4&gt;Return cursor count&lt;/h4&gt;</em></p>
+                <p>We act as a proxy for the object's cursor, note that we should get the count
+including eventual limits and skip.</p>
+<p>In this class we return the cursor count.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    int
+                                            &mdash; <p>Element count including skip and limits.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_affectedCount" name="method_affectedCount" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">affectedCount()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">affectedCount() : int</pre>
+                <p><em>&lt;h4&gt;Return affected count&lt;/h4&gt;</em></p>
+                <p>Return the total count excluding eventual limits and skip.</p>
+<p>Note that the cursor must implement the Countable interface in which the
+<tt>count()</tt> method should return the count including skip and limits.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    int
+                                            &mdash; <p>Element count excluding skip and limits.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                        <span class="label label-info">abstract</span>
+                                                <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_keys" name="method_keys" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">keys()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">keys() : array</pre>
+                <p><em>&lt;h4&gt;Return the cursor keys&lt;/h4&gt;</em></p>
+                <p>This method will return the keys of the cursor as an array.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                        <span class="label label-info">abstract</span>
+                                                <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_skip" name="method_skip" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">skip()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">skip(integer <span class="argument">$theCount</span>) : integer</pre>
+                <p><em>&lt;h4&gt;Skip a number of elements&lt;/h4&gt;</em></p>
+                <p>This method can be used to skip a number of records, if you provide an integer, the
+iterator will start from the element corresponding to the provided value; in this
+case the method should be used only before the cursor has beed iterated.</p>
+<p>If you provide <tt>NULL</tt>, the method should return the current skip value.</p>
+<p>The method will return the current skip value.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$theCount</td>
+                                <td><p>Number of elements to skip.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>Current skip value.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                        <span class="label label-info">abstract</span>
+                                                <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_limit" name="method_limit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">limit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">limit(integer <span class="argument">$theCount</span>) : integer</pre>
+                <p><em>&lt;h4&gt;Limit the number of elements&lt;/h4&gt;</em></p>
+                <p>This method can be used to provide the maximum number of records to be returned, if
+you provide an integer, the iterator will limit its results to the number
+corresponding to the provided value; in this case the method should be used only
+before the cursor has beed iterated.</p>
+<p>If you provide <tt>NULL</tt>, the method should return the current limit value.</p>
+<p>The method will return the current limit value.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$theCount</td>
+                                <td><p>Maximum number of iterations.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>Current limit value.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                        <span class="label label-info">abstract</span>
+                                                <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fields" name="method_fields" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fields()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fields(array <span class="argument">$theFields</span>) : array</pre>
+                <p><em>&lt;h4&gt;Select the fields to be returned&lt;/h4&gt;</em></p>
+                <p>This method should be used only before the cursor has beed iterated, it will indicate
+which fields the cursor should return according to the provided array parameter:</p>
+<ul>
+<li><tt>key</tt>: The key corresponds to the field to be selected.
+<li><tt>value</tt>: Whether to include or exclude it:
+ <ul>
+    <li><tt>TRUE</tt>: Include the field and exclude all others.
+    <li><tt>FALSE</tt>: Exclude the field and include all others.
+ </ul>
+</ul>
+<p>If the cursor has already started iterating, the method should raise an exception.</p>
+<p>If you provide <tt>NULL</tt>, the method will return the current fields selection.</p>
+<p>The method will return the current fields selection.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theFields</td>
+                                <td><p>Fields selection.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Current fields selection.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                        <span class="label label-info">abstract</span>
+                                                <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sort" name="method_sort" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sort()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sort(array <span class="argument">$theOrder</span>) : array</pre>
+                <p><em>&lt;h4&gt;Sort the cursor&lt;/h4&gt;</em></p>
+                <p>This method should be used only before the cursor has beed iterated, it will sort the
+cursor elements according to the provided array parameter:</p>
+<ul>
+<li><tt>key</tt>: The key corresponds to the field to be sorted.
+<li><tt>value</tt>: The direction in which to sort:
+ <ul>
+    <li><tt>1</tt>: Ascending.
+    <li><tt>-1</tt>: Descending.
+ </ul>
+</ul>
+<p>The sort is also determined by the order in which the array elements are provided.</p>
+<p>If the cursor has already started iterating, the method should raise an exception.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theOrder</td>
+                                <td><p>Sort order indications.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Current sort order.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                        <span class="label label-info">abstract</span>
+                                                <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTimeout" name="method_setTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTimeout(int <span class="argument">$theTimeout</span>)</pre>
+                <p><em>&lt;h4&gt;Set cursor timeout&lt;/h4&gt;</em></p>
+                <p>This method should be used to set the cursor timeout, the method should be available
+also once the cursor has been iterated.</p>
+<p>The method accepts a single parameter indicating the timeout in milliseconds.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$theTimeout</td>
+                                <td><p>Timeout in milliseconds.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                        <span class="label label-info">abstract</span>
+                                                <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_shapeResult" name="method_shapeResult" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">shapeResult()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">shapeResult(array <span class="argument">$theObject</span>) : mixed</pre>
+                <p><em>Cast iterator value</em></p>
+                <p>This method will format the provided cursor value according to the
+{@link resultType()}.</p>
+<p>Depending on the {@link resultType()} value:</p>
+<ul>
+<li><tt>{@link kQUERY_OBJECT}</tt>: Return an object.
+<li><tt>{@link kQUERY_ARRAY}</tt>: Return the object array.
+<li><tt>{@link kQUERY_NID}</tt>: Return the object native identifier.
+<li><i>other</i>: Will raise an exception.
+</ul>
+<p>The method expects the value provided as an array.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theObject</td>
+                                <td><p>Current cursor value.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The formatted value.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ObjectIterator.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/OntologyWrapper/ObjectIterator.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on November 28th, 2014 at 12:56.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

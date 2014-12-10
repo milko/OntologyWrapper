@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\PersistentObject;
+use OntologyWrapper\MetadataObject;
 use OntologyWrapper\Tag;
 use OntologyWrapper\Term;
 use OntologyWrapper\Edge;
@@ -103,7 +103,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
  */
-class Node extends PersistentObject
+class Node extends MetadataObject
 {
 	/**
 	 * Type trait.
@@ -203,6 +203,38 @@ class Node extends PersistentObject
 		return '';																	// ==>
 	
 	} // __toString.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the node's term or tag name.
+	 *
+	 * The method will raise an exception if the current object lacks a wrapper reference.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		return $this->getReferenced()->getName();									// ==>
+	
+	} // getName.
 
 		
 
@@ -396,6 +428,12 @@ class Node extends PersistentObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		//
 		// Set persistent identifier index.
 		//
 		$collection->createIndex( array( kTAG_ID_PERSISTENT => 1 ),
@@ -459,7 +497,7 @@ class Node extends PersistentObject
 	 *	<li><b>$theIdentifier</b>: This parameter represents the tag identifier:
 	 *	 <ul>
 	 *		<li><tt>integer</tt>: If the value is an integer, the method will match the
-	 *			identifier with the {@link kTAG_ID_SEQUENCE} offset of the tag;
+	 *			identifier with the {@link kTAG_ID_HASH} offset of the tag;
 	 *		<li><tt>string</tt>: Any other type will be cast to a string, the method will
 	 *			match the identifier with the {@link kTAG_NID} offset of the tag.
 	 *	 </ul>
@@ -496,7 +534,7 @@ class Node extends PersistentObject
 		//
 		// Resolve sequence number.
 		//
-		if( is_int( $theIdentifier ) )
+		if( substr( $theIdentifier, 0, 1 ) == kTOKEN_TAG_PREFIX )
 		{
 			//
 			// Init local storage.
@@ -513,7 +551,7 @@ class Node extends PersistentObject
 			//
 			// Set criteria.
 			//
-			$criteria = array( kTAG_ID_SEQUENCE => $theIdentifier );
+			$criteria = array( kTAG_ID_HASH => $theIdentifier );
 			
 			//
 			// Locate tag.
@@ -659,6 +697,44 @@ class Node extends PersistentObject
 		return $collection->matchOne( $criteria, $theResult );						// ==>
 	
 	} // GetPidNode.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_PERSISTENT}</tt>: Node persistent identifier.
+	 *	<li><tt>{@link kTAG_TAG}</tt>: Node tag reference.
+	 *	<li><tt>{@link kTAG_TERM}</tt>: Node term reference.
+	 *	<li><tt>{@link kTAG_NODE_TYPE}</tt>: Node type.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_ID_PERSISTENT,
+								   kTAG_TAG, kTAG_TERM,
+								   kTAG_NODE_TYPE ) );								// ==>
+	
+	} // DefaultOffsets.
 
 		
 
@@ -922,7 +998,7 @@ class Node extends PersistentObject
 		// Get master.
 		//
 		$master = ( $this->offsetExists( kTAG_TAG ) )
-				? static::GetTagMaster( $this->mDictionary, (int) $ref, kQUERY_NID )
+				? static::GetTagMaster( $this->mDictionary, $ref, kQUERY_NID )
 				: static::GetTermMaster( $this->mDictionary, $ref, kQUERY_NID );
 	
 		//
@@ -983,10 +1059,11 @@ class Node extends PersistentObject
 			//
 			$this->offsetSet(
 				kTAG_NID,
-				static::ResolveCollection(
-					static::ResolveDatabase( $this->mDictionary, TRUE ) )
-						->getSequenceNumber(
-							static::kSEQ_NAME ) );
+				(int)
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ) )
+							->getSequenceNumber(
+								static::kSEQ_NAME ) );
 		
 		} // Not committed.
 	
@@ -1054,6 +1131,148 @@ class Node extends PersistentObject
 							array( kTAG_TAG, kTAG_TERM ) );							// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	exportXMLObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Export the current object in XML format
+	 *
+	 * We overload this method to add the {@link kTAG_TAG}, {@link kTAG_TERM} and
+	 * {@link kTAG_ID_PERSISTENT} offsets to the untracked offsets list, since these are set
+	 * in the unit node attributes.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Dump container.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLObject( \SimpleXMLElement $theContainer,
+										Wrapper			  $theWrapper,
+														  $theUntracked )
+	{
+		//
+		// Create unit.
+		//
+		$unit = static::xmlUnitElement( $theContainer );
+		
+		//
+		// Add tag, term and persistent identifier to untracked.
+		//
+		$theUntracked = array_merge( $theUntracked,
+									 array( kTAG_TAG, kTAG_TERM, kTAG_ID_PERSISTENT ) );
+		
+		//
+		// Traverse object.
+		//
+		$this->exportXMLStructure( $this, $unit, $theWrapper, $theUntracked );
+	
+	} // exportXMLObject.
+
+	 
+	/*===================================================================================
+	 *	loadXML																			*
+	 *==================================================================================*/
+
+	/**
+	 * Load from XML
+	 *
+	 * In this class we overload the inherited method to handle the {@link kTAG_TAG},
+	 * {@link kTAG_TERM} and {@link kTAG_ID_PERSISTENT} offsets whose data is found in the
+	 * root node attributes.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Export container (unit).
+	 *
+	 * @access public
+	 */
+	public function loadXML( \SimpleXMLElement $theContainer )
+	{
+		//
+		// Load tag reference.
+		//
+		if( $theContainer[ kIO_XML_ATTR_REF_TAG ] !== NULL )
+			$this[ kTAG_TAG ]
+				= (string) $theContainer[ kIO_XML_ATTR_REF_TAG ];
+	
+		//
+		// Load term reference.
+		//
+		if( $theContainer[ kIO_XML_ATTR_REF_TERM ] !== NULL )
+			$this[ kTAG_TERM ]
+				= (string) $theContainer[ kIO_XML_ATTR_REF_TERM ];
+	
+		//
+		// Load persistent identifier.
+		//
+		if( $theContainer[ kIO_XML_ATTR_ID_PERSISTENT ] !== NULL )
+			$this[ kTAG_ID_PERSISTENT ]
+				= (string) $theContainer[ kIO_XML_ATTR_ID_PERSISTENT ];
+		
+		//
+		// Load other data.
+		//
+		parent::loadXML( $theContainer );
+	
+	} // loadXML.
+
+	
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>NODE</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		//
+		// Create element.
+		//
+		$element = parent::xmlUnitElement( $theRoot )->addChild( kIO_XML_META_NODE );
+		
+		//
+		// Set tag.
+		//
+		if( $this->offsetExists( kTAG_TAG ) )
+			$element->addAttribute( kIO_XML_ATTR_REF_TAG,
+									$this->offsetGet( kTAG_TAG ) );
+		
+		//
+		// Set term.
+		//
+		if( $this->offsetExists( kTAG_TERM ) )
+			$element->addAttribute( kIO_XML_ATTR_REF_TERM,
+									$this->offsetGet( kTAG_TERM ) );
+		
+		//
+		// Set persistent identifier.
+		//
+		if( $this->offsetExists( kTAG_ID_PERSISTENT ) )
+			$element->addAttribute( kIO_XML_ATTR_ID_PERSISTENT,
+									$this->offsetGet( kTAG_ID_PERSISTENT ) );
+		
+		return $element;															// ==>
+	
+	} // xmlUnitElement.
 
 		
 

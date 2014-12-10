@@ -97,7 +97,7 @@ use OntologyWrapper\OntologyObject;
  *		object connection host.
  *	<li><tt>port</tt>: <tt>{@link kTAG_CONN_PORT}</tt>. This corresponds to the server
  *		object connection port.
- *	<li><tt>user</tt>: <tt>{@link kTAG_CONN_USER}</tt>. This corresponds to the server
+ *	<li><tt>user</tt>: <tt>{@link kTAG_CONN_CODE}</tt>. This corresponds to the server
  *		object connection user code.
  *	<li><tt>pass</tt>: <tt>{@link kTAG_CONN_PASS}</tt>. This corresponds to the server
  *		object connection user password.
@@ -901,7 +901,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *	<li><tt>{@link kTAG_CONN_PROTOCOL}</tt>: The <code>scheme</code>.
 	 *	<li><tt>{@link kTAG_CONN_HOST}</tt>: The connection <code>host</code>.
 	 *	<li><tt>{@link kTAG_CONN_PORT}</tt>: The connection <code>port</code>.
-	 *	<li><tt>{@link kTAG_CONN_USER}</tt>: The <code>user</code> code.
+	 *	<li><tt>{@link kTAG_CONN_CODE}</tt>: The <code>user</code> code.
 	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: The user <code>pass</code>word.
 	 *	<li><tt>{@link kTAG_CONN_BASE}</tt>: The user <code>path</code>word.
 	 *	<li><tt>{@link kTAG_CONN_COLL}</tt>: The user <code>fragment</code>word.
@@ -937,7 +937,7 @@ abstract class ConnectionObject extends OntologyObject
 				$theParameters[ 'port' ] = $theValue;
 				break;
 			
-			case kTAG_CONN_USER:
+			case kTAG_CONN_CODE:
 				$theParameters[ 'user' ] = $theValue;
 				break;
 			
@@ -1034,7 +1034,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *		<li><tt><code>scheme</code></tt>: We set it in {@link kTAG_CONN_PROTOCOL}.
 	 *		<li><tt><code>host</code></tt>: We set it in {@link kTAG_CONN_HOST}.
 	 *		<li><tt><code>port</code></tt>: We set it in {@link kTAG_CONN_PORT}.
-	 *		<li><tt><code>user</code></tt>: We set it in {@link kTAG_CONN_USER}.
+	 *		<li><tt><code>user</code></tt>: We set it in {@link kTAG_CONN_CODE}.
 	 *		<li><tt><code>pass</code></tt>: We set it in {@link kTAG_CONN_PASS}.
 	 *		<li><tt><code>path</code></tt>: We set it in {@link kTAG_CONN_BASE}.
 	 *		<li><tt><code>fragment</code></tt>: We set it in {@link kTAG_CONN_COLL}.
@@ -1073,7 +1073,7 @@ abstract class ConnectionObject extends OntologyObject
 				break;
 			
 			case 'user':
-				$this->offsetSet( kTAG_CONN_USER, $theValue );
+				$this->offsetSet( kTAG_CONN_CODE, $theValue );
 				break;
 			
 			case 'pass':

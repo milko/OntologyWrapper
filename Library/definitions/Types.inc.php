@@ -248,12 +248,12 @@ define( "kTYPE_REF_NODE",						':type:ref:node' );
 define( "kTYPE_REF_EDGE",						':type:ref:edge' );
 
 /**
- * Entity reference.
+ * User reference.
  *
- * An <i>entity reference</i> is a <em>string</em> that must correspond to the native
- * identifier of an {@link Entity} object.
+ * An <i>user reference</i> is a <em>string</em> that must correspond to the native
+ * identifier of an {@link User} object.
  */
-define( "kTYPE_REF_ENTITY",						':type:ref:entity' );
+define( "kTYPE_REF_USER",						':type:ref:user' );
 
 /**
  * Unit reference.

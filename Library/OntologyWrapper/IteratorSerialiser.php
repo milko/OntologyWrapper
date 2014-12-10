@@ -970,7 +970,7 @@ class IteratorSerialiser
 		//
 		// Init local storage.
 		//
-		$shape = $this->mShape[ kTAG_ID_SEQUENCE ];
+		$shape = $this->mShape[ kTAG_ID_HASH ];
 		
 		//
 		// Init feature collection.
@@ -1048,13 +1048,6 @@ class IteratorSerialiser
 			$this->mDictionary[ kAPI_DICTIONARY_IDS ][] = $object[ kTAG_NID ];
 			
 			//
-			// Set dictionary xref.
-			//
-			$this->mDictionary[ kAPI_DICTIONARY_TAGS ]
-							  [ $object[ kTAG_ID_SEQUENCE ] ]
-				= $object[ kTAG_NID ];
-			
-			//
 			// Set record.
 			//
 			$this->setRecord( $this->mData, $object );
@@ -1092,7 +1085,7 @@ class IteratorSerialiser
 			// Set dictionary xref.
 			//
 			$this->mDictionary[ kAPI_DICTIONARY_TAGS ]
-							  [ $object[ kTAG_ID_SEQUENCE ] ]
+							  [ $object[ kTAG_ID_HASH ] ]
 				= $object[ kTAG_NID ];
 		
 		} // Iterating tag offsets.
@@ -1195,7 +1188,7 @@ class IteratorSerialiser
 			// Set tag identifier.
 			//
 			if( $this->mFormat == kAPI_RESULT_ENUM_DATA_RECORD )
-				$dict[] = $tag[ kTAG_ID_SEQUENCE ];
+				$dict[] = $tag[ kTAG_ID_HASH ];
 			
 			//
 			// Format tag.
@@ -1205,12 +1198,12 @@ class IteratorSerialiser
 				//
 				// Allocate labels.
 				//
-				$dict[ $tag[ kTAG_ID_SEQUENCE ] ] = Array();
+				$dict[ $tag[ kTAG_ID_HASH ] ] = Array();
 		
 				//
 				// Set labels.
 				//
-				$this->setTagLabel( $dict[ $tag[ kTAG_ID_SEQUENCE ] ], $tag );
+				$this->setTagLabel( $dict[ $tag[ kTAG_ID_HASH ] ], $tag );
 			
 			} // Formatted results.
 		
@@ -1334,14 +1327,14 @@ class IteratorSerialiser
 		//
 		// Skip structure label.
 		//
-		if( (! array_key_exists( kTAG_ID_SEQUENCE, $tag ))
-		 || ($tag[ kTAG_ID_SEQUENCE ] != kTAG_STRUCT_LABEL) )
+		if( (! array_key_exists( kTAG_ID_HASH, $tag ))
+		 || ($tag[ kTAG_ID_HASH ] != kTAG_STRUCT_LABEL) )
 		{
 			//
 			// Allocate property.
 			//
-			$theContainer[ $tag[ kTAG_ID_SEQUENCE ] ] = Array();
-			$ref = & $theContainer[ $tag[ kTAG_ID_SEQUENCE ] ];
+			$theContainer[ $tag[ kTAG_ID_HASH ] ] = Array();
+			$ref = & $theContainer[ $tag[ kTAG_ID_HASH ] ];
 
 			//
 			// Set labels.
@@ -1666,7 +1659,7 @@ class IteratorSerialiser
 		// Update dictionary tags xrefs.
 		//
 		$this->mDictionary[ kAPI_DICTIONARY_TAGS ]
-						  [ $tag[ kTAG_ID_SEQUENCE ] ]
+						  [ $tag[ kTAG_ID_HASH ] ]
 			= $tag[ kTAG_NID ];
 		
 		//
@@ -3072,14 +3065,13 @@ class IteratorSerialiser
 			//
 			if( $theValue instanceof Tag )
 				$id = ( $doSequence )
-					? $theValue[ kTAG_ID_SEQUENCE ]
+					? $theValue[ kTAG_ID_HASH ]
 					: $theValue[ kTAG_NID ];
 			else
 			{
 				if( $doSequence )
-					$id = ( is_int( $theValue )
-						 || ctype_digit( $theValue ) )
-						? (int) $theValue
+					$id = ( substr( $theValue, 0, 1 ) == kTOKEN_TAG_PREFIX )
+						? $theValue
 						: $theWrapper->getSerial( $theValue, TRUE );
 				else
 					$id
@@ -3114,8 +3106,8 @@ class IteratorSerialiser
 					//
 					// Set criteria.
 					//
-					if( is_int( $id ) )
-						$criteria = array( kTAG_ID_SEQUENCE => $id );
+					if( substr( $id, 0, 1 ) == kTOKEN_TAG_PREFIX )
+						$criteria = array( kTAG_ID_HASH => $id );
 					else
 						$criteria = array( kTAG_NID => $id );
 						

@@ -330,6 +330,46 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC MODIFICATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	modify																			*
+	 *==================================================================================*/
+
+	/**
+	 * Modify object(s)
+	 *
+	 * This method should modify the the objects selected by the provided criteria applying
+	 * the provided modifications using the provided options.
+	 *
+	 * The method will return an array structured as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>affected</tt>: The affected records count.
+	 *	<li><tt>modified</tt>: The modified records count.
+	 * </ul>
+	 *
+	 * The format of the provided parameters is dependent on the specific database engine.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param array					$theCriteria		Object selection criteria.
+	 * @param array					$theActions			Modification actions.
+	 * @param array					$theOptions			Modification options.
+	 *
+	 * @access public
+	 * @return array				Operation status.
+	 */
+	abstract public function modify( $theCriteria, $theActions, $theOptions );
+
+		
+
+/*=======================================================================================
+ *																						*
  *									PUBLIC QUERY INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -419,16 +459,18 @@ abstract class CollectionObject extends ConnectionObject
 	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
 	 *			only one of these should be provided:
 	 *		 <ul>
-	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
-	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
-	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
-	 *				identifiers.
+	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return an object iterator (default).
+	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return an array iterator.
+	 *			<li><tt>{@link kQUERY_NID}</tt>: Return an identifier iterator.
 	 *		 </ul>
 	 *			Any other value will trigger an exception.
 	 *	 </ul>
 	 *	<li><b>$theFields</b>: This parameter represents the fields selection, it is an
 	 *		array indexed by offset with a boolean value indicating whether or not to
 	 *		include the field.
+	 *	<li><b>$theKey</b>: This parameter represents the iterator key offset, it can be
+	 *		used to set which value the {@link key()} function should return: the value is
+	 *		the offset that will be used to get the key value.
 	 * </ul>
 	 *
 	 * If you omit the second parameter, the the iterator returned by this method will
@@ -439,13 +481,15 @@ abstract class CollectionObject extends ConnectionObject
 	 * @param array					$theCriteria		Selection criteria.
 	 * @param bitfield				$theResult			Result type.
 	 * @param array					$theFields			Fields selection.
+	 * @param array					$theKey				Key offset.
 	 *
 	 * @access public
-	 * @return IteratorObject		Matched data iterator.
+	 * @return ObjectIterator		Matched data iterator.
 	 */
 	abstract public function matchAll( $theCriteria = Array(),
 									   $theResult = kQUERY_DEFAULT,
-									   $theFields = Array() );
+									   $theFields = Array(),
+									   $theKey = NULL );
 
 	 
 	/*===================================================================================
@@ -456,16 +500,39 @@ abstract class CollectionObject extends ConnectionObject
 	 * Return all objects
 	 *
 	 * This method should select all the objects of the collection and return an iterator,
-	 * this iterator is not an instance of {@link IteratorObject}, but the curso of the
+	 * this iterator is not an instance of {@link ObjectIterator}, but the cursor of the
 	 * native database engine; by default it should be an iterator whose elements are array
 	 * representations of the selected objects.
 	 *
 	 * Concrete derived classes should implement this method.
 	 *
+	 * @param array					$theFields			Fields selection.
+	 *
 	 * @access public
 	 * @return Iterator				Selection of all objects in the collection.
 	 */
-	abstract public function getAll();
+	abstract public function getAll( $theFields = Array() );
+
+	 
+	/*===================================================================================
+	 *	aggregate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Aggregate pipeline
+	 *
+	 * This method expects an aggregation pipeline and should return the result as an
+	 * iterator.
+	 *
+	 * Concrete derived classes must implement this method.
+	 *
+	 * @param array					$thePipeline		Aggregation pipeline.
+	 * @param array					$theOptions			Aggregation options.
+	 *
+	 * @access public
+	 * @return Iterator				Aggregated results.
+	 */
+	abstract public function aggregate( $thePipeline, $theOptions = Array() );
 
 		
 
@@ -613,49 +680,6 @@ abstract class CollectionObject extends ConnectionObject
 	 */
 	abstract public function deleteOffsets( $theIdentifier, $theOffsets );
 
-	 
-	/*===================================================================================
-	 *	limitsOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Set offsets minimum and maximum
-	 *
-	 * This method should update the object referenced by the provided criteria by
-	 * setting a minimum and maximum value if the provided values exceed the lower and
-	 * upper bounds.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theCriteria</b>: The tag selection criteria.
-	 *	<li><b>$theMinOffset</b>: The offset of the property for which we want to set the
-	 *		minimum value, the parameter is an array in which the key represents the offset
-	 *		and the value the minimum value. Pass an empty array or <tt>NULL</tt> to skip
-	 *		the minimum value.
-	 *	<li><b>$theMaxOffset</b>: The offset of the property for which we want to set the
-	 *		maximum value, the parameter is an array in which the key represents the offset
-	 *		and the value the maximum value. Pass an empty array or <tt>NULL</tt> to skip
-	 *		the maximum value.
-	 * </ul>
-	 *
-	 * If none of the two limits were provided, the method will return <tt>NULL</tt>.
-	 *
-	 * Note that if the selection criteria matches more than one object, all matched
-	 * objects will have their properties set to the provided limits.
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param array					$theCriteria		Object selection criteria.
-	 * @param array					$theMinOffset		Minimum offset and value.
-	 * @param array					$theMaxOffset		Maximum offset and value.
-	 *
-	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
-	 */
-	abstract public function limitsOffsets( $theCriteria, $theMinOffset = NULL,
-														  $theMaxOffset = NULL );
-
 		
 
 /*=======================================================================================
@@ -797,14 +821,33 @@ abstract class CollectionObject extends ConnectionObject
 	/**
 	 * Get index
 	 *
-	 * This method should return the list of indexed offsets.
+	 * This method should return the collection indexes information, the output format is
+	 * dependent on the database engine.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @access public
+	 * @return array				The collection index information.
+	 */
+	abstract public function getIndex();
+
+	 
+	/*===================================================================================
+	 *	getIndexedOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Get indexed offsets
+	 *
+	 * This method should return the list of indexed offsets, the method will return an
+	 * array indexed by tag sequence number, with as value the list of indexed offsets.
 	 *
 	 * Derived classes must implement this method.
 	 *
 	 * @access public
 	 * @return array				The list of indexed offsets.
 	 */
-	abstract public function getIndex();
+	abstract public function getIndexedOffsets();
 
 	 
 	/*===================================================================================
@@ -822,6 +865,47 @@ abstract class CollectionObject extends ConnectionObject
 	 * @access public
 	 */
 	abstract public function deleteIndex( $theIndex = NULL );
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									PUBLIC TYPE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get time-stamp
+	 *
+	 * This method should return the current time-stamp in the native database format.
+	 *
+	 * @access public
+	 * @return mixed				Native current time-stamp.
+	 */
+	abstract public function getTimeStamp();
+
+	 
+	/*===================================================================================
+	 *	parseTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get time-stamp
+	 *
+	 * This method should return a formatted time stamp string.
+	 *
+	 * @param mixed					$theStamp			Time-stamp.
+	 *
+	 * @access public
+	 * @return string				Human readable time-stamp.
+	 */
+	abstract public function parseTimeStamp( $theStamp );
 
 		
 
@@ -853,7 +937,7 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 

@@ -20,9 +20,23 @@ use OntologyWrapper\OntologyObject;
 /**
  * Query flags.
  *
+ * This file contains the function definitions.
+ */
+require_once( kPATH_LIBRARY_ROOT."/Functions.php" );
+
+/**
+ * Query flags.
+ *
  * This file contains the query flag definitions.
  */
 require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
+
+/**
+ * Import/Export API.
+ *
+ * This file contains the import/export API definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/ImportExport.xml.inc.php" );
 
 /**
  * Persistent object
@@ -80,13 +94,16 @@ require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
  *		as leaf offsets in the current object. This means all tags referenced by object
  *		offsets which hold a value and are not structures. This property is managed
  *		internally.
- *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This property is an array holding the same
- *		number of elements as {@link kTAG_OBJECT_TAGS}, in this case the array key is the
- *		tag sequence number and the value is the list of offset paths in which the tag was
- *		referenced in the current object as a leaf offset.
+ *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This property is an array holding the list of
+ *		offset paths in which the tag was referenced in the current object as a leaf offset.
  *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: This property is an array holding the list
  *		of object references featured by the object, the array is indexed by collection name
  *		and the values represent the native identifiers of the objects in the collection.
+ *	<li><tt>{@link kTAG_RECORD_CREATED}</tt>: This property is the creation date time-stamp
+ *		in the database native format. This attribute is automatically managed by the class.
+ *	<li><tt>{@link kTAG_RECORD_MODIFIED}</tt>: This property is the last modification date
+ *		time-stamp in the database native format. This attribute is automatically managed by
+ *		the class.
  * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -101,498 +118,650 @@ abstract class PersistentObject extends OntologyObject
 	 */
 	public static $sDefaultTags = array
 	(
-
-		1 => array
+		kTAG_NAMESPACE => array
 		(
 			kTAG_NID	=> ':namespace',
-			kTAG_DATA_TYPE	=> ':type:ref:term',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY,
+									  kTYPE_LOOKUP )
 		),
-		2 => array
+		kTAG_ID_LOCAL => array
 		(
 			kTAG_NID	=> ':id-local',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_LOOKUP )
 		),
-		3 => array
+		kTAG_ID_PERSISTENT => array
 		(
 			kTAG_NID	=> ':id-persistent',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10,
+									  kTYPE_LOOKUP )
 		),
-		4 => array
+		kTAG_ID_SYMBOL => array
+		(
+			kTAG_NID	=> ':id-symbol',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10,
+									  kTYPE_LOOKUP )
+		),
+		kTAG_ID_VALID => array
 		(
 			kTAG_NID	=> ':id-valid',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06 )
 		),
-		5 => array
+		kTAG_ID_SEQUENCE => array
 		(
 			kTAG_NID	=> ':id-sequence',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		6 => array
+		kTAG_ID_HASH => array
+		(
+			kTAG_NID	=> ':id-hash',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_ID_GRAPH => array
 		(
 			kTAG_NID	=> ':id-graph',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		7 => array
+		kTAG_DOMAIN => array
 		(
 			kTAG_NID	=> ':unit:domain',
-			kTAG_DATA_TYPE	=> ':type:enum',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
-		8 => array
+		kTAG_AUTHORITY => array
 		(
 			kTAG_NID	=> ':unit:authority',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_SUMMARY )
 		),
-		9 => array
+		kTAG_COLLECTION => array
 		(
 			kTAG_NID	=> ':unit:collection',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_SUMMARY )
 		),
-		10 => array
+		kTAG_IDENTIFIER => array
 		(
 			kTAG_NID	=> ':unit:identifier',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10 )
 		),
-		11 => array
+		kTAG_VERSION => array
 		(
 			kTAG_NID	=> ':unit:version',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
 		),
-		12 => array
+		kTAG_SYNONYM => array
 		(
 			kTAG_NID	=> ':synonym',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_LIST )
 		),
-		13 => array
+		kTAG_TAG => array
 		(
 			kTAG_NID	=> ':tag',
-			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		14 => array
+		kTAG_TAGS => array
 		(
 			kTAG_NID	=> ':tags',
-			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
 		),
-		15 => array
+		kTAG_TERM => array
 		(
 			kTAG_NID	=> ':term',
-			kTAG_DATA_TYPE	=> ':type:ref:term',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		16 => array
+		kTAG_TERMS => array
 		(
 			kTAG_NID	=> ':terms',
-			kTAG_DATA_TYPE	=> ':type:ref:term',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
 		),
-		17 => array
+		kTAG_SUBJECT => array
 		(
 			kTAG_NID	=> ':relationship:subject',
-			kTAG_DATA_TYPE	=> ':type:ref:node',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_NODE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		18 => array
+		kTAG_GRAPH_SUBJECT => array
 		(
 			kTAG_NID	=> ':relationship:graph-subject',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		19 => array
+		kTAG_PREDICATE => array
 		(
 			kTAG_NID	=> ':predicate',
-			kTAG_DATA_TYPE	=> ':type:ref:term',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		20 => array
+		kTAG_OBJECT => array
 		(
 			kTAG_NID	=> ':relationship:object',
-			kTAG_DATA_TYPE	=> ':type:ref:node',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_NODE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		21 => array
+		kTAG_GRAPH_OBJECT => array
 		(
 			kTAG_NID	=> ':relationship:graph-object',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		22 => array
+		kTAG_ENTITY => array
 		(
 			kTAG_NID	=> ':entity',
-			kTAG_DATA_TYPE	=> ':type:ref:entity',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_ENTITY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		23 => array
+		kTAG_MASTER => array
 		(
 			kTAG_NID	=> ':master',
-			kTAG_DATA_TYPE	=> ':type:ref:self',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_SELF,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		24 => array
+		kTAG_CATEGORY => array
 		(
 			kTAG_NID	=> ':category',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_SUMMARY )
 		),
-		25 => array
+		kTAG_DATA_TYPE => array
 		(
 			kTAG_NID	=> ':type:data',
-			kTAG_DATA_TYPE	=> ':type:enum',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
-		26 => array
+		kTAG_DATA_KIND => array
 		(
 			kTAG_NID	=> ':type:kind',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
-		27 => array
+		kTAG_TERM_TYPE => array
 		(
 			kTAG_NID	=> ':type:term',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_SUMMARY )
 		),
-		28 => array
+		kTAG_NODE_TYPE => array
 		(
 			kTAG_NID	=> ':type:node',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
-		29 => array
+		kTAG_NAME => array
 		(
 			kTAG_NID	=> ':name',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06 )
 		),
-		30 => array
+		kTAG_LABEL => array
 		(
 			kTAG_NID	=> ':label',
-			kTAG_DATA_TYPE	=> ':type:language-strings',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06 )
 		),
-		31 => array
+		kTAG_DEFINITION => array
 		(
 			kTAG_NID	=> ':definition',
-			kTAG_DATA_TYPE	=> ':type:language-strings',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_03 )
 		),
-		32 => array
+		kTAG_DESCRIPTION => array
 		(
 			kTAG_NID	=> ':description',
-			kTAG_DATA_TYPE	=> ':type:language-strings',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_03 )
 		),
-		33 => array
+		kTAG_NOTE => array
 		(
 			kTAG_NID	=> ':notes',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTYPE_FULL_TEXT_03 )
 		),
-		34 => array
+		kTAG_EXAMPLE => array
 		(
 			kTAG_NID	=> ':examples',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
 		),
-		35 => array
+		kTAG_STRUCT_LABEL => array
+		(
+			kTAG_NID	=> ':struct-label',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
+		),
+		kTAG_UNIT_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:unit',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		36 => array
+		kTAG_ENTITY_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:entity',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		37 => array
+		kTAG_TAG_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:tag',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		38 => array
+		kTAG_TERM_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:term',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		39 => array
+		kTAG_NODE_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:node',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		40 => array
+		kTAG_EDGE_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:edge',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		41 => array
+		kTAG_TAG_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:tag',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		42 => array
+		kTAG_TERM_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:term',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		43 => array
+		kTAG_NODE_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:node',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		44 => array
+		kTAG_EDGE_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:edge',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		45 => array
+		kTAG_ENTITY_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:entity',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		46 => array
+		kTAG_UNIT_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:unit',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		47 => array
+		kTAG_OBJECT_TAGS => array
 		(
 			kTAG_NID	=> ':object-tags',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		48 => array
+		kTAG_OBJECT_OFFSETS => array
 		(
 			kTAG_NID	=> ':object-offsets',
-			kTAG_DATA_TYPE	=> ':type:array',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		49 => array
+		kTAG_OBJECT_REFERENCES => array
 		(
 			kTAG_NID	=> ':object-references',
-			kTAG_DATA_TYPE	=> ':type:array',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		50 => array
+		kTAG_TAG_STRUCT => array
 		(
 			kTAG_NID	=> ':tag:struct',
-			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		51 => array
+		kTAG_TAG_STRUCT_IDX => array
 		(
 			kTAG_NID	=> ':tag:struct-index',
-			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		52 => array
+		kTAG_MIN_VAL => array
 		(
 			kTAG_NID	=> ':min-val',
-			kTAG_DATA_TYPE	=> ':type:float',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_FLOAT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		53 => array
+		kTAG_MIN_RANGE => array
 		(
 			kTAG_NID	=> ':min-range',
-			kTAG_DATA_TYPE	=> ':type:float',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_FLOAT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		54 => array
+		kTAG_MAX_VAL => array
 		(
 			kTAG_NID	=> ':max-val',
-			kTAG_DATA_TYPE	=> ':type:float',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_FLOAT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		55 => array
+		kTAG_MAX_RANGE => array
 		(
 			kTAG_NID	=> ':max-range',
-			kTAG_DATA_TYPE	=> ':type:float',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_FLOAT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		56 => array
+		kTAG_PATTERN => array
 		(
 			kTAG_NID	=> ':grep',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		57 => array
+		kTAG_GEO_SHAPE => array
 		(
-			kTAG_NID	=> ':type',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_NID	=> ':shape',
+			kTAG_DATA_TYPE	=> kTYPE_SHAPE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		58 => array
+		kTAG_GEO_SHAPE_DISP => array
 		(
-			kTAG_NID	=> ':language',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_NID	=> ':shape-disp',
+			kTAG_DATA_TYPE	=> kTYPE_SHAPE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		59 => array
+		kTAG_RECORD_CREATED => array
 		(
-			kTAG_NID	=> ':text',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_NID	=> ':record:created',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		60 => array
+		kTAG_RECORD_MODIFIED => array
 		(
-			kTAG_NID	=> ':url',
-			kTAG_DATA_TYPE	=> ':type:url',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_NID	=> ':record:modified',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
-		61 => array
-		(
-			kTAG_NID	=> ':geo',
-			kTAG_DATA_TYPE	=> ':type:shape',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
-		),
-		62 => array
+		kTAG_CONN_PROTOCOL => array
 		(
 			kTAG_NID	=> ':connection:protocol',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		63 => array
+		kTAG_CONN_HOST => array
 		(
 			kTAG_NID	=> ':connection:host',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		64 => array
+		kTAG_CONN_PORT => array
 		(
 			kTAG_NID	=> ':connection:port',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		65 => array
+		kTAG_CONN_CODE => array
 		(
-			kTAG_NID	=> ':connection:user',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
+			kTAG_NID	=> ':connection:code',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		66 => array
+		kTAG_CONN_PASS => array
 		(
 			kTAG_NID	=> ':connection:pass',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		67 => array
+		kTAG_CONN_BASE => array
 		(
 			kTAG_NID	=> ':connection:database',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		68 => array
+		kTAG_CONN_COLL => array
 		(
 			kTAG_NID	=> ':connection:collection',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		69 => array
+		kTAG_CONN_OPTS => array
 		(
 			kTAG_NID	=> ':connection:options',
-			kTAG_DATA_TYPE	=> ':type:array',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		70 => array
+		kTAG_ENTITY_IDENT => array
+		(
+			kTAG_NID	=> ':entity:identifier',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10 )
+		),
+		kTAG_ENTITY_FNAME => array
 		(
 			kTAG_NID	=> ':entity:fname',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06 )
 		),
-		71 => array
+		kTAG_ENTITY_LNAME => array
 		(
 			kTAG_NID	=> ':entity:lname',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10 )
 		),
-		72 => array
+		kTAG_ENTITY_TYPE => array
 		(
 			kTAG_NID	=> ':type:entity',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
-		73 => array
+		kTAG_ENTITY_KIND => array
 		(
 			kTAG_NID	=> ':kind:entity',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
-		74 => array
+		kTAG_ENTITY_ACRONYM => array
 		(
 			kTAG_NID	=> ':entity:acronym',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_LIST,
+									  kTYPE_FULL_TEXT_10 )
 		),
-		75 => array
+		kTAG_ENTITY_MAIL => array
 		(
 			kTAG_NID	=> ':entity:mail',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		76 => array
+		kTAG_ENTITY_EMAIL => array
 		(
 			kTAG_NID	=> ':entity:email',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		77 => array
+		kTAG_ENTITY_LINK => array
 		(
 			kTAG_NID	=> ':entity:url',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		78 => array
+		kTAG_ENTITY_PHONE => array
 		(
 			kTAG_NID	=> ':entity:phone',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		79 => array
+		kTAG_ENTITY_FAX => array
 		(
 			kTAG_NID	=> ':entity:fax',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		80 => array
+		kTAG_ENTITY_TLX => array
+		(
+			kTAG_NID	=> ':entity:tlx',
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_ENTITY_AFFILIATION => array
 		(
 			kTAG_NID	=> ':entity:affiliation',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		81 => array
+		kTAG_ENTITY_NATIONALITY => array
 		(
-			kTAG_NID	=> ':entity:country',
-			kTAG_DATA_TYPE	=> ':type:enum',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_NID	=> ':entity:nationality',
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
-		82 => array
+		kTAG_ENTITY_VALID => array
 		(
 			kTAG_NID	=> ':entity:valid',
-			kTAG_DATA_TYPE	=> ':type:ref:entity',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_SELF,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_ENTITY_PGP_KEY => array
+		(
+			kTAG_NID	=> ':entity:pgp-key',
+			kTAG_DATA_TYPE	=> kTYPE_TEXT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_ENTITY_PGP_FINGERPRINT => array
+		(
+			kTAG_NID	=> ':entity:pgp-fingerprint',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_ROLES => array
+		(
+			kTAG_NID	=> ':roles',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_LIST )
 		)
 	);
 
@@ -717,14 +886,14 @@ abstract class PersistentObject extends OntologyObject
 			if( is_array( $theIdentifier ) )
 			{
 				//
-				// Set committed status.
-				//
-				$this->isCommitted( TRUE );
-				
-				//
 				// Call parent constructor.
 				//
 				parent::__construct( $theIdentifier );
+				
+				//
+				// Set committed status.
+				//
+				$this->isCommitted( TRUE );
 				
 			} // Provided data.
 			
@@ -801,6 +970,92 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
+	 *	insert																			*
+	 *==================================================================================*/
+
+	/**
+	 * Insert the object
+	 *
+	 * This method will insert the current object into the provided persistent store only
+	 * if it doesn't exist already:
+	 *
+	 * <ul>
+	 *	<li>The object is not committed:
+	 *	 <ul>
+	 *		<li>The object already exists in the store: the method will do nothing.
+	 *		<li>The object does not exist in the store: the object will be inserted.
+	 *	 </ul>
+	 *	<li>The object is committed: the method will do nothing.
+	 * </ul>
+	 *
+	 * The <tt>$theOptions</tt> field can be used to enable or disable related objects
+	 * updates.
+	 *
+	 * The method will return the inserted object native identifier or <tt>NULL</tt> if the
+	 * the object was not inserted.
+	 *
+	 * Do not overload this method, you should overload the methods called in this method.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access public
+	 * @return mixed				The object's native identifier or <tt>NULL</tt>.
+	 *
+	 * @uses isCommitted()
+	 * @uses resolveWrapper()
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses insertObject()
+	 * @uses isDirty()
+	 */
+	public function insert( $theWrapper = NULL, $theOptions = kFLAG_OPT_REL_ONE )
+	{
+		//
+		// Skip committed object.
+		//
+		if( ! $this->isCommitted() )
+		{
+			//
+			// Resolve wrapper.
+			//
+			$this->resolveWrapper( $theWrapper );
+		
+			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $theWrapper ) );
+		
+			//
+			// Insert.
+			//
+			$id = $this->insertObject( $collection, $theOptions );
+			
+			//
+			// Handle inserted object.
+			//
+			if( $id !== NULL )
+			{
+				//
+				// Set object status.
+				//
+				$this->isDirty( FALSE );
+				$this->isCommitted( TRUE );
+	
+				return $id;															// ==>
+			
+			} // Object inserted.
+		
+		} // Not committed.
+		
+		return NULL;																// ==>
+	
+	} // insert.
+
+	 
+	/*===================================================================================
 	 *	commit																			*
 	 *==================================================================================*/
 
@@ -811,12 +1066,17 @@ abstract class PersistentObject extends OntologyObject
 	 * store, the method expects a single parameter representing the wrapper, this can be
 	 * omitted if the object was instantiated with a wrapper.
 	 *
-	 * The method will call the {@link insertObject()} method if the object was not
+	 * The method will call the {@link commitObject()} method if the object was not
 	 * committed and the {@link updateObject()} method if it was.
+	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent the object from updating
+	 * related objects. This can be useful when adding objects as batches: in that case it
+	 * may be much faster to first add the objects and then at a later stage update them.
 	 *
 	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access public
 	 * @return mixed				The object's native identifier.
@@ -826,10 +1086,10 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses ResolveCollection()
 	 * @uses isCommitted()
 	 * @uses updateObject()
-	 * @uses insertObject()
+	 * @uses commitObject()
 	 * @uses isDirty()
 	 */
-	public function commit( $theWrapper = NULL )
+	public function commit( $theWrapper = NULL, $theOptions = kFLAG_OPT_REL_ONE )
 	{
 		//
 		// Resolve wrapper.
@@ -844,11 +1104,17 @@ abstract class PersistentObject extends OntologyObject
 				static::ResolveDatabase( $theWrapper ) );
 		
 		//
+		// Normalise options.
+		//
+		if( $this->isCommitted() )
+			$theOptions |= kFLAG_OPT_UPDATE;
+		
+		//
 		// Commit.
 		//
 		$id = ( $this->isCommitted() )
-			? $this->updateObject( $collection )
-			: $this->insertObject( $collection );
+			? $this->updateObject( $collection, $theOptions )
+			: $this->commitObject( $collection, $theOptions );
 
 		//
 		// Set object status.
@@ -859,6 +1125,96 @@ abstract class PersistentObject extends OntologyObject
 		return $id;																	// ==>
 	
 	} // commit.
+
+	 
+	/*===================================================================================
+	 *	export																			*
+	 *==================================================================================*/
+
+	/**
+	 * Export the object
+	 *
+	 * This method will export the object in the provided format using the provided options.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theFormat</b>: The format in which the object should be exported:
+	 *	 <ul>
+	 *		<li><tt>xml</tt>: XML, the result of the method will be a SimpleXMLElement
+	 *			object.
+	 *	 </ul>
+	 *	<li><b>$theContainer</b>: The container in which the object is to be exported; the
+	 *		type of this value depends on the format:
+	 *	 <ul>
+	 *		<li><tt>xml</tt>: A SimpleXMLElement object.
+	 *	 </ul>
+	 *		Or <tt>NULL</tt> to have the method create it.
+	 *	<li><b>$theWrapper</b>: The data wrapper related to the object, this parameter may
+	 *		be omitted if the object was instantiated with a wrapper.
+	 * </ul>
+	 *
+	 * The exported object is to be assumed a new object, this means that you should only
+	 * use this method if the exported objects are to be inserted.
+	 *
+	 * @param string				$theFormat			Dump format.
+	 * @param mixed					$theContainer		Dump container.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 *
+	 * @access public
+	 * @return mixed				The exported object.
+	 *
+	 * @throws Exception
+	 */
+	public function export( $theFormat = 'xml', $theContainer = NULL, $theWrapper = NULL )
+	{
+		//
+		// Resolve wrapper.
+		//
+		$this->resolveWrapper( $theWrapper );
+	
+		//
+		// Collect untracked offsets.
+		//
+		$class = get_class( $this );
+		$excluded = array_merge( $class::InternalOffsets(),
+								 $class::ExternalOffsets(),
+								 $class::DynamicOffsets() );
+		
+		//
+		// Dump object.
+		//
+		switch( $theFormat )
+		{
+			case 'xml':
+				//
+				// Create container.
+				//
+				if( $theContainer === NULL )
+					$theContainer = static::XMLRootElement();
+				//
+				// Validate container.
+				//
+				elseif( ! ($theContainer instanceof \SimpleXMLElement) )
+					throw new \Exception(
+						"Unable to dump object: "
+					   ."invalid or unsupported XML container." );				// !@! ==>
+				//
+				// Load container.
+				//
+				$this->exportXMLObject( $theContainer, $theWrapper, $excluded );	// ==>
+				
+				break;
+			
+			default:
+				throw new \Exception(
+					"Unable to dump object: "
+				   ."invalid or unsupported format [$theFormat]." );			// !@! ==>
+		}
+		
+		return $theContainer;														// ==>
+	
+	} // export.
 
 	
 
@@ -911,22 +1267,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve wrapper.
 		//
-		if( $theWrapper === NULL )
-		{
-			//
-			// Get current object's wrapper.
-			//
-			$theWrapper = $this->mDictionary;
-			
-			//
-			// Check wrapper.
-			//
-			if( ! ($theWrapper instanceof Wrapper) )
-				throw new \Exception(
-					"Unable to resolve referenced: "
-				   ."missing wrapper." );										// !@! ==>
-		
-		} // Wrapper not provided.
+		$this->resolveWrapper( $theWrapper );
 	
 		//
 		// Resolve collection.
@@ -1045,6 +1386,82 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // setAlias.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC VALIDATION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	validate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Validate object
+	 *
+	 * This method will validate the object by:
+	 *
+	 * <ul>
+	 *	<li>validating properties data structures,
+	 *	<li>casting all properties to their tag related data type,
+	 *	<li>validating all references.
+	 * </ul>
+	 *
+	 * The object is expected to have its dictionary set.
+	 *
+	 * If any error occurs, the method will raise an exception.
+	 *
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text tags.
+	 *
+	 * @access public
+	 */
+	public function validate( $doText = FALSE )
+	{
+		//
+		// Init local storage.
+		//
+		$tags = $refs = Array();
+		
+		//
+		// Validate.
+		//
+		$this->parseObject( $tags, $refs, TRUE, $doText );
+	
+	} // validate.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * This method should return the object name, this value represents a name or label that
+	 * characterises the current object.
+	 *
+	 * Derived classes must overload this method.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	abstract public function getName( $theLanguage );
+
 		
 
 /*=======================================================================================
@@ -1054,84 +1471,7 @@ abstract class PersistentObject extends OntologyObject
  *======================================================================================*/
 
 
-	 
-	/*===================================================================================
-	 *	CreateIndexes																	*
-	 *==================================================================================*/
-
-	/**
-	 * Create indexes
-	 *
-	 * This method will create the default indexes for the current class.
-	 *
-	 * In this class we index the following offsets:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kTAG_MASTER}</tt>: This will speed the search for the master object.
-	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: This will help the selection of objects
-	 *		based on the searched offsets.
-	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This is necessary to speed referencial
-	 *		integrity.
-	 * </ul>
-	 *
-	 * @param DatabaseObject		$theDatabase		Database reference.
-	 *
-	 * @static
-	 * @return CollectionObject		The collection.
-	 */
-	static function CreateIndexes( DatabaseObject $theDatabase )
-	{
-		//
-		// Get and open collection.
-		//
-		$collection = $theDatabase->collection( static::kSEQ_NAME );
 		
-		//
-		// Set master.
-		//
-		$collection->createIndex( array( kTAG_MASTER => 1 ),
-								  array( "name" => "MASTER",
-								  		 "sparse" => TRUE ) );
-		
-		//
-		// Set tags.
-		//
-		$collection->createIndex( array( kTAG_OBJECT_TAGS => 1 ),
-								  array( "name" => "TAGS" ) );
-		
-		//
-		// Set offsets.
-		//
-		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
-								  array( "name" => "OFFSETS" ) );
-		
-		//
-		// Set reference counts.
-		//
-		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
-								  array( "name" => "TAG-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
-								  array( "name" => "TERM-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
-								  array( "name" => "NODE-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
-								  array( "name" => "EDGE-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
-								  array( "name" => "UNIT-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
-								  array( "name" => "ENTITY-REFS",
-								  		 "sparse" => TRUE ) );
-		
-		return $collection;															// ==>
-	
-	} // CreateIndexes.
-
-
 	/*===================================================================================
 	 *	Delete																			*
 	 *==================================================================================*/
@@ -1231,6 +1571,304 @@ abstract class PersistentObject extends OntologyObject
 	} // Delete.
 
 	 
+
+/*=======================================================================================
+ *																						*
+ *									STATIC IMPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Import																			*
+	 *==================================================================================*/
+
+	/**
+	 * Import
+	 *
+	 * This method can be used to instantiate an object from an export container, the
+	 * method expects the data wrapper and the export container.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theContainer		Export container.
+	 *
+	 * @static
+	 * @return PersistentObject		The imported object.
+	 *
+	 * @throws Exception
+	 * @return array				List of imported objects.
+	 */
+	static function Import( Wrapper $theWrapper, $theContainer )
+	{
+		//
+		// Handle XML export.
+		//
+		if( $theContainer instanceof \SimpleXMLElement )
+			return static::ImportXML( $theWrapper, $theContainer );					// ==>
+		
+		throw new \Exception(
+			"Unable to import: "
+		   ."invalid or unsupported export format." );							// !@! ==>
+	
+	} // Import.
+
+		
+	/*===================================================================================
+	 *	ImportXML																			*
+	 *==================================================================================*/
+
+	/**
+	 * Import
+	 *
+	 * This method will instantiate an object from the provided XML container.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param SimpleXMLElement		$theContainer		Export container.
+	 *
+	 * @static
+	 * @return array				List of imported objects.
+	 *
+	 * @throws Exception
+	 */
+	static function ImportXML( Wrapper $theWrapper, \SimpleXMLElement $theContainer )
+	{
+		//
+		// Init local storage.
+		//
+		$objects = Array();
+		
+		//
+		// Iterate unit nodes.
+		//
+		foreach( $theContainer as $unit )
+		{
+			//
+			// Parse unit node.
+			//
+			switch( $tmp = $unit->getName() )
+			{
+				case kIO_XML_META_TAG:
+					$object = new Tag( $theWrapper );
+					break;
+		
+				case kIO_XML_META_TERM:
+					$object = new Term( $theWrapper );
+					break;
+		
+				case kIO_XML_META_NODE:
+					$object = new Node( $theWrapper );
+					break;
+		
+				case kIO_XML_META_EDGE:
+					$object = new Edge( $theWrapper );
+					break;
+		
+				case kIO_XML_TRANS_UNITS:
+				case kIO_XML_TRANS_USERS:
+					$class = (string) $unit[ kIO_XML_ATTR_QUAL_CLASS ];
+					if( strlen( $class ) )
+						$object = new $class( $theWrapper );
+					else
+						throw new \Exception(
+							"Unable to import: "
+						   ."missing object class." );							// !@! ==>
+					break;
+			
+				default:
+					throw new \Exception(
+						"Unable to import: "
+					   ."invalid root node [$tmp]." );							// !@! ==>
+		
+			} // Parsed root node.
+		
+			//
+			// Load data.
+			//
+			$object->loadXML( $unit );
+			
+			//
+			// Add object.
+			//
+			$objects[] = $object;
+		
+		} // Iterating unit elements.
+		
+		return $objects;															// ==>
+	
+	} // ImportXML.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC PERSISTENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	CreateIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create index
+	 *
+	 * This method will create an index, for the provided tag, on all used offsets in the
+	 * current object's collection.
+	 *
+	 * This method should be used when a tag is to be indexed in a collection: call this
+	 * static method using the desired class.
+	 *
+	 * The method expects as paraneters the database and the tag's sequence number or
+	 * native identifier.
+	 *
+	 * If the method is unable to resolve the provided tag, it will raise an exception.
+	 *
+	 * The method will return the list of indexed offsets.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param string				$theOffset			Tag offset.
+	 * @param boolean				$doBackground		Background creation.
+	 *
+	 * @static
+	 * @return array				List of indexed offsets.
+	 */
+	static function CreateIndex( Wrapper $theWrapper, $theOffset, $doBackground = TRUE )
+	{
+		//
+		// Resolve tag native identifier.
+		//
+		if( substr( $theOffset, 0, 1 ) == kTOKEN_TAG_PREFIX )
+			$theOffset = $theWrapper->getObject( $theOffset, TRUE )[ kTAG_NID ];
+		
+		//
+		// Assert tag native identifier.
+		//
+		else
+			$theWrapper->getSerial( $theOffset, TRUE );
+		
+		//
+		// Load tag.
+		//
+		$tag = new Tag( $theWrapper, $theOffset );
+		
+		//
+		// Resolve collection.
+		//
+		$collection = static::ResolveCollectionByName( $theWrapper, static::kSEQ_NAME );
+		
+		//
+		// Set options.
+		//
+		$options = array( "sparse" => TRUE );
+		if( $doBackground )
+			$options[ "background" ] = TRUE;
+		
+		//
+		// Handle tag offsets.
+		//
+		if( is_array( $offsets = $tag->offsetGet(
+				static::ResolveOffsetsTag( static::kSEQ_NAME ) ) ) )
+		{
+			//
+			// Iterate tag offsets.
+			//
+			foreach( $offsets as $offset )
+				$collection->createIndex( array( $offset => 1 ),
+										  $options );
+		
+		} // Has offsets.
+		
+		return $offsets;															// ==>
+	
+	} // CreateIndex.
+
+	 
+	/*===================================================================================
+	 *	CreateIndexes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create indexes
+	 *
+	 * This method will create the default indexes for the current class.
+	 *
+	 * In this class we index the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_MASTER}</tt>: This will speed the search for the master object.
+	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: This will help the selection of objects
+	 *		based on the searched offsets.
+	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This is necessary to speed referencial
+	 *		integrity.
+	 * </ul>
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function CreateIndexes( DatabaseObject $theDatabase )
+	{
+		//
+		// Get and open collection.
+		//
+		$collection = $theDatabase->collection( static::kSEQ_NAME );
+		
+		//
+		// Set full-text search.
+		//
+		$collection->createIndex( array( kTAG_FULL_TEXT_10 => 'text',
+										 kTAG_FULL_TEXT_06 => 'text',
+										 kTAG_FULL_TEXT_03 => 'text' ),
+								  array( "weights" => array(
+								  			kTAG_FULL_TEXT_10 => 10,
+								  			kTAG_FULL_TEXT_06 => 6,
+								  			kTAG_FULL_TEXT_03 => 3 ),
+								  		 "name" => "FULL_TEXT" ) );
+		
+		//
+		// Set master.
+		//
+		$collection->createIndex( array( kTAG_MASTER => 1 ),
+								  array( "name" => "MASTER",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set tags.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_TAGS => 1 ),
+								  array( "name" => "TAGS" ) );
+		
+		//
+		// Set reference counts.
+		//
+		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
+								  array( "name" => "TAG-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
+								  array( "name" => "TERM-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
+								  array( "name" => "NODE-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
+								  array( "name" => "EDGE-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
+								  array( "name" => "UNIT-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
+								  array( "name" => "ENTITY-REFS",
+								  		 "sparse" => TRUE ) );
+		
+		return $collection;															// ==>
+	
+	} // CreateIndexes.
+
+
 	/*===================================================================================
 	 *	DeleteFieldsSelection															*
 	 *==================================================================================*/
@@ -1378,9 +2016,9 @@ abstract class PersistentObject extends OntologyObject
 				return Edge::ResolveCollection(
 						Edge::ResolveDatabase( $theWrapper ) );						// ==>
 				
-			case EntityObject::kSEQ_NAME:
-				return EntityObject::ResolveCollection(
-						EntityObject::ResolveDatabase( $theWrapper ) );				// ==>
+			case User::kSEQ_NAME:
+				return User::ResolveCollection(
+						User::ResolveDatabase( $theWrapper ) );						// ==>
 				
 			case UnitObject::kSEQ_NAME:
 				return UnitObject::ResolveCollection(
@@ -1435,7 +2073,7 @@ abstract class PersistentObject extends OntologyObject
 			case Edge::kSEQ_NAME:
 				return kTAG_EDGE_COUNT;												// ==>
 		
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				return kTAG_ENTITY_COUNT;											// ==>
 		
 			case UnitObject::kSEQ_NAME:
@@ -1490,7 +2128,7 @@ abstract class PersistentObject extends OntologyObject
 			case Edge::kSEQ_NAME:
 				return kTAG_EDGE_OFFSETS;											// ==>
 		
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				return kTAG_ENTITY_OFFSETS;											// ==>
 		
 			case UnitObject::kSEQ_NAME:
@@ -1516,63 +2154,121 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	LocalOffsets																	*
+	 *	ExternalOffsets																	*
 	 *==================================================================================*/
 
 	/**
-	 * Return local offsets
+	 * Return external offsets
 	 *
-	 * This method will return the current object list of local offsets, these offsets are
-	 * managed internally by the class.
-	 *
-	 * This class of offsets have the following characteristics:
+	 * In this class we return the following offsets:
 	 *
 	 * <ul>
-	 *	<li>The offsets are managed internally by the object.
-	 *	<li>Clients must not modify these offsets.
-	 *	<li>These offsets will not be part of the object's {@link kTAG_OBJECT_TAGS} and the
-	 *		{@link kTAG_OBJECT_OFFSETS} properties.
+	 *	<li><em>Reference counting offsets</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_TAG_COUNT}</tt>: Number of tags referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_TERM_COUNT}</tt>: Number of terms referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_NODE_COUNT}</tt>: Number of nodes referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Number of edges referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Number of units referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Number of entities referencing the
+	 *			current object.
+	 *	 </ul>
+	 *	<li><em>Offset tracking offsets</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag object offsets.
+	 *		<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: Term object offsets.
+	 *		<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node object offsets.
+	 *		<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge object offsets.
+	 *		<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit object offsets.
+	 *		<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity object offsets.
+	 *	 </ul>
+	 *	<li><em>Time-stamp offsets</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_RECORD_CREATED}</tt>: Record creation stamp.
+	 *		<li><tt>{@link kTAG_RECORD_MODIFIED}</tt>: Record modification stamp.
+	 *	 </ul>
 	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of external offsets.
+	 */
+	static function ExternalOffsets()
+	{
+		return array_merge(
+			parent::ExternalOffsets(),
+			array( kTAG_TAG_COUNT, kTAG_TERM_COUNT,
+				   kTAG_NODE_COUNT, kTAG_EDGE_COUNT,
+				   kTAG_UNIT_COUNT, kTAG_ENTITY_COUNT ),
+			array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS,
+				   kTAG_NODE_OFFSETS, kTAG_EDGE_OFFSETS,
+				   kTAG_UNIT_OFFSETS, kTAG_ENTITY_OFFSETS ),
+			array( kTAG_RECORD_CREATED, kTAG_RECORD_MODIFIED ) );					// ==>
+	
+	} // ExternalOffsets.
+
+	 
+	/*===================================================================================
+	 *	DynamicOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return dynamic offsets
+	 *
+	 * In this class we return the offsets used to manage the object's properties:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: List of tags referenced by the object's
+	 *		properties.
+	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: List of object property offset paths
+	 *		grouped by tag.
+	 *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: List of objects referenced by the
+	 *		the current object grouped by collection.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of dynamic offsets.
+	 */
+	static function DynamicOffsets()
+	{
+		return array_merge(
+			parent::DynamicOffsets(),
+			array( kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES,
+				   kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 ) );		// ==>
+	
+	} // DynamicOffsets.
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * The default offsets are those that the object is expected to manage, besides these,
+	 * objects accept any other kind of offset.
 	 *
 	 * In this class we return:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: Graph identifier references.
-	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tag property references.
-	 *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag offset path references.
-	 *	<li><tt>{@link kTAG_TERM_COUNT}</tt>: Term property references.
-	 *	<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: Term offset path references.
-	 *	<li><tt>{@link kTAG_NODE_COUNT}</tt>: Node property references.
-	 *	<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node offset path references.
-	 *	<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Edge property references.
-	 *	<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge offset path references.
-	 *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Unit property references.
-	 *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit offset path references.
-	 *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Entities property references.
-	 *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity offset path references.
-	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: Object tags list.
-	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: Object offsets list.
-	 *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: Object object references list.
+	 *	<li><tt>{@link kTAG_RECORD_CREATED}</tt>: Record creation time.
+	 *	<li><tt>{@link kTAG_RECORD_MODIFIED}</tt>: Record last modification time.
 	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.
 	 */
-	static function LocalOffsets()
+	static function DefaultOffsets()
 	{
-		return array
-		(
-			kTAG_ID_GRAPH,
-			kTAG_TAG_COUNT, kTAG_TAG_OFFSETS,
-			kTAG_TERM_COUNT, kTAG_TERM_OFFSETS,
-			kTAG_NODE_COUNT, kTAG_NODE_OFFSETS,
-			kTAG_EDGE_COUNT, kTAG_EDGE_OFFSETS,
-			kTAG_UNIT_COUNT, kTAG_UNIT_OFFSETS,
-			kTAG_ENTITY_COUNT, kTAG_ENTITY_OFFSETS,
-			kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES
-		);																			// ==>
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_RECORD_CREATED, kTAG_RECORD_MODIFIED ) );	// ==>
 	
-	} // LocalOffsets.
+	} // DefaultOffsets.
 
 		
 	/*===================================================================================
@@ -1720,6 +2416,77 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // GetReferenceCounts.
 
+	 
+	/*===================================================================================
+	 *	ClusterObjectOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Cluster object offsets
+	 *
+	 * This method expects a list of offsets and will return the list clustered by tag: the
+	 * resulting array will be indexed by tag and the value will hold all offsets featuring
+	 * that tag as the leaf node.
+	 *
+	 * The method will raise an exception if iot founds a nested array.
+	 *
+	 * @param array					$theOffsets			Offsets to normalise.
+	 *
+	 * @access protected
+	 * @return array				Clustered offsets
+	 */
+	protected function ClusterObjectOffsets( $theOffsets )
+	{
+		//
+		// Init local storage.
+		//
+		$clustered = Array();
+		
+		//
+		// Check parameter.
+		//
+		if( is_array( $theOffsets )
+		 && count( $theOffsets ) )
+		{
+			//
+			// Iterate offsets.
+			//
+			foreach( $theOffsets as $offset )
+			{
+				//
+				// Check array value.
+				//
+				if( is_scalar( $offset ) )
+				{
+					//
+					// Parse tag.
+					//
+					$tag = explode( '.',$offset );
+					$tag = $tag[ count( $tag ) - 1 ];
+				
+					//
+					// Update offsets.
+					//
+					if( array_key_exists( $tag, $clustered ) )
+						$clustered[ $tag ][] = $offset;
+					else
+						$clustered[ $tag ] = array( $offset );
+				
+				} // Scalar value.
+				
+				else
+					throw new \Exception(
+						"Unable to cluster offsets: "
+					   ."found a nested array." );								// !@! ==>
+			
+			} // Iterating offsets.
+		
+		} // Provided non-empty array.
+		
+		return $clustered;																// ==>
+	
+	} // ClusterObjectOffsets.
+
 		
 
 /*=======================================================================================
@@ -1783,7 +2550,10 @@ abstract class PersistentObject extends OntologyObject
 				// Check container structure.
 				//
 				case kTAG_TAG_STRUCT:
-					$tag = $this->mDictionary->getObject( $theValue );
+					$tag
+						= $this->mDictionary
+							->getObject(
+								$this->resolveOffset( $theValue, TRUE ) );
 					if( $tag !== NULL )
 					{
 						if( array_key_exists( kTAG_DATA_TYPE, $tag ) )
@@ -1957,6 +2727,124 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Insert the object
 	 *
+	 * This method will insert the current object into the provided persistent store only if
+	 * not yet committed, the method  will perform the following steps:
+	 *
+	 * <ul>
+	 *	<li>We call the <tt>{@link preCommit()}</tt> method that is responsible of:
+	 *	 <ul>
+	 *		<li><tt>{@link preCommitPrepare()}</tt>: Prepare the object before committing.
+	 *		<li><tt>{@link preCommitTraverse()}</tt>: Traverse the object's properties
+	 *			validating formats and references.
+	 *		<li><tt>{@link preCommitFinalise()}</tt>: Load the dynamic object properties and
+	 *			compute the eventual object identifiers.
+	 *	 </ul>
+	 *	<li>We check whether the object already exists, if that is the case we exit.
+	 *	<li>We pass the current object to the collection's
+	 *		{@link CollectionObject::commit()} method and recuperate the identifier.
+	 *	<li>We call the <tt>{@link postInsert()}</tt> method that is responsible of:
+	 *	 <ul>
+	 *		<li><tt>{@link postCommitReferences()}</tt>: Update object references.
+	 *		<li><tt>{@link postCommitTags()}</tt>: Update object tags.
+	 *	 </ul>
+	 *	<li>We set the object {@link isCommitted()} and reset the {@link isDirty()} status.
+	 *	<li>We return the object's identifier.
+	 * </ul>
+	 *
+	 * If any of the above steps fail the method must raise an exception.
+	 *
+	 * Note that this method can only be called with objects that do not have native
+	 * identifiers assigned by the database, oin that case all objects will appear to be
+	 * new and will be inserted.
+	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent the object from updating
+	 * related objects. This can be useful when adding objects as batches: in that case it
+	 * may be much faster to first add the objects and then at a later stage update them.
+	 *
+	 * Do not overload this method, you should overload the methods called in this method.
+	 *
+	 * @param CollectionObject		$theCollection		Data collection.
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 * @return mixed				The object's native identifie or <tt>NULL</tt>.
+	 *
+	 * @uses preCommit()
+	 * @uses postInsert()
+	 */
+	protected function insertObject( CollectionObject $theCollection, $theOptions )
+	{
+		//
+		// Merge object flags.
+		//
+		$theOptions &= (~ kFLAG_OPT_ACCESS_MASK);
+		$theOptions |= kFLAG_OPT_INSERT;
+		
+		//
+		// Load one to many relationships.
+		//
+		if( $theOptions & kFLAG_OPT_REL_MANY )
+			$this->updateOneToMany( $theOptions );
+		
+		//
+		// Prepare object.
+		//
+		$this->preCommit( $tags, $refs );
+		
+		//
+		// Set creation time stamp.
+		//
+		if( ! $this->offsetExists( kTAG_RECORD_CREATED ) )
+			$this->offsetSet( kTAG_RECORD_CREATED, $theCollection->getTimeStamp() );
+		
+		//
+		// Check if the object exists.
+		//
+		if( ($id = $this->offsetGet( kTAG_NID )) !== NULL )
+		{
+			//
+			// Check object.
+			//
+			if( $theCollection->matchOne( array( kTAG_NID => $id ), kQUERY_COUNT ) )
+				return NULL;														// ==>
+		
+		} // Has native identifier.
+	
+		//
+		// Commit.
+		//
+		$id = $theCollection->commit( $this );
+
+		//
+		// Set native identifier if generated.
+		//
+		if( ! $this->offsetExists( kTAG_NID ) )
+			$this->offsetSet( kTAG_NID, $id );
+	
+		//
+		// Update tag offsets and object references.
+		//
+		$this->postInsert( $this->offsetGet( kTAG_OBJECT_OFFSETS ),
+						   $this->offsetGet( kTAG_OBJECT_REFERENCES ),
+						   $theOptions );
+		
+		//
+		// Handle tag value ranges.
+		//
+		$this->updateTagRanges();
+	
+		return $id;																	// ==>
+	
+	} // insertObject.
+
+	 
+	/*===================================================================================
+	 *	commitObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Commit the object
+	 *
 	 * This method will insert the current object into the provided persistent store, the
 	 * method  will perform the following steps:
 	 *
@@ -1982,9 +2870,12 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * If any of the above steps fail the method must raise an exception.
 	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent updating related objects.
+	 *
 	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @param CollectionObject		$theCollection		Data collection.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access protected
 	 * @return mixed				The object's native identifier.
@@ -1992,12 +2883,30 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses preCommit()
 	 * @uses postInsert()
 	 */
-	protected function insertObject( CollectionObject $theCollection )
+	protected function commitObject( CollectionObject $theCollection, $theOptions )
 	{
+		//
+		// Merge object flags.
+		//
+		$theOptions &= (~ kFLAG_OPT_ACCESS_MASK);
+		$theOptions |= kFLAG_OPT_INSERT;
+		
+		//
+		// Load one to many relationships.
+		//
+		if( $theOptions & kFLAG_OPT_REL_MANY )
+			$this->updateOneToMany( $theOptions );
+		
 		//
 		// Prepare object.
 		//
 		$this->preCommit( $tags, $refs );
+		
+		//
+		// Set creation time stamp.
+		//
+		if( ! $this->offsetExists( kTAG_RECORD_CREATED ) )
+			$this->offsetSet( kTAG_RECORD_CREATED, $theCollection->getTimeStamp() );
 	
 		//
 		// Commit.
@@ -2013,9 +2922,9 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Update tag offsets and object references.
 		//
-		$tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
-		$refs = $this->offsetGet( kTAG_OBJECT_REFERENCES );
-		$this->postInsert( $tags, $refs );
+		$this->postInsert( $this->offsetGet( kTAG_OBJECT_OFFSETS ),
+						   $this->offsetGet( kTAG_OBJECT_REFERENCES ),
+						   $theOptions );
 		
 		//
 		// Handle tag value ranges.
@@ -2024,7 +2933,7 @@ abstract class PersistentObject extends OntologyObject
 	
 		return $id;																	// ==>
 	
-	} // insertObject.
+	} // commitObject.
 
 	 
 	/*===================================================================================
@@ -2056,9 +2965,12 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * If any of the above steps fail the method must raise an exception.
 	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent updating related objects.
+	 *
 	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @param CollectionObject		$theCollection		Data collection.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access protected
 	 * @return mixed				The object's native identifier.
@@ -2068,12 +2980,24 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses preCommit()
 	 * @uses postUpdate()
 	 */
-	protected function updateObject( CollectionObject $theCollection )
+	protected function updateObject( CollectionObject $theCollection, $theOptions )
 	{
+		//
+		// Merge object flags.
+		//
+		$theOptions &= (~ kFLAG_OPT_ACCESS_MASK);
+		$theOptions |= kFLAG_OPT_UPDATE;
+		
+		//
+		// Load one to many relationships.
+		//
+		if( $theOptions & kFLAG_OPT_REL_MANY )
+			$this->updateOneToMany( $theOptions );
+		
 		//
 		// Load persistent image.
 		//
-		$object
+		$old
 			= $theCollection->matchOne(
 				array( kTAG_NID => $this->offsetGet( kTAG_NID ) ),
 				kQUERY_ASSERT | kQUERY_ARRAY,
@@ -2084,6 +3008,11 @@ abstract class PersistentObject extends OntologyObject
 		// Prepare object.
 		//
 		$this->preCommit( $tags, $refs );
+		
+		//
+		// Set modification time stamp.
+		//
+		$this->offsetSet( kTAG_RECORD_MODIFIED, $theCollection->getTimeStamp() );
 	
 		//
 		// Commit.
@@ -2093,9 +3022,13 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Update references.
 		//
-		$tags = $object[ kTAG_OBJECT_OFFSETS ];
-		$refs = $object[ kTAG_OBJECT_REFERENCES ];
-		$this->postUpdate( $tags, $refs );
+		$this->postUpdate( ( ( array_key_exists( kTAG_OBJECT_OFFSETS, $old ) )
+						   ? $old[ kTAG_OBJECT_OFFSETS ]
+						   : Array() ),
+						   ( ( array_key_exists( kTAG_OBJECT_REFERENCES, $old ) )
+						   ? $old[ kTAG_OBJECT_REFERENCES ]
+						   : Array() ),
+						   $theOptions );
 		
 		//
 		// Handle tag value ranges.
@@ -2166,6 +3099,8 @@ abstract class PersistentObject extends OntologyObject
 	 * The method will return the object's native identifier if it was deleted; if the
 	 * object is referenced, the method will return <tt>FALSE</tt>; if the object was not
 	 * found in the container, the method will return <tt>NULL</tt>.
+	 *
+	 * The <tt>$doRelated</tt> parameter can be used to prevent updating related objects.
 	 *
 	 * You should overload the methods called in this method, not this method.
 	 *
@@ -2411,7 +3346,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * <ul>
 	 *	<li><em>Clear local offsets</em>: The method will delete all offsets returned by
-	 *		the {@link LocalOffsets()} static method, this is to ensure these properties
+	 *		the {@link DynamicOffsets()} static method, this is to ensure these properties
 	 *		are filled with current data.
 	 *	<li><em>Parse object</em>: The method will call the {@link parseObject()} method
 	 *		that will perform the following actions:
@@ -2437,21 +3372,21 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @access protected
 	 *
-	 * @uses LocalOffsets()
+	 * @uses DynamicOffsets()
 	 * @uses parseObject()
 	 */
 	protected function preCommitTraverse( &$theTags, &$theRefs, $doValidate = TRUE )
 	{
 		//
-		// Remove private offsets.
+		// Remove dynamic offsets.
 		//
-		foreach( static::LocalOffsets() as $offset )
+		foreach( static::DynamicOffsets() as $offset )
 			$this->offsetUnset( $offset );
 	
 		//
 		// Parse object.
 		//
-		$this->parseObject( $theTags, $theRefs, $doValidate );
+		$this->parseObject( $theTags, $theRefs, $doValidate, TRUE );
 	
 	} // preCommitTraverse.
 
@@ -2513,6 +3448,45 @@ abstract class PersistentObject extends OntologyObject
 		if( (! $this->isCommitted())
 		 && (($graph = $this->mDictionary->Graph()) !== NULL) )
 			$this->preCommitGraphReferences( $graph );
+		
+		//
+		// Handle full text resolution.
+		//
+		$tmp = $this->getFullTextReference();
+		if( $tmp !== NULL )
+		{
+			//
+			// Get level 10 strings.
+			//
+			$txt = $this->offsetGet( kTAG_FULL_TEXT_10 );
+			if( ! is_array( $txt ) )
+				$txt = Array();
+			
+			//
+			// Remove existing string.
+			//
+			foreach( array_keys( $txt ) as $key )
+			{
+				if( preg_match( '/^§.+§$/', $txt[ $key ] ) )
+					unset( $txt[ $key ] );
+			}
+			
+			//
+			// Normalise list.
+			//
+			if( count( $txt ) )
+				$txt = array_values( $txt );
+			
+			//
+			// Add code.
+			//
+			$txt[] = $tmp;
+			
+			//
+			// Update object.
+			//
+			$this->offsetSet( kTAG_FULL_TEXT_10, $txt );
+		}
 	
 	} // preCommitFinalise.
 
@@ -2531,8 +3505,6 @@ abstract class PersistentObject extends OntologyObject
 	 * Note that the provided list of tags should only include leaf offset references, in
 	 * other words, only properties which are not of the {@link kTYPE_STRUCT} type.
 	 *
-	 * The provided parameter <em>must</em> be an array reference.
-	 *
 	 * For a description of the parameters to this method, please consult the
 	 * {@link preCommit()} method documentation.
 	 *
@@ -2542,7 +3514,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @see kTAG_OBJECT_TAGS kTAG_OBJECT_OFFSETS
 	 */
-	protected function preCommitObjectTags( &$theTags )
+	protected function preCommitObjectTags( $theTags )
 	{
 		//
 		// Check parameter.
@@ -2564,7 +3536,14 @@ abstract class PersistentObject extends OntologyObject
 				// Select leaf tags.
 				//
 				if( array_key_exists( kTAG_OBJECT_OFFSETS, $info ) )
-					$offsets[ $tag ] = $info[ kTAG_OBJECT_OFFSETS ];
+				{
+					//
+					// Load offsets.
+					//
+					foreach( $info[ kTAG_OBJECT_OFFSETS ] as $offset )
+						$offsets[] = $offset;
+				
+				} // Has offsets.
 			
 			} // Iterating tags.
 			
@@ -2590,8 +3569,6 @@ abstract class PersistentObject extends OntologyObject
 	 * object references from the provided parameter and populate the
 	 * {@link kTAG_OBJECT_REFERENCES} property of the current object.
 	 *
-	 * The provided parameter <em>must</em> be an array reference.
-	 *
 	 * For a description of the parameters to this method, please consult the
 	 * {@link preCommit()} method documentation.
 	 *
@@ -2605,7 +3582,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @see kTAG_OBJECT_REFERENCES
 	 */
-	protected function preCommitObjectReferences( &$theRefs )
+	protected function preCommitObjectReferences( $theRefs )
 	{
 		//
 		// Check references.
@@ -2734,10 +3711,9 @@ abstract class PersistentObject extends OntologyObject
 	 * This method is identical to the {@link postDelete()} method, except that in this case
 	 * offsets will be added and reference counts will be incremented.
 	 *
-	 * The provided array references are read-only.
-	 *
 	 * @param array					$theOffsets			Tag offsets to be added.
 	 * @param array					$theReferences		Object references to be incremented.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access protected
 	 *
@@ -2745,9 +3721,20 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @uses ResolveOffsetsTag()
 	 * @uses updateObjectReferenceCount()
+	 * @uses updateManyToOne()
 	 */
-	protected function postInsert( &$theOffsets, &$theReferences )
+	protected function postInsert( $theOffsets, $theReferences, $theOptions )
 	{
+		//
+		// Normalise parameters.
+		//
+		if( $theOffsets === NULL )
+			$theOffsets = Array();
+		else
+			$theOffsets = static::ClusterObjectOffsets( $theOffsets );
+		if( $theReferences === NULL )
+			$theReferences = Array();
+		
 		//
 		// Resolve tag collection.
 		//
@@ -2758,12 +3745,13 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve tag offsets property.
 		//
-		$tag_ref_count = static::ResolveOffsetsTag( static::kSEQ_NAME );
+		$offsets_tag = static::ResolveOffsetsTag( static::kSEQ_NAME );
 		
 		//
 		// Handle tags.
 		//
-		if( is_array( $theOffsets ) )
+		if( is_array( $theOffsets )
+		 && count( $theOffsets ) )
 		{
 			//
 			// Update tags reference count.
@@ -2771,7 +3759,7 @@ abstract class PersistentObject extends OntologyObject
 			$this->updateObjectReferenceCount(
 				Tag::kSEQ_NAME,								// Tags collection.
 				array_keys( $theOffsets ),					// Tags identifiers.
-				kTAG_ID_SEQUENCE,							// Tags identifiers offset.
+				kTAG_ID_HASH,								// Tags identifiers offset.
 				1 );										// Reference count.
 		
 			//
@@ -2779,9 +3767,9 @@ abstract class PersistentObject extends OntologyObject
 			//
 			foreach( $theOffsets as $key => $value )
 				$tag_collection->updateSet(
-					(int) $key,								// Tag identifiers.
-					kTAG_ID_SEQUENCE,						// Tag identifiers offset.
-					array( $tag_ref_count => $value ),		// Offsets set.
+					$key,									// Tag identifiers.
+					kTAG_ID_HASH,							// Tags identifiers offset.
+					array( $offsets_tag => $value ),		// Offsets set.
 					TRUE );									// Add to set.
 		
 		} // Has tag offsets.
@@ -2789,7 +3777,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Handle object references.
 		//
-		if( is_array( $theReferences ) )
+		if( is_array( $theReferences )
+		 && count( $theReferences ) )
 		{
 			foreach( $theReferences as $key => $value )
 				$this->updateObjectReferenceCount(
@@ -2799,6 +3788,12 @@ abstract class PersistentObject extends OntologyObject
 					1 );									// Reference count.
 		
 		} // Has references.
+		
+		//
+		// Update parent related.
+		//
+		if( $theOptions & kFLAG_OPT_REL_ONE )
+			$this->updateManyToOne( $theOptions );
 	
 	} // postInsert.
 
@@ -2851,6 +3846,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param array					$theOffsets			Original tag offsets.
 	 * @param array					$theReferences		Original object references.
+	 * @param bitfield				$theOptions			Operation options.
 	 *
 	 * @access protected
 	 *
@@ -2861,9 +3857,20 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses compareObjectOffsets()
 	 * @uses compareObjectReferences()
 	 * @uses filterExistingOffsets()
+	 * @uses updateManyToOne()
 	 */
-	protected function postUpdate( &$theOffsets, &$theReferences )
+	protected function postUpdate( $theOffsets, $theReferences, $theOptions )
 	{
+		//
+		// Normalise parameters.
+		//
+		if( $theOffsets === NULL )
+			$theOffsets = Array();
+		else
+			$theOffsets = static::ClusterObjectOffsets( $theOffsets );
+		if( $theReferences === NULL )
+			$theReferences = Array();
+		
 		//
 		// Resolve tag collection.
 		//
@@ -2874,13 +3881,19 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve tag offsets property.
 		//
-		$tag_ref_count = static::ResolveOffsetsTag( static::kSEQ_NAME );
+		$offsets_tag = static::ResolveOffsetsTag( static::kSEQ_NAME );
 		
 		//
 		// Save offsets and references.
 		//
-		$offsets = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		$offsets = static::ClusterObjectOffsets( $this->offsetGet( kTAG_OBJECT_OFFSETS ) );
 		$references = $this->offsetGet( kTAG_OBJECT_REFERENCES );
+		
+		//
+		// Normalise references.
+		//
+		if( $references === NULL )
+			$references = Array();
 		
 		//
 		// Update new tags reference count.
@@ -2890,7 +3903,7 @@ abstract class PersistentObject extends OntologyObject
 			$this->updateObjectReferenceCount(
 				Tag::kSEQ_NAME,							// Tags collection.
 				array_values( $tags ),					// Tags identifiers.
-				kTAG_ID_SEQUENCE,						// Tags identifiers offset.
+				kTAG_ID_HASH,							// Tags identifiers offset.
 				1 );									// Reference count.
 		
 		//
@@ -2899,9 +3912,9 @@ abstract class PersistentObject extends OntologyObject
 		$list = $this->compareObjectOffsets( $offsets, $theOffsets, TRUE );
 		foreach( $list as $key => $value )
 			$tag_collection->updateSet(
-				(int) $key,								// Tag identifiers.
-				kTAG_ID_SEQUENCE,						// Tag identifiers offset.
-				array( $tag_ref_count
+				$key,									// Tag identifiers.
+				kTAG_ID_HASH,							// Tags identifiers offset.
+				array( $offsets_tag
 						=> array_values( $value ) ),	// Offsets set.
 				TRUE );									// Add to set.
 		
@@ -2924,7 +3937,7 @@ abstract class PersistentObject extends OntologyObject
 			$this->updateObjectReferenceCount(
 				Tag::kSEQ_NAME,							// Tags collection.
 				array_values( $tags ),					// Tags identifiers.
-				kTAG_ID_SEQUENCE,						// Tags identifiers offset.
+				kTAG_ID_HASH,							// Tags identifiers offset.
 				-1 );									// Reference count.
 		
 		//
@@ -2942,9 +3955,9 @@ abstract class PersistentObject extends OntologyObject
 		//
 		foreach( $list as $key => $value )
 			$tag_collection->updateSet(
-				(int) $key,								// Tag identifiers.
-				kTAG_ID_SEQUENCE,						// Tag identifiers offset.
-				array( $tag_ref_count
+				$key,									// Tag identifiers.
+				kTAG_ID_HASH,							// Tags identifiers offset.
+				array( $offsets_tag
 						=> array_values( $value ) ),	// Offsets set.
 				FALSE );								// Pull from set.
 		
@@ -2958,6 +3971,12 @@ abstract class PersistentObject extends OntologyObject
 				array_values( $value ),					// Identifiers.
 				kTAG_NID,								// Identifiers offset.
 				-1 );									// Reference count.
+		
+		//
+		// Update parent related.
+		//
+		if( $theOptions & kFLAG_OPT_REL_ONE )
+			$this->updateManyToOne( $theOptions );
 	
 	} // postUpdate.
 
@@ -3157,7 +4176,8 @@ abstract class PersistentObject extends OntologyObject
 	 * This method is identical to the {@link postInsert()} method, except that in this case
 	 * offsets will be removed and reference counts will be decremented.
 	 *
-	 * The provided array references are read-only.
+	 * In this method we call be default the {@link updateManyToOne() } method to ensure
+	 * referential integrity.
 	 *
 	 * @param array					$theOffsets			Tag offsets to be removed.
 	 * @param array					$theReferences		Object references to be decremented.
@@ -3169,9 +4189,18 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses ResolveOffsetsTag()
 	 * @uses updateObjectReferenceCount()
 	 * @uses filterExistingOffsets()
+	 * @uses updateManyToOne()
 	 */
-	protected function postDelete( &$theOffsets, &$theReferences )
+	protected function postDelete( $theOffsets, $theReferences )
 	{
+		//
+		// Normalise parameters.
+		//
+		if( $theOffsets === NULL )
+			$theOffsets = Array();
+		if( $theReferences === NULL )
+			$theReferences = Array();
+		
 		//
 		// Resolve tag collection.
 		//
@@ -3187,7 +4216,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Handle tags.
 		//
-		if( is_array( $theOffsets ) )
+		if( is_array( $theOffsets )
+		 && count( $theOffsets ) )
 		{
 			//
 			// Update deleted tags reference count.
@@ -3195,7 +4225,7 @@ abstract class PersistentObject extends OntologyObject
 			$this->updateObjectReferenceCount(
 				Tag::kSEQ_NAME,							// Tags collection.
 				array_keys( $theOffsets ),				// Tags identifiers.
-				kTAG_ID_SEQUENCE,						// Tags identifiers offset.
+				kTAG_ID_HASH,							// Tags identifiers offset.
 				-1 );									// Reference count.
 		
 			//
@@ -3208,8 +4238,8 @@ abstract class PersistentObject extends OntologyObject
 			//
 			foreach( $theOffsets as $key => $value )
 				$tag_collection->updateSet(
-					(int) $key,								// Tag identifiers.
-					kTAG_ID_SEQUENCE,						// Tag identifiers offset.
+					$key,									// Tag identifiers.
+					kTAG_ID_HASH,							// Tags identifiers offset.
 					array( $tag_ref_count
 							=> array_values( $value ) ),	// Offsets set.
 					FALSE );								// Pull from set.
@@ -3219,7 +4249,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Handle references.
 		//
-		if( is_array( $theReferences ) )
+		if( is_array( $theReferences )
+		 && count( $theReferences ) )
 		{
 			foreach( $theReferences as $key => $value )
 				$this->updateObjectReferenceCount(
@@ -3229,8 +4260,117 @@ abstract class PersistentObject extends OntologyObject
 					-1 );									// Reference count.
 		
 		} // Has references.
+		
+		//
+		// Update parent related.
+		//
+		$this->updateManyToOne( kFLAG_OPT_DELETE | kFLAG_OPT_REL_ONE );
 	
 	} // postDelete.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *						PROTECTED OBJECT REFERENCING INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateManyToOne																	*
+	 *==================================================================================*/
+
+	/**
+	 * Update many to one relationships
+	 *
+	 * The duty of this method is to load the current object reference in the object that
+	 * keeps track of it, this is the counterpart of the {@link updateOneToMany()} method.
+	 *
+	 * This usually happens whan the related object holds the list of objects which point to
+	 * it. This method should add or update the entry relating to the current object in the
+	 * related object.
+	 *
+	 * The method wxpects the wrapper of the current object to be set and expects a single
+	 * parameter which holds the commit or delete operation options: the method should be
+	 * called only if the {@link kFLAG_OPT_REL_ONE} flag is set, will this method perform
+	 * its duty.
+	 *
+	 * This method will be called <em>after</em> the object was committed.
+	 *
+	 * By default only this method is called, since it ensures referential integrity: the
+	 * relations are recursed up to the root element.
+	 *
+	 * By default this method does nothing.
+	 *
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 */
+	protected function updateManyToOne( $theOptions )									   {}
+
+	 
+	/*===================================================================================
+	 *	updateOneToMany																	*
+	 *==================================================================================*/
+
+	/**
+	 * Update one to many relationships
+	 *
+	 * The duty of this method is to load the references of objects pointing to the current
+	 * object, this is the counterpart of the
+	 * {@link updateOneToMany()} method.
+	 *
+	 * This usually happens whan the current object holds a list of objects, this method
+	 * should select all the objects to which it points to and load them in the appropriate
+	 * property.
+	 *
+	 * The method wxpects the wrapper of the current object to be set and expects a single
+	 * parameter which holds the commit or delete operation options: the method should be
+	 * called only if the {@link kFLAG_OPT_REL_MANY} flag is set, will this method perform
+	 * its duty.
+	 *
+	 * This method will be called <em>before</em> the object's commit phase.
+	 *
+	 * By default this method does nothing.
+	 *
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 */
+	protected function updateOneToMany( $theOptions )									   {}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									REFERENTIAL UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	attributesList																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return object list attributes
+	 *
+	 * This method should return an array with the significant attributes of the current
+	 * object, this information will be used by other objects when referencing the current
+	 * object.
+	 *
+	 * If the object wishes not to provide information, the method should return an empty
+	 * array.
+	 *
+	 * In this class the method does nothing.
+	 *
+	 * @access protected
+	 * @return array				The list of properties.
+	 */
+	protected function attributesList()									{	return Array();	}
 
 	
 
@@ -3273,17 +4413,22 @@ abstract class PersistentObject extends OntologyObject
 	 *		objects held by the collection.
 	 *	<li><b>$doValidate</b>: If this parameter is <tt>TRUE</tt>, the object's properties
 	 *		will be validated and cast to their correct type.
+	 *	<li><b>$doText</b>: If this parameter is <tt>TRUE</tt>, the object will be filled
+	 *		with the full-text properties, if <tt>FALSE</tt>, these properties will be
+	 *		left untouched.
 	 * </ul>
 	 *
 	 * @param array					$theTags			Receives tag information.
 	 * @param array					$theRefs			Receives references information.
 	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text search.
 	 *
 	 * @access protected
 	 *
 	 * @uses parseStructure()
 	 */
-	protected function parseObject( &$theTags, &$theRefs, $doValidate = TRUE )
+	protected function parseObject( &$theTags, &$theRefs, $doValidate = TRUE,
+														  $doText = TRUE )
 	{
 		//
 		// Init local storage.
@@ -3299,13 +4444,36 @@ abstract class PersistentObject extends OntologyObject
 		// Iterate properties.
 		//
 		$this->parseStructure(
-			$object, $path, $theTags, $theRefs, $doValidate );
+			$object, $path, $theTags, $theRefs, $doValidate, $doText );
 		
 		//
-		// Update object.
+		// Update object full-text search properties.
 		//
-		if( $doValidate )
+		if( $doText )
+		{
+			//
+			// Save full-text properties.
+			//
+			$text10 = $this->offsetGet( kTAG_FULL_TEXT_10 );
+			$text06 = $this->offsetGet( kTAG_FULL_TEXT_06 );
+			$text03 = $this->offsetGet( kTAG_FULL_TEXT_03 );
+			
+			//
+			// Replace data.
+			//
 			$this->exchangeArray( $object );
+			
+			//
+			// Reset full-text properties.
+			//
+			if( $text10 !== NULL )
+				$this->offsetSet( kTAG_FULL_TEXT_10, $text10 );
+			if( $text06 !== NULL )
+				$this->offsetSet( kTAG_FULL_TEXT_06, $text06 );
+			if( $text03 !== NULL )
+				$this->offsetSet( kTAG_FULL_TEXT_03, $text03 );
+		
+		} // Validated object.
 	
 	} // parseObject.
 
@@ -3315,7 +4483,7 @@ abstract class PersistentObject extends OntologyObject
 	 *==================================================================================*/
 
 	/**
-	 * Parse property
+	 * Parse structure
 	 *
 	 * This method will parse the provided structure collecting tag, offset and object
 	 * reference information in the provided reference parameters, the method will perform
@@ -3372,6 +4540,8 @@ abstract class PersistentObject extends OntologyObject
 	 *	 </ul>
 	 *	<li><b>$doValidate</b>: This boolean flag indicates whether the method should
 	 *		validate and cast the structure elements.
+	 *	<li><b>$doText</b>: If this parameter is <tt>TRUE</tt>, the full-text search
+	 *		properties will be updated.
 	 * </ul>
 	 *
 	 * @param array					$theStructure		Structure.
@@ -3379,6 +4549,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @param array					$theTags			Receives the tag information.
 	 * @param array					$theRefs			Receives the object references.
 	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text search.
 	 *
 	 * @access protected
 	 *
@@ -3392,18 +4563,24 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses loadReferenceInformation()
 	 */
 	protected function parseStructure( &$theStructure, &$thePath, &$theTags, &$theRefs,
-										$doValidate )
+										$doValidate = TRUE,
+										$doText = TRUE )
 	{
+		//
+		// Init local storage.
+		//
+		$tags = array_keys( $theStructure );
+		$exclude = array_merge( static::InternalOffsets(), static::UnmanagedOffsets() );
+		
 		//
 		// Iterate properties.
 		//
-		$tags = array_keys( $theStructure );
 		foreach( $tags as $tag )
 		{
 			//
 			// Skip internal offsets.
 			//
-			if( ! in_array( $tag, static::InternalOffsets() ) )
+			if( ! in_array( $tag, $exclude ) )
 			{
 				//
 				// Push offset to path.
@@ -3445,7 +4622,8 @@ abstract class PersistentObject extends OntologyObject
 				//
 				else
 					static::OffsetTypes(
-						$this->mDictionary, $tag,
+						$this->mDictionary,
+						$tag,
 						$type, $kind,
 						$min, $max, $pattern,
 						TRUE );
@@ -3492,7 +4670,7 @@ abstract class PersistentObject extends OntologyObject
 							//
 							$this->parseStructure(
 								$element_ref,
-								$thePath, $theTags, $theRefs, $doValidate );
+								$thePath, $theTags, $theRefs, $doValidate, $doText );
 						
 						} // Structure.
 						
@@ -3506,9 +4684,10 @@ abstract class PersistentObject extends OntologyObject
 							//
 							$class
 								= $this->parseProperty(
-									$element_ref, $type,
+									$element_ref,
+									$type, $kind,
 									$min, $max, $pattern,
-									$offset, $doValidate );
+									$offset, $doValidate, $doText );
 						
 							//
 							// Load tag information.
@@ -3549,7 +4728,7 @@ abstract class PersistentObject extends OntologyObject
 					//
 					$this->parseStructure(
 						$property_ref,
-						$thePath, $theTags, $theRefs, $doValidate );
+						$thePath, $theTags, $theRefs, $doValidate, $doText );
 				
 				} // Structure.
 				
@@ -3563,9 +4742,10 @@ abstract class PersistentObject extends OntologyObject
 					//
 					$class
 						= $this->parseProperty(
-							$property_ref, $type,
+							$property_ref,
+							$type, $kind,
 							$min, $max, $pattern,
-							$offset, $doValidate );
+							$offset, $doValidate, $doText );
 				
 					//
 					// Load tag information.
@@ -3623,15 +4803,20 @@ abstract class PersistentObject extends OntologyObject
 	 *	<li><b>$thePath</b>: The property offset path.
 	 *	<li><b>$doValidate</b>: This boolean flag indicates whether the method should
 	 *		validate and cast the structure elements.
+	 *	<li><b>$doText</b>: If this parameter is <tt>TRUE</tt>, the object will be filled
+	 *		with the full-text properties, if <tt>FALSE</tt>, these properties will be
+	 *		left untouched.
 	 * </ul>
 	 *
 	 * @param mixed					$theProperty		Property.
 	 * @param string				$theType			Data type.
+	 * @param array					$theKind			Data kind.
 	 * @param mixed					$theMin				Minimum data range.
 	 * @param mixed					$theMax				Maximum data range.
 	 * @param string				$thePattern			Data pattern.
 	 * @param string				$thePath			Offset path.
 	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text search.
 	 *
 	 * @access protected
 	 * @return string				Eventual property class name.
@@ -3643,15 +4828,16 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses castProperty()
 	 */
 	protected function parseProperty( &$theProperty,
-									   $theType, $theMin, $theMax, $thePattern,
-									   $thePath, $doValidate )
+									   $theType, $theKind,
+									   $theMin, $theMax, $thePattern,
+									   $thePath, $doValidate, $doText = TRUE )
 	{
 		//
 		// Validate scalar.
 		//
 		if( $doValidate )
 			$this->validateProperty(
-				$theProperty, $theType, $theMin, $theMax, $thePattern, $thePath );
+				$theProperty, $theType, $theKind, $theMin, $theMax, $thePattern, $thePath );
 		
 		//
 		// Get reference class.
@@ -3680,9 +4866,15 @@ abstract class PersistentObject extends OntologyObject
 			// Cast value.
 			//
 			$this->castProperty(
-				$theProperty, $theType, $thePath );
+				$theProperty, $theType, $thePath, $doValidate, $doText );
 		
 		} // Validate.
+		
+		//
+		// Add to full-text index.
+		//
+		if( $doText )
+			$this->addToFullText( $theProperty, kSTANDARDS_LANGUAGE, $theType, $theKind );
 		
 		return $class;																// ==>
 		
@@ -3776,6 +4968,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param mixed					$theProperty		Property.
 	 * @param string				$theType			Data type.
+	 * @param array					$theKind			Data kind.
 	 * @param mixed					$theMin				Receives minimum data range.
 	 * @param mixed					$theMax				Receives maximum data range.
 	 * @param string				$thePattern			Receives data pattern.
@@ -3785,7 +4978,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 */
-	protected function validateProperty( &$theProperty, $theType,
+	protected function validateProperty( &$theProperty, $theType, $theKind,
 										  $theMin, $theMax, $thePattern,
 										  $thePath )
 	{
@@ -3797,6 +4990,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTYPE_SET:
 			case kTYPE_ARRAY:
 			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRING:
 			case kTYPE_LANGUAGE_STRINGS:
 				if( ! is_array( $theProperty ) )
 					throw new \Exception(
@@ -3811,9 +5005,9 @@ abstract class PersistentObject extends OntologyObject
 						"Invalid offset value in [$thePath] type [$theType]: "
 					   ."the value is not an array." );							// !@! ==>
 				
-				if( (! array_key_exists( kTAG_SHAPE_TYPE, $theProperty ))
-				 || (! array_key_exists( kTAG_SHAPE_GEOMETRY, $theProperty ))
-				 || (! is_array( $theProperty[ kTAG_SHAPE_GEOMETRY ] )) )
+				if( (! array_key_exists( kTAG_TYPE, $theProperty ))
+				 || (! array_key_exists( kTAG_GEOMETRY, $theProperty ))
+				 || (! is_array( $theProperty[ kTAG_GEOMETRY ] )) )
 					throw new \Exception(
 						"Invalid offset value in [$thePath] type [$theType]: "
 					   ."invalid shape geometry." );							// !@! ==>
@@ -3853,7 +5047,8 @@ abstract class PersistentObject extends OntologyObject
 				   ."[$theProperty] greater than [$theMax]." );					// !@! ==>
 		
 		} // Has range.
-		
+/*
+MILKO - Need to check.		
 		//
 		// Validate pattern.
 		//
@@ -3868,6 +5063,7 @@ abstract class PersistentObject extends OntologyObject
 				   ."[$theProperty] mismatches [$thePattern]." );				// !@! ==>
 		
 		} // Has pattern.
+*/
 	
 	} // validateProperty.
 
@@ -3932,7 +5128,7 @@ abstract class PersistentObject extends OntologyObject
 					case Term::kSEQ_NAME:
 					case Edge::kSEQ_NAME:
 					case UnitObject::kSEQ_NAME:
-					case EntityObject::kSEQ_NAME:
+					case User::kSEQ_NAME:
 						$theProperty = (string) $theProperty;
 						break;
 					case Node::kSEQ_NAME:
@@ -3973,12 +5169,19 @@ abstract class PersistentObject extends OntologyObject
 		} // List of references.
 		
 		//
-		// Assert reference.
+		// Handle reference.
 		//
-		elseif( ! $collection->matchOne( array( kTAG_NID => $theProperty ), kQUERY_COUNT ) )
-			throw new \Exception(
-				"Unresolved reference in [$thePath]: "
-			   ."($theProperty)." );											// !@! ==>
+		else
+		{
+			//
+			// Assert.
+			//
+			if( ! $collection->matchOne( array( kTAG_NID => $theProperty ), kQUERY_COUNT ) )
+				throw new \Exception(
+					"Unresolved reference in [$thePath]: "
+				   ."($theProperty)." );										// !@! ==>
+		
+		} // Scalar reference.
 		
 	} // validateReference.
 
@@ -3996,16 +5199,18 @@ abstract class PersistentObject extends OntologyObject
 	 * @param mixed					$theProperty		Property.
 	 * @param string				$theType			Data type.
 	 * @param string				$thePath			Offset path.
+	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 * @param boolean				$doText				<tt>TRUE</tt> load full text search.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
 	 *
 	 * @uses parseStructure()
-	 * @uses castShapeGeometry()
+	 * @uses CastScalar()
 	 */
-	protected function castProperty( &$theProperty,
-									  $theType, $thePath )
+	protected function castProperty( &$theProperty, $theType, $thePath, $doValidate = TRUE,
+																		$doText = TRUE )
 	{
 		//
 		// Cast property.
@@ -4013,50 +5218,10 @@ abstract class PersistentObject extends OntologyObject
 		switch( $theType )
 		{
 			//
-			// Strings.
-			//
-			case kTYPE_STRING:
-			case kTYPE_ENUM:
-			case kTYPE_URL:
-			case kTYPE_REF_TAG:
-			case kTYPE_REF_TERM:
-			case kTYPE_REF_EDGE:
-			case kTYPE_REF_UNIT:
-			case kTYPE_REF_ENTITY:
-				$theProperty = (string) $theProperty;
-				break;
-			
-			//
-			// Integers.
-			//
-			case kTYPE_INT:
-			case kTYPE_REF_NODE:
-				$theProperty = (int) $theProperty;
-				break;
-	
-			//
-			// Floats.
-			//
-			case kTYPE_FLOAT:
-				$theProperty = (double) $theProperty;
-				break;
-	
-			//
-			// Enumerated sets.
-			//
-			case kTYPE_SET:
-				//
-				// Iterate set.
-				//
-				$idxs = array_keys( $theProperty );
-				foreach( $idxs as $idx )
-					$theProperty[ $idx ] = (string) $theProperty[ $idx ];
-				break;
-	
-			//
 			// Language strings.
 			//
 			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRING:
 			case kTYPE_LANGUAGE_STRINGS:
 				//
 				// Init loop storage.
@@ -4086,13 +5251,10 @@ abstract class PersistentObject extends OntologyObject
 				break;
 	
 			//
-			// Shapes.
+			// Other.
 			//
-			case kTYPE_SHAPE:
-				//
-				// Cast geometry.
-				//
-				$this->castShapeGeometry( $theProperty );
+			default:
+				static::CastScalar( $theProperty, $theType );
 				break;
 	
 		} // Parsed type.
@@ -4153,7 +5315,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @access protected
 	 */
 	public function loadTagInformation( &$theTags,
-										&$theKind, $theType,
+										$theKind, $theType,
 										$theMin, $theMax, $thePattern,
 										$thePath, $theTag )
 	{
@@ -4253,7 +5415,7 @@ abstract class PersistentObject extends OntologyObject
 					//
 					if( ! array_key_exists( $collection, $theRefs ) )
 						$theRefs[ $collection ] = array( $reference );
-					elseif( ! in_array( $theRefs[ $collection ], $theProperty ) )
+					elseif( ! in_array( $reference, $theRefs[ $collection ] ) )
 						$theRefs[ $collection ][] = $reference;
 			
 				} // Iterating list.
@@ -4408,7 +5570,11 @@ abstract class PersistentObject extends OntologyObject
 	 */
 	protected function lockedOffsets()
 	{
-		return array_merge( static::InternalOffsets(), (array) kTAG_MASTER );		// ==>
+		return array_merge(
+			array_diff(
+				$this->InternalOffsets(),
+				array( kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 ) ),
+			(array) kTAG_MASTER );													// ==>
 	
 	} // lockedOffsets.
 
@@ -4532,7 +5698,7 @@ abstract class PersistentObject extends OntologyObject
 				return UnitObject::kSEQ_NAME;										// ==>
 		
 			case kTYPE_REF_ENTITY:
-				return EntityObject::kSEQ_NAME;										// ==>
+				return User::kSEQ_NAME;										// ==>
 		
 			case kTYPE_REF_SELF:
 				return static::kSEQ_NAME;											// ==>
@@ -4544,130 +5710,23 @@ abstract class PersistentObject extends OntologyObject
 	} // getReferenceTypeCollection.
 
 	 
-
-/*=======================================================================================
- *																						*
- *							PROTECTED OBJECT TRAVERSAL UTILITIES						*
- *																						*
- *======================================================================================*/
-
-
-	 
 	/*===================================================================================
-	 *	castShapeGeometry																*
+	 *	getFullTextReference															*
 	 *==================================================================================*/
 
 	/**
-	 * Cast shape geometry
+	 * Retun the object full text reference
 	 *
-	 * The duty of this method is to verify and cast the geometry of the provided shape.
-	 * The method expects the shape to have a correct root structure, that is, it must have
-	 * the shape type and geometry array, this method will traverse the geometry and
-	 * its structure.
+	 * In order to generate a static URL which points to a selection it is necessary to
+	 * have a value which can be selected via a full-text search: this method should return
+	 * this value, which should be set just befor the object is committed.
 	 *
-	 * @param reference				$theShape			Shape.
+	 * In this class we do not use this feature, so the method will return <tt>NULL</tt>.
 	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @uses castShapeGeometry()
+	 * @access public
+	 * @return string				Full text search reference.
 	 */
-	protected function castShapeGeometry( &$theShape )
-	{
-		//
-		// Init local storage.
-		//
-		$type = & $theShape[ kTAG_SHAPE_TYPE ];
-		$geom = & $theShape[ kTAG_SHAPE_GEOMETRY ];
-		
-		//
-		// Parse by type.
-		//
-		switch( $type )
-		{
-			case 'Point':
-				//
-				// Check geometry.
-				//
-				if( is_array( $geom ) )
-				{
-					//
-					// Check if both are there.
-					//
-					if( count( $geom ) == 2 )
-					{
-						$geom[ 0 ] = (double) $geom[ 0 ];
-						$geom[ 1 ] = (double) $geom[ 1 ];
-					}
-					else
-						throw new \Exception(
-							"Invalid point shape structure." );					// !@! ==>
-				}
-				else
-					throw new \Exception(
-						"Invalid shape structure." );							// !@! ==>
-				break;
-			
-			case 'LineString':
-				//
-				// Check geometry.
-				//
-				if( is_array( $geom ) )
-				{
-					//
-					// Iterate coordinates.
-					//
-					$idxs = array_keys( $geom );
-					foreach( $idxs as $idx )
-					{
-						//
-						// Recurse with points.
-						//
-						$shape = array( kTAG_SHAPE_TYPE => 'Point',
-										kTAG_SHAPE_GEOMETRY => $geom[ $idx ] );
-						$this->castShapeGeometry( $shape );
-						$geom[ $idx ] = $shape[ kTAG_SHAPE_GEOMETRY ];
-					}
-				}
-				else
-					throw new \Exception(
-						"Invalid shape structure." );							// !@! ==>
-				break;
-			
-			case 'Polygon':
-				//
-				// Check geometry.
-				//
-				if( is_array( $geom ) )
-				{
-					//
-					// Iterate rings.
-					//
-					$idxs = array_keys( $geom );
-					foreach( $idxs as $idx )
-					{
-						//
-						// Recurse with line strings.
-						//
-						$shape = array( kTAG_SHAPE_TYPE => 'LineString',
-										kTAG_SHAPE_GEOMETRY => $geom[ $idx ] );
-						$this->castShapeGeometry( $shape );
-						$geom[ $idx ] = $shape[ kTAG_SHAPE_GEOMETRY ];
-					}
-				}
-				else
-					throw new \Exception(
-						"Invalid shape structure." );							// !@! ==>
-				break;
-			
-			default:
-				throw new \Exception(
-					"Invalid or unsupported shape type [$type]." );				// !@! ==>
-		
-		} // Parsed type.
-	
-	} // castShapeGeometry.
+	public function getFullTextReference()								{	return NULL;	}
 
 		
 
@@ -4727,7 +5786,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve reference count tag according to current object.
 		//
-		$tag = static::ResolveRefCountTag( static::kSEQ_NAME );
+		$tag_ref_count = static::ResolveRefCountTag( static::kSEQ_NAME );
 		
 		//
 		// Resolve collection.
@@ -4739,7 +5798,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Update reference count.
 		//
-		$collection->updateReferenceCount($theIdent, $theIdentOffset, $tag, $theCount );
+		$collection->updateReferenceCount(
+			$theIdent, $theIdentOffset, $tag_ref_count, $theCount );
 	
 	} // updateObjectReferenceCount.
 
@@ -4752,68 +5812,118 @@ abstract class PersistentObject extends OntologyObject
 	 * Update tag ranges
 	 *
 	 * This method will update all tag objects range values according to the current object
-	 * tag values.
+	 * tag values which are recorded in the {@link kTAG_OBJECT_OFFSETS} property.
 	 *
 	 * The method will cycle all object's tag offsets and with all those of kind continuous,
 	 * {@link kTYPE_QUANTITATIVE}, it will collect the minimum and maximum values and update
 	 * the related tag object's  minimum, {@link kTAG_MIN_VAL},and maximum
 	 * {@link kTAG_MAX_VAL}, properties.
 	 *
-	 * The method assumes the current object has its {@link dictionary()} set and the
-	 * {@link kTAG_OBJECT_OFFSETS} property updated.
+	 * The method assumes the current object has its {@link dictionary()} set.
 	 *
 	 * @access protected
 	 */
 	protected function updateTagRanges()
 	{
 		//
-		// Save and check offsets.
+		// Init local storage.
 		//
-		$offsets = $this->offsetGet( kTAG_OBJECT_OFFSETS );
-		if( ($offsets !== NULL)
-		 && count( $offsets ) )
+		$bounds = Array();
+		$tags = static::ClusterObjectOffsets( $this->offsetGet( kTAG_OBJECT_OFFSETS ) );
+		
+		//
+		// Iterate offsets.
+		//
+		foreach( $tags as $tag => $offsets )
 		{
 			//
-			// Resolve tag collection.
+			// Get type and kind.
 			//
-			$collection
-				= Tag::ResolveCollection(
-					Tag::ResolveDatabase( $this->mDictionary ) );
-			
+			static::OffsetTypes(
+				$this->mDictionary, $tag,
+				$type, $kind,
+				$min, $max, $pattern,
+				TRUE );
+		
 			//
-			// Iterate offsets.
+			// Handle quantitative kinds.
 			//
-			foreach( $offsets as $tag => $offsets )
+			if( in_array( kTYPE_QUANTITATIVE, $kind ) )
 			{
 				//
-				// Get type and kind.
+				// Init local storage.
 				//
-				static::OffsetTypes(
-					$this->mDictionary, $tag,
-					$type, $kind,
-					$min, $max, $pattern,
-					TRUE );
-			
+				$min = $max = NULL;
+				
 				//
-				// Handle quantitative kinds.
+				// Iterate offsets.
 				//
-				if( in_array( kTYPE_QUANTITATIVE, $kind ) )
+				foreach( $offsets as $offset )
 				{
 					//
-					// Init limits.
+					// Get value.
 					//
-					$min = $max = NULL;
-					
-					//
-					// Iterate offsets.
-					//
-					foreach( $offsets as $offset )
+					$value = $this->offsetGet( $offset );
+					if( $value !== NULL )
 					{
 						//
-						// Get value.
+						// Handle list.
 						//
-						$value = $this->offsetGet( $offset );
-						if( $value !== NULL )
+						if( is_array( $value ) )
+						{
+							//
+							// Collect values.
+							//
+							$values = Array();
+							foreach( $value as $element )
+							{
+								//
+								// Handle array.
+								// Note that a quantitative value can be at most
+								// one array level.
+								//
+								if( is_array( $element ) )
+								{
+									foreach( $element as $item )
+									{
+										if( ! in_array( $item, $values ) )
+											$values[] = $item;
+									}
+								}
+								
+								//
+								// Handle scalar.
+								//
+								if( ! in_array( $element, $values ) )
+									$values[] = $element;
+							}
+							
+							//
+							// Iterate list.
+							//
+							foreach( $values as $value )
+							{
+								//
+								// Handle minimum.
+								//
+								if( ($min === NULL)
+								 || ($value < $min) )
+									$min = $value;
+						
+								//
+								// Handle maximum.
+								//
+								if( ($max === NULL)
+								 || ($value > $max) )
+									$max = $value;
+							}
+						
+						} // List.
+						
+						//
+						// Handle scalar.
+						//
+						else
 						{
 							//
 							// Handle minimum.
@@ -4821,7 +5931,7 @@ abstract class PersistentObject extends OntologyObject
 							if( ($min === NULL)
 							 || ($value < $min) )
 								$min = $value;
-							
+						
 							//
 							// Handle maximum.
 							//
@@ -4829,41 +5939,47 @@ abstract class PersistentObject extends OntologyObject
 							 || ($value > $max) )
 								$max = $value;
 						
-						} // Has value.
+						} // Scalar.
 					
-					} // Iterating offsets.
-					
+					} // Has value.
+				
+				} // Iterating offsets.
+				
+				//
+				// Check limits.
+				//
+				if( ($min !== NULL)
+				 || ($max !== NULL) )
+				{
 					//
-					// Check limits.
+					// Init local storage.
 					//
-					if( ($min !== NULL)
-					 || ($max !== NULL) )
-					{
-						//
-						// Compute minimum modification.
-						//
-						if( $min !== NULL )
-							$min = array( kTAG_MIN_VAL => $min );
-					
-						//
-						// Compute maximum modification.
-						//
-						if( $max !== NULL )
-							$max = array( kTAG_MAX_VAL => $max );
-					
-						//
-						// Update tag.
-						//
-						$collection->limitsOffsets(
-							array( kTAG_ID_SEQUENCE => (int) $tag ), $min, $max );
-					
-					} // Has at least a limit.
-					
-				} // Quantitative tag.
-			
-			} // Iterating offsets.
+					$bounds[ $tag ] = Array();
+					$ref = & $bounds[ $tag ];
+				
+					//
+					// Compute minimum modification.
+					//
+					if( $min !== NULL )
+						$ref[ kTAG_MIN_VAL ] = $min;
+				
+					//
+					// Compute maximum modification.
+					//
+					if( $max !== NULL )
+						$ref[ kTAG_MAX_VAL ] = $min;
+				
+				} // Has at least a limit.
+				
+			} // Quantitative tag.
 		
-		} // Has offsets.
+		} // Iterating offsets.
+		
+		//
+		// Apply modifications.
+		//
+		if( count( $bounds ) )
+			Tag::UpdateRange( $this->mDictionary, $bounds, kTAG_ID_HASH );
 		
 	} // updateTagRanges.
 
@@ -5030,6 +6146,774 @@ abstract class PersistentObject extends OntologyObject
 		$theProperties[ kTAG_NID ] = $this->offsetGet( kTAG_NID );
 	
 	} // setGraphProperties.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	exportXMLObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Export the current object in XML format
+	 *
+	 * The method will return the XML representation of the object as a SimpleXMLElement
+	 * object.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The root XML node element.
+	 *	<li><b>$theWrapper</b>: The data wrapper related to the object.
+	 *	<li><b>$theUntracked</b>: The list of offsets to be excluded.
+	 * </ul>
+	 *
+	 * The provided parameter represents dynamic and run-time offsets that are managed by
+	 * the object's persistent framework.
+	 *
+	 * The method will generate a single XML element containing the object.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Dump container.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLObject( \SimpleXMLElement $theContainer,
+										Wrapper			  $theWrapper,
+														  $theUntracked )
+	{
+		//
+		// Create unit.
+		//
+		$unit = static::xmlUnitElement( $theContainer );
+		
+		//
+		// Traverse object.
+		//
+		$this->exportXMLStructure( $this, $unit, $theWrapper, $theUntracked );
+	
+	} // exportXMLObject.
+
+	 
+	/*===================================================================================
+	 *	exportXMLStructure																*
+	 *==================================================================================*/
+
+	/**
+	 * Export the provided structure to XML
+	 *
+	 * The method will load the provided structure into the provided XML container.
+	 *
+	 * @param mixed					$theStructure		Structure to export.
+	 * @param SimpleXMLElement		$theContainer		XML container (parent).
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLStructure(					 $theStructure,
+										   \SimpleXMLElement $theContainer,
+										   Wrapper			 $theWrapper,
+															 $theUntracked )
+	{
+		//
+		// Check structure.
+		//
+		if( is_array( $theStructure )
+		 || ($theStructure instanceof \ArrayObject) )
+		{
+			//
+			// Traverse structure.
+			//
+			foreach( $theStructure as $offset => $property )
+			{
+				//
+				// Handle only sequence hash offsets.
+				//
+				if( substr( $offset, 0, 1 ) == kTOKEN_TAG_PREFIX )
+				{
+					//
+					// Load tag.
+					//
+					$tag = $theWrapper->getObject( static::resolveOffset( $offset, TRUE ) );
+				
+					//
+					// Skip dynamic tags.
+					//
+					if( ! in_array( $tag[ kTAG_ID_HASH ], $theUntracked ) )
+					{
+						//
+						// Create element.
+						//
+						$element = $theContainer->addChild( kIO_XML_DATA );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $tag[ kTAG_NID ] );
+					
+						//
+						// Handle list.
+						//
+						if( array_key_exists( kTAG_DATA_KIND, $tag )
+						 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+						{
+							//
+							// Iterate list.
+							//
+							foreach( $property as $value )
+							{
+								//
+								// Create item.
+								//
+								$item = $element->addChild( kIO_XML_DATA );
+				
+								//
+								// Export property.
+								//
+								$this->exportXMLProperty(
+									$value, $item, $theWrapper, $theUntracked, $tag );
+			
+							} // Iterating list.
+					
+						} // List.
+					
+						//
+						// Handle scalar.
+						//
+						else
+							$this->exportXMLProperty(
+								$property, $element, $theWrapper, $theUntracked, $tag );
+		
+					} // Not a dynamic tag.
+				
+				} // Sequence hash offset.
+		
+			} // Traversing structure.
+		
+		} // Provided iterator.
+		
+		else
+			throw new \Exception(
+				"Unable to export object: "
+			   ."invalid or unsupported structure iterator." );					// !@! ==>
+	
+	} // exportXMLStructure.
+
+	 
+	/*===================================================================================
+	 *	exportXMLProperty																*
+	 *==================================================================================*/
+
+	/**
+	 * Export the provided property to XML
+	 *
+	 * The method will load the provided property into the provided XML container.
+	 *
+	 * @param mixed					$theProperty		Property to export.
+	 * @param SimpleXMLElement		$theContainer		XML container (parent).
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 * @param array					$theTag				Property tag.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLProperty(					$theProperty,
+										  \SimpleXMLElement $theContainer,
+										  Wrapper			$theWrapper,
+															$theUntracked,
+															$theTag )
+	{
+		//
+		// Parse by data type.
+		//
+		switch( $theTag[ kTAG_DATA_TYPE ] )
+		{
+			case kTYPE_STRUCT:
+				$this->exportXMLStructure(
+					$theProperty, $theContainer, $theWrapper, $theUntracked );
+				break;
+			
+			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRING:
+				foreach( $theProperty as $element )
+				{
+					$tmp0 = $theContainer->addChild( kIO_XML_DATA );
+					foreach( $element as $key => $value )
+					{
+						$tmp1 = $tmp0->addChild( kIO_XML_DATA );
+						$tmp1->addAttribute( kIO_XML_ATTR_QUAL_KEY, $key );
+						SetAsCDATA( $tmp1, $value );
+					}
+				}
+				break;
+			
+			case kTYPE_LANGUAGE_STRINGS:
+				foreach( $theProperty as $element )
+				{
+					$tmp0 = $theContainer->addChild( kIO_XML_DATA );
+					foreach( $element as $key => $value )
+					{
+						$tmp1 = $tmp0->addChild( kIO_XML_DATA );
+						$tmp1->addAttribute( kIO_XML_ATTR_QUAL_KEY, $key );
+						if( is_array( $value ) )
+						{
+							foreach( $value as $item )
+							{
+								$tmp2 = $tmp1->addChild( kIO_XML_DATA );
+								SetAsCDATA( $tmp2, $item );
+							}
+						}
+						else
+							SetAsCDATA( $tmp1, $value );
+					}
+				}
+				break;
+			
+			case kTYPE_SHAPE:
+				$tmp0 = $theContainer->addChild( kIO_XML_DATA, $theProperty[ kTAG_TYPE ] );
+				$tmp0->addAttribute( kIO_XML_ATTR_QUAL_KEY, kTAG_TYPE );
+				$tmp0 = $theContainer->addChild( kIO_XML_DATA );
+				$tmp0->addAttribute( kIO_XML_ATTR_QUAL_KEY, kTAG_GEOMETRY );
+				$this->exportXMLArray( $theProperty[ kTAG_GEOMETRY ], $tmp0 );
+				if( $theProperty[ kTAG_TYPE ] == 'Circle' )
+				{
+					$tmp0 = $theContainer->addChild( kIO_XML_DATA,
+													 $theProperty[ kTAG_RADIUS ] );
+					$tmp0->addAttribute( kIO_XML_ATTR_QUAL_KEY, kTAG_RADIUS );
+				}
+				break;
+			
+			case kTYPE_ENUM:
+				$theContainer[ 0 ] = $theProperty;
+				break;
+			
+			case kTYPE_SET:
+				foreach( $theProperty as $element )
+					$theContainer->addChild( kIO_XML_DATA, $element );
+				break;
+			
+			case kTYPE_ARRAY:
+				foreach( $theProperty as $key => $value )
+				{
+					$tmp0 = $theContainer->addChild( kIO_XML_DATA, $value );
+					$tmp0->addAttribute( kIO_XML_ATTR_QUAL_KEY, $key );
+				}
+				break;
+			
+			case kTYPE_BOOLEAN:
+				$theProperty = (int) $theProperty;
+			case kTYPE_STRING:
+			case kTYPE_TEXT:
+			case kTYPE_URL:
+			case kTYPE_YEAR:
+			case kTYPE_DATE:
+			case kTYPE_INT:
+			case kTYPE_FLOAT:
+			case kTYPE_REF_TAG:
+			case kTYPE_REF_TERM:
+			case kTYPE_REF_NODE:
+			case kTYPE_REF_EDGE:
+			case kTYPE_REF_ENTITY:
+			case kTYPE_REF_UNIT:
+			case kTYPE_REF_SELF:
+				SetAsCDATA( $theContainer, $theProperty );
+				break;
+			
+			case kTYPE_MIXED:
+				break;
+		
+		} // Parsed by data type.
+	
+	} // exportXMLProperty.
+
+	 
+	/*===================================================================================
+	 *	exportXMLArray																	*
+	 *==================================================================================*/
+
+	/**
+	 * Export the provided array to XML
+	 *
+	 * The method will load the provided array into the provided XML container, the method
+	 * expects an array or a series of nested arrays.
+	 *
+	 * @param mixed					$theProperty		Property to export.
+	 * @param SimpleXMLElement		$theContainer		XML container (parent).
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLArray(					 $theProperty,
+									   \SimpleXMLElement $theContainer )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theProperty ) )
+		{
+			//
+			// Iterate array.
+			//
+			foreach( $theProperty as $value )
+			{
+				//
+				// Create element.
+				//
+				$node = $theContainer->addChild( kIO_XML_DATA );
+				
+				//
+				// Set value.
+				//
+				if( is_array( $value ) )
+					$this->exportXMLArray( $value, $node );
+				else
+					SetAsCDATA( $node, $value );
+			}
+		
+		} // Array.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theContainer->addChild( kIO_XML_DATA, $theProperty );
+	
+	} // exportXMLArray.
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * This method should return the default XML unit element as a SimpleXMLElement object.
+	 *
+	 * The method expects the root element, it will add the unit element to it and return
+	 * the newly created child element.
+	 *
+	 * Derived concrete classes must implement this method.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	abstract protected function xmlUnitElement( \SimpleXMLElement $theRoot );
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED IMPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	loadXML																			*
+	 *==================================================================================*/
+
+	/**
+	 * Load from XML
+	 *
+	 * This method will load the object with the data contained in the provided XML
+	 * container, the container must be pointing to the unit node.
+	 *
+	 * In this class the method will process all the {@link kIO_XML_DATA} element of the
+	 * root node, derived classes should overload this method to handle root level
+	 * attributes.
+	 *
+	 * The object is expected to have its wrapper set.
+	 *
+	 * @param SimpleXMLElement		$theElement			XML element.
+	 *
+	 * @access protected
+	 */
+	protected function loadXML( \SimpleXMLElement $theElement )
+	{
+		//
+		// Handle root attributes here.
+		//
+		
+		//
+		// Iterate elements.
+		//
+		foreach( $theElement->{kIO_XML_DATA} as $element )
+		{
+			//
+			// Init value container.
+			//
+			$value = NULL;
+		
+			//
+			// Parse XML element.
+			//
+			$offset = $this->parseXMLElement( $element, $value );
+		
+			//
+			// Set container value.
+			//
+			$this->offsetSet( (string) $offset, $value );
+		
+		} // Iterating root elements.
+	
+	} // loadXML.
+
+	 
+	/*===================================================================================
+	 *	parseXMLElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse XML element
+	 *
+	 * The duty of this method is to parse the provided XML element and return the element
+	 * value in the provided container reference and the element offset as the result.
+	 *
+	 * @param SimpleXMLElement		$theElement			XML element.
+	 * @param mixed					$theValue			Value container.
+	 *
+	 * @access protected
+	 * @return string				Offset.
+	 *
+	 * @throws Exception
+	 */
+	protected function parseXMLElement( \SimpleXMLElement $theElement, &$theValue )
+	{
+		//
+		// Parse offset.
+		//
+		$offset = $this->parseXMLElementOffset( $theElement );
+	
+		//
+		// Handle scalars.
+		//
+		if( ! count( $theElement->{kIO_XML_DATA} ) )
+		{
+			//
+			// Handle scalar.
+			//
+			if( $theValue === NULL )
+				$theValue = (string) $theElement;
+			
+			//
+			// Handle array element.
+			//
+			elseif( $offset === NULL )
+				$theValue[] = (string) $theElement;
+			
+			//
+			// Handle structure element.
+			//
+			else
+				$theValue[ $offset ] = (string) $theElement;
+		
+		} // Scalar.
+		
+		//
+		// Handle structures.
+		//
+		else
+		{
+			//
+			// Allocate and reference value.
+			//
+			if( $offset === NULL )
+			{
+				if( $theValue === NULL )
+				{
+					$theValue = Array();
+					$value = & $theValue;
+				}
+				else
+				{
+					$theValue[] = Array();
+					$value = & $theValue[ count( $theValue ) - 1 ];
+				}
+			}
+			else
+			{
+				if( $theValue === NULL )
+				{
+					$theValue = Array();
+					$value = & $theValue;
+				}
+				else
+				{
+					$theValue[ (string) $offset ] = Array();
+					$value = & $theValue[ (string) $offset ];
+				}
+			}
+			
+			//
+			// Traverse structure.
+			//
+			foreach( $theElement->{kIO_XML_DATA} as $element )
+				$this->parseXMLElement( $element, $value );
+		
+		} // Structure.
+		
+		return $offset;																// ==>
+	
+	} // parseXMLElement.
+
+	 
+	/*===================================================================================
+	 *	parseXMLElementOffset															*
+	 *==================================================================================*/
+
+	/**
+	 * Parse XML element offset
+	 *
+	 * The duty of this method is to parse the provided XML element and return the
+	 * element offset.
+	 *
+	 * The method will return:
+	 *
+	 * <ul>
+	 *	<li><tt>integer</tt>: The element references a tag.
+	 *	<li><tt>string</tt>: The element references an object key.
+	 *	<li><tt>NULL</tt>: The element is an array element.
+	 * </ul>
+	 *
+	 * @param SimpleXMLElement		$theElement			XML element.
+	 *
+	 * @access protected
+	 * @return mixed				Offset or <tt>NULL</tt> for array elements.
+	 *
+	 * @throws Exception
+	 */
+	protected function parseXMLElementOffset( \SimpleXMLElement $theElement )
+	{
+		//
+		// Get offset from tag reference.
+		//
+		if( $theElement[ kIO_XML_ATTR_REF_TAG ] !== NULL )
+			return $this->resolveOffset(
+						(string) $theElement[ kIO_XML_ATTR_REF_TAG ], TRUE );		// ==>
+		
+		//
+		// Get offset from tag sequence number.
+		//
+		elseif( $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ] !== NULL )
+			return (string) $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ];				// ==>
+		
+		//
+		// Get offset from constant.
+		//
+		elseif( $theElement[ kIO_XML_ATTR_QUAL_CONST ] !== NULL )
+			return constant( (string) $theElement[ kIO_XML_ATTR_QUAL_CONST ] );		// ==>
+		
+		//
+		// Get offset from key.
+		//
+		elseif( $theElement[ kIO_XML_ATTR_QUAL_KEY ] !== NULL )
+			return (string) $theElement[ kIO_XML_ATTR_QUAL_KEY ];					// ==>
+		
+		//
+		// Handle array.
+		//
+		elseif( ($theElement[ kIO_XML_ATTR_STRUCT_REF ] === NULL)
+			 && ($theElement[ kIO_XML_ATTR_STRUCT_IDX ] === NULL)
+			 && ($theElement[ kIO_XML_ATTR_STRUCT_VAL ] === NULL) )
+			return NULL;															// ==>
+		
+		throw new \Exception(
+			"Unable to load XML element: "
+		   ."missing tag or key reference." );									// !@! ==>
+	
+	} // parseXMLElementOffset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									SHAPE UTILITIES										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setObjectShapes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set object shapes
+	 *
+	 * This method can be used to set the object {@link kTAG_GEO_SHAPE} and
+	 * {@link kTAG_GEO_SHAPE_DISP} properties, the method will first set the actual shape,
+	 * if this was performed, it will set the display shape.
+	 *
+	 * The method will return <tt>TRUE</tt> if the shapes were set or found and
+	 * <tt>FALSE</tt> if not.
+	 *
+	 * @param boolean				$doUpdate			TRUE means force update.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shapes were set or found.
+	 */
+	protected function setObjectShapes( $doUpdate = FALSE )
+	{
+		//
+		// Reset shapes.
+		//
+		if( $doUpdate )
+			$this->resetObjectShapes();
+		
+		//
+		// Check object shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Set actual shape.
+			//
+			if( $this->setObjectActualShape() )
+			{
+				//
+				// Set object display shape.
+				//
+				$this->setObjectDisplayShape();
+				
+				return TRUE;														// ==>
+			
+			} // Actual shape was set.
+		
+		} // Shape not set.
+		
+		return FALSE;																// ==>
+	
+	} // setObjectShapes.
+
+	 
+	/*===================================================================================
+	 *	setObjectActualShape															*
+	 *==================================================================================*/
+
+	/**
+	 * Set object actual shape
+	 *
+	 * This method can be used to the the object {@link kTAG_GEO_SHAPE} which represents
+	 * the object's real shape.
+	 *
+	 * The method will return <tt>TRUE</tt> if the shape was set or found and <tt>FALSE</tt>
+	 * if not.
+	 *
+	 * In this class we assume the object does not have a shape, in derived classes you
+	 * should only need to overload this method if the object features a shape.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the shape was set or found.
+	 */
+	protected function setObjectActualShape()							{	return FALSE;	}
+
+	 
+	/*===================================================================================
+	 *	setObjectDisplayShape															*
+	 *==================================================================================*/
+
+	/**
+	 * Set object display shape
+	 *
+	 * This method can be used to the the object display shape, {@link kTAG_GEO_SHAPE_DISP},
+	 * it expects the {@link setObjectActualShape()} to have been called beforehand.
+	 *
+	 * @access protected
+	 */
+	protected function setObjectDisplayShape()
+	{
+		//
+		// Check shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE_DISP ) )
+		{
+			//
+			// Get actual shape.
+			//
+			$shape = $this->offsetGet( kTAG_GEO_SHAPE );
+			
+			//
+			// Parse by actual shape type.
+			//
+			switch( $shape[ kTAG_TYPE ] )
+			{
+				case 'Point':
+					$this->offsetSet( kTAG_GEO_SHAPE_DISP, $shape );
+					break;
+				
+				case 'Circle':
+					$this->offsetSet(
+						kTAG_GEO_SHAPE_DISP,
+						array( kTAG_TYPE => 'Point',
+							   kTAG_GEOMETRY => $shape[ kTAG_GEOMETRY ] ) );
+					break;
+		/*		
+				case 'MultiPoint':
+				case 'LineString':
+					if( count( $shape[ kTAG_GEOMETRY ] ) == 2 )
+						$this->offsetSet(
+							kTAG_GEO_SHAPE_DISP,
+							array( kTAG_TYPE => 'Point',
+								   kTAG_GEOMETRY => Centroid( $shape[ kTAG_GEOMETRY ] ) ) );
+					elseif( count( $shape[ kTAG_GEOMETRY ] ) > 2 )
+						$this->offsetSet(
+							kTAG_GEO_SHAPE_DISP,
+							array( kTAG_TYPE => 'Point',
+								   kTAG_GEOMETRY
+								   	=> Centroid( Polygon( $shape[ kTAG_GEOMETRY ] ) ) ) );
+					break;
+		*/		
+				case 'MultiPoint':
+				case 'LineString':
+					$this->offsetSet(
+						kTAG_GEO_SHAPE_DISP,
+						$shape );
+					break;
+					
+				case 'Polygon':
+					$this->offsetSet(
+						kTAG_GEO_SHAPE_DISP,
+						array( kTAG_TYPE => 'Point',
+							   kTAG_GEOMETRY
+							   		=> Centroid( $shape[ kTAG_GEOMETRY ][ 0 ] ) ) );
+					break;
+			}
+		}
+	
+	} // setObjectDisplayShape.
+
+	 
+	/*===================================================================================
+	 *	resetObjectShapes																*
+	 *==================================================================================*/
+
+	/**
+	 * Reset object shapes
+	 *
+	 * This method can be used to reset the object {@link kTAG_GEO_SHAPE} and
+	 * {@link kTAG_GEO_SHAPE_DISP} properties, by default, the method will assume the shapes
+	 * to be at the root level of the object, derived classes should overload the method to
+	 * handle shapes embedded in sub-structures.
+	 *
+	 * @access protected
+	 */
+	protected function resetObjectShapes()
+	{
+		//
+		// Reset shapes.
+		//
+		$this->offsetUnset( kTAG_GEO_SHAPE );
+		$this->offsetUnset( kTAG_GEO_SHAPE_DISP );
+	
+	} // resetObjectShapes.
 
 		
 
@@ -5237,7 +7121,8 @@ abstract class PersistentObject extends OntologyObject
 				//
 				// New collection.
 				//
-				if( ! array_key_exists( $collection, $theOld ) )
+				if( (! is_array( $theOld ))
+				 || (! array_key_exists( $collection, $theOld )) )
 					$result[ $collection ] = $identifiers;
 				
 				//
@@ -5282,6 +7167,226 @@ abstract class PersistentObject extends OntologyObject
 		return $result;																// ==>
 	
 	} // compareObjectReferences.
+
+	 
+	/*===================================================================================
+	 *	addToFullText																	*
+	 *==================================================================================*/
+
+	/**
+	 * Add value to full text
+	 *
+	 * This method will add the label of the provided term to the {@link kTAG_FULL_TEXT_10},
+	 * {@link kTAG_FULL_TEXT_06} and {@link kTAG_FULL_TEXT_03} of the current object.
+	 *
+	 * The method assumes the current object has its wrapper set and the default language
+	 * definition is in the includes.
+	 *
+	 * If the term is not resolved, the method will do nothing.
+	 *
+	 * @param mixed					$theValue			Value to add.
+	 * @param string				$theLanguage		Text language.
+	 * @param string				$theType			Tag type.
+	 * @param array					$theKind			Tag kind.
+	 *
+	 * @access protected
+	 *
+	 * @see kTAG_FULL_TEXT_10 kTAG_FULL_TEXT_06 kTAG_FULL_TEXT_03
+	 * @see kTYPE_FULL_TEXT_10 kTYPE_FULL_TEXT_06 kTYPE_FULL_TEXT_03
+	 */
+	protected function addToFullText( $theValue, $theLanguage, $theType, $theKind )
+	{
+		//
+		// Check value.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Check kind.
+			//
+			if( $weight = array_intersect( $theKind,
+										   array( kTYPE_FULL_TEXT_10,
+												  kTYPE_FULL_TEXT_06,
+												  kTYPE_FULL_TEXT_03 ) ) )
+			{
+				//
+				// Get weight.
+				//
+				switch( $weight = array_shift( $weight ) )
+				{
+					case kTYPE_FULL_TEXT_10:
+						$offset = kTAG_FULL_TEXT_10;
+						break;
+					case kTYPE_FULL_TEXT_06:
+						$offset = kTAG_FULL_TEXT_06;
+						break;
+					case kTYPE_FULL_TEXT_03:
+						$offset = kTAG_FULL_TEXT_03;
+						break;
+					
+					default:
+						throw new \Exception(
+							"Unable to set full-text property: "
+						   ."invalid weight type [$weight]." );					// !@! ==>
+				}
+				
+				//
+				// Parse by type.
+				//
+				switch( $theType )
+				{
+					case kTYPE_TEXT:
+					case kTYPE_STRING:
+						//
+						// Recurse arrays.
+						//
+						if( is_array( $theValue ) )
+						{
+							foreach( $theValue as $value )
+								$this->addToFullText(
+									$value,
+									$theLanguage,
+									$theType,
+									$theKind );
+						}
+						//
+						// Hamdle scalars.
+						//
+						else
+						{
+							//
+							// Skip empty strings.
+							//
+							if( strlen( $theValue ) )
+							{
+								//
+								// Init full-text property.
+								//
+								$text = $this->offsetGet( $offset );
+								if( $text === NULL )
+									$text = Array();
+								//
+								// Add to property.
+								//
+								if( ! in_array( $theValue, $text ) )
+								{
+									$text[] = (string) $theValue;
+									$this->offsetSet( $offset, $text );
+								}
+							}
+						}
+						break;
+			
+					case kTYPE_LANGUAGE_STRING:
+					case kTYPE_LANGUAGE_STRINGS:
+					case kTYPE_TYPED_LIST:
+						//
+						// Init full-text property.
+						//
+						$text = $this->offsetGet( $offset );
+						if( $text === NULL )
+							$text = Array();
+						//
+						// Iterate list.
+						//
+						foreach( $theValue as $value )
+						{
+							//
+							// Assert text component.
+							//
+							if( array_key_exists( kTAG_TEXT, $value ) )
+							{
+								//
+								// Handle typed list.
+								//
+								if( $theType == kTYPE_TYPED_LIST )
+								{
+									if( strlen( $value[ kTAG_TEXT ] )
+									 && (! in_array( $value[ kTAG_TEXT ], $text )) )
+										$text[] = $value[ kTAG_TEXT ];
+								}
+								//
+								// Handle language strings.
+								//
+								else
+								{
+									//
+									// Select language.
+									//
+									if( (! array_key_exists( kTAG_LANGUAGE, $value ))
+									 || ($value[ kTAG_LANGUAGE ] == $theLanguage) )
+									{
+										//
+										// Handle language string.
+										//
+										if( $theType == kTYPE_LANGUAGE_STRING )
+										{
+											if( strlen( $value[ kTAG_TEXT ] )
+											 && (! in_array( $value[ kTAG_TEXT ], $text )) )
+												$text[] = $value[ kTAG_TEXT ];
+										}
+										//
+										// Handle language strings.
+										//
+										else
+										{
+											foreach( $value[ kTAG_TEXT ] as $element )
+											{
+												if( strlen( $element )
+												 && (! in_array( $element, $text )) )
+													$text[] = (string) $element;
+											}
+										}
+									}
+								}
+							}
+						}
+						//
+						// Update to property.
+						//
+						if( count( $text ) )
+							$this->offsetSet( $offset, $text );
+						break;
+			
+					case kTYPE_SET:
+						//
+						// Recurse enumerated set.
+						//
+						foreach( $theValue as $value )
+							$this->addToFullText(
+								$value,
+								$theLanguage,
+								kTYPE_ENUM,
+								$theKind );
+						break;
+		
+					case kTYPE_ENUM:
+						//
+						// Get term.
+						//
+						$term = new Term( $this->mDictionary, $theValue );
+						//
+						// Recurse with term label.
+						//
+						if( $term->isCommitted() )
+							$this->addToFullText(
+								$term[ kTAG_LABEL ],
+								$theLanguage,
+								kTYPE_LANGUAGE_STRING,
+								$theKind );
+						else
+							throw new \Exception(
+								"Unable to set full-text property: "
+							   ."unresolved term [$theValue]." );				// !@! ==>
+						break;
+		
+				} // Parsed by type.
+			
+			} // Add to full-text.
+		
+		} // Value provided.
+	
+	} // addToFullText.
 
 	 
 

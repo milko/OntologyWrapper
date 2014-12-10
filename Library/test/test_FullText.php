@@ -84,7 +84,7 @@ try
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
-	$wrapper->Entities(
+	$wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	$wrapper->Units(

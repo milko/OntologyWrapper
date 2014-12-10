@@ -87,10 +87,10 @@ try
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
 	//
-	// Set entities.
+	// Set users.
 	//
-	echo( "  • Setting entities.\n" );
-	$entities = $wrapper->Entities(
+	echo( "  • Setting users.\n" );
+	$users = $wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
@@ -121,9 +121,9 @@ try
 	$wrapper->resetUnits( TRUE );
 	
 	//
-	// Reset entities.
+	// Reset users.
 	//
-	$wrapper->resetEntities( TRUE );
+	$wrapper->resetUsers( TRUE );
 }
 
 //

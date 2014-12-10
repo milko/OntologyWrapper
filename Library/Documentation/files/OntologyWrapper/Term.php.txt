@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\PersistentObject;
+use OntologyWrapper\MetadataObject;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
 use OntologyWrapper\CollectionObject;
@@ -47,6 +47,7 @@ use OntologyWrapper\CollectionObject;
  *		is a string that represents the current term unique identifier within its namespace.
  *		The combination of the current term's namespace and this attribute form the term's
  *		global identifier. This attribute must be managed with its offset.
+ *		<em>Codes may not begin with the {@link kTOKEN_TAG_PREFIX} token.</em>
  *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Attribute graph node</em>. If the wrapper uses
  *		a graph database, this property will be used to reference the graph node which
  *		represents the current term as a data attribute of a tag; it is an integer value
@@ -54,7 +55,7 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label represents the <i>name or
  *		short description</i> of the term that the current object defines. All terms
  *		<em>should</em> have a label, since this is how human users will be able to identify
- *		and select them. This attribute has the {@link kTYPE_LANGUAGE_STRINGS} data type,
+ *		and select them. This attribute has the {@link kTYPE_LANGUAGE_STRING} data type,
  *		which is constituted by a list of elements in which the {@link kTAG_LANGUAGE} item
  *		holds the label language code and the {@link kTAG_TEXT} holds the label text. To
  *		populate and handle labels by language, use the {@link Label()} offset accessor
@@ -65,7 +66,7 @@ use OntologyWrapper\CollectionObject;
  *		defines. The definition is similar to the <em>description</em>, except that while
  *		the description provides context specific information, the definition should not.
  *		All terms <em>should</em> have a definition, if the object label is not enough to
- *		provide a sufficient definition. Definitions have the {@link kTYPE_LANGUAGE_STRINGS}
+ *		provide a sufficient definition. Definitions have the {@link kTYPE_LANGUAGE_STRING}
  *		data type in which the {@link kTAG_LANGUAGE} element holds the definition language
  *		code and the {@link kTAG_TEXT} holds the definition text. To populate and handle
  *		definitions by language, use the {@link Definition()} offset accessor method.
@@ -98,7 +99,7 @@ use OntologyWrapper\CollectionObject;
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
  */
-class Term extends PersistentObject
+class Term extends MetadataObject
 {
 	/**
 	 * Label trait.
@@ -228,6 +229,43 @@ class Term extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the term's label.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		//
+		// Check label.
+		//
+		if( $this->offsetExists( kTAG_LABEL ) )
+			return OntologyObject::SelectLanguageString(
+				$this->offsetGet( kTAG_LABEL ), $theLanguage );						// ==>
+		
+		return NULL;																// ==>
+	
+	} // getName.
+
+	
+
+/*=======================================================================================
+ *																						*
  *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -320,6 +358,12 @@ class Term extends PersistentObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		//
 		// Set local identifier index.
 		//
 		$collection->createIndex( array( kTAG_ID_LOCAL => 1 ),
@@ -354,7 +398,7 @@ class Term extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -367,13 +411,16 @@ class Term extends PersistentObject
 	/**
 	 * Return default offsets
 	 *
-	 * This method will return the current object list of default offsets, these offsets
-	 * represent the default offsets of the object, which means that all objects derived
-	 * from this class may feature these offsets. This method is used to exclude these
-	 * offsets from statistical procedures, such as {@link CollectOffsets()}, since it is
-	 * implied that these offsets will be there.
+	 * In this class we return:
 	 *
-	 * In this class we return an empty array.
+	 * <ul>
+	 *	<li><tt>{@link kTAG_NAMESPACE}</tt>: Term namespace reference.
+	 *	<li><tt>{@link kTAG_ID_LOCAL}</tt>: Term local identifier.
+	 *	<li><tt>{@link kTAG_TERM_TYPE}</tt>: Term type.
+	 *	<li><tt>{@link kTAG_LABEL}</tt>: Term label.
+	 *	<li><tt>{@link kTAG_DEFINITION}</tt>: Term definition.
+	 *	<li><tt>{@link kTAG_SYNONYM}</tt>: Term synonyms.
+	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.
@@ -381,8 +428,9 @@ class Term extends PersistentObject
 	static function DefaultOffsets()
 	{
 		return array_merge( parent::DefaultOffsets(),
-							array( kTAG_NAMESPACE, kTAG_ID_LOCAL,
-								   kTAG_LABEL, kTAG_DEFINITION ) );					// ==>
+							array( kTAG_NAMESPACE, kTAG_ID_LOCAL, kTAG_TERM_TYPE,
+								   kTAG_LABEL, kTAG_DEFINITION,
+								   kTAG_SYNONYM ) );								// ==>
 	
 	} // DefaultOffsets.
 
@@ -500,6 +548,162 @@ class Term extends PersistentObject
 	
 	} // ResolveCountryCode.
 
+	 
+	/*===================================================================================
+	 *	ResolveTaxonGroup																*
+	 *==================================================================================*/
+
+	/**
+	 * Get taxon group
+	 *
+	 * This method will return the crop, crop group, crop category and annex-1 groups
+	 * according to the provided genus and species.
+	 *
+	 * The method will return an array indexed by crop, crop group, crop category and
+	 * annex-1 groups containing the relative values; if there is no match, the method
+	 * will return an empty array.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param string				$theGenus			Genus.
+	 * @param string				$theSpecies			Species.
+	 *
+	 * @static
+	 * @return array				The list of taxon groups.
+	 */
+	static function ResolveTaxonGroup( Wrapper $theWrapper, $theGenus, $theSpecies = NULL )
+	{
+		//
+		// Init local storage.
+		//
+		$list = Array();
+		$t_genus = (string) $theWrapper->getSerial( ':taxon:genus', TRUE );
+		$t_species = (string) $theWrapper->getSerial( ':taxon:species', TRUE );
+		$t_crop = (string) $theWrapper->getSerial( ':taxon:crop', TRUE );
+		$t_group = (string) $theWrapper->getSerial( ':taxon:crop:group', TRUE );
+		$t_category = (string) $theWrapper->getSerial( ':taxon:crop:category', TRUE );
+		$t_annex1 = (string) $theWrapper->getSerial( ':taxon:annex-1', TRUE );
+		$t_included = (string) $theWrapper->getSerial( ':taxon:group:taxa', TRUE );
+		$t_excluded = (string) $theWrapper->getSerial( ':taxon:group:taxa:excluded', TRUE );
+		$collection
+			= Term::ResolveCollection(
+				Term::ResolveDatabase( $theWrapper ) );
+		
+		//
+		// Normalise species.
+		//
+		if( ($theSpecies == 'sp')
+		 || ($theSpecies == 'sp.') )
+			$theSpecies = NULL;
+		
+		//
+		// Query crop.
+		//
+		$query = array( kTAG_NAMESPACE => ':taxon:crop' );
+		if( strlen( $theSpecies ) )
+			$query[ $t_included ] = array(
+				'$elemMatch' => array(
+					$t_genus => $theGenus,
+					$t_species => $theSpecies ) );
+		else
+			$query[ $t_included ] = array(
+				'$elemMatch' => array(
+					$t_genus => $theGenus,
+					$t_species => array(
+						'$exists' => FALSE ) ) );
+		
+		//
+		// Find crop.
+		//
+		$term = $collection->matchOne( $query, kQUERY_OBJECT );
+		
+		//
+		// Check genus only.
+		//
+		if( ($term === NULL)
+		 && strlen( $theSpecies ) )
+		{
+			//
+			// Update query.
+			//
+			$query[ $t_included ][ '$elemMatch' ][ $t_species ]
+				= array( '$exists' => FALSE );
+			$term = $collection->matchOne( $query, kQUERY_OBJECT );
+		
+		} // Found crops.
+		
+		//
+		// Check crop.
+		//
+		if( $term !== NULL )
+		{
+			//
+			// Load crop.
+			//
+			$list[ $t_crop ] = $term[ kTAG_NID ];
+			if( ($tmp = $term[ $t_group ]) !== NULL )
+				$list[ $t_group ] = $tmp;
+			if( ($tmp = $term[ $t_category ]) !== NULL )
+				$list[ $t_category ] = $tmp;
+		
+		} // Found crop.
+		
+		//
+		// Query annex 1.
+		//
+		$query = array( kTAG_NAMESPACE => ':taxon:annex-1' );
+		if( strlen( $theSpecies ) )
+			$query[ $t_included ] = array(
+				'$elemMatch' => array(
+					$t_genus => $theGenus,
+					$t_species => $theSpecies ) );
+		else
+			$query[ $t_included ] = array(
+				'$elemMatch' => array(
+					$t_genus => $theGenus,
+					$t_species => array(
+						'$exists' => FALSE ) ) );
+		
+		//
+		// Find annex 1.
+		//
+		$term = $collection->matchOne( $query, kQUERY_OBJECT );
+		
+		//
+		// Check genus only.
+		//
+		if( ($term === NULL)
+		 && strlen( $theSpecies ) )
+		{
+			//
+			// Update query.
+			//
+			$query[ $t_included ][ '$elemMatch' ][ $t_species ]
+				= array( '$exists' => FALSE );
+			$query[ $t_excluded ] = array(
+				'$not' => array(
+					'$elemMatch' => array(
+						$t_genus => $theGenus,
+						$t_species => $theSpecies ) ) );
+			$term = $collection->matchOne( $query, kQUERY_OBJECT );
+		
+		} // Found crops.
+		
+		//
+		// Check annex 1.
+		//
+		if( $term !== NULL )
+		{
+			//
+			// Load annex 1.
+			//
+			$list[ $t_annex1 ] = $term[ kTAG_NID ];
+		
+		} // Found crop.
+		
+		return $list;																// ==>
+	
+	} // ResolveTaxonGroup.
+
 		
 
 /*=======================================================================================
@@ -567,10 +771,15 @@ class Term extends PersistentObject
 	 * In this class we set the {@link isInited()} status if the object has the local
 	 * identifier and the label.
 	 *
+	 * We also ensure that no local identifier is prefixed with the
+	 * {@link kTOKEN_TAG_PREFIX} token.
+	 *
 	 * @param reference				$theOffset			Offset reference.
 	 * @param reference				$theValue			Offset value reference.
 	 *
 	 * @access protected
+	 *
+	 * @throws Exception
 	 *
 	 * @see kTAG_ID_LOCAL kTAG_LABEL
 	 *
@@ -582,6 +791,17 @@ class Term extends PersistentObject
 		// Call parent method.
 		//
 		parent::postOffsetSet( $theOffset, $theValue );
+		
+		//
+		// Validate local identifier.
+		//
+		if( ($theOffset == kTAG_ID_LOCAL)
+		 && (substr( $theValue, 0, 1 ) == kTOKEN_TAG_PREFIX) )
+			throw new \Exception(
+				"Unable to set local identifier: "
+			   ."the '"
+			   .kTOKEN_TAG_PREFIX
+			   ."' character is not allowed as the identifier prefix." );		// !@! ==>
 		
 		//
 		// Set initialised status.
@@ -766,6 +986,140 @@ class Term extends PersistentObject
 								   kTAG_ID_LOCAL ) );								// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	exportXMLObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Export the current object in XML format
+	 *
+	 * We overload this method to add the {@link kTAG_NAMESPACE} and {@link kTAG_ID_LOCAL}
+	 * offsets to the untracked offsets list, since these are set in the unit node
+	 * attributes.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Dump container.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLObject( \SimpleXMLElement $theContainer,
+										Wrapper			  $theWrapper,
+														  $theUntracked )
+	{
+		//
+		// Create unit.
+		//
+		$unit = static::xmlUnitElement( $theContainer );
+		
+		//
+		// Add namespace and local identifier to untracked.
+		//
+		$theUntracked = array_merge( $theUntracked,
+									 array( kTAG_NAMESPACE, kTAG_ID_LOCAL ) );
+		
+		//
+		// Traverse object.
+		//
+		$this->exportXMLStructure( $this, $unit, $theWrapper, $theUntracked );
+	
+	} // exportXMLObject.
+
+	 
+	/*===================================================================================
+	 *	loadXML																			*
+	 *==================================================================================*/
+
+	/**
+	 * Load from XML
+	 *
+	 * In this class we overload the inherited method to handle the {@link kTAG_NAMESPACE}
+	 * and {@link kTAG_ID_LOCAL} offsets whose data is found in the root node attributes.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Export container (unit).
+	 *
+	 * @access public
+	 */
+	public function loadXML( \SimpleXMLElement $theContainer )
+	{
+		//
+		// Load namespace.
+		//
+		if( $theContainer[ kIO_XML_ATTR_NAMESPACE ] !== NULL )
+			$this[ kTAG_NAMESPACE ]
+				= (string) $theContainer[ kIO_XML_ATTR_NAMESPACE ];
+	
+		//
+		// Load local identifier.
+		//
+		if( $theContainer[ kIO_XML_ATTR_ID_LOCAL ] !== NULL )
+			$this[ kTAG_ID_LOCAL ]
+				= (string) $theContainer[ kIO_XML_ATTR_ID_LOCAL ];
+		
+		//
+		// Load other data.
+		//
+		parent::loadXML( $theContainer );
+	
+	} // loadXML.
+
+	
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>TERM</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		//
+		// Create element.
+		//
+		$element = parent::xmlUnitElement( $theRoot )->addChild( kIO_XML_META_TERM );
+		
+		//
+		// Set namespace.
+		//
+		if( $this->offsetExists( kTAG_NAMESPACE ) )
+			$element->addAttribute( kIO_XML_ATTR_NAMESPACE,
+									$this->offsetGet( kTAG_NAMESPACE ) );
+		
+		//
+		// Set local identifier.
+		//
+		if( $this->offsetExists( kTAG_ID_LOCAL ) )
+			$element->addAttribute( kIO_XML_ATTR_ID_LOCAL,
+									$this->offsetGet( kTAG_ID_LOCAL ) );
+		
+		//
+		// Set native identifier.
+		//
+		if( $this->offsetExists( kTAG_NID ) )
+			$element->addAttribute( kIO_XML_ATTR_ID_PERSISTENT,
+									$this->offsetGet( kTAG_NID ) );
+		
+		return $element;															// ==>
+	
+	} // xmlUnitElement.
 
 		
 

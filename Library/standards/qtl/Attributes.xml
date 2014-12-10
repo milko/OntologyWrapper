@@ -413,7 +413,7 @@
 			<item const="kTAG_TERMS">
 				<item>qtl:SNP</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>

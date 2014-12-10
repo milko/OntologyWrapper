@@ -94,8 +94,8 @@ if( $argc < 4 )
 // Init local storage.
 //
 $start = 0;
-$limit = 200;
-$backup = 10000;
+$limit = 600;
+$backup = 24000;
 $dc = $dc_out = $rs = NULL;
 
 //
@@ -157,8 +157,8 @@ try
 	//
 	// Set entities.
 	//
-	echo( "  • Setting entities.\n" );
-	$wrapper->Entities( $mongo );
+	echo( "  • Setting users.\n" );
+	$wrapper->Users( $mongo );
 	
 	//
 	// Check graph database.

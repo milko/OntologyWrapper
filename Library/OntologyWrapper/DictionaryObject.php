@@ -139,7 +139,7 @@ abstract class DictionaryObject extends ContainerObject
 		//
 		// Check serial identifier.
 		//
-		if( ! array_key_exists( kTAG_ID_SEQUENCE, $theTag ) )
+		if( ! array_key_exists( kTAG_ID_HASH, $theTag ) )
 			throw new \Exception(
 				"Missing tag serial identifier." );								// !@! ==>
 		
@@ -153,16 +153,16 @@ abstract class DictionaryObject extends ContainerObject
 		//
 		// Set identifiers.
 		//
-		$this->setEntry( (string) $theTag[ kTAG_NID ],			// Persistent identifier.
-						 (int)	  $theTag[ kTAG_ID_SEQUENCE ],	// Serial identifier.
-						 		  $theLife );
+		$this->setEntry( $theTag[ kTAG_NID ],			// Persistent identifier.
+						 $theTag[ kTAG_ID_HASH ],		// Serial identifier.
+						 $theLife );
 		
 		//
 		// Set object.
 		//
-		$this->setEntry( (int)	  $theTag[ kTAG_ID_SEQUENCE ],	// Serial identifier.
-						 		  $theTag,						// Object.
-						 		  $theLife );
+		$this->setEntry( $theTag[ kTAG_ID_HASH ],		// Serial identifier.
+						 $theTag,						// Object.
+						 $theLife );
 	
 	} // setTag.
 
@@ -194,7 +194,7 @@ abstract class DictionaryObject extends ContainerObject
 		//
 		// Set iterator key to tag sequence number.
 		//
-		$theTags->setKeyOffset( kTAG_ID_SEQUENCE );
+		$theTags->setKeyOffset( kTAG_ID_HASH );
 		
 		//
 		// Set objects.
@@ -211,7 +211,7 @@ abstract class DictionaryObject extends ContainerObject
 		//
 		$serials = Array();
 		foreach( $theTags as $id => $tag )
-			$serials[ $id ] = (int) $tag[ kTAG_ID_SEQUENCE ];
+			$serials[ $id ] = $tag[ kTAG_ID_HASH ];
 	
 		//
 		// Set sequences.
@@ -249,11 +249,19 @@ abstract class DictionaryObject extends ContainerObject
 	public function getSerial( $theIdentifier, $doAssert = TRUE )
 	{
 		//
-		// Match offset.
+		// Handle serial.
 		//
-		$id = $this->getEntry( (string) $theIdentifier, $doAssert );
-		if( $id !== NULL )
-			return (int) $id;														// ==>
+		if( substr( $theIdentifier, 0, 1 ) == kTOKEN_TAG_PREFIX )
+		{
+			if( is_array( $this->getEntry( $theIdentifier ) ) )
+				return $theIdentifier;												// ==>
+		}
+		
+		//
+		// Handle identifier.
+		//
+		elseif( is_string( $tmp = $this->getEntry( $theIdentifier ) ) )
+			return $tmp;															// ==>
 		
 		//
 		// Assert.
@@ -282,7 +290,7 @@ abstract class DictionaryObject extends ContainerObject
 	 * method will return <tt>NULL</tt> on a mismatch. By default this option is
 	 * <tt>TRUE</tt>.
 	 *
-	 * @param integer				$theIdentifier		Serial identifier.
+	 * @param string				$theIdentifier		Serial identifier.
 	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert match.
 	 *
 	 * @access public
@@ -293,13 +301,24 @@ abstract class DictionaryObject extends ContainerObject
 	 * @uses getEntry()
 	 */
 	public function getObject( $theIdentifier, $doAssert = TRUE )
-	{
+	{		
 		//
-		// Match offset.
+		// Handle identifier.
 		//
-		$object = $this->getEntry( (int) $theIdentifier, $doAssert );
-		if( $object !== NULL )
-			return $object;															// ==>
+		if( ! substr( $theIdentifier, 0, 1 ) == kTOKEN_TAG_PREFIX )
+		{
+			if( ($tmp = $this->getEntry( $theIdentifier )) !== NULL )
+			{
+				if( is_array( $tmp = $this->getEntry( $tmp ) ) )
+					return $tmp;													// ==>
+			}
+		}
+		
+		//
+		// Handle serial.
+		//
+		elseif( is_array( $tmp = $this->getEntry( $theIdentifier ) ) )
+			return $tmp;															// ==>
 		
 		//
 		// Assert.
@@ -329,7 +348,7 @@ abstract class DictionaryObject extends ContainerObject
 	 * method will set the data type to <tt>NULL</tt>, the data kind to an empty array, the
 	 * range to an empty array and the pattern to <tt>NULL</tt>.
 	 *
-	 * @param integer				$theIdentifier		Serial identifier.
+	 * @param string				$theIdentifier		Serial identifier.
 	 * @param string				$theType			Receives data type.
 	 * @param array					$theKind			Receives data kind.
 	 * @param mixed					$theMin				Receives minimum data range.
@@ -360,7 +379,7 @@ abstract class DictionaryObject extends ContainerObject
 		//
 		// Match offset.
 		//
-		$object = $this->getEntry( (int) $theIdentifier, $doAssert );
+		$object = $this->getObject( $theIdentifier, $doAssert );
 		if( $object !== NULL )
 		{
 			//
@@ -406,7 +425,7 @@ abstract class DictionaryObject extends ContainerObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kTAG_NID}</tt>: Native identifier.
-	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Sequence number.
+	 *	<li><tt>{@link kTAG_ID_HASH}</tt>: Sequence number.
 	 *	<li><tt>{@link kTAG_LABEL}</tt>: Label.
 	 *	<li><tt>{@link kTAG_DESCRIPTION}</tt>: Description.
 	 *	<li><tt>{@link kTAG_DATA_TYPE}</tt>: Data type.
@@ -429,7 +448,7 @@ abstract class DictionaryObject extends ContainerObject
 	 */
 	public function getTagOffsets()
 	{
-		return array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
+		return array( kTAG_NID => TRUE, kTAG_ID_HASH => TRUE,
 					  kTAG_LABEL => TRUE, kTAG_DESCRIPTION => TRUE,
 					  kTAG_DATA_TYPE => TRUE, kTAG_DATA_KIND => TRUE,
 					  kTAG_TAG_STRUCT => TRUE, kTAG_TAG_STRUCT_IDX => TRUE,
@@ -468,9 +487,9 @@ abstract class DictionaryObject extends ContainerObject
 	public function delTag( $theIdentifier, $doAssert = FALSE )
 	{
 		//
-		// Handle persistent identifier.
+		// Handle serial identifier.
 		//
-		if( is_int( $theIdentifier ) )
+		if( substr( $theIdentifier, 0, 1 ) == kTOKEN_TAG_PREFIX )
 		{
 			//
 			// Get tag.
@@ -499,7 +518,7 @@ abstract class DictionaryObject extends ContainerObject
 			//
 			// Save persistent identifier.
 			//
-			$id_persist = (string) $theIdentifier;
+			$id_persist = $theIdentifier;
 		
 			//
 			// Get serial identifier.
@@ -560,10 +579,12 @@ abstract class DictionaryObject extends ContainerObject
 	 * Check if dictionary is filled
 	 *
 	 * This method will return <tt>TRUE</tt> if the current dictionary can resolve the
-	 * <tt>kTAG_DOMAIN</tt> identifier.
+	 * <tt>kTAG_ROLES</tt> identifier.
 	 *
 	 * We assume that if the dictionary can resolve this identifier, it means it must be
 	 * filled.
+	 *
+	 * We check whether the {@link kTAG_ROLES} serial resolved to the correct tag object.
 	 *
 	 * @access public
 	 * @return boolean				<tt>TRUE</tt> means filled.
@@ -571,11 +592,12 @@ abstract class DictionaryObject extends ContainerObject
 	public function dictionaryFilled()
 	{
 		//
-		// Get domain tag object.
+		// Get roles tag object.
 		//
-		$domain = $this->getObject( kTAG_DOMAIN, FALSE );
+		if( ! is_array( $object = $this->getObject( kTAG_ROLES, FALSE ) ) )
+			return FALSE;															// ==>
 		
-		return ( $domain !== NULL );												// ==>
+		return ( $object[ kTAG_ID_HASH ] == kTAG_ROLES );							// ==>
 	
 	} // dictionaryFilled.
 

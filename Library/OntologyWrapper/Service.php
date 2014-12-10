@@ -460,6 +460,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_STATS}</tt>: List statistics by domain.
+	 *	<li><tt>{@link kAPI_OP_LIST_DOMAINS}</tt>: List domains and unit counts.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
@@ -496,6 +497,7 @@ class Service extends ContainerObject
 			case kAPI_OP_LIST_OPERATORS:
 			case kAPI_OP_LIST_REF_COUNTS:
 			case kAPI_OP_LIST_STATS:
+			case kAPI_OP_LIST_DOMAINS:
 			case kAPI_OP_MATCH_TAG_LABELS:
 			case kAPI_OP_MATCH_TAG_SUMMARY_LABELS:
 			case kAPI_OP_MATCH_TERM_LABELS:
@@ -800,6 +802,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_STATS}</tt>: List statistics by domain.
+	 *	<li><tt>{@link kAPI_OP_LIST_DOMAINS}</tt>: List domains and unit counts.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
@@ -837,6 +840,7 @@ class Service extends ContainerObject
 			case kAPI_OP_LIST_CONSTANTS:
 			case kAPI_OP_LIST_OPERATORS:
 			case kAPI_OP_LIST_REF_COUNTS:
+			case kAPI_OP_LIST_DOMAINS:
 				break;
 			
 			case kAPI_OP_LIST_STATS:
@@ -1044,12 +1048,11 @@ class Service extends ContainerObject
 					{
 						foreach( $tmp as $key => $value )
 						{
-							if( (! is_int( $value ))
-							 && (! ctype_digit( $value )) )
+							if( substr( $value, 0, 1 ) != kTOKEN_TAG_PREFIX )
 								$value = $this->mWrapper->getSerial( $value, TRUE );
 							$value
 								= $this->mWrapper
-									->getObject( $value, TRUE )[ kTAG_ID_SEQUENCE ];
+									->getObject( $value, TRUE )[ kTAG_ID_HASH ];
 							$tmp[ $key ] = $value;
 						}
 						$this->offsetSet( kAPI_PARAM_EXCLUDED_TAGS, array_unique( $tmp ) );
@@ -1110,10 +1113,9 @@ class Service extends ContainerObject
 			//
 			// Handle serial number.
 			//
-			if( is_int( $tag )
-			 || ctype_digit( $tag ) )
+			if( substr( $tag, 0, 1 ) == kTOKEN_TAG_PREFIX )
 			{
-				$tag = $this->mWrapper->getObject( (int) $tag, FALSE );
+				$tag = $this->mWrapper->getObject( $tag, FALSE );
 				if( $tag )
 					$tag = $tag[ kTAG_NID ];
 			}
@@ -1186,8 +1188,7 @@ class Service extends ContainerObject
 		//
 		// Handle string offsets.
 		//
-		if( (! is_int( $tag ))
-		 && (! ctype_digit( $tag )) )
+		if( substr( $tag, 0, 1 ) != kTOKEN_TAG_PREFIX )
 			$tag = $this->mWrapper->getSerial( $tag, TRUE );
 		
 		//
@@ -1428,8 +1429,7 @@ class Service extends ContainerObject
 		foreach( $tmp as $key => $value )
 		{
 			if( ($key != kAPI_PARAM_FULL_TEXT_OFFSET)
-			 && ( (! is_int( $key ))
-			   || (! ctype_digit( $key )) ) )
+			 && (substr( $key, 0, 1 ) != kTOKEN_TAG_PREFIX) )
 				$key = $this->mWrapper->getSerial( $key, TRUE );
 			
 			$criteria[ $key ] = $value;
@@ -1484,22 +1484,27 @@ class Service extends ContainerObject
 					continue;												// =>
 				
 				//
-				// Get leaf offset.
-				//
-				$offset = explode( '.', $tag );
-				$offset = $offset[ count( $offset ) - 1 ];
-				
-				//
 				// Skip existing.
 				//
-				if( array_key_exists( $offset, $criteria ) )
+				if( array_key_exists( $tag, $criteria ) )
+				{
+					//
+					// Add offset to criteria.
+					//
+					if( ! array_key_exists( kAPI_PARAM_OFFSETS, $criteria[ $tag ] ) )
+						$criteria[ $tag ][ kAPI_PARAM_OFFSETS ]
+							= array( $data[ kAPI_PARAM_OFFSETS ] );
+					
+					//
+					// Append offset to criteria.
+					//
+					elseif( ! in_array( $data[ kAPI_PARAM_OFFSETS ],
+										$criteria[ $tag ][ kAPI_PARAM_OFFSETS ] ) )
+						$criteria[ $tag ][ kAPI_PARAM_OFFSETS ][]
+							= $data[ kAPI_PARAM_OFFSETS ];
+						
 					continue;												// =>
-				
-				//
-				// Add tag to criteria.
-				//
-				$criteria[ $offset ]
-					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT );
+				}
 				
 				//
 				// Add offset to criteria.
@@ -1630,16 +1635,9 @@ class Service extends ContainerObject
 			$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
 			
 			//
-			// Handle numeric offsets.
+			// Handle native tag identifier.
 			//
-			if( is_int( $shape )
-			 || ctype_digit( $shape ) )
-				$shape = (int) $shape;
-			
-			//
-			// Handle textual offsets.
-			//
-			else
+			if( substr( $shape, 0, 1 ) != kTOKEN_TAG_PREFIX )
 				$this->offsetSet(
 					kAPI_PARAM_SHAPE_OFFSET,
 					$this->mWrapper->getSerial(
@@ -1869,14 +1867,11 @@ class Service extends ContainerObject
 	 * present.
 	 *
 	 * While validating the criteria, the method will cluster the criteria in the filter
-	 * fata member.
+	 * data member.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
-	 *
-	 * @see kAPI_PARAM_INPUT_TEXT kAPI_PARAM_INPUT_STRING
-	 * @see kAPI_PARAM_INPUT_RANGE kAPI_PARAM_INPUT_ENUM
 	 */
 	protected function validateSearchCriteria()
 	{
@@ -1903,7 +1898,7 @@ class Service extends ContainerObject
 				//
 				foreach( explode( '.', $key ) as $offset )
 				{
-					$tag = $this->mWrapper->getObject( (int) $offset, TRUE )[ kTAG_NID ];
+					$tag = $this->mWrapper->getObject( $offset, TRUE )[ kTAG_NID ];
 					if( ! in_array( $tag, $tags ) )
 						$tags[] = $tag;
 				}
@@ -1923,9 +1918,8 @@ class Service extends ContainerObject
 					//
 					// Handle tag sequence numbers.
 					//
-					if( is_int( $key )
-					 || ctype_digit( $key ) )
-						$key = $this->mWrapper->getObject( (int) $key, TRUE )[ kTAG_NID ];
+					if( substr( $key, 0, 1 ) == kTOKEN_TAG_PREFIX )
+						$key = $this->mWrapper->getObject( $key, TRUE )[ kTAG_NID ];
 			
 					//
 					// Add tag.
@@ -1963,7 +1957,7 @@ class Service extends ContainerObject
 		//
 		// Select tag fields.
 		//
-		$fields = array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
+		$fields = array( kTAG_NID => TRUE, kTAG_ID_HASH => TRUE,
 						 kTAG_TERMS => TRUE, kTAG_DATA_TYPE => TRUE,
 						 $offsets_tag => TRUE );
 		
@@ -2072,16 +2066,10 @@ class Service extends ContainerObject
 				$criteria_ref = & $cluster_ref[ kAPI_PARAM_CRITERIA ];
 				
 				//
-				// Extract leaf tag.
-				//
-				$tmp = explode( '.', $tag );
-				$tmp = kTAG_OBJECT_OFFSETS.'.'.$tmp[ count( $tmp ) - 1 ];
-				
-				//
 				// Allocate criteria.
 				//
-				$criteria_ref[ $tmp ] = Array();
-				$criteria_ref = & $criteria_ref[ $tmp ];
+				$criteria_ref[ kTAG_OBJECT_OFFSETS ] = Array();
+				$criteria_ref = & $criteria_ref[ kTAG_OBJECT_OFFSETS ];
 							 
 				//
 				// Set input and data types.
@@ -2107,7 +2095,7 @@ class Service extends ContainerObject
 				//
 				// Set offsets.
 				//
-				$criteria_ref[ kAPI_PARAM_OFFSETS ] = array( $tmp );
+				$criteria_ref[ kAPI_PARAM_OFFSETS ] = array( kTAG_OBJECT_OFFSETS );
 				
 				continue;													// =>
 			
@@ -2130,7 +2118,7 @@ class Service extends ContainerObject
 				//
 				// Get tag sequence number.
 				//
-				$tag_sequence = (int) $tag_object[ kTAG_ID_SEQUENCE ];
+				$tag_sequence = $tag_object[ kTAG_ID_HASH ];
 			
 				//
 				// Get cluster key.
@@ -2379,8 +2367,15 @@ class Service extends ContainerObject
 			//
 			// Set index flag.
 			//
+		// MILKO - Was boolean, now is an array: should revise or rewrite resolveFilter().
+		/*
 			$criteria_ref[ kAPI_PARAM_INDEX ]
 				= ( array_key_exists( $tag_sequence, $indexes ) );
+		*/
+			$criteria_ref[ kAPI_PARAM_INDEX ]
+				= ( array_key_exists( $tag_sequence, $indexes ) )
+				? $indexes[ $tag_sequence ]
+				: FALSE;
 			
 			//
 			// Check criteria.
@@ -2500,14 +2495,35 @@ class Service extends ContainerObject
 			} // Parsing by input type.
 			
 			//
-			// Add offsets to filter.
+			// Handle offsets subset.
 			//
 			if( array_key_exists( kAPI_PARAM_OFFSETS, $criteria ) )
-				$criteria_ref[ kAPI_PARAM_OFFSETS ]
-					= $criteria[ kAPI_PARAM_OFFSETS ];
+			{
+				//
+				// Set provided offsets.
+				//
+				$criteria_ref[ kAPI_PARAM_OFFSETS ] = $criteria[ kAPI_PARAM_OFFSETS ];
+				
+				//
+				// Check tag offsets.
+				//
+				if( array_key_exists( $offsets_tag, $tag_object ) )
+					$criteria_ref[ kAPI_QUERY_OFFSETS ]
+						= ( count( array_diff( $tag_object[ $offsets_tag ],
+											   $criteria[ kAPI_PARAM_OFFSETS ] ) ) > 0 );
+			
+			} // Provided offsets.
+			
+			//
+			// Load tag offsets.
+			//
 			elseif( array_key_exists( $offsets_tag, $tag_object ) )
 				$criteria_ref[ kAPI_PARAM_OFFSETS ]
 					= $tag_object[ $offsets_tag ];
+			
+			//
+			// Complain if missing.
+			//
 			else
 				throw new \Exception(
 					"Missing selection offsets for tag [$tag]." );				// !@! ==>
@@ -2693,7 +2709,7 @@ class Service extends ContainerObject
 	 *
 	 * @see kAPI_PARAM_COLLECTION_TAG kAPI_PARAM_COLLECTION_TERM
 	 * @see kAPI_PARAM_COLLECTION_NODE kAPI_PARAM_COLLECTION_EDGE
-	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_ENTITY
+	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_USER
 	 */
 	protected function validateCollection( $theValue )
 	{
@@ -2708,7 +2724,7 @@ class Service extends ContainerObject
 			$collections
 				= array( kAPI_PARAM_COLLECTION_TAG, kAPI_PARAM_COLLECTION_TERM,
 						 kAPI_PARAM_COLLECTION_NODE, kAPI_PARAM_COLLECTION_EDGE,
-						 kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_ENTITY );
+						 kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_USER );
 			
 			//
 			// Iterate values.
@@ -2860,46 +2876,54 @@ class Service extends ContainerObject
 			$structs = Array();
 			
 			//
-			// Handle tag serial number.
+			// Handle tag serial.
 			//
-			if( is_int( $element )
-			 || ctype_digit( $element ) )
-			 	$tag = $this->mWrapper->getObject( (int) $element, TRUE );
-		
+			if( substr( $element, 0, 1 ) == kTOKEN_TAG_PREFIX )
+			{
+				//
+				// Handle offset.
+				//
+				if( strpos( $element, '.' ) )	// Cannot have period.
+				{
+					//
+					// Split structures.
+					//
+					$tmp = explode( '.', $element );
+					if( count( $tmp ) > 1 )
+						$tag
+							= $this->mWrapper->getObject(
+								$tmp[ count( $tmp ) - 1 ], TRUE );
+			
+					else
+						throw new \Exception(
+							"Invalid group element [$element]." );				// !@! ==>
+				
+					//
+					// Collect structures.
+					//
+					for( $i = 0; $i < (count( $tmp ) - 1); $i++ )
+						$structs[ $i ] = $tmp[ $i ];
+				
+				} // Offset.
+				
+				//
+				// Handle serial.
+				//
+				else
+				 	$tag = $this->mWrapper->getObject( $element, TRUE );
+			
+			} // Serial or offset.
+			
 			//
 			// Handle tag native identifier.
 			//
-			elseif( ($tmp = $this->mWrapper->getSerial( $element, FALSE )) !== NULL )
-			{
-			 	$tag = $this->mWrapper->getObject( (int) $tmp, TRUE );
-			 	$element = $tag[ kTAG_ID_SEQUENCE ];
-			 }
-		
-			//
-			// Handle offset.
-			//
 			else
 			{
-				//
-				// Split structures.
-				//
-				$tmp = explode( '.', $element );
-				if( count( $tmp ) > 1 )
-				 	$tag
-				 		= $this->mWrapper->getObject(
-				 			(int) $tmp[ count( $tmp ) - 1 ], TRUE );
+				$tmp = $this->mWrapper->getSerial( $element, TRUE );
+			 	$tag = $this->mWrapper->getObject( $tmp, TRUE );
+			 	$element = $tag[ kTAG_ID_HASH ];
 			
-				else
-					throw new \Exception(
-						"Invalid group element [$element]." );					// !@! ==>
-				
-				//
-				// Collect structures.
-				//
-				for( $i = 0; $i < (count( $tmp ) - 1); $i++ )
-					$structs[ $i ] = $tmp[ $i ];
-		
-			} // Offset.
+			} // Native identifier.
 		
 			//
 			// Check kind.
@@ -2912,7 +2936,7 @@ class Service extends ContainerObject
 			//
 			// Set index.
 			//
-			$index = $tag[ kTAG_ID_SEQUENCE ];
+			$index = $tag[ kTAG_ID_HASH ];
 		
 			//
 			// Load element info.
@@ -2929,7 +2953,7 @@ class Service extends ContainerObject
 				$count++;
 			foreach( $structs as $struct )
 			{
-				$tag = $this->mWrapper->getObject( (int) $struct, TRUE );
+				$tag = $this->mWrapper->getObject( $struct, TRUE );
 				if( array_key_exists( kTAG_DATA_KIND, $tag )
 				 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
 					$count++;
@@ -3164,6 +3188,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_STATS}</tt>: List statistics by domain.
+	 *	<li><tt>{@link kAPI_OP_LIST_DOMAINS}</tt>: List domains and unit counts.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
@@ -3210,6 +3235,10 @@ class Service extends ContainerObject
 			
 			case kAPI_OP_LIST_STATS:
 				$this->executeListStats();
+				break;
+			
+			case kAPI_OP_LIST_DOMAINS:
+				$this->executeListDomains();
 				break;
 				
 			case kAPI_OP_MATCH_TAG_LABELS:
@@ -3366,9 +3395,11 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_LIST_CONSTANTS" ] = kAPI_OP_LIST_CONSTANTS;
 		$ref[ "kAPI_OP_LIST_OPERATORS" ] = kAPI_OP_LIST_OPERATORS;
 		$ref[ "kAPI_OP_LIST_REF_COUNTS" ] = kAPI_OP_LIST_REF_COUNTS;
+		$ref[ "kAPI_OP_LIST_STATS" ] = kAPI_OP_LIST_STATS;
+		$ref[ "kAPI_OP_LIST_DOMAINS" ] = kAPI_OP_LIST_DOMAINS;
 		$ref[ "kAPI_OP_MATCH_TAG_LABELS" ] = kAPI_OP_MATCH_TAG_LABELS;
-		$ref[ "kAPI_OP_MATCH_TERM_LABELS" ] = kAPI_OP_MATCH_TERM_LABELS;
 		$ref[ "kAPI_OP_MATCH_TAG_SUMMARY_LABELS" ] = kAPI_OP_MATCH_TAG_SUMMARY_LABELS;
+		$ref[ "kAPI_OP_MATCH_TERM_LABELS" ] = kAPI_OP_MATCH_TERM_LABELS;
 		$ref[ "kAPI_OP_MATCH_TAG_BY_LABEL" ] = kAPI_OP_MATCH_TAG_BY_LABEL;
 		$ref[ "kAPI_OP_MATCH_TAG_BY_IDENTIFIER" ] = kAPI_OP_MATCH_TAG_BY_IDENTIFIER;
 		$ref[ "kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL" ] = kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL;
@@ -3500,7 +3531,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_COLLECTION_NODE" ] = Node::kSEQ_NAME;
 		$ref[ "kAPI_PARAM_COLLECTION_EDGE" ] = Edge::kSEQ_NAME;
 		$ref[ "kAPI_PARAM_COLLECTION_UNIT" ] = UnitObject::kSEQ_NAME;
-		$ref[ "kAPI_PARAM_COLLECTION_ENTITY" ] = User::kSEQ_NAME;
+		$ref[ "kAPI_PARAM_COLLECTION_USER" ] = User::kSEQ_NAME;
 		
 		//
 		// Load form input enumerated set.
@@ -3637,7 +3668,7 @@ class Service extends ContainerObject
 		$ref[ kAPI_PARAM_COLLECTION_NODE ] = kTAG_NODE_COUNT;
 		$ref[ kAPI_PARAM_COLLECTION_EDGE ] = kTAG_EDGE_COUNT;
 		$ref[ kAPI_PARAM_COLLECTION_UNIT ] = kTAG_UNIT_COUNT;
-		$ref[ kAPI_PARAM_COLLECTION_ENTITY ] = kTAG_ENTITY_COUNT;
+		$ref[ kAPI_PARAM_COLLECTION_USER ] = kTAG_USER_COUNT;
 		
 	} // executeListReferenceCountParameters.
 
@@ -3669,6 +3700,78 @@ class Service extends ContainerObject
 							  $this->offsetGet( kAPI_PARAM_DOMAIN ) );
 		
 	} // executeListStats.
+
+	 
+	/*===================================================================================
+	 *	executeListDomains																*
+	 *==================================================================================*/
+
+	/**
+	 * Execute list domains request.
+	 *
+	 * This method will handle the {@link kAPI_OP_LIST_DOMAINS} operation.
+	 *
+	 * @access protected
+	 */
+	protected function executeListDomains()
+	{
+		//
+		// Init local storage.
+		//
+		$lang = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		$fields = array( kTAG_LABEL => TRUE, kTAG_DEFINITION => TRUE );
+		$col_terms = $this->mWrapper->resolveCollection( Term::kSEQ_NAME );
+		$col_units = $this->mWrapper->resolveCollection( UnitObject::kSEQ_NAME );
+		
+		//
+		// Initialise results.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		$ref = & $this->mResponse[ kAPI_RESPONSE_RESULTS ];
+		
+		//
+		// Get domains.
+		//
+		$domains = $col_units->connection()->distinct( kTAG_DOMAIN );
+		
+		//
+		// Load domains.
+		//
+		$rs = $col_terms->matchAll( array( kTAG_NID => array( '$in' => $domains ) ),
+									kQUERY_ARRAY,
+									$fields );
+		
+		//
+		// Load domains.
+		//
+		foreach( $rs as $term )
+		{
+			//
+			// Allocate entry.
+			//
+			$ref[ $term[ kTAG_NID ] ] = Array();
+			$ref_item = & $ref[ $term[ kTAG_NID ] ];
+			
+			//
+			// Get label and definition.
+			//
+			$ref_item[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+				= OntologyObject::SelectLanguageString( $term[ kTAG_LABEL ], $lang );
+			if( array_key_exists( kTAG_DEFINITION, $term ) )
+				$ref_item[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= OntologyObject::SelectLanguageString( $term[ kTAG_DEFINITION ],
+															$lang );
+			
+			//
+			// Get count.
+			//
+			$ref_item[ kAPI_PARAM_RESPONSE_COUNT ]
+				= $col_units->matchOne( array( kTAG_DOMAIN => $term[ kTAG_NID ] ),
+										kQUERY_COUNT );
+		
+		} // Iterating domain tags.
+		
+	} // executeListDomains.
 
 	 
 	/*===================================================================================
@@ -4087,8 +4190,8 @@ class Service extends ContainerObject
 						$ref_count = (string) kTAG_UNIT_COUNT;
 						break;
 					
-					case kAPI_PARAM_COLLECTION_ENTITY:
-						$ref_count = (string) kTAG_ENTITY_COUNT;
+					case kAPI_PARAM_COLLECTION_USER:
+						$ref_count = (string) kTAG_USER_COUNT;
 						break;
 				}
 			}
@@ -4494,7 +4597,7 @@ class Service extends ContainerObject
 			$excluded = ( $this->offsetExists( kAPI_PARAM_EXCLUDED_TAGS ) )
 					  ? $this->offsetGet( kAPI_PARAM_EXCLUDED_TAGS )
 					  : Array();
-			$criteria[ (string) kTAG_ID_SEQUENCE ]
+			$criteria[ kTAG_ID_HASH ]
 				= array( '$nin' => array_values(
 					array_unique(
 						array_merge(
@@ -4510,7 +4613,7 @@ class Service extends ContainerObject
 										  kTYPE_TYPED_LIST,
 										  kTYPE_SHAPE, kTYPE_REF_TAG, kTYPE_REF_TERM,
 										  kTYPE_REF_NODE, kTYPE_REF_EDGE, kTYPE_REF_UNIT,
-										  kTYPE_REF_ENTITY, kTYPE_REF_SELF,
+										  kTYPE_REF_USER, kTYPE_REF_SELF,
 										  kTYPE_TIME_STAMP ) );
 		
 		} // Searching tags
@@ -4547,8 +4650,8 @@ class Service extends ContainerObject
 						$criteria[ (string) kTAG_UNIT_COUNT ] = array( '$gt' => 0 );
 						break;
 					
-					case kAPI_PARAM_COLLECTION_ENTITY:
-						$criteria[ (string) kTAG_ENTITY_COUNT ] = array( '$gt' => 0 );
+					case kAPI_PARAM_COLLECTION_USER:
+						$criteria[ (string) kTAG_USER_COUNT ] = array( '$gt' => 0 );
 						break;
 				}
 			}
@@ -5186,7 +5289,9 @@ $rs_units = & $rs_units[ 'result' ];
 				//
 				// Get value.
 				//
-				$value = $record[ '_id' ][ $tag ];
+				$value = ( array_key_exists( $tag, $record[ '_id' ] ) )
+					   ? $record[ '_id' ][ $tag ]
+					   : '';
 				
 				//
 				// Create element.
@@ -5363,15 +5468,14 @@ $rs_units = & $rs_units[ 'result' ];
 				//
 				// Handle numeric offset.
 				//
-				if( is_int( $offset )
-				 || ctype_digit( $offset ) )
-					$offsets[ (string) $offset ] = TRUE;
+				if( substr( $offset, 0, 1 ) == kTOKEN_TAG_PREFIX )
+					$offsets[ $offset ] = TRUE;
 				
 				//
 				// Resolve offset.
 				//
 				else
-					$offsets[ (string) $this->mWrapper->getSerial( $offset ) ] = TRUE;
+					$offsets[ $this->mWrapper->getSerial( $offset ) ] = TRUE;
 			}
 			$pipeline[] = array( '$project' => $offsets );
 			
@@ -7977,7 +8081,7 @@ $rs_units = & $rs_units[ 'result' ];
 					//
 					// Set tag reference.
 					//
-					$offset_ref[ kAPI_PARAM_TAG ] = $object->offsetGet( kTAG_ID_SEQUENCE );
+					$offset_ref[ kAPI_PARAM_TAG ] = $object->offsetGet( kTAG_ID_HASH );
 					
 					//
 					// Reference structure.
@@ -7999,9 +8103,9 @@ $rs_units = & $rs_units[ 'result' ];
 						//
 						// Resolve structure tag.
 						//
-						$tag = ( $struct == $object[ kTAG_ID_SEQUENCE ] )
+						$tag = ( $struct == $object[ kTAG_ID_HASH ] )
 							 ? $object
-							 : $this->mWrapper->getObject( (int) $struct, TRUE );
+							 : $this->mWrapper->getObject( $struct, TRUE );
 			
 						//
 						// Set tag label.
@@ -8371,7 +8475,7 @@ $rs_units = & $rs_units[ 'result' ];
 				//
 				$match = ( $criteria_count > 1 )
 					   ? array( '$in' => array_keys( $cluster[ kAPI_PARAM_CRITERIA ] ) )
-					   :  (int) key( $cluster[ kAPI_PARAM_CRITERIA ] );
+					   :  key( $cluster[ kAPI_PARAM_CRITERIA ] );
 				
 				//
 				// Load tag match clause.
@@ -8407,17 +8511,12 @@ $rs_units = & $rs_units[ 'result' ];
 									   : $criteria[ kAPI_PARAM_OFFSETS ][ 0 ];
 						
 								//
-								// Set tag offset.
-								//
-								$tmp = kTAG_OBJECT_OFFSETS.'.'.$tag;
-						
-								//
 								// Load offset match clause.
 								//
 								if( $cluster_count > 1 )
-									$root[] = array( $tmp => $match );
+									$root[] = array( kTAG_OBJECT_OFFSETS => $match );
 								else
-									$root[ $tmp ] = $match;
+									$root[ kTAG_OBJECT_OFFSETS ] = $match;
 						
 							} // Has offsets.
 						
@@ -8486,9 +8585,9 @@ $rs_units = & $rs_units[ 'result' ];
 					if( $criteria === NULL )
 					{
 						if( $parent_cri !== NULL )
-							$criteria_ref[] = array( kTAG_OBJECT_TAGS => (int) $tag );
+							$criteria_ref[] = array( kTAG_OBJECT_TAGS => $tag );
 						else
-							$criteria_ref[ kTAG_OBJECT_TAGS ] = (int) $tag;
+							$criteria_ref[ kTAG_OBJECT_TAGS ] = $tag;
 					
 					} // No value.
 					
@@ -8502,13 +8601,110 @@ $rs_units = & $rs_units[ 'result' ];
 						//
 						if( ! $criteria[ kAPI_PARAM_INDEX ] )
 						{
-							if( $parent_cri !== NULL )
-								$criteria_ref[] = array( kTAG_OBJECT_TAGS => (int) $tag );
+							//
+							// Use tag reference.
+							//
+							if( (! array_key_exists( kAPI_QUERY_OFFSETS, $criteria ))
+							 || (! $criteria[ kAPI_QUERY_OFFSETS ]) )
+							{
+								if( $parent_cri !== NULL )
+									$criteria_ref[] = array( kTAG_OBJECT_TAGS => $tag );
+								else
+									$criteria_ref[ kTAG_OBJECT_TAGS ] = $tag;
+							
+							} // Resolve using tag.
+							
+							//
+							// Use offset reference.
+							//
 							else
-								$criteria_ref[ kTAG_OBJECT_TAGS ] = (int) $tag;
+							{
+								//
+								// Handle single offset.
+								//
+								if( count( $criteria[ kAPI_PARAM_OFFSETS ] ) == 1 )
+								{
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array(
+												kTAG_OBJECT_OFFSETS
+											 => $criteria[ kAPI_PARAM_OFFSETS ][ 0 ] );
+									else
+										$criteria_ref[ kTAG_OBJECT_OFFSETS ]
+											= $criteria[ kAPI_PARAM_OFFSETS ][ 0 ];
+								
+								} // One offset.
+								
+								//
+								// Handle multiple offsets.
+								//
+								elseif( count( $criteria[ kAPI_PARAM_OFFSETS ] ) > 1 )
+								{
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array(
+												kTAG_OBJECT_OFFSETS => array(
+													'$in' => $criteria[ kAPI_PARAM_OFFSETS ]
+												) );
+									else
+										$criteria_ref[ kTAG_OBJECT_OFFSETS ]
+											= array(
+												'$in' => $criteria[ kAPI_PARAM_OFFSETS ] );
+								
+								} // many offsets.
+							
+							} // Resolve using offsets.
 						
 						} // Not indexed.
-			
+						
+						//
+						// Handle indexed.
+						//
+						elseif( is_array( $criteria[ kAPI_PARAM_INDEX ] ) )
+						{
+							//
+							// Intercept unindexed offsets.
+							//
+							$tmp
+								= array_values(
+									array_diff( $criteria[ kAPI_PARAM_OFFSETS ],
+											   $criteria[ kAPI_PARAM_INDEX ] ) );
+							if( count( $tmp ) )
+							{
+								//
+								// Handle single offset.
+								//
+								if( count( $tmp ) == 1 )
+								{
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array( kTAG_OBJECT_OFFSETS => $tmp[ 0 ] );
+									else
+										$criteria_ref[ kTAG_OBJECT_OFFSETS ]
+											= $tmp[ 0 ];
+								
+								} // One offset.
+								
+								//
+								// Handle multiple offsets.
+								//
+								else
+								{
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array(
+												kTAG_OBJECT_OFFSETS
+													=> array( '$in' => $tmp ) );
+									else
+										$criteria_ref[ kTAG_OBJECT_OFFSETS ]
+											= array( '$in' => $tmp );
+								
+								} // many offsets.
+							
+							} // Has unindexed offsets.
+						
+						} // Indexed.
+						
 						//
 						// Handle many offsets.
 						//
@@ -8527,7 +8723,7 @@ $rs_units = & $rs_units[ 'result' ];
 							}
 			
 						} // Has many offsets.
-					
+						
 						//
 						// Iterate criteria offsets.
 						//
@@ -8581,7 +8777,8 @@ $rs_units = & $rs_units[ 'result' ];
 											$criteria[ kAPI_PARAM_RANGE_MAX ],
 											$criteria[ kAPI_PARAM_OPERATOR ] );
 									
-									if( $parent_cri !== NULL )
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
 										$criteria_ref[] = array( $offset => $clause );
 									else
 										$criteria_ref[ $offset ] = $clause;
@@ -8599,7 +8796,8 @@ $rs_units = & $rs_units[ 'result' ];
 											=> $criteria[ kAPI_RESULT_ENUM_TERM ] )
 										: $criteria[ kAPI_RESULT_ENUM_TERM ][ 0 ];
 									
-									if( $parent_cri !== NULL )
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
 										$criteria_ref[] = array( $offset => $clause );
 									else
 										$criteria_ref[ $offset ] = $clause;
@@ -8614,7 +8812,8 @@ $rs_units = & $rs_units[ 'result' ];
 										= $this->shapeMatchPattern(
 											$criteria[ kAPI_PARAM_SHAPE ] );
 									
-									if( $parent_cri !== NULL )
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
 										$criteria_ref[] = array( $offset => $clause );
 									else
 										$criteria_ref[ $offset ] = $clause;
@@ -8622,7 +8821,8 @@ $rs_units = & $rs_units[ 'result' ];
 									break;
 				
 								default:
-									if( $parent_cri !== NULL )
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
 										$criteria_ref[]
 											= array( $offset
 												=> $criteria[ kAPI_PARAM_PATTERN ] );
@@ -8713,7 +8913,7 @@ $rs_units = & $rs_units[ 'result' ];
 				case kAPI_PARAM_COLLECTION_NODE: return kTAG_NODE_COUNT;			// ==>
 				case kAPI_PARAM_COLLECTION_EDGE: return kTAG_EDGE_COUNT;			// ==>
 				case kAPI_PARAM_COLLECTION_UNIT: return kTAG_UNIT_COUNT;			// ==>
-				case kAPI_PARAM_COLLECTION_ENTITY: return kTAG_ENTITY_COUNT;		// ==>
+				case kAPI_PARAM_COLLECTION_USER: return kTAG_USER_COUNT;		// ==>
 			}
 			
 			return NULL;															// ==>
@@ -8769,11 +8969,6 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		$tag = explode( '.', $theOffset );
 		$tag = $tag[ count( $tag ) - 1 ];
-		if( is_int( $tag )
-		 || ctype_digit( $tag ) )
-			$tag = (int) $tag;
-		else
-			$tag = $this->mWrapper->getSerial( $tag, TRUE );
 		$tag = $this->mWrapper->getObject( $tag, TRUE );
 		
 		//

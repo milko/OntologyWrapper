@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Ontology Wrapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">3</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-875031132"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-875031132" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-194529957"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-194529957" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1684465825"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-1684465825" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityPhone.html">EntityPhone</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorOffset.html">AccessorOffset</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityMail.html">EntityMail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityFax.html">EntityFax</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Category.html">Category</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityKind.html">EntityKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Synonym.html">Synonym</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAffiliation.html">EntityAffiliation</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityType.html">EntityType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityEmail.html">EntityEmail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.TermType.html">TermType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorProperty.html">AccessorProperty</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityLink.html">EntityLink</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.NodeType.html">NodeType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAcronym.html">EntityAcronym</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseGraph.html">DatabaseGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.EntityObject.html">EntityObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Individual.html">Individual</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoIterator.html">MongoIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Institution.html">Institution</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.UnitObject.html">UnitObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.FAOInstitute.html">FAOInstitute</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Service.html">Service</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Neo4jGraph.html">Neo4jGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Accession.html">Accession</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ArrayCursorIterator.html">ArrayCursorIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Checklist.html">Checklist</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectingMission.html">CollectingMission</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectingSample.html">CollectingSample</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ForestUnit.html">ForestUnit</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Household.html">Household</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Inventory.html">Inventory</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.IteratorSerialiser.html">IteratorSerialiser</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MetadataObject.html">MetadataObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Mission.html">Mission</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ObjectIterator.html">ObjectIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Qtl.html">Qtl</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Sample.html">Sample</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.User.html">User</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content file">
+                    <nav>
+                                                                    </nav>
+
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>definitions</small>ImportExport.xml.inc.php</h1>
+                    <p><em>Import-export definitions.</em></p>
+                    <p>This file contains the default tags used for exporting and importing data.</p>
+
+                    
+                    
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        
+                        
+                    </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr>
+                                <th>
+                                    author
+                                </th>
+                                <td>
+                                                                            <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <th>
+                                    version
+                                </th>
+                                <td>
+                                                                            <p>18/07/2014</p>
+                                                                    </td>
+                            </tr>
+                                            </table>
+
+                </aside>
+            </div>
+
+                        <div class="row-fluid">
+                <section class="span8 content file">
+                    <h2>Constants</h2>
+                </section>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_METADATA" name="constant_kIO_XML_METADATA" class="anchor"></a>
+            <article id="constant_kIO_XML_METADATA" class="constant">
+                <h3 class="">kIO_XML_METADATA</h3>
+                <pre class="signature">kIO_XML_METADATA</pre>
+                <p><em>Metadata.</em></p>
+                <p>Metadata document.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_UNITS" name="constant_kIO_XML_UNITS" class="anchor"></a>
+            <article id="constant_kIO_XML_UNITS" class="constant">
+                <h3 class="">kIO_XML_UNITS</h3>
+                <pre class="signature">kIO_XML_UNITS</pre>
+                <p><em>Units.</em></p>
+                <p>Units document.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_USERS" name="constant_kIO_XML_USERS" class="anchor"></a>
+            <article id="constant_kIO_XML_USERS" class="constant">
+                <h3 class="">kIO_XML_USERS</h3>
+                <pre class="signature">kIO_XML_USERS</pre>
+                <p><em>Users.</em></p>
+                <p>Users document.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_TRANS_META" name="constant_kIO_XML_TRANS_META" class="anchor"></a>
+            <article id="constant_kIO_XML_TRANS_META" class="constant">
+                <h3 class="">kIO_XML_TRANS_META</h3>
+                <pre class="signature">kIO_XML_TRANS_META</pre>
+                <p><em>Metadata.</em></p>
+                <p>Metadata transaction unit.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_TRANS_UNITS" name="constant_kIO_XML_TRANS_UNITS" class="anchor"></a>
+            <article id="constant_kIO_XML_TRANS_UNITS" class="constant">
+                <h3 class="">kIO_XML_TRANS_UNITS</h3>
+                <pre class="signature">kIO_XML_TRANS_UNITS</pre>
+                <p><em>Units.</em></p>
+                <p>Units transaction unit.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_TRANS_USERS" name="constant_kIO_XML_TRANS_USERS" class="anchor"></a>
+            <article id="constant_kIO_XML_TRANS_USERS" class="constant">
+                <h3 class="">kIO_XML_TRANS_USERS</h3>
+                <pre class="signature">kIO_XML_TRANS_USERS</pre>
+                <p><em>Users.</em></p>
+                <p>Users transaction unit.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_META_TAG" name="constant_kIO_XML_META_TAG" class="anchor"></a>
+            <article id="constant_kIO_XML_META_TAG" class="constant">
+                <h3 class="">kIO_XML_META_TAG</h3>
+                <pre class="signature">kIO_XML_META_TAG</pre>
+                <p><em>Tag.</em></p>
+                <p>Tag object.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_META_TERM" name="constant_kIO_XML_META_TERM" class="anchor"></a>
+            <article id="constant_kIO_XML_META_TERM" class="constant">
+                <h3 class="">kIO_XML_META_TERM</h3>
+                <pre class="signature">kIO_XML_META_TERM</pre>
+                <p><em>Term.</em></p>
+                <p>Term object.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_META_NODE" name="constant_kIO_XML_META_NODE" class="anchor"></a>
+            <article id="constant_kIO_XML_META_NODE" class="constant">
+                <h3 class="">kIO_XML_META_NODE</h3>
+                <pre class="signature">kIO_XML_META_NODE</pre>
+                <p><em>Node.</em></p>
+                <p>Node object.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_META_EDGE" name="constant_kIO_XML_META_EDGE" class="anchor"></a>
+            <article id="constant_kIO_XML_META_EDGE" class="constant">
+                <h3 class="">kIO_XML_META_EDGE</h3>
+                <pre class="signature">kIO_XML_META_EDGE</pre>
+                <p><em>Edge.</em></p>
+                <p>Edge object.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_DATA" name="constant_kIO_XML_DATA" class="anchor"></a>
+            <article id="constant_kIO_XML_DATA" class="constant">
+                <h3 class="">kIO_XML_DATA</h3>
+                <pre class="signature">kIO_XML_DATA</pre>
+                <p><em>Data element.</em></p>
+                <p>The element that wraps all data.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_UPDATE" name="constant_kIO_XML_ATTR_UPDATE" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_UPDATE" class="constant">
+                <h3 class="">kIO_XML_ATTR_UPDATE</h3>
+                <pre class="signature">kIO_XML_ATTR_UPDATE</pre>
+                <p><em>Update reference.</em></p>
+                <p>This attribute contains the native identifier of the object to be updated.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_NAMESPACE" name="constant_kIO_XML_ATTR_NAMESPACE" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_NAMESPACE" class="constant">
+                <h3 class="">kIO_XML_ATTR_NAMESPACE</h3>
+                <pre class="signature">kIO_XML_ATTR_NAMESPACE</pre>
+                <p><em>Namespace.</em></p>
+                <p>This attribute contains the namespace.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_ID_LOCAL" name="constant_kIO_XML_ATTR_ID_LOCAL" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_ID_LOCAL" class="constant">
+                <h3 class="">kIO_XML_ATTR_ID_LOCAL</h3>
+                <pre class="signature">kIO_XML_ATTR_ID_LOCAL</pre>
+                <p><em>Local identifier.</em></p>
+                <p>This attribute contains the local identifier.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_ID_PERSISTENT" name="constant_kIO_XML_ATTR_ID_PERSISTENT" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_ID_PERSISTENT" class="constant">
+                <h3 class="">kIO_XML_ATTR_ID_PERSISTENT</h3>
+                <pre class="signature">kIO_XML_ATTR_ID_PERSISTENT</pre>
+                <p><em>Persistent identifier.</em></p>
+                <p>This attribute contains the persistent identifier.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_REF_TAG" name="constant_kIO_XML_ATTR_REF_TAG" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_REF_TAG" class="constant">
+                <h3 class="">kIO_XML_ATTR_REF_TAG</h3>
+                <pre class="signature">kIO_XML_ATTR_REF_TAG</pre>
+                <p><em>Tag native identifier.</em></p>
+                <p>This attribute contains the tag object native identifier.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_REF_TAG_SEQ" name="constant_kIO_XML_ATTR_REF_TAG_SEQ" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_REF_TAG_SEQ" class="constant">
+                <h3 class="">kIO_XML_ATTR_REF_TAG_SEQ</h3>
+                <pre class="signature">kIO_XML_ATTR_REF_TAG_SEQ</pre>
+                <p><em>Tag sequence number.</em></p>
+                <p>This attribute contains the tag object sequence number.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_REF_TERM" name="constant_kIO_XML_ATTR_REF_TERM" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_REF_TERM" class="constant">
+                <h3 class="">kIO_XML_ATTR_REF_TERM</h3>
+                <pre class="signature">kIO_XML_ATTR_REF_TERM</pre>
+                <p><em>Term reference.</em></p>
+                <p>This attribute contains the term object native identifier.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_REF_NODE" name="constant_kIO_XML_ATTR_REF_NODE" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_REF_NODE" class="constant">
+                <h3 class="">kIO_XML_ATTR_REF_NODE</h3>
+                <pre class="signature">kIO_XML_ATTR_REF_NODE</pre>
+                <p><em>Node reference.</em></p>
+                <p>This attribute is used in elements referencing nodes, it holds an enumerated set that
+determines the kind of reference:</p>
+<ul>
+<li><tt>{@link kIO_XML_ATTR_NODE_TAG}</tt>: The value contains a tag native identifier,
+    the node will be resolved into the master node pointing to that tag.
+<li><tt>{@link kIO_XML_ATTR_NODE_SEQ}</tt>: The value contains a tag sequence number,
+    the node will be resolved into the master node pointing to that tag.
+<li><tt>{@link kIO_XML_ATTR_NODE_TERM}</tt>: The value contains a term native
+    identifier, the node will be resolved into the master node pointing to that term.
+<li><tt>{@link kIO_XML_ATTR_NODE_ID}</tt>: The value contains a node native identifier.
+<li><tt>{@link kIO_XML_ATTR_NODE_PID}</tt>: The value contains a node persistent
+    identifier.
+</ul>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_QUAL_CLASS" name="constant_kIO_XML_ATTR_QUAL_CLASS" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_QUAL_CLASS" class="constant">
+                <h3 class="">kIO_XML_ATTR_QUAL_CLASS</h3>
+                <pre class="signature">kIO_XML_ATTR_QUAL_CLASS</pre>
+                <p><em>Class name.</em></p>
+                <p>This attribute contains the object's class name.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_QUAL_KEY" name="constant_kIO_XML_ATTR_QUAL_KEY" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_QUAL_KEY" class="constant">
+                <h3 class="">kIO_XML_ATTR_QUAL_KEY</h3>
+                <pre class="signature">kIO_XML_ATTR_QUAL_KEY</pre>
+                <p><em>Key qualifier.</em></p>
+                <p>The attribute value contains a value which represents the key of the current element,
+this is generally used to express a jey/value element of an array.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_QUAL_CONST" name="constant_kIO_XML_ATTR_QUAL_CONST" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_QUAL_CONST" class="constant">
+                <h3 class="">kIO_XML_ATTR_QUAL_CONST</h3>
+                <pre class="signature">kIO_XML_ATTR_QUAL_CONST</pre>
+                <p><em>Constant qualifier.</em></p>
+                <p>The attribute value contains a constant variable name, the parsing software is
+responsible of resolving it.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_STRUCT_REF" name="constant_kIO_XML_ATTR_STRUCT_REF" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_STRUCT_REF" class="constant">
+                <h3 class="">kIO_XML_ATTR_STRUCT_REF</h3>
+                <pre class="signature">kIO_XML_ATTR_STRUCT_REF</pre>
+                <p><em>Structure reference.</em></p>
+                <p>The value of this attribute is a tag object reference, the element holding this tag is
+supposed to be stored as a member of the referenced tag.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_STRUCT_IDX" name="constant_kIO_XML_ATTR_STRUCT_IDX" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_STRUCT_IDX" class="constant">
+                <h3 class="">kIO_XML_ATTR_STRUCT_IDX</h3>
+                <pre class="signature">kIO_XML_ATTR_STRUCT_IDX</pre>
+                <p><em>Structure index.</em></p>
+                <p>The value of this attribute is a tag object reference, this attribute requires the
+presence of the {@link kIO_XML_ATTR_STRUCT_REF} attribute which should reference a list
+of structures: it indicates which offset of the list element should be used as the list
+index.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_STRUCT_VAL" name="constant_kIO_XML_ATTR_STRUCT_VAL" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_STRUCT_VAL" class="constant">
+                <h3 class="">kIO_XML_ATTR_STRUCT_VAL</h3>
+                <pre class="signature">kIO_XML_ATTR_STRUCT_VAL</pre>
+                <p><em>Structure value.</em></p>
+                <p>The value of this attribute is a tag object reference, this attribute requires the
+presence of the {@link kIO_XML_ATTR_STRUCT_REF} and {@link kIO_XML_ATTR_STRUCT_IDX}
+attributes which should reference a list of structures: it provides the value that will
+be matched with the list element offset in {@link kIO_XML_ATTR_STRUCT_IDX} to select the
+desired list element.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_NODE_TAG" name="constant_kIO_XML_ATTR_NODE_TAG" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_NODE_TAG" class="constant">
+                <h3 class="">kIO_XML_ATTR_NODE_TAG</h3>
+                <pre class="signature">kIO_XML_ATTR_NODE_TAG</pre>
+                <p><em>Tag native identifier.</em></p>
+                <p>This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+that the element value contains a tag native identifier: the node will be resolved by
+selecting the master node.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_NODE_SEQ" name="constant_kIO_XML_ATTR_NODE_SEQ" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_NODE_SEQ" class="constant">
+                <h3 class="">kIO_XML_ATTR_NODE_SEQ</h3>
+                <pre class="signature">kIO_XML_ATTR_NODE_SEQ</pre>
+                <p><em>Tag sequence number.</em></p>
+                <p>This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+that the element value contains a tag sequence number: the node will be resolved by
+selecting the master node.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_NODE_TERM" name="constant_kIO_XML_ATTR_NODE_TERM" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_NODE_TERM" class="constant">
+                <h3 class="">kIO_XML_ATTR_NODE_TERM</h3>
+                <pre class="signature">kIO_XML_ATTR_NODE_TERM</pre>
+                <p><em>Tag sequence number.</em></p>
+                <p>This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+that the element value contains a term native identifier: the node will be resolved by
+selecting the master node.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_NODE_ID" name="constant_kIO_XML_ATTR_NODE_ID" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_NODE_ID" class="constant">
+                <h3 class="">kIO_XML_ATTR_NODE_ID</h3>
+                <pre class="signature">kIO_XML_ATTR_NODE_ID</pre>
+                <p><em>Node native identifier.</em></p>
+                <p>This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+that the element value contains a node native identifier.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIO_XML_ATTR_NODE_PID" name="constant_kIO_XML_ATTR_NODE_PID" class="anchor"></a>
+            <article id="constant_kIO_XML_ATTR_NODE_PID" class="constant">
+                <h3 class="">kIO_XML_ATTR_NODE_PID</h3>
+                <pre class="signature">kIO_XML_ATTR_NODE_PID</pre>
+                <p><em>Node persistent identifier.</em></p>
+                <p>This enumeration is used by the {@link kIO_XML_ATTR_REF_NODE} attribute, it indicates
+that the element value contains a node persistent identifier.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/ImportExport.xml.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+            
+        </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/definitions/ImportExport.xml.inc.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on November 28th, 2014 at 12:57.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Test data initialisation procedure.
+ * Base data initialisation procedure.
  *
- * This file contains routines to initialise test data.
+ * This file contains routines to initialise base data, which includes the default and major
+ * standards.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
@@ -86,8 +87,8 @@ try
 	//
 	// Set entities.
 	//
-	echo( "  • Setting entities.\n" );
-	$entities = $wrapper->Entities(
+	echo( "  • Setting users.\n" );
+	$entities = $wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
@@ -105,26 +106,19 @@ try
 				"neo4j://localhost:7474" ) );
 	
 	} // Use graph database.
+	
+	//
+	// Load data dictionary.
+	//
+	if( ! $wrapper->dictionaryFilled() )
+		$wrapper->loadTagCache();
 
 	//
-	// Reset dictionary.
+	// Load ISO Standards.
 	//
-	$wrapper->loadTagCache();
-	
-	//
-	// Load collections.
-	//
-	$wrapper->loadCollections( TRUE );
-	
-	//
-	// Reset units.
-	//
-	$wrapper->resetUnits( TRUE );
-	
-	//
-	// Reset entities.
-	//
-	$wrapper->resetEntities( TRUE );
+	$file = kPATH_STANDARDS_ROOT.'/iso/iso639-3.xml';
+	echo( "    - $file\n" );
+	$wrapper->loadXMLFile( $file );
 }
 
 //

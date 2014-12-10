@@ -53,6 +53,14 @@ define( "kTYPE_INT",							':type:int' );
  */
 define( "kTYPE_FLOAT",							':type:float' );
 
+/**
+ * Boolean.
+ *
+ * A <i>boolean</i> data type is a binary value which can take one of two states: on/true or
+ * off/false.
+ */
+define( "kTYPE_BOOLEAN",						':type:boolean' );
+
 /*=======================================================================================
  *	STRUCTURED DATA TYPES																*
  *======================================================================================*/
@@ -76,14 +84,26 @@ define( "kTYPE_STRUCT",							':type:struct' );
 define( "kTYPE_ARRAY",							':type:array' );
 
 /**
- * Language string elements list.
+ * String list by language.
  *
  * This data type defines a <em>list of strings expressed in different languages</em>. The
  * list elements are composed by <em>two key/value pairs</em>. The first pair has the
  * {@link kTAG_LANGUAGE} tag as its key and the value represents the language code. The
  * second pair has the {@link kTAG_TEXT} as its key and the value represents the text
  * expressed in the language defined by the first pair. No two elements may share the same
- * language and only one element may omit the language pair.
+ * language and only one element may omit the language.
+ */
+define( "kTYPE_LANGUAGE_STRING",				':type:language-string' );
+
+/**
+ * Strings list by language.
+ *
+ * This data type defines a <em>list of strings expressed in different languages</em>. The
+ * list elements are composed by <em>two key/value pairs</em>. The first pair has the
+ * {@link kTAG_LANGUAGE} tag as its key and the value represents the language code. The
+ * second pair has the {@link kTAG_TEXT} as its key and the value represents the list of
+ * strings expressed in the language defined by the first pair. No two elements may share
+ * the same language and only one element may omit the language.
  */
 define( "kTYPE_LANGUAGE_STRINGS",				':type:language-strings' );
 
@@ -95,7 +115,7 @@ define( "kTYPE_LANGUAGE_STRINGS",				':type:language-strings' );
  * tag as its key and the value represents the type of the element. The second pair has
  * an unspecified tag as the key and the value represents the element's value qualified by
  * the previous pair. No two elements may share the same type and only one element may omit
- * the type pair.
+ * the type.
  */
 define( "kTYPE_TYPED_LIST",						':type:typed-list' );
 
@@ -108,14 +128,14 @@ define( "kTYPE_TYPED_LIST",						':type:typed-list' );
  * It is an array composed by two key/value pairs:
  *
  * <ul>
- *	<li><tt>{@link kTAG_SHAPE_TYPE}</tt>: The element indexed by this string contains the
+ *	<li><tt>{@link kTAG_TYPE}</tt>: The element indexed by this string contains the
  *		code indicating the type of the shape, these are the supported values:
  *	 <ul>
  *		<li><tt>Point</tt>: A point.
  *		<li><tt>LineString</tt>: A list of non closed points.
  *		<li><tt>Polygon</tt>: A polygon, including its rings.
  *	 </ul>
- *	<li><tt>{@link kTAG_SHAPE_GEOMETRY}</tt>: The element indexed by this string contains
+ *	<li><tt>{@link kTAG_GEOMETRY}</tt>: The element indexed by this string contains
  *		the <em>geometry of the shape</em>, which has a structure depending on the shape
  +		type:
  *	 <ul>
@@ -137,12 +157,37 @@ define( "kTYPE_SHAPE",							':type:shape' );
  *======================================================================================*/
 
 /**
+ * Text.
+ *
+ * This type is derived from the string type, it indicates a text which is not intended for
+ * searching. In general, this type will be used to qualify properties which contain large
+ * text which cannot be indexed.
+ */
+define( "kTYPE_TEXT",							':type:text' );
+
+/**
  * Link.
  *
  * A <i>link</i> data type indicates that the referred property is a <em>string</em>
  * representing an <em>URL</em> which is an internet link or network address.
  */
 define( "kTYPE_URL",							':type:url' );
+
+/**
+ * Year.
+ *
+ * This type defines a year as an integer.
+ */
+define( "kTYPE_YEAR",							':type:year' );
+
+/**
+ * Date.
+ *
+ * This type defines a date in which the day and month can be omitted, it is a string
+ * providing the date in <tt>YYYYMMDD</tt> format in which the day, or the day and month
+ * may not be provided. This type can be used for ranges and sorted.
+ */
+define( "kTYPE_DATE",							':type:date' );
 
 /*=======================================================================================
  *	ENUMERATED DATA TYPES																*
@@ -224,6 +269,18 @@ define( "kTYPE_REF_UNIT",						':type:ref:unit' );
  * This type defines an <em>reference</em> to an <em>object of the same class</em>.
  */
 define( "kTYPE_REF_SELF",						':type:ref:self' );
+
+/*=======================================================================================
+ *	CUSTOM DATA TYPES																	*
+ *======================================================================================*/
+
+/**
+ * Time-stamp.
+ *
+ * A <i>time-stamp</i> is a <em>database native type</em> expressing a date and time,
+ * <em>its structure is dependent on the specific database driver</em>.
+ */
+define( "kTYPE_TIME_STAMP",						':type:time-stamp' );
 
 /*=======================================================================================
  *	DEFAULT TERM TYPES																	*
@@ -434,6 +491,45 @@ define( "kTYPE_NODE_TERM",						':type:node:term' );
  * property.
  */
 define( "kTYPE_LIST",							':type:list' );
+
+/**
+ * Full-text (weight 10).
+ *
+ * A <em>full-text</em> property is one which will be added to the <em>full-text
+ * search index</em>, this specific type holds a weight of 10.
+ */
+define( "kTYPE_FULL_TEXT_10",					':type:full-text-10' );
+
+/**
+ * Full-text (weight 6).
+ *
+ * A <em>full-text</em> property is one which will be added to the <em>full-text
+ * search index</em>, this specific type holds a weight of 6.
+ */
+define( "kTYPE_FULL_TEXT_06",					':type:full-text-06' );
+
+/**
+ * Full-text (weight 3).
+ *
+ * A <em>full-text</em> property is one which will be added to the <em>full-text
+ * search index</em>, this specific type holds a weight of 3.
+ */
+define( "kTYPE_FULL_TEXT_03",					':type:full-text-03' );
+
+/**
+ * Summary.
+ *
+ * A <em>summary</em> property is one which can be used to group results in a summary.
+ */
+define( "kTYPE_SUMMARY",						':type:summary' );
+
+/**
+ * Lookup.
+ *
+ * A <em>lookup</em> property is a textual field that can be searched with auto-complete,
+ * this implies that the property must be indexed.
+ */
+define( "kTYPE_LOOKUP",							':type:lookup' );
 
 /**
  * Categorical.

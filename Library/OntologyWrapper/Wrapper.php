@@ -98,13 +98,13 @@ class Wrapper extends Dictionary
 	protected $mMetadata = NULL;
 
 	/**
-	 * Entities.
+	 * Users.
 	 *
 	 * This data member holds the entities {@link DatabaseObject} derived instance.
 	 *
 	 * @var DatabaseObject
 	 */
-	protected $mEntities = NULL;
+	protected $mUsers = NULL;
 
 	/**
 	 * Units.
@@ -227,7 +227,7 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
-	 *	Entities																		*
+	 *	Users																			*
 	 *==================================================================================*/
 
 	/**
@@ -247,7 +247,7 @@ class Wrapper extends Dictionary
 	 * value when replacing or resetting; if <tt>FALSE</tt>, it will return the current
 	 * value.
 	 *
-	 * @param mixed					$theValue			Entities database or operation.
+	 * @param mixed					$theValue			Users database or operation.
 	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
 	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
@@ -256,13 +256,13 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 *
-	 * @see $mEntities
+	 * @see $mUsers
 	 *
 	 * @uses manageProperty()
 	 * @uses isInited()
 	 * @uses isReady()
 	 */
-	public function Entities( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
+	public function Users( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
 	{
 		//
 		// Check entities type.
@@ -293,7 +293,7 @@ class Wrapper extends Dictionary
 		//
 		// Manage member.
 		//
-		$save = $this->manageProperty( $this->mEntities, $theValue, $getOld );
+		$save = $this->manageProperty( $this->mUsers, $theValue, $getOld );
 		
 		//
 		// Set inited status.
@@ -302,7 +302,7 @@ class Wrapper extends Dictionary
 		
 		return $save;																// ==>
 	
-	} // Entities.
+	} // Users.
 
 	 
 	/*===================================================================================
@@ -477,13 +477,13 @@ class Wrapper extends Dictionary
 	 *
 	 * @uses isInited()
 	 *
-	 * @see $mMetadata $mEntities $mUnits
+	 * @see $mMetadata $mUsers $mUnits
 	 */
 	public function isConnected()
 	{
 		return ( $this->isInited()
 			  && $this->mMetadata->isConnected()
-			  && $this->mEntities->isConnected()
+			  && $this->mUsers->isConnected()
 			  && $this->mUnits->isConnected() );									// ==>
 	
 	} // isConnected.
@@ -504,7 +504,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @uses isInited()
 	 *
-	 * @see $mMetadata $mEntities $mUnits
+	 * @see $mMetadata $mUsers $mUnits
 	 */
 	public function openConnections()
 	{
@@ -529,7 +529,7 @@ class Wrapper extends Dictionary
 			//
 			// Open entities.
 			//
-			$this->mEntities->openConnection();
+			$this->mUsers->openConnection();
 		
 			//
 			// Open units.
@@ -559,7 +559,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @uses isConnected()
 	 *
-	 * @see $mMetadata $mEntities $mUnits
+	 * @see $mMetadata $mUsers $mUnits
 	 */
 	public function closeConnections()
 	{
@@ -576,7 +576,7 @@ class Wrapper extends Dictionary
 			//
 			// Open entities.
 			//
-			$this->mEntities->closeConnection();
+			$this->mUsers->closeConnection();
 		
 			//
 			// Open units.
@@ -757,6 +757,10 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
+		$file = kPATH_STANDARDS_ROOT.'/default/RoleTypes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		//
 		// Load XML schema files.
 		//
@@ -878,14 +882,14 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
-	 *	resetEntities																	*
+	 *	resetUsers																		*
 	 *==================================================================================*/
 
 	/**
-	 * Reset entities
+	 * Reset users
 	 *
-	 * This method can be used to reset the entities database, it will erase the current
-	 * entities collection and load the FAO insatitutes.
+	 * This method can be used to reset the users database, it will erase the current users
+	 * collection and load the FAO insatitutes.
 	 *
 	 * The method will take care of setting the necessary indexes.
 	 *
@@ -897,34 +901,34 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function resetEntities( $doLog = FALSE, $doDrop = FALSE )
+	public function resetUsers( $doLog = FALSE, $doDrop = FALSE )
 	{
 		//
 		// Inform.
 		//
 		if( $doLog )
-			echo( "\n==> Resetting entities.\n" );
+			echo( "\n==> Resetting users.\n" );
 		
 		//
 		// Check if object is connected.
 		//
 		if( ! $this->isConnected() )
 			throw new \Exception(
-				"Unable to reset entities: "
+				"Unable to reset users: "
 			   ."object is not connected." );									// !@! ==>
 		
 		//
-		// Reset entity collection.
+		// Reset users collection.
 		//
 		if( $doLog )
 			echo( "  • Resetting collection.\n" );
 		if( $doDrop )
-			$this->mEntities->collection( User::kSEQ_NAME, TRUE )->drop();
-		User::CreateIndexes( $this->mEntities );
+			$this->mUsers->collection( User::kSEQ_NAME, TRUE )->drop();
+		User::CreateIndexes( $this->mUsers );
 		
 		return NULL;																// ==>
 	
-	} // resetEntities.
+	} // resetUsers.
 
 	 
 	/*===================================================================================
@@ -2383,6 +2387,10 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading XML attribute files.\n" );
 		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Units.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		$file = kPATH_STANDARDS_ROOT.'/standard/InventoryAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -2468,6 +2476,84 @@ class Wrapper extends Dictionary
 					   "sparse" => TRUE ) );
 	
 	} // loadStandards.
+
+	 
+	/*===================================================================================
+	 *	loadTraits																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load traits
+	 *
+	 * This method can be used to load the traits in the metadata database, it will
+	 * load the trait XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadTraits( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading traits.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load traits: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/trait/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML term files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML term files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/trait/Terms.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML type files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML type files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/trait/Types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML tag files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML tag files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/trait/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadTraits.
 
 	 
 	/*===================================================================================
@@ -3030,6 +3116,10 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormTrait.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
 		$file = kPATH_STANDARDS_ROOT.'/collections/FormQtl.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -3370,8 +3460,8 @@ class Wrapper extends Dictionary
 						Edge::ResolveDatabase( $this, TRUE ) );						// ==>
 				
 			case User::kSEQ_NAME:
-				return EntityObject::ResolveCollection(
-						EntityObject::ResolveDatabase( $this, TRUE ) );				// ==>
+				return User::ResolveCollection(
+						User::ResolveDatabase( $this, TRUE ) );						// ==>
 				
 			case UnitObject::kSEQ_NAME:
 				return UnitObject::ResolveCollection(
@@ -3493,12 +3583,17 @@ class Wrapper extends Dictionary
 	 * It is assumed that the object has its comnnections open and that the provided XML
 	 * structure has the correct root element.
 	 *
-	 * @param SimpleXMLElement		$theXML				Entities XML.
+	 * @param SimpleXMLElement		$theXML				Users XML.
 	 *
 	 * @access protected
 	 */
 	protected function loadXMLUsers( \SimpleXMLElement $theXML )
 	{
+		//
+		// Iterate meta-blocks.
+		//
+		foreach( $theXML->{kIO_XML_TRANS_UNITS} as $block )
+			$this->loadXMLUnit( $block );
 	
 	} // loadXMLUsers.
 
@@ -4075,7 +4170,7 @@ class Wrapper extends Dictionary
 						$value
 							= Node::GetTagMaster(
 								$this,
-								(int) (string) $theElement,
+								(string) $theElement,
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
@@ -4315,14 +4410,14 @@ class Wrapper extends Dictionary
 								->matchOne(
 									array( kTAG_NID => $node[ kTAG_TAG ] ),
 									kQUERY_ASSERT | kQUERY_ARRAY,
-									array( kTAG_ID_SEQUENCE => TRUE,
+									array( kTAG_ID_HASH => TRUE,
 										   kTAG_DATA_TYPE => TRUE ) );
 					
 					//
 					// Save identifiers.
 					//
 					$id = $tag[ kTAG_NID ];
-					$seq = $tag[ kTAG_ID_SEQUENCE ];
+					$seq = $tag[ kTAG_ID_HASH ];
 					
 					//
 					// Handle structure.
@@ -4441,12 +4536,12 @@ class Wrapper extends Dictionary
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> is ready.
 	 *
-	 * @see $mMetadata $mEntities $mUnits
+	 * @see $mMetadata $mUsers $mUnits
 	 */
 	protected function isReady()
 	{
 		return ( ($this->mMetadata !== NULL)
-			  && ($this->mEntities !== NULL)
+			  && ($this->mUsers !== NULL)
 			  && ($this->mUnits !== NULL) );										// ==>
 	
 	} // isReady.

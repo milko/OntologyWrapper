@@ -25,6 +25,9 @@ use OntologyWrapper\Individual;
  * The class adds a series of default attributes which characterise users:
  *
  * <ul>
+ *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: <em>Sequence ID</em>. This persistent automatic
+ *		attribute is set when the record is first inserted, it will be used as the suffix
+ *		for elements related to the user.
  *	<li><tt>{@link kTAG_CONN_CODE}</tt>: <em>User code</em>. This optional attribute can be
  *		set if the individual is also a user of the system, in that case this attribute can
  *		hold the user code credentials.
@@ -33,6 +36,8 @@ use OntologyWrapper\Individual;
  *		can hold the user password credentials.
  *	<li><tt>{@link kTAG_ROLES}</tt>: <em>Roles</em>. This attribute can be used to set the
  *		user roles.
+ *	<li><tt>{@link kTAG_INVITES}</tt>: <em>Invites</em>. This attribute holds the list of
+ *-		users invitations.
  * </ul>
  *
  * The above two properties are required.
@@ -49,7 +54,7 @@ class User extends Individual
 	 *
 	 * @var string
 	 */
-	const kSEQ_NAME = '_entities';
+	const kSEQ_NAME = '_users';
 
 	/**
 	 * Default domain.
@@ -299,6 +304,53 @@ class User extends Individual
 		parent::preCommitPrepare( $theTags, $theRefs );
 	
 	} // preCommitPrepare.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PRE-COMMIT UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitObjectIdentifiers														*
+	 *==================================================================================*/
+
+	/**
+	 * Load object identifiers
+	 *
+	 * In this class we set the sequence identifier if inserting.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitObjectIdentifiers()
+	{
+		//
+		// Check if committed.
+		//
+		if( ! $this->isCommitted() )
+		{
+			//
+			// Call parent method.
+			//
+			parent::preCommitObjectIdentifiers();
+	
+			//
+			// Set sequence number.
+			//
+			$this->offsetSet(
+				kTAG_ID_SEQUENCE,
+				static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary, TRUE ) )
+						->getSequenceNumber(
+							static::kSEQ_NAME ) );
+		
+		} // Not committed.
+	
+	} // preCommitObjectIdentifiers.
 
 		
 

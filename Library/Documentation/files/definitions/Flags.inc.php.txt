@@ -43,16 +43,16 @@ define( "kFLAG_DEFAULT",				0x00000000 );
  */
 define( "kFLAG_DEFAULT_MASK",			0x7FFFFFFF );
 
+/*=======================================================================================
+ *	STATUS																				*
+ *======================================================================================*/
+
 /**
  * State mask.
  *
  * This value masks all the state flags.
  */
 define( "kFLAG_STATE_MASK",				0x0000000F );
-
-/*=======================================================================================
- *	OBJECT STATE																		*
- *======================================================================================*/
 
 /**
  * Initialised.
@@ -102,6 +102,63 @@ define( "kFLAG_STATE_COMMITTED",		0x00000004 );
  * committed.
  */
 define( "kFLAG_STATE_ALIAS",			0x00000008 );
+
+/*=======================================================================================
+ *	OPTIONS																				*
+ *======================================================================================*/
+
+/**
+ * Options mask.
+ *
+ * This value masks all the option flags.
+ */
+define( "kFLAG_OPT_MASK",				0x000000F0 );
+
+/**
+ * Access mask.
+ *
+ * This value masks all the access flags.
+ */
+define( "kFLAG_OPT_ACCESS_MASK",		0x00000030 );
+
+/**
+ * Insert.
+ *
+ * This bitfield value represents the insert operation.
+ */
+define( "kFLAG_OPT_INSERT",				0x00000010 );
+
+/**
+ * Update.
+ *
+ * This bitfield value represents the update operation.
+ */
+define( "kFLAG_OPT_UPDATE",				0x00000030 );
+
+/**
+ * Delete.
+ *
+ * This bitfield value represents the delete operation.
+ */
+define( "kFLAG_OPT_DELETE",				0x00000020 );
+
+/**
+ * Relate one.
+ *
+ * This bitfield value enables or disables many to one relationship operations: if the flag
+ * is set, many to one relationships must be handled; if set to <tt>FALSE</tt>, many to one
+ * relationships should be ignored.
+ */
+define( "kFLAG_OPT_REL_ONE",			0x00000040 );
+
+/**
+ * Relate many.
+ *
+ * This bitfield value enables or disables one to many relationship operations: if the flag
+ * is set, one to many relationships must be handled; if set to <tt>FALSE</tt>, one to many
+ * relationships should be ignored.
+ */
+define( "kFLAG_OPT_REL_MANY",			0x00000080 );
 
 
 ?>

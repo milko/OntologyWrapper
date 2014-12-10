@@ -1,0 +1,2 @@
+tar -zcvf file-out.tar.gz file-in
+tar -xzvf file-out.tar.gz
