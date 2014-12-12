@@ -1194,7 +1194,6 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  *	 <ul>
  *		<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Results format</em>.
  *		<li><tt>{@link kAPI_PARAM_STAT}</tt>: <em>Statistics type</em>.
- *		<li><tt>{@link kAPI_PARAM_SUMMARY}</tt>: <em>Summary selection</em>.
  *		<li><tt>{@link kAPI_PARAM_SHAPE}</tt>: <em>Geographic shape</em>.
  *		<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: <em>Shape offset</em>.
  *		<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>.
@@ -1234,6 +1233,10 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  * These are the other allowed parameters:
  *
  * <ul>
+ *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+ *		indicates the maximum number of elements to be returned. In this service it is
+ *		only relevant if the {@link kAPI_PARAM_DOMAIN} parameter was provided, in that case,
+ *		if omitted, it will be set to the default constant {@link kSTANDARDS_UNITS_LIMIT}.
  *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Results format</em>. This parameter indicates
  *		in which format the results must be returned, it is relevant only if the
  *		{@link kAPI_PARAM_DOMAIN} parameter was provided:
@@ -1291,47 +1294,71 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  *					to resolve tag native identifiers from serial identifiers as an array
  *					indexed by tag serial identifier.
  *			 </ul>
+ *			<li><tt>{@link kAPI_RESPONSE_RESULTS}</tt>: This section holds the results, it
+ *				is an array indexed by collection name holding all elements related to the
+ *				selection response. Each element of the array represents a set of collection
+ *				records corresponding to the name in the array index, the elements of that
+ *				array are the records expressed as an array indexed by the record native
+ *				identifier with as value the record contents. The
+ *				{@link kAPI_DICTIONARY_IDS} element of the dictionary contains the native
+ *				identifiers of the selected records, the {@link kAPI_DICTIONARY_COLLECTION}
+ *				element of the dictionary is the index of the array element of
+ *				{@link kAPI_RESPONSE_RESULTS} in which to match the values of
+ *				{@link kAPI_DICTIONARY_IDS}. The other elements of the
+ *				{@link kAPI_RESPONSE_RESULTS} array are all the other collections needed to
+ *				decode the values of the records.
  *		 </ul>
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_STAT}</tt>: The service will return the
  *			statistics according to the provided {@link kAPI_PARAM_STAT} parameter; in this
  *			case the {@link kAPI_PARAM_DOMAIN} parameter and the {@link kAPI_PARAM_STAT}
- *			parameters are required.
+ *			parameters are required. The results are provided in the
+ *			{@link kAPI_RESPONSE_RESULTS} section and are structured as follows:
+ *		 <ul>
+ *			<li><tt>{@link kAPI_PARAM_STAT}</tt>: Contains the provided statistics code.
+ *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: Contains the statistics
+ *				name or title.
+ *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_HEAD}</tt>: Contains the statistics
+ *				header, which contains the information regarding the table columns:
+ *			 <ul>
+ *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: Column label.
+ *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: Column description.
+ *				<li><tt>{@link kAPI_PARAM_DATA_TYPE}</tt>: Column data type.
+ *			 </ul>
+ *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: Contains the statistics
+ *				data as an array of elements in the same order as the header section.
+ *		 </ul>
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
- *			formatted record set.
+ *			formatted record set in the {@link kAPI_RESPONSE_RESULTS} section as an array
+ *			structured as follows:
+ *		 <ul>
+ *			<li><em>key</em>: The native identifier of the record.
+ *			<li><em>value</em>: The record as an array indexed by tag serial identifier with
+ *				as value the following set of elements:
+ *			 <ul>
+ *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: Tag label.
+ *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: Tag description.
+ *				<li><tt>{@link kAPI_PARAM_DATA_TYPE}</tt>: Tag data type.
+ *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: The display value as a
+ *					string or as a set of {@link kAPI_PARAM_RESPONSE_FRMT_NAME} and
+ *					{@link kAPI_PARAM_RESPONSE_FRMT_INFO} elements in the case of enumerated
+ *					values.
+ *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: If the property is a
+ *					sub-structure, this element will hold the sub-structure items, in the
+ *					same format as above.
+ *			 </ul>
+ *		 </ul>
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
- *			geographic markers, each element will contain the unit {@link kTAG_NID} and the
- *			value contained in the offset provided in the {@link kAPI_PARAM_SHAPE_OFFSET},
- *			which is required in this case.
+ *			geographic markers in the {@link kAPI_RESPONSE_RESULTS} section as a GeoJson
+ *			feature collection in which the geometry will correspond to the property
+ *			provided in the {@link kAPI_PARAM_SHAPE_OFFSET} parameter which, in this case,
+ *			is required and the properties will contain the unit native identifier in
+ *			{@link kAPI_PARAM_ID} and the domain in {@link kAPI_PARAM_DOMAIN}.
  *	 </ul>
- * </ul>
- *
- *
  *	<li><tt>{@link kAPI_PARAM_STAT}</tt>: <em>Statistics type</em>. This parameter is
  *		required if the {@link kAPI_PARAM_DATA} parameter is
  *		{@link kAPI_RESULT_ENUM_DATA_STAT}: it indicates which type of statistics is to be
- *		performed.
- *	<li><tt>{@link kAPI_PARAM_DOMAIN}</tt>: <em>Results domain</em>. If this parameter is
- *		provided, the service will return the results of the type provided in this
- *		parameter, if it is not provided, the next parameter is required. If this parameter
- *		is provided, the next parameter will be ignored. This parameter is required if the
- *		{@link kAPI_PARAM_DATA} parameter is {@link kAPI_RESULT_ENUM_DATA_STAT}.
- *	<li><tt>{@link kAPI_PARAM_GROUP}</tt>: <em>Group results</em>. This parameter must be
- *		provided if the {@link kAPI_PARAM_DOMAIN} is omitted: the value may be a string or
- *		an array of strings representing the tag native identifiers or sequence numbers by
- *		which the results should be grouped. The result will be a nested array containing
- *		the distinct values of the provided tags as keys and the record count as values.
- *		If the parameter is an array, the results will be clustered in the order in which
- *		the tags are provided, only the leaf elements will contain the record counts.
- *		<em>Note that the leaf element will always be the {@link kTAG_DOMAIN} property, if
- *		missing from the provided parametrer it will be added</em>.
- *	<li><tt>{@link kAPI_PARAM_SUMMARY}</tt>: <em>Summary selection</em>. This parameter
- *		should be provided if you reach this query from a summary page with more than one
- *		element (including the default domain property), it is structured as an array in
- *		which each element is an array of one item with its key represents the offset and
- *		its value the match value. <em>Note that you should not provide the domain leaf
- *		element in this parameter, the domain value should be instead provided in the
- *		{@link kAPI_PARAM_DOMAIN} parameter.</em> This parameter will be ignored if the
- *		{@link kAPI_PARAM_GROUP} parameter was provided.
+ *		performed, refer to the {@link kAPI_RESULT_ENUM_DATA_STAT} element of
+ *		{@link kAPI_PARAM_DATA} for more information.
  *	<li><tt>{@link kAPI_PARAM_SHAPE}</tt>: <em>Geographic shape</em>. If this parameter is
  *		provided, the service will add the provided shape to the filter, the parameter is
  *		structured as a GeoJson shape of which the following types are supported:
@@ -1349,54 +1376,11 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  *	 </ul>
  *	<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: <em>Shape offset</em>. This parameter is
  *		the tag reference of the shape, it is required if the {@link kAPI_PARAM_SHAPE}
- *		parameter was provided.
- *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
- *		indicates the maximum number of elements to be returned. In this service it is
- *		only relevant if the {@link kAPI_PARAM_DOMAIN} parameter was provided, in that case,
- *		If omitted, it will be set to the default constant {@link kSTANDARDS_UNITS_LIMIT}.
- * </ul>
- *
- * The results structure depends on the kind of request:
- *
- * <ul>
- *	<li><em>The {@link kAPI_PARAM_GROUP} parameter was provided</em>: In that case the
- *		results are a series of nested arrays representing the record count grouped by the
- *		elements provided in the {@link kAPI_PARAM_GROUP} parameter in which the leaf nodes
- *		contain the record count. Note that the leaf element will always represent the
- *		{@link kTAG_DOMAIN} property. The arrays will have the term native identifier as
- *		the key, the value will be an array containing the term's {@link kTAG_LABEL} and
- *		{@link kTAG_DEFINITION}, if the element is a leaf, the count will be set in the
- *		element indexed by {@link kAPI_PARAM_RESPONSE_COUNT}; if the element is not a leaf,
- *		the element indexed by {@link kAPI_PARAM_RESPONSE_CHILDREN} will hold a list of
- *		similar structures.
- *	<li><em>The {@link kAPI_PARAM_DOMAIN} parameter was provided</em>: In that case the
- *		results represent individual records, the format is defined by the
- *		{@link kAPI_PARAM_DATA} value:
- *	 <ul>
- *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
- *			{@link IteratorSerialiser} class. 
- *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_STAT}</tt>: The results are structured as
- *			follows:
- *		 <ul>
- *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: Statistics name or label.
- *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: Statistics description.
- *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_HEAD}</tt>: Statistics header.
- *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: Statistics data (one element
- *				per header element).
- *		 </ul>
- *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
- *			formatted record set.
- *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
- *			fed to a map, it will be an array holding the following elements:
- *		 <ul>
- *			<li><tt>kAPI_PARAM_ID</tt>: The unit native identifier.
- *			<li><tt>kAPI_PARAM_DOMAIN</tt>: The unit domain.
- *			<li><tt>kAPI_PARAM_SHAPE</tt>: The unit shape geometry.
- *		 </ul>
- *	 </ul>
+ *		parameter was provided, or it is required if you want to have the selection in the
+ *		map.
  * </ul>
  */
-define( "kAPI_OP_MATCH_UNITSnew",					'matchUnits' );
+define( "kAPI_OP_MATCH_UNITSnew",					'matchUnitsNew' );
 
 /**
  * Get unit.
