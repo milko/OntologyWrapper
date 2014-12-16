@@ -935,10 +935,10 @@ echo( '<hr />' );
 /******************************************************************************/
 	
 	//
-	// Test string offsets.
+	// Test array splice.
 	//
-	$string = '12345678901234567890123456789012345678901234567890123456789012345678901234567890';
-	$x = $string[ 7 ];
-	var_dump( 
+	$tmp = explode( '/', "/Library/WebServer/Library/OntologyWrapper/Library" );
+	$path = implode( '/', array_merge( array_splice( $tmp, count( $tmp ) - 2 ), array( 'Private', 'pub.pem' ) ) );
+var_dump( $path );
 
 ?>

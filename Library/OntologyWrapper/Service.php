@@ -520,7 +520,7 @@ class Service extends ContainerObject
 			
 			case kAPI_OP_INVITE_USER:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
-				$this->decryptRequest();
+				$this->decryptRequest( kAPI_REQUEST_PARAMETERS );
 				break;
 			
 			default:
@@ -8383,6 +8383,45 @@ $rs_units = & $rs_units[ 'result' ];
 		exit( JsonEncode( $this->mResponse ) );									// ==>
 	
 	} // _Exception2Status.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED ENCRYPTION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	encrypt																			*
+	 *==================================================================================*/
+
+	/**
+	 * Encrypt.
+	 *
+	 * This method will encrypt the provided data using the provided public key, encode it
+	 * in base 64 and return the result.
+	 *
+	 * @param string				$theData			Data to encrypt.
+	 * @param string				$theKey				Encryption key.
+	 *
+	 * @access protected
+	 */
+	protected function encrypt( $theData, $theKey )
+	{
+		//
+		// Check data.
+		//
+		if( $theData !== NULL )
+		{
+		
+		} // Provided data.
+		
+		return NULL;																// ==>
+	
+	} // encrypt.
 
 		
 

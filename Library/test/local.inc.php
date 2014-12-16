@@ -20,6 +20,17 @@
  */
 
 /*=======================================================================================
+ *	PORTAL PREFIX																		*
+ *======================================================================================*/
+
+/**
+ * Portal prefix.
+ *
+ * This tag indicates the default portal prefix.
+ */
+define( "kPORTAL_PREFIX",	'pgrdg' );
+
+/*=======================================================================================
  *	GRAPH SERVICE REFERENCES															*
  *======================================================================================*/
 
@@ -112,13 +123,6 @@ define( "kCLIMATE_DELTA_ELEV",		50 );
  * This tag indicates the directory name where the default standards XML files are stored.
  */
 define( "kDIR_STANDARDS_DEFAULT",				'default' );
-
-/**
- * Standards.
- *
- * This tag indicates the directory name where the standards XML files are stored.
- */
-define( "kDIR_STANDARDS_STANDARDS",				'standards' );
 
 /**
  * ISO standards.
