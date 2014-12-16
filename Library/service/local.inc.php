@@ -31,6 +31,17 @@
 define( "kDEBUG_FLAG",					TRUE );
 
 /*=======================================================================================
+ *	PORTAL PREFIX																		*
+ *======================================================================================*/
+
+/**
+ * Portal prefix.
+ *
+ * This tag indicates the default portal prefix.
+ */
+define( "kPORTAL_PREFIX",				'pgrdg' );
+
+/*=======================================================================================
  *	STANDARD DATA DICTIONARY															*
  *======================================================================================*/
 
@@ -49,16 +60,31 @@ define( "kSTANDARDS_DDICT_HOST",		'localhost' );
 define( "kSTANDARDS_DDICT_PORT",		11211 );
 
 /*=======================================================================================
- *	STANDARD GRAPH DSN																	*
+ *	GRAPH SERVICE REFERENCES															*
  *======================================================================================*/
 
 /**
- * Default graph database.
+ * Graph service switch.
  *
- * This tag indicates the standard graqph database DSN.
+ * This tag flag indicates whether to use or not the graph database.
  */
-//define( "kSTANDARDS_GRAPH_DB",			'neo4j://localhost:7474' );
-define( "kSTANDARDS_GRAPH_DB",			FALSE );
+define( "kGRAPH_DO",		FALSE );
+
+/**
+ * Graph service filename.
+ *
+ * This tag indicates the graph service filename, this refers to the launchctl file that
+ * runs the graph database.
+ */
+define( "kGRAPH_SERVICE",	'/Users/milko/Library/LaunchAgents/org.neo4j.server.plist' );
+
+/**
+ * Graph data directory.
+ *
+ * This tag indicates the directory where the graph database is stored, it will be used to
+ * clear the database, the path must finish with the directory token.
+ */
+define( "kGRAPH_DIR",		'/Volumes/Data/Neo4j/' );
 
 /*=======================================================================================
  *	STANDARD DATABASE DSNs																*
@@ -140,7 +166,16 @@ define( "kSTANDARDS_MARKERS_MAX",		10000 );
  *
  * This token represents the base climate data service URL.
  */
-define( "kCLIMATE_URL",				'http://geo.grinfo.net/features.php' );
+define( "kCLIMATE_URL",					'http://geo.grinfo.net/features.php' );
+
+/**
+ * Default average distance.
+ *
+ * This token represents the default distance in meters, or coordinate uncertainty, that
+ * will be used in climate data retrieval. This value will be used whenever the distance is
+ * required but not provided.
+ */
+define( "kCLIMATE_DEF_DIST",			7000 );
 
 /**
  * Minimum average distance.
@@ -149,15 +184,15 @@ define( "kCLIMATE_URL",				'http://geo.grinfo.net/features.php' );
  * will be used in climate data retrieval. This means that any uncertainty smaller than
  * this figure will not be used.
  */
-define( "kCLIMATE_MIN_DIST",		925 );
+define( "kCLIMATE_MIN_DIST",			925 );
 
 /**
  * Maximum average distance.
  *
- * This token represents the efault maximum average tile distance from the provided
+ * This token represents the default maximum average tile distance from the provided
  * geometry in meters (10km.).
  */
-define( "kCLIMATE_MAX_DIST",		111325 );
+define( "kCLIMATE_MAX_DIST",			111325 );
 
 /**
  * Elevation range delta.
@@ -165,6 +200,31 @@ define( "kCLIMATE_MAX_DIST",		111325 );
  * This token represents the default range by which an elevation is decremented and
  * incremented in order to get the climate data (50m.).
  */
-define( "kCLIMATE_DELTA_ELEV",		50 );
+define( "kCLIMATE_DELTA_ELEV",			50 );
+
+/*=======================================================================================
+ *	STANDARDS SUB-FOLDER NAMES															*
+ *======================================================================================*/
+
+/**
+ * Defaults.
+ *
+ * This tag indicates the directory name where the default standards XML files are stored.
+ */
+define( "kDIR_STANDARDS_DEFAULT",		'default' );
+
+/**
+ * ISO standards.
+ *
+ * This tag indicates the directory name where the ISO standards XML files are stored.
+ */
+define( "kDIR_STANDARDS_ISO",			'iso' );
+
+/**
+ * WBI standards.
+ *
+ * This tag indicates the directory name where the WBI standards XML files are stored.
+ */
+define( "kDIR_STANDARDS_WBI",			'wbi' );
 
 ?>

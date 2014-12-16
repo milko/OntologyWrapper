@@ -67,8 +67,26 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 //
 // Init local storage.
 //
-$pubkey = '/Library/WebServer/Library/OntologyWrapper/Library/test/public_key.pem';
-$privkey = '/Library/WebServer/Library/OntologyWrapper/Library/test/private_key.pem';
+$string = <<<EOT
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+EOT;
  
 //
 // Test class.
@@ -76,15 +94,9 @@ $privkey = '/Library/WebServer/Library/OntologyWrapper/Library/test/private_key.
 try
 {
 	//
-	// Get private and public keys.
+	// Test create keys.
 	//
-	$thePubKey = file_get_contents( $pubkey );
-	$thePrivKey = file_get_contents( $privkey );
-	
-	//
-	// Test pub/priv encode.
-	//
-	echo( '<h4>Test pub/priv encode</h4>' );
+	echo( '<h4>Test create keys</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -93,22 +105,91 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$string = \'This is a test string.\';<br />' );
-	$string = 'This is a test string.';
-	echo( '$encoder = new OntologyWrapper\\Encoder();<br />' );
+	echo( '$encoder = new OntologyWrapper\\Encoder( );<br />' );
 	$encoder = new OntologyWrapper\Encoder();
-	echo( '$encoded = $encoder->publicEncode( $string, $thePubKey );<br />' );
-	$encoded = $encoder->publicEncode( $string, $thePubKey );
-	echo( '$decoded = $encoder->privateDecode( $encoded, $thePrivKey );<br />' );
-	$decoded = $encoder->privateDecode( $encoded, $thePrivKey );
+	echo( '$encoder->generateKeys( $pubKey, $privKey );<br />' );
+	$encoder->generateKeys( $pubKey, $privKey );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( "String: $string<br />" );
-	echo( "Encoded: $encoded<br />" );
-	echo( "Decoded: $decoded<br />" );
+	echo( "Public: $pubKey" );
 	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( "Private: $privKey" );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Test public encode.
+	//
+	echo( '<h4>Test public encode</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$encoder = new OntologyWrapper\\Encoder( );<br />' );
+	$encoder = new OntologyWrapper\Encoder();
+	echo( '$encoded = $encoder->publicEncode( $string, $pubKey );<br />' );
+	$encoded = $encoder->publicEncode( $string, $pubKey );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( "Encoded: $encoded" );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Test private decode.
+	//
+	echo( '<h4>Test private decode</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$encoder = new OntologyWrapper\\Encoder( );<br />' );
+	$encoder = new OntologyWrapper\Encoder();
+	echo( '$decoded = $encoder->privateDecode( $encoded, $privKey );<br />' );
+	$decoded = $encoder->privateDecode( $encoded, $privKey );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( "Decoded: $decoded" );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Test result.
+	//
+	echo( '<h4>Test result</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Result:' );
+	if( $decoded == $string )
+		echo( "OK" );
+	else
+		echo( "Failed!" );
+	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );

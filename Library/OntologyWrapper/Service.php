@@ -513,14 +513,10 @@ class Service extends ContainerObject
 			case kAPI_OP_MATCH_UNITS:
 			case kAPI_OP_MATCH_UNITSnew:
 			case kAPI_OP_GET_UNIT:
+			case kAPI_OP_INVITE_USER:
 			case kAPI_OP_ADD_USER:
 			case kAPI_OP_GET_USER:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
-				break;
-			
-			case kAPI_OP_INVITE_USER:
-				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
-				$this->decryptRequest( kAPI_REQUEST_PARAMETERS );
 				break;
 			
 			default:
@@ -560,68 +556,6 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	parseUser																		*
-	 *==================================================================================*/
-
-	/**
-	 * Parse user.
-	 *
-	 * The duty of this method is to parse the provided user, check whether a user is
-	 * required and set the wrapper to point to the user's units.
-	 *
-	 * If the user is not resolved, or the operation requires the missing user, the method
-	 * will raise an exception.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kAPI_REQUEST_USER kTOKEN_UDB_PREFIX
-	 */
-	protected function parseUser()
-	{
-		//
-		// Resolve user.
-		//
-		if( array_key_exists( kAPI_REQUEST_USER, $_REQUEST ) )
-		{
-			//
-			// Init local storage.
-			//
-			$user = NULL;
-			$op = $_REQUEST[ kAPI_REQUEST_OPERATION ];
-			$server = $this->mWrapper->Users()->parent();
-			$collection = $this->mWrapper->resolveCollection( User::kSEQ_NAME );
-		
-			//
-			// Resolve user.
-			//
-			$user = $collection->matchOne(
-						array( kTAG_NID => $_REQUEST[ kAPI_REQUEST_USER ] ),
-						kQUERY_OBJECT | kQUERY_ASSERT );
-			
-			//
-			// Redirect units.
-			//
-			$dbname = $user[ kTAG_CONN_BASE ];
-			if( $dbname !== NULL )
-				$this->mWrapper->Units(
-					$server->Database( kTOKEN_UDB_PREFIX.$dbmane, TRUE ) );
-			else
-				throw new \Exception(
-					"Requesting user lacks sequence identifier." );				// !@! ==>
-			
-			//
-			// Save user.
-			//
-			$this->offsetSet( kAPI_REQUEST_USER, $user );
-		
-		} // Provided user.
-		
-	} // parseUser.
-
-	 
-	/*===================================================================================
 	 *	parseParameters																	*
 	 *==================================================================================*/
 
@@ -649,6 +583,18 @@ class Service extends ContainerObject
 		//
 		if( array_key_exists( kAPI_REQUEST_PARAMETERS, $_REQUEST ) )
 		{
+			//
+			// Decrypt parameters.
+			//
+			switch( $this->offsetGet( kAPI_REQUEST_OPERATION ) )
+			{
+				case kAPI_OP_INVITE_USER:
+					$encoder = new Encoder();
+					$decoded = $encoder->decodeData( $_REQUEST[ kAPI_REQUEST_PARAMETERS ] );
+					$_REQUEST[ kAPI_REQUEST_PARAMETERS ] = $decoded;
+					break;
+			}
+			
 			//
 			// Decode parameters.
 			//
@@ -694,13 +640,14 @@ class Service extends ContainerObject
 	 *
 	 * @access protected
 	 */
-	protected function parseParameter( &$theKey, &$theValue )
+	protected function parseParameter( $theKey, $theValue )
 	{
 		//
 		// Parse parameter.
 		//
 		switch( $theKey )
 		{
+			case kAPI_PARAM_OBJECT:
 			case kAPI_PARAM_SUMMARY:
 				$this->offsetSet( $theKey, $theValue );
 				break;
@@ -777,18 +724,67 @@ class Service extends ContainerObject
 				$this->offsetSet( $theKey, $theValue );
 				break;
 
-			case kAPI_PARAM_OBJECT:
-				if( is_array( $theValue ) )
-				{
-					$object = new User( $this->mWrapper );
-					foreach( $theValue as $key => $value )
-						$object[ $key ] = $value;
-					$this->offsetSet( $theKey, $object );
-				}
+			case kAPI_REQUEST_USER:
+				$this->offsetSet( $theKey, $this->parseUser( $theValue ) );
 				break;
 		}
 	
 	} // parseParameter.
+
+	 
+	/*===================================================================================
+	 *	parseUser																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse user.
+	 *
+	 * The duty of this method is to parse the provided user, check whether a user is
+	 * required and set the wrapper to point to the user's units.
+	 *
+	 * If the user is not resolved, or the operation requires the missing user, the method
+	 * will raise an exception.
+	 *
+	 * If the user is resolved, the method will return its object.
+	 *
+	 * @param string				$theUser			User identifier.
+	 *
+	 * @access protected
+	 * @return User					The user object.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_REQUEST_USER kTOKEN_UDB_PREFIX
+	 */
+	protected function parseUser( $theUser )
+	{
+		//
+		// Init local storage.
+		//
+		$server = $this->mWrapper->Users()->parent();
+		$collection = $this->mWrapper->resolveCollection( User::kSEQ_NAME );
+	
+		//
+		// Resolve user.
+		//
+		$user = $collection->matchOne(
+					array( kTAG_NID => $theUser ),
+					kQUERY_OBJECT | kQUERY_ASSERT );
+		
+		//
+		// Redirect units.
+		//
+		$dbname = $user[ kTAG_ID_SEQUENCE ];
+		if( $dbname !== NULL )
+			$this->mWrapper->Units(
+				$server->Database( kTOKEN_UDB_PREFIX.$dbname, TRUE ) );
+		else
+			throw new \Exception(
+				"Requesting user lacks sequence identifier." );					// !@! ==>
+		
+		return $user;																// ==>
+		
+	} // parseUser.
 
 		
 
@@ -952,6 +948,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_GET_UNIT:
 				$this->validateGetUnit();
+				break;
+				
+			case kAPI_OP_INVITE_USER:
+				$this->validateInviteUser();
 				break;
 				
 			case kAPI_OP_GET_USER:
@@ -1945,6 +1945,106 @@ class Service extends ContainerObject
 		}
 		
 	} // validateGetUnit.
+
+	 
+	/*===================================================================================
+	 *	validateInviteUser																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate invite user service.
+	 *
+	 * This method will call the validation processfor the user invite service, the method
+	 * will ensure all required data is provided and will format it as needed.
+	 *
+	 * The method will also ensure the inviting user (already asserted) has the necessary
+	 * permissions.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateInviteUser()
+	{
+		//
+		// Check roles.
+		//
+		$user = $this->offsetGet( kAPI_REQUEST_USER );
+		if( $user->offsetExists( kTAG_ROLES ) )
+		{
+			//
+			// Check permissions.
+			//
+			if( in_array( ':roles:user-invite', $user->offsetGet( kTAG_ROLES ) ) )
+			{
+				//
+				// Check invite data.
+				//
+				if( $this->offsetExists( kAPI_PARAM_OBJECT ) )
+				{
+					//
+					// Check invite data format.
+					//
+					$data = $this->offsetGet( kAPI_PARAM_OBJECT );
+					if( is_array( $data ) )
+					{
+						//
+						// Assert and normalise required data.
+						//
+						if( ! array_key_exists( kTAG_ENTITY_EMAIL, $data ) )
+							throw new \Exception(
+								"Missing e-mail." );							// !@! ==>
+						if( ! array_key_exists( kTAG_NAME, $data ) )
+							throw new \Exception(
+								"Missing name." );								// !@! ==>
+						if( ! array_key_exists( kTAG_ROLES, $data ) )
+							throw new \Exception(
+								"Missing roles." );								// !@! ==>
+						if( ! array_key_exists( kTAG_ENTITY_PGP_KEY, $data ) )
+							throw new \Exception(
+								"Missing key." );								// !@! ==>
+						if( ! array_key_exists( kTAG_ENTITY_PGP_FINGERPRINT, $data ) )
+							throw new \Exception(
+								"Missing fingerprint." );						// !@! ==>
+						
+						//
+						// Add referrer.
+						//
+						$data[ kTAG_ENTITY_AFFILIATION ]
+							= array(
+								array( kTAG_TYPE => 'Referrer',
+									   kTAG_USER_REF => $user[ kTAG_NID ] ) );
+						
+						//
+						// Update invitation.
+						//
+						$this->offsetSet( kAPI_PARAM_OBJECT, $data );
+					
+					} // Provided invite data as array.
+				
+					else
+						throw new \Exception(
+							"Invalid invitation format." );						// !@! ==>
+				
+				} // Has invite data.
+				
+				else
+					throw new \Exception(
+						"Missing invitation." );								// !@! ==>
+			
+			} // Can invite.
+			
+			else
+				throw new \Exception(
+					"User cannot invite." );									// !@! ==>
+		
+		} // Has roles.
+		
+		else
+			throw new \Exception(
+				"User has no permissions." );									// !@! ==>
+		
+	} // validateInviteUser.
 
 	 
 	/*===================================================================================
@@ -3433,6 +3533,10 @@ class Service extends ContainerObject
 				$this->executeGetUnit();
 				break;
 				
+			case kAPI_OP_INVITE_USER:
+				$this->executeInviteUser();
+				break;
+				
 			case kAPI_OP_ADD_USER:
 				$this->executeAddUser();
 				break;
@@ -4511,6 +4615,64 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	executeInviteUser																*
+	 *==================================================================================*/
+
+	/**
+	 * Invite user.
+	 *
+	 * The method will add the invitation record to the inviting user and send the e-mail
+	 * invitation.
+	 *
+	 * @access protected
+	 */
+	protected function executeInviteUser()
+	{
+		//
+		// Init local storage.
+		//
+		$user = $this->offsetGet( kAPI_REQUEST_USER );
+		$data = $this->offsetGet( kAPI_PARAM_OBJECT );
+		$afil = ( $user->offsetExists( kTAG_ENTITY_AFFILIATION ) )
+			  ? $user->offsetGet( kTAG_ENTITY_AFFILIATION )
+			  : Array();
+		
+		//
+		// Add invite to user.
+		//
+		$afil[] = $data;
+		$user->offsetSet( kTAG_ENTITY_AFFILIATION, $afil );
+		
+		//
+		// Update user.
+		//
+		$user->commit();
+		
+	} // executeInviteUser.
+
+	 
+	/*===================================================================================
+	 *	executeAddUser																	*
+	 *==================================================================================*/
+
+	/**
+	 * Add user.
+	 *
+	 * The method will add the provided user to the database.
+	 *
+	 * @access protected
+	 */
+	protected function executeAddUser()
+	{
+		//
+		// Add or replace.
+		//
+		$this->offsetGet( kAPI_PARAM_OBJECT )->commit();
+		
+	} // executeAddUser.
+
+	 
+	/*===================================================================================
 	 *	executeGetUser																	*
 	 *==================================================================================*/
 
@@ -4573,27 +4735,6 @@ class Service extends ContainerObject
 		} // Parsed result type.
 		
 	} // executeGetUser.
-
-	 
-	/*===================================================================================
-	 *	executeAddUser																	*
-	 *==================================================================================*/
-
-	/**
-	 * Add user.
-	 *
-	 * The method will add the provided user to the database.
-	 *
-	 * @access protected
-	 */
-	protected function executeAddUser()
-	{
-		//
-		// Add or replace.
-		//
-		$this->offsetGet( kAPI_PARAM_OBJECT )->commit();
-		
-	} // executeGetUnit.
 
 		
 
