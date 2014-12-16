@@ -473,6 +473,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_FORM}</tt>: Get node form.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_STRUCT}</tt>: Get node structure.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_INVITE_USER}</tt>: Invite user.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
 	 * </ul>
@@ -515,6 +516,11 @@ class Service extends ContainerObject
 			case kAPI_OP_ADD_USER:
 			case kAPI_OP_GET_USER:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
+				break;
+			
+			case kAPI_OP_INVITE_USER:
+				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
+				$this->decryptRequest();
 				break;
 			
 			default:
@@ -1825,23 +1831,6 @@ class Service extends ContainerObject
 	protected function validateMatchUnitsNew()
 	{
 		//
-		// Normalise request.
-		//
-		if( $this->offsetExists( kAPI_PARAM_DOMAIN ) )
-		{
-			$this->offsetUnset( kAPI_PARAM_GROUP );
-			if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
-				$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_LIMIT );
-		}
-		else
-		{
-			$this->offsetUnset( kAPI_PARAM_DOMAIN );
-			$this->offsetUnset( kAPI_PARAM_DATA );
-			$this->offsetUnset( kAPI_PARAM_STAT );
-			$this->offsetUnset( kAPI_PAGING_LIMIT );
-		}
-		
-		//
 		// Init criteria.
 		//
 		if( ! $this->offsetExists( kAPI_PARAM_CRITERIA ) )
@@ -1853,314 +1842,31 @@ class Service extends ContainerObject
 		$criteria = $this->offsetGet( kAPI_PARAM_CRITERIA );
 		
 		//
-		// Update criteria for statistics.
+		// Validate domain selection.
 		//
-		if( $this->offsetExists( kAPI_PARAM_DOMAIN )
-		 && $this->offsetExists( kAPI_PARAM_STAT )
-		 && $this->offsetExists( kAPI_PARAM_DATA )
-		 && ($this->offsetGet( kAPI_PARAM_DATA ) == kAPI_RESULT_ENUM_DATA_STAT) )
-			$this->setStatisticsCriteria( $criteria,
-										  $this->offsetGet( kAPI_PARAM_STAT ),
-										  $this->offsetGet( kAPI_PARAM_DOMAIN ) );
-		
-		
-		
-		
+		if( $this->offsetExists( kAPI_PARAM_DOMAIN ) )
+			$this->validateMatchUnitsDomain( $criteria );
 		
 		//
-		// Resolve criteria tag references.
-		//
-		$criteria = Array();
-		foreach( $tmp as $key => $value )
-		{
-			if( ($key != kAPI_PARAM_FULL_TEXT_OFFSET)
-			 && (substr( $key, 0, 1 ) != kTOKEN_TAG_PREFIX) )
-				$key = $this->mWrapper->getSerial( $key, TRUE );
-			
-			$criteria[ $key ] = $value;
-		}
-		
-		//
-		// Validate group.
-		//
-		if( $this->offsetExists( kAPI_PARAM_GROUP ) )
-		{
-			//
-			// Reset results type.
-			//
-			$this->offsetUnset( kAPI_PARAM_SUMMARY );
-			$this->offsetUnset( kAPI_PARAM_DOMAIN );
-			$this->offsetUnset( kAPI_PARAM_DATA );
-			$this->offsetUnset( kAPI_PARAM_STAT );
-	
-			//
-			// Reset limits.
-			//
-			$this->offsetUnset( kAPI_PAGING_SKIP );
-			$this->offsetUnset( kAPI_PAGING_LIMIT );
-			
-			//
-			// Validate group.
-			//
-			$this->validateGroup();
-			
-			//
-			// Collect untracked offsets.
-			//
-			$untracked = array_merge( UnitObject::InternalOffsets(),
-									  UnitObject::ExternalOffsets(),
-									  UnitObject::DynamicOffsets() );
-			
-			//
-			// Add groups to criteria.
-			//
-			foreach( $this->offsetGet( kAPI_PARAM_GROUP_DATA ) as $tag => $data )
-			{
-				//
-				// Skip domain.
-				//
-				if( $tag == kTAG_DOMAIN )
-					continue;												// =>
-				
-				//
-				// Skip untracked offsets.
-				//
-				if( in_array( $tag, $untracked ) )
-					continue;												// =>
-				
-				//
-				// Skip existing.
-				//
-				if( array_key_exists( $tag, $criteria ) )
-				{
-					//
-					// Add offset to criteria.
-					//
-					if( ! array_key_exists( kAPI_PARAM_OFFSETS, $criteria[ $tag ] ) )
-						$criteria[ $tag ][ kAPI_PARAM_OFFSETS ]
-							= array( $data[ kAPI_PARAM_OFFSETS ] );
-					
-					//
-					// Append offset to criteria.
-					//
-					elseif( ! in_array( $data[ kAPI_PARAM_OFFSETS ],
-										$criteria[ $tag ][ kAPI_PARAM_OFFSETS ] ) )
-						$criteria[ $tag ][ kAPI_PARAM_OFFSETS ][]
-							= $data[ kAPI_PARAM_OFFSETS ];
-						
-					continue;												// =>
-				}
-				
-				//
-				// Add offset to criteria.
-				//
-				$criteria[ $data[ kAPI_PARAM_OFFSETS ] ]
-					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_OFFSET );
-			
-			} // Iterating groups.
-	
-		} // Provided group.
-		
-		//
-		// Handle ungrouped results.
+		// Validate group selection.
 		//
 		else
-		{
-			//
-			// Assert domain.
-			//
-			if( ! $this->offsetExists( kAPI_PARAM_DOMAIN ) )
-				throw new \Exception(
-					"Missing domain parameter." );								// !@! ==>
-	
-			//
-			// Assert limits.
-			//
-			if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
-				throw new \Exception(
-					"Missing paging limits parameter." );						// !@! ==>
-	
-			//
-			// Assert result kind.
-			//
-			if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
-				throw new \Exception(
-					"Missing results kind parameter." );						// !@! ==>
-			else
-			{
-				switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
-				{
-					case kAPI_RESULT_ENUM_DATA_MARKER:
-						//
-						// Assert shape offset.
-						//
-						if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
-							throw new \Exception(
-								"Missing shape offset." );						// !@! ==>
-						//
-						// Normalise limit.
-						//
-						if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_MARKERS_MAX )
-							$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_MARKERS_MAX );
-						break;
-						
-					case kAPI_RESULT_ENUM_DATA_COLUMN:
-					case kAPI_RESULT_ENUM_DATA_RECORD:
-					case kAPI_RESULT_ENUM_DATA_FORMAT:
-						//
-						// Normalise limit.
-						//
-						if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
-							$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
-						break;
-						
-					case kAPI_RESULT_ENUM_DATA_STAT:
-						//
-						// Assert statistics type.
-						//
-						if( ! $this->offsetExists( kAPI_PARAM_STAT ) )
-							throw new \Exception(
-								"Missing statistics type." );					// !@! ==>
-						//
-						// Remove limits.
-						//
-						$this->offsetUnset( kAPI_PAGING_SKIP );
-						$this->offsetUnset( kAPI_PAGING_LIMIT );
-						break;
-					
-					default:
-						throw new \Exception(
-							"Invalid result type [$tmp]." );					// !@! ==>
-						break;
-				}
-			}
-			
-			//
-			// Validate summaries.
-			//
-			if( $this->offsetExists( kAPI_PARAM_SUMMARY ) )
-			{
-				$tmp = $this->offsetGet( kAPI_PARAM_SUMMARY );
-				if( ! is_array( $tmp ) )
-					throw new \Exception(
-						"Invalid summaries list, expecting an array." );		// !@! ==>
-				if( ! count( $tmp ) )
-					$this->offsetUnset( kAPI_PARAM_SUMMARY );
-				else
-				{
-					foreach( $tmp as $item )
-					{
-						if( ! is_array( $item ) )
-							throw new \Exception(
-								"Invalid summaries list, "
-							   ."expecting an array of arrays." );				// !@! ==>
-						
-						foreach( $item as $offset => $value )
-						{
-							$element
-								= $this->buildCriteria(
-									$offset, $value, array( $offset ) );
-							$offsets = explode( '.', $offset );
-							$criteria[ $offsets[ count( $offsets ) - 1 ] ] = $element;
-						}
-					}
-				}
-			}
-	
-		} // Group not provided.
+			$this->validateMatchUnitsGroup( $criteria );
 		
 		//
 		// Validate shape offset.
 		//
-		if( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
-		{
-			//
-			// Get shape offset.
-			//
-			$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
-			
-			//
-			// Handle native tag identifier.
-			//
-			if( substr( $shape, 0, 1 ) != kTOKEN_TAG_PREFIX )
-				$this->offsetSet(
-					kAPI_PARAM_SHAPE_OFFSET,
-					$this->mWrapper->getSerial(
-						$shape,
-						TRUE ) );
-		
-		} // Provided shape offset.
-	
-		//
-		// Validate shape.
-		//
-		if( $this->offsetExists( kAPI_PARAM_SHAPE ) )
-		{
-			//
-			// Check shape offset.
-			//
-			if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
-				throw new \Exception(
-					"Missing shape offset reference parameter." );				// !@! ==>
-			
-			//
-			// Get shape.
-			//
-			$shape = $this->offsetGet( kAPI_PARAM_SHAPE );
-		
-			//
-			// Check shape format.
-			//
-			$this->validateShape( $shape );
-			
-			//
-			// Add shape to criteria.
-			//
-			$criteria[ (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
-				= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE,
-						 kAPI_PARAM_SHAPE => $shape );
-	
-		} // Provided shape.
+		$this->validateShapeOffset( $criteria );
 		
 		//
-		// Add shape offset to criteria.
+		// Validate shape parameter.
 		//
-		// MILKO - Need to check if this is right.
-		//
-		elseif( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET )
-			 && (! $this->offsetExists( kAPI_PARAM_GROUP )) )
-		{
-			//
-			// Get shape offset.
-			//
-			$tmp = (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
-			
-			//
-			// Add shape if not already there.
-			//
-			if( ! array_key_exists( $tmp, $criteria ) )
-				$criteria[ $tmp ]
-					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE );
-		
-		} // Has shape offset and not grouping.
+		$this->validateShapeParameter( $criteria );
 		
 		//
 		// Update criteria.
 		//
-		if( is_array( $criteria ) )
-			$this->offsetSet( kAPI_PARAM_CRITERIA, $criteria );
-		
-		//
-		// Require criteria.
-		//
-		else
-			throw new \Exception(
-				"Missing search criteria." );									// !@! ==>
-		
-		//
-		// Validate criteria.
-		//
-		$this->validateSearchCriteria();
+		$this->offsetSet( kAPI_PARAM_CRITERIA, $criteria );
 		
 	} // validateMatchUnitsNew.
 
@@ -3261,8 +2967,6 @@ class Service extends ContainerObject
 	 *
 	 * Group elements can be provided as tag native identifiers or offsets.
 	 *
-	 * @param array					$theSequences		Receives tag sequence numbers.
-	 *
 	 * @access protected
 	 * @return array				Normalised group list.
 	 *
@@ -3856,6 +3560,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_GET_NODE_STRUCT" ] = kAPI_OP_GET_NODE_STRUCT;
 		$ref[ "kAPI_OP_MATCH_UNITS" ] = kAPI_OP_MATCH_UNITS;
 		$ref[ "kAPI_OP_GET_UNIT" ] = kAPI_OP_GET_UNIT;
+		$ref[ "kAPI_OP_INVITE_USER" ] = kAPI_OP_INVITE_USER;
 		$ref[ "kAPI_OP_ADD_USER" ] = kAPI_OP_ADD_USER;
 		$ref[ "kAPI_OP_GET_USER" ] = kAPI_OP_GET_USER;
 		
@@ -10107,6 +9812,284 @@ $rs_units = & $rs_units[ 'result' ];
 		}
 		
 	} // setStatisticsCriteria.
+
+	 
+	/*===================================================================================
+	 *	validateMatchUnitsDomain														*
+	 *==================================================================================*/
+
+	/**
+	 * Validate match units domain operation.
+	 *
+	 * The duty of this method is to validate a match units operation in which the domain
+	 * was provided.
+	 *
+	 * @param array					$theCriteria		Criteria reference.
+	 *
+	 * @access protected
+	 */
+	protected function validateMatchUnitsDomain( &$theCriteria )
+	{
+		//
+		// Assert domain.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_DOMAIN ) )
+			throw new \Exception(
+				"Missing domain parameter." );									// !@! ==>
+
+		//
+		// Add domain to criteria.
+		//
+		$theCriteria[ kTAG_DOMAIN ]
+			= $this->buildCriteria(
+				kTAG_DOMAIN, $this->offsetGet( kAPI_PARAM_DOMAIN ) );
+		
+		//
+		// Remove unrelated parameters.
+		//
+		$this->offsetUnset( kAPI_PARAM_GROUP );
+		
+		//
+		// Validate result format.
+		//
+		$this->validateDataFormat( $theCriteria );
+		
+	} // validateMatchUnitsDomain.
+
+	 
+	/*===================================================================================
+	 *	validateDataFormat																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate data format.
+	 *
+	 * The duty of this method is to validate the data format provided to a match units
+	 * operation.
+	 *
+	 * @param array					$theCriteria		Criteria reference.
+	 *
+	 * @access protected
+	 */
+	protected function validateDataFormat( &$theCriteria )
+	{
+		//
+		// Assert result format.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
+			throw new \Exception(
+				"Missing results kind parameter." );							// !@! ==>
+		
+		//
+		// Parse data format.
+		//
+		switch( $this->offsetGet( kAPI_PARAM_DATA ) )
+		{
+			//
+			// Map markers.
+			//
+			case kAPI_RESULT_ENUM_DATA_MARKER:
+			
+				//
+				// Assert shape offset.
+				//
+				if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+					throw new \Exception(
+						"Missing shape offset." );								// !@! ==>
+				
+				//
+				// Normalise limits.
+				//
+				if( ! $this->offsetExists( kAPI_PAGING_SKIP ) )
+					$this->offsetSet( kAPI_PAGING_SKIP, 0 );
+				if( (! $this->offsetExists( kAPI_PAGING_LIMIT ))
+				 || ($this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_MARKERS_MAX) )
+					$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_MARKERS_MAX );
+				
+				break;
+		
+			//
+			// Data listings.
+			//
+			case kAPI_RESULT_ENUM_DATA_COLUMN:
+			case kAPI_RESULT_ENUM_DATA_RECORD:
+			case kAPI_RESULT_ENUM_DATA_FORMAT:
+			
+				//
+				// Normalise limits.
+				//
+				if( ! $this->offsetExists( kAPI_PAGING_SKIP ) )
+					$this->offsetSet( kAPI_PAGING_SKIP, 0 );
+				if( (! $this->offsetExists( kAPI_PAGING_LIMIT ))
+				 || ($this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_LIMIT) )
+					$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_LIMIT );
+				
+				break;
+		
+			//
+			// Statistics.
+			//
+			case kAPI_RESULT_ENUM_DATA_STAT:
+			
+				//
+				// Assert statistics type.
+				//
+				if( ! $this->offsetExists( kAPI_PARAM_STAT ) )
+					throw new \Exception(
+						"Missing statistics type." );							// !@! ==>
+				
+				//
+				// Remove limits.
+				//
+				$this->offsetUnset( kAPI_PAGING_SKIP );
+				$this->offsetUnset( kAPI_PAGING_LIMIT );
+				
+				//
+				// Load statistics criteria.
+				//
+				$this->setStatisticsCriteria( $theCriteria,
+											  $this->offsetGet( kAPI_PARAM_STAT ),
+											  $this->offsetGet( kAPI_PARAM_DOMAIN ) );
+				
+				break;
+		
+			//
+			// Unknown.
+			//
+			default:
+				$tmp = $this->offsetGet( kAPI_PARAM_DATA );
+				throw new \Exception(
+					"Invalid result type [$tmp]." );							// !@! ==>
+				
+				break;
+		
+		} // Parsing data format.
+		
+		//
+		// Resolve criteria serial identifiers.
+		//
+		$criteria = Array();
+		foreach( $theCriteria as $key => $value )
+		{
+			//
+			// Convert to serial.
+			//
+			if( ($key != kAPI_PARAM_FULL_TEXT_OFFSET)
+			 && (substr( $key, 0, 1 ) != kTOKEN_TAG_PREFIX) )
+				$key = $this->mWrapper->getSerial( $key, TRUE );
+			
+			//
+			// Update criteria.
+			//
+			$criteria[ $key ] = $value;
+		
+		} // Conversing native to serial tag identifiers.
+		
+		//
+		// Update criteria.
+		//
+		$theCriteria = $criteria;
+		
+	} // validateDataFormat.
+
+	 
+	/*===================================================================================
+	 *	validateShapeOffset																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate shape offset.
+	 *
+	 * The duty of this method is to validate the provided shape offset.
+	 *
+	 * @param array					$theCriteria		Criteria reference.
+	 *
+	 * @access protected
+	 */
+	protected function validateShapeOffset( &$theCriteria )
+	{
+		//
+		// Check shape offset.
+		//
+		if( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+		{
+			//
+			// Get shape offset.
+			//
+			$offset = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
+			
+			//
+			// Get serial identifier.
+			//
+			if( substr( $offset, 0, 1 ) != kTOKEN_TAG_PREFIX )
+				$offset = $this->mWrapper->getSerial( $offset, TRUE );
+			
+			//
+			// Check type.
+			//
+			$shape = $this->mWrapper->getObject( $offset, TRUE );
+			if( $shape[ kTAG_DATA_TYPE ] != kTYPE_SHAPE )
+				throw new \Exception(
+					"Invalid shape offset." );									// !@! ==>
+			
+			//
+			// Update parameter.
+			//
+			$this->offsetSet( kAPI_PARAM_SHAPE_OFFSET, $offset );
+		
+		} // Provided shape offset.
+		
+	} // validateShapeOffset.
+
+	 
+	/*===================================================================================
+	 *	validateShapeParameter															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate shape parameter.
+	 *
+	 * The duty of this method is to validate the provided shape parameter.
+	 *
+	 * @param array					$theCriteria		Criteria reference.
+	 *
+	 * @access protected
+	 */
+	protected function validateShapeParameter( &$theCriteria )
+	{
+		//
+		// Check shape parameter.
+		//
+		if( $this->offsetExists( kAPI_PARAM_SHAPE ) )
+		{
+			//
+			// Init local storage.
+			//
+			$shape = $this->offsetGet( kAPI_PARAM_SHAPE );
+			$offset = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
+			
+			//
+			// Check shape offset.
+			//
+			if( $offset === NULL )
+				throw new \Exception(
+					"Missing shape offset parameter." );						// !@! ==>
+		
+			//
+			// Check shape format.
+			//
+			$this->validateShape( $shape );
+			
+			//
+			// Add shape to criteria.
+			//
+			$theCriteria[ (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
+				= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE,
+						 kAPI_PARAM_SHAPE => $shape );
+		
+		} // Provided shape offset.
+		
+	} // validateShapeParameter.
 
 	 
 

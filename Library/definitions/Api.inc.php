@@ -1419,6 +1419,34 @@ define( "kAPI_OP_MATCH_UNITSnew",					'matchUnitsNew' );
 define( "kAPI_OP_GET_UNIT",						'getUnit' );
 
 /**
+ * Invite user.
+ *
+ * This tag defines the invite user operation.
+ *
+ * The service will generate an invitation e-mail and add the invitation to the inviter's
+ * record.
+ *
+ * This operation expects the following parameters in the {@link kAPI_REQUEST_PARAMETERS}
+ * parameter, which will be encoded by the sender with the wrapper's public key and
+ * encoded in base 64:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The native identifier of the
+ *		user sending the invitation.
+ *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user invitation, the
+ *		following elements are expected:
+ *	 <ul>
+ *		<li><tt>{@link kTAG_ENTITY_EMAIL}</tt>: Entity e-mail.
+ *		<li><tt>{@link kTAG_NAME}</tt>: Entity name.
+ *		<li><tt>{@link kTAG_ROLES}</tt>: Entity roles.
+ *		<li><tt>{@link kTAG_ENTITY_PGP_KEY}</tt>: Entity public key.
+ *		<li><tt>{@link kTAG_ENTITY_PGP_FINGERPRINT}</tt>: Entity fingerprint.
+ *	 </ul>
+ * </ul>
+ */
+define( "kAPI_OP_INVITE_USER",					'inviteUser' );
+
+/**
  * Add user.
  *
  * This tag defines the add user operation.
@@ -2492,8 +2520,8 @@ define( "kAPI_PARAM_OFFSETS",					'offsets' );
 /**
  * Group data (array).
  *
- * This parameter collects details of the {@link kAPI_PARAM_GROUP} parameter elements which
- * are needed to handle summaries, it is an array structured as follows:
+ * This parameter collects details of the {@link kAPI_PARAM_GROUP} parameter elements
+ * which are needed to handle summaries, it is an array structured as follows:
  *
  * <ul>
  *	<li><tt>key</tt>: The tag sequence number, this means that one can only use a tag once

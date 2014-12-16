@@ -373,7 +373,7 @@ class Encoder
 	 * @access public
 	 * @return string				Encoded data.
 	 */
-	public function encode( $theData, $theKey, $theSize, $isPrivate = FALSE )
+	protected function encode( $theData, $theKey, $theSize, $isPrivate = FALSE )
 	{
 		//
 		// Init local storage.
@@ -433,7 +433,7 @@ class Encoder
 	 * @access public
 	 * @return string				Decoded data.
 	 */
-	public function decode( $theData, $theKey, $theSize, $isPrivate = FALSE )
+	protected function decode( $theData, $theKey, $theSize, $isPrivate = FALSE )
 	{
 		//
 		// Init local storage.
