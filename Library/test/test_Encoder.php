@@ -123,7 +123,6 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	echo( '<hr>' );
 	
 	//
 	// Test public encode.
