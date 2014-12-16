@@ -108,6 +108,11 @@ $graph = ( ($argc > 4) && strlen( $argv[ 4 ] ) ) ? $argv[ 4 ] : NULL;
 $last = ( $argc > 5 ) ? $argv[ 5 ] : NULL;
 
 //
+// Build parameters.
+//
+$zip = "BIOVERSITY.$table.current.zip";
+
+//
 // Inform.
 //
 echo( "\n==> Loading from archive ($table).\n" );
@@ -248,10 +253,10 @@ try
 				exec( 'mongodump --directoryperdb '
 					.'--db "BIOVERSITY" '
 					.'--out "/Library/WebServer/Library/OntologyWrapper/Library/backup/data"' );
-				exec( 'rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.zip"' );
+				exec( 'rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/'.$zip.'"' );
 				exec( 'ditto -c -k --sequesterRsrc --keepParent '
 					 .'"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"  '
-					 .'"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.zip"' );
+					 .'"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/'.$zip.'"' );
 				exec( 'rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"' );
 				
 				//

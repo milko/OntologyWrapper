@@ -31,8 +31,8 @@
 	
 	<!-- Role type enumerations -->
 	
+	<!-- :roles:user-invite -->
 	<META>
-		<!-- :roles:user-invite -->
 		<TERM ns=":roles" lid="user-invite">
 			<item const="kTAG_LABEL">
 				<item>
@@ -48,6 +48,87 @@
 			</item>
 		</TERM>
 		<NODE term=":roles:user-invite">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::roles</item>
+		</EDGE>
+	</META>
+	
+	<!-- :roles:user-upload -->
+	<META>
+		<TERM ns=":roles" lid="user-upload">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Upload data]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The ability to upload data templates.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":roles:user-upload">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::roles</item>
+		</EDGE>
+	</META>
+	
+	<!-- :roles:page-edit -->
+	<META>
+		<TERM ns=":roles" lid="page-edit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Edit pages]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The ability to edit portal pages.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":roles:page-edit">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::roles</item>
+		</EDGE>
+	</META>
+	
+	<!-- :roles:manage-users -->
+	<META>
+		<TERM ns=":roles" lid="manage-users">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Manage users]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The ability to manage all users.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":roles:manage-users">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>

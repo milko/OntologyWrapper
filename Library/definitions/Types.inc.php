@@ -610,5 +610,37 @@ define( "kTYPE_RELATIONSHIP_OUT",				':relationship:out' );
  */
 define( "kTYPE_RELATIONSHIP_ALL",				':relationship:all' );
 
+/*=======================================================================================
+ *	ROLE TYPES																			*
+ *======================================================================================*/
+
+/**
+ * User invite.
+ *
+ * This role allows users to send user invitations.
+ */
+define( "kTYPE_ROLE_INVITE",					':roles:user-invite' );
+
+/**
+ * Upload data.
+ *
+ * This role allows users to upload data templates.
+ */
+define( "kTYPE_ROLE_UPLOAD",					':roles:user-upload' );
+
+/**
+ * Edit pages.
+ *
+ * This role allows users to edit portal pages.
+ */
+define( "kTYPE_ROLE_EDIT",						':roles:page-edit' );
+
+/**
+ * Manage all users.
+ *
+ * This role allows users to manage all users.
+ */
+define( "kTYPE_ROLE_USERS",						':roles:manage-users' );
+
 
 ?>
