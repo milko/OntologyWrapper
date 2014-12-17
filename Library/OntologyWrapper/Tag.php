@@ -515,20 +515,6 @@ class Tag extends MetadataObject
 		$collection->createIndex( array( kTAG_LABEL => 1 ),
 								  array( "name" => "LABEL" ) );
 		
-		//
-		// Set minimum index.
-		//
-		$collection->createIndex( array( kTAG_MIN_VAL => 1 ),
-								  array( "name" => "MINIMUM_VALUE",
-								  		 "sparse" => TRUE ) );
-		
-		//
-		// Set maximum index.
-		//
-		$collection->createIndex( array( kTAG_MAX_VAL => 1 ),
-								  array( "name" => "MAXIMUM_VALUE",
-								  		 "sparse" => TRUE ) );
-		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
