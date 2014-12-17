@@ -2010,10 +2010,11 @@ class Service extends ContainerObject
 						//
 						// Normalise e-mail.
 						//
+						$data[ kTAG_STRUCT_LABEL ] = $data[ kTAG_ENTITY_EMAIL ];
 						$data[ kTAG_ENTITY_EMAIL ]
 							= array(
 								array( kTAG_TYPE => 'Default',
-									   kTAG_TEXT => $data[ kTAG_ENTITY_EMAIL ] ) );
+									   kTAG_TEXT => $data[ kTAG_STRUCT_LABEL ] ) );
 						
 						//
 						// Add referrer.
@@ -4651,8 +4652,8 @@ class Service extends ContainerObject
 		$index = count( $invites );
 		foreach( $invites as $key => $value )
 		{
-			if( $value[ kTAG_ENTITY_PGP_FINGERPRINT ]
-				== $data[ kTAG_ENTITY_PGP_FINGERPRINT ] )
+			if( $value[ kTAG_STRUCT_LABEL ]
+				== $data[ kTAG_STRUCT_LABEL ] )
 			{
 				$index = $key;
 				break;														// =>

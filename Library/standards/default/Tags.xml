@@ -2692,7 +2692,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 			</item>
-			<item const="kTAG_TAG_STRUCT_IDX">:entity:pgp-fingerprint</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:struct-label</item>
 			<item const="kTAG_ID_SYMBOL">kTAG_INVITES</item>
 			<item const="kTAG_DEFINITION">
 				<item>
