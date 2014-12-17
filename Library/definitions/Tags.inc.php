@@ -1433,7 +1433,7 @@ define( "kTAG_ROLES",					'@59' );
  * Invites (<code>:invites</code)
  *
  * <ul>
- *	<li><em>Type</em>: {@link kTYPE_STRING}
+ *	<li><em>Type</em>: {@link kTYPE_STRUCT}
  *	<li><em>Kind</em>: {@link kTYPE_LIST}
  * </ul>
  *
