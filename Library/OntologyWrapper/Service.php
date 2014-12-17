@@ -253,8 +253,22 @@ class Service extends ContainerObject
 			// Log request.
 			//
 			if( $this->offsetGet( kAPI_PARAM_LOG_REQUEST ) )
-				$this->mResponse[ kAPI_RESPONSE_REQUEST ]
-					= $this->getArrayCopy();
+			{
+				//
+				// Exclude protected operations.
+				//
+				switch( $_REQUEST[ kAPI_REQUEST_OPERATION ] )
+				{
+					case kAPI_OP_INVITE_USER:
+					case kAPI_OP_ADD_USER:
+						break;
+					
+					default:
+						$this->mResponse[ kAPI_RESPONSE_REQUEST ]
+							= $this->getArrayCopy();
+						break;
+				}
+			}
 			
 			//
 			// Execute request.
@@ -739,13 +753,7 @@ class Service extends ContainerObject
 	/**
 	 * Parse user.
 	 *
-	 * The duty of this method is to parse the provided user, check whether a user is
-	 * required and set the wrapper to point to the user's units.
-	 *
-	 * If the user is not resolved, or the operation requires the missing user, the method
-	 * will raise an exception.
-	 *
-	 * If the user is resolved, the method will return its object.
+	 * The duty of this method is to resolve the provided user and return its object.
 	 *
 	 * @param string				$theUser			User identifier.
 	 *
@@ -754,35 +762,15 @@ class Service extends ContainerObject
 	 *
 	 * @throws Exception
 	 *
-	 * @see kAPI_REQUEST_USER kTOKEN_UDB_PREFIX
+	 * @see kAPI_REQUEST_USER
 	 */
 	protected function parseUser( $theUser )
 	{
-		//
-		// Init local storage.
-		//
-		$server = $this->mWrapper->Users()->parent();
-		$collection = $this->mWrapper->resolveCollection( User::kSEQ_NAME );
-	
-		//
-		// Resolve user.
-		//
-		$user = $collection->matchOne(
+		return
+			$this->mWrapper->resolveCollection( User::kSEQ_NAME )
+				->matchOne(
 					array( kTAG_NID => $theUser ),
-					kQUERY_OBJECT | kQUERY_ASSERT );
-		
-		//
-		// Redirect units.
-		//
-		$dbname = $user[ kTAG_ID_SEQUENCE ];
-		if( $dbname !== NULL )
-			$this->mWrapper->Units(
-				$server->Database( kTOKEN_UDB_PREFIX.$dbname, TRUE ) );
-		else
-			throw new \Exception(
-				"Requesting user lacks sequence identifier." );					// !@! ==>
-		
-		return $user;																// ==>
+					kQUERY_OBJECT | kQUERY_ASSERT );								// ==>
 		
 	} // parseUser.
 
