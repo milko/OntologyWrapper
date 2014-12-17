@@ -2057,6 +2057,172 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	validateAddUser																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate add user service.
+	 *
+	 * This method will validate the operaqtion parameters and perform the following
+	 * actions:
+	 *
+	 * <ul>
+	 *	<li>Instantiate the new user from the {@link kAPI_PARAM_OBJECT} local property.
+	 *	<li>Instantiate the new user's referrer.
+	 *	<li>Check if referrer can invite users.
+	 *	<li>Remove the related invitation from the referrer's object.
+	 *	<li>Save the new user object in the {@link kAPI_PARAM_OBJECT} property.
+	 *	<li>Save the referrer object in the {@link kAPI_REFERRER} property.
+	 * </ul>
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_NODE
+	 */
+	protected function validateAddUser()
+	{
+		//
+		// Check object.
+		//
+		if( $this->offsetExists( kAPI_PARAM_OBJECT ) )
+		{
+			//
+			// Instantiate user.
+			//
+			$user = new User( $this->offsetGet( kAPI_PARAM_OBJECT ) );
+			
+			//
+			// Get referrer.
+			//
+			if( $user->offsetExists( kTAG_ENTITY_AFFILIATION ) )
+			{
+				//
+				// Find referrer.
+				//
+				$referrer = NULL;
+				foreach( $user->offsetGet( kTAG_ENTITY_AFFILIATION ) as $item )
+				{
+					if( $item[ kTAG_TYPE ] == kTYPE_LIST_REFERRER )
+					{
+						$referrer = $item[ kTAG_USER_REF ];
+						break;												// =>
+					}
+				}
+				
+				//
+				// Check referrer.
+				//
+				if( $referrer !== NULL )
+				{
+					//
+					// Instantiate referrer.
+					//
+					$referrer = new User( $this->mWrapper, $referrer, TRUE );
+					
+					//
+					// Check roles.
+					//
+					if( $referrer->offsetExists( kTAG_ROLES ) )
+					{
+						//
+						// Check permissions.
+						//
+						if( in_array( kTYPE_ROLE_INVITE,
+									  $referrer->offsetGet( kTAG_ROLES ) ) )
+						{
+							//
+							// Check invitations.
+							//
+							if( $referrer->offsetExists( kTAG_INVITES ) )
+							{
+								//
+								// Locate invitation.
+								//
+								$invite = NULL;
+								$invites = $referrer->offsetGet( kTAG_INVITES );
+								foreach( $invites as $key => $value )
+								{
+									if( $value[ kTAG_ENTITY_PGP_FINGERPRINT ]
+										== $user->offsetGet( kTAG_ENTITY_PGP_FINGERPRINT ) )
+									{
+										$invite = $key;
+										break;								// =>
+									}
+								}
+								
+								//
+								// Check invitation.
+								//
+								if( $invite !== NULL )
+								{
+									//
+									// Remove invitation.
+									//
+									unset( $invites[ $invite ] );
+									if( count( $invites ) )
+										$referrer->offsetSet( kTAG_INVITES,
+															  array_values( $invites ) );
+									else
+										$referrer->offsetUnset( kTAG_INVITES );
+									
+									//
+									// Save referrer.
+									//
+									$this->offsetSet( kAPI_REFERRER, $referrer );
+									
+									//
+									// Save user.
+									//
+									$this->offsetSet( kAPI_PARAM_OBJECT, $user );
+								
+								} // Found invitation.
+								
+								else
+									throw new \Exception(
+										"Missing invitation." );				// !@! ==>
+							
+							} // Referrer has invitations.
+		
+							else
+								throw new \Exception(
+									"Missing invitations." );					// !@! ==>
+							
+						} // Referrer can invite.
+		
+						else
+							throw new \Exception(
+								"Referrer is not permitted." );					// !@! ==>
+					
+					} // Referrer has roles.
+		
+					else
+						throw new \Exception(
+							"Referrer has no roles." );							// !@! ==>
+				
+				} // Has referrer.
+		
+				else
+					throw new \Exception(
+						"Missing referrer." );									// !@! ==>
+			
+			} // User is affiliated.
+		
+			else
+				throw new \Exception(
+					"Missing affiliation." );									// !@! ==>
+		
+		} // Has user object
+		
+		else
+			throw new \Exception(
+				"Missing user object." );										// !@! ==>
+		
+	} // validateAddUser.
+
+	 
+	/*===================================================================================
 	 *	validateGetUser																	*
 	 *==================================================================================*/
 
@@ -2087,33 +2253,6 @@ class Service extends ContainerObject
 				"Invalid user identifier parameter format." );					// !@! ==>
 		
 	} // validateGetUser.
-
-	 
-	/*===================================================================================
-	 *	validateAddUser																	*
-	 *==================================================================================*/
-
-	/**
-	 * Validate add user service.
-	 *
-	 * This method will ensure the user object was set.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kAPI_PARAM_NODE
-	 */
-	protected function validateAddUser()
-	{
-		//
-		// Validate identifier.
-		//
-		if( ! $this->offsetExists( kAPI_PARAM_OBJECT ) )
-			throw new \Exception(
-				"Missing or invalid user object." );							// !@! ==>
-		
-	} // validateAddUser.
 
 	 
 	/*===================================================================================
@@ -4712,16 +4851,22 @@ class Service extends ContainerObject
 	/**
 	 * Add user.
 	 *
-	 * The method will add the provided user to the database.
+	 * The method will add the user stored in the {@link kAPI_PARAM_OBJECT} property and
+	 * update the referrer stored in the {@link kAPI_REFERRER} property.
 	 *
 	 * @access protected
 	 */
 	protected function executeAddUser()
 	{
 		//
-		// Add or replace.
+		// Insert user.
 		//
-		$this->offsetGet( kAPI_PARAM_OBJECT )->commit();
+		$this->offsetGet( kAPI_PARAM_OBJECT )->commit( $this->mWrapper );
+		
+		//
+		// Update referrer.
+		//
+		$this->offsetGet( kAPI_REFERRER )->commit();
 		
 	} // executeAddUser.
 

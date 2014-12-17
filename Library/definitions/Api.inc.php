@@ -1451,13 +1451,15 @@ define( "kAPI_OP_INVITE_USER",					'inviteUser' );
  *
  * This tag defines the add user operation.
  *
- * The service will add or replace the provided user.
+ * The service will insert the new provided user, it is assumed that the user has a
+ * related invitation in the referrer's user record.
  *
- * This operation expects the following parameters:
+ * This operation expects the following parameters in the {@link kAPI_REQUEST_PARAMETERS}
+ * parameter, which will be encoded by the sender with the wrapper's public key and
+ * encoded in base 64:
  *
  * <ul>
- *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user object to be added or
- *		replaced.
+ *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user object to be added.
  * </ul>
  */
 define( "kAPI_OP_ADD_USER",						'addUser' );
@@ -2562,6 +2564,14 @@ define( "kAPI_SHAPE_TAG",						':shape-disp' );
  * used.
  */
 define( "kAPI_QUERY_OFFSETS",					'query-offsets' );
+
+/**
+ * Referrer (User).
+ *
+ * This parameter is set when adding a new user, it will hold the referrer object with
+ * the relaqted invitation removed.
+ */
+define( "kAPI_REFERRER",						'referrer' );
 
 
 ?>
