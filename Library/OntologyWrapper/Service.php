@@ -1975,7 +1975,7 @@ class Service extends ContainerObject
 			//
 			// Check permissions.
 			//
-			if( in_array( ':roles:user-invite', $user->offsetGet( kTAG_ROLES ) ) )
+			if( in_array( kTYPE_ROLE_INVITE, $user->offsetGet( kTAG_ROLES ) ) )
 			{
 				//
 				// Check invite data.
