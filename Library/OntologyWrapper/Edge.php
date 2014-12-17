@@ -438,28 +438,10 @@ class Edge extends MetadataObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
-		// Set offsets.
-		//
-		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
-								  array( "name" => "OFFSETS" ) );
-		
-		//
-		// Set graph node identifier index.
-		//
-		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
-								  array( "name" => "GRAPH" ) );
-		
-		//
 		// Set subject index.
 		//
 		$collection->createIndex( array( kTAG_SUBJECT => 1 ),
 								  array( "name" => "SUBJECT" ) );
-		
-		//
-		// Set graph subject index.
-		//
-		$collection->createIndex( array( kTAG_GRAPH_SUBJECT => 1 ),
-								  array( "name" => "SUBJECT-VERTEX" ) );
 		
 		//
 		// Set predicate index.
@@ -474,10 +456,18 @@ class Edge extends MetadataObject
 								  array( "name" => "OBJECT" ) );
 		
 		//
+		// Set graph subject index.
+		//
+		if( kGRAPH_DO )
+			$collection->createIndex( array( kTAG_GRAPH_SUBJECT => 1 ),
+									  array( "name" => "SUBJECT-VERTEX" ) );
+		
+		//
 		// Set graph object index.
 		//
-		$collection->createIndex( array( kTAG_GRAPH_OBJECT => 1 ),
-								  array( "name" => "OBJECT-VERTEX" ) );
+		if( kGRAPH_DO )
+			$collection->createIndex( array( kTAG_GRAPH_OBJECT => 1 ),
+									  array( "name" => "OBJECT-VERTEX" ) );
 		
 		return $collection;															// ==>
 	

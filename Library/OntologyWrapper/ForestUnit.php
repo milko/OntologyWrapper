@@ -293,69 +293,6 @@ class ForestUnit extends UnitObject
 
 /*=======================================================================================
  *																						*
- *								STATIC PERSISTENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	CreateIndexes																	*
-	 *==================================================================================*/
-
-	/**
-	 * Create indexes
-	 *
-	 * In this class we index the following offsets:
-	 *
-	 * <ul>
-	 * </ul>
-	 *
-	 * @param DatabaseObject		$theDatabase		Database reference.
-	 *
-	 * @static
-	 * @return CollectionObject		The collection.
-	 */
-	static function CreateIndexes( DatabaseObject $theDatabase )
-	{
-		//
-		// Init local storage.
-		//
-		$taxon = $this->resolveOffset( ':taxon:epithet' );
-		
-		//
-		// Set parent indexes and retrieve collection.
-		//
-		$collection = parent::CreateIndexes( $theDatabase );
-		
-		//
-		// Set country index.
-		//
-		$collection->createIndex(
-			array( $this->resolveOffset( ':location:country' ) => 1 ),
-			array( "name" => "COUNTRY",
-				   "sparse" => TRUE ) );
-		
-		//
-		// Set elevation index.
-		//
-		$collection->createIndex(
-			array( $this->resolveOffset( ':location:site:elevation:min' ) => 1 ),
-			array( "name" => "ELEVATION_MIN",
-				   "sparse" => TRUE ) );
-		$collection->createIndex(
-			array( $this->resolveOffset( ':location:site:elevation:max' ) => 1 ),
-			array( "name" => "ELEVATION_MAX",
-				   "sparse" => TRUE ) );
-		
-		return $collection;															// ==>
-	
-	} // CreateIndexes.
-
-		
-
-/*=======================================================================================
- *																						*
  *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/

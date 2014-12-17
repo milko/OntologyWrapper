@@ -358,12 +358,6 @@ class Term extends MetadataObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
-		// Set offsets.
-		//
-		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
-								  array( "name" => "OFFSETS" ) );
-		
-		//
 		// Set local identifier index.
 		//
 		$collection->createIndex( array( kTAG_ID_LOCAL => 1 ),
@@ -374,13 +368,6 @@ class Term extends MetadataObject
 		//
 		$collection->createIndex( array( kTAG_NAMESPACE => 1 ),
 								  array( "name" => "NAMESPACE",
-										 "sparse" => TRUE ) );
-		
-		//
-		// Set graph node identifier index.
-		//
-		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
-								  array( "name" => "GRAPH",
 										 "sparse" => TRUE ) );
 		
 		//

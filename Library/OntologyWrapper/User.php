@@ -69,58 +69,6 @@ class User extends Individual
 
 /*=======================================================================================
  *																						*
- *								STATIC PERSISTENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	CreateIndexes																	*
-	 *==================================================================================*/
-
-	/**
-	 * Create indexes
-	 *
-	 * In this class we index the following offsets:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kTAG_CONN_CODE}</tt>: User code.
-	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: User password.
-	 * </ul>
-	 *
-	 * @param DatabaseObject		$theDatabase		Database reference.
-	 *
-	 * @static
-	 * @return CollectionObject		The collection.
-	 */
-	static function CreateIndexes( DatabaseObject $theDatabase )
-	{
-		//
-		// Set parent indexes and retrieve collection.
-		//
-		$collection = parent::CreateIndexes( $theDatabase );
-		
-		//
-		// Set first name index.
-		//
-		$collection->createIndex( array( kTAG_CONN_CODE => 1 ),
-								  array( "name" => "USER_CODE" ) );
-		
-		//
-		// Set last name index.
-		//
-		$collection->createIndex( array( kTAG_CONN_PASS => 1 ),
-								  array( "name" => "USER_PASS" ) );
-		
-		return $collection;															// ==>
-	
-	} // CreateIndexes.
-
-		
-
-/*=======================================================================================
- *																						*
  *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/

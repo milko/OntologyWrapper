@@ -1860,26 +1860,40 @@ abstract class PersistentObject extends OntologyObject
 								  array( "name" => "TAGS" ) );
 		
 		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		//
 		// Set reference counts.
 		//
 		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
-								  array( "name" => "TAG-REFS",
+								  array( "name" => "TAGS_COUNT",
 								  		 "sparse" => TRUE ) );
 		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
-								  array( "name" => "TERM-REFS",
+								  array( "name" => "TERMS_COUNT",
 								  		 "sparse" => TRUE ) );
 		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
-								  array( "name" => "NODE-REFS",
+								  array( "name" => "NODES_COUNT",
 								  		 "sparse" => TRUE ) );
 		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
-								  array( "name" => "EDGE-REFS",
+								  array( "name" => "EDGES_COUNT",
 								  		 "sparse" => TRUE ) );
 		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
-								  array( "name" => "UNIT-REFS",
+								  array( "name" => "UNITS_COUNT",
 								  		 "sparse" => TRUE ) );
 		$collection->createIndex( array( kTAG_USER_COUNT => 1 ),
-								  array( "name" => "USER-REFS",
+								  array( "name" => "USERS_COUNT",
 								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set graph node identifier index.
+		//
+		if( kGRAPH_DO )
+			$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
+									  array( "name" => "GRAPH",
+											 "sparse" => TRUE ) );
 		
 		return $collection;															// ==>
 	

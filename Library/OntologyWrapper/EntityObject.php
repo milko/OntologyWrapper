@@ -395,20 +395,6 @@ abstract class EntityObject extends UnitObject
 								  		 "sparse" => TRUE ) );
 		
 		//
-		// Set nationality index.
-		//
-		$collection->createIndex( array( kTAG_ENTITY_NATIONALITY => 1 ),
-								  array( "name" => "NATIONALITY",
-								  		 "sparse" => TRUE ) );
-		
-		//
-		// Set affiliation index.
-		//
-		$collection->createIndex( array( kTAG_ENTITY_AFFILIATION => 1 ),
-								  array( "name" => "AFFILIATION",
-								  		 "sparse" => TRUE ) );
-		
-		//
 		// Set valid index.
 		//
 		$collection->createIndex( array( kTAG_ENTITY_VALID => 1 ),

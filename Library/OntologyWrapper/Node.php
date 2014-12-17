@@ -428,24 +428,12 @@ class Node extends MetadataObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
-		// Set offsets.
-		//
-		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
-								  array( "name" => "OFFSETS" ) );
-		
-		//
 		// Set persistent identifier index.
 		//
 		$collection->createIndex( array( kTAG_ID_PERSISTENT => 1 ),
 								  array( "name" => "PID",
 								  		 "unique" => TRUE,
 								  		 "sparse" => TRUE ) );
-		
-		//
-		// Set graph node identifier index.
-		//
-		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
-								  array( "name" => "GRAPH" ) );
 		
 		//
 		// Set tag index.

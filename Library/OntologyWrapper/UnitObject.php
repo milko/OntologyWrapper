@@ -945,12 +945,6 @@ abstract class UnitObject extends PersistentObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
-		// Set offsets.
-		//
-		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
-								  array( "name" => "OFFSETS" ) );
-		
-		//
 		// Set domain index.
 		//
 		$collection->createIndex( array( kTAG_DOMAIN => 1 ),
@@ -981,12 +975,6 @@ abstract class UnitObject extends PersistentObject
 		$collection->createIndex( array( kTAG_VERSION => 1 ),
 								  array( "name" => "VERSION",
 								  		 "sparse" => TRUE ) );
-		
-		//
-		// Set graph node identifier index.
-		//
-		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
-								  array( "name" => "GRAPH" ) );
 		
 		//
 		// Set geographic unit index.
