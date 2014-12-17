@@ -2008,6 +2008,14 @@ class Service extends ContainerObject
 								"Missing fingerprint." );						// !@! ==>
 						
 						//
+						// Normalise e-mail.
+						//
+						$data[ kTAG_ENTITY_EMAIL ]
+							= array(
+								array( kTAG_TYPE => 'Default',
+									   kTAG_TEXT => $data[ kTAG_ENTITY_EMAIL ] ) );
+						
+						//
 						// Add referrer.
 						//
 						$data[ kTAG_ENTITY_AFFILIATION ]
@@ -4633,15 +4641,29 @@ class Service extends ContainerObject
 		//
 		$user = $this->offsetGet( kAPI_REQUEST_USER );
 		$data = $this->offsetGet( kAPI_PARAM_OBJECT );
-		$afil = ( $user->offsetExists( kTAG_ENTITY_AFFILIATION ) )
-			  ? $user->offsetGet( kTAG_ENTITY_AFFILIATION )
-			  : Array();
+		$invites = ( $user->offsetExists( kTAG_INVITES ) )
+				 ? $user->offsetGet( kTAG_INVITES )
+				 : Array();
+		
+		//
+		// Locate invitation.
+		//
+		$index = count( $invites );
+		foreach( $invites as $key => $value )
+		{
+			if( $value[ kTAG_ENTITY_PGP_FINGERPRINT ]
+				== $data[ kTAG_ENTITY_PGP_FINGERPRINT ] )
+			{
+				$index = $key;
+				break;														// =>
+			}
+		}
 		
 		//
 		// Add invite to user.
 		//
-		$afil[] = $data;
-		$user->offsetSet( kTAG_ENTITY_AFFILIATION, $afil );
+		$invites[ $index ] = $data;
+		$user->offsetSet( kTAG_INVITES, $invites );
 		
 		//
 		// Update user.

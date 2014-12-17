@@ -765,9 +765,8 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_INVITES => array
 		(
 			kTAG_NID	=> ':invites',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
-									  kTYPE_LIST )
+			kTAG_DATA_TYPE	=> kTYPE_STRUCT,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST )
 		),
 		kTAG_CLASS_NAME => array
 		(
