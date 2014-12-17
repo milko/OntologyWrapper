@@ -4647,29 +4647,60 @@ class Service extends ContainerObject
 				 : Array();
 		
 		//
-		// Locate invitation.
+		// Compile mail parameters.
 		//
-		$index = count( $invites );
-		foreach( $invites as $key => $value )
+		$to = array( $data[ kTAG_NAME ] => $data[ kTAG_STRUCT_LABEL ] );
+		$subject = 'Join Plant Genetic Resources Diversity Gateway';
+		$message = file_get_contents( kPATH_LIBRARY_ROOT
+									 ."/settings/email_template_basic.html" );
+		$message = str_replace( '@user_name@', $data[ kTAG_NAME ], $message );
+		$message = str_replace( '@inviter_name@', $user[ kTAG_NAME ], $message );
+		$sender = array( $user[ kTAG_NAME ] => 'No Reply' );
+		foreach( $user[ kTAG_ENTITY_EMAIL ] as $tmp )
 		{
-			if( $value[ kTAG_STRUCT_LABEL ]
-				== $data[ kTAG_STRUCT_LABEL ] )
+			if( $tmp[ kTAG_TYPE ] == kTYPE_LIST_DEFAULT )
 			{
-				$index = $key;
+				$sender[ $user[ kTAG_NAME ] ] = $tmp[ kTAG_TEXT ];
 				break;														// =>
 			}
 		}
+		$message = str_replace( '@inviter_email@', $tmp[ kTAG_TEXT ], $message );
 		
 		//
-		// Add invite to user.
+		// Send mail.
 		//
-		$invites[ $index ] = $data;
-		$user->offsetSet( kTAG_INVITES, $invites );
+		if( SendMail( $to, $subject, $message, $sender, TRUE ) )
+		{
+			//
+			// Locate invitation.
+			//
+			$index = count( $invites );
+			foreach( $invites as $key => $value )
+			{
+				if( $value[ kTAG_STRUCT_LABEL ]
+					== $data[ kTAG_STRUCT_LABEL ] )
+				{
+					$index = $key;
+					break;													// =>
+				}
+			}
 		
-		//
-		// Update user.
-		//
-		$user->commit();
+			//
+			// Add invite to user.
+			//
+			$invites[ $index ] = $data;
+			$user->offsetSet( kTAG_INVITES, $invites );
+		
+			//
+			// Update user.
+			//
+			$user->commit();
+		
+		} // E-mail was sent.
+		
+		else
+			throw new \Exception(
+				"Unable to send mail." );										// !@! ==>
 		
 	} // executeInviteUser.
 
@@ -8547,45 +8578,6 @@ $rs_units = & $rs_units[ 'result' ];
 		exit( JsonEncode( $this->mResponse ) );									// ==>
 	
 	} // _Exception2Status.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED ENCRYPTION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	encrypt																			*
-	 *==================================================================================*/
-
-	/**
-	 * Encrypt.
-	 *
-	 * This method will encrypt the provided data using the provided public key, encode it
-	 * in base 64 and return the result.
-	 *
-	 * @param string				$theData			Data to encrypt.
-	 * @param string				$theKey				Encryption key.
-	 *
-	 * @access protected
-	 */
-	protected function encrypt( $theData, $theKey )
-	{
-		//
-		// Check data.
-		//
-		if( $theData !== NULL )
-		{
-		
-		} // Provided data.
-		
-		return NULL;																// ==>
-	
-	} // encrypt.
 
 		
 

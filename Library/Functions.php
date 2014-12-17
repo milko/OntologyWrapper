@@ -510,144 +510,116 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 
 /*=======================================================================================
  *																						*
- *									ENCRYPTION UTILITIES								*
+ *										MAIL UTILITIES									*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	Encrypt																			*
+	 *	SendMail																		*
 	 *==================================================================================*/
 
 	/**
-	 * Encrypt data
+	 * Send mail
 	 *
-	 * This function will encrypt the provided data using the provided key, if the function
-	 * returns <tt>FALSE</tt>, it means that there is an error.
+	 * This function will send an e-mail according to the provided parameters.
 	 *
-	 * Note: <em>do not use spaces or control characters in the string</em>.
+	 * The function expects the following parameters:
 	 *
-	 * @param string				$theData			Data to encrypt.
-	 * @param string				$theKey				Encryption key (8 characters).
+	 * <ul>
+	 *	<li><b>$theRecepients</b>: The list of recepients as an array structured as
+	 *		follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The recepient's name.
+	 *		<li><tt>value</tt>: The recepient's e-mail.
+	 *	 </ul>
+	 *	<li><b>$theSubject</b>: E-mail subject.
+	 *	<li><b>$theMessage</b>: E-mail message.
+	 *	<li><b>$theSender</b>: The sender as a one element array structured as follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The sender's name.
+	 *		<li><tt>value</tt>: The sender's e-mail.
+	 *	 </ul>
+	 * </ul>
+	 *	<li><b>$isHTML</b>: If <tt>TRUE</tt>, it means that the message is in HTML.
 	 *
-	 * @return mixed				<tt>FALSE</tt> means error.
+	 * @param array					$theRecepients		Message recepients.
+	 * @param string				$theSubject			Subject line.
+	 * @param string				$theMessage			Message.
+	 * @param array					$theSender			Message sender.
+	 * @param boolean				$isHTML				<tt>TRUE</tt> means in HTML.
+	 *
+	 * @return boolean				<tt>FALSE</tt> means error.
 	 */
-	function Encrypt( $theData, $theKey )
+	function SendMail( $theRecepients,
+					   $theSubject, $theMessage,
+					   $theSender,
+					   $isHTML = FALSE )
 	{
+		//
+		// Check parameters.
+		//
+		if( ! is_array( $theSender ) )
+			throw new Exception
+				( "Sender parameter must be an array." );						// !@! ==>
+		if( ! is_array( $theRecepients ) )
+			throw new Exception
+				( "Recepients parameter must be an array." );					// !@! ==>
+		if( ! count( $theRecepients ) )
+			throw new Exception
+				( "Missing recepient." );										// !@! ==>
+		
 		//
 		// Init local storage.
 		//
-		$algo = MCRYPT_BLOWFISH;
-		$mode = MCRYPT_MODE_CBC;
+		$headers = Array();
+		$theSubject = trim( $theSubject );
+		$theMessage = trim( $theMessage );
 		
 		//
-		// Get encryption module.
+		// Set mime.
 		//
-		$module = mcrypt_module_open( $algo, '', $mode, '' );
-		if( $module !== FALSE )
+		if( $isHTML )
 		{
-			//
-			// Normalise key.
-			//
-			$theKey = substr( $theKey, 0, mcrypt_enc_get_key_size( $module ) );
-			
-			//
-			// Get IV.
-			//
-			$iv = mcrypt_create_iv( mcrypt_enc_get_iv_size( $module ), MCRYPT_RAND );
-			
-			//
-			// Init encryption handle.
-			//
-			if( mcrypt_generic_init( $module, $theKey, $iv ) == 0 )
-			{
-				//
-				// Encrypt data.
-				//
-				$encrypted = mcrypt_generic( $module, $theData );
-				
-				//
-				// Deinitialise module.
-				//
-				mcrypt_generic_deinit( $module );
-				mcrypt_module_close( $module );
-				
-				return $encrypted;													// ==>
-			
-			} // Initialised handle.
-		
-		} // Opened module.
-		
-		return FALSE;																// ==>
-	
-	} // Encrypt.
-
-	 
-	/*===================================================================================
-	 *	Decrypt																			*
-	 *==================================================================================*/
-
-	/**
-	 * Decrypt data
-	 *
-	 * This function will decrypt the provided data using the provided key, if the function
-	 * returns <tt>FALSE</tt>, it means that there is an error.
-	 *
-	 * @param string				$theData			Data to decrypt.
-	 * @param string				$theKey				Encryption key.
-	 *
-	 * @return mixed				<tt>FALSE</tt> means error.
-	 */
-	function Decrypt( $theData, $theKey )
-	{
-		//
-		// Init local storage.
-		//
-		$algo = MCRYPT_BLOWFISH;
-		$mode = MCRYPT_MODE_CBC;
+			$headers[] = 'MIME-Version: 1.0';
+			$headers[] = 'Content-type: text/html; charset=UTF-8';
+		}
+		else
+			$theMessage = wordwrap( $theMessage, 70, "\r\n" );
 		
 		//
-		// Get decryption module.
+		// Set sender.
 		//
-		$module = mcrypt_module_open( $algo, '', $mode, '' );
-		if( $module !== FALSE )
+		if( count( $theSender ) )
 		{
-			//
-			// Normalise key.
-			//
-			$theKey = substr( $theKey, 0, mcrypt_enc_get_key_size( $module ) );
-			
-			//
-			// Get IV.
-			//
-			$iv = mcrypt_create_iv( mcrypt_enc_get_iv_size( $module ), MCRYPT_RAND );
-			
-			//
-			// Init decryption handle.
-			//
-			if( mcrypt_generic_init( $module, $theKey, $iv ) == 0 )
-			{
-				//
-				// Decrypt data.
-				//
-				$decrypted = mdecrypt_generic( $module, $theData );
-				
-				//
-				// Deinitialise module.
-				//
-				mcrypt_generic_deinit( $module );
-				mcrypt_module_close( $module );
-				
-				return $decrypted;													// ==>
-			
-			} // Initialised handle.
+			$headers[] = 'From: '
+						.trim( key( $theSender ) )
+						.' <'
+						.trim( current( $theSender ) )
+						.'>';
+			$headers[] = 'Reply-To: '
+						.trim( key( $theSender ) )
+						.' <'
+						.trim( current( $theSender ) )
+						.'>';
+		}
 		
-		} // Opened module.
+		//
+		// Set recepients.
+		//
+		$to = Array();
+		foreach( $theRecepients as $name => $mail )
+			$to[] = trim( $name )
+				   .' <'
+				   .trim( $mail )
+				   .'>';
+		$to = implode( ', ', $to );
+		$headers[] = "To: $to";
 		
-		return FALSE;																// ==>
+		return mail( $to, $theSubject, $theMessage, implode( "\r\n", $headers ) );	// ==>
 	
-	} // Decrypt.
+	} // SendMail.
 
 
 

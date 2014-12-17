@@ -935,10 +935,16 @@ echo( '<hr />' );
 /******************************************************************************/
 	
 	//
-	// Test array splice.
+	// Test mail.
 	//
-	$tmp = explode( '/', "/Library/WebServer/Library/OntologyWrapper/Library" );
-	$path = implode( '/', array_merge( array_splice( $tmp, count( $tmp ) - 2 ), array( 'Private', 'pub.pem' ) ) );
-var_dump( $path );
+	
+	$rec = array( 'Milko' => 'info@skofic.net',
+				  'Skofic' => 'milko@me.com' );
+	$sub = 'Test subject';
+	$mes = file_get_contents( '/Library/WebServer/Library/OntologyWrapper/Library/settings/email_template_basic.html' );
+	$sen = array( 'Andrea' => 'No Reply' );
+	$ok = SendMail( $rec, $sub, $mes, $sen, TRUE );
+	
+	var_dump( $ok );
 
 ?>

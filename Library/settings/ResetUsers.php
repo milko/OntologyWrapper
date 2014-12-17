@@ -84,6 +84,12 @@ try
 		OntologyWrapper\User::Delete( $wrapper, $id );
 	
 	//
+	// Reset users sequence number.
+	//
+	OntologyWrapper\User::ResolveDatabase( $wrapper, TRUE )
+		->setSequenceNumber( OntologyWrapper\User::kSEQ_NAME, 1 );
+	
+	//
 	// Load administrator.
 	//
 	$wrapper->loadXMLFile( kPATH_LIBRARY_ROOT."/settings/Admin.xml" );
