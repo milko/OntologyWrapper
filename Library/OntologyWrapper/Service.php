@@ -2013,7 +2013,7 @@ class Service extends ContainerObject
 						$data[ kTAG_STRUCT_LABEL ] = $data[ kTAG_ENTITY_EMAIL ];
 						$data[ kTAG_ENTITY_EMAIL ]
 							= array(
-								array( kTAG_TYPE => 'Default',
+								array( kTAG_TYPE => kTYPE_LIST_DEFAULT,
 									   kTAG_TEXT => $data[ kTAG_STRUCT_LABEL ] ) );
 						
 						//
@@ -2021,7 +2021,7 @@ class Service extends ContainerObject
 						//
 						$data[ kTAG_ENTITY_AFFILIATION ]
 							= array(
-								array( kTAG_TYPE => 'Referrer',
+								array( kTAG_TYPE => kTYPE_LIST_REFERRER,
 									   kTAG_USER_REF => $user[ kTAG_NID ] ) );
 						
 						//

@@ -642,5 +642,32 @@ define( "kTYPE_ROLE_EDIT",						':roles:page-edit' );
  */
 define( "kTYPE_ROLE_USERS",						':roles:manage-users' );
 
+/*=======================================================================================
+ *	TYPED LISTs TYPES																	*
+ *======================================================================================*/
+
+/**
+ * Default.
+ *
+ * This is the type used for default typed list elements.
+ */
+define( "kTYPE_LIST_DEFAULT",					'Default' );
+
+/**
+ * Referrer.
+ *
+ * This is the type used in the {@link kTAG_ENTITY_AFFILIATION} property to indicate the
+ * user who is the authority.
+ */
+define( "kTYPE_LIST_REFERRER",					'Referrer' );
+
+/**
+ * Institute.
+ *
+ * This is the type used in the {@link kTAG_ENTITY_AFFILIATION} property to indicate the
+ * main institute to which the user belongs.
+ */
+define( "kTYPE_LIST_INSTITUTE",					'Institute' );
+
 
 ?>
