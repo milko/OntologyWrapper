@@ -20,6 +20,46 @@
  */
 
 /*=======================================================================================
+ *	DEBUG FLAG																			*
+ *======================================================================================*/
+
+/**
+ * Debug flag.
+ *
+ * This flag allows debugging information, disable it in production.
+ */
+define( "kDEBUG_FLAG",					TRUE );
+
+/*=======================================================================================
+ *	PORTAL PREFIX																		*
+ *======================================================================================*/
+
+/**
+ * Portal prefix.
+ *
+ * This tag indicates the default portal prefix.
+ */
+define( "kPORTAL_PREFIX",				'pgrdg' );
+
+/*=======================================================================================
+ *	STANDARD DATA DICTIONARY															*
+ *======================================================================================*/
+
+/**
+ * Default dictionary host.
+ *
+ * This tag indicates the standard data dictionary host.
+ */
+define( "kSTANDARDS_DDICT_HOST",		'localhost' );
+
+/**
+ * Default dictionary port.
+ *
+ * This tag indicates the standard data dictionary port.
+ */
+define( "kSTANDARDS_DDICT_PORT",		11211 );
+
+/*=======================================================================================
  *	GRAPH SERVICE REFERENCES															*
  *======================================================================================*/
 
@@ -47,6 +87,38 @@ define( "kGRAPH_SERVICE",	'/Users/milko/Library/LaunchAgents/org.neo4j.server.pl
 define( "kGRAPH_DIR",		'/Volumes/Data/Neo4j/' );
 
 /*=======================================================================================
+ *	STANDARD DATABASE DSNs																*
+ *======================================================================================*/
+
+/**
+ * Default metadata database.
+ *
+ * This tag indicates the standard metadata database DSN.
+ */
+define( "kSTANDARDS_METADATA_DB",		'mongodb://localhost:27017/BIOVERSITY?connect=1' );
+
+/**
+ * Default entities database.
+ *
+ * This tag indicates the standard entities database DSN.
+ */
+define( "kSTANDARDS_ENTITIES_DB",		'mongodb://localhost:27017/BIOVERSITY?connect=1' );
+
+/**
+ * Default units database.
+ *
+ * This tag indicates the standard units database DSN.
+ */
+define( "kSTANDARDS_UNITS_DB",			'mongodb://localhost:27017/BIOVERSITY?connect=1' );
+
+/**
+ * Default graph database.
+ *
+ * This tag indicates the standard graqph database DSN.
+ */
+define( "kSTANDARDS_GRAPH_DB",			'neo4j://localhost:7474' );
+
+/*=======================================================================================
  *	DEFAULT VALUES																		*
  *======================================================================================*/
 
@@ -57,6 +129,41 @@ define( "kGRAPH_DIR",		'/Volumes/Data/Neo4j/' );
  */
 define( "kSTANDARDS_LANGUAGE",			'en' );
 
+/**
+ * Default string list limit.
+ *
+ * This tag indicates the default strings list limit.
+ */
+define( "kSTANDARDS_STRINGS_LIMIT",		100 );
+
+/**
+ * Default enumerated list limit.
+ *
+ * This tag indicates the default enumerated list limit.
+ */
+define( "kSTANDARDS_ENUMS_LIMIT",		360 );
+
+/**
+ * Default units limit.
+ *
+ * This tag indicates the default units limit.
+ */
+define( "kSTANDARDS_UNITS_LIMIT",		50 );
+
+/**
+ * Maximum units limit.
+ *
+ * This tag indicates the maximum units limit.
+ */
+define( "kSTANDARDS_UNITS_MAX",			1000 );
+
+/**
+ * Maximum markers limit.
+ *
+ * This tag indicates the maximum markers limit.
+ */
+define( "kSTANDARDS_MARKERS_MAX",		10000 );
+
 /*=======================================================================================
  *	CLIMATIC LIMITS																		*
  *======================================================================================*/
@@ -66,7 +173,7 @@ define( "kSTANDARDS_LANGUAGE",			'en' );
  *
  * This token represents the base climate data service URL.
  */
-define( "kCLIMATE_URL",				'http://geo.grinfo.net/features.php' );
+define( "kCLIMATE_URL",					'http://geo.grinfo.net/features.php' );
 
 /**
  * Default average distance.
@@ -75,7 +182,7 @@ define( "kCLIMATE_URL",				'http://geo.grinfo.net/features.php' );
  * will be used in climate data retrieval. This value will be used whenever the distance is
  * required but not provided.
  */
-define( "kCLIMATE_DEF_DIST",		7000 );
+define( "kCLIMATE_DEF_DIST",			7000 );
 
 /**
  * Minimum average distance.
@@ -84,7 +191,7 @@ define( "kCLIMATE_DEF_DIST",		7000 );
  * will be used in climate data retrieval. This means that any uncertainty smaller than
  * this figure will not be used.
  */
-define( "kCLIMATE_MIN_DIST",		925 );
+define( "kCLIMATE_MIN_DIST",			925 );
 
 /**
  * Maximum average distance.
@@ -92,7 +199,7 @@ define( "kCLIMATE_MIN_DIST",		925 );
  * This token represents the default maximum average tile distance from the provided
  * geometry in meters (10km.).
  */
-define( "kCLIMATE_MAX_DIST",		111325 );
+define( "kCLIMATE_MAX_DIST",			111325 );
 
 /**
  * Elevation range delta.
@@ -100,7 +207,7 @@ define( "kCLIMATE_MAX_DIST",		111325 );
  * This token represents the default range by which an elevation is decremented and
  * incremented in order to get the climate data (50m.).
  */
-define( "kCLIMATE_DELTA_ELEV",		50 );
+define( "kCLIMATE_DELTA_ELEV",			50 );
 
 /*=======================================================================================
  *	STANDARDS SUB-FOLDER NAMES															*
@@ -111,27 +218,20 @@ define( "kCLIMATE_DELTA_ELEV",		50 );
  *
  * This tag indicates the directory name where the default standards XML files are stored.
  */
-define( "kDIR_STANDARDS_DEFAULT",				'default' );
-
-/**
- * Standards.
- *
- * This tag indicates the directory name where the standards XML files are stored.
- */
-define( "kDIR_STANDARDS_STANDARDS",				'standards' );
+define( "kDIR_STANDARDS_DEFAULT",		'default' );
 
 /**
  * ISO standards.
  *
  * This tag indicates the directory name where the ISO standards XML files are stored.
  */
-define( "kDIR_STANDARDS_ISO",					'iso' );
+define( "kDIR_STANDARDS_ISO",			'iso' );
 
 /**
  * WBI standards.
  *
  * This tag indicates the directory name where the WBI standards XML files are stored.
  */
-define( "kDIR_STANDARDS_WBI",					'wbi' );
+define( "kDIR_STANDARDS_WBI",			'wbi' );
 
 ?>

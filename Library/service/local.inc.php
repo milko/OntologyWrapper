@@ -111,6 +111,13 @@ define( "kSTANDARDS_ENTITIES_DB",		'mongodb://localhost:27017/BIOVERSITY?connect
  */
 define( "kSTANDARDS_UNITS_DB",			'mongodb://localhost:27017/BIOVERSITY?connect=1' );
 
+/**
+ * Default graph database.
+ *
+ * This tag indicates the standard graqph database DSN.
+ */
+define( "kSTANDARDS_GRAPH_DB",			'neo4j://localhost:7474' );
+
 /*=======================================================================================
  *	DEFAULT VALUES																		*
  *======================================================================================*/
