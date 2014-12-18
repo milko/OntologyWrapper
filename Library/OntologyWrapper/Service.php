@@ -61,6 +61,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
 require_once( kPATH_LIBRARY_ROOT."/Functions.php" );
 
 /**
+ * PHPMailer class.
+ *
+ * This file contains the definition of the PHPMailer class.
+ */
+require_once( kPATH_CLASSES_ROOT."/PHPMailer-master/PHPMailerAutoload.php" );
+
+/**
  * Service object
  *
  * A <em>service</em> is an object that can be used to implement a set of web services, the
@@ -260,6 +267,7 @@ class Service extends ContainerObject
 				switch( $_REQUEST[ kAPI_REQUEST_OPERATION ] )
 				{
 					case kAPI_OP_INVITE_USER:
+					case kAPI_OP_USER_INVITE:
 					case kAPI_OP_ADD_USER:
 						break;
 					
@@ -488,6 +496,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_STRUCT}</tt>: Get node structure.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 *	<li><tt>{@link kAPI_OP_INVITE_USER}</tt>: Invite user.
+	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: User invitation.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
 	 * </ul>
@@ -528,6 +537,7 @@ class Service extends ContainerObject
 			case kAPI_OP_MATCH_UNITSnew:
 			case kAPI_OP_GET_UNIT:
 			case kAPI_OP_INVITE_USER:
+			case kAPI_OP_USER_INVITE:
 			case kAPI_OP_ADD_USER:
 			case kAPI_OP_GET_USER:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
@@ -603,6 +613,7 @@ class Service extends ContainerObject
 			switch( $this->offsetGet( kAPI_REQUEST_OPERATION ) )
 			{
 				case kAPI_OP_INVITE_USER:
+				case kAPI_OP_USER_INVITE:
 					$encoder = new Encoder();
 					$decoded = $encoder->decodeData( $_REQUEST[ kAPI_REQUEST_PARAMETERS ] );
 					$_REQUEST[ kAPI_REQUEST_PARAMETERS ] = $decoded;
@@ -868,6 +879,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_FORM}</tt>: Get node form.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_STRUCT}</tt>: Get node structure.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_INVITE_USER}</tt>: Invite user.
+	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: User invitation.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
 	 * </ul>
@@ -940,6 +953,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_INVITE_USER:
 				$this->validateInviteUser();
+				break;
+				
+			case kAPI_OP_USER_INVITE:
+				$this->validateUserInvite();
 				break;
 				
 			case kAPI_OP_GET_USER:
@@ -2042,6 +2059,34 @@ class Service extends ContainerObject
 				"User has no permissions." );									// !@! ==>
 		
 	} // validateInviteUser.
+
+	 
+	/*===================================================================================
+	 *	validateUserInvite																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate user invitation retrieval service.
+	 *
+	 * This method will assert that the {@link kAPI_PARAM_ID} parameter is there.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateUserInvite()
+	{
+		//
+		// Check parameter.
+		//
+		if( $this->offsetExists( kAPI_PARAM_ID ) )
+			$this->offsetSet( kAPI_PARAM_ID, (string) $this->offsetGet( kAPI_PARAM_ID ) );
+		
+		else
+			throw new \Exception(
+				"Missing invitation identifier." );								// !@! ==>
+		
+	} // validateUserInvite.
 
 	 
 	/*===================================================================================
@@ -3586,6 +3631,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_FORM}</tt>: Get node form.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_STRUCT}</tt>: Get node structure.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_INVITE_USER}</tt>: Invite user.
+	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: User invitation.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 * </ul>
 	 *
@@ -3671,6 +3718,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_INVITE_USER:
 				$this->executeInviteUser();
+				break;
+				
+			case kAPI_OP_USER_INVITE:
+				$this->executeUserInvite();
 				break;
 				
 			case kAPI_OP_ADD_USER:
@@ -4774,29 +4825,83 @@ class Service extends ContainerObject
 				 : Array();
 		
 		//
-		// Compile mail parameters.
+		// Init mail parameters.
 		//
-		$to = array( $data[ kTAG_NAME ] => $data[ kTAG_STRUCT_LABEL ] );
-		$subject = 'Join Plant Genetic Resources Diversity Gateway';
-		$message = file_get_contents( kPATH_LIBRARY_ROOT
-									 ."/settings/email_template_basic.html" );
-		$message = str_replace( '@user_name@', $data[ kTAG_NAME ], $message );
-		$message = str_replace( '@inviter_name@', $user[ kTAG_NAME ], $message );
-		$sender = array( $user[ kTAG_NAME ] => 'No Reply' );
+		$mail_subject = file_get_contents( kPATH_LIBRARY_ROOT
+										  ."/settings/invite_subject.txt" );
+		$message_text = file_get_contents( kPATH_LIBRARY_ROOT
+										  ."/settings/email_template_basic.txt" );
+		$message_html = file_get_contents( kPATH_LIBRARY_ROOT
+										  ."/settings/email_template_basic.html" );
+		$mail_credentials
+			= explode( "\t",
+					   file_get_contents( kPATH_LIBRARY_ROOT
+										 ."/settings/mailer.txt" ) );
+		$mail_sender_email = 'No Reply';
 		foreach( $user[ kTAG_ENTITY_EMAIL ] as $tmp )
 		{
 			if( $tmp[ kTAG_TYPE ] == kTYPE_LIST_DEFAULT )
 			{
-				$sender[ $user[ kTAG_NAME ] ] = $tmp[ kTAG_TEXT ];
+				$mail_sender_email = $tmp[ kTAG_TEXT ];
 				break;														// =>
 			}
 		}
-		$message = str_replace( '@inviter_email@', $tmp[ kTAG_TEXT ], $message );
+		
+		//
+		// Compile activation URL.
+		//
+		$url = 'http://'
+			  .kPORTAL_HOST
+			  .'/Activation?f='
+			  .urlencode( base64_encode( $data[ kTAG_ENTITY_PGP_FINGERPRINT ] ) );
+		
+		//
+		// Compile TEXT message.
+		//
+		$message_text = str_replace( '@user_name@', $data[ kTAG_NAME ], $message_text );
+		$message_text = str_replace( '@inviter_name@', $user[ kTAG_NAME ], $message_text );
+		$message_text = str_replace( '@inviter_email@', $tmp[ kTAG_TEXT ], $message_text );
+		$message_text = str_replace( '@url@', $url, $message_text );
+		
+		//
+		// Compile HTML message.
+		//
+		$message_html = str_replace( '@user_name@', $data[ kTAG_NAME ], $message_html );
+		$message_html = str_replace( '@inviter_name@', $user[ kTAG_NAME ], $message_html );
+		$message_html = str_replace( '@inviter_email@', $tmp[ kTAG_TEXT ], $message_html );
+		$message_html = str_replace( '@url@', $url, $message_html );
+		
+		//
+		// Init mail.
+		//
+		$mailer = new \PHPMailer();
+		$mailer->Host = kPORTAL_HOST;
+		$mailer->CharSet = 'UTF-8';
+		$mailer->ContentType = 'text/html';
+		$mailer->isHTML( TRUE );
+		$mailer->SMTPAuth = TRUE;
+		
+		//
+		// Set mail content.
+		//
+		$mailer->Subject = $mail_subject;
+		$mailer->Body    = $message_html;
+		$mailer->AltBody = $message_text;
+		
+		//
+		// Set mail credentials.
+		//
+		$mailer->From = kPORTAL_MAILER;
+		$mailer->FromName = kPORTAL_MAILER_NAME;
+		$mailer->addAddress( $data[ kTAG_STRUCT_LABEL ], $data[ kTAG_NAME ] );
+		$mailer->addReplyTo( $user[ kTAG_NAME ], $mail_sender_email );
+		$mailer->Username = $mail_credentials[ 0 ];
+		$mailer->Password = $mail_credentials[ 1 ];
 		
 		//
 		// Send mail.
 		//
-		if( SendMail( $to, $subject, $message, $sender, TRUE ) )
+		if( $mailer->send() )
 		{
 			//
 			// Locate invitation.
@@ -4826,10 +4931,71 @@ class Service extends ContainerObject
 		} // E-mail was sent.
 		
 		else
-			throw new \Exception(
-				"Unable to send mail." );										// !@! ==>
+			throw new Exception
+				( "Unable to send mail: ["
+				 .$mailer->ErrorInfo
+				 ."]" );														// !@! ==>
 		
 	} // executeInviteUser.
+
+	 
+	/*===================================================================================
+	 *	executeUserInvite																*
+	 *==================================================================================*/
+
+	/**
+	 * Invite user.
+	 *
+	 * The method will add the invitation record to the inviting user and send the e-mail
+	 * invitation.
+	 *
+	 * @access protected
+	 */
+	protected function executeUserInvite()
+	{
+		//
+		// Init local storage.
+		//
+		$id = $this->offsetGet( kAPI_PARAM_ID );
+		
+		//
+		// Retrieve user.
+		//
+		$user
+			= $this->mWrapper->resolveCollection( User::kSEQ_NAME )
+				->matchOne(
+					array( kTAG_INVITES.'.'.kTAG_ENTITY_PGP_FINGERPRINT => $id ),
+					kQUERY_OBJECT );
+		if( $user !== NULL )
+		{
+			//
+			// Locate invitation.
+			//
+			foreach( $user->offsetGet( kTAG_INVITES ) as $invitation )
+			{
+				if( $invitation[ kTAG_ENTITY_PGP_FINGERPRINT ] == $id )
+				{
+					//
+					// Convert to JSON.
+					//
+					$invitation = \JsonEncode( $invitation );
+					
+					//
+					// Encrypt.
+					//
+					$encoder = new Encoder();
+					$invitation = $encoder->encodeData( $invitation );
+					
+					//
+					// Return result.
+					//
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ] = $invitation;
+				}
+			}
+		
+		} // Found user.
+		
+	} // executeUserInvite.
 
 	 
 	/*===================================================================================

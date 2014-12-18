@@ -76,7 +76,12 @@ $pub_key_path = '/Library/WebServer/Private/pgrdg/pub.pem';
 $pub_key = file_get_contents( $pub_key_path );
 $priv_key_path = '/Library/WebServer/Private/pgrdg/priv.pem';
 $priv_key = file_get_contents( $priv_key_path );
+$ext_pub_key_path = '/Library/WebServer/Private/pgrdg/ext_pub.pem';
+$ext_pub_key = file_get_contents( $ext_pub_key_path );
+$ext_priv_key_path = '/Library/WebServer/Private/pgrdg/ext_priv.pem';
+$ext_priv_key = file_get_contents( $ext_priv_key_path );
 $base_url = 'http://localhost/services/Bioversity/Service.php';
+$encoder = new OntologyWrapper\Encoder();
 
 //
 // Test class.
@@ -148,8 +153,6 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$encoder = new OntologyWrapper\\Encoder( );<br />' );
-	$encoder = new OntologyWrapper\Encoder();
 	echo( '$encoder->generateKeys( $user_pub_key, $user_priv_key );<br />' );
 	$encoder->generateKeys( $user_pub_key, $user_priv_key );
 	echo( '$user_finger = md5( $user_pub_key );<br />' );
@@ -194,14 +197,13 @@ try
 		kAPI_REQUEST_USER => ':domain:individual://ITA406/pgrdiversity.bioversityinternational.org:milko;',
 		kAPI_PARAM_OBJECT => array
 		(
-			kTAG_ENTITY_EMAIL => 'info@skofic.net',
-			kTAG_NAME => 'Test User',
+			kTAG_ENTITY_EMAIL => 'skofic@gmail.com',
+			kTAG_NAME => 'Milko Skofic',
 			kTAG_ROLES => array( kTYPE_ROLE_UPLOAD, kTYPE_ROLE_EDIT ),
 			kTAG_ENTITY_PGP_KEY => $user_pub_key,
 			kTAG_ENTITY_PGP_FINGERPRINT => $user_finger,
 		)
 	);
-	$encoder = new OntologyWrapper\Encoder();
 	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
 	$request = "$base_url?op=".kAPI_OP_INVITE_USER;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -219,12 +221,11 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-
-/*
+	
 	//
-	// Try matchUnits statistics.
+	// Retrieve invitation.
 	//
-	echo( '<h4>Try matchUnits statistics</h4>' );
+	echo( '<h4>Retrieve invitation</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -235,17 +236,14 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-		kAPI_PAGING_LIMIT => 3,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_CRITERIA => Array(),
-		kAPI_PARAM_DOMAIN => kDOMAIN_HH_ASSESSMENT,
-		kAPI_PARAM_STAT => 'abdh-species-07',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_STAT
+		kAPI_PARAM_ID => $user_finger
 	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
+	$request = "$base_url?op=".kAPI_OP_USER_INVITE;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
 	echo( htmlspecialchars($request) );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
@@ -256,10 +254,15 @@ try
 	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$decoded = $encoder->privateDecode( $result[ kAPI_RESPONSE_RESULTS ], $ext_priv_key );
+	echo( '<pre>' ); print_r( json_decode( $decoded, TRUE ) ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-*/
 
 }
 

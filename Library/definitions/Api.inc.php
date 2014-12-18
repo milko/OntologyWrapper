@@ -1447,6 +1447,24 @@ define( "kAPI_OP_GET_UNIT",						'getUnit' );
 define( "kAPI_OP_INVITE_USER",					'inviteUser' );
 
 /**
+ * Retrieve user invitation.
+ *
+ * This tag defines the get user invitation operation.
+ *
+ * The service will retrieve the invitation identified by the the provided parameter.
+ *
+ * This operation expects the following parameters in the {@link kAPI_REQUEST_PARAMETERS}
+ * parameter, which will be encoded by the sender with the wrapper's public key and
+ * encoded in base 64:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Invitation ID</em>. The fingerprint of the
+ *		invited user, stored in the invitation.
+ * </ul>
+ */
+define( "kAPI_OP_USER_INVITE",					'userInvite' );
+
+/**
  * Add user.
  *
  * This tag defines the add user operation.

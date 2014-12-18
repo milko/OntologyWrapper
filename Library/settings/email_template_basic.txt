@@ -1,0 +1,2 @@
+@inviter_name@ has invited you to join the Diversity Gateway, use the link below to set your contact information.
+@url@

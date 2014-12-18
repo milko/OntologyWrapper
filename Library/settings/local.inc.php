@@ -31,7 +31,7 @@
 define( "kDEBUG_FLAG",					TRUE );
 
 /*=======================================================================================
- *	PORTAL PREFIX																		*
+ *	PORTAL INFORMATION																	*
  *======================================================================================*/
 
 /**
@@ -40,6 +40,27 @@ define( "kDEBUG_FLAG",					TRUE );
  * This tag indicates the default portal prefix.
  */
 define( "kPORTAL_PREFIX",				'pgrdg' );
+
+/**
+ * Portal mailer.
+ *
+ * This tag indicates the default mail address for the portal.
+ */
+define( "kPORTAL_MAILER",				'pgrdg@grinfo.net' );
+
+/**
+ * Portal mailer name.
+ *
+ * This tag indicates the default mailer name for the portal.
+ */
+define( "kPORTAL_MAILER_NAME",			'Gateway Mailer' );
+
+/**
+ * Portal host.
+ *
+ * This tag indicates the default portal host.
+ */
+define( "kPORTAL_HOST",					'pgrdiversity.bioversityinternational.org' );
 
 /*=======================================================================================
  *	STANDARD DATA DICTIONARY															*
