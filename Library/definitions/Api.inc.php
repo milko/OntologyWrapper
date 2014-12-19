@@ -147,6 +147,14 @@ define( "kAPI_RESULTS_DICTIONARY",				'dictionary' );
 define( "kAPI_STATUS_STATE",					'state' );
 
 /**
+ * Encrypted.
+ *
+ * This tag indicates whether the data in the {@link kAPI_RESPONSE_RESULTS} is encrypted or
+ * not: the value is boolean.
+ */
+define( "kAPI_STATUS_CRYPTED",					'crypt' );
+
+/**
  * Code.
  *
  * This tag indicates a status code.
@@ -1504,15 +1512,7 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *			{@link IteratorSerialiser} class.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
  *			formatted record set.
- *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
- *			geographic markers, each element will contain the user {@link kTAG_NID} and the
- *			value contained in the offset provided in the {@link kAPI_PARAM_SHAPE_OFFSET},
- *			which is required in this case.
  *	 </ul>
- *	<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: <em>Shape offset</em>. This parameter is
- *		the tag reference of the shape, it is required if the
- *		{@link kAPI_RESULT_ENUM_DATA_MARKER} value was provided for the
- *		{@link kAPI_PARAM_DATA} parameter.
  * </ul>
  */
 define( "kAPI_OP_GET_USER",						'getUser' );

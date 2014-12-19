@@ -201,6 +201,14 @@ class Service extends ContainerObject
 			//
 			$this->mResponse[ kAPI_RESPONSE_STATUS ]
 							[ kAPI_STATUS_STATE ] = kAPI_STATE_OK;
+			
+			//
+			// Set encrypted state.
+			//
+			if( ! array_key_exists( kAPI_STATUS_CRYPTED,
+									$this->mResponse[ kAPI_RESPONSE_STATUS ] ) )
+				$this->mResponse[ kAPI_RESPONSE_STATUS ]
+								[ kAPI_STATUS_CRYPTED ] = FALSE;
 		}
 		
 		//
@@ -269,6 +277,7 @@ class Service extends ContainerObject
 					case kAPI_OP_INVITE_USER:
 					case kAPI_OP_USER_INVITE:
 					case kAPI_OP_ADD_USER:
+					case kAPI_OP_GET_USER:
 						break;
 					
 					default:
@@ -288,7 +297,7 @@ class Service extends ContainerObject
 			//
 			header( 'Content-type: application/json' );
 		
-			exit( JsonEncode( $this->mResponse ) );								// ==>
+			exit( JsonEncode( $this->mResponse ) );									// ==>
 		}
 		
 		//
@@ -615,6 +624,7 @@ class Service extends ContainerObject
 				case kAPI_OP_INVITE_USER:
 				case kAPI_OP_USER_INVITE:
 				case kAPI_OP_ADD_USER:
+				case kAPI_OP_GET_USER:
 					$encoder = new Encoder();
 					$decoded = $encoder->decodeData( $_REQUEST[ kAPI_REQUEST_PARAMETERS ] );
 					$_REQUEST[ kAPI_REQUEST_PARAMETERS ] = $decoded;
@@ -1913,41 +1923,39 @@ class Service extends ContainerObject
 		if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
 			throw new \Exception(
 				"Missing results kind parameter." );							// !@! ==>
-		else
+		
+		//
+		// Validate by format type.
+		//
+		switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
 		{
-			//
-			// Validate by format type.
-			//
-			switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
-			{
-				case kAPI_RESULT_ENUM_DATA_MARKER:
-					//
-					// Assert shape offset.
-					//
-					if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
-						throw new \Exception(
-							"Missing shape offset." );							// !@! ==>
-					//
-					// Normalise limit.
-					//
-					if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_MARKERS_MAX )
-						$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_MARKERS_MAX );
-					break;
-					
-				case kAPI_RESULT_ENUM_DATA_RECORD:
-				case kAPI_RESULT_ENUM_DATA_FORMAT:
-					//
-					// Normalise limit.
-					//
-					if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
-						$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
-					break;
-				
-				default:
+			case kAPI_RESULT_ENUM_DATA_MARKER:
+				//
+				// Assert shape offset.
+				//
+				if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
 					throw new \Exception(
-						"Invalid result type [$tmp]." );						// !@! ==>
-					break;
-			}
+						"Missing shape offset." );								// !@! ==>
+				//
+				// Normalise limit.
+				//
+				if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_MARKERS_MAX )
+					$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_MARKERS_MAX );
+				break;
+				
+			case kAPI_RESULT_ENUM_DATA_RECORD:
+			case kAPI_RESULT_ENUM_DATA_FORMAT:
+				//
+				// Normalise limit.
+				//
+				if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
+					$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid result type [$tmp]." );							// !@! ==>
+				break;
 		}
 		
 	} // validateGetUnit.
@@ -2069,23 +2077,23 @@ class Service extends ContainerObject
 	/**
 	 * Validate user invitation retrieval service.
 	 *
-	 * This method will assert that the {@link kAPI_PARAM_ID} parameter is there.
+	 * This method will set the {@link kAPI_PARAM_DATA} parameter to
+	 * {@link kAPI_RESULT_ENUM_DATA_RECORD} and call the {@link kAPI_OP_GET_USER} validation
+	 * procedure.
 	 *
 	 * @access protected
-	 *
-	 * @throws Exception
 	 */
 	protected function validateUserInvite()
 	{
 		//
-		// Check parameter.
+		// Set cluster format.
 		//
-		if( $this->offsetExists( kAPI_PARAM_ID ) )
-			$this->offsetSet( kAPI_PARAM_ID, (string) $this->offsetGet( kAPI_PARAM_ID ) );
+		$this->offsetSet( kAPI_PARAM_DATA, kAPI_RESULT_ENUM_DATA_RECORD );
 		
-		else
-			throw new \Exception(
-				"Missing invitation identifier." );								// !@! ==>
+		//
+		// Call get user validation.
+		//
+		$this->validateGetUser();
 		
 	} // validateUserInvite.
 
@@ -2273,9 +2281,18 @@ class Service extends ContainerObject
 	protected function validateGetUser()
 	{
 		//
-		// Call unit validation process.
+		// Validate identifier.
 		//
-		$this->validateGetUnit();
+		if( ! $this->offsetExists( kAPI_PARAM_ID ) )
+			throw new \Exception(
+				"Missing unit identifier parameter." );							// !@! ==>
+
+		//
+		// Assert result kind.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
+			throw new \Exception(
+				"Missing results kind parameter." );							// !@! ==>
 
 		//
 		// Validate identifier.
@@ -2285,6 +2302,21 @@ class Service extends ContainerObject
 		 && (count( $param ) != 2) )
 			throw new \Exception(
 				"Invalid user identifier parameter format." );					// !@! ==>
+		
+		//
+		// Validate by format type.
+		//
+		switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
+		{
+			case kAPI_RESULT_ENUM_DATA_RECORD:
+			case kAPI_RESULT_ENUM_DATA_FORMAT:
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid result type [$tmp]." );							// !@! ==>
+				break;
+		}
 		
 	} // validateGetUser.
 
@@ -3721,15 +3753,12 @@ class Service extends ContainerObject
 				$this->executeInviteUser();
 				break;
 				
-			case kAPI_OP_USER_INVITE:
-				$this->executeUserInvite();
-				break;
-				
 			case kAPI_OP_ADD_USER:
 				$this->executeAddUser();
 				break;
 				
 			case kAPI_OP_GET_USER:
+			case kAPI_OP_USER_INVITE:
 				$this->executeGetUser();
 				break;
 		}
@@ -3799,6 +3828,7 @@ class Service extends ContainerObject
 		// Load status parameters.
 		//
 		$ref[ "kAPI_STATUS_STATE" ] = kAPI_STATUS_STATE;
+		$ref[ "kAPI_STATUS_CRYPTED" ] = kAPI_STATUS_CRYPTED;
 		$ref[ "kAPI_STATUS_CODE" ] = kAPI_STATUS_CODE;
 		$ref[ "kAPI_STATUS_FILE" ] = kAPI_STATUS_FILE;
 		$ref[ "kAPI_STATUS_LINE" ] = kAPI_STATUS_LINE;
@@ -4826,6 +4856,18 @@ class Service extends ContainerObject
 				 : Array();
 		
 		//
+		// Complete invitation fields.
+		//
+		if( ! array_key_exists( kTAG_ENTITY_FNAME, $data ) )
+			$data[ kTAG_ENTITY_FNAME ] = '';
+		if( ! array_key_exists( kTAG_ENTITY_LNAME, $data ) )
+			$data[ kTAG_ENTITY_LNAME ] = '';
+		if( ! array_key_exists( kTAG_CONN_CODE, $data ) )
+			$data[ kTAG_CONN_CODE ] = '';
+		if( ! array_key_exists( kTAG_CONN_PASS, $data ) )
+			$data[ kTAG_CONN_PASS ] = '';
+		
+		//
 		// Init mail parameters.
 		//
 		$mail_subject = file_get_contents( kPATH_LIBRARY_ROOT
@@ -4941,65 +4983,6 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	executeUserInvite																*
-	 *==================================================================================*/
-
-	/**
-	 * Invite user.
-	 *
-	 * The method will add the invitation record to the inviting user and send the e-mail
-	 * invitation.
-	 *
-	 * @access protected
-	 */
-	protected function executeUserInvite()
-	{
-		//
-		// Init local storage.
-		//
-		$id = $this->offsetGet( kAPI_PARAM_ID );
-		
-		//
-		// Retrieve user.
-		//
-		$user
-			= $this->mWrapper->resolveCollection( User::kSEQ_NAME )
-				->matchOne(
-					array( kTAG_INVITES.'.'.kTAG_ENTITY_PGP_FINGERPRINT => $id ),
-					kQUERY_OBJECT );
-		if( $user !== NULL )
-		{
-			//
-			// Locate invitation.
-			//
-			foreach( $user->offsetGet( kTAG_INVITES ) as $invitation )
-			{
-				if( $invitation[ kTAG_ENTITY_PGP_FINGERPRINT ] == $id )
-				{
-					//
-					// Convert to JSON.
-					//
-					$invitation = \JsonEncode( $invitation );
-					
-					//
-					// Encrypt.
-					//
-					$encoder = new Encoder();
-					$invitation = $encoder->encodeData( $invitation );
-					
-					//
-					// Return result.
-					//
-					$this->mResponse[ kAPI_RESPONSE_RESULTS ] = $invitation;
-				}
-			}
-		
-		} // Found user.
-		
-	} // executeUserInvite.
-
-	 
-	/*===================================================================================
 	 *	executeAddUser																	*
 	 *==================================================================================*/
 
@@ -5033,60 +5016,104 @@ class Service extends ContainerObject
 	/**
 	 * Get user.
 	 *
-	 * The method will match the user and return a clustered, formatted or marker result.
+	 * The method will match the user and return a clustered or formatted result.
+	 *
+	 * Note that this method will also be called for the {@link kAPI_OP_USER_INVITE}
+	 * operation.
 	 *
 	 * @access protected
+	 *
+	 * @throws Exception
 	 */
 	protected function executeGetUser()
 	{
 		//
+		// Init local storage.
+		//
+		$encoder = new Encoder();
+		$operation = $this->offsetGet( kAPI_REQUEST_OPERATION );
+		
+		//
 		// Set filter.
 		//
 		$param = $this->offsetGet( kAPI_PARAM_ID );
-		$this->mFilter = ( is_array( $param ) )
-					   ? array( kTAG_CONN_CODE => array_shift( $param ),
-					   			kTAG_CONN_PASS => array_shift( $param ) )
-					   : array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) );
+		switch( $operation )
+		{
+			case kAPI_OP_GET_USER:
+				$this->mFilter = ( is_array( $param ) )
+							   ? array( kTAG_CONN_CODE => array_shift( $param ),
+										kTAG_CONN_PASS => array_shift( $param ) )
+							   : array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) );
+				break;
+			
+			case kAPI_OP_USER_INVITE:
+				$offset = kTAG_INVITES.'.'.kTAG_ENTITY_PGP_FINGERPRINT;
+				$this->mFilter = array( $offset => $param );
+				break;
+			
+			default:
+				throw new \Exception(
+					"Bug: reached method from wrong operation." );				// !@! ==>
+		}
 		
-		//
-		// Initialise result.
-		//
-		if( ! array_key_exists( kAPI_RESPONSE_RESULTS, $this->mResponse ) )
-			$this->mResponse[ kAPI_RESPONSE_RESULTS ]
-				= Array();
-
 		//
 		// Parse by result type.
 		//
+		$results = Array();
 		switch( $this->offsetGet( kAPI_PARAM_DATA ) )
 		{
-			case kAPI_RESULT_ENUM_DATA_COLUMN:
-				$this->executeTableUnits(
-					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
-					User::kSEQ_NAME );
-				break;
-		
 			case kAPI_RESULT_ENUM_DATA_RECORD:
 				$this->executeClusterUnits(
-					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					$results,
 					User::kSEQ_NAME );
 				break;
 		
 			case kAPI_RESULT_ENUM_DATA_FORMAT:
 				$this->executeFormattedUnits(
-					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
-					User::kSEQ_NAME );
-				break;
-		
-			case kAPI_RESULT_ENUM_DATA_MARKER:
-				$this->mFilter[ $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
-					= array( '$exists' => TRUE );
-				$this->executeMarkerUnits(
-					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					$results,
 					User::kSEQ_NAME );
 				break;
 		
 		} // Parsed result type.
+		
+		//
+		// Check result.
+		//
+		if( count( $results ) )
+		{
+			//
+			// Handle user invitation.
+			//
+			if( ($operation == kAPI_OP_USER_INVITE)
+			 && array_key_exists( kAPI_RESULTS_DICTIONARY, $this->mResponse ) )
+				$this->extractInvitation( $results,
+										  $this->mResponse[ kAPI_RESULTS_DICTIONARY ],
+										  $param );
+			
+			//
+			// Encrypt result.
+			//
+			$results = JsonEncode( $results );
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+				= $encoder->encodeData( $results );
+		
+			//
+			// Encrypt dictioonary.
+			//
+			if( array_key_exists( kAPI_RESULTS_DICTIONARY, $this->mResponse ) )
+			{
+				$results = JsonEncode( $this->mResponse[ kAPI_RESULTS_DICTIONARY ] );
+				$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
+					= $encoder->encodeData( $results );
+			}
+
+			//
+			// Set encrypted state.
+			//
+			$this->mResponse[ kAPI_RESPONSE_STATUS ]
+							[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+		} // Found something.
 		
 	} // executeGetUser.
 
@@ -10585,6 +10612,106 @@ $rs_units = & $rs_units[ 'result' ];
 		} // Provided shape offset.
 		
 	} // validateShapeParameter.
+
+	 
+	/*===================================================================================
+	 *	extractInvitation																*
+	 *==================================================================================*/
+
+	/**
+	 * Replace invitation.
+	 *
+	 * This method will replace the existing user record with the invitation matched by the
+	 * provided fingerprint, replacing the user reference in both the results and the
+	 * dictionary by the fingerprint.
+	 *
+	 * @param array					$theResults			Results record.
+	 * @param array					$theDictionary		Dictionary record.
+	 * @param string				$theFingerprint		Invited fingerprint.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means done.
+	 */
+	protected function extractInvitation( &$theResults, &$theDictionary, $theFingerprint )
+	{
+		//
+		// Check identifier.
+		//
+		if( array_key_exists( kAPI_DICTIONARY_IDS, $theDictionary )
+		 && count( $theDictionary[ kAPI_DICTIONARY_IDS ] ) )
+		{
+			//
+			// Save user identifier.
+			//
+			$id = $theDictionary[ kAPI_DICTIONARY_IDS ][ 0 ];
+			
+			//
+			// Locate users.
+			//
+			if( array_key_exists( User::kSEQ_NAME, $theResults ) )
+			{
+				//
+				// Locate user.
+				//
+				$users = & $theResults[ User::kSEQ_NAME ];
+				if( array_key_exists( $id, $users ) )
+				{
+					//
+					// Locate invites.
+					//
+					$user = & $users[ $id ];
+					if( array_key_exists( kTAG_INVITES, $user ) )
+					{
+						//
+						// Locate invitation.
+						//
+						$invites = & $user[ kTAG_INVITES ];
+						for( $key = 0; $key < count( $invites ); $key++ )
+						{
+							//
+							// Match invitation.
+							//
+							if( $invites[ $key ][ kTAG_ENTITY_PGP_FINGERPRINT ]
+									== $theFingerprint )
+							{
+								//
+								// Set invitation in results.
+								//
+								$users[ $theFingerprint ] = $invites[ $key ];
+								
+								//
+								// Reset old result.
+								//
+								unset( $users[ $id ] );
+							
+								//
+								// Set dictionary identifier.
+								//
+								$theDictionary[ kAPI_DICTIONARY_IDS ][ 0 ]
+									= $theFingerprint;
+								
+								return TRUE;										// ==>
+								
+							} // Found.
+						
+						} // Locating invitation.
+					
+					} // Has invites.
+				
+				} // Has user.
+			
+			} // Has users.
+		
+		} // Has identifier.
+		
+		//
+		// Reset parameters.
+		//
+		$theResults = $theDictionary = Array();
+		
+		return FALSE;																// ==>
+		
+	} // extractInvitation.
 
 	 
 
