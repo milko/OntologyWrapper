@@ -46,7 +46,8 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: Formatted view. The data will
  *			contain the set of properties of the objects.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: Record view. The data will
- *			contain the actual objects and related objects in their original format.
+ *			contain the actual objects and related objects in their original format, or
+ *			excluding dynamic offsets depending on the last constructor parameter.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: Marker view. The data will
  *			contain marker data for the selected objects.
  *	 </ul>
@@ -228,6 +229,16 @@ class IteratorSerialiser
 	 */
 	protected $mHidden = Array();
 
+	/**
+	 * Process dynamic tags.
+	 *
+	 * This protected data member holds a boolean value which if <tt>TRUE</tt> indicates
+	 * that clustered records should include dynamic tags.
+	 *
+	 * @var array
+	 */
+	protected $mDynamics = TRUE;
+
 		
 
 /*=======================================================================================
@@ -257,6 +268,7 @@ class IteratorSerialiser
 	 * @param string				$theLanguage		Default language.
 	 * @param string				$theDomain			Optional domain for columns.
 	 * @param string				$theShape			Optional shape for markers.
+	 * @param boolean				$doDynamic			TRUE means include dynamic offsets.
 	 *
 	 * @access public
 	 */
@@ -264,7 +276,8 @@ class IteratorSerialiser
 												$theFormat,
 												$theLanguage,
 												$theDomain = NULL,
-												$theShape = NULL )
+												$theShape = NULL,
+												$doDynamic = TRUE )
 	{
 		//
 		// Store iterator.
@@ -292,6 +305,11 @@ class IteratorSerialiser
 		// Store format.
 		//
 		$this->format( $theFormat );
+		
+		//
+		// Store dynamic tags flag.
+		//
+		$this->dynamics( (boolean) $doDynamic );
 
 	} // Constructor.
 
@@ -648,6 +666,52 @@ class IteratorSerialiser
 		return $theLanguage;														// ==>
 	
 	} // language.
+
+	 
+	/*===================================================================================
+	 *	dynamics																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage dynamic tags flag
+	 *
+	 * This method can be used to set the dynamic tags flag, the new value should be a
+	 * boolean.
+	 *
+	 * Provide <tt>NULL</tt> to retrieve the current flag.
+	 *
+	 * The method does not allow resetting the flag.
+	 *
+	 * @param string				$theFlag			Flag.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return array				Current or previous flag.
+	 */
+	public function dynamics( $theFlag = NULL, $getOld = FALSE )
+	{
+		//
+		// Return current flag.
+		//
+		if( $theFlag === NULL )
+			return $this->mDynamics;												// ==>
+		
+		//
+		// Save current flag.
+		//
+		$save = $this->mDynamics;
+		
+		//
+		// Set data member.
+		//
+		$this->mDynamics = $theFlag;
+		
+		if( $getOld	)
+			return $save;															// ==>
+	
+		return $theFlag;															// ==>
+	
+	} // dynamics.
 
 		
 
@@ -1041,6 +1105,16 @@ class IteratorSerialiser
 			// Set excluded offsets.
 			//
 			$this->setHiddenTags( $object );
+			
+			//
+			// Exclude dynamic offsets.
+			//
+			if( ! $this->dynamics() )
+			{
+				$class = Wrapper::ResolveCollectionClass( $collection );
+				foreach( $class::DynamicOffsets() as $offset )
+					$object->offsetUnset( $offset );
+			}
 			
 			//
 			// Set identifier.

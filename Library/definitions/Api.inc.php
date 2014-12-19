@@ -1514,6 +1514,8 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *			formatted record set.
  *	 </ul>
  * </ul>
+ *
+ * Note that the resulting user record will be stripped of its dynamic offsets.
  */
 define( "kAPI_OP_GET_USER",						'getUser' );
 

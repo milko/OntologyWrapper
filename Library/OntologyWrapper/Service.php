@@ -5065,7 +5065,8 @@ class Service extends ContainerObject
 			case kAPI_RESULT_ENUM_DATA_RECORD:
 				$this->executeClusterUnits(
 					$results,
-					User::kSEQ_NAME );
+					User::kSEQ_NAME,
+					FALSE );
 				break;
 		
 			case kAPI_RESULT_ENUM_DATA_FORMAT:
@@ -6400,11 +6401,14 @@ $rs_units = & $rs_units[ 'result' ];
 	 * This method expects the filter data member set with the requested query.
 	 *
 	 * @param array					$theContainer		Reference to the results container.
-	 * @param string				$theCollection		collection name.
+	 * @param string				$theCollection		Collection name.
+	 * @param boolean				$doDynamic			TRUE means include dynamic offsets.
 	 *
 	 * @access protected
 	 */
-	protected function executeClusterUnits( &$theContainer, $theCollection )
+	protected function executeClusterUnits( &$theContainer,
+											 $theCollection,
+											 $doDynamic = TRUE )
 	{
 		//
 		// Execute request.
@@ -6436,7 +6440,8 @@ $rs_units = & $rs_units[ 'result' ];
 					kAPI_RESULT_ENUM_DATA_RECORD,					// Format.
 					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
 					$this->offsetGet( kAPI_PARAM_DOMAIN ),			// Domain.
-					$this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) );	// Shape.
+					$this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ),	// Shape.
+					$doDynamic );									// Include dynamic.
 		
 		//
 		// Serialise iterator.
