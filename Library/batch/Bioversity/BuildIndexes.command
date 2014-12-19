@@ -21,6 +21,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Build
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":type:entity" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":location:admin-1" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":location:admin-2" N
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":taxon:epithet" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":taxon:genus" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":taxon:species:name" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":taxon:crop" N

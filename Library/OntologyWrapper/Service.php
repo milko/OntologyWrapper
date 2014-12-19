@@ -614,6 +614,7 @@ class Service extends ContainerObject
 			{
 				case kAPI_OP_INVITE_USER:
 				case kAPI_OP_USER_INVITE:
+				case kAPI_OP_ADD_USER:
 					$encoder = new Encoder();
 					$decoded = $encoder->decodeData( $_REQUEST[ kAPI_REQUEST_PARAMETERS ] );
 					$_REQUEST[ kAPI_REQUEST_PARAMETERS ] = $decoded;
