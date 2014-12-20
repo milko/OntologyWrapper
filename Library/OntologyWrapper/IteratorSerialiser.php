@@ -69,6 +69,8 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *		name or label, both at the property level as well as the value level.
  *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: This element holds the data property
  *		and value information or description.
+ *	<li><tt>{@link kAPI_PARAM_TAG}</tt>: This element holds the data property tag serial
+ *		identifier.
  *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This element holds the data property
  *		display string, or list of display elements.
  *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This element holds the URL for
@@ -230,14 +232,21 @@ class IteratorSerialiser
 	protected $mHidden = Array();
 
 	/**
-	 * Process dynamic tags.
+	 * Format options.
 	 *
-	 * This protected data member holds a boolean value which if <tt>TRUE</tt> indicates
-	 * that clustered records should include dynamic tags.
+	 * This protected data member holds a bitfield representing the format options:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_DYNAMIC}</tt>: Exclude dynamic tags.
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_NATIVES}</tt>: Include tag native identifiers in
+	 *		formatted results with offset {@link kAPI_PARAM_TAG}.
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_VALUES}</tt>: Include values in formatted results
+	 *		with offset {@link kAPI_PARAM_RESPONSE_FRMT_VALUE}.
+	 * </ul>
 	 *
 	 * @var array
 	 */
-	protected $mDynamics = TRUE;
+	protected $mOptions = kFLAG_DEFAULT;
 
 		
 
@@ -263,12 +272,22 @@ class IteratorSerialiser
 	 * The iterator should have been paged by the caller: in this class we do not handle
 	 * paging and sorting, we simply scan the iterator.
 	 *
+	 * The last parameter represents the format options:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_DYNAMIC}</tt>: Exclude dynamic tags.
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_NATIVES}</tt>: Include tag native identifiers in
+	 *		formatted results with offset {@link kAPI_PARAM_TAG}.
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_VALUES}</tt>: Include values in formatted results
+	 *		with offset {@link kAPI_PARAM_RESPONSE_FRMT_VALUE}.
+	 * </ul>
+	 *
 	 * @param ObjectIterator		$theIterator		Iterator.
 	 * @param string				$theFormat			Data format.
 	 * @param string				$theLanguage		Default language.
 	 * @param string				$theDomain			Optional domain for columns.
 	 * @param string				$theShape			Optional shape for markers.
-	 * @param boolean				$doDynamic			TRUE means include dynamic offsets.
+	 * @param bitfield				$theOptions			Format options.
 	 *
 	 * @access public
 	 */
@@ -277,7 +296,7 @@ class IteratorSerialiser
 												$theLanguage,
 												$theDomain = NULL,
 												$theShape = NULL,
-												$doDynamic = TRUE )
+												$theOptions = kFLAG_DEFAULT )
 	{
 		//
 		// Store iterator.
@@ -309,7 +328,7 @@ class IteratorSerialiser
 		//
 		// Store dynamic tags flag.
 		//
-		$this->dynamics( (boolean) $doDynamic );
+		$this->options( $theOptions );
 
 	} // Constructor.
 
@@ -669,49 +688,47 @@ class IteratorSerialiser
 
 	 
 	/*===================================================================================
-	 *	dynamics																		*
+	 *	options																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage dynamic tags flag
+	 * Manage options
 	 *
-	 * This method can be used to set the dynamic tags flag, the new value should be a
-	 * boolean.
-	 *
-	 * Provide <tt>NULL</tt> to retrieve the current flag.
+	 * This method can be used to set the options, provide <tt>NULL</tt> to retrieve the
+	 * current value.
 	 *
 	 * The method does not allow resetting the flag.
 	 *
-	 * @param string				$theFlag			Flag.
+	 * @param bitfield				$theFlag			Flag.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
-	 * @return array				Current or previous flag.
+	 * @return bitfield				Current or previous flag.
 	 */
-	public function dynamics( $theFlag = NULL, $getOld = FALSE )
+	public function options( $theFlag = NULL, $getOld = FALSE )
 	{
 		//
 		// Return current flag.
 		//
 		if( $theFlag === NULL )
-			return $this->mDynamics;												// ==>
+			return $this->mOptions;													// ==>
 		
 		//
 		// Save current flag.
 		//
-		$save = $this->mDynamics;
+		$save = $this->mOptions;
 		
 		//
 		// Set data member.
 		//
-		$this->mDynamics = $theFlag;
+		$this->mOptions = $theFlag;
 		
 		if( $getOld	)
 			return $save;															// ==>
 	
 		return $theFlag;															// ==>
 	
-	} // dynamics.
+	} // options.
 
 		
 
@@ -1109,7 +1126,7 @@ class IteratorSerialiser
 			//
 			// Exclude dynamic offsets.
 			//
-			if( ! $this->dynamics() )
+			if( $this->options() & kFLAG_FORMAT_OPT_DYNAMIC )
 			{
 				$class = Wrapper::ResolveCollectionClass( $collection );
 				foreach( $class::DynamicOffsets() as $offset )
@@ -1414,6 +1431,12 @@ class IteratorSerialiser
 			// Set labels.
 			//
 			$this->setTagLabel( $ref, $tag );
+			
+			//
+			// Set tag serial.
+			//
+			if( $this->options() & kFLAG_FORMAT_OPT_NATIVES )
+				$ref[ kAPI_PARAM_TAG ] = $tag[ kTAG_NID ];
 
 			//
 			// Set values.
@@ -1990,6 +2013,8 @@ class IteratorSerialiser
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 					= kAPI_PARAM_RESPONSE_TYPE_ENUM;
 				$this->formatEnumeration( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
 	
 			//
@@ -1999,6 +2024,8 @@ class IteratorSerialiser
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 					= kAPI_PARAM_RESPONSE_TYPE_TYPED;
 				$this->formatTypedList( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
 	
 			//
@@ -2019,6 +2046,8 @@ class IteratorSerialiser
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 					= kAPI_PARAM_RESPONSE_TYPE_OBJECT;
 				$this->formatUnitReference( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
 	
 			//
@@ -2037,6 +2066,8 @@ class IteratorSerialiser
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
 				$this->formatBoolean( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
 	
 			//
@@ -2046,6 +2077,8 @@ class IteratorSerialiser
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
 				$this->formatInteger( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
 	
 			//
@@ -2055,6 +2088,8 @@ class IteratorSerialiser
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
 				$this->formatFloat( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
 	
 			//
@@ -2064,12 +2099,21 @@ class IteratorSerialiser
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
 				$this->formatTimeStamp( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
 	
 			//
 			// Miscellanea.
 			//
 			case kTYPE_MIXED:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+				$this->formatScalar( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
+				break;
+		
 			case kTYPE_STRING:
 			case kTYPE_TEXT:
 			case kTYPE_YEAR:

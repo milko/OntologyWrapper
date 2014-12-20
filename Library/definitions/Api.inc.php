@@ -1345,6 +1345,7 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  *			 <ul>
  *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: Tag label.
  *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: Tag description.
+ *				<li><tt>{@link kAPI_PARAM_TAG}</tt>: Tag serial identifier.
  *				<li><tt>{@link kAPI_PARAM_DATA_TYPE}</tt>: Tag data type.
  *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: The display value as a
  *					string or as a set of {@link kAPI_PARAM_RESPONSE_FRMT_NAME} and
@@ -1559,8 +1560,8 @@ define( "kAPI_PARAM_REF_COUNT",					'has-values' );
  *
  * This tag defines the requested tag.
  *
- * This parameter represents either an integer referencing a tag sequence number or a string
- * referencing a tag native identifier.
+ * This parameter represents either a string referencing a tag sequence identifier or a
+ * string referencing a tag native identifier.
  */
 define( "kAPI_PARAM_TAG",						'tag' );
 
@@ -2112,6 +2113,13 @@ define( "kAPI_PARAM_RESPONSE_FRMT_NAME",		'name' );
  * This tag indicates the property information or description.
  */
 define( "kAPI_PARAM_RESPONSE_FRMT_INFO",		'info' );
+
+/**
+ * Property value (miced).
+ *
+ * This tag indicates the property actual data, provided as the original value.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_VALUE",		'val' );
 
 /**
  * Property display (string/array).

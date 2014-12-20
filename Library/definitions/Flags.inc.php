@@ -160,5 +160,37 @@ define( "kFLAG_OPT_REL_ONE",			0x00000040 );
  */
 define( "kFLAG_OPT_REL_MANY",			0x00000080 );
 
+/*=======================================================================================
+ *	FORMAT OPTIONS																		*
+ *======================================================================================*/
+
+/**
+ * Default options.
+ *
+ * This value represents the default options.
+ */
+define( "kFLAG_FORMAT_OPT_DEFAULT",		0x00000007 );
+
+/**
+ * Exclude dynamic offsets.
+ *
+ * This value will exclude dynamic offsets.
+ */
+define( "kFLAG_FORMAT_OPT_DYNAMIC",		0x00000001 );
+
+/**
+ * Add tag native identifiers.
+ *
+ * This value will add tag native identifiers.
+ */
+define( "kFLAG_FORMAT_OPT_NATIVES",		0x00000002 );
+
+/**
+ * Add values.
+ *
+ * This value will add values.
+ */
+define( "kFLAG_FORMAT_OPT_VALUES",		0x00000004 );
+
 
 ?>

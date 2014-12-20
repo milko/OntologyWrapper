@@ -622,7 +622,6 @@ exit;
 	echo( '<hr>' );
 */
 
-/*
 	//
 	// Test getUser.
 	//
@@ -640,8 +639,7 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
 	//	kAPI_PARAM_ID => array( 'gatewayadmin', 'gatewayadmin' ),
-		kAPI_PARAM_ID => ':domain:individual://ITA406/pgrdiversity:admin;',
-		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE_DISP,
+		kAPI_PARAM_ID => ':domain:individual://ITA406/pgrdiversity.bioversityinternational.org:milko;',
 	//	kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD
 		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
 	//	kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER
@@ -662,8 +660,8 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-*/
 
+/*
 	//
 	// Try matchUnits record.
 	//
@@ -714,6 +712,7 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+*/
 
 /*
 	//
