@@ -11,15 +11,14 @@
 	//
 	// Connect.
 	//
-	$m = new MongoClient( 'mongodb://localhost:27017' );
+	$m = new MongoClient( 'mongodb://192.168.181.191:27017' );
 	$d = $m->selectDB( 'BIOVERSITY' );
 	$c = $d->selectCollection( '_units' );
 	
 	//
 	// Select records.
 	//
-	$rs = $c->find( array( '@9' => ':domain:sample:collected' ),
-					array( '@c' => TRUE ) );
+	$rs = $c->find( array( '@9' => ':domain:accession' ) );
 	
 	//
 	// Limit record.

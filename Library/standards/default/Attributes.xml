@@ -1575,5 +1575,21 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- kTAG_MANAGED_COUNT -->
+		<TERM ns="" lid="managed-count">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Managed users</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The number of users for which the current user is a referrer.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 </METADATA>

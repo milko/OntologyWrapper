@@ -1463,6 +1463,17 @@ define( "kTAG_CLASS_NAME",				'@5b' );
  */
 define( "kTAG_TOKEN",					'@5c' );
 
+/**
+ * Managed (<code>:managed-count</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ * </ul>
+ *
+ * This tag indicates the number of managed users.
+ */
+define( "kTAG_MANAGED_COUNT",			'@5d' );
+
 /*=======================================================================================
  *	OPERATION OFFSETS																	*
  *======================================================================================*/

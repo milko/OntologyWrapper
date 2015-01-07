@@ -5878,7 +5878,8 @@ MILKO - Need to check.
 	 * @uses ResolveCollectionByName()
 	 */
 	protected function updateObjectReferenceCount( $theCollection,
-												   $theIdent, $theIdentOffset = kTAG_NID,
+												   $theIdent,
+												   $theIdentOffset = kTAG_NID,
 												   $theCount = 1 )
 	{
 		//

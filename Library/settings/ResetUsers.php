@@ -94,6 +94,8 @@ try
 	//
 	$wrapper->loadXMLFile( kPATH_LIBRARY_ROOT."/settings/Admin.xml" );
 
+	echo( "\nDone!\n" );
+
 }
 
 //
@@ -103,7 +105,5 @@ catch( \Exception $error )
 {
 	echo( '<pre>'.$error->xdebug_message.'</pre>' );
 }
-
-echo( "\nDone!\n" );
 
 ?>

@@ -223,7 +223,8 @@ try
 			// Import XML.
 			//
 			$class = $record[ 'class' ];
-			$list = $class::Import( $wrapper, new SimpleXMLElement( $record[ 'xml' ] ) );
+			$xml = new SimpleXMLElement( $record[ 'xml' ] );
+			$list = $class::Import( $wrapper, $xml );
 			
 			//
 			// Save records.
@@ -292,9 +293,10 @@ try
 //
 // Catch exceptions.
 //
-catch( \Exception $error )
+catch( Exception $error )
 {
-	echo( $error->xdebug_message );
+	echo( "\n" );
+	echo( $error->getMessage() );
 	print_r( $error->getTrace() );
 
 } // CATCH BLOCK.

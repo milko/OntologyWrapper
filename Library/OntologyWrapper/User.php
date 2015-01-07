@@ -247,6 +247,34 @@ class User extends Individual
 			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( kTAG_CONN_CODE ) );
 		
 		//
+		// Delete managed users count.
+		//
+		if( $this->offsetExists( kTAG_MANAGED_COUNT ) )
+		{
+			//
+			// Cannot invite nor manage users.
+			//
+			if( (! $this->offsetExists( kTAG_ROLES ))
+			 || (! in_array( kTYPE_ROLE_INVITE, $this->offsetGet( kTAG_ROLES ) )) )
+				$this->offsetUnset( kTAG_MANAGED_COUNT );
+		
+		} // Has managed count.
+		
+		//
+		// Reset managed users count.
+		//
+		else
+		{
+			//
+			// Can invite and manage users.
+			//
+			if( $this->offsetExists( kTAG_ROLES )
+			 && in_array( kTYPE_ROLE_INVITE, $this->offsetGet( kTAG_ROLES ) ) )
+				$this->updateReferrerCount( 0 );
+		
+		} // Missing managed count.
+		
+		//
 		// Call parent method.
 		//
 		parent::preCommitPrepare( $theTags, $theRefs );
@@ -314,6 +342,85 @@ class User extends Individual
 
 /*=======================================================================================
  *																						*
+ *							PROTECTED POST-COMMIT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postInsert																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after insert
+	 *
+	 * We overload this method to increment the user's count of the current object's
+	 * manager.
+	 *
+	 * @param array					$theOffsets			Tag offsets to be added.
+	 * @param array					$theReferences		Object references to be incremented.
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 */
+	protected function postInsert( $theOffsets, $theReferences, $theOptions )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postInsert( $theOffsets, $theReferences, $theOptions );
+		
+		//
+		// Handle referrer.
+		//
+		$this->updateReferrerCount( 1 );
+	
+	} // postInsert.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED POST-DELETE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postDelete																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after delete
+	 *
+	 * We overload this method to decrement the user's count of the current object's
+	 * manager.
+	 *
+	 * @param array					$theOffsets			Tag offsets to be removed.
+	 * @param array					$theReferences		Object references to be decremented.
+	 *
+	 * @access protected
+	 */
+	protected function postDelete( $theOffsets, $theReferences )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postDelete( $theOffsets, $theReferences );
+		
+		//
+		// Handle referrer.
+		//
+		$this->updateReferrerCount( -1 );
+	
+	} // postDelete.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED EXPORT UTILITIES								*
  *																						*
  *======================================================================================*/
@@ -339,6 +446,110 @@ class User extends Individual
 		return $theRoot->addChild( kIO_XML_TRANS_USERS );							// ==>
 	
 	} // xmlUnitElement.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED REFERRER UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateReferrerCount																*
+	 *==================================================================================*/
+
+	/**
+	 * Update referrer count
+	 *
+	 * This method can be used to increment or decrement the current user's referrer count,
+	 * it will update the current object's {@link kTAG_MANAGED_COUNT} offset according to
+	 * the provided delta parameter:
+	 *
+	 * <ul>
+	 *	<li><tt>0</tt>: This value should be passed when <em>inserting</em> a user who has
+	 *		the {@link kTYPE_ROLE_INVITE} role: the method will set the current object's
+	 *		{@link kTAG_MANAGED_COUNT} offset to zero. It is assumed you call this method
+	 *		<em>before</em> inserting the object.
+	 *	<li><tt>greater than 0</tt>: This value should be passed when <em>inserting</em> a
+	 *		user who has a referrer, in that case the method will increment the
+	 *		{@link kTAG_MANAGED_COUNT} offset of the referrer's object by the value passed
+	 *		in the parameter. It is assumed you call this method <em>after</em> inserting
+	 *		the object.
+	 *	<li><tt>smaller than 0</tt>: This value should be passed when <em>deleting</em> a
+	 *		user who has a referrer, in that case the method will decrement the
+	 *		{@link kTAG_MANAGED_COUNT} offset of the referrer's object by the value passed
+	 *		in the parameter. It is assumed you call this method <em>after</em> deleting
+	 *		the object.
+	 * </ul>
+	 *
+	 * The method will reset the managed count in all cases if the delta is zero; if not,
+	 * only if the current user has a referrer, the method will update its managed count.
+	 *
+	 * @param int					$theDelta			Increment delta.
+	 *
+	 * @access protected
+	 */
+	protected function updateReferrerCount( $theDelta )
+	{
+		//
+		// Handle referrer user.
+		//
+		if( ! $theDelta )
+			$this->offsetSet( kTAG_MANAGED_COUNT, 0 );
+		
+		//
+		// Handle user referrer.
+		//
+		else
+		{
+			//
+			// Handle referrer.
+			//
+			if( $this->offsetExists( kTAG_ENTITY_AFFILIATION ) )
+			{
+				//
+				// Iterate affiliations.
+				//
+				foreach( $this->offsetGet( kTAG_ENTITY_AFFILIATION ) as $element )
+				{
+					//
+					// Match referrer.
+					//
+					if( array_key_exists( kTAG_TYPE, $element )
+					 && ($element[ kTAG_TYPE ] == kTYPE_LIST_REFERRER) )
+					{
+						//
+						// Check user identifier.
+						//
+						if( array_key_exists( kTAG_USER_REF, $element ) )
+						{
+							//
+							// Increment referrer's managed count.
+							//
+							static::ResolveCollection(
+								static::ResolveDatabase( $this->mDictionary, TRUE ) )
+									->updateReferenceCount(
+										$element[ kTAG_USER_REF ],		// Referrer ID.
+										kTAG_NID,						// ID offset.
+										kTAG_MANAGED_COUNT,				// Count offset.
+										(int) $theDelta );				// Delta.
+						
+							break;											// =>
+					
+						} // Has user reference.
+				
+					} // Matched referrer.
+			
+				} // Iterating affiliations.
+		
+			} // Has affiliation.
+		
+		} // Positive or negative delta.
+	
+	} // updateReferrerCount.
 
 	 
 
