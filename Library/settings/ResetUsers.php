@@ -38,6 +38,21 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 /*=======================================================================================
  *	MAIN																				*
  *======================================================================================*/
+
+//
+// Parse arguments.
+//
+if( $argc < 2 )
+	exit( "Usage: "
+		 ."script.php "
+		 ."[mongo database DSN] "	// mongodb://localhost:27017/BIOVERSITY
+		 ."[graph DSN].\n" );		// neo4j://localhost:7474						// ==>
+
+//
+// Load arguments.
+//
+$database = $argv[ 1 ];
+$graph = ( $argc > 2 ) ? $argv[ 2 ] : NULL;
  
 //
 // Test class.
@@ -57,13 +72,28 @@ try
 	//
 	$wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
-			kSTANDARDS_METADATA_DB ) );
+			"$database?connect=1" ) );
 	$wrapper->Users(
 		new OntologyWrapper\MongoDatabase(
-			kSTANDARDS_ENTITIES_DB ) );
+			"$database?connect=1" ) );
 	$wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
-			kSTANDARDS_UNITS_DB ) );
+			"$database?connect=1" ) );
+	
+	//
+	// Check graph database.
+	//
+	if( $graph !== NULL )
+	{
+		//
+		// Set graph database.
+		//
+		echo( "  • Setting graph.\n" );
+		$wrapper->Graph(
+			new OntologyWrapper\Neo4jGraph(
+				$graph ) );
+	
+	} // Use graph database.
 
 	//
 	// Load data dictionary.

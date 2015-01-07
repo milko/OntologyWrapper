@@ -247,32 +247,13 @@ class User extends Individual
 			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( kTAG_CONN_CODE ) );
 		
 		//
-		// Delete managed users count.
-		//
-		if( $this->offsetExists( kTAG_MANAGED_COUNT ) )
-		{
-			//
-			// Cannot invite nor manage users.
-			//
-			if( (! $this->offsetExists( kTAG_ROLES ))
-			 || (! in_array( kTYPE_ROLE_INVITE, $this->offsetGet( kTAG_ROLES ) )) )
-				$this->offsetUnset( kTAG_MANAGED_COUNT );
-		
-		} // Has managed count.
-		
-		//
 		// Reset managed users count.
 		//
-		else
-		{
-			//
-			// Can invite and manage users.
-			//
-			if( $this->offsetExists( kTAG_ROLES )
-			 && in_array( kTYPE_ROLE_INVITE, $this->offsetGet( kTAG_ROLES ) ) )
-				$this->updateReferrerCount( 0 );
-		
-		} // Missing managed count.
+		if( (! $this->offsetExists( kTAG_MANAGED_COUNT ))		// Missing managed count,
+		 || (! $this->offsetExists( kTAG_ROLES ))				// or missing roles,
+		 || (! in_array( kTYPE_ROLE_INVITE,						// or cannot invite.
+		   				 $this->offsetGet( kTAG_ROLES ) )) )
+			$this->updateReferrerCount( 0 );
 		
 		//
 		// Call parent method.
