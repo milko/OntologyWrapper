@@ -788,11 +788,7 @@ class Service extends ContainerObject
 	 */
 	protected function parseUser( $theUser )
 	{
-		return
-			$this->mWrapper->resolveCollection( User::kSEQ_NAME )
-				->matchOne(
-					array( kTAG_NID => $theUser ),
-					kQUERY_OBJECT | kQUERY_ASSERT );								// ==>
+		return User::UserByFingerprint( $this->mWrapper, $theUser, TRUE );			// ==>
 		
 	} // parseUser.
 
@@ -1965,7 +1961,7 @@ class Service extends ContainerObject
 	/**
 	 * Validate invite user service.
 	 *
-	 * This method will call the validation processfor the user invite service, the method
+	 * This method will call the validation process for the user invite service, the method
 	 * will ensure all required data is provided and will format it as needed.
 	 *
 	 * The method will also ensure the inviting user (already asserted) has the necessary
@@ -1978,15 +1974,15 @@ class Service extends ContainerObject
 	protected function validateInviteUser()
 	{
 		//
-		// Check roles.
+		// Assert inviter.
 		//
-		$user = $this->offsetGet( kAPI_REQUEST_USER );
-		if( $user->offsetExists( kTAG_ROLES ) )
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
 		{
 			//
-			// Check permissions.
+			// Check roles.
 			//
-			if( in_array( kTYPE_ROLE_INVITE, $user->offsetGet( kTAG_ROLES ) ) )
+			$user = $this->offsetGet( kAPI_REQUEST_USER );
+			if( $user->canInvite() )
 			{
 				//
 				// Check invite data.
@@ -2017,7 +2013,7 @@ class Service extends ContainerObject
 						if( ! array_key_exists( kTAG_ENTITY_PGP_FINGERPRINT, $data ) )
 							throw new \Exception(
 								"Missing fingerprint." );						// !@! ==>
-						
+					
 						//
 						// Normalise e-mail.
 						//
@@ -2026,7 +2022,7 @@ class Service extends ContainerObject
 							= array(
 								array( kTAG_TYPE => kTYPE_LIST_DEFAULT,
 									   kTAG_TEXT => $data[ kTAG_STRUCT_LABEL ] ) );
-						
+					
 						//
 						// Add referrer.
 						//
@@ -2034,35 +2030,35 @@ class Service extends ContainerObject
 							= array(
 								array( kTAG_TYPE => kTYPE_LIST_REFERRER,
 									   kTAG_USER_REF => $user[ kTAG_NID ] ) );
-						
+					
 						//
 						// Update invitation.
 						//
 						$this->offsetSet( kAPI_PARAM_OBJECT, $data );
-					
-					} // Provided invite data as array.
 				
+					} // Provided invite data as array.
+			
 					else
 						throw new \Exception(
 							"Invalid invitation format." );						// !@! ==>
-				
+			
 				} // Has invite data.
-				
+			
 				else
 					throw new \Exception(
 						"Missing invitation." );								// !@! ==>
-			
-			} // Can invite.
-			
+		
+			} // User can invite.
+		
 			else
 				throw new \Exception(
-					"User cannot invite." );									// !@! ==>
+					"Requestor cannot invite." );								// !@! ==>
 		
-		} // Has roles.
+		} // Provided inviter.
 		
 		else
 			throw new \Exception(
-				"User has no permissions." );									// !@! ==>
+				"Missing requestor." );											// !@! ==>
 		
 	} // validateInviteUser.
 
@@ -2250,7 +2246,7 @@ class Service extends ContainerObject
 	protected function validateGetUser()
 	{
 		//
-		// Validate identifier.
+		// Assert identifier.
 		//
 		if( ! $this->offsetExists( kAPI_PARAM_ID ) )
 			throw new \Exception(
@@ -2286,6 +2282,20 @@ class Service extends ContainerObject
 					"Invalid result type [$tmp]." );							// !@! ==>
 				break;
 		}
+
+		//
+		// Assert requesting user.
+		//
+		if( ! is_array( $this->offsetGet( kAPI_PARAM_ID ) ) )
+		{
+			//
+			// Assert requestor.
+			//
+			if( ! $this->offsetExists( kAPI_REQUEST_USER ) )
+				throw new \Exception(
+					"Missing requestor credentials." );							// !@! ==>
+		
+		} // Not provided user code and password.
 		
 	} // validateGetUser.
 
@@ -5002,6 +5012,20 @@ class Service extends ContainerObject
 	 *
 	 * The method will match the user and return a clustered or formatted result.
 	 *
+	 * The user identifier will be treated as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user operation.
+	 *	 <ul>
+	 *		<li><tt>array</tt>: User code and password encoded in SHA1.
+	 *		<li><tt>string</tt>: User fingerprint.
+	 *	 </ul>
+	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: Invite user operation.
+	 *	 <ul>
+	 *		<li><tt>string</tt>: Invited user fingerprint.
+	 *	 </ul>
+	 * </ul>
+	 *
 	 * Note that this method will also be called for the {@link kAPI_OP_USER_INVITE}
 	 * operation.
 	 *
@@ -5015,19 +5039,24 @@ class Service extends ContainerObject
 		// Init local storage.
 		//
 		$encoder = new Encoder();
+		$param = $this->offsetGet( kAPI_PARAM_ID );
 		$operation = $this->offsetGet( kAPI_REQUEST_OPERATION );
+		$options = kFLAG_FORMAT_OPT_DYNAMIC | kFLAG_FORMAT_OPT_VALUES;
+		if( (! is_array( $param ))
+		 && (! $this->isManagedUser( $param )) )
+			$options |= kFLAG_FORMAT_OPT_PRIVATE;
 		
 		//
 		// Set filter.
 		//
-		$param = $this->offsetGet( kAPI_PARAM_ID );
 		switch( $operation )
 		{
 			case kAPI_OP_GET_USER:
 				$this->mFilter = ( is_array( $param ) )
 							   ? array( kTAG_CONN_CODE => array_shift( $param ),
 										kTAG_CONN_PASS => array_shift( $param ) )
-							   : array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) );
+							   : array( kTAG_ENTITY_PGP_FINGERPRINT
+							   		=> $this->offsetGet( kAPI_PARAM_ID ) );
 				break;
 			
 			case kAPI_OP_USER_INVITE:
@@ -5050,14 +5079,14 @@ class Service extends ContainerObject
 				$this->executeClusterUnits(
 					$results,
 					User::kSEQ_NAME,
-					kFLAG_FORMAT_OPT_DYNAMIC | kFLAG_FORMAT_OPT_VALUES );
+					$options );
 				break;
 		
 			case kAPI_RESULT_ENUM_DATA_FORMAT:
 				$this->executeFormattedUnits(
 					$results,
 					User::kSEQ_NAME,
-					kFLAG_FORMAT_OPT_DYNAMIC | kFLAG_FORMAT_OPT_VALUES );
+					$options );
 				break;
 		
 		} // Parsed result type.
@@ -6269,6 +6298,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_DYNAMIC}</tt>: Exclude dynamic tags.
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_PRIVATE}</tt>: Exclude private tags.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_NATIVES}</tt>: Include tag native identifiers in
 	 *		formatted results with offset {@link kAPI_PARAM_TAG}.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_VALUES}</tt>: Include values in formatted results
@@ -6423,6 +6453,7 @@ $rs_units = & $rs_units[ 'result' ];
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_DYNAMIC}</tt>: Exclude dynamic tags.
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_PRIVATE}</tt>: Exclude private tags.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_NATIVES}</tt>: Include tag native identifiers in
 	 *		formatted results with offset {@link kAPI_PARAM_TAG}.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_VALUES}</tt>: Include values in formatted results
@@ -10794,6 +10825,47 @@ $rs_units = & $rs_units[ 'result' ];
 				return FALSE;														// ==>
 		
 		} // Parsing format.
+
+	} // extractInvitation.
+
+	 
+	/*===================================================================================
+	 *	isManagedUser																	*
+	 *==================================================================================*/
+
+	/**
+	 * Check whether user is managed
+	 *
+	 * This method will return <tt>TRUE</tt> if the provided user is managed by the current
+	 * referrer, <tt>false</tt> if not and <tt>NULL</tt> if the user doesn't exist.
+	 *
+	 * @param string				$theFingerprint		User fingerprint.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means done.
+	 */
+	protected function isManagedUser( $theFingerprint )
+	{
+		//
+		// Check manager.
+		//
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
+		{
+			//
+			// Get user.
+			//
+			$user = User::UserByFingerprint( $this->mWrapper, $theFingerprint, FALSE );
+			if( $user instanceof User )
+				return
+					count(
+						$user->referrers(
+							$this->offsetGet( kAPI_REQUEST_USER ) ) );				// ==>
+			
+			return NULL;															// ==>
+		
+		} // Provided manager.
+		
+		return FALSE;																// ==>
 
 	} // extractInvitation.
 

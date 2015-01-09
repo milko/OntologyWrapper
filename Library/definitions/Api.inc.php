@@ -36,7 +36,8 @@ define( "kAPI_REQUEST_LANGUAGE",				'ln' );
 /**
  * User.
  *
- * This tag identifies the user who requested the service.
+ * This tag identifies the user who requested the service, the value must correspond to the
+ * user's fingerprint.
  */
 define( "kAPI_REQUEST_USER",					'us' );
 
@@ -1440,8 +1441,8 @@ define( "kAPI_OP_GET_UNIT",						'getUnit' );
  * encoded in base 64:
  *
  * <ul>
- *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The native identifier of the
- *		user sending the invitation.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The fingerprint of the user
+ *		sending the invitation.
  *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user invitation, the
  *		following elements are expected:
  *	 <ul>
@@ -1505,7 +1506,13 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
  *		a language code.
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
- *		holds the user native identifier or the user code/password combination as an array.
+ *		holds the user fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, or the user
+ *		code/password combination as an array.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The fingerprint of the
+ *		user requesting the data, this parameter is only required when providing the
+ *		fingerprint of the requested user, depending whether the requesting user is
+ *		in the requested user's referrer's inheritance the service will return either the
+ *		full data record or only the public fields.
  *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Data type</em>. This required parameter
  *		indicates how the unit data should be formatted:
  *	 <ul>
@@ -1515,6 +1522,8 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *			formatted record set.
  *	 </ul>
  * </ul>
+ *
+ * In all cases the user code and password will not be returned.
  *
  * Note that the resulting user record will be stripped of its dynamic offsets.
  */

@@ -238,6 +238,7 @@ class IteratorSerialiser
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_DYNAMIC}</tt>: Exclude dynamic tags.
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_PRIVATE}</tt>: Exclude private tags.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_NATIVES}</tt>: Include tag native identifiers in
 	 *		formatted results with offset {@link kAPI_PARAM_TAG}.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_VALUES}</tt>: Include values in formatted results
@@ -276,6 +277,7 @@ class IteratorSerialiser
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_DYNAMIC}</tt>: Exclude dynamic tags.
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_PRIVATE}</tt>: Exclude private tags.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_NATIVES}</tt>: Include tag native identifiers in
 	 *		formatted results with offset {@link kAPI_PARAM_TAG}.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_VALUES}</tt>: Include values in formatted results
@@ -1122,16 +1124,6 @@ class IteratorSerialiser
 			// Set excluded offsets.
 			//
 			$this->setHiddenTags( $object );
-			
-			//
-			// Exclude dynamic offsets.
-			//
-			if( $this->options() & kFLAG_FORMAT_OPT_DYNAMIC )
-			{
-				$class = Wrapper::ResolveCollectionClass( $collection );
-				foreach( $class::DynamicOffsets() as $offset )
-					$object->offsetUnset( $offset );
-			}
 			
 			//
 			// Set identifier.
@@ -3609,6 +3601,13 @@ class IteratorSerialiser
 		$class = $theObject[ kTAG_CLASS ];
 	
 		//
+		// Handle users.
+		//
+		$this->mHidden = ( $class == (kPATH_NAMESPACE_ROOT.'\User') )
+					   ? array( kTAG_CONN_PASS )
+					   : Array();
+		
+		//
 		// Check format.
 		//
 		switch( $this->mFormat )
@@ -3619,8 +3618,10 @@ class IteratorSerialiser
 				//
 				$this->mHidden
 					= array_merge(
+						$this->mHidden,
 						$class::DynamicOffsets(),
 						$class::InternalOffsets(),
+						$this->collectExcludedOffsets( $class ),
 						array( kTAG_GEO_SHAPE, kTAG_GEO_SHAPE_DISP ) );
 				// MILKO - Excluded display shapes.
 				
@@ -3631,14 +3632,18 @@ class IteratorSerialiser
 				// Set exceptions.
 				//
 				$this->mHidden
-					= $class::InternalOffsets();
+					= array_merge(
+						$this->mHidden,
+						$class::InternalOffsets(),
+						$this->collectExcludedOffsets( $class ) );
 				
 				break;
-			
-			default:
-				$this->mHidden = Array();
-				break;
 		}
+		
+		//
+		// Normalise list.
+		//
+		$this->mHidden = array_values( array_unique( $this->mHidden ) );
 		
 	} // setHiddenTags.
 
@@ -3778,6 +3783,62 @@ class IteratorSerialiser
 		}
 	
 	} // CollectOffsetTags.
+
+
+	 
+/*=======================================================================================
+ *																						*
+ *									PROTECTED UTILITIES									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectExcludedOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Get excluded offsets
+	 *
+	 * The duty of this method is to return the list of offsets to be excluded according to
+	 * the current object's options.
+	 *
+	 * @param string				$theClass			Current object's class.
+	 *
+	 * @access protected
+	 * @return array				List of excluded offsets according to object options.
+	 */
+	protected function collectExcludedOffsets( $theClass )
+	{
+		//
+		// Init local storage.
+		//
+		$offsets = Array();
+		$options = $this->options();
+		$class = Wrapper::ResolveCollectionClass( $theClass );
+		
+		//
+		// Collect dynamic offsets.
+		//
+		if( $options & kFLAG_FORMAT_OPT_DYNAMIC )
+		{
+			foreach( $class::DynamicOffsets() as $offset )
+				$offsets[ $offset ] = $offset;
+		}
+		
+		//
+		// Collect private offsets.
+		//
+		if( $options & kFLAG_FORMAT_OPT_PRIVATE )
+		{
+			foreach( $class::PrivateOffsets() as $offset )
+				$offsets[ $offset ] = $offset;
+		}
+		
+		return array_values( $offsets );											// ==>
+		
+	} // collectExcludedOffsets.
 
 	 
 

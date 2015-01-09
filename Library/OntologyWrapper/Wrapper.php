@@ -3508,28 +3508,36 @@ class Wrapper extends Dictionary
 		//
 		switch( (string) $theCollection )
 		{
+			case kPATH_NAMESPACE_ROOT.'\Tag':
+			case kPATH_NAMESPACE_ROOT.'\Term':
+			case kPATH_NAMESPACE_ROOT.'\Node':
+			case kPATH_NAMESPACE_ROOT.'\Edge':
+			case kPATH_NAMESPACE_ROOT.'\User':
+			case kPATH_NAMESPACE_ROOT.'\UnitObject':
+				return (string) $theCollection;										// ==>
+			
 			case Tag::kSEQ_NAME:
-				return 'OntologyWrapper\Tag';										// ==>
+				return kPATH_NAMESPACE_ROOT.'\Tag';									// ==>
 				
 			case Term::kSEQ_NAME:
-				return 'OntologyWrapper\Term';										// ==>
+				return kPATH_NAMESPACE_ROOT.'\Term';								// ==>
 				
 			case Node::kSEQ_NAME:
-				return 'OntologyWrapper\Node';										// ==>
+				return kPATH_NAMESPACE_ROOT.'\Node';								// ==>
 				
 			case Edge::kSEQ_NAME:
-				return 'OntologyWrapper\Edge';										// ==>
+				return kPATH_NAMESPACE_ROOT.'\Edge';								// ==>
 				
 			case User::kSEQ_NAME:
-				return 'OntologyWrapper\EntityObject';								// ==>
+				return kPATH_NAMESPACE_ROOT.'\User';								// ==>
 				
 			case UnitObject::kSEQ_NAME:
-				return 'OntologyWrapper\UnitObject';								// ==>
+				return kPATH_NAMESPACE_ROOT.'\UnitObject';							// ==>
 			
 			default:
 				throw new \Exception(
 					"Cannot resolve class: "
-				   ."invalid collection name [$collection]." );					// !@! ==>
+				   ."invalid collection name [$theCollection]." );				// !@! ==>
 		}
 	
 	} // ResolveCollectionClass.

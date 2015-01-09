@@ -2339,6 +2339,21 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
+	 *	PrivateOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return private offsets
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of private offsets.
+	 */
+	static function PrivateOffsets()									{	return Array();	}
+
+	 
+	/*===================================================================================
 	 *	DefaultOffsets																	*
 	 *==================================================================================*/
 
@@ -5712,38 +5727,38 @@ MILKO - Need to check.
 		switch( $theType )
 		{
 			case kTYPE_REF_TAG:
-				return 'OntologyWrapper\Tag';										// ==>
+				return kPATH_NAMESPACE_ROOT.'\Tag';									// ==>
 		
 			case kTYPE_SET:
 			case kTYPE_ENUM:
 			case kTYPE_REF_TERM:
-				return 'OntologyWrapper\Term';										// ==>
+				return kPATH_NAMESPACE_ROOT.'\Term';								// ==>
 		
 			case kTYPE_REF_NODE:
-				return 'OntologyWrapper\Node';										// ==>
+				return kPATH_NAMESPACE_ROOT.'\Node';								// ==>
 		
 			case kTYPE_REF_EDGE:
-				return 'OntologyWrapper\Edge';										// ==>
+				return kPATH_NAMESPACE_ROOT.'\Edge';								// ==>
 		
 			case kTYPE_REF_USER:
-				return 'OntologyWrapper\User';										// ==>
+				return kPATH_NAMESPACE_ROOT.'\User';								// ==>
 		
 			case kTYPE_REF_UNIT:
-				return 'OntologyWrapper\UnitObject';								// ==>
+				return kPATH_NAMESPACE_ROOT.'\UnitObject';							// ==>
 		
 			case kTYPE_REF_SELF:
 				if( $this instanceof Tag )
-					return 'OntologyWrapper\Tag';									// ==>
+					return kPATH_NAMESPACE_ROOT.'\Tag';								// ==>
 				elseif( $this instanceof Term )
-					return 'OntologyWrapper\Term';									// ==>
+					return kPATH_NAMESPACE_ROOT.'\Term';							// ==>
 				elseif( $this instanceof Node )
-					return 'OntologyWrapper\Node';									// ==>
+					return kPATH_NAMESPACE_ROOT.'\Node';							// ==>
 				elseif( $this instanceof Edge )
-					return 'OntologyWrapper\Edge';									// ==>
+					return kPATH_NAMESPACE_ROOT.'\Edge';							// ==>
 				elseif( $this instanceof User )
-					return 'OntologyWrapper\User';									// ==>
+					return kPATH_NAMESPACE_ROOT.'\User';							// ==>
 				elseif( $this instanceof UnitObject )
-					return 'OntologyWrapper\UnitObject';							// ==>
+					return kPATH_NAMESPACE_ROOT.'\UnitObject';						// ==>
 				break;
 		
 		} // Parsed collection name.
