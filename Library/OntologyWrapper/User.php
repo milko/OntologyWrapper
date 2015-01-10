@@ -28,19 +28,30 @@ use OntologyWrapper\Individual;
  *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: <em>Sequence ID</em>. This persistent automatic
  *		attribute is set when the record is first inserted, it will be used as the suffix
  *		for elements related to the user.
- *	<li><tt>{@link kTAG_CONN_CODE}</tt>: <em>User code</em>. This optional attribute can be
- *		set if the individual is also a user of the system, in that case this attribute can
- *		hold the user code credentials.
- *	<li><tt>{@link kTAG_CONN_PASS}</tt>: <em>User password</em>. This optional attribute can
- *		be set if the individual is also a user of the system, in that case this attribute
- *		can hold the user password credentials.
- *	<li><tt>{@link kTAG_ROLES}</tt>: <em>Roles</em>. This attribute can be used to set the
- *		user roles.
+ *	<li><tt>{@link kTAG_CONN_CODE}</tt>: <em>User code</em>. This required attribute
+ *		represents the user access code.
+ *	<li><tt>{@link kTAG_CONN_PASS}</tt>: <em>User password</em>. This required attribute
+ *		represents the user access password, the value contains the user password oncoded
+ *		on SHA1.
+ *	<li><tt>{@link kTAG_ROLES}</tt>: <em>Roles</em>. This attribute holds the user roles or
+ *		permissions:
+ *	 <ul>
+ *		<li><tt>{@link kTYPE_ROLE_INVITE}</tt>: The user may send user invitations to create
+ *			other users; this includes the ability to manage created users along with their
+ *			private data.
+ *		<li><tt>{@link kTYPE_ROLE_UPLOAD}</tt>: The user may upload and curate data in the
+ *			system.
+ *		<li><tt>{@link kTYPE_ROLE_EDIT}</tt>: The user may edit static pages content.
+ *		<li><tt>{@link kTYPE_ROLE_USERS}</tt>: The user may manage users regardless whether
+ *			he/she is their referrer.
+ *	 </ul>
  *	<li><tt>{@link kTAG_INVITES}</tt>: <em>Invites</em>. This attribute holds the list of
  *-		users invitations.
  * </ul>
  *
- * The above two properties are required.
+ * The {@link kTAG_IDENTIFIER} property is required by the class ancestor and is
+ * automatically set from the {@link kTAG_ENTITY_PGP_FINGERPRINT} or the
+ * {@link kTAG_CONN_CODE} properties in that order.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 28/05/2014
@@ -247,6 +258,8 @@ class User extends Individual
 	 *	<li><tt>{@link kTAG_ENTITY_IDENT}</tt>: Identifier.
 	 *	<li><tt>{@link kTAG_INVITES}</tt>: Invitations.
 	 *	<li><tt>{@link kTAG_MANAGED_COUNT}</tt>: Managed count.
+	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Sequence number.
+	 *	<li><tt>{@link kTAG_CONN_BASE}</tt>: Database name.
 	 * </ul>
 	 *
 	 * @static
@@ -258,7 +271,8 @@ class User extends Individual
 							array( kTAG_CONN_CODE, kTAG_CONN_PASS,
 								   kTAG_ENTITY_PGP_KEY, kTAG_ENTITY_PGP_FINGERPRINT,
 								   kTAG_ENTITY_IDENT,
-								   kTAG_INVITES, kTAG_MANAGED_COUNT ) );			// ==>
+								   kTAG_INVITES, kTAG_MANAGED_COUNT,
+								   kTAG_ID_SEQUENCE, kTAG_CONN_BASE ) );			// ==>
 	
 	} // PrivateOffsets.
 
@@ -303,25 +317,27 @@ class User extends Individual
 
 	 
 	/*===================================================================================
-	 *	UserByFingerprint																*
+	 *	UserByIdentifier																*
 	 *==================================================================================*/
 
 	/**
-	 * Instantiate user by fingerprint
+	 * Instantiate user by identifier
 	 *
-	 * This method will return the user object matching the provided fingerprint, or
-	 * <tt>NULL</tt> if not found.
+	 * This method will return the user object matching the provided identifier,
+	 * {@link kTAG_IDENTIFIER}, or <tt>NULL</tt> if not found.
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param string				$theFingerprint		User fingerprint.
+	 * @param string				$theIdentifier		User identifier.
+	 * @param string				$theCollection		Users collection.
 	 * @param boolean				$doAssert			Assert user.
 	 *
 	 * @static
 	 * @return User					User object or <tt>NULL<tt>.
 	 */
-	static function UserByFingerprint( Wrapper $theWrapper,
-											   $theFingerprint,
-											   $doAssert = TRUE )
+	static function UserByIdentifier( Wrapper $theWrapper,
+											  $theIdentifier,
+											  $theCollection = NULL,
+											  $doAssert = TRUE )
 	{
 		//
 		// Set options.
@@ -330,14 +346,22 @@ class User extends Individual
 		if( $doAssert )
 			$options |= kQUERY_ASSERT;
 		
+		//
+		// Set filter.
+		//
+		$filter = array( kTAG_IDENTIFIER => $theIdentifier );
+		if( $theCollection !== NULL )
+			$filter[ kTAG_COLLECTION ]
+				= (string) $theCollection;
+		
 		return
 			static::ResolveCollection(
 				static::ResolveDatabase( $theWrapper ) )
 					->matchOne(
-						array( kTAG_ENTITY_PGP_FINGERPRINT => $theFingerprint ),
+						$filter,
 						$options );													// ==>
 	
-	} // UserByFingerprint.
+	} // UserByIdentifier.
 
 		
 
@@ -515,10 +539,17 @@ class User extends Individual
 		if( ! $this->isCommitted() )
 		{
 			//
-			// Call parent method.
+			// Init authority.
 			//
-			parent::preCommitObjectIdentifiers();
-			
+			if( ! $this->offsetExists( kTAG_AUTHORITY ) )
+				$this->offsetSet( kTAG_AUTHORITY, kPORTAL_AUTHORITY );
+		
+			//
+			// Init collection.
+			//
+			if( ! $this->offsetExists( kTAG_COLLECTION ) )
+				$this->offsetSet( kTAG_COLLECTION, kPORTAL_DOMAIN );
+		
 			//
 			// Get sequence number.
 			//
@@ -539,6 +570,11 @@ class User extends Individual
 			if( ! $this->offsetExists( kTAG_CONN_BASE ) )
 				$this->offsetSet( kTAG_CONN_BASE, kTOKEN_UDB_PREFIX.$sequence );
 		
+			//
+			// Call parent method.
+			//
+			parent::preCommitObjectIdentifiers();
+			
 		} // Not committed.
 	
 	} // preCommitObjectIdentifiers.

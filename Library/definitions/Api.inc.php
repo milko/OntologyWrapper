@@ -1441,16 +1441,18 @@ define( "kAPI_OP_GET_UNIT",						'getUnit' );
  * encoded in base 64:
  *
  * <ul>
- *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The fingerprint of the user
- *		sending the invitation.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user sending the invitation.
  *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user invitation, the
- *		following elements are expected:
+ *		following elements are required:
  *	 <ul>
- *		<li><tt>{@link kTAG_ENTITY_EMAIL}</tt>: Entity e-mail.
+ *		<li><tt>{@link kTAG_ENTITY_EMAIL}</tt>: Entity e-mail, will be used to send the
+ *			invitation.
  *		<li><tt>{@link kTAG_NAME}</tt>: Entity name.
  *		<li><tt>{@link kTAG_ROLES}</tt>: Entity roles.
  *		<li><tt>{@link kTAG_ENTITY_PGP_KEY}</tt>: Entity public key.
- *		<li><tt>{@link kTAG_ENTITY_PGP_FINGERPRINT}</tt>: Entity fingerprint.
+ *		<li><tt>{@link kTAG_ENTITY_PGP_FINGERPRINT}</tt>: Entity fingerprint, this value
+ *			represents the user global unique identifier.
  *	 </ul>
  * </ul>
  */
@@ -1468,8 +1470,8 @@ define( "kAPI_OP_INVITE_USER",					'inviteUser' );
  * encoded in base 64:
  *
  * <ul>
- *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Invitation ID</em>. The fingerprint of the
- *		invited user, stored in the invitation.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Invitation ID</em>. The fingerprint,
+ *		{@link kTAG_ENTITY_PGP_FINGERPRINT}, of the invited user, stored in the invitation.
  * </ul>
  */
 define( "kAPI_OP_USER_INVITE",					'userInvite' );
@@ -1509,7 +1511,7 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *		holds the user fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, or the user
  *		code/password combination as an array.
  *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The fingerprint of the
- *		user requesting the data, this parameter is only required when providing the
+ *		user requesting the data, this parameter is only considered when providing the
  *		fingerprint of the requested user, depending whether the requesting user is
  *		in the requested user's referrer's inheritance the service will return either the
  *		full data record or only the public fields.
@@ -1525,9 +1527,54 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *
  * In all cases the user code and password will not be returned.
  *
- * Note that the resulting user record will be stripped of its dynamic offsets.
+ * Note that the resulting user record will be stripped of its dynamic offsets and that the
+ * log request, {@link kAPI_PARAM_LOG_REQUEST}, flag is inactive for this service for
+ * security reasons.
  */
 define( "kAPI_OP_GET_USER",						'getUser' );
+
+/**
+ * Get managed.
+ *
+ * This tag defines the get managed users operation.
+ *
+ * The service will return the list of users managed by the provided user fingerprint.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
+ *		holds the fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, of the referrer.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>Requesting user</em>. The fingerprint of the
+ *		user requesting the service. Depending whether the requesting user is in the
+ *		requested user's referrer's inheritance or if this parameter was omitted, the
+ *		service will return either the full data record or only the public fields.
+ *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Data type</em>. This required parameter
+ *		indicates how the unit data should be formatted:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
+ *			{@link IteratorSerialiser} class.
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
+ *			formatted record set.
+ *	 </ul>
+ * </ul>
+ *
+ * The service will return the list of managed user records; note that the service will not
+ * recurse managed users.
+ *
+ * In all cases the user code and password will not be returned.
+ *
+ * Note that the resulting user record will be stripped of its dynamic offsets and that the
+ * log request, {@link kAPI_PARAM_LOG_REQUEST}, flag is inactive for this service for
+ * security reasons.
+ *
+ * Note also that if you provide as identifier an unknown fingerprint, the service will
+ * simply return an empty result, this for security reasons.
+ */
+define( "kAPI_OP_GET_MANAGED",					'getManaged' );
 
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
@@ -2159,6 +2206,48 @@ define( "kAPI_PARAM_RESPONSE_FRMT_MAP_SHAPE",	'map-shape' );
 define( "kAPI_PARAM_RESPONSE_FRMT_LINK",		'link' );
 
 /**
+ * Property tag reference (string/array).
+ *
+ * This tag indicates the property tag reference as a string.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_TAG",			'tag-ref' );
+
+/**
+ * Property term reference (string/array).
+ *
+ * This tag indicates the property term reference as a string.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_TERM",		'term-ref' );
+
+/**
+ * Property node reference (int/array).
+ *
+ * This tag indicates the property node reference as an integer.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_NODE",		'node-ref' );
+
+/**
+ * Property edge reference (string/array).
+ *
+ * This tag indicates the property edge reference as a string.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_EDGE",		'edge-ref' );
+
+/**
+ * Property user reference (string/array).
+ *
+ * This tag indicates the property user reference as a string.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_USER",		'user-ref' );
+
+/**
+ * Property unit reference (string/array).
+ *
+ * This tag indicates the property unit reference as a string.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_UNIT",		'unit-ref' );
+
+/**
  * Property service (array).
  *
  * This tag indicates the property service as an array containing the service parameters.
@@ -2213,9 +2302,17 @@ define( "kAPI_PARAM_RESPONSE_TYPE_LINK",		'link' );
 /**
  * Enumeration (string).
  *
- * This tag indicates an enumerated response, which refers to an enumerated value or set.
+ * This tag indicates an enumerated response, which refers to an enumerated value.
  */
 define( "kAPI_PARAM_RESPONSE_TYPE_ENUM",		'enum' );
+
+/**
+ * Enumerated set (array).
+ *
+ * This tag indicates an enumerated set response, which refers to a list of enumerated
+ * values.
+ */
+define( "kAPI_PARAM_RESPONSE_TYPE_SET",			'set' );
 
 /**
  * Typed list (string).

@@ -278,6 +278,7 @@ class Service extends ContainerObject
 					case kAPI_OP_USER_INVITE:
 					case kAPI_OP_ADD_USER:
 					case kAPI_OP_GET_USER:
+					case kAPI_OP_GET_MANAGED:
 						break;
 					
 					default:
@@ -508,6 +509,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: User invitation.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
+	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 * </ul>
 	 *
 	 * If the operation is not recognised, the method will raise an exception.
@@ -549,6 +551,7 @@ class Service extends ContainerObject
 			case kAPI_OP_USER_INVITE:
 			case kAPI_OP_ADD_USER:
 			case kAPI_OP_GET_USER:
+			case kAPI_OP_GET_MANAGED:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 			
@@ -625,6 +628,7 @@ class Service extends ContainerObject
 				case kAPI_OP_USER_INVITE:
 				case kAPI_OP_ADD_USER:
 				case kAPI_OP_GET_USER:
+				case kAPI_OP_GET_MANAGED:
 					$encoder = new Encoder();
 					$decoded = $encoder->decodeData( $_REQUEST[ kAPI_REQUEST_PARAMETERS ] );
 					$_REQUEST[ kAPI_REQUEST_PARAMETERS ] = $decoded;
@@ -788,7 +792,8 @@ class Service extends ContainerObject
 	 */
 	protected function parseUser( $theUser )
 	{
-		return User::UserByFingerprint( $this->mWrapper, $theUser, TRUE );			// ==>
+		return User::UserByIdentifier(
+			$this->mWrapper, $theUser, kPORTAL_DOMAIN, TRUE );						// ==>
 		
 	} // parseUser.
 
@@ -890,6 +895,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: User invitation.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
+	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 * </ul>
 	 *
 	 * Any unrecognised operation will raise an exception.
@@ -964,6 +970,7 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_GET_USER:
 			case kAPI_OP_USER_INVITE:
+			case kAPI_OP_GET_MANAGED:
 				$this->validateGetUser();
 				break;
 				
@@ -2264,7 +2271,8 @@ class Service extends ContainerObject
 		//
 		$param = $this->offsetExists( kAPI_PARAM_ID );
 		if( is_array( $param )
-		 && (count( $param ) != 2) )
+		 && ( ($this->offsetGet( kAPI_REQUEST_OPERATION ) != kAPI_OP_GET_USER)
+		   || (count( $param ) != 2) ) )
 			throw new \Exception(
 				"Invalid user identifier parameter format." );					// !@! ==>
 		
@@ -2282,20 +2290,6 @@ class Service extends ContainerObject
 					"Invalid result type [$tmp]." );							// !@! ==>
 				break;
 		}
-
-		//
-		// Assert requesting user.
-		//
-		if( ! is_array( $this->offsetGet( kAPI_PARAM_ID ) ) )
-		{
-			//
-			// Assert requestor.
-			//
-			if( ! $this->offsetExists( kAPI_REQUEST_USER ) )
-				throw new \Exception(
-					"Missing requestor credentials." );							// !@! ==>
-		
-		} // Not provided user code and password.
 		
 	} // validateGetUser.
 
@@ -3646,6 +3640,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_INVITE_USER}</tt>: Invite user.
 	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: User invitation.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
+	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
+	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 * </ul>
 	 *
 	 * Derived classes can parse their custom operations or call the parent method.
@@ -3739,6 +3735,10 @@ class Service extends ContainerObject
 			case kAPI_OP_GET_USER:
 			case kAPI_OP_USER_INVITE:
 				$this->executeGetUser();
+				break;
+				
+			case kAPI_OP_GET_MANAGED:
+				$this->executeGetManagedUsers();
 				break;
 		}
 		
@@ -3864,6 +3864,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_INVITE_USER" ] = kAPI_OP_INVITE_USER;
 		$ref[ "kAPI_OP_ADD_USER" ] = kAPI_OP_ADD_USER;
 		$ref[ "kAPI_OP_GET_USER" ] = kAPI_OP_GET_USER;
+		$ref[ "kAPI_OP_GET_MANAGED" ] = kAPI_OP_GET_MANAGED;
 		
 		
 		//
@@ -3912,6 +3913,12 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_MAP_LABEL" ] = kAPI_PARAM_RESPONSE_FRMT_MAP_LABEL;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_MAP_SHAPE" ] = kAPI_PARAM_RESPONSE_FRMT_MAP_SHAPE;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_LINK" ] = kAPI_PARAM_RESPONSE_FRMT_LINK;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_TAG" ] = kAPI_PARAM_RESPONSE_FRMT_TAG;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_TERM" ] = kAPI_PARAM_RESPONSE_FRMT_TERM;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_NODE" ] = kAPI_PARAM_RESPONSE_FRMT_NODE;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_EDGE" ] = kAPI_PARAM_RESPONSE_FRMT_EDGE;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_USER" ] = kAPI_PARAM_RESPONSE_FRMT_USER;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_UNIT" ] = kAPI_PARAM_RESPONSE_FRMT_UNIT;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_SERV" ] = kAPI_PARAM_RESPONSE_FRMT_SERV;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_DOCU" ] = kAPI_PARAM_RESPONSE_FRMT_DOCU;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_STATS" ] = kAPI_PARAM_RESPONSE_FRMT_STATS;
@@ -3923,6 +3930,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_RESPONSE_TYPE_SCALAR" ] = kAPI_PARAM_RESPONSE_TYPE_SCALAR;
 		$ref[ "kAPI_PARAM_RESPONSE_TYPE_LINK" ] = kAPI_PARAM_RESPONSE_TYPE_LINK;
 		$ref[ "kAPI_PARAM_RESPONSE_TYPE_ENUM" ] = kAPI_PARAM_RESPONSE_TYPE_ENUM;
+		$ref[ "kAPI_PARAM_RESPONSE_TYPE_SET" ] = kAPI_PARAM_RESPONSE_TYPE_SET;
 		$ref[ "kAPI_PARAM_RESPONSE_TYPE_TYPED" ] = kAPI_PARAM_RESPONSE_TYPE_TYPED;
 		$ref[ "kAPI_PARAM_RESPONSE_TYPE_OBJECT" ] = kAPI_PARAM_RESPONSE_TYPE_OBJECT;
 		$ref[ "kAPI_PARAM_RESPONSE_TYPE_SHAPE" ] = kAPI_PARAM_RESPONSE_TYPE_SHAPE;
@@ -5151,6 +5159,118 @@ class Service extends ContainerObject
 		} // Found something.
 		
 	} // executeGetUser.
+
+	 
+	/*===================================================================================
+	 *	executeGetManagedUsers															*
+	 *==================================================================================*/
+
+	/**
+	 * Get managed usersuser.
+	 *
+	 * The method will find all users managed by the user whose fingerprint was provided
+	 * in the {@link kAPI_PARAM_ID} parameter and return the list of matching users,
+	 * excluding private data depending on whether the service requestor,
+	 * {@link kAPI_REQUEST_USER}, was provided and was among the manager's referrer's
+	 * inheritance chain.
+	 *
+	 * <em>Note that if the provided identifier is not resolved, no error will be
+	 * raised</em>.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function executeGetManagedUsers()
+	{
+		//
+		// Assert user.
+		//
+		$manager
+			= User::UserByIdentifier(
+				$this->mWrapper,					// Wrapper.
+				$this->offsetGet( kAPI_PARAM_ID ),	// Fingerprint.
+				kPORTAL_DOMAIN,						// Portal domain.
+				TRUE );								// Assert.
+		{
+			//
+			// Init local storage.
+			//
+			$encoder = new Encoder();
+			$options = kFLAG_FORMAT_OPT_DYNAMIC | kFLAG_FORMAT_OPT_VALUES;
+			if( ! $this->isManagedUser( $this->offsetGet( kAPI_PARAM_ID ) ) )
+				$options |= kFLAG_FORMAT_OPT_PRIVATE;
+			
+			//
+			// Set filter.
+			//
+			$this->mFilter = array
+			(
+				kTAG_ENTITY_AFFILIATION => array
+				(
+					'$elemMatch' => array
+					(
+						kTAG_TYPE => kTYPE_LIST_REFERRER,
+						kTAG_USER_REF => $manager->offsetGet( kTAG_NID )
+					)
+				)
+			);
+		
+			//
+			// Parse by result type.
+			//
+			$results = Array();
+			switch( $this->offsetGet( kAPI_PARAM_DATA ) )
+			{
+				case kAPI_RESULT_ENUM_DATA_RECORD:
+					$this->executeClusterUnits(
+						$results,
+						User::kSEQ_NAME,
+						$options );
+					break;
+		
+				case kAPI_RESULT_ENUM_DATA_FORMAT:
+					$this->executeFormattedUnits(
+						$results,
+						User::kSEQ_NAME,
+						$options );
+					break;
+		
+			} // Parsed result type.
+		
+			//
+			// Check result.
+			//
+			if( count( $results ) )
+			{
+				//
+				// Encrypt result.
+				//
+				$results = JsonEncode( $results );
+				$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+					= $encoder->encodeData( $results );
+		
+				//
+				// Encrypt dictionary.
+				//
+				if( array_key_exists( kAPI_RESULTS_DICTIONARY, $this->mResponse ) )
+				{
+					$results = JsonEncode( $this->mResponse[ kAPI_RESULTS_DICTIONARY ] );
+					$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
+						= $encoder->encodeData( $results );
+				}
+
+				//
+				// Set encrypted state.
+				//
+				$this->mResponse[ kAPI_RESPONSE_STATUS ]
+								[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+			} // Found something.
+		
+		} // Manager exists.
+		
+	} // executeGetManagedUsers.
 
 		
 
@@ -10854,7 +10974,8 @@ $rs_units = & $rs_units[ 'result' ];
 			//
 			// Get user.
 			//
-			$user = User::UserByFingerprint( $this->mWrapper, $theFingerprint, FALSE );
+			$user = User::UserByIdentifier(
+				$this->mWrapper, $theFingerprint, kPORTAL_DOMAIN, FALSE );
 			if( $user instanceof User )
 				return
 					count(

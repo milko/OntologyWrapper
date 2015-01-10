@@ -1701,7 +1701,7 @@ class IteratorSerialiser
 				$this->formatDataValue( $theContainer, $theValue, $theTag );
 	
 		} // Scalar.
-		
+				
 	} // setDataValue.
 
 	 
@@ -2001,6 +2001,13 @@ class IteratorSerialiser
 			// Enumerated values.
 			//
 			case kTYPE_SET:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SET;
+				$this->formatEnumeration( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
+				break;
+	
 			case kTYPE_ENUM:
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 					= kAPI_PARAM_RESPONSE_TYPE_ENUM;
@@ -2149,60 +2156,47 @@ class IteratorSerialiser
 		if( is_array( $theValue ) )
 		{
 			//
-			// Handle single value.
+			// Allocate list.
 			//
-			if( count( $theValue ) == 1 )
-				$this->formatEnumeration( $theContainer, $theValue[ 0 ], $theTag );
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+			$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
 			
 			//
-			// Handle multiple values.
+			// Iterate list.
 			//
-			elseif( count( $theValue ) > 1 )
+			foreach( $theValue as $value )
 			{
 				//
-				// Allocate list.
+				// Allocate element.
 				//
-				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-				$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-				
-				//
-				// Iterate list.
-				//
-				foreach( $theValue as $value )
-				{
-					//
-					// Allocate element.
-					//
-					$list[] = Array();
-					$ref = & $list[ count( $list ) - 1 ];
-				
-					//
-					// Cache term.
-					//
-					$this->cacheTerm(
-						$this->mIterator->collection()->dictionary(),
-						$this->mCache,
-						$value );
-		
-					//
-					// Reference term.
-					//
-					$term = & $this->mCache[ Term::kSEQ_NAME ][ $value ];
-		
-					//
-					// Set label.
-					//
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $term[ kTAG_LABEL ];
-		
-					//
-					// Set definition.
-					//
-					if( array_key_exists( kTAG_DEFINITION, $term ) )
-						$ref[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+				$list[] = Array();
+				$ref = & $list[ count( $list ) - 1 ];
 			
-				} // Iterating values.
-			
-			} // More than one value.
+				//
+				// Cache term.
+				//
+				$this->cacheTerm(
+					$this->mIterator->collection()->dictionary(),
+					$this->mCache,
+					$value );
+	
+				//
+				// Reference term.
+				//
+				$term = & $this->mCache[ Term::kSEQ_NAME ][ $value ];
+	
+				//
+				// Set label.
+				//
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $term[ kTAG_LABEL ];
+	
+				//
+				// Set definition.
+				//
+				if( array_key_exists( kTAG_DEFINITION, $term ) )
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+		
+			} // Iterating values.
 			
 		} // List of values.
 		
@@ -2288,156 +2282,101 @@ class IteratorSerialiser
 	protected function formatTypedList( &$theContainer, $theValue, $theTag )
 	{
 		//
-		// Handle single element.
+		// Allocate list.
 		//
-		if( count( $theValue ) == 1 )
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+		$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+		
+		//
+		// Iterate elements.
+		//
+		foreach( $theValue as $value )
 		{
 			//
-			// Handle text value.
+			// Allocate element.
 			//
-			if( array_key_exists( kTAG_TEXT, $theValue[ 0 ] ) )
-			{
-				//
-				// Handle typed element.
-				//
-				if( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
-				{
-					//
-					// Allocate element.
-					//
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-					$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-					
-					//
-					// Set type.
-					//
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-						= $theValue[ 0 ][ kTAG_TYPE ];
-			
-					//
-					// Set text value.
-					//
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-						= $theValue[ 0 ][ kTAG_TEXT ];
-				
-				} // Typed.
-				
-				//
-				// Handle typeless element.
-				//
-				else
-				{
-					//
-					// Change type.
-					//
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-						= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-					
-					//
-					// Set scalar value.
-					//
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-						= $theValue[ 0 ][ kTAG_TEXT ];
-				
-				} // Reduce to scalar.
-				
-			} // Text value.
+			$list[] = Array();
+			$ref = & $list[ count( $list ) - 1 ];
 			
 			//
-			// Handle URL value.
+			// Set type.
 			//
-			elseif( array_key_exists( kTAG_URL, $theValue[ 0 ] ) )
-			{
-				//
-				// Allocate element.
-				//
-				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-				$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-				
-				//
-				// Set display to type.
-				//
+			$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+				= ( array_key_exists( kTAG_TYPE, $value ) )
+				? $value[ kTAG_TYPE ]
+				: '';
+			
+			//
+			// Set string.
+			//
+			if( array_key_exists( kTAG_TEXT, $value ) )
 				$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= $value[ kTAG_TEXT ];
+			
+			//
+			// Set URL.
+			//
+			elseif( array_key_exists( kTAG_URL, $value ) )
+			{
+				//
+				// Set display.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
 					= ( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
-					? $theValue[ 0 ][ kTAG_TYPE ]
-					: $theValue[ 0 ][ kTAG_URL ];
-				
+					? $value[ kTAG_TYPE ]
+					: $value[ kTAG_URL ];
+			
 				//
 				// Set value.
 				//
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
-					= $theValue[ 0 ][ kTAG_URL ];
-			
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+					= $value[ kTAG_URL ];
+		
 			} // URL value.
+			
+			//
+			// Set unit reference.
+			//
+			elseif( array_key_exists( kTAG_UNIT_REF, $value ) )
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_UNIT ]
+					= $value[ kTAG_UNIT_REF ];
+			
+			//
+			// Set user reference.
+			//
+			elseif( array_key_exists( kTAG_USER_REF, $value ) )
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_USER ]
+					= $value[ kTAG_USER_REF ];
+			
+			//
+			// Set tag reference.
+			//
+			elseif( array_key_exists( kTAG_TAG_REF, $value ) )
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_TAG ]
+					= $value[ kTAG_TAG_REF ];
+			
+			//
+			// Set term reference.
+			//
+			elseif( array_key_exists( kTAG_TERM_REF, $value ) )
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_TERM ]
+					= $value[ kTAG_TERM_REF ];
+			
+			//
+			// Set node reference.
+			//
+			elseif( array_key_exists( kTAG_NODE_REF, $value ) )
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_NODE ]
+					= $value[ kTAG_NODE_REF ];
+			
+			//
+			// Set edge reference.
+			//
+			elseif( array_key_exists( kTAG_EDGE_REF, $value ) )
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_EDGE ]
+					= $value[ kTAG_EDGE_REF ];
 		
-		} // Single element.
-		
-		//
-		// Handle multiple elements.
-		//
-		elseif( count( $theValue ) > 1 )
-		{
-			//
-			// Allocate list.
-			//
-			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-			$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-			
-			//
-			// Iterate elements.
-			//
-			foreach( $theValue as $value )
-			{
-				//
-				// Allocate element.
-				//
-				$list[] = Array();
-				$ref = & $list[ count( $theContainer ) - 1 ];
-				
-				//
-				// Handle text value.
-				//
-				if( array_key_exists( kTAG_TEXT, $value ) )
-				{
-					//
-					// Set type.
-					//
-					if( array_key_exists( kTAG_TYPE, $value ) )
-						$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-							= $value[ kTAG_TYPE ];
-					
-					//
-					// Set value.
-					//
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-						= $value[ kTAG_TEXT ];
-				
-				} // Text value.
-			
-				//
-				// Handle URL value.
-				//
-				elseif( array_key_exists( kTAG_URL, $value ) )
-				{
-					//
-					// Set display.
-					//
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-						= ( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
-						? $value[ kTAG_TYPE ]
-						: $value[ kTAG_URL ];
-				
-					//
-					// Set value.
-					//
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
-						= $value[ kTAG_URL ];
-			
-				} // URL value.
-			
-			} // Iterating elements.
-		
-		} // Multiple elements.
+		} // Iterating elements.
 		
 	} // formatTypedList.
 

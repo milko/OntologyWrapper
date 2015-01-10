@@ -31,8 +31,26 @@
 define( "kDEBUG_FLAG",					TRUE );
 
 /*=======================================================================================
- *	PORTAL INFORMATION																	*
+ *	PORTAL IDENTIFICATION																*
  *======================================================================================*/
+
+/**
+ * Portal domain.
+ *
+ * This tag indicates the portal domain, this value will usually be the same as the portal
+ * web domain, except that this value should not change, since it is used in the protal
+ * user's identifiers.
+ *
+ * This value will be set in the {@link kTAG_COLLECTION} property of the portal users.
+ */
+define( "kPORTAL_DOMAIN",				'pgrdiversity.bioversityinternational.org' );
+
+/**
+ * Portal host.
+ *
+ * This tag indicates the portal host.
+ */
+define( "kPORTAL_HOST",					'pgrdiversity.bioversityinternational.org' );
 
 /**
  * Portal prefix.
@@ -40,6 +58,20 @@ define( "kDEBUG_FLAG",					TRUE );
  * This tag indicates the default portal prefix.
  */
 define( "kPORTAL_PREFIX",				'pgrdg' );
+
+/**
+ * Portal authority.
+ *
+ * This tag indicates the portal authority, this value represents the identifier of the
+ * entity which is the author or which is responsible for the portal's information.
+ *
+ * This value will be set in the {@link kTAG_AUTHORITY} property of the portal users.
+ */
+define( "kPORTAL_AUTHORITY",			'ITA406' );
+
+/*=======================================================================================
+ *	PORTAL MAILER INFORMATION															*
+ *======================================================================================*/
 
 /**
  * Portal mailer.
@@ -54,13 +86,6 @@ define( "kPORTAL_MAILER",				'pgrdg@grinfo.net' );
  * This tag indicates the default mailer name for the portal.
  */
 define( "kPORTAL_MAILER_NAME",			'Gateway Mailer' );
-
-/**
- * Portal host.
- *
- * This tag indicates the default portal host.
- */
-define( "kPORTAL_HOST",					'pgrdiversity.bioversityinternational.org' );
 
 /*=======================================================================================
  *	STANDARD DATA DICTIONARY															*
