@@ -779,6 +779,18 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_NID	=> ':token',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_MANAGED_COUNT => array
+		(
+			kTAG_NID	=> ':managed-count',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_ENTITY_ICON => array
+		(
+			kTAG_NID	=> ':entity:icon',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		)
 	);
 

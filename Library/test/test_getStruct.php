@@ -62,7 +62,6 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 //
 // Init local storage.
 //
-//$base_url = 'http://localhost/weblib/OntologyWrapper/Library/service/Service.php';
 $base_url = 'http://localhost/services/Bioversity/Service.php';
  
 //
