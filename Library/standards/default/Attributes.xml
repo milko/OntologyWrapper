@@ -1591,5 +1591,21 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- kTAG_ENTITY_ICON -->
+		<TERM ns=":entity" lid="icon">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity icon</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The name of the icon or picture of the entity.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 </METADATA>

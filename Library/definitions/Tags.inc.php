@@ -1474,6 +1474,17 @@ define( "kTAG_TOKEN",					'@5c' );
  */
 define( "kTAG_MANAGED_COUNT",			'@5d' );
 
+/**
+ * User icon (<code>:entity:icon</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ * </ul>
+ *
+ * This tag indicates the entity icon name.
+ */
+define( "kTAG_ENTITY_ICON",				'@5e' );
+
 /*=======================================================================================
  *	OPERATION OFFSETS																	*
  *======================================================================================*/
