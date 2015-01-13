@@ -108,69 +108,6 @@ class Inventory extends UnitObject
 
 	} // Constructor.
 
-	
-
-/*=======================================================================================
- *																						*
- *							PUBLIC NAME MANAGEMENT INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	getName																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get object name
-	 *
-	 * In this class we return the unit {@link kTAG_IDENTIFIER} and the
-	 * {@link kTAG_COLLECTION} separated by a slash, concatenated to the domain name.
-	 *
-	 * @param string				$theLanguage		Name language.
-	 *
-	 * @access public
-	 * @return string				Object name.
-	 */
-	public function getName( $theLanguage )
-	{
-		//
-		// Init local storage
-		//
-		$name = Array();
-		$domain = parent::getName( $theLanguage );
-		
-		//
-		// Set authority.
-		//
-		if( $this->offsetExists( kTAG_AUTHORITY ) )
-			$name[] = $this->offsetGet( kTAG_AUTHORITY );
-		
-		//
-		// Set collection.
-		//
-		if( $this->offsetExists( kTAG_COLLECTION ) )
-			$name[] = $this->offsetGet( kTAG_COLLECTION );
-		
-		//
-		// Set identifier.
-		//
-		if( $this->offsetExists( kTAG_IDENTIFIER ) )
-			$name[] = $this->offsetGet( kTAG_IDENTIFIER );
-		
-		//
-		// Set version.
-		//
-		if( $this->offsetExists( kTAG_VERSION ) )
-			$name[] = $this->offsetGet( kTAG_VERSION );
-		
-		return ( $domain !== NULL )
-			 ? ($domain.' '.implode( ':', $name ))									// ==>
-			 : implode( ':', $name );												// ==>
-	
-	} // getName.
-
 		
 
 /*=======================================================================================

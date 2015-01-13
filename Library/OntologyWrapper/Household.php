@@ -93,7 +93,15 @@ class Household extends UnitObject
 		//
 		// Init local storage
 		//
-		$name = parent::getName( $theLanguage );
+		$name = ( $this->offsetExists( kTAG_DOMAIN ) )
+			  ? static::ResolveCollection(
+				  static::ResolveDatabase(
+					  $this->mDictionary ) )
+						  ->matchOne(
+							  array( kTAG_NID => $this->offsetGet( kTAG_DOMAIN ) ),
+							  kQUERY_ARRAY,
+							  array( kTAG_LABEL => TRUE ) )[ kTAG_LABEL ]
+			  : '';
 		
 		//
 		// Set identifier and authority.

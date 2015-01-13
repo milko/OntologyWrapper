@@ -111,49 +111,6 @@ class ForestUnit extends UnitObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC NAME MANAGEMENT INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	getName																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get object name
-	 *
-	 * In this class we return the unit {@link kTAG_AUTHORITY} concatenated with the
-	 * {@link kTAG_IDENTIFIER} and the {@link kTAG_VERSION} separated by a slash,
-	 * concatenated to the domain name.
-	 *
-	 * @param string				$theLanguage		Name language.
-	 *
-	 * @access public
-	 * @return string				Object name.
-	 */
-	public function getName( $theLanguage )
-	{
-		//
-		// Init local storage
-		//
-		$name = parent::getName( $theLanguage );
-		
-		return ( $name !== NULL )
-			 ? ($name.' '.$this->offsetGet( kTAG_AUTHORITY )
-						 .$this->offsetGet( kTAG_IDENTIFIER )
-						 .'/'.$this->offsetGet( kTAG_VERSION ))						// ==>
-			 : ($this->offsetGet( kTAG_AUTHORITY )
-			   .$this->offsetGet( kTAG_IDENTIFIER )
-			   .'/'.$this->offsetGet( kTAG_VERSION ));								// ==>
-	
-	} // getName.
-
-	
-
-/*=======================================================================================
- *																						*
  *							PUBLIC CLIMATE MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/

@@ -141,35 +141,31 @@ class Checklist extends UnitObject
 		// Init local storage
 		//
 		$name = Array();
-		$domain = parent::getName( $theLanguage );
+		$domain = ( $this->offsetExists( kTAG_DOMAIN ) )
+				? static::ResolveCollection(
+					static::ResolveDatabase(
+						$this->mDictionary ) )
+							->matchOne(
+								array( kTAG_NID => $this->offsetGet( kTAG_DOMAIN ) ),
+								kQUERY_ARRAY,
+								array( kTAG_LABEL => TRUE ) )[ kTAG_LABEL ]
+				: NULL;
 		
 		//
-		// Set authority.
+		// Set dataset name.
 		//
-		if( $this->offsetExists( kTAG_AUTHORITY ) )
-			$name[] = $this->offsetGet( kTAG_AUTHORITY );
+		if( $this->offsetExists( ':inventory:dataset' ) )
+			$name[] = $this->offsetGet( ':inventory:dataset' );
 		
 		//
-		// Set collection.
+		// Set scientific name.
 		//
-		if( $this->offsetExists( kTAG_COLLECTION ) )
-			$name[] = $this->offsetGet( kTAG_COLLECTION );
-		
-		//
-		// Set identifier.
-		//
-		if( $this->offsetExists( kTAG_IDENTIFIER ) )
-			$name[] = $this->offsetGet( kTAG_IDENTIFIER );
-		
-		//
-		// Set version.
-		//
-		if( $this->offsetExists( kTAG_VERSION ) )
-			$name[] = $this->offsetGet( kTAG_VERSION );
+		if( $this->offsetExists( ':taxon:epithet' ) )
+			$name[] = $this->offsetGet( ':taxon:epithet' );
 		
 		return ( $domain !== NULL )
-			 ? ($domain.' '.implode( ':', $name ))									// ==>
-			 : implode( ':', $name );												// ==>
+			 ? ($domain.' '.implode( ', ', $name ))									// ==>
+			 : implode( ', ', $name );												// ==>
 	
 	} // getName.
 

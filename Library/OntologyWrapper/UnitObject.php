@@ -260,30 +260,50 @@ abstract class UnitObject extends PersistentObject
 	public function getName( $theLanguage )
 	{
 		//
-		// Check wrapper.
+		// Init local storage
 		//
-		if( ($this->mDictionary !== NULL)
-		 && $this->offsetExists( kTAG_DOMAIN ) )
-		{
-			//
-			// Get domain.
-			//
-			$domain
-				= Term::ResolveCollection(
-					Term::ResolveDatabase(
+		$name = Array();
+		
+		//
+		// Get domain.
+		//
+		$domain = ( $this->offsetExists( kTAG_DOMAIN ) )
+				? static::ResolveCollection(
+					static::ResolveDatabase(
 						$this->mDictionary ) )
 							->matchOne(
 								array( kTAG_NID => $this->offsetGet( kTAG_DOMAIN ) ),
 								kQUERY_ARRAY,
-								array( kTAG_LABEL => TRUE ) );
-			
-			return OntologyObject::SelectLanguageString(
-						$domain[ kTAG_LABEL ],
-						$theLanguage );												// ==>
+								array( kTAG_LABEL => TRUE ) )[ kTAG_LABEL ]
+				: '';
 		
-		} // Has wrapper and domain.
+		//
+		// Set authority.
+		//
+		if( $this->offsetExists( kTAG_AUTHORITY ) )
+			$name[] = $this->offsetGet( kTAG_AUTHORITY );
 		
-		return NULL;																// ==>
+		//
+		// Set collection.
+		//
+		if( $this->offsetExists( kTAG_COLLECTION ) )
+			$name[] = $this->offsetGet( kTAG_COLLECTION );
+		
+		//
+		// Set identifier.
+		//
+		if( $this->offsetExists( kTAG_IDENTIFIER ) )
+			$name[] = $this->offsetGet( kTAG_IDENTIFIER );
+		
+		//
+		// Set version.
+		//
+		if( $this->offsetExists( kTAG_VERSION ) )
+			$name[] = $this->offsetGet( kTAG_VERSION );
+		
+		return ( $domain !== NULL )
+			 ? ($domain.' '.implode( ':', $name ))									// ==>
+			 : implode( ':', $name );												// ==>
 	
 	} // getName.
 
