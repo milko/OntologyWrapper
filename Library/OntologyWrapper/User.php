@@ -117,6 +117,97 @@ class User extends Individual
 
 	 
 	/*===================================================================================
+	 *	managed																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return list of managed users
+	 *
+	 * This method will return the list of the users managed by the current user.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theManaged</b>: This optional parameter represents a target managed user
+	 *		native identifier. When provided, the method will simply check whether the
+	 *		provided user is among the managed descendance, by recursing managed users,
+	 *		returning the current object if that is the case. If this parameter is omitted,
+	 *		the method will simply return the list of managed user objects.
+	 *	<li><b>$theWrapper</b>: This optional parameter represents the database wrapper, it
+	 *		can be omitted if the current object has its dictionary set.
+	 * </ul>
+	 *
+	 * The wrapper parameter may be omitted if the current user has its dictionary set.
+	 *
+	 * The method will either return an array indexed by user native identifier with the
+	 * user object as value.
+	 *
+	 * @param mixed					$theManaged			Managed user native identifier.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 *
+	 * @access public
+	 * @return array				List of managed objects.
+	 */
+	public function managed( $theManaged = NULL, $theWrapper = NULL )
+	{
+		//
+		// Init local storage.
+		//
+		$list = Array();
+		$this->resolveWrapper( $theWrapper );
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper ) );
+		
+		//
+		// Handle target managed.
+		//
+		if( $theManaged !== NULL )
+		{
+			//
+			// Normalise managed.
+			//
+			if( $theManaged instanceof self )
+				$theManaged = $theManaged->offsetGet( kTAG_NID );
+		
+			//
+			// Match self reference.
+			//
+			if( $theManaged == $this->offsetGet( kTAG_NID ) )
+				return array( $theManaged => $this );								// ==>
+		
+		} // Provided target managed.
+		
+		//
+		// Locate managed.
+		//
+		while( ($managed = $this->getManaged( $theWrapper )) !== NULL )
+		{
+			//
+			// Convert to array.
+			//
+			$managed = iterator_to_array( $managed );
+			
+			//
+			// Match managed.
+			//
+			if( ($theManaged !== NULL)
+			 && array_key_exists( $theManaged, $managed ) )
+				return array( $theManaged => $managed[ $theManaged ] );				// ==>
+			
+			//
+			// Load list.
+			//
+			$list = array_merge( $list, $managed );
+		
+		} // Has managed.
+		
+		return $list;																// ==>
+	
+	} // managed.
+
+	 
+	/*===================================================================================
 	 *	referrers																		*
 	 *==================================================================================*/
 
@@ -696,6 +787,69 @@ class User extends Individual
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	getManaged																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get current object's managed users
+	 *
+	 * This method can be used to retrieve the current user's managed users, the method will
+	 * return the list of managed users as an array indexed by user native identifier and
+	 * the user object as value.
+	 *
+	 * The wrapper may be omitted if the current object has its dictionary set.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 *
+	 * @access protected
+	 * @return ObjectIterator		The list of managed user objects or <tt>NULL</tt>.
+	 */
+	protected function getManaged( $theWrapper = NULL )
+	{
+		//
+		// Init local storage.
+		//
+		$this->resolveWrapper( $theWrapper );
+		
+		//
+		// Assert native identifier.
+		//
+		if( $this->offsetGet( kTAG_NID ) )
+		{
+			//
+			// Set criteria.
+			//
+			$criteria = array
+			(
+				kTAG_ENTITY_AFFILIATION => array
+				(
+					'$elemMatch' => array
+					(
+						kTAG_TYPE => kTYPE_LIST_REFERRER,
+						kTAG_USER_REF => $this->offsetGet( kTAG_NID )
+					)
+				)
+			);
+			
+			return
+				static::ResolveCollection(
+					static::ResolveDatabase(
+						$theWrapper ) )
+						->matchAll(
+							array(
+								'$elemMatch' => array(
+									kTAG_TYPE => kTYPE_LIST_REFERRER,
+									kTAG_USER_REF => $this->offsetGet( kTAG_NID ) ) ),
+							kQUERY_OBJECT );										// ==>
+		
+		} // Has native identifier.
+		
+		return NULL;																// ==>
+	
+	} // getManaged.
 
 	 
 	/*===================================================================================

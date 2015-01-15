@@ -1,0 +1,31 @@
+hq9:~ f07admin$ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/CheckSQLArchive.php "MySQLi://f07dbmanager:YYN6VisBQJRK9szk@localhost/bioversity_archive?socket=/var/mysql/mysql.sock&persist" "eurisco"
+
+==> Checking archive (eurisco).
+  • Connecting to input SQL
+    - MySQLi://f07dbmanager:YYN6VisBQJRK9szk@localhost/bioversity_archive?socket=/var/mysql/mysql.sock&persist
+  • Checking
+
+=======================================================
+3013985
+=======================================================
+	CData section not finished
+HATSUT
+	PCDATA invalid Char value 1
+	Sequence ']]>' not allowed in content
+	Sequence ']]>' not allowed in content
+	internal error	Extra content at the end of the document
+=======================================================
+
+=======================================================
+3014938
+=======================================================
+	CData section not finished
+GLOIRE DE
+	PCDATA invalid Char value 1
+	Sequence ']]>' not allowed in content
+	Sequence ']]>' not allowed in content
+	internal error	Extra content at the end of the document
+=======================================================
+
+Done!
+hq9:~ f07admin$ 

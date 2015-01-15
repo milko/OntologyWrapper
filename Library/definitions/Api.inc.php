@@ -1472,6 +1472,8 @@ define( "kAPI_OP_INVITE_USER",					'inviteUser' );
  * <ul>
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Invitation ID</em>. The fingerprint,
  *		{@link kTAG_ENTITY_PGP_FINGERPRINT}, of the invited user, stored in the invitation.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user requesting this information.
  * </ul>
  */
 define( "kAPI_OP_USER_INVITE",					'userInvite' );
@@ -1532,6 +1534,31 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  * security reasons.
  */
 define( "kAPI_OP_GET_USER",						'getUser' );
+
+/**
+ * Modify user.
+ *
+ * This tag defines the modify user operation.
+ *
+ * The service will modify the user with the provided data.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The fingerprint of the
+ *		user requesting the data, this parameter is required and the user must be allowed to
+ *		manage the modified user.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
+ *		holds the user native identifier, {@link kTAG_ENTITY_PGP_FINGERPRINT}.
+ *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user properties,
+ *		<tt>NULL</tt> properties are assumed to be deleted. The record must have the same
+ *		structure as the user record.
+ * </ul>
+ */
+define( "kAPI_OP_MOD_USER",						'modUser' );
 
 /**
  * Get managed.

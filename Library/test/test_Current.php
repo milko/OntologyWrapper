@@ -356,6 +356,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+*/
 	
 	//
 	// Try getUnit formatted.
@@ -373,8 +374,8 @@ try
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD,
-		kAPI_PARAM_ID => ':domain:mission:collecting://ITA406/CN007:CN007;'
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT,
+		kAPI_PARAM_ID => ':domain:forest://AUT/00008/1996;'
 	);
 	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -393,6 +394,7 @@ try
 	echo( '<hr>' );
 	echo( '<hr>' );
 	
+/*
 	//
 	// Test single field with data (group).
 	//
@@ -622,6 +624,7 @@ exit;
 	echo( '<hr>' );
 */
 
+/*
 	//
 	// Test getUser.
 	//
@@ -660,6 +663,7 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+*/
 
 /*
 	//

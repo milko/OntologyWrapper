@@ -3508,14 +3508,6 @@ class Wrapper extends Dictionary
 		//
 		switch( (string) $theCollection )
 		{
-			case kPATH_NAMESPACE_ROOT.'\Tag':
-			case kPATH_NAMESPACE_ROOT.'\Term':
-			case kPATH_NAMESPACE_ROOT.'\Node':
-			case kPATH_NAMESPACE_ROOT.'\Edge':
-			case kPATH_NAMESPACE_ROOT.'\User':
-			case kPATH_NAMESPACE_ROOT.'\UnitObject':
-				return (string) $theCollection;										// ==>
-			
 			case Tag::kSEQ_NAME:
 				return kPATH_NAMESPACE_ROOT.'\Tag';									// ==>
 				

@@ -5051,7 +5051,8 @@ class Service extends ContainerObject
 		$operation = $this->offsetGet( kAPI_REQUEST_OPERATION );
 		$options = kFLAG_FORMAT_OPT_DYNAMIC | kFLAG_FORMAT_OPT_VALUES;
 		if( (! is_array( $param ))
-		 && (! $this->isManagedUser( $param )) )
+		 && (! $this->isManagedUser( $param ))
+		 && ($operation != kAPI_OP_USER_INVITE) )
 			$options |= kFLAG_FORMAT_OPT_PRIVATE;
 		
 		//
@@ -10810,6 +10811,9 @@ $rs_units = & $rs_units[ 'result' ];
 	 * provided fingerprint, replacing the user reference in both the results and the
 	 * dictionary by the fingerprint.
 	 *
+	 * This method will also ensure the requesting user is a manager of the inviting user,
+	 * if that is not the case the method will raise an exception.
+	 *
 	 * @param array					$theResults			Results record.
 	 * @param array					$theDictionary		Dictionary record.
 	 * @param string				$theFingerprint		Invited fingerprint.
@@ -10835,6 +10839,22 @@ $rs_units = & $rs_units[ 'result' ];
 					// Save user identifier.
 					//
 					$id = $theDictionary[ kAPI_DICTIONARY_IDS ][ 0 ];
+					
+					//
+					// Validate requestor.
+					//
+					if( $this->offsetExists( kAPI_REQUEST_USER ) )
+					{
+						//
+						// Handle unauthorised.
+						//
+						if( ! count(
+								$this->offsetGet( kAPI_REQUEST_USER )
+								->managed( $id, $this->mWrapper ) ) )
+							throw new \Exception(
+								"Authorisation failure." );							// !@! ==>
+				
+					} // Has requestor.
 			
 					//
 					// Locate users.

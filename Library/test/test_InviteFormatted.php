@@ -145,7 +145,7 @@ try
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_ID => array( 'milko', 'qwerty' ),
+		kAPI_PARAM_ID => array( 'gubi', 'b1b3773a05c0ed0176787a4f1574ff0075f7521e' ),
 		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
 	);
 	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
@@ -173,16 +173,17 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-exit;
 	
 	//
-	// Select administrator's ID.
+	// Select administrator's identifier.
 	//
-	$admin_id = key( $result[ kAPI_RESPONSE_RESULTS ] );
+	echo( '<h4>Select administrator\'s identifier</h4>' );
+	$admin = $result[ kAPI_RESPONSE_RESULTS ][ key( $result[ kAPI_RESPONSE_RESULTS ] ) ];
+	$admin_id = $admin[ kTAG_IDENTIFIER ][ kAPI_PARAM_RESPONSE_FRMT_DISP ];
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'User:' );
+	echo( 'Administrator identifier:' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -250,7 +251,7 @@ exit;
 		kAPI_REQUEST_USER => $admin_id,
 		kAPI_PARAM_OBJECT => array
 		(
-			kTAG_AUTHORITY => 'ITA406',
+			kTAG_AUTHORITY => 'ITA303',
 			kTAG_COLLECTION => 'pgrdiversity.bioversityinternational.org',
 			kTAG_ENTITY_EMAIL => 'skofic@gmail.com',
 			kTAG_NAME => 'Milko Skofic',
@@ -294,6 +295,7 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT,
+		kAPI_REQUEST_USER => $admin_id,
 		kAPI_PARAM_ID => $user_finger
 	);
 	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
@@ -320,6 +322,7 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+exit;
 	
 	//
 	// Build user record.
