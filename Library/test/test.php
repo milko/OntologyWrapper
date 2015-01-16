@@ -952,9 +952,27 @@ echo( '<hr />' );
 /******************************************************************************/
 
 	//
-	// Test stuff.
+	// Test date.
 	//
 	
-	$xml = '';
+	$date = '20140330152732';
+	echo( $date.'<br />' );
+	echo( DisplayDate( $date ).'<hr />' );
+	
+	$date = '20140330';
+	echo( $date.'<br />' );
+	echo( DisplayDate( $date ).'<hr />' );
+	
+	$date = '201403';
+	echo( $date.'<br />' );
+	echo( DisplayDate( $date ).'<hr />' );
+	
+	$date = '2014';
+	echo( $date.'<br />' );
+	echo( DisplayDate( $date ).'<hr />' );
 
+	$date = '201403300300';
+	echo( $date.'<br />' );
+	echo( DisplayDate( $date ).'<hr />' );
+	
 ?>

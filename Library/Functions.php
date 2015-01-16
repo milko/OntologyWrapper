@@ -423,6 +423,97 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 	
 	} // UTF82XML.
 
+	 
+	/*===================================================================================
+	 *	DisplayDate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return display date
+	 *
+	 * This function will parse the provided date expected in <tt>YYYYMMDDhhmmss</tt> format
+	 * and return a string that can be used to display the date.
+	 *
+	 * The provided date must have at least the year and full time if day and month are
+	 * provided.
+	 *
+	 * @param string				$theDate			YYYYMMDDhhmmss date.
+	 *
+	 * @return string				Display date.
+	 */
+	function DisplayDate( $theDate )
+	{
+		//
+		// Validate type.
+		//
+		if( ctype_digit( $theDate ) )
+		{
+			//
+			// Init local storage.
+			//
+			$yea = $mon = NULL;
+			
+			//
+			// Parse by length.
+			//
+			switch( strlen( $theDate ) )
+			{
+				case 14:
+					if( checkdate( substr( $theDate, 4, 2 ),
+								   substr( $theDate, 6, 2 ),
+								   substr( $theDate, 0, 4 ) ) )
+					{
+						$date = new DateTime( substr( $theDate, 0, 4 ).'-'
+											 .substr( $theDate, 4, 2 ).'-'
+											 .substr( $theDate, 6, 2 ).' '
+											 .substr( $theDate, 8, 2 ).':'
+											 .substr( $theDate, 10, 2 ).':'
+											 .substr( $theDate, 12, 2 ) );
+						return $date->format( 'D M j, Y G:i:s' );						// ==>
+					}
+					else
+						return $theDate;											// ==>
+					
+				case 8:
+					if( checkdate( substr( $theDate, 4, 2 ),
+								   substr( $theDate, 6, 2 ),
+								   substr( $theDate, 0, 4 ) ) )
+					{
+						$date = new DateTime( substr( $theDate, 0, 4 ).'-'
+											 .substr( $theDate, 4, 2 ).'-'
+											 .substr( $theDate, 6, 2 ) );
+						return $date->format( 'D M j, Y' );							// ==>
+					}
+					else
+						return $theDate;											// ==>
+					
+				case 6:
+					if( checkdate( substr( $theDate, 4, 2 ),
+								   1,
+								   substr( $theDate, 0, 4 ) ) )
+						$mon
+							= DateTime::createFromFormat(
+								'!m', (int) substr( $theDate, 4, 2 ) )
+								->format( 'M' );
+					else
+						return $theDate;											// ==>
+				case 4:
+					$yea = substr( $theDate, 0, 4 );
+					return "$mon $yea";												// ==>
+					break;
+				
+				default:
+					return $theDate;												// ==>
+					break;
+			
+			} // Parse by length.
+		
+		} // Numeric string.
+		
+		return $theDate;															// ==>
+	
+	} // DisplayDate.
+
 
 
 /*=======================================================================================

@@ -1550,10 +1550,6 @@ class IteratorSerialiser
 	 *	setDataValue																	*
 	 *==================================================================================*/
 
-	/*===================================================================================
-	 *	setDataValue																	*
-	 *==================================================================================*/
-
 	/**
 	 * Set value
 	 *
@@ -1649,19 +1645,23 @@ class IteratorSerialiser
 				switch( $theTag[ kTAG_DATA_TYPE ] )
 				{
 					//
-					// Use value.
+					// Primitive types.
 					//
 					case kTYPE_MIXED:
 					case kTYPE_STRING:
 					case kTYPE_INT:
 					case kTYPE_FLOAT:
+					case kTYPE_BOOLEAN:
 					case kTYPE_TEXT:
 					case kTYPE_URL:
 					case kTYPE_YEAR:
 					case kTYPE_DATE:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $theValue;
+						$this->formatScalar( $theContainer, $theValue, $theTag );
 						break;
 					
+					//
+					// Other types.
+					//
 					default:
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
 						foreach( $theValue as $value )
@@ -2038,13 +2038,8 @@ class IteratorSerialiser
 			//
 			// Enumerated values.
 			//
-			case kTYPE_SET:
-				$this->formatEnumeration( $theContainer, $theValue, $theTag );
-				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
-				break;
-	
 			case kTYPE_ENUM:
+			case kTYPE_SET:
 				$this->formatEnumeration( $theContainer, $theValue, $theTag );
 				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
 					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
@@ -2068,7 +2063,7 @@ class IteratorSerialiser
 				break;
 	
 			//
-			// Unit reference.
+			// Object reference.
 			//
 			case kTYPE_REF_SELF:
 			case kTYPE_REF_UNIT:
@@ -2085,33 +2080,6 @@ class IteratorSerialiser
 				break;
 	
 			//
-			// Boolean.
-			//
-			case kTYPE_BOOLEAN:
-				$this->formatBoolean( $theContainer, $theValue, $theTag );
-				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
-				break;
-	
-			//
-			// Integer.
-			//
-			case kTYPE_INT:
-				$this->formatInteger( $theContainer, $theValue, $theTag );
-				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
-				break;
-	
-			//
-			// Float.
-			//
-			case kTYPE_FLOAT:
-				$this->formatFloat( $theContainer, $theValue, $theTag );
-				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
-				break;
-	
-			//
 			// Time-stamp.
 			//
 			case kTYPE_TIME_STAMP:
@@ -2119,20 +2087,6 @@ class IteratorSerialiser
 				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
 					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
-	
-			//
-			// Miscellanea.
-			//
-			case kTYPE_MIXED:
-				$this->formatScalar( $theContainer, $theValue, $theTag );
-				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
-				break;
-		
-			case kTYPE_STRING:
-			case kTYPE_TEXT:
-			case kTYPE_YEAR:
-			case kTYPE_DATE:
 			
 			//
 			// Other.
@@ -2144,6 +2098,113 @@ class IteratorSerialiser
 		} // Parsed data type.
 		
 	} // formatDataValue.
+
+	 
+	/*===================================================================================
+	 *	formatScalar																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format scalar value
+	 *
+	 * The duty of this method is to format the provided scalar value and set into the
+	 * provided container.
+	 *
+	 * This method assumes the value is of a scalar native data type, which means that
+	 * if the data kind is a list, the {@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter
+	 * will contain an array of values.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatScalar( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Allocate display elements.
+			//
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+		
+			//
+			// Iterate list.
+			//
+			foreach( $theValue as $key => $value )
+			{
+				//
+				// Parse by data type.
+				//
+				switch( $theTag[ kTAG_DATA_TYPE ] )
+				{
+					case kTYPE_INT:
+						$value = number_format( $value, 0 );
+						break;
+						
+					case kTYPE_FLOAT:
+						$value = number_format( $value, 2 );
+						break;
+						
+					case kTYPE_BOOLEAN:
+						$value = ( $value ) ? 'Yes' : 'No';
+						break;
+						
+					case kTYPE_DATE:
+						$value = DisplayDate( $value );
+						break;
+								
+				} // Parsing by data type.
+				
+				//
+				// Set value.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ][] = $value;
+			
+			} // Iterating list of values.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Parse by data type.
+			//
+			switch( $theTag[ kTAG_DATA_TYPE ] )
+			{
+				case kTYPE_INT:
+					$theValue = number_format( $theValue, 0 );
+					break;
+					
+				case kTYPE_FLOAT:
+					$theValue = number_format( $theValue, 2 );
+					break;
+					
+				case kTYPE_BOOLEAN:
+					$theValue = ( $theValue ) ? 'Yes' : 'No';
+					break;
+					
+				case kTYPE_DATE:
+					$theValue = DisplayDate( $theValue );
+					break;
+							
+			} // Parsing by data type.
+			
+			//
+			// Set value.
+			//
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $theValue;
+		
+		} // Scalar value.
+		
+	} // formatScalar.
 
 	 
 	/*===================================================================================
@@ -2750,183 +2811,6 @@ class IteratorSerialiser
 
 	 
 	/*===================================================================================
-	 *	formatBoolean																	*
-	 *==================================================================================*/
-
-	/**
-	 * Format boolean value
-	 *
-	 * The duty of this method is to format the provided boolean value and set into the
-	 * provided container.
-	 *
-	 * @param array					$theContainer		Data container.
-	 * @param mixed					$theValue			Data value.
-	 * @param array					$theTag				Offset tag.
-	 *
-	 * @access protected
-	 */
-	protected function formatBoolean( &$theContainer, $theValue, $theTag )
-	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theValue ) )
-		{
-			//
-			// Handle single value.
-			//
-			if( count( $theValue ) == 1 )
-				$theValue = ( $theValue[ 0 ] ) ? 'Yes' : 'No';
-			
-			//
-			// Handle multiple values.
-			//
-			elseif( count( $theValue ) > 1 )
-			{
-				//
-				// Convert values.
-				//
-				$keys = array_keys( $theValue );
-				foreach( $keys as $key )
-					$theValue[ $key ] = ( $theValue[ $key ] ) ? 'Yes' : 'No';
-			
-			} // More than one value.
-			
-		} // List of values.
-		
-		//
-		// Handle scalar.
-		//
-		else
-			$theValue = ( $theValue ) ? 'Yes' : 'No';
-		
-		//
-		// Load container.
-		//
-		$this->formatScalar( $theContainer, $theValue, $theTag );
-		
-	} // formatBoolean.
-
-	 
-	/*===================================================================================
-	 *	formatInteger																	*
-	 *==================================================================================*/
-
-	/**
-	 * Format integer value
-	 *
-	 * The duty of this method is to format the provided integer value and set into the
-	 * provided container.
-	 *
-	 * @param array					$theContainer		Data container.
-	 * @param mixed					$theValue			Data value.
-	 * @param array					$theTag				Offset tag.
-	 *
-	 * @access protected
-	 */
-	protected function formatInteger( &$theContainer, $theValue, $theTag )
-	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theValue ) )
-		{
-			//
-			// Handle single value.
-			//
-			if( count( $theValue ) == 1 )
-				$theValue = number_format( $theValue[ 0 ] );
-			
-			//
-			// Handle multiple values.
-			//
-			elseif( count( $theValue ) > 1 )
-			{
-				//
-				// Convert values.
-				//
-				$keys = array_keys( $theValue );
-				foreach( $keys as $key )
-					$theValue[ $key ] = number_format( $theValue[ $key ] );
-			
-			} // More than one value.
-			
-		} // List of values.
-		
-		//
-		// Handle scalar.
-		//
-		else
-			$theValue = number_format( $theValue );
-		
-		//
-		// Load container.
-		//
-		$this->formatScalar( $theContainer, $theValue, $theTag );
-		
-	} // formatInteger.
-
-	 
-	/*===================================================================================
-	 *	formatFloat																		*
-	 *==================================================================================*/
-
-	/**
-	 * Format float value
-	 *
-	 * The duty of this method is to format the provided float value and set into the
-	 * provided container.
-	 *
-	 * @param array					$theContainer		Data container.
-	 * @param mixed					$theValue			Data value.
-	 * @param array					$theTag				Offset tag.
-	 *
-	 * @access protected
-	 */
-	protected function formatFloat( &$theContainer, $theValue, $theTag )
-	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theValue ) )
-		{
-			//
-			// Handle single value.
-			//
-			if( count( $theValue ) == 1 )
-				$theValue = number_format( $theValue[ 0 ], 4 );
-			
-			//
-			// Handle multiple values.
-			//
-			elseif( count( $theValue ) > 1 )
-			{
-				//
-				// Convert values.
-				//
-				$keys = array_keys( $theValue );
-				foreach( $keys as $key )
-					$theValue[ $key ] = number_format( $theValue[ $key ], 4 );
-			
-			} // More than one value.
-			
-		} // List of values.
-		
-		//
-		// Handle scalar.
-		//
-		else
-			$theValue = number_format( $theValue, 4 );
-		
-		//
-		// Load container.
-		//
-		$this->formatScalar( $theContainer, $theValue, $theTag );
-		
-	} // formatFloat.
-
-	 
-	/*===================================================================================
 	 *	formatTimeStamp																	*
 	 *==================================================================================*/
 
@@ -2991,65 +2875,6 @@ class IteratorSerialiser
 		$this->formatScalar( $theContainer, $theValue, $theTag );
 		
 	} // formatTimeStamp.
-
-	 
-	/*===================================================================================
-	 *	formatScalar																	*
-	 *==================================================================================*/
-
-	/**
-	 * Format scalar value
-	 *
-	 * The duty of this method is to format the provided scalar value and set into the
-	 * provided container.
-	 *
-	 * @param array					$theContainer		Data container.
-	 * @param mixed					$theValue			Data value.
-	 * @param array					$theTag				Offset tag.
-	 *
-	 * @access protected
-	 */
-	protected function formatScalar( &$theContainer, $theValue, $theTag )
-	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theValue ) )
-		{
-			//
-			// Handle single value.
-			//
-			if( count( $theValue ) == 1 )
-				$this->formatScalar( $theContainer, $theValue[ 0 ], $theTag );
-			
-			//
-			// Handle multiple values.
-			//
-			elseif( count( $theValue ) > 1 )
-			{
-				//
-				// Allocate display elements.
-				//
-				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-				$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-			
-				//
-				// Iterate list.
-				//
-				foreach( $theValue as $value )
-					$ref[] = $value;
-			
-			} // More than one value.
-			
-		} // List of values.
-		
-		//
-		// Handle scalar.
-		//
-		else
-			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $theValue;
-		
-	} // formatScalar.
 
 	 
 
