@@ -3905,7 +3905,6 @@ class Service extends ContainerObject
 		//
 		// Load formatted request parameters.
 		//
-		$ref[ "kAPI_PARAM_RESPONSE_FRMT_TYPE" ] = kAPI_PARAM_RESPONSE_FRMT_TYPE;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_NAME" ] = kAPI_PARAM_RESPONSE_FRMT_NAME;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_INFO" ] = kAPI_PARAM_RESPONSE_FRMT_INFO;
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_DISP" ] = kAPI_PARAM_RESPONSE_FRMT_DISP;
@@ -3925,19 +3924,6 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_RESPONSE_FRMT_HEAD" ] = kAPI_PARAM_RESPONSE_FRMT_HEAD;
 		
 		//
-		// Load formatted response types.
-		//
-		$ref[ "kAPI_PARAM_RESPONSE_TYPE_SCALAR" ] = kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-		$ref[ "kAPI_PARAM_RESPONSE_TYPE_LINK" ] = kAPI_PARAM_RESPONSE_TYPE_LINK;
-		$ref[ "kAPI_PARAM_RESPONSE_TYPE_ENUM" ] = kAPI_PARAM_RESPONSE_TYPE_ENUM;
-		$ref[ "kAPI_PARAM_RESPONSE_TYPE_SET" ] = kAPI_PARAM_RESPONSE_TYPE_SET;
-		$ref[ "kAPI_PARAM_RESPONSE_TYPE_TYPED" ] = kAPI_PARAM_RESPONSE_TYPE_TYPED;
-		$ref[ "kAPI_PARAM_RESPONSE_TYPE_OBJECT" ] = kAPI_PARAM_RESPONSE_TYPE_OBJECT;
-		$ref[ "kAPI_PARAM_RESPONSE_TYPE_SHAPE" ] = kAPI_PARAM_RESPONSE_TYPE_SHAPE;
-		$ref[ "kAPI_PARAM_RESPONSE_TYPE_STRUCT" ] = kAPI_PARAM_RESPONSE_TYPE_STRUCT;
-		$ref[ "kAPI_PARAM_RESPONSE_TYPE_SCORE" ] = kAPI_PARAM_RESPONSE_TYPE_SCORE;
-		
-		//
 		// Load enumeration element parameters.
 		//
 		$ref[ "kAPI_RESULT_ENUM_TERM" ] = kAPI_RESULT_ENUM_TERM;
@@ -3955,7 +3941,6 @@ class Service extends ContainerObject
 		$ref[ "kOPERATOR_PREFIX" ] = kOPERATOR_PREFIX;
 		$ref[ "kOPERATOR_CONTAINS" ] = kOPERATOR_CONTAINS;
 		$ref[ "kOPERATOR_SUFFIX" ] = kOPERATOR_SUFFIX;
-//		$ref[ "kOPERATOR_REGEX" ] = kOPERATOR_REGEX;
 		$ref[ "kOPERATOR_IRANGE" ] = kOPERATOR_IRANGE;
 		$ref[ "kOPERATOR_ERANGE" ] = kOPERATOR_ERANGE;
 		
@@ -6393,10 +6378,10 @@ $rs_units = & $rs_units[ 'result' ];
 		$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
 						[ kAPI_DICTIONARY_LIST_COLS ]
 			= $formatter->dictionary()[ kAPI_DICTIONARY_LIST_COLS ];
-		if( array_key_exists( kAPI_PARAM_RESPONSE_TYPE_SCORE, $formatter->dictionary() ) )
+		if( array_key_exists( kAPI_PARAM_RESPONSE_FRMT_SCORE, $formatter->dictionary() ) )
 			$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
-							[ kAPI_PARAM_RESPONSE_TYPE_SCORE ]
-				= $formatter->dictionary()[ kAPI_PARAM_RESPONSE_TYPE_SCORE ];
+							[ kAPI_PARAM_RESPONSE_FRMT_SCORE ]
+				= $formatter->dictionary()[ kAPI_PARAM_RESPONSE_FRMT_SCORE ];
 	
 		//
 		// Set data.

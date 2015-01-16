@@ -960,12 +960,8 @@ class IteratorSerialiser
 					//
 					// Handle score.
 					//
-					if( $col == kAPI_PARAM_RESPONSE_TYPE_SCORE )
-						$data[ $col ]
-							= array( kAPI_PARAM_RESPONSE_FRMT_TYPE
-									=> kAPI_PARAM_RESPONSE_TYPE_SCORE,
-									 kAPI_PARAM_RESPONSE_FRMT_DISP
-									=> $value );
+					if( $col == kAPI_PARAM_RESPONSE_FRMT_SCORE )
+						$data[ $col ] = $value;
 					
 					//
 					// Handle value.
@@ -1246,13 +1242,13 @@ class IteratorSerialiser
 			//
 			// Set top score.
 			//
-			$this->mDictionary[ kAPI_PARAM_RESPONSE_TYPE_SCORE ]
-				= $this->mIterator->current()[ kAPI_PARAM_RESPONSE_TYPE_SCORE ];
+			$this->mDictionary[ kAPI_PARAM_RESPONSE_FRMT_SCORE ]
+				= $this->mIterator->current()[ kAPI_PARAM_RESPONSE_FRMT_SCORE ];
 			
 			//
 			// Set score column.
 			//
-			$dict[ kAPI_PARAM_RESPONSE_TYPE_SCORE ]
+			$dict[ kAPI_PARAM_RESPONSE_FRMT_SCORE ]
 				= array( kAPI_PARAM_RESPONSE_FRMT_NAME => 'Score',
 						 kAPI_PARAM_RESPONSE_FRMT_INFO => 'Result relevance score.' );
 		}
@@ -1653,9 +1649,9 @@ class IteratorSerialiser
 					case kTYPE_FLOAT:
 					case kTYPE_BOOLEAN:
 					case kTYPE_TEXT:
-					case kTYPE_URL:
 					case kTYPE_YEAR:
 					case kTYPE_DATE:
+					case kTYPE_URL:
 						$this->formatDataValue( $theContainer, $theValue, $theTag );
 						break;
 					
@@ -2036,6 +2032,16 @@ class IteratorSerialiser
 		switch( $theTag[ kTAG_DATA_TYPE ] )
 		{
 			//
+			// Enumerated values.
+			//
+			case kTYPE_ENUM:
+			case kTYPE_SET:
+				$this->formatEnumeration( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
+				break;
+	
+			//
 			// Language strings.
 			//
 			case kTYPE_LANGUAGE_STRING:
@@ -2059,16 +2065,6 @@ class IteratorSerialiser
 			//
 			case kTYPE_SHAPE:
 				$this->formatShape( $theContainer, $theValue, $theTag );
-				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
-				break;
-	
-			//
-			// Enumerated values.
-			//
-			case kTYPE_ENUM:
-			case kTYPE_SET:
-				$this->formatEnumeration( $theContainer, $theValue, $theTag );
 				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
 					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
@@ -2121,6 +2117,7 @@ class IteratorSerialiser
 						case kTYPE_BOOLEAN:
 						case kTYPE_YEAR:
 						case kTYPE_DATE:
+						case kTYPE_URL:
 							$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 							break;
 					}
@@ -2412,7 +2409,7 @@ class IteratorSerialiser
 			//
 			// Set value.
 			//
-			$elemnent[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+			$element[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
 				= $value[ kTAG_TEXT ];
 			
 			//
