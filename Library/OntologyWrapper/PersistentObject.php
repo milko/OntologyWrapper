@@ -2006,6 +2006,43 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // ResolveCollection.
 
+	 
+	/*===================================================================================
+	 *	ResolveObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve the object
+	 *
+	 * This method should return the object matching the provided native identifier in the
+	 * collection referenced by the provided <tt>kSEQ_NAME</tt> in the provided wrapper.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param string				$theCollection		Collection kSEQ_NAME.
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param boolean				$doAssert			TRUE means assert.
+	 *
+	 * @static
+	 * @return PersistentObject		Object or <tt>NULL</tt>.
+	 */
+	static function ResolveObject( Wrapper $theWrapper,
+										   $theCollection,
+										   $theIdentifier,
+										   $doAssert = TRUE )
+	{
+		//
+		// Init local storage.
+		//
+		$collection = static::ResolveCollectionByName( $theWrapper, $theCollection );
+		$criteria = array( kTAG_NID => $theIdentifier );
+		$options = kQUERY_OBJECT;
+		if( $doAssert )
+			$options |= kQUERY_ASSERT;
+		
+		return $collection->matchOne( $criteria, $options );						// ==>
+	
+	} // ResolveObject.
+
 		
 	/*===================================================================================
 	 *	ResolveCollectionByName															*
@@ -2075,6 +2112,160 @@ abstract class PersistentObject extends OntologyObject
 		} // Parsed collection name.
 	
 	} // ResolveCollectionByName.
+
+		
+	/*===================================================================================
+	 *	ResolveCollectionByClass														*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve collection by class
+	 *
+	 * Given a wrapper and a class name, this method will return a collection reference.
+	 *
+	 * If the wrapper is not connected, or if the collection could not be resolved, the
+	 * method will raise an exception.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param string				$theClass			Class name.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection reference.
+	 *
+	 * @throws Exception
+	 */
+	static function ResolveCollectionByClass( Wrapper $theWrapper, $theClass )
+	{
+		//
+		// Check if wrapper is connected.
+		//
+		if( ! $theWrapper->isConnected() )
+			throw new \Exception(
+				"Unable to resolve collection: "
+			   ."wrapper is not connected." );									// !@! ==>
+		
+		//
+		// Tags.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Tag'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Tag') ) )
+			return Tag::ResolveCollection(
+						Tag::ResolveDatabase( $theWrapper ) );						// ==>
+		
+		//
+		// Terms.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Term'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Term') ) )
+			return Term::ResolveCollection(
+						Term::ResolveDatabase( $theWrapper ) );						// ==>
+		
+		//
+		// Nodes.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Node'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Node') ) )
+			return Node::ResolveCollection(
+						Node::ResolveDatabase( $theWrapper ) );						// ==>
+		
+		//
+		// Edges.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Edge'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Edge') ) )
+			return Edge::ResolveCollection(
+						Edge::ResolveDatabase( $theWrapper ) );						// ==>
+		
+		//
+		// Users.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\User'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\User') ) )
+			return User::ResolveCollection(
+						User::ResolveDatabase( $theWrapper ) );						// ==>
+		
+		//
+		// Units.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\UnitObject'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\UnitObject') ) )
+			return UnitObject::ResolveCollection(
+						UnitObject::ResolveDatabase( $theWrapper ) );				// ==>
+		
+		throw new \Exception(
+			"Cannot resolve collection: "
+		   ."unknown class name [$theClass]." );								// !@! ==>
+	
+	} // ResolveCollectionByClass.
+
+		
+	/*===================================================================================
+	 *	ResolveTypeByClass																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve type by class
+	 *
+	 * Given a class name, this method will return a reference data type.
+	 *
+	 * If the type could not be resolved, the method will raise an exception.
+	 *
+	 * @param string				$theClass			Class name.
+	 *
+	 * @static
+	 * @return string				Reference data type.
+	 *
+	 * @throws Exception
+	 */
+	static function ResolveTypeByClass( $theClass )
+	{
+		//
+		// Tags.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Tag'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Tag') ) )
+			return kTYPE_REF_TAG;													// ==>
+		
+		//
+		// Terms.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Term'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Term') ) )
+			return kTYPE_REF_TERM;													// ==>
+		
+		//
+		// Nodes.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Node'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Node') ) )
+			return kTYPE_REF_NODE;													// ==>
+		
+		//
+		// Edges.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Edge'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Edge') ) )
+			return kTYPE_REF_EDGE;													// ==>
+		
+		//
+		// Users.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\User'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\User') ) )
+			return kTYPE_REF_USER;													// ==>
+		
+		//
+		// Units.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\UnitObject'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\UnitObject') ) )
+			return kTYPE_REF_UNIT;													// ==>
+		
+		throw new \Exception(
+			"Cannot resolve type: "
+		   ."unknown class name [$theClass]." );								// !@! ==>
+	
+	} // ResolveTypeByClass.
 
 	 
 	/*===================================================================================

@@ -1656,7 +1656,7 @@ class IteratorSerialiser
 					case kTYPE_URL:
 					case kTYPE_YEAR:
 					case kTYPE_DATE:
-						$this->formatScalar( $theContainer, $theValue, $theTag );
+						$this->formatDataValue( $theContainer, $theValue, $theTag );
 						break;
 					
 					//
@@ -2036,11 +2036,11 @@ class IteratorSerialiser
 		switch( $theTag[ kTAG_DATA_TYPE ] )
 		{
 			//
-			// Enumerated values.
+			// Language strings.
 			//
-			case kTYPE_ENUM:
-			case kTYPE_SET:
-				$this->formatEnumeration( $theContainer, $theValue, $theTag );
+			case kTYPE_LANGUAGE_STRING:
+			case kTYPE_LANGUAGE_STRINGS:
+				$this->formatLanguageStrings( $theContainer, $theValue, $theTag );
 				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
 					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
@@ -2055,28 +2055,46 @@ class IteratorSerialiser
 				break;
 	
 			//
-			// Language strings.
+			// Geo JSON shape.
 			//
-			case kTYPE_LANGUAGE_STRING:
-			case kTYPE_LANGUAGE_STRINGS:
-				$this->formatLanguageStrings( $theContainer, $theValue, $theTag );
+			case kTYPE_SHAPE:
+				$this->formatShape( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
+				break;
+	
+			//
+			// Enumerated values.
+			//
+			case kTYPE_ENUM:
+			case kTYPE_SET:
+				$this->formatEnumeration( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
 				break;
 	
 			//
 			// Object reference.
 			//
 			case kTYPE_REF_SELF:
+				if( $this->mCurrentUnit->offsetExists( kTAG_CLASS ) )
+				{
+					$theTag[ kTAG_DATA_TYPE ]
+						= PersistentObject::ResolveTypeByClass(
+							$this->mCurrentUnit->offsetGet( kTAG_CLASS ) );
+					$this->formatDataValue( $theContainer, $theValue, $theTag );
+				}
+				break;
+			
+			case kTYPE_REF_TAG:
+			case kTYPE_REF_TERM:
+			case kTYPE_REF_NODE:
+			case kTYPE_REF_EDGE:
+			case kTYPE_REF_USER:
 			case kTYPE_REF_UNIT:
-				$this->formatUnitReference( $theContainer, $theValue, $theTag );
+				$this->formatObjectReference( $theContainer, $theValue, $theTag );
 				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
 					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
-				break;
-	
-			//
-			// Geo JSON shape.
-			//
-			case kTYPE_SHAPE:
-				$this->formatShape( $theContainer, $theValue, $theTag );
 				break;
 	
 			//
@@ -2093,6 +2111,20 @@ class IteratorSerialiser
 			//
 			default:
 				$this->formatScalar( $theContainer, $theValue, $theTag );
+				if( $this->options() & kFLAG_FORMAT_OPT_VALUES )
+				{
+					switch( $theTag[ kTAG_DATA_TYPE ] )
+					{
+						case kTYPE_MIXED:
+						case kTYPE_INT:
+						case kTYPE_FLOAT:
+						case kTYPE_BOOLEAN:
+						case kTYPE_YEAR:
+						case kTYPE_DATE:
+							$theContainer[ kAPI_PARAM_RESPONSE_FRMT_VALUE ] = $theValue;
+							break;
+					}
+				}
 				break;
 		
 		} // Parsed data type.
@@ -2234,7 +2266,6 @@ class IteratorSerialiser
 			// Allocate list.
 			//
 			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-			$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
 			
 			//
 			// Iterate list.
@@ -2244,8 +2275,7 @@ class IteratorSerialiser
 				//
 				// Allocate element.
 				//
-				$list[] = Array();
-				$ref = & $list[ count( $list ) - 1 ];
+				$element = Array();
 			
 				//
 				// Cache term.
@@ -2263,13 +2293,19 @@ class IteratorSerialiser
 				//
 				// Set label.
 				//
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $term[ kTAG_LABEL ];
+				$element[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $term[ kTAG_LABEL ];
 	
 				//
 				// Set definition.
 				//
 				if( array_key_exists( kTAG_DEFINITION, $term ) )
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+					$element[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+						= $term[ kTAG_DEFINITION ];
+				
+				//
+				// Add element.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ][] = $element;
 		
 			} // Iterating values.
 			
@@ -2294,177 +2330,41 @@ class IteratorSerialiser
 			$term = & $this->mCache[ Term::kSEQ_NAME ][ $theValue ];
 		
 			//
-			// Allocate element.
+			// Hamdle definition.
 			//
 			if( array_key_exists( kTAG_DEFINITION, $term ) )
 			{
 				//
-				// Allocate element.
+				// Allocate block.
 				//
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-				
+			
 				//
-				// Set reference.
+				// Set label.
 				//
-				$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-			}
-			else
-			{
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							 [ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= $term[ kTAG_LABEL ];
+		
 				//
-				// Update type.
+				// Set definition.
 				//
-				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-				
-				//
-				// Set reference.
-				//
-				$ref = & $theContainer;
-			}
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							 [ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= $term[ kTAG_DEFINITION ];
+			
+			} // Has definition.
 			
 			//
-			// Set label.
+			// Handle label only.
 			//
-			$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $term[ kTAG_LABEL ];
-		
-			//
-			// Set definition.
-			//
-			if( array_key_exists( kTAG_DEFINITION, $term ) )
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+			else
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= $term[ kTAG_LABEL ];
 		
 		} // Scalar value.
 		
 	} // formatEnumeration.
-
-	 
-	/*===================================================================================
-	 *	formatTypedList																	*
-	 *==================================================================================*/
-
-	/**
-	 * Format typed list value
-	 *
-	 * The duty of this method is to format the provided typed list value and set into the
-	 * provided container.
-	 *
-	 * @param array					$theContainer		Data container.
-	 * @param mixed					$theValue			Data value.
-	 * @param array					$theTag				Offset tag.
-	 *
-	 * @access protected
-	 */
-	protected function formatTypedList( &$theContainer, $theValue, $theTag )
-	{
-		//
-		// Allocate list.
-		//
-		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-		$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-		
-		//
-		// Iterate elements.
-		//
-		foreach( $theValue as $value )
-		{
-			//
-			// Allocate element.
-			//
-			$list[] = Array();
-			$ref = & $list[ count( $list ) - 1 ];
-			
-			//
-			// Set type.
-			//
-			$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-				= ( array_key_exists( kTAG_TYPE, $value ) )
-				? $value[ kTAG_TYPE ]
-				: '';
-			
-			//
-			// Set string.
-			//
-			if( array_key_exists( kTAG_TEXT, $value ) )
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-					= $value[ kTAG_TEXT ];
-			
-			//
-			// Set URL.
-			//
-			elseif( array_key_exists( kTAG_URL, $value ) )
-			{
-				//
-				// Set display.
-				//
-				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-					= ( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
-					? $value[ kTAG_TYPE ]
-					: $value[ kTAG_URL ];
-			
-				//
-				// Set value.
-				//
-				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
-					= $value[ kTAG_URL ];
-		
-			} // URL value.
-			
-			//
-			// Set unit reference.
-			//
-			elseif( array_key_exists( kTAG_UNIT_REF, $value ) )
-			{
-				//
-				// Set value.
-				//
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_UNIT ] = $value[ kTAG_UNIT_REF ];
-			
-			} // Unit reference.
-			
-			//
-			// Set user reference.
-			//
-			elseif( array_key_exists( kTAG_USER_REF, $value ) )
-			{
-				//
-				// Set value.
-				//
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_USER ]
-					= $value[ kTAG_USER_REF ];
-			
-			} // User reference.
-			
-			//
-			// Set tag reference.
-			//
-			elseif( array_key_exists( kTAG_TAG_REF, $value ) )
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_TAG ]
-					= $value[ kTAG_TAG_REF ];
-			
-			//
-			// Set term reference.
-			//
-			elseif( array_key_exists( kTAG_TERM_REF, $value ) )
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_TERM ]
-					= $value[ kTAG_TERM_REF ];
-			
-			//
-			// Set node reference.
-			//
-			elseif( array_key_exists( kTAG_NODE_REF, $value ) )
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_NODE ]
-					= $value[ kTAG_NODE_REF ];
-			
-			//
-			// Set edge reference.
-			//
-			elseif( array_key_exists( kTAG_EDGE_REF, $value ) )
-				$ref[ kAPI_PARAM_RESPONSE_FRMT_EDGE ]
-					= $value[ kTAG_EDGE_REF ];
-		
-		} // Iterating elements.
-		
-	} // formatTypedList.
 
 	 
 	/*===================================================================================
@@ -2486,160 +2386,94 @@ class IteratorSerialiser
 	protected function formatLanguageStrings( &$theContainer, $theValue, $theTag )
 	{
 		//
-		// Handle single element.
+		// Allocate element.
 		//
-		if( count( $theValue ) == 1 )
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+		
+		//
+		// Iterate elements.
+		//
+		foreach( $theValue as $value )
 		{
 			//
-			// Handle language.
+			// Allocate display block.
 			//
-			if( array_key_exists( kTAG_LANGUAGE, $theValue[ 0 ] ) )
-			{
-				//
-				// Handle language.
-				//
-				if( $theValue[ 0 ][ kTAG_LANGUAGE ] !== '0' )
-				{
-					//
-					// Allocate element.
-					//
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-					$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-					
-					//
-					// Set language.
-					//
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-						= $theValue[ 0 ][ kTAG_LANGUAGE ];
-					
-					//
-					// Set string.
-					//
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-						= $theValue[ 0 ][ kTAG_TEXT ];
-				
-				} // Indicated language.
-				
-				//
-				// Handle no language.
-				//
-				else
-				{
-					//
-					// Correct type.
-					//
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-						= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-					
-					//
-					// Set scalar value.
-					//
-					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-						= $theValue[ 0 ][ kTAG_TEXT ];
-				
-				} // Reduce to scalar.
-			
-			} // Provided language.
+			$element = Array();
 			
 			//
-			// Handle no language.
+			// Set label.
 			//
-			else
-			{
-				//
-				// Correct type.
-				//
-				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-				
-				//
-				// Set scalar value.
-				//
-				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-					= $theValue[ 0 ][ kTAG_TEXT ];
+			if( array_key_exists( kTAG_LANGUAGE, $value ) )
+				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= ( $value[ kTAG_LANGUAGE ] == '0' )
+					? 'Default'
+					: $value[ kTAG_LANGUAGE ];
 			
-			} // Reduce to scalar.
+			//
+			// Set value.
+			//
+			$elemnent[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+				= $value[ kTAG_TEXT ];
+			
+			//
+			// Add element.
+			//
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ][] = $element;
 		
-		} // Single element.
-		
-		//
-		// Handle multiple elements.
-		//
-		elseif( count( $theValue ) > 1 )
-		{
-			//
-			// Allocate list.
-			//
-			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-			$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
-			
-			//
-			// Iterate strings.
-			//
-			foreach( $theValue as $value )
-			{
-				//
-				// Allocate element.
-				//
-				$list[] = Array();
-				$ref = & $list[ count( $theContainer ) - 1 ];
-				
-				//
-				// Handle language.
-				//
-				if( array_key_exists( kTAG_LANGUAGE, $value ) )
-				{
-					//
-					// Handle language.
-					//
-					if( $value[ kTAG_LANGUAGE ] !== '0' )
-					{
-						//
-						// Set language.
-						//
-						$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-							= $value[ kTAG_LANGUAGE ];
-					
-						//
-						// Set string.
-						//
-						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-							= $value[ kTAG_TEXT ];
-				
-					} // Indicated language.
-				
-					//
-					// Handle no language.
-					//
-					else
-						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-							= $value[ kTAG_TEXT ];
-			
-				} // Provided language.
-			
-				//
-				// Handle no language.
-				//
-				else
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-						= $value[ kTAG_TEXT ];
-			
-			} // Iterating strings.
-		
-		} // Multiple elements.
+		} // Iterating elements.
 		
 	} // formatLanguageStrings.
 
 	 
 	/*===================================================================================
-	 *	formatUnitReference																*
+	 *	formatTypedList																	*
 	 *==================================================================================*/
 
 	/**
-	 * Format unit reference value
+	 * Format typed list
 	 *
-	 * The duty of this method is to format the provided unit reference and set into the
+	 * The duty of this method is to format the provided typed list value and set into the
 	 * provided container.
+	 *
+	 * Each element uses the {@link kTAG_TYPE} as the {@link kAPI_PARAM_RESPONSE_FRMT_NAME}
+	 * by default, the other items of the element determine what the element represents:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_URL}</tt>: An URL or link:
+	 *	 <ul>
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: Will contain the URL.
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: The {@link kTAG_TEXT} item
+	 *			if there, or the URL.
+	 *	 </ul>
+	 *	<li><tt>{@link kTAG_NID}</tt>: A native identifier:
+	 *	 <ul>
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: Will contain the identifier.
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: If not set, it will be
+	 *			set as <tt>ID</tt>.
+	 *	 </ul>
+	 *	<li><tt>{@link kTAG_CLASS}</tt>: A class:
+	 *	 <ul>
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: Will contain the value.
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: If not set, it will be
+	 *			set as <tt>Class</tt>.
+	 *	 </ul>
+	 *	<li><tt>{@link kTAG_LANGUAGE}</tt>: A language:
+	 *	 <ul>
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: Will contain the value.
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: If not set, it will be
+	 *			set as <tt>Language</tt>.
+	 *	 </ul>
+	 *	<li><tt>{@link kTAG_TEXT}</tt>: A text:
+	 *	 <ul>
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: Will contain the value.
+	 *	 </ul>
+	 *	<li><em>Object references</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: The object(s) name.
+	 *		<li><tt>{@link kAPI_DICTIONARY_COLLECTION}</tt>: The object(s) collection.
+	 *		<li><tt>{@link kAPI_PARAM_ID}</tt>: The object(s) identifiers.
+	 *	 </ul>
+	 * </ul>
 	 *
 	 * @param array					$theContainer		Data container.
 	 * @param mixed					$theValue			Data value.
@@ -2647,105 +2481,262 @@ class IteratorSerialiser
 	 *
 	 * @access protected
 	 */
-	protected function formatUnitReference( &$theContainer, $theValue, $theTag )
+	protected function formatTypedList( &$theContainer, $theValue, $theTag )
 	{
 		//
-		// Handle references list.
+		// Allocate list.
 		//
-		if( is_array( $theValue ) )
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+		
+		//
+		// Iterate elements.
+		//
+		foreach( $theValue as $value )
 		{
 			//
-			// Handle single element.
+			// Allocate display block.
 			//
-			if( count( $theValue ) == 1 )
-				$this->resolveUnitReference(
-					$theContainer,
-					$theValue [ 0 ],
-					$theTag );
+			$element = Array();
 			
 			//
-			// Handle multiple references.
+			// Set default label.
 			//
-			elseif( count( $theValue ) > 1 )
+			if( array_key_exists( kTAG_TYPE, $value ) )
+				$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= $value[ kTAG_TYPE ];
+			
+			//
+			// Set URL.
+			// If the element has an URL, it means that it is an URL.
+			//
+			if( array_key_exists( kTAG_URL, $value ) )
+			{
+				//
+				// Set value.
+				//
+				$element[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= ( array_key_exists( kTAG_TEXT, $value ) )
+					? $value[ kTAG_TEXT ]
+					: $value[ kTAG_URL ];
+			
+				//
+				// Set link.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+					= $value[ kTAG_URL ];
+		
+			} // URL value.
+			
+			//
+			// Handle native identifier.
+			// 
+			//
+			elseif( array_key_exists( kTAG_NID, $value ) )
+			{
+				//
+				// Set label.
+				//
+				if( ! array_key_exists( kAPI_PARAM_RESPONSE_FRMT_NAME, $element ) )
+					$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+						= 'ID';
+				
+				//
+				// Set value.
+				//
+				$element[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $value[ kTAG_NID ];
+			}
+			
+			//
+			// Handle class.
+			//
+			elseif( array_key_exists( kTAG_CLASS, $value ) )
+			{
+				//
+				// Set label.
+				//
+				if( ! array_key_exists( kAPI_PARAM_RESPONSE_FRMT_NAME, $element ) )
+					$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+						= 'Class';
+				
+				//
+				// Set value.
+				//
+				$element[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $value[ kTAG_CLASS ];
+			}
+			
+			//
+			// Handle language.
+			//
+			elseif( array_key_exists( kTAG_LANGUAGE, $value ) )
+			{
+				//
+				// Set label.
+				//
+				if( ! array_key_exists( kAPI_PARAM_RESPONSE_FRMT_NAME, $element ) )
+					$element[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+						= 'Language';
+				
+				//
+				// Set value.
+				//
+				$element[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $value[ kTAG_LANGUAGE ];
+			}
+			
+			//
+			// Handle text.
+			//
+			elseif( array_key_exists( kTAG_TEXT, $value ) )
+				$element[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= $value[ kTAG_TEXT ];
+			
+			//
+			// Handle object references.
+			//
+			else
+				$this->formatObjectReference( $element, $value, $theTag );
+			
+			//
+			// Add element.
+			//
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ][] = $element;
+		
+		} // Iterating elements.
+		
+	} // formatTypedList.
+
+	 
+	/*===================================================================================
+	 *	formatObjectReference															*
+	 *==================================================================================*/
+
+	/**
+	 * Format object reference
+	 *
+	 * The duty of this method is to format the provided object reference and set into the
+	 * provided container:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: The object(s) name.
+	 *	<li><tt>{@link kAPI_DICTIONARY_COLLECTION}</tt>: The object(s) collection.
+	 *	<li><tt>{@link kAPI_PARAM_ID}</tt>: The object(s) identifiers.
+	 * </ul>
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Typed list element.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatObjectReference( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Init local storage.
+		//
+		$refs = array( kTAG_TAG_REF => Tag::kSEQ_NAME,
+					   kTAG_TERM_REF => Term::kSEQ_NAME,
+					   kTAG_NODE_REF => Node::kSEQ_NAME,
+					   kTAG_EDGE_REF => Edge::kSEQ_NAME,
+					   kTAG_USER_REF => User::kSEQ_NAME,
+					   kTAG_UNIT_REF => UnitObject::kSEQ_NAME );
+		
+		//
+		// Identify reference property.
+		//
+		$reference = Array();
+		foreach( $refs as $key => $val )
+		{
+			//
+			// Match element property.
+			//
+			if( array_key_exists( $key, $theValue ) )
+			{
+				$reference[ 'class' ] = $val;
+				$reference[ 'value' ] = $theValue[ $key ];
+				
+				break;														// =>
+			
+			} // Matched element property.
+		
+		} // Iterating object reference offsets.
+		
+		//
+		// Handle matched reference class.
+		//
+		if( count( $reference ) )
+		{
+			//
+			// Set object collection.
+			//
+			$theContainer[ kAPI_DICTIONARY_COLLECTION ]
+				= $reference[ 'class' ];
+	
+			//
+			// Set object identifier.
+			//
+			$theContainer[ kAPI_PARAM_ID ]
+				= $reference[ 'value' ];
+
+			//
+			// Handle references list.
+			//
+			if( is_array( $reference[ 'value' ] ) )
 			{
 				//
 				// Allocate list.
 				//
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
-				$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
 				
 				//
-				// Iterate references.
+				// Iterate list.
 				//
-				foreach( $theValue as $value )
+				foreach( $reference[ 'value' ] as $value )
 				{
 					//
-					// Allocate result.
+					// Resolve object.
 					//
-					$list[] = Array();
-					
+					$object
+						= PersistentObject::ResolveObject(
+							$this->mIterator->collection()->dictionary(),
+							$reference[ 'class' ],
+							$value,
+							TRUE );
+		
 					//
-					// Set value.
+					// Set object name.
 					//
-					$this->resolveUnitReference(
-						$list[ count( $list ) - 1 ],
-						$value,
-						$theTag );
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ][]
+						= $object->getName( $this->mLanguage );
 				
-				} // Iterating references.
+				} // Iterating list.
 			
-			} // Multiple references.
+			} // List of references.
+			
+			//
+			// Handle single reference.
+			//
+			else
+			{
+				//
+				// Resolve object.
+				//
+				$object
+					= PersistentObject::ResolveObject(
+						$this->mIterator->collection()->dictionary(),
+						$reference[ 'class' ],
+						$reference[ 'value' ],
+						TRUE );
 		
-		} // References list.
+				//
+				// Set object name.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= $object->getName( $this->mLanguage );
+			
+			} // Single reference.
 		
-		//
-		// Handle scalar reference.
-		//
-		else
-		{
-			//
-			// Cache referenced object.
-			//
-			$object
-				= $this->cacheUnit(
-					$this->mIterator->collection()->dictionary(),
-					$this->mCache,
-					$theValue,
-					TRUE );
-			
-			//
-			// Set object name.
-			//
-			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
-				= $object->getName( $this->mLanguage );
-			
-			//
-			// Allocate service.
-			//
-			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_SERV ] = Array();
-			$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_SERV ];
-			
-			//
-			// Set service operation and language.
-			//
-			$ref[ kAPI_REQUEST_OPERATION ] = kAPI_OP_GET_UNIT;
-			$ref[ kAPI_REQUEST_LANGUAGE ] = $this->mLanguage;
-			
-			//
-			// Allocate service parameters.
-			//
-			$ref[ kAPI_REQUEST_PARAMETERS ] = Array();
-			$ref = & $ref[ kAPI_REQUEST_PARAMETERS ];
-			
-			//
-			// Set object identifier and data format.
-			//
-			$ref[ kAPI_PARAM_ID ] = $theValue;
-			$ref[ kAPI_PARAM_DATA ] = kAPI_RESULT_ENUM_DATA_FORMAT;
+		} // Matched reference class.
 		
-		} // Scalar reference.
-		
-	} // formatUnitReference.
+	} // formatObjectReference.
 
 	 
 	/*===================================================================================

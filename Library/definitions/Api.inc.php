@@ -2198,18 +2198,18 @@ define( "kAPI_PARAM_RESPONSE_FRMT_NAME",		'name' );
 define( "kAPI_PARAM_RESPONSE_FRMT_INFO",		'info' );
 
 /**
- * Property value (miced).
- *
- * This tag indicates the property actual data, provided as the original value.
- */
-define( "kAPI_PARAM_RESPONSE_FRMT_VALUE",		'val' );
-
-/**
  * Property display (string/array).
  *
  * This tag indicates the property display data, formatted as a string or array of strings.
  */
 define( "kAPI_PARAM_RESPONSE_FRMT_DISP",		'disp' );
+
+/**
+ * Property value (miced).
+ *
+ * This tag indicates the property actual data, provided as the original value.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_VALUE",		'val' );
 
 /**
  * Map label (string).
