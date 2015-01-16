@@ -936,7 +936,7 @@
 			<item const="kTAG_TERMS">
 				<item>:label</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
+			<item const="kTAG_DATA_TYPE">:type:language-string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:full-text-06</item>
@@ -963,7 +963,7 @@
 			<item const="kTAG_TERMS">
 				<item>:definition</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
+			<item const="kTAG_DATA_TYPE">:type:language-string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>
@@ -990,7 +990,7 @@
 			<item const="kTAG_TERMS">
 				<item>:description</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
+			<item const="kTAG_DATA_TYPE">:type:language-string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:full-text-03</item>

@@ -29,7 +29,7 @@
 			<item const="kTAG_TERMS">
 				<item>iso:3166:common_name</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
+			<item const="kTAG_DATA_TYPE">:type:language-string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>

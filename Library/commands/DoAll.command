@@ -87,6 +87,20 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/4-Init_Institutes.php
 
+########################################################################################
+#   Initialise users                                                                   #
+########################################################################################
+
+#
+# Init users.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/settings/ResetUsers.php \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Backup                                                                             #
+########################################################################################
+
 #
 # Backup and archive main dictionary.
 #

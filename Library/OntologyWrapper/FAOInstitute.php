@@ -774,7 +774,7 @@ class FAOInstitute extends Institution
 		// Check authority.
 		//
 		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
-			$this->offsetSet( kTAG_AUTHORITY, 'http://fao.org' );
+			$this->offsetSet( kTAG_AUTHORITY, 'FAO' );
 		
 		//
 		// Check collection.
