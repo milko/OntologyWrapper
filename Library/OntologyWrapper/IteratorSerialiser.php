@@ -2176,7 +2176,10 @@ class IteratorSerialiser
 						break;
 						
 					case kTYPE_FLOAT:
-						$value = number_format( $value, 2 );
+						$value
+							= ( $theTag->offsetExists( kTAG_DECIMALS ) )
+							? number_format( $value, $theTag->offsetGet( kTAG_DECIMALS ) )
+							: number_format( $value, 2 );
 						break;
 						
 					case kTYPE_BOOLEAN:
@@ -2213,7 +2216,10 @@ class IteratorSerialiser
 					break;
 					
 				case kTYPE_FLOAT:
-					$theValue = number_format( $theValue, 2 );
+					$theValue
+						= ( $theTag->offsetExists( kTAG_DECIMALS ) )
+						? number_format( $theValue, $theTag->offsetGet( kTAG_DECIMALS ) )
+						: number_format( $theValue, 2 );
 					break;
 					
 				case kTYPE_BOOLEAN:

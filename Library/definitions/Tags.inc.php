@@ -1044,6 +1044,18 @@ define( "kTAG_MAX_RANGE",				'@3a' );
  */
 define( "kTAG_PATTERN",					'@3b' );
 
+/**
+ * Decimal places (<code>:decimals</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ * </ul>
+ *
+ * This tag holds an <em>integer</em> representing the number of decimal places to be
+ * displayed, this tag is used in floating point tags to round the value before displaying.
+ */
+define( "kTAG_DECIMALS",				'@3c' );
+
 /*=======================================================================================
  *	DEFAULT ATTRIBUTES																	*
  *======================================================================================*/
@@ -1060,7 +1072,7 @@ define( "kTAG_PATTERN",					'@3b' );
  * should represent the <em>actual shape of the object</em>, as opposed to the
  * {@link kTAG_GEO_SHAPE_DISP} tag which represents the shape to be displayed.
  */
-define( "kTAG_GEO_SHAPE",				'@3c' );
+define( "kTAG_GEO_SHAPE",				'@3d' );
 
 /**
  * Geographic location display shape (<code>:shape-disp</code)
@@ -1074,7 +1086,7 @@ define( "kTAG_GEO_SHAPE",				'@3c' );
  * object. This value should represent the <em>displayed shape of the object</em>, as
  * opposed to the {@link kTAG_GEO_SHAPE} tag which represents the actual object's shape.
  */
-define( "kTAG_GEO_SHAPE_DISP",			'@3d' );
+define( "kTAG_GEO_SHAPE_DISP",			'@3e' );
 
 /**
  * Creation time stamp (<code>:record:created</code)
@@ -1085,7 +1097,7 @@ define( "kTAG_GEO_SHAPE_DISP",			'@3d' );
  *
  * This tag indicates the record creation time stamp.
  */
-define( "kTAG_RECORD_CREATED",			'@3e' );
+define( "kTAG_RECORD_CREATED",			'@3f' );
 
 /**
  * Modification time stamp (<code>:record:modified</code)
@@ -1096,7 +1108,7 @@ define( "kTAG_RECORD_CREATED",			'@3e' );
  *
  * This tag indicates the record modification time stamp.
  */
-define( "kTAG_RECORD_MODIFIED",			'@3f' );
+define( "kTAG_RECORD_MODIFIED",			'@40' );
 
 /*=======================================================================================
  *	CONNECTION ATTRIBUTES																*
@@ -1112,7 +1124,7 @@ define( "kTAG_RECORD_MODIFIED",			'@3f' );
  * This tag holds a <em>string</em> which identifies a specific network connection
  * <em>protocol</em> or <em>scheme</em>.
  */
-define( "kTAG_CONN_PROTOCOL",			'@40' );
+define( "kTAG_CONN_PROTOCOL",			'@41' );
 
 /**
  * Connection host (<code>:connection:host</code)
@@ -1124,7 +1136,7 @@ define( "kTAG_CONN_PROTOCOL",			'@40' );
  * This tag holds a <em>string</em> which identifies a specific network connection
  * <em>domain name</em> or <em>internet address</em>.
  */
-define( "kTAG_CONN_HOST",				'@41' );
+define( "kTAG_CONN_HOST",				'@42' );
 
 /**
  * Connection port (<code>:connection:port</code)
@@ -1136,7 +1148,7 @@ define( "kTAG_CONN_HOST",				'@41' );
  * This tag holds an <em>integer</em> which identifies a specific network <em>TCP or UDP
  * port number</em>.
  */
-define( "kTAG_CONN_PORT",				'@42' );
+define( "kTAG_CONN_PORT",				'@43' );
 
 /**
  * Connection credentials code (<code>:connection:code</code)
@@ -1148,7 +1160,7 @@ define( "kTAG_CONN_PORT",				'@42' );
  * This tag holds a <em>string</em> which identifies a specific <em>code</em> used to
  * <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_CODE",				'@43' );
+define( "kTAG_CONN_CODE",				'@44' );
 
 /**
  * Connection credentials password (<code>:connection:password</code)
@@ -1160,7 +1172,7 @@ define( "kTAG_CONN_CODE",				'@43' );
  * This tag holds a <em>string</em> which identifies a specific <em>password</em> which
  * allows to <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_PASS",				'@44' );
+define( "kTAG_CONN_PASS",				'@45' );
 
 /**
  * Database name (<code>:connection:database</code)
@@ -1171,7 +1183,7 @@ define( "kTAG_CONN_PASS",				'@44' );
  *
  * This tag holds a <em>string</em> which identifies a specific <em>database</em>.
  */
-define( "kTAG_CONN_BASE",				'@45' );
+define( "kTAG_CONN_BASE",				'@46' );
 
 /**
  * Collection name (<code>:connection:collection</code)
@@ -1183,7 +1195,7 @@ define( "kTAG_CONN_BASE",				'@45' );
  * This tag holds a <em>string</em> which identifies a specific <em>database
  * collection</em>.
  */
-define( "kTAG_CONN_COLL",				'@46' );
+define( "kTAG_CONN_COLL",				'@47' );
 
 /**
  * Connection options (<code>:connection:options</code)
@@ -1196,7 +1208,7 @@ define( "kTAG_CONN_COLL",				'@46' );
  * network connection</em>. The key part identifies the option, the value part provides the
  * option value.
  */
-define( "kTAG_CONN_OPTS",				'@47' );
+define( "kTAG_CONN_OPTS",				'@48' );
 
 /*=======================================================================================
  *	ENTITY ATTRIBUTES																	*
@@ -1213,7 +1225,7 @@ define( "kTAG_CONN_OPTS",				'@47' );
  * code should hold the most specific piece of information that can be used to identify an
  * entity.
  */
-define( "kTAG_ENTITY_IDENT",			'@48' );
+define( "kTAG_ENTITY_IDENT",			'@49' );
 
 /**
  * Entity first name (<code>:entity:fname</code)
@@ -1225,7 +1237,7 @@ define( "kTAG_ENTITY_IDENT",			'@48' );
  * This tag holds a <em>string</em> representing the <em>first name</em> of an entity, this
  * implies that the entity is an individual.
  */
-define( "kTAG_ENTITY_FNAME",			'@49' );
+define( "kTAG_ENTITY_FNAME",			'@4a' );
 
 /**
  * Entity last name (<code>:entity:lname</code)
@@ -1237,7 +1249,7 @@ define( "kTAG_ENTITY_FNAME",			'@49' );
  * This tag holds a <em>string</em> representing the <em>surname</em> of an entity, this
  * implies that the entity is an individual.
  */
-define( "kTAG_ENTITY_LNAME",			'@4a' );
+define( "kTAG_ENTITY_LNAME",			'@4b' );
 
 /**
  * Entity type (<code>:type:entity</code)
@@ -1249,7 +1261,7 @@ define( "kTAG_ENTITY_LNAME",			'@4a' );
  * This tag holds an <em>enumerated set</em> which describes the <em>types of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_TYPE",				'@4b' );
+define( "kTAG_ENTITY_TYPE",				'@4c' );
 
 /**
  * Entity kind (<code>:kind:entity</code)
@@ -1261,7 +1273,7 @@ define( "kTAG_ENTITY_TYPE",				'@4b' );
  * This tag holds an <em>enumerated set</em> which describes the <em>kinds of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_KIND",				'@4c' );
+define( "kTAG_ENTITY_KIND",				'@4d' );
 
 /**
  * Entity acronym (<code>:entity:acronym</code)
@@ -1274,7 +1286,7 @@ define( "kTAG_ENTITY_KIND",				'@4c' );
  * This tag holds a a <em>list of strings</em> representing the entity <em>acronyms</em> or
  * <em>abbreviations</em>.
  */
-define( "kTAG_ENTITY_ACRONYM",			'@4d' );
+define( "kTAG_ENTITY_ACRONYM",			'@4e' );
 
 /**
  * Entity mail (<code>:entity:mail</code)
@@ -1286,7 +1298,7 @@ define( "kTAG_ENTITY_ACRONYM",			'@4d' );
  * This tag holds a <em>list of mailing addresses discriminated by their type</em>. Each
  * element of the list represents an address which should be used according to its type.
  */
-define( "kTAG_ENTITY_MAIL",				'@4e' );
+define( "kTAG_ENTITY_MAIL",				'@4f' );
 
 /**
  * Entity e-mail (<code>:entity:email</code)
@@ -1298,7 +1310,7 @@ define( "kTAG_ENTITY_MAIL",				'@4e' );
  * This tag holds a <em>list of e-mail addresses discriminated by their type</em>. Each
  * element of the list represents an e-mail which should be used according to its type.
  */
-define( "kTAG_ENTITY_EMAIL",			'@4f' );
+define( "kTAG_ENTITY_EMAIL",			'@50' );
 
 /**
  * Entity link (<code>:entity:url</code)
@@ -1311,7 +1323,7 @@ define( "kTAG_ENTITY_EMAIL",			'@4f' );
  * element of the list represents an internet link which can be categorised according to its
  * type.
  */
-define( "kTAG_ENTITY_LINK",				'@50' );
+define( "kTAG_ENTITY_LINK",				'@51' );
 
 /**
  * Entity phone (<code>:entity:phone</code)
@@ -1323,7 +1335,7 @@ define( "kTAG_ENTITY_LINK",				'@50' );
  * This tag holds a <em>list of telephone numbers discriminated by their type</em>. Each
  * element of the list represents a phone number which should be used according to its type.
  */
-define( "kTAG_ENTITY_PHONE",			'@51' );
+define( "kTAG_ENTITY_PHONE",			'@52' );
 
 /**
  * Entity fax (<code>:entity:fax</code)
@@ -1335,7 +1347,7 @@ define( "kTAG_ENTITY_PHONE",			'@51' );
  * This tag holds a <em>list of telefax numbers discriminated by their type</em>. Each
  * element of the list represents a fax number which should be used according to its type.
  */
-define( "kTAG_ENTITY_FAX",				'@52' );
+define( "kTAG_ENTITY_FAX",				'@53' );
 
 /**
  * Entity telex (<code>:entity:tlx</code)
@@ -1347,7 +1359,7 @@ define( "kTAG_ENTITY_FAX",				'@52' );
  * This tag holds a <em>list of telex numbers discriminated by their type</em>. Each
  * element of the list represents a telex code which should be used according to its type.
  */
-define( "kTAG_ENTITY_TLX",				'@53' );
+define( "kTAG_ENTITY_TLX",				'@54' );
 
 /**
  * Entity affiliation (<code>:entity:affiliation</code)
@@ -1364,7 +1376,7 @@ define( "kTAG_ENTITY_TLX",				'@53' );
  * stored in the entities collection exist solely for the purpose of providing a container
  * for system users.</em>
  */
-define( "kTAG_ENTITY_AFFILIATION",		'@54' );
+define( "kTAG_ENTITY_AFFILIATION",		'@55' );
 
 /**
  * Entity mationality (<code>:entity:nationality</code)
@@ -1375,7 +1387,7 @@ define( "kTAG_ENTITY_AFFILIATION",		'@54' );
  *
  * This tag holds an <em>enumerated value representing the nationality of the entity</em>.
  */
-define( "kTAG_ENTITY_NATIONALITY",		'@55' );
+define( "kTAG_ENTITY_NATIONALITY",		'@56' );
 
 /**
  * Valid entity (<code>:entity:valid</code)
@@ -1388,7 +1400,7 @@ define( "kTAG_ENTITY_NATIONALITY",		'@55' );
  * attribute is used by obsolete or defunct entities for referring to the current substitute
  * or valid entity.
  */
-define( "kTAG_ENTITY_VALID",			'@56' );
+define( "kTAG_ENTITY_VALID",			'@57' );
 
 /**
  * Entity PGP public key (<code>:entity:pgp-key</code)
@@ -1399,7 +1411,7 @@ define( "kTAG_ENTITY_VALID",			'@56' );
  *
  * This tag holds the <em>PGP public key</em> which identifies a specific <em>user</em>.
  */
-define( "kTAG_ENTITY_PGP_KEY",			'@57' );
+define( "kTAG_ENTITY_PGP_KEY",			'@58' );
 
 /**
  * Entity PGP fingerprint (<code>:entity:pgp-fingerprint</code)
@@ -1410,7 +1422,18 @@ define( "kTAG_ENTITY_PGP_KEY",			'@57' );
  *
  * This tag holds the <em>PGP fingerprint</em> which identifies a specific <em>user</em>.
  */
-define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@58' );
+define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@59' );
+
+/**
+ * Entity icon (<code>:entity:icon</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ * </ul>
+ *
+ * This tag indicates the entity icon name.
+ */
+define( "kTAG_ENTITY_ICON",				'@5a' );
 
 /*=======================================================================================
  *	MANAGEMENT OFFSETS																	*
@@ -1427,7 +1450,7 @@ define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@58' );
  * value is a set of string values which are defined and managed by the user interface
  * system.
  */
-define( "kTAG_ROLES",					'@59' );
+define( "kTAG_ROLES",					'@5b' );
 
 /**
  * Invites (<code>:invites</code)
@@ -1439,7 +1462,7 @@ define( "kTAG_ROLES",					'@59' );
  *
  * This tag indicates the list of invitations.
  */
-define( "kTAG_INVITES",					'@5a' );
+define( "kTAG_INVITES",					'@5c' );
 
 /**
  * Class (<code>:class</code)
@@ -1450,7 +1473,7 @@ define( "kTAG_INVITES",					'@5a' );
  *
  * This tag indicates a class name.
  */
-define( "kTAG_CLASS_NAME",				'@5b' );
+define( "kTAG_CLASS_NAME",				'@5d' );
 
 /**
  * Token (<code>:token</code)
@@ -1461,7 +1484,7 @@ define( "kTAG_CLASS_NAME",				'@5b' );
  *
  * This tag indicates a token.
  */
-define( "kTAG_TOKEN",					'@5c' );
+define( "kTAG_TOKEN",					'@5e' );
 
 /**
  * Managed (<code>:managed-count</code)
@@ -1472,18 +1495,7 @@ define( "kTAG_TOKEN",					'@5c' );
  *
  * This tag indicates the number of managed users.
  */
-define( "kTAG_MANAGED_COUNT",			'@5d' );
-
-/**
- * User icon (<code>:entity:icon</code)
- *
- * <ul>
- *	<li><em>Type</em>: {@link kTYPE_STRING}
- * </ul>
- *
- * This tag indicates the entity icon name.
- */
-define( "kTAG_ENTITY_ICON",				'@5e' );
+define( "kTAG_MANAGED_COUNT",			'@5f' );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

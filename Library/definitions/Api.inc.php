@@ -2337,8 +2337,8 @@ define( "kAPI_RESULT_ENUM_DATA_COLUMN",			'column' );
  *	 </ul>
  *	<li><tt>{@link kTYPE_TYPED_LIST}</tt>: Typed lists:
  *	 <ul>
- *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This element will hold the
- *			the elements of the typed list formatted as follows:
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This property will hold the
+ *			liost of elements of the typed list formatted as follows:
  *		 <ul>
  *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: This element will hold the
  *				value of the {@link kTAG_TYPE} item of the list element, except when the
@@ -2349,13 +2349,15 @@ define( "kAPI_RESULT_ENUM_DATA_COLUMN",			'column' );
  *				<li><tt>{@link kTAG_LANGUAGE}</tt>: The property will be <tt>Language</tt>.
  *			 </ul>
  *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This element will hold the
- *				display value according to the found items:
+ *				display value. The following primitive types will be normalised as follows:
  *			 <ul>
- *				<li><tt>{@link kTAG_URL}</tt>: The property will hold the value of the
- *					{@link kTAG_TEXT}, if found, or {@link kTAG_URL}; an item indexed
- *					by {@link kAPI_PARAM_RESPONSE_FRMT_LINK} will hold the link.
+ *				<li><tt>{@link kTYPE_INT}</tt>: The number will have thousands separator.
+ *				<li><tt>{@link kTYPE_FLOAT}</tt>: The number will have thousands separator
+ *					and will have two decimal places by default, or the value held by the
+ *					{@link kTAG_DECIMALS} property of the tag.
  *			 </ul>
- *				In all other cases the property will hold the value.
+ *			<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This element will hold the
+ *				value of the {@link kTAG_URL} element if present.
  *		 </ul>
  *	 </ul>
  * </ul>

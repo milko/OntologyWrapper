@@ -2762,6 +2762,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_DECIMALS">4</item>
 		</TAG>
 		<NODE tag=":location:site:datum:DeltaA">
 			<item const="kTAG_NODE_TYPE">
@@ -2788,6 +2789,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_DECIMALS">4</item>
 		</TAG>
 		<NODE tag=":location:site:datum:DeltaF">
 			<item const="kTAG_NODE_TYPE">
@@ -6075,6 +6077,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
+			<item const="kTAG_DECIMALS">6</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -6233,6 +6236,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_DECIMALS">4</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -6341,6 +6345,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
+			<item const="kTAG_DECIMALS">6</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -6497,6 +6502,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
+			<item const="kTAG_DECIMALS">4</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -6909,6 +6915,7 @@
 			</item>
 			<item const="kTAG_MIN_RANGE">-90</item>
 			<item const="kTAG_MAX_RANGE">90</item>
+			<item const="kTAG_DECIMALS">6</item>
 		</TAG>
 		<NODE tag=":location:site:georeference-latitude">
 			<item const="kTAG_NODE_TYPE">
@@ -6949,6 +6956,7 @@
 			</item>
 			<item const="kTAG_MIN_RANGE">-180</item>
 			<item const="kTAG_MAX_RANGE">180</item>
+			<item const="kTAG_DECIMALS">6</item>
 		</TAG>
 		<NODE tag=":location:site:georeference-longitude">
 			<item const="kTAG_NODE_TYPE">

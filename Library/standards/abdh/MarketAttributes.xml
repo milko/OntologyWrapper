@@ -784,6 +784,7 @@
 				<item>:type:quantitative</item>
 			</item>
 			<item const="kTAG_ID_SYMBOL">DIST_MARKET</item>
+			<item const="kTAG_DECIMALS">1</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

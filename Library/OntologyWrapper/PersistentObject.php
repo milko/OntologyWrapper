@@ -561,6 +561,12 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
+		kTAG_DECIMALS => array
+		(
+			kTAG_NID	=> ':decimals',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
 		kTAG_GEO_SHAPE => array
 		(
 			kTAG_NID	=> ':shape',
@@ -756,6 +762,12 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
+		kTAG_ENTITY_ICON => array
+		(
+			kTAG_NID	=> ':entity:icon',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
 		kTAG_ROLES => array
 		(
 			kTAG_NID	=> ':roles',
@@ -784,12 +796,6 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':managed-count',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
-		kTAG_ENTITY_ICON => array
-		(
-			kTAG_NID	=> ':entity:icon',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		)
 	);

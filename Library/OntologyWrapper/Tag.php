@@ -138,6 +138,9 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_PATTERN}</tt>: <em>Regular expression pattern</em>. This attribute
  *		holds a <em>string</em> which represents a <em>regular expression pattern</em> which
  *		can be used to <em>validate data identified by this tag</em>.
+ *	<li><tt>{@link kTAG_DECIMALS}</tt>: <em>Decimal places</em>. This attribute holds an
+ *		<em>integer</em> which represents the number of decimal places a floating point
+ *		number should display.
  *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: <em>Tag offsets</em>. This attribute is handled
  *		automatically and should not be modified by clients, it collects all the offsets
  *		(sequence of tags indicating the structure path to a leaf offset) in which the tag

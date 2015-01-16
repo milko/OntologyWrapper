@@ -1015,6 +1015,22 @@
 				</item>
 			</item>
 		</TERM>
+	
+		<!-- kTAG_DECIMALS -->
+		<TERM ns="" lid="decimals">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Decimals</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the decimal places of a floating point number.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Default attributes -->
@@ -1507,6 +1523,22 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- kTAG_ENTITY_ICON -->
+		<TERM ns=":entity" lid="icon">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity icon</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The name of the icon or picture of the entity.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Management attributes -->
@@ -1588,22 +1620,6 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[The number of users for which the current user is a referrer.]]></item>
-				</item>
-			</item>
-		</TERM>
-		
-		<!-- kTAG_ENTITY_ICON -->
-		<TERM ns=":entity" lid="icon">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity icon</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The name of the icon or picture of the entity.]]></item>
 				</item>
 			</item>
 		</TERM>
