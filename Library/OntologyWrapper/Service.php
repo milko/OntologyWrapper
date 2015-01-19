@@ -781,6 +781,14 @@ class Service extends ContainerObject
 	 *
 	 * The duty of this method is to resolve the provided user and return its object.
 	 *
+	 * The method expects the parameter to be one of the following:
+	 *
+	 * <ul>
+	 *	<li><tt>array</tt>: The user code/password combination, with the password encoded in
+	 *		SHA1.
+	 *	<li><tt>string</tt> The user ientifier, {@link kTAG_IDENTIFIER}.
+	 * </ul>
+	 *
 	 * @param string				$theUser			User identifier.
 	 *
 	 * @access protected
@@ -792,8 +800,11 @@ class Service extends ContainerObject
 	 */
 	protected function parseUser( $theUser )
 	{
-		return User::UserByIdentifier(
-			$this->mWrapper, $theUser, kPORTAL_DOMAIN, TRUE );						// ==>
+		return ( is_array( $theUser ) )
+			 ? User::UserByPassword(
+			 	$this->mWrapper, $theUser, kPORTAL_DOMAIN, TRUE )					// ==>
+			 : User::UserByIdentifier(
+			 	$this->mWrapper, $theUser, kPORTAL_DOMAIN, TRUE );					// ==>
 		
 	} // parseUser.
 
@@ -2260,13 +2271,6 @@ class Service extends ContainerObject
 				"Missing unit identifier parameter." );							// !@! ==>
 
 		//
-		// Assert result kind.
-		//
-		if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
-			throw new \Exception(
-				"Missing results kind parameter." );							// !@! ==>
-
-		//
 		// Validate identifier.
 		//
 		$param = $this->offsetExists( kAPI_PARAM_ID );
@@ -2275,6 +2279,13 @@ class Service extends ContainerObject
 		   || (count( $param ) != 2) ) )
 			throw new \Exception(
 				"Invalid user identifier parameter format." );					// !@! ==>
+
+		//
+		// Assert result kind.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
+			throw new \Exception(
+				"Missing results kind parameter." );							// !@! ==>
 		
 		//
 		// Validate by format type.

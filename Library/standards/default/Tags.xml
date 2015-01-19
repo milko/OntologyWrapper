@@ -2262,6 +2262,32 @@
 	</META>
 	
 	<!-- @4c -->
+	<!-- kTAG_ENTITY_TITLE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:title</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_TITLE</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string representing the title of the entity.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @4d -->
 	<!-- kTAG_ENTITY_TYPE -->
 	<META>
 		<TAG>
@@ -2289,7 +2315,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @4d -->
+	<!-- @4e -->
 	<!-- kTAG_ENTITY_KIND -->
 	<META>
 		<TAG>
@@ -2317,7 +2343,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @4e -->
+	<!-- @4f -->
 	<!-- kTAG_ENTITY_ACRONYM -->
 	<META>
 		<TAG>
@@ -2351,7 +2377,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @4f -->
+	<!-- @50 -->
 	<!-- kTAG_ENTITY_MAIL -->
 	<META>
 		<TAG>
@@ -2383,7 +2409,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @50 -->
+	<!-- @51 -->
 	<!-- kTAG_ENTITY_EMAIL -->
 	<META>
 		<TAG>
@@ -2415,7 +2441,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @51 -->
+	<!-- @52 -->
 	<!-- kTAG_ENTITY_LINK -->
 	<META>
 		<TAG>
@@ -2447,7 +2473,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @52 -->
+	<!-- @53 -->
 	<!-- kTAG_ENTITY_PHONE -->
 	<META>
 		<TAG>
@@ -2479,7 +2505,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @53 -->
+	<!-- @54 -->
 	<!-- kTAG_ENTITY_FAX -->
 	<META>
 		<TAG>
@@ -2511,7 +2537,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @54 -->
+	<!-- @55 -->
 	<!-- kTAG_ENTITY_TLX -->
 	<META>
 		<TAG>
@@ -2543,7 +2569,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @55 -->
+	<!-- @56 -->
 	<!-- kTAG_ENTITY_AFFILIATION -->
 	<META>
 		<TAG>
@@ -2569,7 +2595,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @56 -->
+	<!-- @57 -->
 	<!-- kTAG_ENTITY_NATIONALITY -->
 	<META>
 		<TAG>
@@ -2603,7 +2629,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @57 -->
+	<!-- @58 -->
 	<!-- kTAG_ENTITY_VALID -->
 	<META>
 		<TAG>
@@ -2629,7 +2655,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @58 -->
+	<!-- @59 -->
 	<!-- kTAG_ENTITY_PGP_KEY -->
 	<META>
 		<TAG>
@@ -2655,7 +2681,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @59 -->
+	<!-- @5a -->
 	<!-- kTAG_ENTITY_PGP_FINGERPRINT -->
 	<META>
 		<TAG>
@@ -2681,7 +2707,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @5a -->
+	<!-- @5b -->
 	<!-- kTAG_ENTITY_ICON -->
 	<META>
 		<TAG>
@@ -2709,7 +2735,7 @@
 	
 	<!-- Management attributes -->
 	
-	<!-- @5b -->
+	<!-- @5c -->
 	<!-- kTAG_ROLES -->
 	<META>
 		<TAG>
@@ -2737,7 +2763,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @5c -->
+	<!-- @5d -->
 	<!-- kTAG_INVITES -->
 	<META>
 		<TAG>
@@ -2764,7 +2790,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @5d -->
+	<!-- @5e -->
 	<!-- kTAG_CLASS_NAME -->
 	<META>
 		<TAG>
@@ -2790,7 +2816,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @5e -->
+	<!-- @5f -->
 	<!-- kTAG_TOKEN -->
 	<META>
 		<TAG>
@@ -2816,7 +2842,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @5f -->
+	<!-- @60 -->
 	<!-- kTAG_MANAGED_COUNT -->
 	<META>
 		<TAG>

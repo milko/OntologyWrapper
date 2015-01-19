@@ -1440,7 +1440,8 @@ define( "kAPI_OP_GET_UNIT",						'getUnit' );
  *
  * <ul>
  *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
- *		{@link kTAG_IDENTIFIER}, of the user sending the invitation.
+ *		{@link kTAG_IDENTIFIER}, of the user sending the invitation, or the user
+ *		code/password combination as an array.
  *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user invitation, the
  *		following elements are required:
  *	 <ul>
@@ -1471,7 +1472,8 @@ define( "kAPI_OP_INVITE_USER",					'inviteUser' );
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Invitation ID</em>. The fingerprint,
  *		{@link kTAG_ENTITY_PGP_FINGERPRINT}, of the invited user, stored in the invitation.
  *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
- *		{@link kTAG_IDENTIFIER}, of the user requesting this information.
+ *		{@link kTAG_IDENTIFIER}, of the user sending the invitation, or the user
+ *		code/password combination as an array.
  * </ul>
  */
 define( "kAPI_OP_USER_INVITE",					'userInvite' );
@@ -1510,9 +1512,9 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
  *		holds the user fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, or the user
  *		code/password combination as an array.
- *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The fingerprint of the
- *		user requesting the data, this parameter is only considered when providing the
- *		fingerprint of the requested user, depending whether the requesting user is
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user sending the invitation, or the user
+ *		code/password combination as an array. Depending whether the requesting user is
  *		in the requested user's referrer's inheritance the service will return either the
  *		full data record or only the public fields.
  *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Data type</em>. This required parameter
@@ -1546,11 +1548,13 @@ define( "kAPI_OP_GET_USER",						'getUser' );
  *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
  *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
  *		a language code.
- *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The fingerprint of the
- *		user requesting the data, this parameter is required and the user must be allowed to
- *		manage the modified user.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user sending the invitation, or the user
+ *		code/password combination as an array. This parameter is required and the user must
+ *		be allowed to manage the modified user.
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
- *		holds the user native identifier, {@link kTAG_ENTITY_PGP_FINGERPRINT}.
+ *		holds the user fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, or the user
+ *		code/password combination as an array.
  *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user properties,
  *		<tt>NULL</tt> properties are assumed to be deleted. The record must have the same
  *		structure as the user record.
@@ -1572,10 +1576,12 @@ define( "kAPI_OP_MOD_USER",						'modUser' );
  *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
  *		a language code.
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
- *		holds the fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, of the referrer.
- *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>Requesting user</em>. The fingerprint of the
- *		user requesting the service. Depending whether the requesting user is in the
- *		requested user's referrer's inheritance or if this parameter was omitted, the
+ *		holds the referrer's fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, or the
+ *		code/password combination as an array.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user sending the invitation, or the user
+ *		code/password combination as an array. Depending whether the requesting user is in
+ *		the requested user's referrer's inheritance or if this parameter was omitted, the
  *		service will return either the full data record or only the public fields.
  *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Data type</em>. This required parameter
  *		indicates how the unit data should be formatted:

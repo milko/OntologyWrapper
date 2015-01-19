@@ -1252,6 +1252,17 @@ define( "kTAG_ENTITY_FNAME",			'@4a' );
 define( "kTAG_ENTITY_LNAME",			'@4b' );
 
 /**
+ * Entity title (<code>:entity:title</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ * </ul>
+ *
+ * This tag holds a <em>string</em> representing the <em>title</em> of an entity.
+ */
+define( "kTAG_ENTITY_TITLE",			'@4c' );
+
+/**
  * Entity type (<code>:type:entity</code)
  *
  * <ul>
@@ -1261,7 +1272,7 @@ define( "kTAG_ENTITY_LNAME",			'@4b' );
  * This tag holds an <em>enumerated set</em> which describes the <em>types of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_TYPE",				'@4c' );
+define( "kTAG_ENTITY_TYPE",				'@4d' );
 
 /**
  * Entity kind (<code>:kind:entity</code)
@@ -1273,7 +1284,7 @@ define( "kTAG_ENTITY_TYPE",				'@4c' );
  * This tag holds an <em>enumerated set</em> which describes the <em>kinds of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_KIND",				'@4d' );
+define( "kTAG_ENTITY_KIND",				'@4e' );
 
 /**
  * Entity acronym (<code>:entity:acronym</code)
@@ -1286,7 +1297,7 @@ define( "kTAG_ENTITY_KIND",				'@4d' );
  * This tag holds a a <em>list of strings</em> representing the entity <em>acronyms</em> or
  * <em>abbreviations</em>.
  */
-define( "kTAG_ENTITY_ACRONYM",			'@4e' );
+define( "kTAG_ENTITY_ACRONYM",			'@4f' );
 
 /**
  * Entity mail (<code>:entity:mail</code)
@@ -1298,7 +1309,7 @@ define( "kTAG_ENTITY_ACRONYM",			'@4e' );
  * This tag holds a <em>list of mailing addresses discriminated by their type</em>. Each
  * element of the list represents an address which should be used according to its type.
  */
-define( "kTAG_ENTITY_MAIL",				'@4f' );
+define( "kTAG_ENTITY_MAIL",				'@50' );
 
 /**
  * Entity e-mail (<code>:entity:email</code)
@@ -1310,7 +1321,7 @@ define( "kTAG_ENTITY_MAIL",				'@4f' );
  * This tag holds a <em>list of e-mail addresses discriminated by their type</em>. Each
  * element of the list represents an e-mail which should be used according to its type.
  */
-define( "kTAG_ENTITY_EMAIL",			'@50' );
+define( "kTAG_ENTITY_EMAIL",			'@51' );
 
 /**
  * Entity link (<code>:entity:url</code)
@@ -1323,7 +1334,7 @@ define( "kTAG_ENTITY_EMAIL",			'@50' );
  * element of the list represents an internet link which can be categorised according to its
  * type.
  */
-define( "kTAG_ENTITY_LINK",				'@51' );
+define( "kTAG_ENTITY_LINK",				'@52' );
 
 /**
  * Entity phone (<code>:entity:phone</code)
@@ -1335,7 +1346,7 @@ define( "kTAG_ENTITY_LINK",				'@51' );
  * This tag holds a <em>list of telephone numbers discriminated by their type</em>. Each
  * element of the list represents a phone number which should be used according to its type.
  */
-define( "kTAG_ENTITY_PHONE",			'@52' );
+define( "kTAG_ENTITY_PHONE",			'@53' );
 
 /**
  * Entity fax (<code>:entity:fax</code)
@@ -1347,7 +1358,7 @@ define( "kTAG_ENTITY_PHONE",			'@52' );
  * This tag holds a <em>list of telefax numbers discriminated by their type</em>. Each
  * element of the list represents a fax number which should be used according to its type.
  */
-define( "kTAG_ENTITY_FAX",				'@53' );
+define( "kTAG_ENTITY_FAX",				'@54' );
 
 /**
  * Entity telex (<code>:entity:tlx</code)
@@ -1359,7 +1370,7 @@ define( "kTAG_ENTITY_FAX",				'@53' );
  * This tag holds a <em>list of telex numbers discriminated by their type</em>. Each
  * element of the list represents a telex code which should be used according to its type.
  */
-define( "kTAG_ENTITY_TLX",				'@54' );
+define( "kTAG_ENTITY_TLX",				'@55' );
 
 /**
  * Entity affiliation (<code>:entity:affiliation</code)
@@ -1376,7 +1387,7 @@ define( "kTAG_ENTITY_TLX",				'@54' );
  * stored in the entities collection exist solely for the purpose of providing a container
  * for system users.</em>
  */
-define( "kTAG_ENTITY_AFFILIATION",		'@55' );
+define( "kTAG_ENTITY_AFFILIATION",		'@56' );
 
 /**
  * Entity mationality (<code>:entity:nationality</code)
@@ -1387,7 +1398,7 @@ define( "kTAG_ENTITY_AFFILIATION",		'@55' );
  *
  * This tag holds an <em>enumerated value representing the nationality of the entity</em>.
  */
-define( "kTAG_ENTITY_NATIONALITY",		'@56' );
+define( "kTAG_ENTITY_NATIONALITY",		'@57' );
 
 /**
  * Valid entity (<code>:entity:valid</code)
@@ -1400,7 +1411,7 @@ define( "kTAG_ENTITY_NATIONALITY",		'@56' );
  * attribute is used by obsolete or defunct entities for referring to the current substitute
  * or valid entity.
  */
-define( "kTAG_ENTITY_VALID",			'@57' );
+define( "kTAG_ENTITY_VALID",			'@58' );
 
 /**
  * Entity PGP public key (<code>:entity:pgp-key</code)
@@ -1411,7 +1422,7 @@ define( "kTAG_ENTITY_VALID",			'@57' );
  *
  * This tag holds the <em>PGP public key</em> which identifies a specific <em>user</em>.
  */
-define( "kTAG_ENTITY_PGP_KEY",			'@58' );
+define( "kTAG_ENTITY_PGP_KEY",			'@59' );
 
 /**
  * Entity PGP fingerprint (<code>:entity:pgp-fingerprint</code)
@@ -1422,7 +1433,7 @@ define( "kTAG_ENTITY_PGP_KEY",			'@58' );
  *
  * This tag holds the <em>PGP fingerprint</em> which identifies a specific <em>user</em>.
  */
-define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@59' );
+define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@5a' );
 
 /**
  * Entity icon (<code>:entity:icon</code)
@@ -1433,7 +1444,7 @@ define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@59' );
  *
  * This tag indicates the entity icon name.
  */
-define( "kTAG_ENTITY_ICON",				'@5a' );
+define( "kTAG_ENTITY_ICON",				'@5b' );
 
 /*=======================================================================================
  *	MANAGEMENT OFFSETS																	*
@@ -1450,7 +1461,7 @@ define( "kTAG_ENTITY_ICON",				'@5a' );
  * value is a set of string values which are defined and managed by the user interface
  * system.
  */
-define( "kTAG_ROLES",					'@5b' );
+define( "kTAG_ROLES",					'@5c' );
 
 /**
  * Invites (<code>:invites</code)
@@ -1462,7 +1473,7 @@ define( "kTAG_ROLES",					'@5b' );
  *
  * This tag indicates the list of invitations.
  */
-define( "kTAG_INVITES",					'@5c' );
+define( "kTAG_INVITES",					'@5d' );
 
 /**
  * Class (<code>:class</code)
@@ -1473,7 +1484,7 @@ define( "kTAG_INVITES",					'@5c' );
  *
  * This tag indicates a class name.
  */
-define( "kTAG_CLASS_NAME",				'@5d' );
+define( "kTAG_CLASS_NAME",				'@5e' );
 
 /**
  * Token (<code>:token</code)
@@ -1484,7 +1495,7 @@ define( "kTAG_CLASS_NAME",				'@5d' );
  *
  * This tag indicates a token.
  */
-define( "kTAG_TOKEN",					'@5e' );
+define( "kTAG_TOKEN",					'@5f' );
 
 /**
  * Managed (<code>:managed-count</code)
@@ -1495,7 +1506,7 @@ define( "kTAG_TOKEN",					'@5e' );
  *
  * This tag indicates the number of managed users.
  */
-define( "kTAG_MANAGED_COUNT",			'@5f' );
+define( "kTAG_MANAGED_COUNT",			'@60' );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

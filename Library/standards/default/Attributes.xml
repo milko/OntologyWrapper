@@ -1279,7 +1279,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The first name of an individual entity.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The first name of an entity.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1295,7 +1295,23 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The surname of an individual entity.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The surname of an entity.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_ENTITY_TITLE -->
+		<TERM ns=":entity" lid="title">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity title</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The title of an entity.]]></item>
 				</item>
 			</item>
 		</TERM>

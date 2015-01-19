@@ -454,6 +454,66 @@ class User extends Individual
 	
 	} // UserByIdentifier.
 
+	 
+	/*===================================================================================
+	 *	UserByPassword																	*
+	 *==================================================================================*/
+
+	/**
+	 * Instantiate user by code and password
+	 *
+	 * This method will return the user object matching the provided user name and password
+	 * provided as an array of the two respective elements; the password must be SHA1
+	 * encoded.
+	 *
+	 * The method will return <tt>NULL</tt> if not found.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theIdentifier		User code and password.
+	 * @param string				$theCollection		Users collection.
+	 * @param boolean				$doAssert			Assert user.
+	 *
+	 * @static
+	 * @return User					User object or <tt>NULL<tt>.
+	 */
+	static function UserByPassword( Wrapper $theWrapper,
+											$theIdentifier,
+											$theCollection = NULL,
+											$doAssert = TRUE )
+	{
+		//
+		// Assert identifier.
+		//
+		if( (! is_array( $theIdentifier ))
+		 || (count( $theIdentifier ) != 2) )
+			throw new \Exception(
+				"Invalid user identification." );								// !@! ==>
+			
+		//
+		// Set options.
+		//
+		$options = kQUERY_OBJECT;
+		if( $doAssert )
+			$options |= kQUERY_ASSERT;
+		
+		//
+		// Set filter.
+		//
+		$filter = array( kTAG_CONN_CODE => array_shift( $theIdentifier ),
+						 kTAG_CONN_PASS => array_shift( $theIdentifier ) );
+		if( $theCollection !== NULL )
+			$filter[ kTAG_COLLECTION ]
+				= (string) $theCollection;
+		
+		return
+			static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper ) )
+					->matchOne(
+						$filter,
+						$options );													// ==>
+	
+	} // UserByPassword.
+
 		
 
 /*=======================================================================================
