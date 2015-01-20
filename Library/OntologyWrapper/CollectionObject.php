@@ -101,7 +101,7 @@ abstract class CollectionObject extends ConnectionObject
 			//
 			$this->mParent = $this->newDatabase( $params );
 		
-		} // Mising parent.
+		} // Missing parent.
 		
 	} // Constructor.
 

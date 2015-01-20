@@ -31,6 +31,33 @@
 	
 	<!-- Role type enumerations -->
 	
+	<!-- :roles:user-login -->
+	<META>
+		<TERM ns=":roles" lid="user-login">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Login]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The ability to login.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":roles:user-login">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::roles</item>
+		</EDGE>
+	</META>
+	
 	<!-- :roles:user-invite -->
 	<META>
 		<TERM ns=":roles" lid="user-invite">

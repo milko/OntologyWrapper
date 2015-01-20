@@ -951,6 +951,7 @@ echo( '<hr />' );
 	
 /******************************************************************************/
 
+/*
 	//
 	// Test date.
 	//
@@ -974,5 +975,98 @@ echo( '<hr />' );
 	$date = '201403300300';
 	echo( $date.'<br />' );
 	echo( DisplayDate( $date ).'<hr />' );
+*/
+	
+/******************************************************************************/
+
+	//
+	// Test hashed serial identifiers.
+	//
+	
+	require_once( "includes.inc.php" );
+	require_once( "local.inc.php" );
+	require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
+	
+	//
+	// Connect.
+	//
+	$m = new MongoClient( 'mongodb://localhost:27017' );
+	$d = $m->selectDB( 'test' );
+	$d->drop();
+	$ins_coll = $d->selectCollection( 'inserts' );
+	$upd_coll = $d->selectCollection( 'updates' );
+	
+	//
+	// Add update records.
+	//
+	$upd_batch = new MongoInsertBatch( $upd_coll );
+	$upd_batch->add( array( '_id' => 'T1' ) );
+	$upd_batch->add( array( '_id' => 'T2' ) );
+	$upd_batch->add( array( '_id' => 'T3' ) );
+	$ok = $upd_batch->execute();
+	
+	//
+	// Instantiate batches.
+	//
+	$ins_batch = new MongoInsertBatch( $ins_coll );
+	$upd_batch = new MongoUpdateBatch( $upd_coll );
+	
+	//
+	// Insert records.
+	//
+	$ins_batch->add( array( '_id' => 'a', 'name' => 'Milko' ) );
+	$ins_batch->add( array( '_id' => 'b', 'name' => 'Ale' ) );
+	$ins_batch->add( array( '_id' => 'd', 'name' => 'Gubi' ) );
+	$ins_batch->add( array( '_id' => 'e', 'name' => 'Milko' ) );
+	$upd_batch->add(
+		array(
+			'q' => array( '_id' => 'T1' ),
+			'u' => array( '$inc' => array( 'counter' => 1 ),
+						  '$addToSet' => array( 'names' => 'Milko' ) ),
+			'multi' => FALSE,
+			'upsert' => FALSE ) );
+	$upd_batch->add(
+		array(
+			'q' => array( '_id' => 'T2' ),
+			'u' => array( '$inc' => array( 'counter' => 1 ),
+						  '$addToSet' => array( 'names' => 'Ale' ) ),
+			'multi' => FALSE,
+			'upsert' => FALSE ) );
+	$upd_batch->add(
+		array(
+			'q' => array( '_id' => 'T3' ),
+			'u' => array( '$inc' => array( 'counter' => 1 ),
+						  '$addToSet' => array( 'names' => 'Gubi' ) ),
+			'multi' => FALSE,
+			'upsert' => FALSE ) );
+	$upd_batch->add(
+		array(
+			'q' => array( '_id' => 'T3' ),
+			'u' => array( '$inc' => array( 'counter' => 1 ),
+						  '$addToSet' => array( 'names' => 'Milko' ) ),
+			'multi' => FALSE,
+			'upsert' => FALSE ) );
+	
+	//
+	// Execute.
+	//
+	echo( 'Insert:<br />' );
+	$ok = $ins_batch->execute();
+	var_dump( $ok );
+	echo( '<br />' );
+	echo( 'Update:<br />' );
+	$ok = $upd_batch->execute();
+	var_dump( $ok );
+	echo( '<br />' );
+	
+	//
+	// Check.
+	//
+	echo( 'Inserted:<br />' );
+	var_dump( iterator_to_array( $ins_coll->find() ) );
+	echo( '<br />' );
+	echo( 'Updated:<br />' );
+	var_dump( iterator_to_array( $upd_coll->find() ) );
+	echo( '<br />' );
 	
 ?>

@@ -278,7 +278,9 @@ class Service extends ContainerObject
 					case kAPI_OP_USER_INVITE:
 					case kAPI_OP_ADD_USER:
 					case kAPI_OP_GET_USER:
+					case kAPI_OP_MOD_USER:
 					case kAPI_OP_GET_MANAGED:
+					case kAPI_OP_CHECK_USER_CODE:
 						break;
 					
 					default:
@@ -509,7 +511,9 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: User invitation.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
+	 *	<li><tt>{@link kAPI_OP_MOD_USER}</tt>: Modify user.
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
+	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 * </ul>
 	 *
 	 * If the operation is not recognised, the method will raise an exception.
@@ -551,7 +555,9 @@ class Service extends ContainerObject
 			case kAPI_OP_USER_INVITE:
 			case kAPI_OP_ADD_USER:
 			case kAPI_OP_GET_USER:
+			case kAPI_OP_MOD_USER:
 			case kAPI_OP_GET_MANAGED:
+			case kAPI_OP_CHECK_USER_CODE:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 			
@@ -628,6 +634,7 @@ class Service extends ContainerObject
 				case kAPI_OP_USER_INVITE:
 				case kAPI_OP_ADD_USER:
 				case kAPI_OP_GET_USER:
+				case kAPI_OP_MOD_USER:
 				case kAPI_OP_GET_MANAGED:
 					$encoder = new Encoder();
 					$decoded = $encoder->decodeData( $_REQUEST[ kAPI_REQUEST_PARAMETERS ] );
@@ -906,7 +913,9 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: User invitation.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
+	 *	<li><tt>{@link kAPI_OP_MOD_USER}</tt>: Modify user.
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
+	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 * </ul>
 	 *
 	 * Any unrecognised operation will raise an exception.
@@ -987,6 +996,14 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_ADD_USER:
 				$this->validateAddUser();
+				break;
+				
+			case kAPI_OP_MOD_USER:
+				$this->validateModUser();
+				break;
+				
+			case kAPI_OP_CHECK_USER_CODE:
+				$this->validateCheckUserCode();
 				break;
 			
 			default:
@@ -2088,7 +2105,7 @@ class Service extends ContainerObject
 	/**
 	 * Validate add user service.
 	 *
-	 * This method will validate the operaqtion parameters and perform the following
+	 * This method will validate the operation parameters and perform the following
 	 * actions:
 	 *
 	 * <ul>
@@ -2248,6 +2265,103 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	validateModUser																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate modify user service.
+	 *
+	 * This method will validate the operation parameters and perform the following
+	 * actions:
+	 *
+	 * <ul>
+	 *	<li>Assert the {@link kAPI_PARAM_ID} parameter.
+	 *	<li>Load the user referenced {@link kAPI_PARAM_ID} parameter.
+	 *	<li>Assert the {@link kAPI_PARAM_OBJECT} parameter.
+	 *	<li>Check the {@link kAPI_PARAM_OBJECT} parameter format.
+	 *	<li>Assert the {@link kAPI_REQUEST_USER} parameter.
+	 *	<li>Verify whether the user referenced by the {@link kAPI_REQUEST_USER} can perform
+	 *		the update.
+	 * </ul>
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateModUser()
+	{
+		//
+		// Check object.
+		//
+		if( $this->offsetExists( kAPI_PARAM_ID ) )
+		{
+			//
+			// Instantiate user.
+			//
+			$user = $this->offsetGet( kAPI_PARAM_ID );
+			$this->offsetSet(
+				kAPI_PARAM_ID,
+				( is_array( $user ) )
+					? User::UserByPassword(
+			 			$this->mWrapper, $user, kPORTAL_DOMAIN, TRUE )
+			 		: User::UserByIdentifier(
+			 			$this->mWrapper, $user, kPORTAL_DOMAIN, TRUE ) );
+			 
+			 //
+			 // Assert user data.
+			 //
+			if( $this->offsetExists( kAPI_PARAM_OBJECT ) )
+			{
+				//
+				// Validate user data structure.
+				//
+				if( is_array( $this->offsetGet( kAPI_PARAM_OBJECT ) ) )
+				{
+					//
+					// Assert requesting user.
+					//
+					if( $this->offsetExists( kAPI_REQUEST_USER ) )
+					{
+						//
+						// Check if requesting user is referrer.
+						//
+						if( !
+							count(
+								$this->offsetGet( kAPI_PARAM_ID )
+									->referrers(
+										$this->offsetGet( kAPI_PARAM_ID ),
+										$this->mWrapper ) ) )
+							throw new \Exception(
+								"Authorisation failure." );						// !@! ==>
+					
+					} // Provided requesting user.
+		
+					else
+						throw new \Exception(
+							"Missing requesting user." );						// !@! ==>
+				
+				} // User data is array.
+		
+				else
+					throw new \Exception(
+						"Invalid user data format." );							// !@! ==>
+			
+			} // Provided user data.
+		
+			else
+				throw new \Exception(
+					"Missing user data." );										// !@! ==>
+		
+		} // Provided user identifier
+		
+		else
+			throw new \Exception(
+				"Missing user identifier." );									// !@! ==>
+		
+	} // validateModUser.
+
+	 
+	/*===================================================================================
 	 *	validateGetUser																	*
 	 *==================================================================================*/
 
@@ -2303,6 +2417,36 @@ class Service extends ContainerObject
 		}
 		
 	} // validateGetUser.
+
+	 
+	/*===================================================================================
+	 *	validateCheckUserCode															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate check user code service.
+	 *
+	 * This method will validate the operation parameters and perform the following
+	 * actions:
+	 *
+	 * <ul>
+	 *	<li>Assert the {@link kAPI_PARAM_ID} parameter.
+	 * </ul>
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateCheckUserCode()
+	{
+		//
+		// Check object.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_ID ) )
+			throw new \Exception(
+				"Missing user code." );											// !@! ==>
+		
+	} // validateCheckUserCode.
 
 	 
 	/*===================================================================================
@@ -3652,7 +3796,9 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_USER_INVITE}</tt>: User invitation.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
+	 *	<li><tt>{@link kAPI_OP_MOD_USER}</tt>: Modify user.
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
+	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 * </ul>
 	 *
 	 * Derived classes can parse their custom operations or call the parent method.
@@ -3750,6 +3896,14 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_GET_MANAGED:
 				$this->executeGetManagedUsers();
+				break;
+				
+			case kAPI_OP_MOD_USER:
+				$this->executeModUser();
+				break;
+				
+			case kAPI_OP_CHECK_USER_CODE:
+				$this->executeCheckUserCode();
 				break;
 		}
 		
@@ -3876,6 +4030,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_ADD_USER" ] = kAPI_OP_ADD_USER;
 		$ref[ "kAPI_OP_GET_USER" ] = kAPI_OP_GET_USER;
 		$ref[ "kAPI_OP_GET_MANAGED" ] = kAPI_OP_GET_MANAGED;
+		$ref[ "kAPI_OP_CHECK_USER_CODE" ] = kAPI_OP_CHECK_USER_CODE;
 		
 		
 		//
@@ -5159,6 +5314,89 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	executeModUser																	*
+	 *==================================================================================*/
+
+	/**
+	 * Modify user.
+	 *
+	 * The method will modify the user identified by the {@link kAPI_PARAM_ID} parameter
+	 * with the data contained in the {@link kAPI_PARAM_OBJECT} parameter; <tt>NULL</tt>
+	 * elements will be cleared.
+	 *
+	 * The method will traverse the provided data in {@link kAPI_PARAM_OBJECT} and update
+	 * the existing data in the {@link kAPI_PARAM_ID} property of the current pbject and
+	 * replace the object.
+	 *
+	 * Note that only root level attributes will be considered; this means that to update
+	 * a sub-document, one needs to provide the full document.
+	 *
+	 * The provided data will be cleared of the following properties:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: User password.
+	 *	<li><tt>{@link kTAG_ENTITY_IDENT}</tt>: User identifier.
+	 *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: Object identifier.
+	 * </ul>
+	 *
+	 * @access protected
+	 */
+	protected function executeModUser()
+	{
+		//
+		// Init local storage.
+		//
+		$object = $this->offsetGet( kAPI_PARAM_ID );
+		$data = $this->offsetGet( kAPI_PARAM_OBJECT );
+		$required = array( kTAG_ENTITY_PGP_KEY, kTAG_ENTITY_PGP_FINGERPRINT );
+		$excluded = array( kTAG_CONN_PASS, kTAG_ENTITY_IDENT, kTAG_IDENTIFIER );
+		
+		//
+		// Remove excluded offsets.
+		//
+		foreach( $excluded as $offset )
+		{
+			if( array_key_exists( $offset, $data ) )
+				unset( $data[ $offset ] );
+		}
+		
+		//
+		// Remove required empty offsets.
+		//
+		foreach( $required as $offset )
+		{
+			if( array_key_exists( $offset, $data )
+			 && ($data[ $offset ] === NULL) )
+				unset( $data[ $offset ] );
+		}
+		
+		//
+		// Iterate data.
+		//
+		foreach( $data as $key => $value )
+		{
+			//
+			// Delete offset.
+			//
+			if( $value === NULL )
+				$object->offsetUnset( $key );
+			
+			//
+			// Update offset.
+			//
+			else
+				$object->offsetSet( $key, $value );
+		}
+		
+		//
+		// Update object.
+		//
+		$object->commit();
+		
+	} // executeModUser.
+
+	 
+	/*===================================================================================
 	 *	executeGetManagedUsers															*
 	 *==================================================================================*/
 
@@ -5268,6 +5506,36 @@ class Service extends ContainerObject
 		} // Manager exists.
 		
 	} // executeGetManagedUsers.
+
+	 
+	/*===================================================================================
+	 *	executeCheckUserCode															*
+	 *==================================================================================*/
+
+	/**
+	 * Modify user.
+	 *
+	 * The method will return the record count of all users matching the user code provided
+	 * in the {@link kAPI_PARAM_ID} updating the {@link kAPI_PAGING_AFFECTED} property of
+	 * the paging section.
+	 *
+	 * @access protected
+	 */
+	protected function executeCheckUserCode()
+	{
+		//
+		// Init local storage.
+		//
+		$criteria = array( kTAG_CONN_CODE => $this->offsetGet( kAPI_PARAM_ID ) );
+		$collection = $this->mWrapper->resolveCollection( User::kSEQ_NAME );
+		
+		//
+		// Check code.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ]
+			= $collection->matchAll( $criteria, kQUERY_COUNT );
+		
+	} // executeCheckUserCode.
 
 		
 

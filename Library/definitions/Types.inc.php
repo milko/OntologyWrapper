@@ -615,6 +615,13 @@ define( "kTYPE_RELATIONSHIP_ALL",				':relationship:all' );
  *======================================================================================*/
 
 /**
+ * Login.
+ *
+ * This role allows users to login.
+ */
+define( "kTYPE_ROLE_LOGIN",						':roles:user-login' );
+
+/**
  * User invite.
  *
  * This role allows users to send user invitations.

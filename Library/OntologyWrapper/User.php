@@ -50,7 +50,7 @@ use OntologyWrapper\Individual;
  * </ul>
  *
  * The {@link kTAG_IDENTIFIER} property is required by the class ancestor and is
- * automatically set from the {@link kTAG_ENTITY_PGP_FINGERPRINT} or the
+ * automatically set from the {@link kTAG_ENTITY_IDENT} or the
  * {@link kTAG_CONN_CODE} properties in that order.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -633,17 +633,25 @@ class User extends Individual
 			$this->offsetSet( kTAG_DOMAIN, static::kDEFAULT_DOMAIN );
 		
 		//
-		// Init identifier.
+		// Init entity identifier.
 		//
-		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
+		if( ! $this->offsetExists( kTAG_ENTITY_IDENT ) )
 		{
 			if( $this->offsetExists( kTAG_ENTITY_PGP_FINGERPRINT ) )
-				$this->offsetSet( kTAG_IDENTIFIER,
+				$this->offsetSet( kTAG_ENTITY_IDENT,
 								  $this->offsetGet( kTAG_ENTITY_PGP_FINGERPRINT ) );
 			elseif( $this->offsetExists( kTAG_CONN_CODE ) )
-				$this->offsetSet( kTAG_IDENTIFIER,
+				$this->offsetSet( kTAG_ENTITY_IDENT,
 								  $this->offsetGet( kTAG_CONN_CODE ) );
 		}
+	
+		//
+		// Init object identifier.
+		//
+		if( (! $this->offsetExists( kTAG_IDENTIFIER ))
+		 && $this->offsetExists( kTAG_ENTITY_IDENT ) )
+			$this->offsetSet( kTAG_IDENTIFIER,
+							  $this->offsetGet( kTAG_ENTITY_IDENT ) );
 		
 		//
 		// Reset managed users count.

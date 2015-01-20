@@ -1510,8 +1510,8 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
  *		a language code.
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
- *		holds the user fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, or the user
- *		code/password combination as an array.
+ *		holds the user fingerprint, {@link kTAG_IDENTIFIER}, or the user code/password
+ *		combination as an array.
  *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
  *		{@link kTAG_IDENTIFIER}, of the user sending the invitation, or the user
  *		code/password combination as an array. Depending whether the requesting user is
@@ -1553,8 +1553,8 @@ define( "kAPI_OP_GET_USER",						'getUser' );
  *		code/password combination as an array. This parameter is required and the user must
  *		be allowed to manage the modified user.
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
- *		holds the user fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, or the user
- *		code/password combination as an array.
+ *		holds the user fingerprint, {@link kTAG_IDENTIFIER}, or the user code/password
+ *		combination as an array.
  *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user properties,
  *		<tt>NULL</tt> properties are assumed to be deleted. The record must have the same
  *		structure as the user record.
@@ -1576,8 +1576,8 @@ define( "kAPI_OP_MOD_USER",						'modUser' );
  *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
  *		a language code.
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
- *		holds the referrer's fingerprint, {@link kTAG_ENTITY_PGP_FINGERPRINT}, or the
- *		code/password combination as an array.
+ *		holds the referrer's fingerprint, {@link kTAG_IDENTIFIER}, or the code/password
+ *		combination as an array.
  *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
  *		{@link kTAG_IDENTIFIER}, of the user sending the invitation, or the user
  *		code/password combination as an array. Depending whether the requesting user is in
@@ -1606,6 +1606,25 @@ define( "kAPI_OP_MOD_USER",						'modUser' );
  * simply return an empty result, this for security reasons.
  */
 define( "kAPI_OP_GET_MANAGED",					'getManaged' );
+
+/**
+ * Check user code.
+ *
+ * This tag defines the check user code operation.
+ *
+ * The service will return the number of users having the provided user code.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>User code</em>. This required parameter
+ *		holds the user code we are probing.
+ * </ul>
+ *
+ * The service will return the matches count in the paging {@link kAPI_PAGING_AFFECTED}
+ * property.
+ */
+define( "kAPI_OP_CHECK_USER_CODE",				'checkUserCode' );
 
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
@@ -2662,7 +2681,7 @@ define( "kAPI_QUERY_OFFSETS",					'query-offsets' );
  * Referrer (User).
  *
  * This parameter is set when adding a new user, it will hold the referrer object with
- * the relaqted invitation removed.
+ * the related invitation removed.
  */
 define( "kAPI_REFERRER",						'referrer' );
 

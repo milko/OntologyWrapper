@@ -15,12 +15,12 @@
  *	@subpackage	Test
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 17/12/2014
+ *	@version	1.00 19/01/2015
  */
 
 /*=======================================================================================
  *																						*
- *										test_getUser.php									*
+ *									test_modUser.php									*
  *																						*
  *======================================================================================*/
 
@@ -123,9 +123,9 @@ try
 		$wrapper->loadTagCache();
 	
 	//
-	// Login.
+	// Get user.
 	//
-	echo( '<h4>Login</h4>' );
+	echo( '<h4>Get user</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -168,45 +168,48 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Get self user.
+	// Set modifications.
 	//
-	echo( '<h4>Get self user</h4>' );
+	echo( '<h4>Set modifications</h4>' );
+	$mod = Array();
+	$data = array_shift( $result[ kAPI_RESPONSE_RESULTS ] );
+	$selected = array( kTAG_NAME, kTAG_ENTITY_ICON );
+	foreach( $selected as $offset )
+		$mod[ $offset ] = $data[ $offset ];
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
-		kAPI_PARAM_ID => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
-	);
-	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
-	$request = "$base_url?op=".kAPI_OP_GET_USER;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
-	echo( htmlspecialchars($request) );
+	echo( 'Original:' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
-	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
-	{
-		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
-		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
-		$decoded = json_decode( $decoded, TRUE );
-		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
-	}
-	var_dump( $result );
+	echo( '<pre>' ); print_r( $mod ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Parsed:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	foreach( $mod as $key => $value )
+		$mod[ $key ] = $value[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+	var_dump( $mod );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Modified:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$save = $mod;
+	$mod[ kTAG_NAME ] = 'Pippo Franco';
+	$mod[ kTAG_ENTITY_ICON ] = NULL;
+	var_dump( $mod );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -214,9 +217,9 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Get managed user.
+	// Modify user.
 	//
-	echo( '<h4>Get managed user</h4>' );
+	echo( '<h4>Modify user</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -230,7 +233,52 @@ try
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_REQUEST_USER => 'E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2',
-		kAPI_PARAM_ID => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
+		kAPI_PARAM_ID => array( 'gubi', 'b1b3773a05c0ed0176787a4f1574ff0075f7521e' ),
+		kAPI_PARAM_OBJECT => $mod
+	);
+	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
+	$request = "$base_url?op=".kAPI_OP_MOD_USER;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
+	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
+	{
+		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
+		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
+		$decoded = json_decode( $decoded, TRUE );
+		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
+	}
+	var_dump( $result );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Check user.
+	//
+	echo( '<h4>Check user</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Name modified, icon deleted:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_ID => array( 'gubi', 'b1b3773a05c0ed0176787a4f1574ff0075f7521e' ),
 		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
 	);
 	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
@@ -260,104 +308,13 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Get public user.
+	// Reset user.
 	//
-	echo( '<h4>Get public user</h4>' );
+	echo( '<h4>Reset user</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-	//	kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
-		kAPI_PARAM_ID => 'E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
-	);
-	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
-	$request = "$base_url?op=".kAPI_OP_GET_USER;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
-	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
-	{
-		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
-		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
-		$decoded = json_decode( $decoded, TRUE );
-		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
-	}
-	var_dump( $result );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
-	
-	//
-	// Get users managed public.
-	//
-	echo( '<h4>Get users managed public</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_ID => 'E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
-	);
-	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
-	$request = "$base_url?op=".kAPI_OP_GET_MANAGED;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
-	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
-	{
-		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
-		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
-		$decoded = json_decode( $decoded, TRUE );
-		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
-	}
-	var_dump( $result );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
-	
-	//
-	// Get users managed private.
-	//
-	echo( '<h4>Get users managed private</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
+	echo( 'Name and icon reset to default values:' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -367,11 +324,11 @@ try
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_REQUEST_USER => 'E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2',
-		kAPI_PARAM_ID => 'E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
+		kAPI_PARAM_ID => array( 'gubi', 'b1b3773a05c0ed0176787a4f1574ff0075f7521e' ),
+		kAPI_PARAM_OBJECT => $save
 	);
 	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
-	$request = "$base_url?op=".kAPI_OP_GET_MANAGED;
+	$request = "$base_url?op=".kAPI_OP_MOD_USER;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
 	echo( htmlspecialchars($request) );
@@ -397,9 +354,9 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Get users code count.
+	// Get user.
 	//
-	echo( '<h4>Get users code count</h4>' );
+	echo( '<h4>Get user</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -412,11 +369,13 @@ try
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_ID => 'gubi'
+		kAPI_PARAM_ID => array( 'gubi', 'b1b3773a05c0ed0176787a4f1574ff0075f7521e' ),
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
 	);
-	$request = "$base_url?op=".kAPI_OP_CHECK_USER_CODE;
+	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
+	$request = "$base_url?op=".kAPI_OP_GET_USER;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.json_encode( $param ));
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
 	echo( htmlspecialchars($request) );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
@@ -424,41 +383,14 @@ try
 	echo( kSTYLE_DATA_PRE );
 	$response = file_get_contents( $request );
 	$result = json_decode( $response, TRUE );
-	var_dump( $result );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
-	
-	//
-	// Get unknown user code.
-	//
-	echo( '<h4>Get unknown user code</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_ID => 'pippo'
-	);
-	$request = "$base_url?op=".kAPI_OP_CHECK_USER_CODE;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.json_encode( $param ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
+	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
+	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
+	{
+		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
+		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
+		$decoded = json_decode( $decoded, TRUE );
+		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
+	}
 	var_dump( $result );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );

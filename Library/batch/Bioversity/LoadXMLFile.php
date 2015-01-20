@@ -55,7 +55,7 @@ if( $argc < 3 )
 	exit( "Usage: "
 		 ."script.php "
 		 ."[XML file path] "
-		 ."[mongo database DSN] "	// mongodb://localhost:27017/PGRDG
+		 ."[mongo database DSN] "	// mongodb://localhost:27017/BIOVERSITY
 		 ."[graph DSN].\n" );		// neo4j://localhost:7474						// ==>
 
 //
