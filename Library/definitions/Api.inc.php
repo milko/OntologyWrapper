@@ -1501,7 +1501,7 @@ define( "kAPI_OP_ADD_USER",						'addUser' );
  *
  * This tag defines the get user operation.
  *
- * The service will return a user matching the provided identifier as a clustered result.
+ * The service will return a user matching the provided identifier.
  *
  * This operation expects the following parameters:
  *

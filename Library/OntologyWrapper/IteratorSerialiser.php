@@ -1714,6 +1714,9 @@ class IteratorSerialiser
 		if( array_key_exists( $theOffset, $theValue ) )
 			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
 				= $theValue[ $theOffset ];
+		else
+		// MILKO - Da rivedere.
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = '...';
 
 		//
 		// Allocate structure.
@@ -2177,8 +2180,8 @@ class IteratorSerialiser
 						
 					case kTYPE_FLOAT:
 						$value
-							= ( $theTag->offsetExists( kTAG_DECIMALS ) )
-							? number_format( $value, $theTag->offsetGet( kTAG_DECIMALS ) )
+							= ( array_key_exists( kTAG_DECIMALS, $theTag ) )
+							? number_format( $value, $theTag[ kTAG_DECIMALS ] )
 							: number_format( $value, 2 );
 						break;
 						
@@ -2217,8 +2220,8 @@ class IteratorSerialiser
 					
 				case kTYPE_FLOAT:
 					$theValue
-						= ( $theTag->offsetExists( kTAG_DECIMALS ) )
-						? number_format( $theValue, $theTag->offsetGet( kTAG_DECIMALS ) )
+						= ( array_key_exists( kTAG_DECIMALS, $theTag ) )
+						? number_format( $theValue, $theTag[ kTAG_DECIMALS ] )
 						: number_format( $theValue, 2 );
 					break;
 					
@@ -2649,12 +2652,12 @@ class IteratorSerialiser
 		foreach( $refs as $key => $val )
 		{
 			//
-			// Match element property.
+			// Match tag.
 			//
-			if( array_key_exists( $key, $theValue ) )
+			if( $key == $theTag[ kTAG_ID_HASH ] )
 			{
 				$reference[ 'class' ] = $val;
-				$reference[ 'value' ] = $theValue[ $key ];
+				$reference[ 'value' ] = $theValue;
 				
 				break;														// =>
 			

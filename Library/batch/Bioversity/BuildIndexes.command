@@ -18,7 +18,6 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Build
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:COLLCODE" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:DONORCODE" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:DUPLSITE" N
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":type:entity" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":location:admin-1" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":location:admin-2" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":taxon:epithet" N
