@@ -109,7 +109,7 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC PERSISTENCE INTERFACE							*
+ *								PUBLIC CREATION INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -127,6 +127,15 @@ abstract class CollectionObject extends ConnectionObject
 	 * @access public
 	 */
 	abstract public function drop();
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
 
 	 
 	/*===================================================================================
@@ -265,6 +274,37 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
+	 *	modify																			*
+	 *==================================================================================*/
+
+	/**
+	 * Modify object(s)
+	 *
+	 * This method should modify the the objects selected by the provided criteria applying
+	 * the provided modifications using the provided options.
+	 *
+	 * The method will return an array structured as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>affected</tt>: The affected records count.
+	 *	<li><tt>modified</tt>: The modified records count.
+	 * </ul>
+	 *
+	 * The format of the provided parameters is dependent on the specific database engine.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param array					$theCriteria		Object selection criteria.
+	 * @param array					$theActions			Modification actions.
+	 * @param array					$theOptions			Modification options.
+	 *
+	 * @access public
+	 * @return array				Operation status.
+	 */
+	abstract public function modify( $theCriteria, $theActions, $theOptions );
+
+	 
+	/*===================================================================================
 	 *	delete																			*
 	 *==================================================================================*/
 
@@ -325,46 +365,6 @@ abstract class CollectionObject extends ConnectionObject
 		   ."connection is not open." );										// !@! ==>
 	
 	} // delete.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC MODIFICATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	modify																			*
-	 *==================================================================================*/
-
-	/**
-	 * Modify object(s)
-	 *
-	 * This method should modify the the objects selected by the provided criteria applying
-	 * the provided modifications using the provided options.
-	 *
-	 * The method will return an array structured as follows:
-	 *
-	 * <ul>
-	 *	<li><tt>affected</tt>: The affected records count.
-	 *	<li><tt>modified</tt>: The modified records count.
-	 * </ul>
-	 *
-	 * The format of the provided parameters is dependent on the specific database engine.
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param array					$theCriteria		Object selection criteria.
-	 * @param array					$theActions			Modification actions.
-	 * @param array					$theOptions			Modification options.
-	 *
-	 * @access public
-	 * @return array				Operation status.
-	 */
-	abstract public function modify( $theCriteria, $theActions, $theOptions );
 
 		
 

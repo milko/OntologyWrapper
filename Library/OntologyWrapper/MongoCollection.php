@@ -68,15 +68,6 @@ class MongoCollection extends CollectionObject
 	
 	} // drop.
 
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC MODIFICATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
 	 
 	/*===================================================================================
 	 *	modify																			*
@@ -1100,7 +1091,7 @@ class MongoCollection extends CollectionObject
 	 * @access protected
 	 * @return mixed				Object identifier.
 	 */
-	function insertData( &$theData, &$theOptions )
+	protected function insertData( &$theData, &$theOptions )
 	{
 		//
 		// Serialise object.
@@ -1150,7 +1141,7 @@ class MongoCollection extends CollectionObject
 		ContainerObject::Object2Array( $theData, $data );
 		
 		//
-		// Insert.
+		// Replace.
 		//
 		$ok = $this->mConnection->save( $data, $theOptions );
 		

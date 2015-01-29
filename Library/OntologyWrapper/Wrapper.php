@@ -252,7 +252,7 @@ class Wrapper extends Dictionary
 	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access public
-	 * @return mixed				<i>New</i> or <i>old</i> entities database.
+	 * @return mixed				<i>New</i> or <i>old</i> users database.
 	 *
 	 * @throws Exception
 	 *
@@ -3410,6 +3410,58 @@ class Wrapper extends Dictionary
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	resolveDatabase																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve database
+	 *
+	 * Given a collection name, this method will return a database reference.
+	 *
+	 * @param string				$theCollection		Collection name.
+	 *
+	 * @access public
+	 * @return DatabaseObject		The database reference.
+	 *
+	 * @throws Exception
+	 */
+	public function resolveDatabase( $theCollection )
+	{
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to resolve database: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Resolve database.
+		//
+		switch( (string) $theCollection )
+		{
+			case Tag::kSEQ_NAME:
+			case Term::kSEQ_NAME:
+			case Node::kSEQ_NAME:
+			case Edge::kSEQ_NAME:
+				return $this->Metadata();											// ==>
+				
+			case User::kSEQ_NAME:
+				return $this->Users();												// ==>
+				
+			case UnitObject::kSEQ_NAME:
+				return $this->Units();												// ==>
+			
+			default:
+				throw new \Exception(
+					"Cannot resolve database: "
+				   ."invalid collection name [$collection]." );					// !@! ==>
+		}
+	
+	} // resolveDatabase.
 
 	 
 	/*===================================================================================
