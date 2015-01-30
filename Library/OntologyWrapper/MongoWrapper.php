@@ -23,14 +23,24 @@ use OntologyWrapper\Wrapper;
  * This class extends its ancestor by implementing all its collections and databases as
  * MongoDB objects by default.
  *
- * The class adds three public methods: {@link insert()}, {@link delete()} and
- * {@link modify()} that respectively insert, delete and modify data in the collection
- * relative to the object.
+ * The class adds four public methods which can be used to load data into the collections
+ * referenced by the current wrapper:
+ *
+ * <ul>
+ *	<li><tt>{@link insert()}<tt>: Insert the provided object into its relative collection.
+ *	<li><tt>{@link update()}<tt>: Update data in the provided collection.
+ *	<li><tt>{@link replace()}<tt>: replace the provided object in its relative collection.
+ *	<li><tt>{@link delete()}<tt>: Delete the provided object from its relative collection.
+ * </ul>
  *
  * The class also takes advantage of the batch methods of MongoDB to perform batch updates
- * in the database. Once a batch is opened, {@link openBatch()}, all operations are
- * added to the batch and the actual commit of all data will only occur when the
- * {@link closeBatch()} method is closed, or when the current object is destructed.
+ * in the database. Once a batch is opened, {@link openBatch()}, all operations, except the
+ * {@link replace()} method, are added to the batch and the actual commit of all data will
+ * only occur when the {@link closeBatch()} method is closed, or when the current object is
+ * destructed.
+ *
+ * Although similar, batch operations should not be considered as transactions, since there
+ * is no rollback feature.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/02/2014
@@ -60,6 +70,8 @@ class MongoWrapper extends Wrapper
 	 *	<li><tt>d</tt>: This element holds an array indexed by collection name with as value
 	 *		the mongo batch class receiving delete operations.
 	 * </ul>
+	 *
+	 * Batches are executed in the above order.
 	 *
 	 * @var array
 	 */
@@ -107,31 +119,6 @@ class MongoWrapper extends Wrapper
 
 /*=======================================================================================
  *																						*
- *							PUBLIC MEMBER ACCESSOR INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	hasBatch																		*
-	 *==================================================================================*/
-
-	/**
-	 * Check if a batch is open
-	 *
-	 * This method will return <tt>TRUE</tt> if a batch is currently open, or
-	 * <tt>FALSE</tt>.
-	 *
-	 * @access public
-	 * @return boolean				<tt>TRUE</tt> means active batch.
-	 */
-	public function hasBatch()							{	return (boolean) $this->mBatch;	}
-
-		
-
-/*=======================================================================================
- *																						*
  *								PUBLIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -148,14 +135,26 @@ class MongoWrapper extends Wrapper
 	 * This method will insert the provided object into its related collection and return
 	 * the object's native identifier, if successful, or raise an exception on errors.
 	 *
-	 * This method is aware of batches, so if batches are active, the method will add the
-	 * provided object to the batch; if the object lacks its native identifier, the method
-	 * will return <tt>TRUE</tt>.
+	 * The method will insert the object into the collection, if no batch is open, or add
+	 * the operation to the open batch if open; in that case, if the object lacks its
+	 * native identifier, the method will return <tt>TRUE</tt>.
+	 *
+	 * The method will first resolve the database related to the object, then set the
+	 * class in the object and call the {@link insertObject()} method which will take care
+	 * of either inserting the abject into the collection, or add it to the eventual open
+	 * batch.
+	 *
+	 * The method will return the object's native identifier or <tt>NULL</tt> if adding an
+	 * object lacking its native identifier to a batch.
+	 *
+	 * Any error will raise an exception.
 	 *
 	 * @param PersistentObject		$theObject			Object to insert.
 	 *
 	 * @access public
-	 * @return mixed				The object's native identifier, or <tt>TRUE</tt>.
+	 * @return mixed				The object's native identifier, or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
 	 *
 	 * @uses resolveDatabase()
 	 * @uses insertObject()
@@ -165,12 +164,13 @@ class MongoWrapper extends Wrapper
 		//
 		// Init local storage.
 		//
-		$name = $theObject::kSEQ_NAME;
+		$class = get_class( $theObject );
+		$collection = $class::kSEQ_NAME;
 		
 		//
 		// Resolve database.
 		//
-		$database = $this->resolveDatabase( $name );
+		$database = $this->resolveDatabase( $collection );
 		if( $database !== NULL )
 		{
 			//
@@ -188,19 +188,19 @@ class MongoWrapper extends Wrapper
 					//
 					// Set class.
 					//
-					$theObject[ kTAG_CLASS ] = get_class( $theObject );
+					$theObject[ kTAG_CLASS ] = $class;
 					
 					//
 					// Persist.
 					//
 					return $this->insertObject(
 								$theObject,
-						  		$database->collection( $name, TRUE ) );				// ==>
+						  		$database->collection( $collection, TRUE ) );		// ==>
 			
 				default:
 					throw new \Exception(
 						"Cannot insert object: "
-					   ."invalid collection name [$name]." );					// !@! ==>
+					   ."invalid collection name [$collection]." );				// !@! ==>
 			
 			} // Parsed by collection name.
 		
@@ -223,14 +223,26 @@ class MongoWrapper extends Wrapper
 	 * This method will update the objects selected by the provided criteria in the
 	 * collection identified by the provided collection name.
 	 *
-	 * This method is aware of batches, so if batches are active, the method will add the
-	 * provided update to the batch.
+	 * The method will update the objects selected by the provided criteria in the
+	 * collection identified by the provided name, if no batch is open, or add the operation
+	 * to the open batch if open.
+	 *
+	 * The method will first resolve the database related to the object, then call the
+	 * {@link updateObject()} method which will take care of either updating, or adding the
+	 * operation to an open batch.
+	 *
+	 * The method will return an array containing the operation status.
+	 *
+	 * Any error will raise an exception.
 	 *
 	 * @param array					$theCriteria		Selection criteria.
 	 * @param array					$theUpdates			Update criteria.
 	 * @param string				$theCollection		Collection name.
 	 *
 	 * @access public
+	 * @return mixed				The operation result.
+	 *
+	 * @throws Exception
 	 *
 	 * @uses resolveDatabase()
 	 * @uses updateObject()
@@ -243,6 +255,20 @@ class MongoWrapper extends Wrapper
 		$database = $this->resolveDatabase( $theCollection );
 		if( $database !== NULL )
 		{
+			//
+			// Handle collection.
+			//
+			if( $theCollection instanceof MongoCollection )
+				return $this->updateObject(
+							$theCriteria,
+							$theUpdates,
+							$theCollection );										// ==>
+			
+			//
+			// Normalise collection name.
+			//
+			$theCollection = (string) $theCollection;
+			
 			//
 			// Resolve collection.
 			//
@@ -289,26 +315,32 @@ class MongoWrapper extends Wrapper
 	 * This method will replace the provided object into its related collection and return
 	 * the object's native identifier, if successful, or raise an exception on errors.
 	 *
-	 * This method will close any eventual open batches and open them again after replacing
-	 * the object.
+	 * Before replacing the object, the method will close any open batch, it will then
+	 * replace the object and finally re-open the batch.
 	 *
-	 * If the provided object lacks its native identifier, the method will raise an
-	 * exception.
+	 * The method will return the object's native identifier; if that is missing the method
+	 * will raise an exception.
+	 *
+	 * Any error will raise an exception.
 	 *
 	 * @param PersistentObject		$theObject			Object to insert.
 	 *
 	 * @access public
-	 * @return mixed				The object's native identifier, or <tt>TRUE</tt>.
+	 * @return mixed				The operation result.
 	 *
 	 * @uses resolveDatabase()
-	 * @uses insertObject()
+	 * @uses hasBatch()
+	 * @uses closeBatch()
+	 * @uses replaceObject()
+	 * @uses openBatch()
 	 */
 	public function replace( PersistentObject $theObject )
 	{
 		//
 		// Init local storage.
 		//
-		$name = $theObject::kSEQ_NAME;
+		$class = get_class( $theObject );
+		$collection = $class::kSEQ_NAME;
 		
 		//
 		// Check native identifier.
@@ -318,13 +350,19 @@ class MongoWrapper extends Wrapper
 			//
 			// Resolve database.
 			//
-			$database = $this->resolveDatabase( $name );
+			$database = $this->resolveDatabase( $collection );
 			if( $database !== NULL )
 			{
 				//
+				// Close batch.
+				//
+				if( $batch = $this->hasBatch() )
+					$this->closeBatch();
+		
+				//
 				// Resolve collection.
 				//
-				switch( $name )
+				switch( $collection )
 				{
 					case Tag::kSEQ_NAME:
 					case Term::kSEQ_NAME:
@@ -341,16 +379,27 @@ class MongoWrapper extends Wrapper
 						//
 						// Persist.
 						//
-						return $this->replaceObject(
-									$theObject,
-									$database->collection( $name, TRUE ) );			// ==>
+						$ok
+							= $this->replaceObject(
+								$theObject,
+								$database->collection( $collection, TRUE ) );		// ==>
+						
+						break;
 			
 					default:
 						throw new \Exception(
 							"Cannot insert object: "
-						   ."invalid collection name [$name]." );				// !@! ==>
+						   ."invalid collection name [$collection]." );			// !@! ==>
 			
 				} // Parsed by collection name.
+				
+				//
+				// Open batch.
+				//
+				if( $batch )
+					$this->openBatch();
+				
+				return $ok;															// ==>
 		
 			} // Resolved database.
 		
@@ -374,24 +423,27 @@ class MongoWrapper extends Wrapper
 	/**
 	 * Delete object
 	 *
-	 * This method will delete the object identified by the provided identifier or actual
-	 * object from the collection matching the provided name.
+	 * This method will delete the object identified by the provided native identifier or
+	 * actual object and return the operation status.
 	 *
-	 * The method will return the operation status.
+	 * The method expects either the object to be deleted, or its native identifier and its
+	 * related collection name or object.
 	 *
-	 * If the provided object lacks its native identifier, the method will raise an
-	 * exception.
+	 * The method will delete from the collection, if no batch is open, or add the operation
+	 * to the open batch.
+	 *
+	 * Any error will raise an exception.
 	 *
 	 * @param mixed					$theObject			Object, or native identifier.
-	 * @param string				$theCollection		Collection name.
+	 * @param string				$theCollection		Collection name if provided id.
 	 *
 	 * @access public
 	 * @return mixed				The operation result.
 	 *
 	 * @uses resolveDatabase()
-	 * @uses insertObject()
+	 * @uses deleteObject()
 	 */
-	public function delete( $theObject, $theCollection )
+	public function delete( $theObject, $theCollection = NULL )
 	{
 		//
 		// Resolve identifier.
@@ -407,6 +459,12 @@ class MongoWrapper extends Wrapper
 				   ."missing native identifier." );								// !@! ==>
 			
 			//
+			// Init local storage.
+			//
+			$class = get_class( $theObject );
+			$theCollection = $class::kSEQ_NAME;
+		
+			//
 			// Save identifier.
 			//
 			$theObject = $theObject->offsetGet( kTAG_NID );
@@ -419,6 +477,14 @@ class MongoWrapper extends Wrapper
 		$database = $this->resolveDatabase( $theCollection );
 		if( $database !== NULL )
 		{
+			//
+			// Handle collection.
+			//
+			if( $theCollection instanceof MongoCollection )
+				return $this->deleteObject(
+							$theObject,
+							$theCollection );										// ==>
+			
 			//
 			// Resolve collection.
 			//
@@ -464,6 +530,22 @@ class MongoWrapper extends Wrapper
 
 	 
 	/*===================================================================================
+	 *	hasBatch																		*
+	 *==================================================================================*/
+
+	/**
+	 * Check if a batch is open
+	 *
+	 * This method will return <tt>TRUE</tt> if a batch is currently open, or
+	 * <tt>FALSE</tt>.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> means active batch.
+	 */
+	public function hasBatch()							{	return (boolean) $this->mBatch;	}
+
+		
+	/*===================================================================================
 	 *	openBatch																		*
 	 *==================================================================================*/
 
@@ -474,14 +556,15 @@ class MongoWrapper extends Wrapper
 	 * it, an array with the batch close operation if it closed an open batch, or
 	 * <tt>FALSE</tt> if it encountered an open batch and did not close it.
 	 *
-	 * The parameter is a boolean flag that determines whether an open batch is to be
-	 * closed, by default open batches will not be closed.
+	 * The parameter is a boolean flag that determines whether an existing open batch is to
+	 * be closed; by default open batches will not be closed.
 	 *
 	 * @param boolean				$doClose			Close open batch.
 	 *
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt>, <tt>FALSE</tt> or an array.
 	 *
+	 * @uses hasBatch()
 	 * @uses closeBatch()
 	 * @uses initBatch()
 	 */
@@ -546,6 +629,7 @@ class MongoWrapper extends Wrapper
 	 *
 	 * @access public
 	 *
+	 * @uses hasBatch()
 	 * @uses initBatch()
 	 */
 	public function closeBatch( $doOpen = FALSE )
@@ -613,13 +697,13 @@ class MongoWrapper extends Wrapper
 				throw $error;													// !@! ==>
 			}
 		
-		} // A batch was open.
+			//
+			// Open batch.
+			//
+			if( $doOpen )
+				$this->mBatch = TRUE;
 		
-		//
-		// Open batch.
-		//
-		if( $doOpen )
-			$this->mBatch = TRUE;
+		} // A batch was open.
 		
 		return $result;																// ==>
 	
@@ -683,7 +767,10 @@ class MongoWrapper extends Wrapper
 	 * @param MongoCollection		$theCollection		Collection in which to insert.
 	 *
 	 * @access protected
-	 * @return mixed				The object native identifier or <tt>TRUE</tt>.
+	 * @return mixed				The object's native identifier, or <tt>NULL</tt>.
+	 *
+	 * @uses hasBatch()
+	 * @uses getBatch()
 	 */
 	protected function insertObject( PersistentObject	$theObject,
 									 MongoCollection	$theCollection )
@@ -722,7 +809,7 @@ class MongoWrapper extends Wrapper
 		
 		} // Has native identifier.
 		
-		return TRUE;																// ==>
+		return NULL;																// ==>
 	
 	} // insertObject.
 
@@ -734,20 +821,24 @@ class MongoWrapper extends Wrapper
 	/**
 	 * insert an object
 	 *
-	 * This method will insert the provided object into the provided collection.
+	 * This method will update objects selected by the provided criteria in the provided
+	 * collection applying the provided actions.
 	 *
 	 * It is assumed that the update can affect multiple records and that no records will
 	 * be created (<tt>multi</tt>=<tt>TRUE</tt>, <tt>upsert</tt>=<tt>FALSE</tt>)
 	 *
 	 * @param array					$theCriteria		Selection criteria.
-	 * @param array					$theUpdates			Update criteria.
+	 * @param array					$theActions			Update actions.
 	 * @param MongoCollection		$theCollection		Collection in which to insert.
 	 *
 	 * @access protected
-	 * @return mixed				Operation result.
+	 * @return mixed				The operation result.
+	 *
+	 * @uses hasBatch()
+	 * @uses getBatch()
 	 */
 	protected function updateObject( 					$theCriteria,
-														$theUpdates,
+														$theActions,
 									 MongoCollection	$theCollection )
 	{
 		//
@@ -757,20 +848,28 @@ class MongoWrapper extends Wrapper
 			return
 				$this->getBatch( $theCollection, 'u' )
 					->add( array( 'q' => $theCriteria,
-								  'u' => $theUpdates,
+								  'u' => $theActions,
 								  'multi' => TRUE,
 								  'upsert' => FALSE ) );							// ==>
 		
 		//
 		// Handle update.
 		//
-		return
-			$theCollection
+		$ok
+			= $theCollection
 				->connection()
 					->update( $theCriteria,
-							  $theUpdates,
+							  $theActions,
 							  array( 'multi' => TRUE,
-							  		 'upsert' => FALSE ) );							// ==>
+							  		 'upsert' => FALSE ) );
+		
+		//
+		// Handle errors.
+		//
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+		
+		return $ok;																	// ==>
 	
 	} // updateObject.
 
@@ -796,35 +895,20 @@ class MongoWrapper extends Wrapper
 	 * @param MongoCollection		$theCollection		Collection in which to insert.
 	 *
 	 * @access protected
-	 * @return mixed				The object native identifier.
+	 * @return mixed				The operation result.
 	 */
 	protected function replaceObject( PersistentObject	$theObject,
 									  MongoCollection	$theCollection )
 	{
 		//
-		// Init local storage.
-		//
-		$batch = $this->hasBatch();
-		
-		//
-		// Close batch.
-		//
-		if( $batch )
-			$this->closeBatch();
-		
-		//
 		// Serialise object.
 		//
 		ContainerObject::Object2Array( $theObject, $data );
 		
-		//
-		// Handle replace.
-		//
-		$theCollection
-			->connection()
-				->save( $data );
-		
-		return $theObject[ kTAG_NID ];												// ==>
+		return
+			$theCollection
+				->connection()
+					->save( $data );												// ==>
 	
 	} // replaceObject.
 
@@ -846,7 +930,10 @@ class MongoWrapper extends Wrapper
 	 * @param MongoCollection		$theCollection		Collection in which to insert.
 	 *
 	 * @access protected
-	 * @return mixed				The operation status.
+	 * @return mixed				The operation result.
+	 *
+	 * @uses hasBatch()
+	 * @uses getBatch()
 	 */
 	protected function deleteObject(					$theIdentifier,
 									 MongoCollection	$theCollection )
