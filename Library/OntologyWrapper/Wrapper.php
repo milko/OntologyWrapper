@@ -3439,6 +3439,12 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
+		// Handle collection.
+		//
+		if( $theCollection instanceof CollectionObject )
+			return $theCollection->parent();										// ==>
+		
+		//
 		// Resolve database.
 		//
 		switch( (string) $theCollection )
@@ -3458,7 +3464,7 @@ class Wrapper extends Dictionary
 			default:
 				throw new \Exception(
 					"Cannot resolve database: "
-				   ."invalid collection name [$collection]." );					// !@! ==>
+				   ."invalid collection name [$theCollection]." );				// !@! ==>
 		}
 	
 	} // resolveDatabase.

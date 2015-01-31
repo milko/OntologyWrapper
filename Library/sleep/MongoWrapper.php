@@ -94,8 +94,7 @@ class MongoWrapper extends Wrapper
 	/**
 	 * Destruct instance.
 	 *
-	 * The destructor will close the batch if open, it will do so <em>before</em> calling
-	 * the parent method.
+	 * The destructor will close the batch if open.
 	 *
 	 * @access public
 	 *
@@ -106,12 +105,7 @@ class MongoWrapper extends Wrapper
 		//
 		// Execute eventual batches.
 		//
-		$this->closeBatch();
-		
-		//
-		// Call parent destructor.
-		//
-		parent::__destruct();
+		$this->closeBatch( FALSE );
 	
 	} // Destructor.
 
@@ -176,7 +170,7 @@ class MongoWrapper extends Wrapper
 			//
 			// Resolve collection.
 			//
-			switch( $name )
+			switch( $collection )
 			{
 				case Tag::kSEQ_NAME:
 				case Term::kSEQ_NAME:
@@ -424,7 +418,7 @@ class MongoWrapper extends Wrapper
 	 * Delete object
 	 *
 	 * This method will delete the object identified by the provided native identifier or
-	 * actual object and return the operation status.
+	 * actual object and return the operation status as a boolean.
 	 *
 	 * The method expects either the object to be deleted, or its native identifier and its
 	 * related collection name or object.
@@ -435,10 +429,10 @@ class MongoWrapper extends Wrapper
 	 * Any error will raise an exception.
 	 *
 	 * @param mixed					$theObject			Object, or native identifier.
-	 * @param string				$theCollection		Collection name if provided id.
+	 * @param mixed					$theCollection		Collection if provided identifier.
 	 *
 	 * @access public
-	 * @return mixed				The operation result.
+	 * @return boolean				<tt>TRUE</tt> means deleted or added to batch.
 	 *
 	 * @uses resolveDatabase()
 	 * @uses deleteObject()
@@ -518,6 +512,113 @@ class MongoWrapper extends Wrapper
 		   ."database is not set." );											// !@! ==>
 		
 	} // delete.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Update set
+	 *
+	 * This method should add or delete the provided elements to and from the set contained
+	 * in the provided object reference, the method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdent</b>: The object reference or list of references.
+	 *	<li><b>$theIdentOffset</b>: The offset corresponding to the provided references,
+	 *		this corresponds to a tag sequence number.
+	 *	<li><b>$theElements</b>: The list of elements to be added or deleted, this is an
+	 *		aray structured as follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The offset of the set.
+	 *		<li><tt>value</tt>: The value or values to be added.
+	 *	 </ul>
+	 *	<li><b>$doAdd</b>: If <tt>TRUE</tt> the elements will be added; if <tt>FALSE</tt>
+	 *		the elements will be deleted.
+	 * </ul>
+	 *
+	 * The method should select all objects whose <tt>$theIdentOffset</tt> matches the list
+	 * of references provided in <tt>$theIdent</tt>, once the object is located, the method
+	 * should iterate the elements in <tt>$theElements</tt> adding or removing from the
+	 * offset provided in the element key the value or values provided in the element value,
+	 * without generating duplicates when adding.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theCollection		Collection name or object.
+	 * @param mixed					$theIdent			Object identifier or identifiers.
+	 * @param string				$theIdentOffset		Object identifier offset.
+	 * @param array					$theElements		List of elements to be added.
+	 * @param boolean				$doAdd				<tt>TRUE</tt> add.
+	 *
+	 * @access public
+	 * @return mixed				The operation result.
+	 *
+	 * @throws Exception
+	 */
+	public function updateSet( $theCollection,
+							   $theIdent, $theIdentOffset,
+							   $theElements,
+							   $doAdd )
+	{
+		//
+		// Check elements.
+		//
+		if( ! is_array( $theElements ) )
+			throw new \Exception(
+				"Unable to update set: "
+			   ."expecting an array of elements." );							// !@! ==>
+		
+		//
+		// Set criteria.
+		//
+		$criteria = ( is_array( $theIdent ) )
+				  ? array( (string) $theIdentOffset => array( '$in' => $theIdent ) )
+				  : array( (string) $theIdentOffset => $theIdent );
+		
+		//
+		// Init modifications.
+		//
+		$modifications = ( $doAdd )
+					   ? array( '$addToSet' => Array() )
+					   : array( '$pullAll' => Array() );
+		
+		//
+		// Reference actions.
+		//
+		if( $doAdd )
+			$ref = & $modifications[ '$addToSet' ];
+		else
+			$ref = & $modifications[ '$pullAll' ];
+		
+		//
+		// Add elements.
+		//
+		foreach( $theElements as $offset => $value )
+		{
+			if( $doAdd )
+				$ref[ (string) $offset ] = ( is_array( $value ) )
+										 ? array( '$each' => $value )
+										 : $value;
+			elseif( ! is_array( $value ) )
+				$ref[ (string) $offset ] = array( $value );
+			else
+				$ref[ (string) $offset ] = $value;
+		}
+	
+		return $this->update( $criteria, $modifications, $theCollection );			// ==>
+	
+	} // updateSet.
 
 		
 
@@ -659,21 +760,24 @@ class MongoWrapper extends Wrapper
 				//
 				foreach( $this->mBatchList[ 'i' ] as $key => $batch )
 					$result[ $key ]
-						= $batch->execute( array( 'ordered' => FALSE ) );
+						= $batch->execute( array( 'w' => 1,
+												  'ordered' => FALSE ) );
 		
 				//
 				// Iterate update batches.
 				//
 				foreach( $this->mBatchList[ 'u' ] as $key => $batch )
 					$result[ $key ]
-						= $batch->execute( array( 'ordered' => FALSE ) );
+						= $batch->execute( array( 'w' => 1,
+												  'ordered' => FALSE ) );
 		
 				//
 				// Iterate delete batches.
 				//
 				foreach( $this->mBatchList[ 'd' ] as $key => $batch )
 					$result[ $key ]
-						= $batch->execute( array( 'ordered' => FALSE ) );
+						= $batch->execute( array( 'w' => 1,
+												  'ordered' => FALSE ) );
 				
 				//
 				// Reset batches.
@@ -930,7 +1034,7 @@ class MongoWrapper extends Wrapper
 	 * @param MongoCollection		$theCollection		Collection in which to insert.
 	 *
 	 * @access protected
-	 * @return mixed				The operation result.
+	 * @return boolean				<tt>TRUE</tt> means deleted or added to batch.
 	 *
 	 * @uses hasBatch()
 	 * @uses getBatch()
@@ -941,25 +1045,40 @@ class MongoWrapper extends Wrapper
 		//
 		// Init local storage.
 		//
+		$result = TRUE;
 		$criteria = array( kTAG_NID => $theIdentifier );
 		
 		//
 		// Handle batch.
 		//
 		if( $this->hasBatch() )
-			return
-				$this->getBatch( $theCollection, 'd' )
-					->add(
-						array( 'q' => $criteria,
-							   'limit' => 1 ) );									// ==>
+			$this->getBatch( $theCollection, 'd' )
+				->add(
+					array( 'q' => $criteria,
+						   'limit' => 1 ) );										// ==>
 		
 		//
 		// Handle delete.
 		//
-		return
-			$theCollection
-				->connection()
-					->remove( $criteria );											// ==>
+		else
+		{
+			//
+			// Delete.
+			//
+			$ok
+				= $theCollection
+					->connection()
+						->remove( $criteria );
+			
+			//
+			// Handle result.
+			//
+			if( ! $ok[ 'n' ] )
+				$result = FALSE;
+		
+		} // No batch.
+		
+		return $result;																// ==>
 	
 	} // deleteObject.
 
@@ -991,16 +1110,20 @@ class MongoWrapper extends Wrapper
 	protected function getBatch( MongoCollection $theCollection, $theType )
 	{
 		//
-		// Get existing batch.
+		// Init local storage.
 		//
-		if( array_key_exists( $theCollection->getName(), $this->mBatchList[$theType ] ) )
-			return $this->mBatchList[ $theType ][ $theCollection->getName() ];		// ==>
+		$name = $theCollection->getName();
 		
 		//
-		// Create batch.
+		// Get existing batch.
 		//
-		return new \MongoInsertBatch( $theCollection->connection(),
-									  array( 'ordered' => FALSE ) );				// ==>
+		if( array_key_exists( $name, $this->mBatchList[ $theType ] ) )
+			return $this->mBatchList[ $theType ][ $name ];							// ==>
+		
+		return
+			$this->mBatchList[ $theType ][ $name ]
+				= new \MongoInsertBatch( $theCollection->connection(),
+										 array( 'ordered' => FALSE ) );				// ==>
 	
 	} // getBatch.
 

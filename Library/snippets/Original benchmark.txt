@@ -1,0 +1,450 @@
+Milkos-MacBook-Pro:~ milko$ /Library/WebServer/Library/OntologyWrapper/Library/commands/Test.command 
+
+==> Connecting.
+  • Creating wrapper.
+  • Setting metadata.
+  • Setting units.
+  • Setting users.
+
+==> Resetting ontology.
+  • Flushing data dictionary.
+  • Resetting tags.
+  • Resetting terms.
+  • Resetting nodes.
+  • Resetting edges.
+  • Loading XML term files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/Namespaces.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/Attributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/Predicates.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/Types.xml
+  • Loading XML tag files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/Tags.xml
+  • Loading XML type files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/DataTypes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/DataKinds.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/TermTypes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/NodeTypes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/EntityTypes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/EntityKinds.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/DomainTypes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/PredicateTypes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/RoleTypes.xml
+  • Loading default XML schema files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/SchemaRecord.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/SchemaRefCount.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/SchemaObjectOffsets.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/SchemaUnit.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/SchemaOrganisation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/SchemaIndividual.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/SchemaEntity.xml
+  • Loading default XML structure files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/StructureTag.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/StructureTerm.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/StructureNode.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/StructureEdge.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/StructureEntity.xml
+  Elapsed: 0.27023408412933 minutes
+
+==> Loading ISO standards.
+  • Loading default XML files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/Namespaces.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/Tags.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/ISO639.types.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/ISO639.tags.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/ISO3166.types.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/ISO3166.tags.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/ISO4217.types.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/ISO15924.types.xml
+  • Loading generated ISO639 XML files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso639-3.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso639-2.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso639-1.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso639-2B.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso639-2T.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso639-5.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso639-xref.xml
+  • Loading generated ISO3166 XML files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso3166-1-alpha3.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso3166-1-alpha2.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso3166-1-numeric.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso3166-2.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso3166-3-alpha3.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso3166-3-alpha4.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso3166-3-numeric.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso3166-xref.xml
+  • Loading location XML files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/iso-locations-country.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso3166-2-subset.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/iso-locations-subset.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/ISO3166-regions.xml
+  • Loading generated ISO4217 XML files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso4217-A-alpha.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso4217-A-numeric.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso4217-H-alpha.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso4217-H-numeric.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso4217-xref.xml
+  • Loading generated ISO15924 XML files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso15924-alpha4.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso15924-numeric.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso15924-xref.xml
+  Elapsed: 34.446334981918 minutes
+
+==> Loading WBI standards.
+  • Loading default WBI files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/wbi/Namespaces.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/wbi/Tags.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/wbi/WBI-income.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/wbi/WBI-lending.xml
+  • Loading generated WBI XML files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/wbi/WBI-xref.xml
+  Elapsed: 0.49376508394877 minutes
+
+==> Loading IUCN standards.
+  • Loading XML namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iucn/Namespaces.xml
+  • Loading XML attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iucn/Attributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iucn/Types.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/iucn/Tags.xml
+  Elapsed: 0.29734418392181 minutes
+
+==> Loading NatureServe standards.
+  • Loading XML namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/natserve/Namespaces.xml
+  • Loading XML attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/natserve/Attributes.xml
+  Elapsed: 0.008784818649292 minutes
+
+==> Loading FAO standards.
+  • Loading XML namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/fao/Namespaces.xml
+  • Loading XML attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/fao/Attributes.xml
+  Elapsed: 0.023253413041433 minutes
+
+==> Loading EEC standards.
+  • Loading XML namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/eec/Namespaces.xml
+  • Loading XML attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/eec/Attributes.xml
+  Elapsed: 5.2297383348147 minutes
+
+==> Loading GENS standards.
+  • Loading XML namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/gens/Namespaces.xml
+  • Loading XML attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/gens/Attributes.xml
+  Elapsed: 0.027333867549896 minutes
+
+==> Loading GLOBCOV standards.
+  • Loading XML namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/globcov/Namespaces.xml
+  • Loading XML attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/globcov/Attributes.xml
+  Elapsed: 0.024322799841563 minutes
+
+==> Loading HWSD standards.
+  • Loading XML namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/hwsd/Namespaces.xml
+  • Loading XML attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/hwsd/Attributes.xml
+  Elapsed: 0.19626973072688 minutes
+
+Done!
+41 minutes and 1 seconds.
+
+
+==> Connecting.
+  • Creating wrapper.
+  • Setting metadata.
+  • Setting units.
+  • Setting users.
+
+==> Loading standards.
+  • Loading XML additions files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/Additions_ISO.xml
+  • Loading XML namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/Namespaces.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/Categories.xml
+  • Loading XML attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/Units.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/InventoryAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/LocationAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/SiteAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/TaxonomyAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/GermplasmAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/MissionAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/CollectingMissionAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/CollectingEventAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/BreedingEventAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/CrossabilityAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/PrecipitationAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/TemperatureAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/ClimaticAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/EnvironmentalAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/TrialAttributes.xml
+  • Creating species name index for terms.
+  Elapsed: 1.369927183787 minutes
+
+==> Loading traits.
+  • Loading XML namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/trait/Namespaces.xml
+  • Loading XML term files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/trait/Terms.xml
+  • Loading XML type files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/trait/Types.xml
+  • Loading XML tag files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/trait/Tags.xml
+  Elapsed: 4.4931485533714 minutes
+
+==> Loading MCPD standards.
+  • Loading MCPD files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/mcpd/Namespaces.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/mcpd/Attributes.xml
+  Elapsed: 0.080778602759043 minutes
+
+==> Loading FCU standards.
+  • Loading FCU files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/fcu/Namespaces.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/fcu/Attributes.xml
+  Elapsed: 0.072245514392853 minutes
+
+==> Loading CWR standards.
+  • Loading CWR namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/cwr/Namespaces.xml
+  • Loading CWR attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/cwr/CommonAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/cwr/ChecklistAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/cwr/InventoryAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/cwr/PopulationAttributes.xml
+  Elapsed: 0.1648766318957 minutes
+
+==> Loading ABDH standards.
+  • Loading ABDH namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/Namespaces.xml
+  • Loading ABDH attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/HouseholdAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/RespondentAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/SpeciesAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/AnnualPlantsAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/PerennialPlantsAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/WildPlantsAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/DomesticatedAnimalAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/EconomicAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/MarketAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/SocialAttributes.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/RiskAttributes.xml
+  Elapsed: 0.89070161581039 minutes
+
+==> Loading QTL standards.
+  • Loading QTL namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/qtl/Namespaces.xml
+  • Loading QTL attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/qtl/Attributes.xml
+  Elapsed: 0.017836097876231 minutes
+
+==> Loading LR standards.
+  • Loading LR namespace files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/Namespaces.xml
+  • Loading LR attribute files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/Attributes.xml
+  • Loading LR type files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumCollectorRisk.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumConservation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumContinuity.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumDemand.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumDestination.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumDistribution.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumFarmerRisk.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumMotivation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumPart.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumPeriod.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumSelection.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumStatus.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumSystem.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumTenancy.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumUse.xml
+  • Loading LR tag files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/Tags.xml
+  Elapsed: 0.1544158856074 minutes
+
+==> Loading collections.
+  • Loading XML default relations files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/DefaultTypeRelations.xml
+  • Loading XML taxonomy schema files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankClass.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankFamily.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankGenus.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankInfraspecific.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankKingdom.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankLegion.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankOrder.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankPhylum.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankSpecies.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonRankTribe.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonEpithets.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonGroups.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonNames.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonReferences.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonThreat.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonBiology.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonConservation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonCrossability.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonDistribution.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonEconomy.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxonPolicy.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaTaxon.xml
+  • Loading XML location schema files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationCoordinates.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationDirections.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationEnumerations.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationGeoreference.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationHabitat.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationIdent.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationLegal.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationMonitoring.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationNames.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationProtection.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationSoil.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocationUse.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLocation.xml
+  • Loading XML household schema files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHousehold.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdAnimalSpecies.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdAnnualSpecies.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdCultivatedSpecies.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdFamily.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdHousing.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdIncome.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdInterview.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdLand.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdLandOther.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdMarket.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdOwnership.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdPerennialSpecies.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdRisk.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdSocialNetworking.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdSocialStatus.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdSpecies.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdWater.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaHouseholdWildSpecies.xml
+  • Loading XML other schema files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaInventory.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaCooperator.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaCwrPopulation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaMaterialTransfer.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLandrace.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLandraceMaintainer.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/SchemaLandraceMonitoring.xml
+  • Loading XML environment sub-structure files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructBioclimatic.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructPrecipitation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructTemperature.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructEnvironment.xml
+  • Loading XML taxonomy sub-structure files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructTaxonConservation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructTaxonThreat.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructTaxonCrossability.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructTaxonDistribution.xml
+  • Loading XML common sub-structure files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructBreedingEntities.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructCollectingEntities.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructSafetyDuplicates.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructGermplasmNeighbourhood.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructMaterialTransfers.xml
+  • Loading XML household sub-structure files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructHouseholdEconomy.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructHouseholdInterview.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructHouseholdMarket.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructHouseholdRisk.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructHouseholdSocial.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructHouseholdSpecies.xml
+  • Loading XML other sub-structure files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructAccessionBreeding.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructAccessionCollecting.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructAccessionManagement.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructAccessionSource.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructAccessionStatus.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructGermplasmEvaluation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructCollectingMission.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructCollectingMissionTaxa.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructCollectingSamples.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructCwrPopulation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructForestPopulation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructMissionLocations.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructMissionTaxa.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructTrialMeasurement.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructQtlCharacteristics.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructGermplasmQtl.xml
+  • Loading XML structure files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureAccession.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureCollectingMission.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureCwrChecklist.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureCwrInventory.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureForest.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureLandrace.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureHousehold.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureMission.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureCollectingSample.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureTrial.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/StructureQtl.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/Structures.xml
+  • Loading XML form files.
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormAccession.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormBreeding.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormCollecting.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormTrial.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormTrait.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormQtl.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormCollectingMission.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormCwrChecklist.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormCwrInventory.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormCwrPopulation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormEnvironment.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormForest.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormHousehold.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormInventory.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormLocation.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormMaterialTransfer.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormMission.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormTaxon.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormLandrace.xml
+    - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/Forms.xml
+  Elapsed: 1.2895357529322 minutes
+
+Done!
+8 minutes and 33 seconds.
+
+
+==> Connecting.
+  • Creating wrapper.
+  • Setting metadata.
+  • Setting units.
+  • Setting users.
+
+==> Resetting units.
+  • Resetting collection.
+  • Creating unit entity indexes.
+  Elapsed: 0.0021950642267863 minutes
+
+==> Resetting users.
+  • Resetting collection.
+  Elapsed: 0.00081196626027425 minutes
+
+Done!
+0 minutes and 1 seconds.
+
+
+==> Connecting.
+  • Creating wrapper.
+  • Setting metadata.
+  • Setting units.
+  • Setting users.
+  • Loading FAO Institutes.
+  Elapsed: 10.650015350183 minutes
+
+Done!
+
+10 minutes and 39 seconds.
+
+Milkos-MacBook-Pro:~ milko$ 
