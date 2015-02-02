@@ -1,0 +1,8 @@
+Upload System.
+=============
+
+- The file is uploaded by the provider and stored in a version warehouse.
+- The file is parsed and checked if it has the required worksheets.
+- All worksheets are parsed and checked if they has the required columns.
+- The main worksheet is opened and scanned:
+  - If no errors, all other worksheets are parsed to find eventual related rows.

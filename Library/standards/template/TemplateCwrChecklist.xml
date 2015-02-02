@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CWR CHECKLIST TEMPLATE
+	TemplateCwrChecklist.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Template root -->
+	
+	<META>
+		<NODE term=":domain:inventory:checklist" pid="template:domain:inventory:checklist">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DOMAIN">:domain:inventory:checklist</item>
+			<item const="kTAG_CLASS_NAME">Checklist</item>
+			<item const="kTAG_ID_SYMBOL">template:domain:inventory:checklist:master</item>
+		</NODE>
+	
+		<!-- mcpd:MLSSTAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:MLSSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:AEGISSTAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:AEGISSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

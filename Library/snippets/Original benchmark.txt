@@ -1,4 +1,4 @@
-Milkos-MacBook-Pro:~ milko$ /Library/WebServer/Library/OntologyWrapper/Library/commands/Test.command 
+Milkos-MacBook-Pro:~ milko$ /Library/WebServer/Library/OntologyWrapper/Library/commands/Test.command
 
 ==> Connecting.
   • Creating wrapper.
@@ -43,7 +43,6 @@ Milkos-MacBook-Pro:~ milko$ /Library/WebServer/Library/OntologyWrapper/Library/c
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/StructureNode.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/StructureEdge.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/default/StructureEntity.xml
-  Elapsed: 0.27023408412933 minutes
 
 ==> Loading ISO standards.
   • Loading default XML files.
@@ -87,7 +86,6 @@ Milkos-MacBook-Pro:~ milko$ /Library/WebServer/Library/OntologyWrapper/Library/c
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso15924-alpha4.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso15924-numeric.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/iso/iso15924-xref.xml
-  Elapsed: 34.446334981918 minutes
 
 ==> Loading WBI standards.
   • Loading default WBI files.
@@ -97,7 +95,6 @@ Milkos-MacBook-Pro:~ milko$ /Library/WebServer/Library/OntologyWrapper/Library/c
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/wbi/WBI-lending.xml
   • Loading generated WBI XML files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/wbi/WBI-xref.xml
-  Elapsed: 0.49376508394877 minutes
 
 ==> Loading IUCN standards.
   • Loading XML namespace files.
@@ -106,52 +103,45 @@ Milkos-MacBook-Pro:~ milko$ /Library/WebServer/Library/OntologyWrapper/Library/c
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/iucn/Attributes.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/iucn/Types.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/iucn/Tags.xml
-  Elapsed: 0.29734418392181 minutes
 
 ==> Loading NatureServe standards.
   • Loading XML namespace files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/natserve/Namespaces.xml
   • Loading XML attribute files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/natserve/Attributes.xml
-  Elapsed: 0.008784818649292 minutes
 
 ==> Loading FAO standards.
   • Loading XML namespace files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/fao/Namespaces.xml
   • Loading XML attribute files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/fao/Attributes.xml
-  Elapsed: 0.023253413041433 minutes
 
 ==> Loading EEC standards.
   • Loading XML namespace files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/eec/Namespaces.xml
   • Loading XML attribute files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/eec/Attributes.xml
-  Elapsed: 5.2297383348147 minutes
 
 ==> Loading GENS standards.
   • Loading XML namespace files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/gens/Namespaces.xml
   • Loading XML attribute files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/gens/Attributes.xml
-  Elapsed: 0.027333867549896 minutes
 
 ==> Loading GLOBCOV standards.
   • Loading XML namespace files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/globcov/Namespaces.xml
   • Loading XML attribute files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/globcov/Attributes.xml
-  Elapsed: 0.024322799841563 minutes
 
 ==> Loading HWSD standards.
   • Loading XML namespace files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/hwsd/Namespaces.xml
   • Loading XML attribute files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/hwsd/Attributes.xml
-  Elapsed: 0.19626973072688 minutes
 
 Done!
-41 minutes and 1 seconds.
+42 minutes and 42 seconds.
 
 
 ==> Connecting.
@@ -184,7 +174,6 @@ Done!
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/EnvironmentalAttributes.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/standard/TrialAttributes.xml
   • Creating species name index for terms.
-  Elapsed: 1.369927183787 minutes
 
 ==> Loading traits.
   • Loading XML namespace files.
@@ -195,19 +184,16 @@ Done!
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/trait/Types.xml
   • Loading XML tag files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/trait/Tags.xml
-  Elapsed: 4.4931485533714 minutes
 
 ==> Loading MCPD standards.
   • Loading MCPD files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/mcpd/Namespaces.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/mcpd/Attributes.xml
-  Elapsed: 0.080778602759043 minutes
 
 ==> Loading FCU standards.
   • Loading FCU files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/fcu/Namespaces.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/fcu/Attributes.xml
-  Elapsed: 0.072245514392853 minutes
 
 ==> Loading CWR standards.
   • Loading CWR namespace files.
@@ -217,7 +203,6 @@ Done!
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/cwr/ChecklistAttributes.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/cwr/InventoryAttributes.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/cwr/PopulationAttributes.xml
-  Elapsed: 0.1648766318957 minutes
 
 ==> Loading ABDH standards.
   • Loading ABDH namespace files.
@@ -234,14 +219,12 @@ Done!
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/MarketAttributes.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/SocialAttributes.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/abdh/RiskAttributes.xml
-  Elapsed: 0.89070161581039 minutes
 
 ==> Loading QTL standards.
   • Loading QTL namespace files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/qtl/Namespaces.xml
   • Loading QTL attribute files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/qtl/Attributes.xml
-  Elapsed: 0.017836097876231 minutes
 
 ==> Loading LR standards.
   • Loading LR namespace files.
@@ -266,7 +249,6 @@ Done!
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/EnumUse.xml
   • Loading LR tag files.
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/lr/Tags.xml
-  Elapsed: 0.1544158856074 minutes
 
 ==> Loading collections.
   • Loading XML default relations files.
@@ -410,10 +392,9 @@ Done!
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormTaxon.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/FormLandrace.xml
     - /Library/WebServer/Library/OntologyWrapper/Library/standards/collections/Forms.xml
-  Elapsed: 1.2895357529322 minutes
 
 Done!
-8 minutes and 33 seconds.
+8 minutes and 45 seconds.
 
 
 ==> Connecting.
@@ -425,14 +406,12 @@ Done!
 ==> Resetting units.
   • Resetting collection.
   • Creating unit entity indexes.
-  Elapsed: 0.0021950642267863 minutes
 
 ==> Resetting users.
   • Resetting collection.
-  Elapsed: 0.00081196626027425 minutes
 
 Done!
-0 minutes and 1 seconds.
+0 minutes and 0 seconds.
 
 
 ==> Connecting.
@@ -441,10 +420,9 @@ Done!
   • Setting units.
   • Setting users.
   • Loading FAO Institutes.
-  Elapsed: 10.650015350183 minutes
 
 Done!
 
-10 minutes and 39 seconds.
+10 minutes and 54 seconds.
 
 Milkos-MacBook-Pro:~ milko$ 

@@ -5286,6 +5286,22 @@ class Service extends ContainerObject
 			} // User invitation.
 			
 			//
+			// Handle user record.
+			//
+			else
+			{
+				//
+				// Replace native identifier with identifier.
+				//
+				$tmp = $results;
+				$results = Array();
+				foreach( $tmp as $rec )
+					$results[ $rec[ kTAG_IDENTIFIER ]
+								  [ kAPI_PARAM_RESPONSE_FRMT_DISP ] ] = $rec;
+			
+			} // User record.
+			
+			//
 			// Encrypt result.
 			//
 			$results = JsonEncode( $results );
@@ -5478,6 +5494,15 @@ class Service extends ContainerObject
 			//
 			if( count( $results ) )
 			{
+				//
+				// Replace native identifier with identifier.
+				//
+				$tmp = $results;
+				$results = Array();
+				foreach( $tmp as $rec )
+					$results[ $rec[ kTAG_IDENTIFIER ]
+								  [ kAPI_PARAM_RESPONSE_FRMT_DISP ] ] = $rec;
+				
 				//
 				// Encrypt result.
 				//

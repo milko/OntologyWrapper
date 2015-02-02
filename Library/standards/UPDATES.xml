@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	UPDATES
+	UPDATES.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Terms -->
+	
+	<!-- kTAG_TEMPLATE_MASTER -->
+	<META>
+		<TERM ns="" lid="template-master">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Master template</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A reference to the template holding the unit identification and root level data.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Tags -->
+	
+	<!-- @61 -->
+	<!-- kTAG_TEMPLATE_MASTER -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:template-master</item>
+			</item>
+			<item const="kTAG_ID_HASH">@61</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TEMPLATE_MASTER</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the reference to the template node which holds the unit identification and root level data; this string should be the node's persistent dentifier.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

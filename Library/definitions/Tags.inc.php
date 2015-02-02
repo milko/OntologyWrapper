@@ -950,6 +950,10 @@ define( "kTAG_OBJECT_OFFSETS",			'@33' );
  */
 define( "kTAG_OBJECT_REFERENCES",		'@34' );
 
+/*=======================================================================================
+ *	PROPERTY DESCRIPTION TAGS															*
+ *======================================================================================*/
+
 /**
  * Tag container structure (<code>:tag:struct</code)
  *
@@ -979,10 +983,6 @@ define( "kTAG_TAG_STRUCT",				'@35' );
  * have an offset, defined by the current attribute, with the same value.
  */
 define( "kTAG_TAG_STRUCT_IDX",			'@36' );
-
-/*=======================================================================================
- *	PROPERTY DESCRIPTION TAGS															*
- *======================================================================================*/
 
 /**
  * Minimum value (<code>:min-val</code)
@@ -1057,7 +1057,7 @@ define( "kTAG_PATTERN",					'@3b' );
 define( "kTAG_DECIMALS",				'@3c' );
 
 /*=======================================================================================
- *	DEFAULT ATTRIBUTES																	*
+ *	GENERIC ATTRIBUTES																	*
  *======================================================================================*/
 
 /**
@@ -1498,7 +1498,7 @@ define( "kTAG_CLASS_NAME",				'@5e' );
 define( "kTAG_TOKEN",					'@5f' );
 
 /**
- * Managed (<code>:managed-count</code)
+ * Managed users (<code>:managed-count</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}

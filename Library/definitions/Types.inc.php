@@ -337,6 +337,10 @@ define( "kTYPE_NODE_PROPERTY",					':kind:property-node' );
  */
 define( "kTYPE_NODE_ENUMERATED",				':kind:enumerated-node' );
 
+/*=======================================================================================
+ *	DEFAULT NODE TYPES																	*
+ *======================================================================================*/
+
 /**
  * Ontology.
  *
