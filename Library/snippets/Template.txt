@@ -10,35 +10,42 @@ Templates need to track the following information:
 
 Templates are defined as a graph shaped as a tree whose nodes fall into the following
 categories:
-	- Root node: this node represents the template, it should hold any information regarding
-	  the template as a whole.
+	- Template node: this node represents the template, it should hold any information
+	  regarding the template as a whole.
 		- kTAG_TERM:			A term which contains the name and description of the
 								template.
 		- kTAG_DOMAIN:			The data domain of the template.
 		- kTAG_CLASS_NAME:		The class name of the object the template is filling.
-		- kTAG_ID_SYMBOL:		The kTAG_ID_PERSISTENT of the template node representing the
-								worksheet holding the unit identification and root level
-								data, note that this is an exception behaviour.
 		- kTAG_NODE_TYPE:		kTYPE_NODE_ROOT, kTYPE_NODE_TEMPLATE.
 	
-	- Template node: this node represents a table or spreadsheet worksheet, it essentially
+	- Worksheet node: this node represents a table or spreadsheet worksheet, it essentially
 	  represents a list of data properties.
-		- kTAG_ID_PERSISTENT:	This property is required to uniquely identify worksheets.
-		- kTAG_TAG_STRUCT:		The eventual reference of the structure containin the properties
-								of the current worksheet.
 		- kTAG_TERM:			A term which contains the title and description of the
 								worksheet.
 		- kTAG_NAME:			The name of the worksheet, as in Excel.
-		- kTAG_ID_SYMBOL:		The worksheet index column template symbol.
+		- kTAG_LINE_SYMBOL:		The template line number where the symbols row can be found.
+		- kTAG_LINE_DATA:		The template line number where the data starts.
 		- kTAG_NODE_TYPE:		kTYPE_NODE_TEMPLATE.
 	
 	- Property node: this node represents a worksheet column, it describes the template
 	  column and the object data property.
-		- kTAG_ID_SYMBOL:		The column template symbol.
 		- kTAG_TAGS:			The list of eventual structure tags in order.
 		- | kTAG_TAG:			The reference to the tag corresponding to the column.
 		- | kTAG_TERM:			A term is only used if the element represents a column which
 								is used as a worksheet index and does not have a relative
 								tag.
-		- kTAG_ID_SYMBOL:		The column index of the property.
+		- kTAG_ID_SYMBOL:		The column template symbol.
+		- kTAG_TOKEN:			This optional property contains the pattern tokens used to
+								separate list property elements.
 		- kTAG_NODE_TYPE:		kTYPE_NODE_TEMPLATE, kTYPE_NODE_PROPERTY.
+
+Root template nodes are pointed to by predicate kPREDICATE_COLLECTION_OF by the child
+worksheets.
+
+Worksheet nodes are pointed to by predicate kPREDICATE_PROPERTY_OF by the child properties.
+
+The root template will have at most one relationship of predicate kPREDICATE_UNIT pointing
+to the worksheet which represents the unit identification and root data.
+
+The worksheet template will have at most one relationship of predicate kPREDICATE_INDEX
+pointing to the property which represents the worksheet's unique identifier.

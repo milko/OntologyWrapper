@@ -803,6 +803,18 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_NID	=> ':managed-count',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_LINE_SYMBOL => array
+		(
+			kTAG_NID	=> ':line-symbol',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_LINE_DATA => array
+		(
+			kTAG_NID	=> ':line-data',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		)
 	);
 

@@ -850,6 +850,38 @@
 			</item>
 		</TERM>
 		
+		<!-- kTYPE_ESSENTIAL -->
+		<TERM ns=":type" lid="essential">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Essential</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fundamental or extremely important.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_MANDATORY -->
+		<TERM ns=":type" lid="mandatory">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Mandatory</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Required or compulsory.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kTAG_PRIVATE_SEARCH -->
 		<TERM ns=":type" lid="private-search">
 			<item const="kTAG_LABEL">

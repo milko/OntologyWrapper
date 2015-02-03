@@ -261,6 +261,45 @@
 		</EDGE>
 	</META>
 		
+	<!-- kPREDICATE_UNIT -->
+	<META>
+		<NODE term=":predicate:UNIT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_INDEX -->
+	<META>
+		<NODE term=":predicate:INDEX">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_REF -->
+	<META>
+		<NODE term=":predicate:REF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::predicate</item>
+		</EDGE>
+	</META>
+		
 	<!-- kPREDICATE_XREF -->
 	<META>
 		<NODE term=":predicate:XREF">

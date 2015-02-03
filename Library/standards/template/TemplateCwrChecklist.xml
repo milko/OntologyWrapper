@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	CWR CHECKLIST TEMPLATE
+	CROP WILD RELATIVE CHECKLIST TEMPLATE
 	TemplateCwrChecklist.xml
 -->
 <METADATA
@@ -9,27 +9,77 @@
 	
 	<!-- Template root -->
 	
+	<!-- :template:checklist:cwr -->
 	<META>
-		<NODE term=":domain:inventory:checklist" pid="template:domain:inventory:checklist">
+		<TERM ns=":template" lid="checklist:cwr">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Crop wild relative checklist</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Crop wild relative checklist template.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_DOMAIN">:domain:inventory:checklist:cwr</item>
+			<item const="kTAG_CLASS_NAME">Checklist</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:template</item>
 			</item>
-			<item const="kTAG_DOMAIN">:domain:inventory:checklist</item>
-			<item const="kTAG_CLASS_NAME">Checklist</item>
-			<item const="kTAG_ID_SYMBOL">template:domain:inventory:checklist:master</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This template contains all worksheets needed to load crop wild relative checklist data.]]></item>
+				</item>
+			</item>
 		</NODE>
+	</META>
 	
-		<!-- mcpd:MLSSTAT -->
+	<!-- Checklist identification worksheet -->
+	
+	<!-- template::checklist:cwr:identification -->
+	<META>
+		<TERM ns=":template:checklist:cwr" lid="identification">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Checklist identification</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Checklist identification and root data.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NAME">CK_Identification</item>
+			<item const="kTAG_LINE_SYMBOL">1</item>
+			<item const="kTAG_LINE_DATA">4</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This worksheet contains the checklist identification and root data.]]></item>
+				</item>
+			</item>
+		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:MLSSTAT</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:COLLECTION-OF</item>
+			<item const="kTAG_OBJECT" node="term">:template:checklist:cwr</item>
 		</EDGE>
-		
-		<!-- mcpd:AEGISSTAT -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:AEGISSTAT</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="tag">:template:checklist:cwr</item>
+			<item const="kTAG_PREDICATE">:predicate:UNIT</item>
 		</EDGE>
 	</META>
 </METADATA>

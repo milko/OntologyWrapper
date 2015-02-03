@@ -298,6 +298,54 @@
 			</item>
 		</TERM>
 		
+		<!-- kPREDICATE_UNIT -->
+		<TERM ns=":predicate" lid="UNIT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship represents the unit of the subject of the relationship. This predicate is generally used in templates to indicate which template worksheet represents the unit identification and root data; there should normally be only one relationship of this type stemming from the subject.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kPREDICATE_INDEX -->
+		<TERM ns=":predicate" lid="INDEX">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Index</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship represents the index of the subject of the relationship. This predicate is generally used in templates to indicate which property represents the worksheet unique identifier; there should normally be only one relationship of this type stemming from the subject.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kPREDICATE_REF -->
+		<TERM ns=":predicate" lid="REF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">References</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship references the object of the relationship. This predicate is unidirectional and is generally used by templates to indicate the index column to be matched by the current property.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kPREDICATE_XREF -->
 		<TERM ns=":predicate" lid="XREF">
 			<item const="kTAG_LABEL">

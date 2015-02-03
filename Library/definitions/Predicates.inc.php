@@ -283,6 +283,35 @@ define( "kPREDICATE_VALID",						':predicate:VALID' );
 define( "kPREDICATE_LEGACY",					':predicate:LEGACY' );
 
 /**
+ * Unit.
+ *
+ * This predicate indicates that the object of the relationship represents the unit of the
+ * subject of the relationship. This predicate is generally used in templates to indicate
+ * which template worksheet represents the unit identification and root data; there should
+ * normally be only one relationship of this type stemming from the subject.
+ */
+define( "kPREDICATE_UNIT",						':predicate:UNIT' );
+
+/**
+ * Index.
+ *
+ * This predicate indicates that the object of the relationship represents the index of the
+ * subject of the relationship. This predicate is generally used in templates to indicate
+ * which property represents the worksheet unique identifier; there should normally be only
+ * one relationship of this type stemming from the subject.
+ */
+define( "kPREDICATE_INDEX",						':predicate:INDEX' );
+
+/**
+ * References.
+ *
+ * This predicate indicates that the subject of the relationship references the object of
+ * the relationship. This predicate is unidirectional and is generally used by templates to
+ * indicate the index column to be matched by the current property.
+ */
+define( "kPREDICATE_REF",						':predicate:REF' );
+
+/**
  * Cross reference.
  *
  * This predicate indicates that the subject of the relationship is related to the object

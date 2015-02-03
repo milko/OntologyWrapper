@@ -563,6 +563,20 @@ define( "kTYPE_QUANTITATIVE",					':type:quantitative' );
 define( "kTYPE_DISCRETE",						':type:discrete' );
 
 /**
+ * Essential.
+ *
+ * An <i>essential</i> property is not mandatory, but its inclusion is highly encouraged.
+ */
+define( "kTYPE_ESSENTIAL",						':type:essential' );
+
+/**
+ * Required.
+ *
+ * A <i>mandatory</i> property is required, its omission will cause an error.
+ */
+define( "kTYPE_MANDATORY",						':type:mandatory' );
+
+/**
  * Private search.
  *
  * This kind indicates that the referred property should not be available to clients for

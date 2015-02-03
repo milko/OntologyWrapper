@@ -1508,6 +1508,28 @@ define( "kTAG_TOKEN",					'@5f' );
  */
 define( "kTAG_MANAGED_COUNT",			'@60' );
 
+/**
+ * Symbol line (<code>:line-symbol</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ * </ul>
+ *
+ * This tag indicates the line number in which templates feature the column symbol.
+ */
+define( "kTAG_LINE_SYMBOL",				'@61' );
+
+/**
+ * Data line (<code>:line-data</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ * </ul>
+ *
+ * This tag indicates the line number in which templates feature the first record.
+ */
+define( "kTAG_LINE_DATA",				'@62' );
+
 /*=======================================================================================
  *	OPERATION OFFSETS																	*
  *======================================================================================*/

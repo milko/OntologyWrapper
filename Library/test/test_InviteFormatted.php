@@ -231,6 +231,7 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+exit;
 	
 	//
 	// Invite user.

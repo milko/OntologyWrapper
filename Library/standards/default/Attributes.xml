@@ -1639,5 +1639,37 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- kTAG_LINE_SYMBOL -->
+		<TERM ns="" lid="line-symbol">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Symbol line</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The line number containing the column symbol.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_LINE_DATA -->
+		<TERM ns="" lid="line-data">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Data line</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The line number at which data starts.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 </METADATA>

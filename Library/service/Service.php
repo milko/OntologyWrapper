@@ -92,7 +92,7 @@ try
 	//
 	// Set graph database.
 	//
-	if( kSTANDARDS_GRAPH_DB !== FALSE )
+	if( kGRAPH_DO )
 		$wrapper->Graph(
 			new OntologyWrapper\Neo4jGraph(
 				kSTANDARDS_GRAPH_DB ) );
