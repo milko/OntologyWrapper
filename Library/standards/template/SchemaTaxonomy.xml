@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXONOMY TEMPLATE SCHEMA
+	SchemaTaxonomy.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema::template:taxonomy -->
+	<META>
+		<TERM ns=":template" lid="schema:taxonomy">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxon epithets template schema</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:schema:taxonomy"
+			  pid="schema::template:taxonomy">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all template properties related to taxonomy.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- template::taxon:regnum -->
+	<META>
+		<NODE tag=":taxon:regnum"
+			  pid="template::taxon:regnum">
+			<item const="kTAG_ID_SYMBOL">KINGDOM</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Plantae</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:phylum -->
+	<META>
+		<NODE tag=":taxon:phylum"
+			  pid="template::taxon:phylum">
+			<item const="kTAG_ID_SYMBOL">PHYLUM/DIVISION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Angiosperms</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:classis -->
+	<META>
+		<NODE tag=":taxon:classis"
+			  pid="template::taxon:classis">
+			<item const="kTAG_ID_SYMBOL">CLASS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Monocotyledons</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:ordo -->
+	<META>
+		<NODE tag=":taxon:ordo"
+			  pid="template::taxon:ordo">
+			<item const="kTAG_ID_SYMBOL">ORDER</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Asparagales</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:familia -->
+	<META>
+		<NODE tag=":taxon:familia"
+			  pid="template::taxon:familia">
+			<item const="kTAG_ID_SYMBOL">FAMILY</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Amaryllidaceae</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:genus -->
+	<META>
+		<NODE tag=":taxon:genus"
+			  pid="template::taxon:genus">
+			<item const="kTAG_ID_SYMBOL">GENUS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Genus name of the taxon, in Latin. Initial uppercase letter required.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Allium</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:species -->
+	<META>
+		<NODE tag=":taxon:species"
+			  pid="template::taxon:species">
+			<item const="kTAG_ID_SYMBOL">SPECIES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Specific epithet portion of the scientific name, in Latin, in lower case letters.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: ampeloprasum</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:species:author -->
+	<META>
+		<NODE tag=":taxon:species:author"
+			  pid="template::taxon:species:author">
+			<item const="kTAG_ID_SYMBOL">SPAUTHOR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:recommended</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The authority for the species name.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: L.</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:infraspecies -->
+	<META>
+		<NODE tag=":taxon:infraspecies"
+			  pid="template::taxon:infraspecies">
+			<item const="kTAG_ID_SYMBOL">SUBTAXON</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This field can be used to store any additional taxonomic identifier (in Latin, in lower case letters) preceded by the rank (for example: subspecies, variety, form). The following abbreviations are allowed: ‘subsp.’ (for subspecies); ‘var.’ (for variety); ‘f.’ (for form); ‘Group’ (for ‘cultivar group’).]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: var. ampeloprasum</item>
+				<item>Example: subsp. sphaerocephalon</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:infraspecies:author -->
+	<META>
+		<NODE tag=":taxon:infraspecies:author"
+			  pid="template::taxon:infraspecies:author">
+			<item const="kTAG_ID_SYMBOL">SUBTAUTHOR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:recommended</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the subtaxon authority at the most detailed taxonomic level.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: L.</item>
+				<item>Example: Guss.</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:epithet -->
+	<META>
+		<NODE tag=":taxon:epithet"
+			  pid="template::taxon:epithet">
+			<item const="kTAG_ID_SYMBOL">TAXON</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Full scientific name.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:url -->
+	<META>
+		<NODE tag=":taxon:url"
+			  pid="template::taxon:url">
+			<item const="kTAG_ID_SYMBOL">TAXONURL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the internet address in which the current taxon is published.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: http://www.ars-grin.gov/cgi-bin/npgs/html/taxon.pl?10535</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:reference -->
+	<META>
+		<NODE tag=":taxon:reference"
+			  pid="template::taxon:reference">
+			<item const="kTAG_ID_SYMBOL">TAXREF</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxonomy used by compiler to identify the material, separate multiple elements with a semicolon (;).]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Flora Iberica</item>
+				<item>Example: Euro+Med PlantBase;GRIN taxonomy and Species 2000</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:synonym -->
+	<META>
+		<NODE tag=":taxon:synonym"
+			  pid="template::taxon:synonym">
+			<item const="kTAG_ID_SYMBOL">SYNONYMS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Synonyms of taxon. Multiple values are separated by a semicolon without space.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Allium babingtonii Borrer</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:synref -->
+	<META>
+		<NODE tag=":taxon:synref"
+			  pid="template::taxon:synref">
+			<item const="kTAG_ID_SYMBOL">SYNREF</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Synonyms references used by checklist compiler, multiple values are separated by a semicolon without space.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Flora Iberica</item>
+				<item>Example: Euro+Med PlantBase;GRIN taxonomy and Species 2000</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:names -->
+	<META>
+		<NODE tag=":taxon:names"
+			  pid="template::taxon:names">
+			<item const="kTAG_ID_SYMBOL">TAXONNAMES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">@;,</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the names of the taxon in colloquial language. Each element is comprised by the language in which the name(s) are expressed and the list of names. The language should be expressed as an ISO 639-2 code. Each element is separated by a semicolon (;) without space. The language is separated by the list of names by the (@) character and each name should be separated by a comma. If you do not know the language of the names, you can omit the language code along with the (@) character.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: eng@wheat;ita@grano</item>
+				<item>Example: eng@name 1,name 2, name3;ita@nome 1, nome 2</item>
+				<item>Example: barley,orzo</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:chromosome-number -->
+	<META>
+		<NODE tag=":taxon:chromosome-number"
+			  pid="template::taxon:chromosome-number">
+			<item const="kTAG_ID_SYMBOL">CHROMOSNUMB</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Chromosome number of the species. Multiple values are separated by a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:genepool -->
+	<META>
+		<NODE tag=":taxon:genepool"
+			  pid="template::taxon:genepool">
+			<item const="kTAG_ID_SYMBOL">GENEPOOL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gene Pool to which the taxon belongs (see Maxted et al., 2006). The members of crop gene pool GP1b (primary) and 2 (secondary) are most likely to be crossable with the crop and so these become the obvious conservation priorities. Multiple values are separated by a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:genepool-ref -->
+	<META>
+		<NODE tag=":taxon:genepool-ref"
+			  pid="template::taxon:genepool-ref">
+			<item const="kTAG_ID_SYMBOL">GENEPOOLREF</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Citation of reference source for Gene Pool concept applied. Multiple values are separated by a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:group -->
+	<META>
+		<NODE tag=":taxon:group"
+			  pid="template::taxon:group">
+			<item const="kTAG_ID_SYMBOL">TAXONGROUP</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[If no concept has been applied to the crop complex, the Taxon Group to which the taxon belongs (see Maxted et al., 2006). The Taxon Group uses taxonomic classifications of the crop genus as a proxy for relative crossability. Taxon group TG1b (same species as crop), TG2 (same series or section as crop) and TG3 (same subgenus as crop) are given priority. Other CWR that are also given priority are species that have previously been successfully used in breeding. Multiple values are separated by a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:group-ref -->
+	<META>
+		<NODE tag=":taxon:group-ref"
+			  pid="template::taxon:group-ref">
+			<item const="kTAG_ID_SYMBOL">REFTAXONGROUP</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Citation of reference source for Taxon Group concept applied. Multiple values are separated by a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:designation -->
+	<META>
+		<NODE tag=":taxon:designation"
+			  pid="template::taxon:designation">
+			<item const="kTAG_ID_SYMBOL">TAXONDESIGNATION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the taxon designation or type. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: Wild utilized species</item>
+				<item>Example: Crop wild relative</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:designation:national -->
+	<META>
+		<NODE tag=":taxon:designation:national"
+			  pid="template::taxon:designation:national">
+			<item const="kTAG_ID_SYMBOL">TAXONDESIGNATIONNATIONAL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the taxon national designation or type.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:designation:ref -->
+	<META>
+		<NODE tag=":taxon:designation:ref"
+			  pid="template::taxon:designation:ref">
+			<item const="kTAG_ID_SYMBOL">REFTAXONDESIGNATION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the database, literature or personal communication reference for listing of taxon as a crop wild relative or wild utilised species. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:designation:use -->
+	<META>
+		<NODE tag=":taxon:designation:use"
+			  pid="template::taxon:designation:use">
+			<item const="kTAG_ID_SYMBOL">TAXONDESIGNATIONUSE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the designation of the primary or prioritized use of the associated crop or the wild utilised species taxon. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: erosion control;ornamental;medicine (folklore)</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:designation:notes -->
+	<META>
+		<NODE tag=":taxon:designation:notes"
+			  pid="template::taxon:designation:notes">
+			<item const="kTAG_ID_SYMBOL">TAXONDESIGNATIONNOTES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the notes on occurrence and designation status from databases, literature or personal communications. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:rel-crop:taxa -->
+	<META>
+		<NODE tag=":taxon:rel-crop:taxa"
+			  pid="template::taxon:rel-crop:taxa">
+			<item const="kTAG_ID_SYMBOL">RELATEDCROP</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the scientific names of the associated crop to which the crop wild relative is related. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:rel-crop -->
+	<META>
+		<NODE tag=":taxon:rel-crop"
+			  pid="template::taxon:rel-crop">
+			<item const="kTAG_ID_SYMBOL">CROPRELATION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the degree of closeness of relationship to crop taxon:
+10: Distant
+20: Assumed distant
+30: Close
+60: Wild utilised species
+99: Unknown]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: 30</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:rel-crop:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:ecovalue -->
+	<META>
+		<NODE tag=":taxon:ecovalue"
+			  pid="template::taxon:ecovalue">
+			<item const="kTAG_ID_SYMBOL">ECOVALUE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the economic value of the related crop. Use FAO stats for value http://faostat3.fao.org/home/index.html#HOME when applicable. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:ecovalue-ref -->
+	<META>
+		<NODE tag=":taxon:ecovalue-ref"
+			  pid="template::taxon:ecovalue-ref">
+			<item const="kTAG_ID_SYMBOL">ECOVALUEREF</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Citation of reference source for the economic value of the related crop or any bibliographic references related to the publication of the economic value, the format should include the author, date, title, journal, volume and page number or the DOI number. Multiple values are allowed, separated by a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+</METADATA>

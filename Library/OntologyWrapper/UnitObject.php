@@ -987,7 +987,7 @@ abstract class UnitObject extends PersistentObject
 		// Set identifier index.
 		//
 		$collection->createIndex( array( kTAG_IDENTIFIER => 1 ),
-								  array( "name" => "LID" ) );
+								  array( "name" => "IDENTIFIER" ) );
 		
 		//
 		// Set version index.

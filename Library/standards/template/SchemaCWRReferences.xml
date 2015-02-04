@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVES REFERENCES TEMPLATE SCHEMA
+	SchemaCWRReferences.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema::template:cwr:references -->
+	<META>
+		<TERM ns=":template" lid="schema:cwr:references">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Crop wild relatives references schema template</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:schema:cwr:references"
+			  pid="schema::template:cwr:references">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all reference properties used in crop wild relatives templates.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- template::cwr:REFERENCE -->
+	<META>
+		<NODE tag="cwr:REF"
+			  pid="template::cwr:REF">
+			<item const="kTAG_ID_SYMBOL">REFERENCE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Any bibliographic references related to the publication of the checklist, the format should include the author, date, title, journal, volume and page number or the DOI number, multiple entries should be separated by a semicolon (;)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:cwr:references</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::cwr:URL -->
+	<META>
+		<NODE tag="cwr:URL"
+			  pid="template::cwr:URL">
+			<item const="kTAG_ID_SYMBOL">URL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[URL linking to any additional data about the checklist species either in the institute or from another source.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:cwr:references</item>
+		</EDGE>
+	</META>
+</METADATA>

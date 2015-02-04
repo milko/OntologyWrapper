@@ -804,6 +804,24 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
+		kTAG_LINE_NAME => array
+		(
+			kTAG_NID	=> ':line-name',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_LINE_INFO => array
+		(
+			kTAG_NID	=> ':line-info',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_LINE_EXAMPLES => array
+		(
+			kTAG_NID	=> ':line-examples',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
 		kTAG_LINE_SYMBOL => array
 		(
 			kTAG_NID	=> ':line-symbol',
@@ -815,6 +833,24 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_NID	=> ':line-data',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_TRANSFORM => array
+		(
+			kTAG_NID	=> ':tag-transform',
+			kTAG_DATA_TYPE	=> kTYPE_STRUCT,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST )
+		),
+		kTAG_PREFIX => array
+		(
+			kTAG_NID	=> ':prefix',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST )
+		),
+		kTAG_SUFFIX => array
+		(
+			kTAG_NID	=> ':suffix',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST )
 		)
 	);
 

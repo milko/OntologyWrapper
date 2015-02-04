@@ -9,7 +9,7 @@
 	
 	<!-- Template root -->
 	
-	<!-- :template:checklist:cwr -->
+	<!-- template::checklist:cwr -->
 	<META>
 		<TERM ns=":template" lid="checklist:cwr">
 			<item const="kTAG_LABEL">
@@ -25,7 +25,8 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE>
+		<NODE term=":template:checklist:cwr"
+			  pid="template::checklist:cwr">
 			<item const="kTAG_DOMAIN">:domain:inventory:checklist:cwr</item>
 			<item const="kTAG_CLASS_NAME">Checklist</item>
 			<item const="kTAG_NODE_TYPE">
@@ -59,10 +60,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE>
+		<NODE term=":template:checklist:cwr:identification"
+			  pid="template::checklist:cwr:identification">
 			<item const="kTAG_NAME">CK_Identification</item>
-			<item const="kTAG_LINE_SYMBOL">1</item>
-			<item const="kTAG_LINE_DATA">4</item>
+			<item const="kTAG_LINE_NAME">4</item>
+			<item const="kTAG_LINE_INFO">5</item>
+			<item const="kTAG_LINE_EXAMPLES">6</item>
+			<item const="kTAG_LINE_SYMBOL">8</item>
+			<item const="kTAG_LINE_DATA">9</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 			</item>
@@ -75,11 +80,364 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:COLLECTION-OF</item>
-			<item const="kTAG_OBJECT" node="term">:template:checklist:cwr</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:template:checklist:cwr</item>
+			<item const="kTAG_SUBJECT" node="pid">template::checklist:cwr</item>
 			<item const="kTAG_PREDICATE">:predicate:UNIT</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::checklist:cwr:identification:index -->
+	<META>
+		<TERM ns=":template:checklist:cwr:identification" lid="index">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Checklist identifier</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Checklist unique identifier.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:checklist:cwr:identification:index"
+			  pid="template::checklist:cwr:identification:index">
+			<item const="kTAG_ID_SYMBOL">CK_UNID</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Field specific for uniquely identifying your cwr checklist. The combination you provide must be unique for each row on the first column of the excel worksheet.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">template::checklist:cwr:identification</item>
+			<item const="kTAG_PREDICATE">:predicate:INDEX</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::checklist:cwr:identification:dataset -->
+	<META>
+		<NODE tag=":inventory:dataset"
+			  pid="template::checklist:cwr:identification:dataset">
+			<item const="kTAG_ID_SYMBOL">DATASET</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Dataset name, provide the dataset or collection name to which this entry belongs.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::checklist:cwr:identification:version -->
+	<META>
+		<NODE tag=":unit:version"
+			  pid="template::checklist:cwr:identification:version">
+			<item const="kTAG_ID_SYMBOL">VERSION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:recommended</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Data version or date.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::checklist:cwr:identification:CK_CWRCODE -->
+	<META>
+		<NODE tag="cwr:ck:CWRCODE"
+			  pid="template::checklist:cwr:identification:CK_CWRCODE">
+			<item const="kTAG_ID_SYMBOL">CK_CWRCODE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Country or region code identifying the National CWR checklist, or the code of the country preparing the CWR checklist. For country codes use the three-letter ISO 3166-1 (see: http://unstats.un.org/unsd/methods/m49/m49alpha.htm); for region codes use the ISO 3166-2 standard (see http://en.wikipedia.org/wiki/Category:ISO_3166 in section 2).]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>ESP for Spain</item>
+				<item>GBR for United Kingdom</item>
+				<item>ES-AN for the autonomous community of Andalucía</item>
+				<item>GB-SCT for Scotland</item>
+				<item>GB-WLS for Wales</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_TAG">:inventory:code</item>
+				</item>
+				<item>
+					<item const="kTAG_TAG">:inventory:admin</item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>iso:3166:1:alpha-3:</item>
+						<item>iso:3166:2:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::checklist:cwr:identification:CK_NUMB -->
+	<META>
+		<NODE tag="cwr:ck:NUMB"
+			  pid="template::checklist:cwr:identification:CK_NUMB">
+			<item const="kTAG_ID_SYMBOL">CK_NUMB</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the edition of the National CWR checklist made up of the edition number and the year of publication.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: the first edition that is compiled in 2012 will be coded as 001/2012</item>
+				<item>Example: the second edition that is compiled in 2014 will be coded 002/2014</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::checklist:cwr:identification:CK_INSTCODE -->
+	<META>
+		<NODE tag="cwr:ck:NUMB"
+			  pid="template::checklist:cwr:identification:CK_INSTCODE">
+			<item const="kTAG_ID_SYMBOL">CK_INSTCODE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:recommended</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[FAO WIEWS code of the institute that is responsible at the national level for the production of the National CWR Checklist.  The codes consist of the 3 letter ISO 3166 country code of the country where the institute is located plus a number. The current set of institute codes is available from http://apps3.fao.org/wiews/wiews.jsp]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>ESP003</item>
+				<item>GBR003</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_TAG">:inventory:institute</item>
+					<item const="kTAG_CONN_COLL">_units</item>
+					<item const="kTAG_PREFIX">
+						<item>:domain:organisation://http://fao.org/wiews:</item>
+					</item>
+					<item const="kTAG_SUFFIX">
+						<item>;</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::checklist:cwr:identification:CK_TYPE -->
+	<META>
+		<NODE tag="cwr:ck:TYPE"
+			  pid="template::checklist:cwr:identification:CK_TYPE">
+			<item const="kTAG_ID_SYMBOL">CK_TYPE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[1.	Complete CWR checklist – a list of all CWR found in the country, a list of names and authorities.
+2.	Annotated CWR checklist – a list of all CWR found in the country, with additional information to aid prioritization of the checklist.
+3.	Priority CWR checklist – a partial list of CWR found in the country that has been reduced in number from the complete CWR checklist through prioritization, a list of names and authorities.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>2</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>cwr:ck:TYPE:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- schema::template:cwr:references -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::template:cwr:references</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- schema::template:taxonomy -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::template:taxonomy</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::checklist:cwr:identification:REMARKS -->
+	<META>
+		<NODE tag="cwr:ck:NUMB"
+			  pid="template::checklist:cwr:identification:REMARKS">
+			<item const="kTAG_ID_SYMBOL">REMARKS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The remarks field is used to add notes or to elaborate on descriptors. Prefix remarks with the field name they refer to and follow by a colon (:). Distinct remarks referring to different fields are separated by semicolons (;) without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- Checklist crossability worksheet -->
+	
+	<!-- template::checklist:cwr:crossability -->
+	<META>
+		<TERM ns=":template:checklist:cwr" lid="crossability">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Crossability</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Species crossability information.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:checklist:cwr:identification"
+			  pid="template::checklist:cwr:identification">
+			<item const="kTAG_NAME">CK_Crossability</item>
+			<item const="kTAG_LINE_NAME">4</item>
+			<item const="kTAG_LINE_INFO">5</item>
+			<item const="kTAG_LINE_EXAMPLES">6</item>
+			<item const="kTAG_LINE_SYMBOL">8</item>
+			<item const="kTAG_LINE_DATA">9</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This worksheet contains the crossability data.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:COLLECTION-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::checklist:cwr:crossability:index -->
+	<META>
+		<NODE term=":template:checklist:cwr:identification:index"
+			  pid="template::checklist:cwr:crossability:index">
+			<item const="kTAG_ID_SYMBOL">CK_UNID</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Field specific for uniquely identifying your cwr checklist. The value you provide must reference the CK_UNID column in the CK_Identification worksheet whose row corresponds to the checklist featuring this crossability record.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:crossability</item>
 		</EDGE>
 	</META>
 </METADATA>

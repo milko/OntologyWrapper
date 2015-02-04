@@ -850,18 +850,18 @@
 			</item>
 		</TERM>
 		
-		<!-- kTYPE_ESSENTIAL -->
-		<TERM ns=":type" lid="essential">
+		<!-- kTYPE_RECOMMENDED -->
+		<TERM ns=":type" lid="recommended">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Essential</item>
+					<item const="kTAG_TEXT">Recommended</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Fundamental or extremely important.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Recommended, encouraged or important.]]></item>
 				</item>
 			</item>
 		</TERM>

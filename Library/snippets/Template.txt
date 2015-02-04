@@ -23,8 +23,15 @@ categories:
 		- kTAG_TERM:			A term which contains the title and description of the
 								worksheet.
 		- kTAG_NAME:			The name of the worksheet, as in Excel.
-		- kTAG_LINE_SYMBOL:		The template line number where the symbols row can be found.
-		- kTAG_LINE_DATA:		The template line number where the data starts.
+		- kTAG_LINE_NAME:		The template line number where the column name or label can
+								be found.
+		- kTAG_LINE_INFO:		The template line number where the column description can be
+								found.
+		- kTAG_LINE_EXAMPLES:	The template line number where the column examples can be
+								found.
+		- kTAG_LINE_SYMBOL:		The template line number where the column symbol can be
+								found.
+		- kTAG_LINE_DATA:		The template line number where the column data starts.
 		- kTAG_NODE_TYPE:		kTYPE_NODE_TEMPLATE.
 	
 	- Property node: this node represents a worksheet column, it describes the template
@@ -35,8 +42,18 @@ categories:
 								is used as a worksheet index and does not have a relative
 								tag.
 		- kTAG_ID_SYMBOL:		The column template symbol.
+		- kTAG_EXAMPLE:			A list of examples.
+		- kTAG_DATA_KIND:		A set of qualifiers for the current value:
+			• kTYPE_ESSENTIAL:	The value is essential or encouraged.
+			• kTYPE_MANDATORY:	The value is required.
 		- kTAG_TOKEN:			This optional property contains the pattern tokens used to
 								separate list property elements.
+		- kTAG_TRANSFORM:		This optional tag contains a list of structures used to
+								transform and copy the current value:
+			• kTAG_TAG:			The tag reference to which to copy the value.
+			• kTAG_PREFIX:		The string to be prefixed to the value.
+			• kTAG_SUFFIX:		The string to be appended to the value.
+			• kTAG_CONN_COLL:	Collection name if the value represents an object reference.
 		- kTAG_NODE_TYPE:		kTYPE_NODE_TEMPLATE, kTYPE_NODE_PROPERTY.
 
 Root template nodes are pointed to by predicate kPREDICATE_COLLECTION_OF by the child

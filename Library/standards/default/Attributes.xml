@@ -1640,6 +1640,54 @@
 			</item>
 		</TERM>
 		
+		<!-- kTAG_LINE_NAME -->
+		<TERM ns="" lid="line-name">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Name line</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The line number containing the column name or label.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_LINE_INFO -->
+		<TERM ns="" lid="line-info">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Information line</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The line number containing the column description or information.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_LINE_EXAMPLES -->
+		<TERM ns="" lid="line-examples">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Examples line</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The line number containing the column examples.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kTAG_LINE_SYMBOL -->
 		<TERM ns="" lid="line-symbol">
 			<item const="kTAG_LABEL">
@@ -1668,6 +1716,54 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[The line number at which data starts.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_TRANSFORM -->
+		<TERM ns="" lid="tag-transform">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Value transformation</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A list of value transformation actions.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_PREFIX -->
+		<TERM ns="" lid="prefix">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Prefix</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A prefix string.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_SUFFIX -->
+		<TERM ns="" lid="suffix">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Suffix</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A suffix string.]]></item>
 				</item>
 			</item>
 		</TERM>

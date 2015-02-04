@@ -144,9 +144,9 @@
 		</EDGE>
 	</META>
 	
-	<!-- kTYPE_ESSENTIAL -->
+	<!-- kTYPE_RECOMMENDED -->
 	<META>
-		<NODE term=":type:essential">
+		<NODE term=":type:recommended">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>

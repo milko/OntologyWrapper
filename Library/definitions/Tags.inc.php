@@ -1509,6 +1509,40 @@ define( "kTAG_TOKEN",					'@5f' );
 define( "kTAG_MANAGED_COUNT",			'@60' );
 
 /**
+ * Name line (<code>:line-name</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ * </ul>
+ *
+ * This tag indicates the line number in which templates feature the column name or label.
+ */
+define( "kTAG_LINE_NAME",				'@61' );
+
+/**
+ * Info line (<code>:line-info</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ * </ul>
+ *
+ * This tag indicates the line number in which templates feature the column description or
+ * information.
+ */
+define( "kTAG_LINE_INFO",				'@62' );
+
+/**
+ * Examples line (<code>:line-examples</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ * </ul>
+ *
+ * This tag indicates the line number in which templates feature the column examples.
+ */
+define( "kTAG_LINE_EXAMPLES",			'@63' );
+
+/**
  * Symbol line (<code>:line-symbol</code)
  *
  * <ul>
@@ -1517,7 +1551,7 @@ define( "kTAG_MANAGED_COUNT",			'@60' );
  *
  * This tag indicates the line number in which templates feature the column symbol.
  */
-define( "kTAG_LINE_SYMBOL",				'@61' );
+define( "kTAG_LINE_SYMBOL",				'@64' );
 
 /**
  * Data line (<code>:line-data</code)
@@ -1528,7 +1562,65 @@ define( "kTAG_LINE_SYMBOL",				'@61' );
  *
  * This tag indicates the line number in which templates feature the first record.
  */
-define( "kTAG_LINE_DATA",				'@62' );
+define( "kTAG_LINE_DATA",				'@65' );
+
+/**
+ * Value transform (<code>:tag-transform</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRUCT}
+ *	<li><em>Kind</em>: {@link kTYPE_LIST}
+ * </ul>
+ *
+ * This tag indicates the list of structures providing value copy instructions, it is used
+ * by templates to copy and transform a value to other tags. The structure elements will
+ * typically hold the following items:
+ *
+ * <ul>
+ *	<li><tt>{@link kTAG_TAG}</tt>: The tag reference that will receive the value, if this is
+ *		the only element, the value will be simply copied to that tag.
+ *	<li><tt>{@link kTAG_PREFIX}</tt>: Before the value will be copied to the above tag, this
+ *		string will be prefixed to the original value.
+ *	<li><tt>{@link kTAG_SUFFIX}</tt>: Before the value will be copied to the above tag, this
+ *		string will be appended to the original value.
+ *	<li><tt>{@link kTAG_CONN_COLL}</tt>: If this tag is provided, it means that the value is
+ *		an object reference and this tag holds the collection in which the related object
+ *		resides.
+ * </ul>
+ *
+ * The prefix and suffix are lists, this means that the correct prefix or suffix will have
+ * to be identified. For instance, when providing a country code, this may either be an ISO
+ * 3166-1 or a legacy 3166-3 country: the first successful match will determine which prefix
+ * will be used; if you provide both a prefix and a suffix, all combinations will be used.
+ */
+define( "kTAG_TRANSFORM",				'@66' );
+
+/**
+ * Prefix (<code>:prefix</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ *	<li><em>Kind</em>: {@link kTYPE_LIST}
+ * </ul>
+ *
+ * This tag holds a list of strings representing prefixes, it is generally used by templates
+ * providing only the enumerated value suffix in order to identify the related term.
+ */
+define( "kTAG_PREFIX",					'@67' );
+
+/**
+ * Suffix (<code>:suffix</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ *	<li><em>Kind</em>: {@link kTYPE_LIST}
+ * </ul>
+ *
+ * This tag holds a list of strings representing suffixes, it is generally used by templates
+ * providing only the significant portion of the value: the suffix will be appended to the
+ * original value.
+ */
+define( "kTAG_SUFFIX",					'@68' );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

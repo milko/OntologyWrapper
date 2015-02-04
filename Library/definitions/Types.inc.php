@@ -563,11 +563,11 @@ define( "kTYPE_QUANTITATIVE",					':type:quantitative' );
 define( "kTYPE_DISCRETE",						':type:discrete' );
 
 /**
- * Essential.
+ * Recommended.
  *
- * An <i>essential</i> property is not mandatory, but its inclusion is highly encouraged.
+ * A <i>recommended</i> property is not mandatory, but its inclusion is highly encouraged.
  */
-define( "kTYPE_ESSENTIAL",						':type:essential' );
+define( "kTYPE_RECOMMENDED",					':type:recommended' );
 
 /**
  * Required.

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROSSABILITY TEMPLATE SCHEMA
+	SchemaCrossability.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema::template:crossability -->
+	<META>
+		<TERM ns=":template" lid="schema:crossability">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxon epithets template schema</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:schema:crossability"
+			  pid="schema::template:crossability">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all template properties related to crossability.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- template::taxon:cross:species -->
+	<META>
+		<NODE tag=":taxon:cross:species"
+			  pid="template::taxon:cross:species">
+			<item const="kTAG_ID_SYMBOL">LISTSPCROSS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List the species that have been crossed, separated the items by semicolons (;) without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:crossability</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:cross:methods -->
+	<META>
+		<NODE tag=":taxon:cross:methods"
+			  pid="template::taxon:cross:methods">
+			<item const="kTAG_ID_SYMBOL">METHCROSSREF</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Describe the method(s) used for each identified crosses. Multiple values are separated by semicolon (;) without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:crossability</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:cross:references -->
+	<META>
+		<NODE tag=":taxon:cross:references"
+			  pid="template::taxon:cross:references">
+			<item const="kTAG_ID_SYMBOL">LISTSPCROSSREF</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Add bibliographic references related to the species crossed, the format should include the author, date, title, journal, volume and page number or the DOI number. Multiple values are separated by semicolon (;) without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:crossability</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxon:cross:success -->
+	<META>
+		<NODE tag=":taxon:cross:success"
+			  pid="template::taxon:cross:success">
+			<item const="kTAG_ID_SYMBOL">SUCCROSSREF</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the percentage (%) of success rate for each cross. Multiple values are separated by semicolon (;) without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:crossability</item>
+		</EDGE>
+		
+	<!-- template::taxon:cross:population -->
+	<META>
+		<NODE tag=":taxon:cross:population"
+			  pid="template::taxon:cross:population">
+			<item const="kTAG_ID_SYMBOL">POPCROSSREF</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the type of cross population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:crossability</item>
+		</EDGE>
+	</META>
+</METADATA>
