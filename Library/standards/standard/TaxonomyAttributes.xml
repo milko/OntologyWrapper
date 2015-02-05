@@ -9737,7 +9737,7 @@
 			<item const="kTAG_OBJECT" node="tag">:taxon:threat:assessment</item>
 		</EDGE>
 	</META>
-	<!-- taxon:threat:assessment:1 -->
+	<!-- :taxon:threat:assessment:1 -->
 	<META>
 		<TERM ns=":taxon:threat:assessment" lid="1">
 			<item const="kTAG_LABEL">
@@ -9757,7 +9757,7 @@
 			<item const="kTAG_OBJECT" node="term">:taxon:threat:assessment</item>
 		</EDGE>
 	</META>
-	<!-- taxon:threat:assessment:2 -->
+	<!-- :taxon:threat:assessment:2 -->
 	<META>
 		<TERM ns=":taxon:threat:assessment" lid="2">
 			<item const="kTAG_LABEL">
@@ -9777,7 +9777,7 @@
 			<item const="kTAG_OBJECT" node="term">:taxon:threat:assessment</item>
 		</EDGE>
 	</META>
-	<!-- taxon:threat:assessment:3 -->
+	<!-- :taxon:threat:assessment:3 -->
 	<META>
 		<TERM ns=":taxon:threat:assessment" lid="3">
 			<item const="kTAG_LABEL">

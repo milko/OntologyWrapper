@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	INVENTORY TEMPLATE SCHEMA
+	SchemaInventory.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema::template:inventory -->
+	<META>
+		<TERM ns=":template" lid="schema:inventory">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Inventory template schema</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:schema:inventory"
+			  pid="schema::template:inventory">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all template properties related to inventory.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- template::inventory:dataset -->
+	<META>
+		<NODE tag=":inventory:dataset"
+			  pid="template::inventory:dataset">
+			<item const="kTAG_ID_SYMBOL">DATASET_NAME</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the dataset or collection name to which this record belongs.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:inventory</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::inventory:dataset:report -->
+	<META>
+		<NODE tag=":inventory:dataset:report"
+			  pid="template::inventory:dataset:report">
+			<item const="kTAG_ID_SYMBOL">DATASET_URL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the URLs pointing to the reports or sources of the dataset, separate multiple entries with a semicolon (;).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:inventory</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::inventory:dataset:notes -->
+	<META>
+		<NODE tag=":inventory:dataset:notes"
+			  pid="template::inventory:dataset:notes">
+			<item const="kTAG_ID_SYMBOL">DATASET_NOTES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide dataset notes or comments.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:inventory</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::inventory:code -->
+	<META>
+		<NODE tag=":inventory:code"
+			  pid="template::inventory:code">
+			<item const="kTAG_ID_SYMBOL">INVENTORY_CODE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the unique code identifying the inventory, if available and relevant.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:inventory</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::inventory:admin -->
+	<META>
+		<NODE tag=":inventory:admin"
+			  pid="template::inventory:admin">
+			<item const="kTAG_ID_SYMBOL">INVENTORY_ADMINISTRATIVE_UNIT</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the geographical administrative unit related to the inventory, this may be a country or a country subdivision. For country codes use the three-letter ISO 3166-1 Alpha-3 code; for region codes use the ISO 3166-2 codes (see: http://en.wikipedia.org/wiki/ISO_3166-1).]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>ESP for Spain</item>
+				<item>GBR for United Kingdom</item>
+				<item>ES-AN for the autonomous community of Andalucía</item>
+				<item>GB-SCT for Scotland</item>
+				<item>GB-WLS for Wales</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>iso:3166:1:alpha-3:</item>
+						<item>iso:3166:2:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:inventory</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::inventory:institute -->
+	<META>
+		<NODE tag=":inventory:institute"
+			  pid="template::inventory:institute">
+			<item const="kTAG_ID_SYMBOL">INVENTORY_INSTCODE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the FAO/WIEWS institute code of the responsible organisation. The codes consist of the 3 letter ISO 3166 country code of the country where the institute is located plus a number. The current set of institute codes is available from http://apps3.fao.org/wiews/wiews.jsp]]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>ESP003</item>
+				<item>GBR003</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_units</item>
+					<item const="kTAG_PREFIX">
+						<item>:domain:organisation://http://fao.org/wiews:</item>
+					</item>
+					<item const="kTAG_SUFFIX">
+						<item>;</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:inventory</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::inventory:references -->
+	<META>
+		<NODE tag=":inventory:references"
+			  pid="template::inventory:references">
+			<item const="kTAG_ID_SYMBOL">REFERENCES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide any bibliographic references related to the publication, the format should include the author, date, title, journal, volume and page number or the DOI number; multiple entries should be separated by a semicolon (;).]]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:inventory</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::inventory:urls -->
+	<META>
+		<NODE tag=":inventory:urls"
+			  pid="template::inventory:urls">
+			<item const="kTAG_ID_SYMBOL">URLS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide any internet links (URL) holding any additional data either in the institute or from another source; ; multiple entries should be separated by a semicolon (;).]]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:inventory</item>
+		</EDGE>
+	</META>
+</METADATA>

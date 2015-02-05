@@ -23,6 +23,8 @@
 			</item>
 		</NODE>
 	
+		<!-- Administrative unit codes -->
+		
 		<!-- :location:continent -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:continent</item>

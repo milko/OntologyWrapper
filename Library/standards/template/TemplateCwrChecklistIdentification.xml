@@ -1,52 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	CROP WILD RELATIVE CHECKLIST TEMPLATE
-	TemplateCwrChecklist.xml
+	CROP WILD RELATIVE CHECKLIST IDENTIFICATION WORKSHEET
+	TemplateCwrChecklistIdentification.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Template root -->
-	
-	<!-- template::checklist:cwr -->
-	<META>
-		<TERM ns=":template" lid="checklist:cwr">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Crop wild relative checklist</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Crop wild relative checklist template.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE term=":template:checklist:cwr"
-			  pid="template::checklist:cwr">
-			<item const="kTAG_DOMAIN">:domain:inventory:checklist:cwr</item>
-			<item const="kTAG_CLASS_NAME">Checklist</item>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:root-node</item>
-				<item>:type:node:template</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This template contains all worksheets needed to load crop wild relative checklist data.]]></item>
-				</item>
-			</item>
-		</NODE>
-	</META>
-	
 	<!-- Checklist identification worksheet -->
 	
 	<!-- template::checklist:cwr:identification -->
 	<META>
-		<TERM ns=":template:checklist:cwr" lid="identification">
+		<TERM ns=":template" lid="checklist:cwr:identification">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -70,6 +35,9 @@
 			<item const="kTAG_LINE_DATA">9</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -131,27 +99,11 @@
 		</EDGE>
 	</META>
 	
-	<!-- template::checklist:cwr:identification:dataset -->
+	<!-- schema::template:inventory -->
 	<META>
-		<NODE tag=":inventory:dataset"
-			  pid="template::checklist:cwr:identification:dataset">
-			<item const="kTAG_ID_SYMBOL">DATASET</item>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:template</item>
-				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:mandatory</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Dataset name, provide the dataset or collection name to which this entry belongs.]]></item>
-				</item>
-			</item>
-		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::template:inventory</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
 		</EDGE>
 	</META>
@@ -257,7 +209,7 @@
 	
 	<!-- template::checklist:cwr:identification:CK_INSTCODE -->
 	<META>
-		<NODE tag="cwr:ck:NUMB"
+		<NODE tag="cwr:INSTCODE"
 			  pid="template::checklist:cwr:identification:CK_INSTCODE">
 			<item const="kTAG_ID_SYMBOL">CK_INSTCODE</item>
 			<item const="kTAG_NODE_TYPE">
@@ -334,15 +286,6 @@
 		</EDGE>
 	</META>
 	
-	<!-- schema::template:cwr:references -->
-	<META>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::template:cwr:references</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
-		</EDGE>
-	</META>
-	
 	<!-- schema::template:taxonomy -->
 	<META>
 		<EDGE>
@@ -354,7 +297,7 @@
 	
 	<!-- template::checklist:cwr:identification:REMARKS -->
 	<META>
-		<NODE tag="cwr:ck:NUMB"
+		<NODE tag="cwr:REMARKS"
 			  pid="template::checklist:cwr:identification:REMARKS">
 			<item const="kTAG_ID_SYMBOL">REMARKS</item>
 			<item const="kTAG_NODE_TYPE">
@@ -371,73 +314,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
-		</EDGE>
-	</META>
-	
-	<!-- Checklist crossability worksheet -->
-	
-	<!-- template::checklist:cwr:crossability -->
-	<META>
-		<TERM ns=":template:checklist:cwr" lid="crossability">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Crossability</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Species crossability information.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE term=":template:checklist:cwr:identification"
-			  pid="template::checklist:cwr:identification">
-			<item const="kTAG_NAME">CK_Crossability</item>
-			<item const="kTAG_LINE_NAME">4</item>
-			<item const="kTAG_LINE_INFO">5</item>
-			<item const="kTAG_LINE_EXAMPLES">6</item>
-			<item const="kTAG_LINE_SYMBOL">8</item>
-			<item const="kTAG_LINE_DATA">9</item>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:template</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This worksheet contains the crossability data.]]></item>
-				</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:COLLECTION-OF</item>
-			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr</item>
-		</EDGE>
-	</META>
-	
-	<!-- template::checklist:cwr:crossability:index -->
-	<META>
-		<NODE term=":template:checklist:cwr:identification:index"
-			  pid="template::checklist:cwr:crossability:index">
-			<item const="kTAG_ID_SYMBOL">CK_UNID</item>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:template</item>
-				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:mandatory</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Field specific for uniquely identifying your cwr checklist. The value you provide must reference the CK_UNID column in the CK_Identification worksheet whose row corresponds to the checklist featuring this crossability record.]]></item>
-				</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:crossability</item>
 		</EDGE>
 	</META>
 </METADATA>

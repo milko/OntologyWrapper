@@ -3185,6 +3185,104 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
+	 *	loadTemplates																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load templates
+	 *
+	 * This method can be used to load the standards tempate elements in the metadata
+	 * database, it will load the collection XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadTemplates( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading templates.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load templates: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML templates files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML template files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/Templates.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML template schema files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML template schema files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/SchemaInventory.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/SchemaTaxonomy.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/SchemaCrossability.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/SchemaThreat.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML crop wild relative checklist worksheet files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML crop wild relative checklist worksheet files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrChecklistIdentification.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrChecklistCrossability.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrChecklistThreats.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadTemplates.
+
+	 
+	/*===================================================================================
 	 *	loadFAOInstitutes																*
 	 *==================================================================================*/
 

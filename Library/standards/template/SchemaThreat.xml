@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	THREAT TEMPLATE SCHEMA
+	SchemaThreat.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema::template:threat -->
+	<META>
+		<TERM ns=":template" lid="schema:threat">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Threat template schema</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:schema:threat"
+			  pid="schema::template:threat">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all template properties related to species threats.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- template::threat:assessment -->
+	<META>
+		<NODE tag=":taxon:threat:assessment"
+			  pid="template::threat:assessment">
+			<item const="kTAG_ID_SYMBOL">ASSESSMENT_LEVEL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate level of Red List assessment:
+1: Global
+2: Regional
+3: National]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example 2</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:threat:assessment:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:region -->
+	<META>
+		<NODE tag=":location:region"
+			  pid="template::threat:region">
+			<item const="kTAG_ID_SYMBOL">ASSESSMENT_REGION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide region of assessment if level is 2 (= regional).  A region indicates any subglobal geographically defined area, including country, state, or province (IUCN 2012a).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:iucn:category -->
+	<META>
+		<NODE tag="iucn:category"
+			  pid="template::threat:iucn:category">
+			<item const="kTAG_ID_SYMBOL">IUCN_CATEGORY</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the IUCN Red List Category (IUCN Red List Categories and Criteria Version 3.1: IUCN, 2001), http://www.iucnredlist.org/static/categories_criteria_3_1):
+CR: Critically endangered
+DD: Data deficiency
+EN: Endangered
+EW: Extinct in the wild
+EX: Extinct
+LC: Least concern
+NE: Not evaluated
+NT: Near threatened
+VU: Vulnerable
+LR/cd: Lower risk: conservation dependent
+LR/nt: Lower risk: near threatened
+LR/lc: Lower risk: least concern]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: EN</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>iucn:category:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:iucn:criteria -->
+	<META>
+		<NODE tag="iucn:criteria"
+			  pid="template::threat:iucn:criteria">
+			<item const="kTAG_ID_SYMBOL">IUCN_CRITERIA</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the IUCN Red List Criteria (IUCN Red List Categories and Criteria Version 3.1: IUCN, 2001), http://www.iucnredlist.org/static/categories_criteria_3_1):
+A: Declining population
+B: Geographic range size
+C: Small population size
+D: Very small population
+E: Quantitative analysis of extinction risk]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: A</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>iucn:criteria:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:iucn:criteria-citation -->
+	<META>
+		<NODE tag="iucn:criteria-citation"
+			  pid="template::threat:iucn:criteria-citation">
+			<item const="kTAG_ID_SYMBOL">IUCN_CITATION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[For the categories CR, EN and VU, for which criteria and subcriteria are an integral part of the Red List assessment, provide the IUCN criteria and subcriteria that apply to the taxon as a result of the Red listing process in the standard format,  (see Annex I), e.g. B2ab(iii) IUCN 2012b.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:iucn:criteria-other -->
+	<META>
+		<NODE tag=":taxon:threat:other-red-list-criteria"
+			  pid="template::threat:iucn:criteria-other">
+			<item const="kTAG_ID_SYMBOL">OTHER_CRITERIA</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[If the taxon has not been assessed using the IUCN Red List Categories and Criteria Version 3.1, provide the Red List category, criteria and subcriteria that apply to the taxon as a result of the Red listing process using the alternative system applied.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:iucn:threat -->
+	<META>
+		<NODE tag="iucn:threat"
+			  pid="template::threat:iucn:threat">
+			<item const="kTAG_ID_SYMBOL">IUCN_THREAT</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the IUCN Red List Threat Category (IUCN Threats Classification Scheme: http://www.iucnredlist.org/technical-documents/classification-schemes/threats-classification-scheme).]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: 2.1.1 = Shifting agriculture</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>iucn:threat:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:period -->
+	<META>
+		<NODE tag=":taxon:threat:period"
+			  pid="template::threat:period">
+			<item const="kTAG_ID_SYMBOL">THREAT_PERIOD</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the threat period of occurrence:
+1: Past
+2: Present
+3: Future]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: 2</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:threat:period:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:assessment:year -->
+	<META>
+		<NODE tag=":taxon:threat:assessment:year"
+			  pid="template::threat:assessment:year">
+			<item const="kTAG_ID_SYMBOL">ASSESSMENT_YEAR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the year in which Red List assessment was carried out.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:assessment:url -->
+	<META>
+		<NODE tag=":taxon:threat:assessment:url"
+			  pid="template::threat:assessment:url">
+			<item const="kTAG_ID_SYMBOL">ASSESSMENT_URL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide URL linking to the additional Red List assessment publication details.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:assessment:ref -->
+	<META>
+		<NODE tag=":taxon:threat:assessment:ref"
+			  pid="template::threat:assessment:ref">
+			<item const="kTAG_ID_SYMBOL">ASSESSMENT_REFERENCES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Any bibliographic references related to the publication of the checklist, the format should include the author, date, title, journal, volume and page number or the DOI number, multiple entries should be separated by a semicolon (;).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:natserve -->
+	<META>
+		<NODE tag="natserve:threat"
+			  pid="template::threat:natserve">
+			<item const="kTAG_ID_SYMBOL">NATSERVE_RANKING</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the taxon threat global ranking (NatureServe 2009):
+GX: Known or presumed extinct in the wild
+G1: Globally critically imperiled
+G2: Globally imperiled
+G3: Globally vulnerable
+G4: Apparently secure
+G5: Apparently secure and globally secure]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: G3</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>natserve:threat:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:national -->
+	<META>
+		<NODE tag=":taxon:threat:national"
+			  pid="template::threat:national">
+			<item const="kTAG_ID_SYMBOL">THREAT_NATIONAL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide threaten status according to national criteria.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:national:ucode -->
+	<META>
+		<NODE tag=":taxon:threat:national:ucode"
+			  pid="template::threat:national:ucode">
+			<item const="kTAG_ID_SYMBOL">THREAT_NATIONAL_UCODE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide threaten national unit code.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:national:udescr -->
+	<META>
+		<NODE tag=":taxon:threat:national:udescr"
+			  pid="template::threat:national:udescr">
+			<item const="kTAG_ID_SYMBOL">THREAT_NATIONAL_UDESCR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide threaten national unit description.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:national:uauth -->
+	<META>
+		<NODE tag=":taxon:threat:national:uauth"
+			  pid="template::threat:national:uauth">
+			<item const="kTAG_ID_SYMBOL">THREAT_NATIONAL_UAUTH</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide threaten national unit authority.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:national:year -->
+	<META>
+		<NODE tag=":taxon:threat:national:year"
+			  pid="template::threat:national:year">
+			<item const="kTAG_ID_SYMBOL">THREAT_NATIONAL_YEAR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide year of national red list assessment.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:occurrence-status -->
+	<META>
+		<NODE tag=":taxon:occurrence-status"
+			  pid="template::threat:occurrence-status">
+			<item const="kTAG_ID_SYMBOL">OCCURRENCE_STATUS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indication of the status of the taxon in the country (TDWG-POSS):
+100: Native
+110: Endemic
+120: Indigenous
+130: Assumed to be native
+200: Doubtfully native
+300: Formerly native (extinct)
+400: Non native
+410: Transient
+420: Naturalised
+430: Adventive
+490: Recorded as native in error]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: 120</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:occurrence-status:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:occurrence-notes -->
+	<META>
+		<NODE tag=":taxon:occurrence-notes"
+			  pid="template::threat:occurrence-notes">
+			<item const="kTAG_ID_SYMBOL">OCCURRENCE_NOTES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:threat</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide notes or comments on occurrence.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -15,7 +15,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Taxon epithets template schema</item>
+					<item const="kTAG_TEXT">Crossability template schema</item>
 				</item>
 			</item>
 		</TERM>
@@ -34,14 +34,17 @@
 		</NODE>
 	</META>
 		
-	<!-- template::taxon:cross:species -->
+	<!-- template::crossability:species -->
 	<META>
 		<NODE tag=":taxon:cross:species"
-			  pid="template::taxon:cross:species">
+			  pid="template::crossability:species">
 			<item const="kTAG_ID_SYMBOL">LISTSPCROSS</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:cross</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -57,14 +60,17 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:cross:methods -->
+	<!-- template::crossability:methods -->
 	<META>
 		<NODE tag=":taxon:cross:methods"
-			  pid="template::taxon:cross:methods">
+			  pid="template::crossability:methods">
 			<item const="kTAG_ID_SYMBOL">METHCROSSREF</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:cross</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -80,14 +86,17 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:cross:references -->
+	<!-- template::crossability:references -->
 	<META>
 		<NODE tag=":taxon:cross:references"
-			  pid="template::taxon:cross:references">
+			  pid="template::crossability:references">
 			<item const="kTAG_ID_SYMBOL">LISTSPCROSSREF</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:cross</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -103,14 +112,17 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:cross:success -->
+	<!-- template::crossability:success -->
 	<META>
 		<NODE tag=":taxon:cross:success"
-			  pid="template::taxon:cross:success">
+			  pid="template::crossability:success">
 			<item const="kTAG_ID_SYMBOL">SUCCROSSREF</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:cross</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -124,15 +136,19 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">schema::template:crossability</item>
 		</EDGE>
+	</META>
 		
-	<!-- template::taxon:cross:population -->
+	<!-- template::crossability:population -->
 	<META>
 		<NODE tag=":taxon:cross:population"
-			  pid="template::taxon:cross:population">
+			  pid="template::crossability:population">
 			<item const="kTAG_ID_SYMBOL">POPCROSSREF</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TAGS">
+				<item>:taxon:cross</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">

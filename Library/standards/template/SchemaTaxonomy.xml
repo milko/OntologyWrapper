@@ -9,13 +9,13 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- schema::template:taxonomy -->
+	<!-- † -->
 	<META>
 		<TERM ns=":template" lid="schema:taxonomy">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Taxon epithets template schema</item>
+					<item const="kTAG_TEXT">Taxonomy template schema</item>
 				</item>
 			</item>
 		</TERM>
@@ -34,10 +34,10 @@
 		</NODE>
 	</META>
 		
-	<!-- template::taxon:regnum -->
+	<!-- template::taxonomy:regnum -->
 	<META>
 		<NODE tag=":taxon:regnum"
-			  pid="template::taxon:regnum">
+			  pid="template::taxonomy:regnum">
 			<item const="kTAG_ID_SYMBOL">KINGDOM</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -53,10 +53,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:phylum -->
+	<!-- template::taxonomy:phylum -->
 	<META>
 		<NODE tag=":taxon:phylum"
-			  pid="template::taxon:phylum">
+			  pid="template::taxonomy:phylum">
 			<item const="kTAG_ID_SYMBOL">PHYLUM/DIVISION</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -72,10 +72,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:classis -->
+	<!-- template::taxonomy:classis -->
 	<META>
 		<NODE tag=":taxon:classis"
-			  pid="template::taxon:classis">
+			  pid="template::taxonomy:classis">
 			<item const="kTAG_ID_SYMBOL">CLASS</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -91,10 +91,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:ordo -->
+	<!-- template::taxonomy:ordo -->
 	<META>
 		<NODE tag=":taxon:ordo"
-			  pid="template::taxon:ordo">
+			  pid="template::taxonomy:ordo">
 			<item const="kTAG_ID_SYMBOL">ORDER</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -110,10 +110,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:familia -->
+	<!-- template::taxonomy:familia -->
 	<META>
 		<NODE tag=":taxon:familia"
-			  pid="template::taxon:familia">
+			  pid="template::taxonomy:familia">
 			<item const="kTAG_ID_SYMBOL">FAMILY</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -129,10 +129,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:genus -->
+	<!-- template::taxonomy:genus -->
 	<META>
 		<NODE tag=":taxon:genus"
-			  pid="template::taxon:genus">
+			  pid="template::taxonomy:genus">
 			<item const="kTAG_ID_SYMBOL">GENUS</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -157,10 +157,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:species -->
+	<!-- template::taxonomy:species -->
 	<META>
 		<NODE tag=":taxon:species"
-			  pid="template::taxon:species">
+			  pid="template::taxonomy:species">
 			<item const="kTAG_ID_SYMBOL">SPECIES</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -185,10 +185,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:species:author -->
+	<!-- template::taxonomy:species:author -->
 	<META>
 		<NODE tag=":taxon:species:author"
-			  pid="template::taxon:species:author">
+			  pid="template::taxonomy:species:author">
 			<item const="kTAG_ID_SYMBOL">SPAUTHOR</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -213,10 +213,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:infraspecies -->
+	<!-- template::taxonomy:infraspecies -->
 	<META>
 		<NODE tag=":taxon:infraspecies"
-			  pid="template::taxon:infraspecies">
+			  pid="template::taxonomy:infraspecies">
 			<item const="kTAG_ID_SYMBOL">SUBTAXON</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -239,10 +239,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:infraspecies:author -->
+	<!-- template::taxonomy:infraspecies:author -->
 	<META>
 		<NODE tag=":taxon:infraspecies:author"
-			  pid="template::taxon:infraspecies:author">
+			  pid="template::taxonomy:infraspecies:author">
 			<item const="kTAG_ID_SYMBOL">SUBTAUTHOR</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -268,10 +268,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:epithet -->
+	<!-- template::taxonomy:epithet -->
 	<META>
 		<NODE tag=":taxon:epithet"
-			  pid="template::taxon:epithet">
+			  pid="template::taxonomy:epithet">
 			<item const="kTAG_ID_SYMBOL">TAXON</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -293,10 +293,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:url -->
+	<!-- template::taxonomy:url -->
 	<META>
 		<NODE tag=":taxon:url"
-			  pid="template::taxon:url">
+			  pid="template::taxonomy:url">
 			<item const="kTAG_ID_SYMBOL">TAXONURL</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -318,10 +318,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:reference -->
+	<!-- template::taxonomy:reference -->
 	<META>
 		<NODE tag=":taxon:reference"
-			  pid="template::taxon:reference">
+			  pid="template::taxonomy:reference">
 			<item const="kTAG_ID_SYMBOL">TAXREF</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -345,10 +345,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:synonym -->
+	<!-- template::taxonomy:synonym -->
 	<META>
 		<NODE tag=":taxon:synonym"
-			  pid="template::taxon:synonym">
+			  pid="template::taxonomy:synonym">
 			<item const="kTAG_ID_SYMBOL">SYNONYMS</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -371,10 +371,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:synref -->
+	<!-- template::taxonomy:synref -->
 	<META>
 		<NODE tag=":taxon:synref"
-			  pid="template::taxon:synref">
+			  pid="template::taxonomy:synref">
 			<item const="kTAG_ID_SYMBOL">SYNREF</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -398,10 +398,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:names -->
+	<!-- template::taxonomy:names -->
 	<META>
 		<NODE tag=":taxon:names"
-			  pid="template::taxon:names">
+			  pid="template::taxonomy:names">
 			<item const="kTAG_ID_SYMBOL">TAXONNAMES</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -426,10 +426,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:chromosome-number -->
+	<!-- template::taxonomy:chromosome-number -->
 	<META>
 		<NODE tag=":taxon:chromosome-number"
-			  pid="template::taxon:chromosome-number">
+			  pid="template::taxonomy:chromosome-number">
 			<item const="kTAG_ID_SYMBOL">CHROMOSNUMB</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -449,10 +449,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:genepool -->
+	<!-- template::taxonomy:genepool -->
 	<META>
 		<NODE tag=":taxon:genepool"
-			  pid="template::taxon:genepool">
+			  pid="template::taxonomy:genepool">
 			<item const="kTAG_ID_SYMBOL">GENEPOOL</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -472,10 +472,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:genepool-ref -->
+	<!-- template::taxonomy:genepool-ref -->
 	<META>
 		<NODE tag=":taxon:genepool-ref"
-			  pid="template::taxon:genepool-ref">
+			  pid="template::taxonomy:genepool-ref">
 			<item const="kTAG_ID_SYMBOL">GENEPOOLREF</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -495,10 +495,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:group -->
+	<!-- template::taxonomy:group -->
 	<META>
 		<NODE tag=":taxon:group"
-			  pid="template::taxon:group">
+			  pid="template::taxonomy:group">
 			<item const="kTAG_ID_SYMBOL">TAXONGROUP</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -518,10 +518,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:group-ref -->
+	<!-- template::taxonomy:group-ref -->
 	<META>
 		<NODE tag=":taxon:group-ref"
-			  pid="template::taxon:group-ref">
+			  pid="template::taxonomy:group-ref">
 			<item const="kTAG_ID_SYMBOL">REFTAXONGROUP</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -541,10 +541,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:designation -->
+	<!-- template::taxonomy:designation -->
 	<META>
 		<NODE tag=":taxon:designation"
-			  pid="template::taxon:designation">
+			  pid="template::taxonomy:designation">
 			<item const="kTAG_ID_SYMBOL">TAXONDESIGNATION</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -568,10 +568,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:designation:national -->
+	<!-- template::taxonomy:designation:national -->
 	<META>
 		<NODE tag=":taxon:designation:national"
-			  pid="template::taxon:designation:national">
+			  pid="template::taxonomy:designation:national">
 			<item const="kTAG_ID_SYMBOL">TAXONDESIGNATIONNATIONAL</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -590,33 +590,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:designation:ref -->
-	<META>
-		<NODE tag=":taxon:designation:ref"
-			  pid="template::taxon:designation:ref">
-			<item const="kTAG_ID_SYMBOL">REFTAXONDESIGNATION</item>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:template</item>
-				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TOKEN">;</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Indicate the database, literature or personal communication reference for listing of taxon as a crop wild relative or wild utilised species. Multiple values are allowed, separated with a semicolon without space.]]></item>
-				</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
-		</EDGE>
-	</META>
-		
-	<!-- template::taxon:designation:use -->
+	<!-- template::taxonomy:designation:use -->
 	<META>
 		<NODE tag=":taxon:designation:use"
-			  pid="template::taxon:designation:use">
+			  pid="template::taxonomy:designation:use">
 			<item const="kTAG_ID_SYMBOL">TAXONDESIGNATIONUSE</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -639,10 +616,33 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:designation:notes -->
+	<!-- template::taxonomy:designation:ref -->
+	<META>
+		<NODE tag=":taxon:designation:ref"
+			  pid="template::taxonomy:designation:ref">
+			<item const="kTAG_ID_SYMBOL">REFTAXONDESIGNATION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the database, literature or personal communication reference for listing of taxon as a crop wild relative or wild utilised species. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::taxonomy:designation:notes -->
 	<META>
 		<NODE tag=":taxon:designation:notes"
-			  pid="template::taxon:designation:notes">
+			  pid="template::taxonomy:designation:notes">
 			<item const="kTAG_ID_SYMBOL">TAXONDESIGNATIONNOTES</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -661,10 +661,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:rel-crop:taxa -->
+	<!-- template::taxonomy:rel-crop:taxa -->
 	<META>
 		<NODE tag=":taxon:rel-crop:taxa"
-			  pid="template::taxon:rel-crop:taxa">
+			  pid="template::taxonomy:rel-crop:taxa">
 			<item const="kTAG_ID_SYMBOL">RELATEDCROP</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -684,10 +684,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:rel-crop -->
+	<!-- template::taxonomy:rel-crop -->
 	<META>
 		<NODE tag=":taxon:rel-crop"
-			  pid="template::taxon:rel-crop">
+			  pid="template::taxonomy:rel-crop">
 			<item const="kTAG_ID_SYMBOL">CROPRELATION</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -722,10 +722,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:ecovalue -->
+	<!-- template::taxonomy:ecovalue -->
 	<META>
 		<NODE tag=":taxon:ecovalue"
-			  pid="template::taxon:ecovalue">
+			  pid="template::taxonomy:ecovalue">
 			<item const="kTAG_ID_SYMBOL">ECOVALUE</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
@@ -745,10 +745,10 @@
 		</EDGE>
 	</META>
 		
-	<!-- template::taxon:ecovalue-ref -->
+	<!-- template::taxonomy:ecovalue-ref -->
 	<META>
 		<NODE tag=":taxon:ecovalue-ref"
-			  pid="template::taxon:ecovalue-ref">
+			  pid="template::taxonomy:ecovalue-ref">
 			<item const="kTAG_ID_SYMBOL">ECOVALUEREF</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
