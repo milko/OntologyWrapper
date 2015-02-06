@@ -53,6 +53,7 @@ if( $argc < 2 )
 //
 $database = $argv[ 1 ];
 $graph = ( $argc > 2 ) ? $argv[ 2 ] : NULL;
+echo( "\n==> Resetting users.\n" );
  
 //
 // Test class.
@@ -62,6 +63,7 @@ try
 	//
 	// Instantiate wrapper.
 	//
+	echo( "  • Instantiating wrapper.\n" );
 	$wrapper
 		= new OntologyWrapper\Wrapper(
 			kSESSION_DDICT,
@@ -70,6 +72,7 @@ try
 	//
 	// Set databases.
 	//
+	echo( "  • Setting databases.\n" );
 	$wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"$database?connect=1" ) );
@@ -109,6 +112,7 @@ try
 	//
 	// Delete existing users.
 	//
+	echo( "  • Resetting users.\n" );
 	$rs = $collection->matchAll( Array(), kQUERY_NID );
 	foreach( $rs as $id )
 		OntologyWrapper\User::Delete( $wrapper, $id );
@@ -120,9 +124,12 @@ try
 		->setSequenceNumber( OntologyWrapper\User::kSEQ_NAME, 1 );
 	
 	//
-	// Load administrator.
+	// Load milko.
 	//
-	$wrapper->loadXMLFile( kPATH_LIBRARY_ROOT."/settings/Admin.xml" );
+	echo( "    Loading Milko.\n" );
+	$wrapper->loadXMLFile( kPATH_LIBRARY_ROOT."/settings/Milko.xml" );
+	echo( "    Loading Gubi.\n" );
+	$wrapper->loadXMLFile( kPATH_LIBRARY_ROOT."/settings/Gubi.xml" );
 
 	echo( "\nDone!\n" );
 

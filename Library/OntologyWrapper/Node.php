@@ -90,8 +90,6 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  * relationships are described. Alias nodes are used to create views over the master nodes
  * ontology, these are used to provide templates, forms and output views.
  *
- * 
- *
  * Objects of this class can hold any additional attribute that is considered necessary or
  * useful to define and share the current node. In this class we define only those
  * attributes that constitute the core functionality of the object, derived classes will add

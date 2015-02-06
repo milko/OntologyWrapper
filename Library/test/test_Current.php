@@ -358,6 +358,7 @@ try
 	echo( '<hr>' );
 */
 	
+/*
 	//
 	// Try getUnit formatted.
 	//
@@ -394,6 +395,7 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+*/
 	
 /*
 	//

@@ -281,6 +281,10 @@ class Service extends ContainerObject
 					case kAPI_OP_MOD_USER:
 					case kAPI_OP_GET_MANAGED:
 					case kAPI_OP_CHECK_USER_CODE:
+					// MILKO: Remove in production.
+						$this->mResponse[ kAPI_RESPONSE_REQUEST ]
+							= $this->getArrayCopy();
+					// MILKO: end.
 						break;
 					
 					default:
@@ -5215,8 +5219,7 @@ class Service extends ContainerObject
 				$this->mFilter = ( is_array( $param ) )
 							   ? array( kTAG_CONN_CODE => array_shift( $param ),
 										kTAG_CONN_PASS => array_shift( $param ) )
-							   : array( kTAG_ENTITY_PGP_FINGERPRINT
-							   		=> $this->offsetGet( kAPI_PARAM_ID ) );
+							   : array( kTAG_ENTITY_PGP_FINGERPRINT => $param );
 				break;
 			
 			case kAPI_OP_USER_INVITE:
@@ -5408,6 +5411,28 @@ class Service extends ContainerObject
 		// Update object.
 		//
 		$object->commit();
+		
+		// MILKO: Remove in production.
+		//
+		// Normalise request.
+		//
+		if( array_key_exists(
+			kAPI_REQUEST_USER,
+			$this->mResponse[ kAPI_RESPONSE_REQUEST ] ) )
+			$this->mResponse[ kAPI_RESPONSE_REQUEST ]
+							[ kAPI_REQUEST_USER ]
+				= $this->mResponse[ kAPI_RESPONSE_REQUEST ]
+								  [ kAPI_REQUEST_USER ]
+								  [ kTAG_ENTITY_PGP_FINGERPRINT ];
+		if( array_key_exists(
+			kAPI_PARAM_ID,
+			$this->mResponse[ kAPI_RESPONSE_REQUEST ] ) )
+			$this->mResponse[ kAPI_RESPONSE_REQUEST ]
+							[ kAPI_PARAM_ID ]
+				= $this->mResponse[ kAPI_RESPONSE_REQUEST ]
+								  [ kAPI_PARAM_ID ]
+								  [ kTAG_ENTITY_PGP_FINGERPRINT ];
+		// MILKO: end.
 		
 	} // executeModUser.
 
@@ -6564,6 +6589,15 @@ $rs_units = & $rs_units[ 'result' ];
 		if( $full_text )
 		{
 			//
+			// Perform query to get results count.
+			//
+			$affected
+				= PersistentObject::ResolveCollectionByName(
+					$this->mWrapper, $theCollection )
+						->matchAll(
+							$this->mFilter, kQUERY_COUNT );
+			
+			//
 			// Set pipeline.
 			//
 			$pipeline = Array();
@@ -6617,14 +6651,6 @@ $rs_units = & $rs_units[ 'result' ];
 						$this->mWrapper, $theCollection ),
 					$this->mFilter );
 			
-			//
-			// Set limits.
-			//
-			if( $skip !== NULL )
-				$iterator->skip( $skip );
-			if( $limit !== NULL )
-				$iterator->limit( $limit );
-			
 		} // Full text search.
 		
 		//
@@ -6675,6 +6701,23 @@ $rs_units = & $rs_units[ 'result' ];
 		// Set paging.
 		//
 		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
+		if( $full_text )
+		{
+			//
+			// Adjust affected count.
+			//
+			$this->mResponse[ kAPI_RESPONSE_PAGING ]
+							[ kAPI_PAGING_AFFECTED ] = $affected;
+			
+			//
+			// Update limits.
+			//
+			$this->mResponse[ kAPI_RESPONSE_PAGING ]
+							[ kAPI_PAGING_SKIP ] = (int) $skip;
+			$this->mResponse[ kAPI_RESPONSE_PAGING ]
+							[ kAPI_PAGING_LIMIT ] = (int) $limit;
+		
+		} // Full text search.
 	
 		//
 		// Set dictionary.

@@ -75,7 +75,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 //$base_db = 'mongodb://mauricio.grinfo.private:27017/MAURICIO?connect=1';
 $base_db = 'mongodb://localhost:27017/BIOVERSITY?connect=1';
 //$base_url = 'http://mauricio.grinfo.private/Service.php';
-$base_url = 'http://localhost/services/Bioversity/Service.php';
+$base_url = 'http://localhost/gateway/Service.php';
 
 //
 // Init local storage.
@@ -261,6 +261,7 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+exit;
 	
 	//
 	// Check user.
