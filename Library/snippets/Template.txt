@@ -66,3 +66,7 @@ to the worksheet which represents the unit identification and root data.
 
 The worksheet template will have at most one relationship of predicate kPREDICATE_INDEX
 pointing to the property which represents the worksheet's unique identifier.
+
+Index properties will have at most one relationship of predicate kPREDICATE_INDEX
+pointing to the worksheet to which they refer; note that this is only valid for properties
+which represent an index of another worksheet.

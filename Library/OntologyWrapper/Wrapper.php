@@ -3691,6 +3691,54 @@ class Wrapper extends Dictionary
 	} // ResolveCollectionClass.
 
 	 
+	/*===================================================================================
+	 *	ResolveClassCollection															*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve class collection
+	 *
+	 * Given a class name, this method will return the collection name.
+	 *
+	 * @param string				$theClass			Class name.
+	 *
+	 * @static
+	 * @return string				The base class name.
+	 *
+	 * @throws Exception
+	 */
+	static function ResolveClassCollection( $theClass )
+	{
+		//
+		// Resolve collection.
+		//
+		switch( (string) $theClass )
+		{
+			case 'Tag':
+			case kPATH_NAMESPACE_ROOT.'\Tag':
+				return Tag::kSEQ_NAME;												// ==>
+				
+			case 'Term':
+			case kPATH_NAMESPACE_ROOT.'\Term':
+				return Term::kSEQ_NAME;												// ==>
+				
+			case 'Node':
+			case kPATH_NAMESPACE_ROOT.'\Node':
+				return Node::kSEQ_NAME;												// ==>
+				
+			case 'Edge':
+			case kPATH_NAMESPACE_ROOT.'\Edge':
+				return Edge::kSEQ_NAME;												// ==>
+			
+			default:
+				throw new \Exception(
+					"Cannot resolve collection: "
+				   ."invalid class name [$theClass]." );						// !@! ==>
+		}
+	
+	} // ResolveClassCollection.
+
+	 
 
 /*=======================================================================================
  *																						*

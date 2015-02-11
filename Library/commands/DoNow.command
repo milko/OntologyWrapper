@@ -13,15 +13,33 @@
 SOCKET="socket=/tmp/mysql.sock"
 
 ########################################################################################
-#   Handle households                                                                  #
+#   Load users                                                                         #
 ########################################################################################
 
 #
-# Load Households.
+# Load users.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
-	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
-	"abdh" \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/settings/ResetUsers.php \
 	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Load updates                                                                       #
+########################################################################################
+
+#
+# Load updates.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadXMLFile.php \
+	"/Library/WebServer/Library/OntologyWrapper/Library/standards/UPDATES.xml" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Load templates                                                                     #
+########################################################################################
+
+#
+# Load updates.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Init_Templates.php
 
 exit

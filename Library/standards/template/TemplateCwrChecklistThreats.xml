@@ -73,8 +73,8 @@
 			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:threat</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:REF</item>
-			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification:index</item>
+			<item const="kTAG_PREDICATE">:predicate:INDEX</item>
+			<item const="kTAG_OBJECT" node="pid">template::checklist:cwr:identification</item>
 		</EDGE>
 	</META>
 	
