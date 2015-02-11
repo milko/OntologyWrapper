@@ -169,6 +169,36 @@ abstract class CachedStructure
 
 	 
 	/*===================================================================================
+	 *	getWrapper																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return data wrapper
+	 *
+	 * This method will return the data wrapper.
+	 *
+	 * @access public
+	 * @return Wrapper				Data wrapper.
+	 */
+	public function getWrapper()								{	return $this->mWrapper;	}
+
+	 
+	/*===================================================================================
+	 *	getLanguage																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return default language
+	 *
+	 * This method will return the default language.
+	 *
+	 * @access public
+	 * @return string				Language code.
+	 */
+	public function getLanguage()							{	return $this->mLanguage;	}
+
+	 
+	/*===================================================================================
 	 *	getRoot																			*
 	 *==================================================================================*/
 
