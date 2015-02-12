@@ -27,7 +27,7 @@
 		</TERM>
 		<NODE term=":template:checklist:cwr:crossability"
 			  pid="template::checklist:cwr:crossability">
-			<item const="kTAG_NAME">CK_Crossability</item>
+			<item const="kTAG_ID_SYMBOL">CK_Crossability</item>
 			<item const="kTAG_LINE_NAME">4</item>
 			<item const="kTAG_LINE_INFO">5</item>
 			<item const="kTAG_LINE_EXAMPLES">6</item>

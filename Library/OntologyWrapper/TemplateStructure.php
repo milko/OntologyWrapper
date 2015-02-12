@@ -97,6 +97,38 @@ class TemplateStructure extends CachedStructure
 	 */
 	 protected $mIndexReferences = Array();
 
+	/**
+	 * Symbol nodes.
+	 *
+	 * This data member holds an array used to resolve symbol nodes, structured as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>index</tt>: The symbol.
+	 *	<li><tt>value</tt>: A list of node references.
+	 * </ul>
+	 *
+	 * All node references are node native identifiers.
+	 *
+	 * @var array
+	 */
+	 protected $mSymbolNodes = Array();
+
+	/**
+	 * Node Symbols.
+	 *
+	 * This data member holds an array used to resolve node symbols, structured as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>index</tt>: The node.
+	 *	<li><tt>value</tt>: The symbol.
+	 * </ul>
+	 *
+	 * All node references are node native identifiers.
+	 *
+	 * @var array
+	 */
+	 protected $mNodeSymbols = Array();
+
 		
 
 /*=======================================================================================
@@ -153,6 +185,11 @@ class TemplateStructure extends CachedStructure
 		// Load unit worksheets.
 		//
 		$this->loadUnitWorksheets();
+		
+		//
+		// Load property symbols.
+		//
+		$this->loadPropertySymbols();
 		
 	} // Constructor.
 
@@ -253,6 +290,112 @@ class TemplateStructure extends CachedStructure
 	 */
 	public function getWorksheetIndexReferences()		{	return $this->mIndexReferences;	}
 
+	 
+	/*===================================================================================
+	 *	getSymbolNodes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get symbol node references
+	 *
+	 * This method will return the symbol nodes references as an array structured as
+	 * follows:
+	 *
+	 * <ul>
+	 *	<li><tt>index</tt>: The symbol.
+	 *	<li><tt>value</tt>: A list of node references.
+	 * </ul>
+	 *
+	 * @access public
+	 * @return array				Symbol nodes references.
+	 */
+	public function getSymbolNodes()						{	return $this->mSymbolNodes;	}
+
+	 
+	/*===================================================================================
+	 *	getNodeSymbols																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get node symbol
+	 *
+	 * This method will return the node symbols as an array structured as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>index</tt>: The node.
+	 *	<li><tt>value</tt>: The symbol.
+	 * </ul>
+	 *
+	 * @access public
+	 * @return array				Symbol nodes references.
+	 */
+	public function getNodeSymbols()						{	return $this->mNodeSymbols;	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC STRUCTURE ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	matchSymbolNodes																*
+	 *==================================================================================*/
+
+	/**
+	 * Get symbol nodes
+	 *
+	 * This method will return the list of nodes associated with the provided symbol as an
+	 * array, if the symbol is not matched, the method will return an empty array.
+	 *
+	 * @param string				$theSymbol			Symbol.
+	 *
+	 * @access public
+	 * @return array				Symbol nodes.
+	 */
+	public function matchSymbolNodes( $theSymbol )
+	{
+		if( array_key_exists( $theSymbol, $this->mSymbolNodes ) )
+			return $this->mSymbolNodes[ $theSymbol ];								// ==>
+		
+		return Array();																// ==>
+	
+	} // matchSymbolNodes.
+
+	 
+	/*===================================================================================
+	 *	matchNodeSymbol																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get node symbol
+	 *
+	 * This method will return the symbol associated with the provided node, if the node is
+	 * not matched, the method will return <tt>NULL</tt>.
+	 *
+	 * This mmethod can also be used to extract the symbol from the provided node object,
+	 * in this case the local array member will not be checked.
+	 *
+	 * @param int					$theNode			Node reference or object.
+	 *
+	 * @access public
+	 * @return string				Node symbol.
+	 */
+	public function matchNodeSymbol( $theNode )
+	{
+		if( $theNode instanceof Node )
+			return $theNode->offsetGet( kTAG_ID_SYMBOL );							// ==>
+		
+		if( array_key_exists( $theNode, $this->mNodeSymbols ) )
+			return $this->mNodeSymbols[ $theNode ];									// ==>
+		
+		return NULL;																// ==>
+	
+	} // matchSymbolNodes.
+
 		
 
 /*=======================================================================================
@@ -272,6 +415,12 @@ class TemplateStructure extends CachedStructure
 	 *
 	 * This method will load all worksheets, including nested worksheets.
 	 *
+	 * The method will also perform a series of validation checks:
+	 *
+	 * <ul>
+	 *	<li>All worksheets must have a symbol, <tt>{@link kTAG_ID_SYMBOL}</tt>,
+	 * </ul>
+	 *
 	 * @access protected
 	 */
 	protected function loadWorksheets()
@@ -280,6 +429,8 @@ class TemplateStructure extends CachedStructure
 		// Init members.
 		//
 		$this->mWorksheets =
+		$this->mSymbolNodes =
+		$this->mNodeSymbols =
 		$this->mIndexReferences = 
 		$this->mWorksheetIndexes =
 		$this->mRequiredWorksheets = Array();
@@ -316,6 +467,24 @@ class TemplateStructure extends CachedStructure
 							= $worksheet;
 				}
 			}
+			
+			//
+			// Update symbol dictionaries.
+			//
+			$symbol = $this->matchNodeSymbol( $tmp );
+			if( $tmp !== NULL )
+			{
+				if( ! array_key_exists( $symbol, $this->mSymbolNodes ) )
+					$this->mSymbolNodes[ $symbol ] = Array();
+				if( ! in_array( $worksheet, $this->mSymbolNodes[ $symbol ] ) )
+					$this->mSymbolNodes[ $symbol ][] = $worksheet;
+				
+				$this->mNodeSymbols[ $worksheet ] = $symbol;
+			}
+			else
+				throw new \Exception(
+					"Invalid template structure: "
+				   ."worksheet [$worksheet] is missing its symbol" );			// !@! ==>
 			
 			//
 			// Get properties.
@@ -419,6 +588,58 @@ class TemplateStructure extends CachedStructure
 			: Array();
 	
 	} // loadUnitWorksheets.
+
+	 
+	/*===================================================================================
+	 *	loadPropertySymbols																*
+	 *==================================================================================*/
+
+	/**
+	 * Load property symbols
+	 *
+	 * This method will load all property symbols.
+	 *
+	 * @access protected
+	 */
+	protected function loadPropertySymbols()
+	{
+		//
+		// Iterate worksheets.
+		//
+		foreach( $this->mWorksheets as $worksheet => $properties )
+		{
+			//
+			// Iterate properties.
+			//
+			foreach( $properties as $property )
+			{
+				//
+				// Init local storage.
+				//
+				$node = $this->getNode( $property );
+				
+				//
+				// Get symbol.
+				//
+				if( $node->offsetExists( kTAG_ID_SYMBOL ) )
+				{
+					$symbol = $node->offsetGet( kTAG_ID_SYMBOL );
+
+					if( ! array_key_exists( $symbol, $this->mSymbolNodes ) )
+						$this->mSymbolNodes[ $symbol ] = Array();
+					if( ! in_array( $property, $this->mSymbolNodes[ $symbol ] ) )
+						$this->mSymbolNodes[ $symbol ][] = $property;
+				
+					$this->mNodeSymbols[ $property ] = $symbol;
+				}
+				else
+					throw new \Exception(
+						"Invalid template structure: "
+					   ."property [$property] is missing its symbol" );			// !@! ==>
+			}
+		}
+	
+	} // loadPropertySymbols.
 
 	 
 

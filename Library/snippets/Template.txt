@@ -22,7 +22,7 @@ categories:
 	  represents a list of data properties.
 		- kTAG_TERM:			A term which contains the title and description of the
 								worksheet.
-		- kTAG_NAME:			The name of the worksheet, as in Excel.
+		- kTAG_ID_SYMBOL:		The name of the worksheet, as in Excel.
 		- kTAG_LINE_NAME:		The template line number where the column name or label can
 								be found.
 		- kTAG_LINE_INFO:		The template line number where the column description can be

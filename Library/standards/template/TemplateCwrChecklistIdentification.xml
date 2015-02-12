@@ -27,7 +27,7 @@
 		</TERM>
 		<NODE term=":template:checklist:cwr:identification"
 			  pid="template::checklist:cwr:identification">
-			<item const="kTAG_NAME">CK_Identification</item>
+			<item const="kTAG_ID_SYMBOL">CK_Identification</item>
 			<item const="kTAG_LINE_NAME">4</item>
 			<item const="kTAG_LINE_INFO">5</item>
 			<item const="kTAG_LINE_EXAMPLES">6</item>
