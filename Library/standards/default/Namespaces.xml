@@ -233,5 +233,37 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- Session -->
+		<TERM ns="" lid="session">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Session</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A session is a collection of transactions.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Transaction -->
+		<TERM ns="" lid="transaction">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A transaction is an operation or action belonging to a session.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 </METADATA>

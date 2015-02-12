@@ -230,9 +230,9 @@
 
 	<!-- Unit classification tags -->
 	
+	<!-- @9 -->
+	<!-- kTAG_DOMAIN -->
 	<META>
-		<!-- @9 -->
-		<!-- kTAG_DOMAIN -->
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:unit:domain</item>
@@ -402,9 +402,9 @@
 	
 	<!-- Object reference tags -->
 	
+	<!-- @f -->
+	<!-- kTAG_TAG -->
 	<META>
-		<!-- @f -->
-		<!-- kTAG_TAG -->
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:tag</item>
@@ -531,6 +531,398 @@
 			</item>
 		</NODE>
 	</META>
+	
+	<!-- @13 -->
+	<!-- kTAG_NODE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:node</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:node</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_NODE</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Node</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer representing a node object reference, it is the native identifier of the node object it references.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @14 -->
+	<!-- kTAG_NODES -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:terms</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:node</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_NODES</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Nodes</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of integers representing node object references, these elements are the native identifiers of the node objects they reference.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @11 -->
+	<!-- kTAG_EDGE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:edge</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:edge</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_EDGE</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Edge</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string representing an edge object reference, it is the native identifier of the edge object it references.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @12 -->
+	<!-- kTAG_EDGES -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:edges</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:edge</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_EDGES</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Edges</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of strings representing edge object references, these elements are the native identifiers of the edge objects they reference.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @11 -->
+	<!-- kTAG_UNIT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:unit:reference</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_UNIT</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string representing aunit object reference, it is the native identifier of the unit object it references.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @12 -->
+	<!-- kTAG_UNITS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:unit:references</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_UNITS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Units</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of strings representing unit object references, these elements are the native identifiers of the unit objects they reference.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @18 -->
+	<!-- kTAG_USER -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:user</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:user</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_USER</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">User</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a reference to a user object.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @12 -->
+	<!-- kTAG_USERS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:users</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:user</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_USERS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Users</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of strings representing user object references, these elements are the native identifiers of the user objects they reference.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @18 -->
+	<!-- kTAG_SESSION -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:session:reference</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:session</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SESSION</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Session</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a reference to a session object.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @12 -->
+	<!-- kTAG_SESSIONS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:session:references</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:session</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SESSIONS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Sessions</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of strings representing session object references, these elements are the native identifiers of the session objects they reference.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @18 -->
+	<!-- kTAG_TRANSACTION -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:reference</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:transaction</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a reference to a transaction object.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @12 -->
+	<!-- kTAG_TRANSACTIONS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:references</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:session</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTIONS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transactions</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of strings representing transaction object references, these elements are the native identifiers of the transaction objects they reference.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Object relationship tags -->
 	
 	<!-- @13 -->
 	<!-- kTAG_SUBJECT -->
@@ -694,38 +1086,6 @@
 		</NODE>
 	</META>
 	
-	<!-- @18 -->
-	<!-- kTAG_USER -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:entity:user</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:ref:user</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_USER</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a reference to an entity object.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
 	<!-- @19 -->
 	<!-- kTAG_MASTER -->
 	<META>
@@ -761,9 +1121,9 @@
 	
 	<!-- Object category tags -->
 	
+	<!-- @1a -->
+	<!-- kTAG_CATEGORY -->
 	<META>
-		<!-- @1a -->
-		<!-- kTAG_CATEGORY -->
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:category</item>
@@ -900,11 +1260,67 @@
 		</NODE>
 	</META>
 	
+	<!-- @1e -->
+	<!-- kTAG_SESSION_TYPE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:type:session</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SESSION_TYPE</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an enumerated value which qualifies the type, context or scope of a session object.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @1e -->
+	<!-- kTAG_TRANSACTION_TYPE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:type:transaction</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_TYPE</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an enumerated value which qualifies the type, context or scope of a transaction object.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Object description tags -->
 	
+	<!-- @1f -->
+	<!-- kTAG_NAME -->
 	<META>
-		<!-- @1f -->
-		<!-- kTAG_NAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:name</item>
@@ -1094,73 +1510,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Statistical attributes -->
-	
-	<META>
-		<!-- @26 -->
-		<!-- kTAG_UNIT_COUNT -->
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:ref-count:unit</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
-				<item>:type:private-modify</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_UNIT_COUNT</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Unit references count</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer value representing the number of unit objects featuring the current property. This is generally used to assess tag usage frequency in unit objects.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- @27 -->
-	<!-- kTAG_USER_COUNT -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:ref-count:user</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
-				<item>:type:private-modify</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_USER_COUNT</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">User references count</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer value representing the number of user objects featuring the current property. This is generally used to assess tag usage frequency in user objects.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
+	<!-- Object reference count tags -->
 	
 	<!-- @28 -->
 	<!-- kTAG_TAG_COUNT -->
@@ -1293,6 +1643,140 @@
 			</item>
 		</NODE>
 	</META>
+	
+	<!-- @26 -->
+	<!-- kTAG_UNIT_COUNT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:ref-count:unit</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_UNIT_COUNT</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit references count</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer value representing the number of unit objects featuring the current property. This is generally used to assess tag usage frequency in unit objects.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @27 -->
+	<!-- kTAG_USER_COUNT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:ref-count:user</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_USER_COUNT</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">User references count</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer value representing the number of user objects featuring the current property. This is generally used to assess tag usage frequency in user objects.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @27 -->
+	<!-- kTAG_SESSION_COUNT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:ref-count:session</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SESSION_COUNT</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Session references count</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer value representing the number of session objects featuring the current property. This is generally used to assess tag usage frequency in session objects.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @27 -->
+	<!-- kTAG_TRANSACTION_COUNT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:ref-count:transaction</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_COUNT</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction references count</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer value representing the number of transaction objects featuring the current property. This is generally used to assess tag usage frequency in transaction objects.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Object offset reference tags -->
 	
 	<!-- @2c -->
 	<!-- kTAG_TAG_OFFSETS -->
@@ -1438,42 +1922,6 @@
 		</NODE>
 	</META>
 	
-	<!-- @30 -->
-	<!-- kTAG_ENTITY_OFFSETS -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:offset:entity</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-				<item>:type:private-search</item>
-				<item>:type:private-modify</item>
-				<item>:type:private-display</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_ENTITY_OFFSETS</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity offsets</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An array of strings representing the set of offset paths in which the holding tag was referenced as a leaf offset in entity objects. This property is held exclusively by tag objects.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
 	<!-- @31 -->
 	<!-- kTAG_UNIT_OFFSETS -->
 	<META>
@@ -1510,6 +1958,116 @@
 		</NODE>
 	</META>
 	
+	<!-- @30 -->
+	<!-- kTAG_USER_OFFSETS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:offset:user</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_USER_OFFSETS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">User offsets</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An array of strings representing the set of offset paths in which the holding tag was referenced as a leaf offset in entity objects. This property is held exclusively by tag objects.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @30 -->
+	<!-- kTAG_SESSION_OFFSETS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:offset:session</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SESSION_OFFSETS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Session offsets</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An array of strings representing the set of offset paths in which the holding tag was referenced as a leaf offset in session objects. This property is held exclusively by tag objects.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @30 -->
+	<!-- kTAG_TRANSACTION_OFFSETS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:offset:transaction</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_OFFSETS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction offsets</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An array of strings representing the set of offset paths in which the holding tag was referenced as a leaf offset in transaction objects. This property is held exclusively by tag objects.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Object statistical tags -->
+		
 	<!-- @32 -->
 	<!-- kTAG_OBJECT_TAGS -->
 	<META>
@@ -1598,6 +2156,8 @@
 		</NODE>
 	</META>
 	
+	<!-- Property description tags -->
+	
 	<!-- @35 -->
 	<!-- kTAG_TAG_STRUCT -->
 	<META>
@@ -1654,11 +2214,9 @@
 		</NODE>
 	</META>
 	
-	<!-- Property description attributes -->
-	
+	<!-- @37 -->
+	<!-- kTAG_MIN_VAL -->
 	<META>
-		<!-- @37 -->
-		<!-- kTAG_MIN_VAL -->
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:min-val</item>
@@ -1816,11 +2374,11 @@
 		</NODE>
 	</META>
 	
-	<!-- Default attributes -->
+	<!-- Geometric attributes -->
 	
+	<!-- @3d -->
+	<!-- kTAG_GEO_SHAPE -->
 	<META>
-		<!-- @3d -->
-		<!-- kTAG_GEO_SHAPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:shape</item>
@@ -1873,6 +2431,8 @@
 			</item>
 		</NODE>
 	</META>
+	
+	<!-- Generic tags -->
 	
 	<!-- @3f -->
 	<!-- kTAG_RECORD_CREATED -->
@@ -1928,30 +2488,23 @@
 		</NODE>
 	</META>
 	
-	<!-- Connection attributes -->
-	
+	<!-- @40 -->
+	<!-- kTAG_PROCESSED -->
 	<META>
-		<!-- @41 -->
-		<!-- kTAG_CONN_PROTOCOL -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:connection:protocol</item>
+				<item>:processed</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_CONN_PROTOCOL</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Connection protocol</item>
-				</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_PROCESSED</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the network connection protocol or scheme.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a value representing the number of processed elements.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -1962,28 +2515,23 @@
 		</NODE>
 	</META>
 	
-	<!-- @42 -->
-	<!-- kTAG_CONN_HOST -->
+	<!-- @40 -->
+	<!-- kTAG_VALIDATED -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:connection:host</item>
+				<item>:validated</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_CONN_HOST</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Connection host</item>
-				</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_VALIDATED</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the network connection domain name or internet address.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a value representing the number of validated elements.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -1994,28 +2542,182 @@
 		</NODE>
 	</META>
 	
-	<!-- @43 -->
-	<!-- kTAG_CONN_PORT -->
+	<!-- @40 -->
+	<!-- kTAG_REJECTED -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:connection:port</item>
+				<item>:rejected</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_REJECTED</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a value representing the number of rejected elements.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @40 -->
+	<!-- kTAG_SKIPPED -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:skipped</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SKIPPED</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a value representing the number of skipped elements.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @67 -->
+	<!-- kTAG_PREFIX -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:prefix</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_PREFIX</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string that will be prefixed to a value.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @68 -->
+	<!-- kTAG_SUFFIX -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:suffix</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SUFFIX</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string that will be appended to a value.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @5e -->
+	<!-- kTAG_CLASS_NAME -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:class</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CLASS_NAME</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string representing a class name.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @5f -->
+	<!-- kTAG_TOKEN -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:token</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TOKEN</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a character or string which indicates a separation pattern.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Template attributes -->
+	
+	<!-- @61 -->
+	<!-- kTAG_LINE_NAME -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:line-name</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_CONN_PORT</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Connection port number</item>
-				</item>
-			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_LINE_NAME</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer which identifies the network TCP or UDP port number.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number that contains the column name or label.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -2026,84 +2728,259 @@
 		</NODE>
 	</META>
 	
-	<!-- @44 -->
-	<!-- kTAG_CONN_CODE -->
+	<!-- @62 -->
+	<!-- kTAG_LINE_INFO -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:connection:code</item>
+				<item>:line-info</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_LINE_INFO</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number that contains the column description or information.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @63 -->
+	<!-- kTAG_LINE_EXAMPLES -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:line-examples</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_LINE_EXAMPLE</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number that contains the column examples.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @64 -->
+	<!-- kTAG_LINE_SYMBOL -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:line-symbol</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_LINE_SYMBOL</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number that contains the column symbol.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @65 -->
+	<!-- kTAG_LINE_DATA -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:line-data</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_LINE_DATA</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number at which the data records start.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @66 -->
+	<!-- kTAG_TRANSFORM -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:tag-transform</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSFORM</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of structures providing value transformation actions, these include transforming and copying a value to another tag.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Session tags -->
+	
+	<!-- @41 -->
+	<!-- kTAG_SESSION_START -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:session:start</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:time-stamp</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SESSION_START</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Session start</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the session starting time-stamp.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_SESSION_END -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:session:end</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:time-stamp</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SESSION_END</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Session end</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the session ending time-stamp.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_SESSION_STATUS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:session:status</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SESSION_STATUS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Session status</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the session status or outcome.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_SESSION_RESOURCES -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:session:resources</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:private-search</item>
-				<item>:type:private-display</item>
+				<item>:type:list</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_CONN_CODE</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the entity credentials used to authenticate with the service.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- @45 -->
-	<!-- kTAG_CONN_PASS -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:connection:pass</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:private-search</item>
-				<item>:type:private-display</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_CONN_PASS</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which validates the entity credentials used to authenticate with the service.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- @46 -->
-	<!-- kTAG_CONN_BASE -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:connection:database</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_CONN_BASE</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_SESSION_RESOURCES</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Database name</item>
+					<item const="kTAG_TEXT">Session resources</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the database.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the file path or reference of the files associated with the session.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -2114,28 +2991,130 @@
 		</NODE>
 	</META>
 	
-	<!-- @47 -->
-	<!-- kTAG_CONN_COLL -->
+	<!-- Transaction tags -->
+	
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_START -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:connection:collection</item>
+				<item>:transaction:start</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:time-stamp</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_START</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction start</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the transaction starting time-stamp.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_END -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:end</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:time-stamp</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_END</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction end</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the transaction ending time-stamp.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_STATUS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:status</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_STATUS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction status</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the transaction status or outcome.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_COLLECTION -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:collection</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
+				<item>:type:categorical</item>
+				<item>:type:full-text-06</item>
+				<item>:type:summary</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_CONN_COLL</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_COLLECTION</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Collection name</item>
+					<item const="kTAG_TEXT">Transaction collection</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the database collection.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the collection associated with the transaction.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -2146,28 +3125,191 @@
 		</NODE>
 	</META>
 	
-	<!-- @48 -->
-	<!-- kTAG_CONN_OPTS -->
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_RECORD -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:connection:options</item>
+				<item>:transaction:record</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:array</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
+				<item>:type:quantitative</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_CONN_OPTS</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_RECORD</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Connection options</item>
+					<item const="kTAG_TEXT">Transaction record</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of key/value pairs which represent the network connection options. The key part identifies the option, the value part provides the option value.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the record number associated with the transaction.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_FIELD -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:field</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_FIELD</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction field</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the field number associated with the transaction.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_ALIAS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:alias</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_ALIAS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction alias</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the alias, symbol or variable name associated with the transaction.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_VALUE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:value</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:mixed</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_VALUE</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction value</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the value associated with the transaction.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_MESSAGE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:message</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_MESSAGE</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction message</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the transaction message.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @41 -->
+	<!-- kTAG_TRANSACTION_LOG -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:transaction:log</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:transaction:alias</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_TRANSACTION_LOG</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction log</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the list of transaction individual operations with their status or outcome.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -2180,9 +3322,9 @@
 	
 	<!-- Entity attributes -->
 	
+	<!-- @49 -->
+	<!-- kTAG_ENTITY_IDENT -->
 	<META>
-		<!-- @49 -->
-		<!-- kTAG_ENTITY_IDENT -->
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:entity:identifier</item>
@@ -2733,7 +3875,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Management attributes -->
+	<!-- User tags -->
 	
 	<!-- @5c -->
 	<!-- kTAG_ROLES -->
@@ -2790,58 +3932,6 @@
 		</NODE>
 	</META>
 	
-	<!-- @5e -->
-	<!-- kTAG_CLASS_NAME -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:class</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_CLASS_NAME</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string representing a class name.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- @5f -->
-	<!-- kTAG_TOKEN -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:token</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_TOKEN</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a character or string which indicates a separation pattern.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
 	<!-- @60 -->
 	<!-- kTAG_MANAGED_COUNT -->
 	<META>
@@ -2868,178 +3958,30 @@
 		</NODE>
 	</META>
 	
-	<!-- @61 -->
-	<!-- kTAG_LINE_NAME -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:line-name</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_LINE_NAME</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number that contains the column name or label.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
+	<!-- Connection attributes -->
 	
-	<!-- @62 -->
-	<!-- kTAG_LINE_INFO -->
+	<!-- @41 -->
+	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:line-info</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_LINE_INFO</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number that contains the column description or information.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- @63 -->
-	<!-- kTAG_LINE_EXAMPLES -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:line-examples</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_LINE_EXAMPLE</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number that contains the column examples.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- @64 -->
-	<!-- kTAG_LINE_SYMBOL -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:line-symbol</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_LINE_SYMBOL</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number that contains the column symbol.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- @65 -->
-	<!-- kTAG_LINE_DATA -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:line-data</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_LINE_DATA</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the template line number at which the data records start.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- @66 -->
-	<!-- kTAG_TRANSFORM -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:tag-transform</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:struct</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_TRANSFORM</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of structures providing value transformation actions, these include transforming and copying a value to another tag.]]></item>
-				</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- @67 -->
-	<!-- kTAG_PREFIX -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:prefix</item>
+				<item>:connection:protocol</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:list</item>
+				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_PREFIX</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_PROTOCOL</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection protocol</item>
+				</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string that will be prefixed to a value.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the network connection protocol or scheme.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -3050,22 +3992,212 @@
 		</NODE>
 	</META>
 	
-	<!-- @68 -->
-	<!-- kTAG_SUFFIX -->
+	<!-- @42 -->
+	<!-- kTAG_CONN_HOST -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:suffix</item>
+				<item>:connection:host</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:list</item>
+				<item>:type:discrete</item>
 			</item>
-			<item const="kTAG_ID_SYMBOL">kTAG_SUFFIX</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_HOST</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection host</item>
+				</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string that will be appended to a value.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the network connection domain name or internet address.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @43 -->
+	<!-- kTAG_CONN_PORT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:connection:port</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_PORT</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection port number</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer which identifies the network TCP or UDP port number.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @44 -->
+	<!-- kTAG_CONN_CODE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:connection:code</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:private-search</item>
+				<item>:type:private-display</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_CODE</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the entity credentials used to authenticate with the service.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @45 -->
+	<!-- kTAG_CONN_PASS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:connection:pass</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:private-search</item>
+				<item>:type:private-display</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_PASS</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which validates the entity credentials used to authenticate with the service.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @46 -->
+	<!-- kTAG_CONN_BASE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:connection:database</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_BASE</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Database name</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the database.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @47 -->
+	<!-- kTAG_CONN_COLL -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:connection:collection</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_COLL</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collection name</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which identifies the database collection.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- @48 -->
+	<!-- kTAG_CONN_OPTS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:connection:options</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:array</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_CONN_OPTS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection options</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of key/value pairs which represent the network connection options. The key part identifies the option, the value part provides the option value.]]></item>
 				</item>
 			</item>
 		</TAG>

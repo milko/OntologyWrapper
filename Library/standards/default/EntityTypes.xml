@@ -9,7 +9,7 @@
 	
 	<!-- Entity type -->
 	
-	<!-- :type:entity -->
+	<!-- enum::type:entity -->
 	<META>
 		<NODE term=":type:entity" pid="enum::type:entity">
 			<item const="kTAG_NODE_TYPE">

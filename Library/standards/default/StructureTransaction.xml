@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	SESSION STRUCTURE
+	StructureTransaction.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- TRANSACTION -->
+	
+	<!-- struct::domain:transaction -->
+	<META>
+		<NODE term=":domain:transaction" pid="struct::domain:transaction">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of transaction objects.]]></item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- PROPERTIES -->
+	
+		<!-- schema::domain:transaction -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::domain:transaction</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- RECORD PROPERTIES -->
+	
+		<!-- schema::ref-count -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- schema::record -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::record</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

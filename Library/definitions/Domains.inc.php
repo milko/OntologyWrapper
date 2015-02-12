@@ -75,6 +75,24 @@ define( "kDOMAIN_EDGE",							':domain:edge' );
 define( "kDOMAIN_UNIT",							':domain:unit' );
 
 /**
+ * Session.
+ *
+ * A session.
+ *
+ * This represents the domain of generic sessions.
+ */
+define( "kDOMAIN_SESSION",						':domain:session' );
+
+/**
+ * Transaction.
+ *
+ * A transaction.
+ *
+ * This represents the domain of generic transactions.
+ */
+define( "kDOMAIN_TRANSACTION",					':domain:transaction' );
+
+/**
  * Attribute.
  *
  * An attribute.

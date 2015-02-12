@@ -466,7 +466,7 @@ abstract class PersistentObject extends OntologyObject
 									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
-		kTAG_ENTITY_OFFSETS => array
+		kTAG_USER_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:entity',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
@@ -2399,7 +2399,7 @@ abstract class PersistentObject extends OntologyObject
 				return kTAG_EDGE_OFFSETS;											// ==>
 		
 			case User::kSEQ_NAME:
-				return kTAG_ENTITY_OFFSETS;											// ==>
+				return kTAG_USER_OFFSETS;											// ==>
 		
 			case UnitObject::kSEQ_NAME:
 				return kTAG_UNIT_OFFSETS;											// ==>
@@ -2519,7 +2519,7 @@ abstract class PersistentObject extends OntologyObject
 	 *		<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node object offsets.
 	 *		<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge object offsets.
 	 *		<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit object offsets.
-	 *		<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity object offsets.
+	 *		<li><tt>{@link kTAG_USER_OFFSETS}</tt>: Entity object offsets.
 	 *	 </ul>
 	 *	<li><em>Time-stamp offsets</em>:
 	 *	 <ul>
@@ -2540,7 +2540,7 @@ abstract class PersistentObject extends OntologyObject
 				   kTAG_UNIT_COUNT, kTAG_USER_COUNT ),
 			array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS,
 				   kTAG_NODE_OFFSETS, kTAG_EDGE_OFFSETS,
-				   kTAG_UNIT_OFFSETS, kTAG_ENTITY_OFFSETS ),
+				   kTAG_UNIT_OFFSETS, kTAG_USER_OFFSETS ),
 			array( kTAG_RECORD_CREATED, kTAG_RECORD_MODIFIED ) );					// ==>
 	
 	} // ExternalOffsets.

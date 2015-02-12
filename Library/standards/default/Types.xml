@@ -370,6 +370,22 @@
 			</item>
 		</TERM>
 		
+		<!-- kTYPE_REF_UNIT -->
+		<TERM ns=":type:ref" lid="unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A unit reference is a string that must correspond to the native identifier of a Unit object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kTYPE_REF_USER -->
 		<TERM ns=":type:ref" lid="user">
 			<item const="kTAG_LABEL">
@@ -386,18 +402,34 @@
 			</item>
 		</TERM>
 		
-		<!-- kTYPE_REF_UNIT -->
-		<TERM ns=":type:ref" lid="unit">
+		<!-- kTYPE_REF_SESSION -->
+		<TERM ns=":type:ref" lid="session">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Unit reference</item>
+					<item const="kTAG_TEXT">Session reference</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A unit reference is a string that must correspond to the native identifier of a Unit object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A session reference is a string that must correspond to the native identifier of a session object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_REF_TRANSACTION -->
+		<TERM ns=":type:ref" lid="transaction">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Transaction reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A transaction reference is a string that must correspond to the native identifier of a transaction object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -978,6 +1010,131 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[A bi-directional relationship indicates that it is both incoming and outgoing, it originates from both the current and external vertices.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Status types -->
+	
+	<META>
+		<TERM ns=":type" lid="status">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Status</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_STATUS_OK -->
+		<TERM ns=":type:status" lid="ok">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Completed</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Successfull operation.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_STATUS_FAILED -->
+		<TERM ns=":type:status" lid="failed">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Failed</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Operation failed.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_STATUS_MESSAGE -->
+		<TERM ns=":type:status" lid="message">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Message</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Successful operation with messages.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_STATUS_WARNING -->
+		<TERM ns=":type:status" lid="warning">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Warning</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Successful operation with warnings.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_STATUS_ERROR -->
+		<TERM ns=":type:status" lid="error">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Error</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Operation failed with errors.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_STATUS_FATAL -->
+		<TERM ns=":type:status" lid="fatal">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Fatal error</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Operation failed with a fatal error.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_STATUS_EXCEPTION -->
+		<TERM ns=":type:status" lid="exception">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Exception</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Operation failed with an exception, this may either be a bug or an untrapped error.]]></item>
 				</item>
 			</item>
 		</TERM>

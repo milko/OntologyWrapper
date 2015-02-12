@@ -55,9 +55,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- kTAG_ENTITY_OFFSETS -->
+		<!-- kTAG_USER_OFFSETS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:offset:entity</item>
+			<item const="kTAG_SUBJECT" node="tag">:offset:user</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

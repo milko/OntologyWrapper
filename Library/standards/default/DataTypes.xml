@@ -344,6 +344,57 @@
 		</EDGE>
 	</META>
 	
+	<!-- kTYPE_REF_USER -->
+	<META>
+		<NODE term=":type:ref:user">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:data</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:string</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_REF_SESSION -->
+	<META>
+		<NODE term=":type:ref:session">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:data</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:string</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_REF_TRANSACTION -->
+	<META>
+		<NODE term=":type:ref:transaction">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:data</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:string</item>
+		</EDGE>
+	</META>
+	
 	<!-- kTYPE_REF_SELF -->
 	<META>
 		<NODE term=":type:ref:self">

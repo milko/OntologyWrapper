@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	SESSION SCHEMA
+	SchemaSession.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema::domain:session -->
+	<META>
+		<NODE term=":domain:session" pid="schema::domain:session">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all properties common to all session types.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- PROPERTIES -->
+	
+		<!-- kTAG_SESSION_TYPE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:type:session</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum::type:session</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:type:session</item>
+		</EDGE>
+
+		<!-- kTAG_SESSION_START -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:session:start</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_SESSION_END -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:session:end</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_SESSION_STATUS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:session:status</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum::type:status</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:session:status</item>
+		</EDGE>
+
+		<!-- kTAG_USER -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:entity:user</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_SESSION_RESOURCES -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:session:resources</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_PROCESSED -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:processed</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_VALIDATED -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:validated</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_REJECTED -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:rejected</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_SKIPPED -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:skipped</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

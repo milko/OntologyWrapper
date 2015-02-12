@@ -132,7 +132,7 @@ class IteratorSerialiser
 	 *	<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node offsets.
 	 *	<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge offsets.
 	 *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit offsets.
-	 *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity offsets.
+	 *	<li><tt>{@link kTAG_USER_OFFSETS}</tt>: Entity offsets.
 	 * </ul>
 	 *
 	 * @var string
@@ -3520,7 +3520,7 @@ class IteratorSerialiser
 		// Init local storage.
 		//
 		$offsets = array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS, kTAG_NODE_OFFSETS,
-						  kTAG_EDGE_OFFSETS, kTAG_ENTITY_OFFSETS, kTAG_UNIT_OFFSETS );
+						  kTAG_EDGE_OFFSETS, kTAG_USER_OFFSETS, kTAG_UNIT_OFFSETS );
 		
 		//
 		// Iterate tags.

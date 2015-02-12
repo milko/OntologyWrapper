@@ -248,6 +248,14 @@ define( "kTYPE_REF_NODE",						':type:ref:node' );
 define( "kTYPE_REF_EDGE",						':type:ref:edge' );
 
 /**
+ * Unit reference.
+ *
+ * A <i>unit reference</i> is a <em>string</em> that must correspond to the native
+ * identifier of a {@link Unit} object.
+ */
+define( "kTYPE_REF_UNIT",						':type:ref:unit' );
+
+/**
  * User reference.
  *
  * An <i>user reference</i> is a <em>string</em> that must correspond to the native
@@ -256,12 +264,20 @@ define( "kTYPE_REF_EDGE",						':type:ref:edge' );
 define( "kTYPE_REF_USER",						':type:ref:user' );
 
 /**
- * Unit reference.
+ * Session reference.
  *
- * A <i>unit reference</i> is a <em>string</em> that must correspond to the native
- * identifier of a {@link Unit} object.
+ * An <i>session reference</i> is a <em>string</em> that must correspond to the native
+ * identifier of a {@link Session} object.
  */
-define( "kTYPE_REF_UNIT",						':type:ref:unit' );
+define( "kTYPE_REF_SESSION",					':type:ref:session' );
+
+/**
+ * Transaction reference.
+ *
+ * An <i>transaction reference</i> is a <em>string</em> that must correspond to the native
+ * identifier of a {@link Transaction} object.
+ */
+define( "kTYPE_REF_TRANSACTION",				':type:ref:transaction' );
 
 /**
  * Self reference.
@@ -693,6 +709,59 @@ define( "kTYPE_LIST_REFERRER",					'Referrer' );
  * main institute to which the user belongs.
  */
 define( "kTYPE_LIST_INSTITUTE",					'Institute' );
+
+/*=======================================================================================
+ *	OPERATION STATUS TYPES																*
+ *======================================================================================*/
+
+/**
+ * Completed.
+ *
+ * This status indicates a successful completion.
+ */
+define( "kTYPE_STATUS_OK",						':type:status:ok' );
+
+/**
+ * Failed.
+ *
+ * This status indicates a failed operation.
+ */
+define( "kTYPE_STATUS_FAILED",					':type:status:failed' );
+
+/**
+ * Reports.
+ *
+ * This status indicates a successful completion with messages.
+ */
+define( "kTYPE_STATUS_MESSAGE",					':type:status:message' );
+
+/**
+ * Warning.
+ *
+ * This status indicates a successful completion with a warning.
+ */
+define( "kTYPE_STATUS_WARNING",					':type:status:warning' );
+
+/**
+ * Error.
+ *
+ * This status indicates a failed operation with an error.
+ */
+define( "kTYPE_STATUS_ERROR",					':type:status:error' );
+
+/**
+ * Fatal.
+ *
+ * This status indicates a failed operation with a fatal error.
+ */
+define( "kTYPE_STATUS_FATAL",					':type:status:fatal' );
+
+/**
+ * Exception.
+ *
+ * This status indicates a failed operation with an exception, maybe a bug.
+ */
+define( "kTYPE_STATUS_EXCEPTION",				':type:status:exception' );
 
 
 ?>

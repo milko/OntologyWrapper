@@ -162,7 +162,7 @@ use OntologyWrapper\CollectionObject;
  *		offsets (sequence of tags indicating the structure path to a leaf offset) in which
  *		the tag was used by unit objects as a leaf offset, that is, an offset holding a
  *		value.
- *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: <em>Entity offsets</em>. This attribute is
+ *	<li><tt>{@link kTAG_USER_OFFSETS}</tt>: <em>Entity offsets</em>. This attribute is
  *		handled automatically and should not be modified by clients, it collects all the
  *		offsets (sequence of tags indicating the structure path to a leaf offset) in which
  *		the tag was used by entity objects as a leaf offset, that is, an offset holding a
@@ -634,7 +634,7 @@ class Tag extends MetadataObject
 	 *			tag in all edges in which it is referenced.
 	 *		<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: List of offset paths used by the current
 	 *			tag in all units in which it is referenced.
-	 *		<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: List of offset paths used by the
+	 *		<li><tt>{@link kTAG_USER_OFFSETS}</tt>: List of offset paths used by the
 	 *			current tag in all entities in which it is referenced.
 	 *	 </ul>
 	 *	<li><em>Usage ranges</em>:
@@ -653,7 +653,7 @@ class Tag extends MetadataObject
 			parent::ExternalOffsets(),
 			array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS,
 				   kTAG_NODE_OFFSETS, kTAG_EDGE_OFFSETS,
-				   kTAG_UNIT_OFFSETS, kTAG_ENTITY_OFFSETS ),
+				   kTAG_UNIT_OFFSETS, kTAG_USER_OFFSETS ),
 			array( kTAG_MIN_VAL, kTAG_MAX_VAL ) );									// ==>
 	
 	} // ExternalOffsets.

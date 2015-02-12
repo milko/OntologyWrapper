@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TRANSACTION SCHEMA
+	SchemaTransaction.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- kDOMAIN_TRANSACTION -->
+	<META>
+		<NODE term=":domain:transaction" pid="schema::domain:transaction">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all properties common to all transaction types.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- PROPERTIES -->
+	
+		<!-- kTAG_SESSION -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:session:reference</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_TRANSACTION_TYPE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:type:transaction</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum::type:transaction</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:type:transaction</item>
+		</EDGE>
+
+		<!-- kTAG_TRANSACTION_START -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:transaction:start</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_TRANSACTION_END -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:transaction:end</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_TRANSACTION_STATUS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:transaction:status</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum::type:status</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:transaction:status</item>
+		</EDGE>
+
+		<!-- kTAG_PROCESSED -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:processed</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_VALIDATED -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:validated</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_REJECTED -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:rejected</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_SKIPPED -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:skipped</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_TRANSACTION_COLLECTION -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:transaction:collection</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_TRANSACTION_RECORD -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:transaction:record</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_TRANSACTION_LOG -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:transaction:log</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::transaction:log</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:transaction:log</item>
+		</EDGE>
+	</META>
+</METADATA>
