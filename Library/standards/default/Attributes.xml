@@ -1719,17 +1719,17 @@
 		</TERM>
 		
 		<!-- kTAG_TRANSACTION_END -->
-		<TERM ns=":transaction" lid="start">
+		<TERM ns=":transaction" lid="end">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Transaction start</item>
+					<item const="kTAG_TEXT">Transaction end</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The starting time of the transaction.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The ending time of the transaction.]]></item>
 				</item>
 			</item>
 		</TERM>

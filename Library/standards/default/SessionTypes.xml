@@ -346,7 +346,7 @@
 	
 	<!-- :type:session:200 -->
 	<META>
-		<TERM ns=":type:session" lid="100">
+		<TERM ns=":type:session" lid="200">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

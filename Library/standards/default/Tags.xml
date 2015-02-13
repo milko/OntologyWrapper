@@ -569,7 +569,7 @@
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:terms</item>
+				<item>:nodes</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:node</item>
 			<item const="kTAG_DATA_KIND">

@@ -59,11 +59,6 @@
 			<item const="kTAG_SUBJECT" node="tag">:transaction:status</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">enum::type:status</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:transaction:status</item>
-		</EDGE>
 
 		<!-- kTAG_PROCESSED -->
 		<EDGE>
