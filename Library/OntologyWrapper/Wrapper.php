@@ -949,10 +949,28 @@ class Wrapper extends Dictionary
 		// Reset users collection.
 		//
 		if( $doLog )
-			echo( "  • Resetting collection.\n" );
+			echo( "  • Resetting users collection.\n" );
 		if( $doDrop )
 			$this->mUsers->collection( User::kSEQ_NAME, TRUE )->drop();
 		User::CreateIndexes( $this->mUsers );
+		
+		//
+		// Reset sessions collection.
+		//
+		if( $doLog )
+			echo( "  • Resetting sessions collection.\n" );
+		if( $doDrop )
+			$this->mUsers->collection( Session::kSEQ_NAME, TRUE )->drop();
+		Session::CreateIndexes( $this->mUsers );
+		
+		//
+		// Reset users collection.
+		//
+		if( $doLog )
+			echo( "  • Resetting transactions collection.\n" );
+		if( $doDrop )
+			$this->mUsers->collection( Transaction::kSEQ_NAME, TRUE )->drop();
+		Transaction::CreateIndexes( $this->mUsers );
 		
 		return NULL;																// ==>
 	

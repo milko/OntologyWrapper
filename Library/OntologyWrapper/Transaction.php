@@ -150,15 +150,15 @@ class Transaction extends SessionObject
 	/**
 	 * Instantiate class.
 	 *
-	 * In this class we link the inited status with the presence of the session, processed
-	 * count, transaction type and status.
+	 * In this class we link the inited status with the presence of the session, transaction
+	 * type and status.
 	 *
 	 * @param ConnectionObject		$theContainer		Persistent store.
 	 * @param mixed					$theIdentifier		Object identifier.
 	 *
 	 * @access public
 	 *
-	 * @see kTAG_USER kTAG_PROCESSED kTAG_SESSION_TYPE kTAG_SESSION_STATUS
+	 * @see kTAG_SESSION kTAG_TRANSACTION_TYPE kTAG_TRANSACTION_STATUS
 	 *
 	 * @uses isInited()
 	 */
@@ -173,7 +173,6 @@ class Transaction extends SessionObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_SESSION ) &&
-						 \ArrayObject::offsetExists( kTAG_PROCESSED ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_STATUS ) );
 
@@ -204,81 +203,6 @@ class Transaction extends SessionObject
 	 * @return string				Object name.
 	 */
 	public function getName( $theLanguage )					{	return $this->__toString();	}
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC OBJECT REFERENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	getSession																		*
-	 *==================================================================================*/
-
-	/**
-	 * Get referenced session
-	 *
-	 * This method will return the referenced session object; if none is set, the method
-	 * will return <tt>NULL</tt>, or raise an exception if the second parameter is
-	 * <tt>TRUE</tt>.
-	 *
-	 * The first parameter is the wrapper in which the current object is, or will be,
-	 * stored: if the current object has the {@link dictionary()}, this parameter may be
-	 * omitted; if the wrapper cannot be resolved, the method will raise an exception.
-	 *
-	 * @param Wrapper				$theWrapper			Wrapper.
-	 * @param boolean				$doAssert			Raise exception if not matched.
-	 *
-	 * @access public
-	 * @return PersistentObject		Referenced user or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 */
-	public function getSession( $theWrapper = NULL, $doAssert = TRUE )
-	{
-		//
-		// Check session.
-		//
-		if( $this->offsetExists( kTAG_SESSION ) )
-		{
-			//
-			// Resolve wrapper.
-			//
-			$this->resolveWrapper( $theWrapper );
-		
-			//
-			// Resolve collection.
-			//
-			$collection
-				= Session::ResolveCollection(
-					Session::ResolveDatabase( $theWrapper, TRUE ) );
-			
-			//
-			// Set criteria.
-			//
-			$criteria = array( kTAG_NID => $this->offsetGet( kTAG_SESSION ) );
-			
-			//
-			// Locate object.
-			//
-			$object = $collection->matchOne( $criteria );
-			if( $doAssert
-			 && ($object === NULL) )
-				throw new \Exception(
-					"Unable to get session: "
-				   ."referenced object not matched." );							// !@! ==>
-			
-			return $object;															// ==>
-		
-		} // Has session.
-		
-		return NULL;																// ==>
-	
-	} // getSession.
 
 		
 
@@ -325,7 +249,7 @@ class Transaction extends SessionObject
 			//
 			// Invalid status.
 			//
-			default
+			default:
 				throw new \Exception(
 					"Cannot set status: "
 				   ."invalid status value [$theStatus]." );						// !@! ==>
@@ -411,36 +335,35 @@ class Transaction extends SessionObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
-		// Set persistent identifier index.
-		//
-		$collection->createIndex( array( kTAG_ID_PERSISTENT => 1 ),
-								  array( "name" => "PID",
-								  		 "unique" => TRUE,
-								  		 "sparse" => TRUE ) );
-		
-		//
-		// Set session type index.
-		//
-		$collection->createIndex( array( kTAG_SESSION_TYPE => 1 ),
-								  array( "name" => "TYPE" ) );
-		
-		//
-		// Set session status index.
-		//
-		$collection->createIndex( array( kTAG_SESSION_STATUS => 1 ),
-								  array( "name" => "STATUS" ) );
-		
-		//
-		// Set session user index.
-		//
-		$collection->createIndex( array( kTAG_USER => 1 ),
-								  array( "name" => "USER" ) );
-		
-		//
 		// Set related session index.
 		//
 		$collection->createIndex( array( kTAG_SESSION => 1 ),
-								  array( "name" => "SESSION",
+								  array( "name" => "SESSION" ) );
+		
+		//
+		// Set transaction type index.
+		//
+		$collection->createIndex( array( kTAG_TRANSACTION_TYPE => 1 ),
+								  array( "name" => "TYPE" ) );
+		
+		//
+		// Set transaction status index.
+		//
+		$collection->createIndex( array( kTAG_TRANSACTION_STATUS => 1 ),
+								  array( "name" => "STATUS" ) );
+		
+		//
+		// Set collection index.
+		//
+		$collection->createIndex( array( kTAG_TRANSACTION_COLLECTION => 1 ),
+								  array( "name" => "COLLECTION",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set record index.
+		//
+		$collection->createIndex( array( kTAG_TRANSACTION_RECORD => 1 ),
+								  array( "name" => "RECORD",
 								  		 "sparse" => TRUE ) );
 		
 		return $collection;															// ==>
@@ -464,29 +387,35 @@ class Transaction extends SessionObject
 	/**
 	 * Return unmanaged offsets
 	 *
-	 * In this class we return the offsets that are required by the object:
+	 * In this class we exclude all offsets that are supposed to be set externally, this
+	 * includes:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION_TYPE}</tt>: Session type.
-	 *	<li><tt>{@link kTAG_SESSION_START}</tt>: Session start.
-	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Session status.
-	 *	<li><tt>{@link kTAG_USER}</tt>: Session user.
+	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Transaction status.
+	 *	<li><tt>{@link kTAG_TRANSACTION_START}</tt>: Transaction start.
+	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end.
+	 *	<li><tt>{@link kTAG_TRANSACTION_ALIAS}</tt>: Transaction alias.
+	 *	<li><tt>{@link kTAG_TRANSACTION_FIELD}</tt>: Transaction field.
+	 *	<li><tt>{@link kTAG_TRANSACTION_VALUE}</tt>: Transaction value.
+	 *	<li><tt>{@link kTAG_TRANSACTION_MESSAGE}</tt>: Transaction message.
+	 *	<li><tt>{@link kTAG_TAG}</tt>: Transaction tag.
 	 * </ul>
-	 *
-	 * These tags will not be part of the offset management framework, since they are
-	 * required.
 	 *
 	 * @static
 	 * @return array				List of unmanaged offsets.
 	 *
-	 * @see kTAG_SESSION_TYPE kTAG_SESSION_START kTAG_SESSION_STATUS kTAG_USER
+	 * @see kTAG_TRANSACTION_STATUS kTAG_TRANSACTION_START kTAG_TRANSACTION_END
+	 * @see kTAG_TRANSACTION_ALIAS kTAG_TRANSACTION_FIELD kTAG_TRANSACTION_VALUE
+	 * @see kTAG_TRANSACTION_MESSAGE kTAG_TAG
 	 */
 	static function UnmanagedOffsets()
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
-			array( kTAG_SESSION_TYPE, kTAG_SESSION_START,
-				   kTAG_SESSION_STATUS, kTAG_USER ) );								// ==>
+			array( kTAG_TRANSACTION_STATUS,
+				   kTAG_TRANSACTION_START, kTAG_TRANSACTION_END,
+				   kTAG_TRANSACTION_ALIAS, kTAG_TRANSACTION_FIELD, kTAG_TRANSACTION_VALUE,
+				   kTAG_TRANSACTION_MESSAGE, kTAG_TAG ) );							// ==>
 	
 	} // UnmanagedOffsets.
 
@@ -508,7 +437,7 @@ class Transaction extends SessionObject
 		return array_merge( parent::DefaultOffsets(),
 							$this->mDictionary
 								->collectStructureOffsets(
-									'schema::domain:session' ) );					// ==>
+									'schema::domain:transaction' ) );				// ==>
 	
 	} // DefaultOffsets.
 
@@ -529,15 +458,15 @@ class Transaction extends SessionObject
 	/**
 	 * Handle offset and value after setting it
 	 *
-	 * In this class we link the inited status with the presence of the session, processed
-	 * count, transaction type and status.
+	 * In this class we link the inited status with the presence of the session, transaction
+	 * type and status.
 	 *
 	 * @param reference				$theOffset			Offset reference.
 	 * @param reference				$theValue			Offset value reference.
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_USER kTAG_PROCESSED kTAG_SESSION_TYPE kTAG_SESSION_STATUS
+	 * @see kTAG_SESSION kTAG_TRANSACTION_TYPE kTAG_TRANSACTION_STATUS
 	 */
 	protected function postOffsetSet( &$theOffset, &$theValue )
 	{
@@ -550,7 +479,6 @@ class Transaction extends SessionObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_SESSION ) &&
-						 \ArrayObject::offsetExists( kTAG_PROCESSED ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_STATUS ) );
 	
@@ -564,14 +492,14 @@ class Transaction extends SessionObject
 	/**
 	 * Handle offset after deleting it
 	 *
-	 * In this class we link the inited status with the presence of the session, processed
-	 * count, transaction type and status.
+	 * In this class we link the inited status with the presence of the session, transaction
+	 * type and status.
 	 *
 	 * @param reference				$theOffset			Offset reference.
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_USER kTAG_PROCESSED kTAG_SESSION_TYPE kTAG_SESSION_STATUS
+	 * @see kTAG_SESSION kTAG_TRANSACTION_TYPE kTAG_TRANSACTION_STATUS
 	 */
 	protected function postOffsetUnset( &$theOffset )
 	{
@@ -584,7 +512,6 @@ class Transaction extends SessionObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_SESSION ) &&
-						 \ArrayObject::offsetExists( kTAG_PROCESSED ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_STATUS ) );
 	
@@ -607,7 +534,7 @@ class Transaction extends SessionObject
 	/**
 	 * Prepare object before commit
 	 *
-	 * In this class we initialise the session start and status properties.
+	 * In this class we initialise the transaction start and status properties.
 	 *
 	 * @param reference				$theTags			Property tags and offsets.
 	 * @param reference				$theRefs			Object references.
@@ -616,26 +543,26 @@ class Transaction extends SessionObject
 	 *
 	 * @throws Exception
 	 *
-	 * @see kTAG_SESSION_START kTAG_SESSION_STATUS
+	 * @see kTAG_TRANSACTION_START kTAG_TRANSACTION_STATUS
 	 */
 	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{
 		//
+		// Initialise transaction start.
+		//
+		if( ! $this->offsetExists( kTAG_TRANSACTION_START ) )
+			$this->offsetSet( kTAG_TRANSACTION_START, new \MongoTimestamp() );
+		
+		//
+		// Initialise transaction status.
+		//
+		if( ! $this->offsetExists( kTAG_TRANSACTION_STATUS ) )
+			$this->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_EXECUTING );
+		
+		//
 		// Call parent method.
 		//
 		parent::preCommitPrepare( $theTags, $theRefs );
-		
-		//
-		// Initialise session start.
-		//
-		if( ! $this->offsetExists( kTAG_SESSION_START ) )
-			$this->offsetSet( kTAG_SESSION_START, new \MongoTimestamp() );
-		
-		//
-		// Initialise session status.
-		//
-		if( ! $this->offsetExists( kTAG_SESSION_STATUS ) )
-			$this->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_EXECUTING );
 		
 	} // preCommitPrepare.
 

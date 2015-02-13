@@ -131,15 +131,15 @@ class Session extends SessionObject
 	/**
 	 * Instantiate class.
 	 *
-	 * In this class we link the inited status with the presence of the session type, user,
-	 * status and processed.
+	 * In this class we link the inited status with the presence of the session type, user
+	 * and status.
 	 *
 	 * @param ConnectionObject		$theContainer		Persistent store.
 	 * @param mixed					$theIdentifier		Object identifier.
 	 *
 	 * @access public
 	 *
-	 * @see kTAG_USER kTAG_PROCESSED kTAG_SESSION_TYPE kTAG_SESSION_STATUS
+	 * @see kTAG_USER kTAG_SESSION_TYPE kTAG_SESSION_STATUS
 	 *
 	 * @uses isInited()
 	 */
@@ -154,7 +154,6 @@ class Session extends SessionObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_USER ) &&
-						 \ArrayObject::offsetExists( kTAG_PROCESSED ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_STATUS ) );
 
@@ -260,72 +259,6 @@ class Session extends SessionObject
 	
 	} // getUser.
 
-	 
-	/*===================================================================================
-	 *	getSession																		*
-	 *==================================================================================*/
-
-	/**
-	 * Get referenced session
-	 *
-	 * This method will return the referenced session object; if none is set, the method
-	 * will return <tt>NULL</tt>, or raise an exception if the second parameter is
-	 * <tt>TRUE</tt>.
-	 *
-	 * The first parameter is the wrapper in which the current object is, or will be,
-	 * stored: if the current object has the {@link dictionary()}, this parameter may be
-	 * omitted; if the wrapper cannot be resolved, the method will raise an exception.
-	 *
-	 * @param Wrapper				$theWrapper			Wrapper.
-	 * @param boolean				$doAssert			Raise exception if not matched.
-	 *
-	 * @access public
-	 * @return PersistentObject		Referenced user or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 */
-	public function getSession( $theWrapper = NULL, $doAssert = TRUE )
-	{
-		//
-		// Check session.
-		//
-		if( $this->offsetExists( kTAG_SESSION ) )
-		{
-			//
-			// Resolve wrapper.
-			//
-			$this->resolveWrapper( $theWrapper );
-		
-			//
-			// Resolve collection.
-			//
-			$collection
-				= self::ResolveCollection(
-					self::ResolveDatabase( $theWrapper, TRUE ) );
-			
-			//
-			// Set criteria.
-			//
-			$criteria = array( kTAG_NID => $this->offsetGet( kTAG_SESSION ) );
-			
-			//
-			// Locate object.
-			//
-			$object = $collection->matchOne( $criteria );
-			if( $doAssert
-			 && ($object === NULL) )
-				throw new \Exception(
-					"Unable to get session: "
-				   ."referenced object not matched." );							// !@! ==>
-			
-			return $object;															// ==>
-		
-		} // Has session.
-		
-		return NULL;																// ==>
-	
-	} // getSession.
-
 		
 
 /*=======================================================================================
@@ -367,7 +300,7 @@ class Session extends SessionObject
 			//
 			// Invalid status.
 			//
-			default
+			default:
 				throw new \Exception(
 					"Cannot set status: "
 				   ."invalid status value [$theStatus]." );						// !@! ==>
@@ -453,14 +386,6 @@ class Session extends SessionObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
-		// Set persistent identifier index.
-		//
-		$collection->createIndex( array( kTAG_ID_PERSISTENT => 1 ),
-								  array( "name" => "PID",
-								  		 "unique" => TRUE,
-								  		 "sparse" => TRUE ) );
-		
-		//
 		// Set session type index.
 		//
 		$collection->createIndex( array( kTAG_SESSION_TYPE => 1 ),
@@ -506,29 +431,26 @@ class Session extends SessionObject
 	/**
 	 * Return unmanaged offsets
 	 *
-	 * In this class we return the offsets that are required by the object:
+	 * In this class we exclude all offsets that are supposed to be set externally, this
+	 * includes:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION_TYPE}</tt>: Session type.
-	 *	<li><tt>{@link kTAG_SESSION_START}</tt>: Session start.
 	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Session status.
-	 *	<li><tt>{@link kTAG_USER}</tt>: Session user.
+	 *	<li><tt>{@link kTAG_SESSION_START}</tt>: Session start.
+	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
 	 * </ul>
-	 *
-	 * These tags will not be part of the offset management framework, since they are
-	 * required.
 	 *
 	 * @static
 	 * @return array				List of unmanaged offsets.
 	 *
-	 * @see kTAG_SESSION_TYPE kTAG_SESSION_START kTAG_SESSION_STATUS kTAG_USER
+	 * @see kTAG_SESSION_STATUS kTAG_SESSION_START kTAG_SESSION_END
 	 */
 	static function UnmanagedOffsets()
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
-			array( kTAG_SESSION_TYPE, kTAG_SESSION_START,
-				   kTAG_SESSION_STATUS, kTAG_USER ) );								// ==>
+			array( kTAG_SESSION_STATUS,
+				   kTAG_SESSION_START, kTAG_SESSION_END ) );						// ==>
 	
 	} // UnmanagedOffsets.
 
@@ -571,15 +493,15 @@ class Session extends SessionObject
 	/**
 	 * Handle offset and value after setting it
 	 *
-	 * In this class we link the inited status with the presence of the session type, user,
-	 * status and processed.
+	 * In this class we link the inited status with the presence of the session type, user
+	 * and status.
 	 *
 	 * @param reference				$theOffset			Offset reference.
 	 * @param reference				$theValue			Offset value reference.
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_USER kTAG_PROCESSED kTAG_SESSION_TYPE kTAG_SESSION_STATUS
+	 * @see kTAG_USER kTAG_SESSION_TYPE kTAG_SESSION_STATUS
 	 */
 	protected function postOffsetSet( &$theOffset, &$theValue )
 	{
@@ -592,7 +514,6 @@ class Session extends SessionObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_USER ) &&
-						 \ArrayObject::offsetExists( kTAG_PROCESSED ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_STATUS ) );
 	
@@ -606,14 +527,14 @@ class Session extends SessionObject
 	/**
 	 * Handle offset after deleting it
 	 *
-	 * In this class we link the inited status with the presence of the session type, user,
-	 * status and processed.
+	 * In this class we link the inited status with the presence of the session type, user
+	 * and status.
 	 *
 	 * @param reference				$theOffset			Offset reference.
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_USER kTAG_PROCESSED kTAG_SESSION_TYPE kTAG_SESSION_STATUS
+	 * @see kTAG_USER kTAG_SESSION_TYPE kTAG_SESSION_STATUS
 	 */
 	protected function postOffsetUnset( &$theOffset )
 	{
@@ -626,7 +547,6 @@ class Session extends SessionObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_USER ) &&
-						 \ArrayObject::offsetExists( kTAG_PROCESSED ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_STATUS ) );
 	
@@ -663,11 +583,6 @@ class Session extends SessionObject
 	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{
 		//
-		// Call parent method.
-		//
-		parent::preCommitPrepare( $theTags, $theRefs );
-		
-		//
 		// Initialise session start.
 		//
 		if( ! $this->offsetExists( kTAG_SESSION_START ) )
@@ -678,6 +593,11 @@ class Session extends SessionObject
 		//
 		if( ! $this->offsetExists( kTAG_SESSION_STATUS ) )
 			$this->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_EXECUTING );
+		
+		//
+		// Call parent method.
+		//
+		parent::preCommitPrepare( $theTags, $theRefs );
 		
 	} // preCommitPrepare.
 

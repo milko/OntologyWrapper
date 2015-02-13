@@ -208,6 +208,81 @@ abstract class SessionObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC OBJECT REFERENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getSession																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get referenced session
+	 *
+	 * This method will return the referenced session object; if none is set, the method
+	 * will return <tt>NULL</tt>, or raise an exception if the second parameter is
+	 * <tt>TRUE</tt>.
+	 *
+	 * The first parameter is the wrapper in which the current object is, or will be,
+	 * stored: if the current object has the {@link dictionary()}, this parameter may be
+	 * omitted; if the wrapper cannot be resolved, the method will raise an exception.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param boolean				$doAssert			Raise exception if not matched.
+	 *
+	 * @access public
+	 * @return PersistentObject		Referenced user or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
+	 */
+	public function getSession( $theWrapper = NULL, $doAssert = TRUE )
+	{
+		//
+		// Check session.
+		//
+		if( $this->offsetExists( kTAG_SESSION ) )
+		{
+			//
+			// Resolve wrapper.
+			//
+			$this->resolveWrapper( $theWrapper );
+		
+			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $theWrapper, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( kTAG_NID => $this->offsetGet( kTAG_SESSION ) );
+			
+			//
+			// Locate object.
+			//
+			$object = $collection->matchOne( $criteria );
+			if( $doAssert
+			 && ($object === NULL) )
+				throw new \Exception(
+					"Unable to get session: "
+				   ."referenced object not matched." );							// !@! ==>
+			
+			return $object;															// ==>
+		
+		} // Has session.
+		
+		return NULL;																// ==>
+	
+	} // getSession.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC OPERATIONS INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -234,7 +309,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @see kTAG_PROCESSED
 	 */
-	static function updateProcessed( $theCount = 1 )
+	public function updateProcessed( $theCount = 1 )
 	{
 		return $this->updateCount( kTAG_PROCESSED, $theCount );						// ==>
 	
@@ -261,7 +336,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @see kTAG_VALIDATED
 	 */
-	static function updateValidated( $theCount = 1 )
+	public function updateValidated( $theCount = 1 )
 	{
 		return $this->updateCount( kTAG_VALIDATED, $theCount );						// ==>
 	
@@ -288,7 +363,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @see kTAG_REJECTED
 	 */
-	static function updateRejected( $theCount = 1 )
+	public function updateRejected( $theCount = 1 )
 	{
 		return $this->updateCount( kTAG_REJECTED, $theCount );						// ==>
 	
@@ -315,7 +390,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @see kTAG_SKIPPED
 	 */
-	static function updateRejected( $theCount = 1 )
+	public function updateSkipped( $theCount = 1 )
 	{
 		return $this->updateCount( kTAG_SKIPPED, $theCount );						// ==>
 	
@@ -409,7 +484,6 @@ abstract class SessionObject extends PersistentObject
 		//
 		// Set property.
 		//
-		public function replaceOffsets( $theIdentifier, $theProperties )
 		$collection->replaceOffsets(
 			$theIdentifier,								// Object ID.
 			array( kTAG_SESSION => $theSession ) );		// Modifications.
@@ -459,7 +533,7 @@ abstract class SessionObject extends PersistentObject
 			case kTAG_SKIPPED:
 				break;
 			
-			default
+			default:
 				throw new \Exception(
 					"Cannot increment counter: "
 				   ."invalid counter reference [$theCounter]." );				// !@! ==>
@@ -502,7 +576,7 @@ abstract class SessionObject extends PersistentObject
 		//
 		$collection->updateReferenceCount( $theIdentifier,		// Native identifier.
 										   kTAG_NID,			// Identifier offset.
-										   kTAG_PROCESSED,		// Counter offset.
+										   $theCounter,			// Counter offset.
 										   (int) $theCount );	// Count.
 	
 	} // UpdateCounter.
@@ -558,22 +632,28 @@ abstract class SessionObject extends PersistentObject
 	/**
 	 * Return unmanaged offsets
 	 *
-	 * In this class we return the operation counter offsets, since all derived classes are
-	 * assumed to have it.
+	 * In this class we exclude all offsets that are supposed to be set externally, this
+	 * includes:
 	 *
-	 * These tags will not be part of the offset management framework, since they are
-	 * assumed.
+	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Session reference.
+	 *	<li><tt>{@link kTAG_PROCESSED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_VALIDATED}</tt>: Validated elements.
+	 *	<li><tt>{@link kTAG_REJECTED}</tt>: Rejected elements.
+	 *	<li><tt>{@link kTAG_SKIPPED}</tt>: Skipped elements.
+	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of unmanaged offsets.
 	 *
-	 * @see kTAG_PROCESSED kTAG_VALIDATED kTAG_REJECTED kTAG_SKIPPED
+	 * @see kTAG_SESSION kTAG_PROCESSED kTAG_VALIDATED kTAG_REJECTED kTAG_SKIPPED
 	 */
 	static function UnmanagedOffsets()
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
-			array( kTAG_PROCESSED, kTAG_VALIDATED, kTAG_REJECTED, kTAG_SKIPPED ) );	// ==>
+			array( kTAG_SESSION,
+				   kTAG_PROCESSED, kTAG_VALIDATED, kTAG_REJECTED, kTAG_SKIPPED ) );	// ==>
 	
 	} // UnmanagedOffsets.
 
@@ -606,6 +686,54 @@ abstract class SessionObject extends PersistentObject
 							'@@@', kIO_XML_UNITS, kXML_STANDARDS_BASE ) );			// ==>
 	
 	} // XMLRootElement.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value after setting it
+	 *
+	 * In this class we intercept the session reference and cast it to a MongoId.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 *
+	 * @see kTAG_SESSION
+	 */
+	protected function postOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Intercept object references.
+		//
+		if( $theValue instanceof PersistentObject )
+			$theValue = $theValue->reference();
+		
+		//
+		// Call parent method to resolve offset.
+		//
+		parent::postOffsetSet( $theOffset, $theValue );
+		
+		//
+		// Set initialised status.
+		//
+		$this->isInited( \ArrayObject::offsetExists( kTAG_USER ) &&
+						 \ArrayObject::offsetExists( kTAG_SESSION_TYPE ) &&
+						 \ArrayObject::offsetExists( kTAG_SESSION_STATUS ) );
+	
+	} // postOffsetSet.
 
 		
 
@@ -748,10 +876,10 @@ abstract class SessionObject extends PersistentObject
 	 * @param string				$theCounter			Counter offset.
 	 * @param int					$theCount			Increment delta.
 	 *
-	 * @access public
+	 * @access protected
 	 * @return int					Updated count relative to current object.
 	 */
-	static function updateProcessed( $theCounter, $theCount )
+	protected function updateCount( $theCounter, $theCount )
 	{
 		//
 		// Check wrapper.
