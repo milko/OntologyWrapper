@@ -27,6 +27,19 @@
 	
 	<!-- Status type enumerations -->
 	
+	<!-- kTYPE_STATUS_EXECUTING -->
+	<META>
+		<NODE term=":type:status:executing">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:status</item>
+		</EDGE>
+	</META>
+	
 	<!-- kTYPE_STATUS_OK -->
 	<META>
 		<NODE term=":type:status:ok">

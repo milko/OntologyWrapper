@@ -278,22 +278,7 @@ class Node extends MetadataObject
 			//
 			// Resolve wrapper.
 			//
-			if( $theWrapper === NULL )
-			{
-				//
-				// Get current object's wrapper.
-				//
-				$theWrapper = $this->mDictionary;
-				
-				//
-				// Check wrapper.
-				//
-				if( ! ($theWrapper instanceof Wrapper) )
-					throw new \Exception(
-						"Unable to resolve referenced: "
-					   ."missing wrapper." );									// !@! ==>
-			
-			} // Wrapper not provided.
+			$this->resolveWrapper( $theWrapper );
 		
 			//
 			// Resolve collection.

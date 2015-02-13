@@ -29,21 +29,15 @@
 		<!-- schema::domain:transaction -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:transaction</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- RECORD PROPERTIES -->
 	
-		<!-- schema::ref-count -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
 		<!-- schema::record -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::record</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	</META>
 </METADATA>

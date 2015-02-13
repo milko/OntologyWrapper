@@ -92,12 +92,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- schema::offset -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::offset</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
 		<!-- kTAG_TAG_STRUCT -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:tag:struct</item>
@@ -112,16 +106,22 @@
 		
 		<!-- RECORD PROPERTIES -->
 	
+		<!-- schema::offset -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::offset</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+	
 		<!-- schema::ref-count -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	
 		<!-- schema::record -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::record</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	</META>
 </METADATA>

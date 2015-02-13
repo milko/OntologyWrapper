@@ -55,6 +55,8 @@
 		</EDGE>
 
 		<!-- kTAG_TRANSACTION_STATUS -->
+		<!-- Note that the enumerations have been set in SchemaTransactionLog.xml
+			 which must be loaded before this file. -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:transaction:status</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>

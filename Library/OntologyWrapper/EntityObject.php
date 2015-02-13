@@ -293,7 +293,7 @@ abstract class EntityObject extends UnitObject
 	/**
 	 * Resolve the database
 	 *
-	 * In this class we return the entities database.
+	 * In this class we return the users database.
 	 *
 	 * @param Wrapper				$theWrapper			Wrapper.
 	 * @param boolean				$doAssert			Raise exception if unable.
@@ -307,7 +307,7 @@ abstract class EntityObject extends UnitObject
 	static function ResolveDatabase( Wrapper $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
 	{
 		//
-		// Get units database.
+		// Get users database.
 		//
 		$database = $theWrapper->Users();
 		if( $database instanceof DatabaseObject )
@@ -320,7 +320,7 @@ abstract class EntityObject extends UnitObject
 			
 			return $database;														// ==>
 		
-		} // Retrieved units database.
+		} // Retrieved users database.
 		
 		//
 		// Raise exception.
@@ -328,7 +328,7 @@ abstract class EntityObject extends UnitObject
 		if( $doAssert )
 			throw new \Exception(
 				"Unable to resolve database: "
-			   ."missing entities reference in wrapper." );						// !@! ==>
+			   ."missing users reference in wrapper." );						// !@! ==>
 		
 		return NULL;																// ==>
 	

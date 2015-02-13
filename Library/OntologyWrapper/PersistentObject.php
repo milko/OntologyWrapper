@@ -118,6 +118,9 @@ abstract class PersistentObject extends OntologyObject
 	 */
 	public static $sDefaultTags = array
 	(
+		//
+		// Identification attributes.
+		//
 		kTAG_NAMESPACE => array
 		(
 			kTAG_NID	=> ':namespace',
@@ -177,6 +180,10 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTAG_PRIVATE_MODIFY )
 		),
+		
+		//
+		// Unit classification attributes.
+		//
 		kTAG_DOMAIN => array
 		(
 			kTAG_NID	=> ':unit:domain',
@@ -222,6 +229,10 @@ abstract class PersistentObject extends OntologyObject
 									  kTYPE_FULL_TEXT_06,
 									  kTYPE_LIST )
 		),
+		
+		//
+		// Object reference attributes.
+		//
 		kTAG_TAG => array
 		(
 			kTAG_NID	=> ':tag',
@@ -248,6 +259,88 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTYPE_LIST )
 		),
+		kTAG_NODE => array
+		(
+			kTAG_NID	=> ':node',
+			kTAG_DATA_TYPE	=> kTYPE_REF_NODE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_NODES => array
+		(
+			kTAG_NID	=> ':nodes',
+			kTAG_DATA_TYPE	=> kTYPE_REF_NODE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
+		),
+		kTAG_EDGE => array
+		(
+			kTAG_NID	=> ':edge',
+			kTAG_DATA_TYPE	=> kTYPE_REF_EDGE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_EDGES => array
+		(
+			kTAG_NID	=> ':edges',
+			kTAG_DATA_TYPE	=> kTYPE_REF_EDGE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
+		),
+		kTAG_UNIT => array
+		(
+			kTAG_NID	=> ':unit:reference',
+			kTAG_DATA_TYPE	=> kTYPE_REF_UNIT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_UNITS => array
+		(
+			kTAG_NID	=> ':unit:references',
+			kTAG_DATA_TYPE	=> kTYPE_REF_UNIT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
+		),
+		kTAG_USER => array
+		(
+			kTAG_NID	=> ':entity:user',
+			kTAG_DATA_TYPE	=> kTYPE_REF_USER,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_USERS => array
+		(
+			kTAG_NID	=> ':entity:users',
+			kTAG_DATA_TYPE	=> kTYPE_REF_USER,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
+		),
+		kTAG_SESSION => array
+		(
+			kTAG_NID	=> ':session:reference',
+			kTAG_DATA_TYPE	=> kTYPE_REF_SESSION,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_SESSIONS => array
+		(
+			kTAG_NID	=> ':session:references',
+			kTAG_DATA_TYPE	=> kTYPE_REF_SESSION,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
+		),
+		kTAG_TRANSACTION => array
+		(
+			kTAG_NID	=> ':transaction:reference',
+			kTAG_DATA_TYPE	=> kTYPE_REF_TRANSACTION,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_TRANSACTIONS => array
+		(
+			kTAG_NID	=> ':transaction:references',
+			kTAG_DATA_TYPE	=> kTYPE_REF_TRANSACTION,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
+		),
+		
+		//
+		// Object relationship attributes.
+		//
 		kTAG_SUBJECT => array
 		(
 			kTAG_NID	=> ':relationship:subject',
@@ -280,12 +373,6 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTAG_PRIVATE_MODIFY )
 		),
-		kTAG_USER => array
-		(
-			kTAG_NID	=> ':entity:user',
-			kTAG_DATA_TYPE	=> kTYPE_REF_USER,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
 		kTAG_MASTER => array
 		(
 			kTAG_NID	=> ':master',
@@ -293,6 +380,10 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTAG_PRIVATE_MODIFY )
 		),
+		
+		//
+		// Object category attributes.
+		//
 		kTAG_CATEGORY => array
 		(
 			kTAG_NID	=> ':category',
@@ -332,6 +423,26 @@ abstract class PersistentObject extends OntologyObject
 									  kTYPE_FULL_TEXT_03,
 									  kTYPE_SUMMARY )
 		),
+		kTAG_SESSION_TYPE => array
+		(
+			kTAG_NID	=> ':type:session',
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
+		),
+		kTAG_TRANSACTION_TYPE => array
+		(
+			kTAG_NID	=> ':type:transaction',
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
+		),
+		
+		//
+		// Object description attributes.
+		//
 		kTAG_NAME => array
 		(
 			kTAG_NID	=> ':name',
@@ -384,20 +495,10 @@ abstract class PersistentObject extends OntologyObject
 									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
-		kTAG_UNIT_COUNT => array
-		(
-			kTAG_NID	=> ':ref-count:unit',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
-									  kTAG_PRIVATE_MODIFY )
-		),
-		kTAG_USER_COUNT => array
-		(
-			kTAG_NID	=> ':ref-count:user',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
-									  kTAG_PRIVATE_MODIFY )
-		),
+		
+		//
+		// Object reference count attributes.
+		//
 		kTAG_TAG_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:tag',
@@ -426,6 +527,38 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
 		),
+		kTAG_UNIT_COUNT => array
+		(
+			kTAG_NID	=> ':ref-count:unit',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_USER_COUNT => array
+		(
+			kTAG_NID	=> ':ref-count:user',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_SESSION_COUNT => array
+		(
+			kTAG_NID	=> ':ref-count:session',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_TRANSACTION_COUNT => array
+		(
+			kTAG_NID	=> ':ref-count:transaction',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		
+		//
+		// Object offset reference attributes.
+		//
 		kTAG_TAG_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:tag',
@@ -466,16 +599,6 @@ abstract class PersistentObject extends OntologyObject
 									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
-		kTAG_USER_OFFSETS => array
-		(
-			kTAG_NID	=> ':offset:entity',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
-									  kTYPE_LIST,
-									  kTAG_PRIVATE_SEARCH,
-									  kTAG_PRIVATE_MODIFY,
-									  kTYPE_PRIVATE_DISPLAY )
-		),
 		kTAG_UNIT_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:unit',
@@ -486,6 +609,40 @@ abstract class PersistentObject extends OntologyObject
 									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
+		kTAG_USER_OFFSETS => array
+		(
+			kTAG_NID	=> ':offset:entity',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
+		),
+		kTAG_SESSION_OFFSETS => array
+		(
+			kTAG_NID	=> ':offset:session',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
+		),
+		kTAG_TRANSACTION_OFFSETS => array
+		(
+			kTAG_NID	=> ':offset:transaction',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
+		),
+		
+		//
+		// Object statistical attributes.
+		//
 		kTAG_OBJECT_TAGS => array
 		(
 			kTAG_NID	=> ':object-tags',
@@ -515,6 +672,10 @@ abstract class PersistentObject extends OntologyObject
 									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
+		
+		//
+		// Property description attributes.
+		//
 		kTAG_TAG_STRUCT => array
 		(
 			kTAG_NID	=> ':tag:struct',
@@ -567,6 +728,10 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
+		
+		//
+		// Geometric attributes.
+		//
 		kTAG_GEO_SHAPE => array
 		(
 			kTAG_NID	=> ':shape',
@@ -583,6 +748,10 @@ abstract class PersistentObject extends OntologyObject
 									  kTAG_PRIVATE_SEARCH,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
+		
+		//
+		// Generic attributes.
+		//
 		kTAG_RECORD_CREATED => array
 		(
 			kTAG_NID	=> ':record:created',
@@ -597,58 +766,210 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
 		),
-		kTAG_CONN_PROTOCOL => array
+		kTAG_PROCESSED => array
 		(
-			kTAG_NID	=> ':connection:protocol',
+			kTAG_NID	=> ':processed',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_VALIDATED => array
+		(
+			kTAG_NID	=> ':validated',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_REJECTED => array
+		(
+			kTAG_NID	=> ':rejected',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_SKIPPED => array
+		(
+			kTAG_NID	=> ':skipped',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_PREFIX => array
+		(
+			kTAG_NID	=> ':prefix',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST )
+		),
+		kTAG_SUFFIX => array
+		(
+			kTAG_NID	=> ':suffix',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST )
+		),
+		kTAG_CLASS_NAME => array
+		(
+			kTAG_NID	=> ':class',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_CONN_HOST => array
+		kTAG_TOKEN => array
 		(
-			kTAG_NID	=> ':connection:host',
+			kTAG_NID	=> ':token',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_CONN_PORT => array
+		
+		//
+		// Template attributes.
+		//
+		kTAG_LINE_NAME => array
 		(
-			kTAG_NID	=> ':connection:port',
+			kTAG_NID	=> ':line-name',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_CONN_CODE => array
+		kTAG_LINE_INFO => array
 		(
-			kTAG_NID	=> ':connection:code',
+			kTAG_NID	=> ':line-info',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_LINE_EXAMPLES => array
+		(
+			kTAG_NID	=> ':line-examples',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_LINE_SYMBOL => array
+		(
+			kTAG_NID	=> ':line-symbol',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_LINE_DATA => array
+		(
+			kTAG_NID	=> ':line-data',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_TRANSFORM => array
+		(
+			kTAG_NID	=> ':tag-transform',
+			kTAG_DATA_TYPE	=> kTYPE_STRUCT,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST )
+		),
+		
+		//
+		// Session tags.
+		//
+		kTAG_SESSION_START => array
+		(
+			kTAG_NID	=> ':session:start',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+		),
+		kTAG_SESSION_END => array
+		(
+			kTAG_NID	=> ':session:end',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+		),
+		kTAG_SESSION_STATUS => array
+		(
+			kTAG_NID	=> ':session:status',
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
+		),
+		kTAG_SESSION_FILES => array
+		(
+			kTAG_NID	=> ':session:files',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
-									  kTAG_PRIVATE_SEARCH,
-									  kTYPE_PRIVATE_DISPLAY )
+									  kTYPE_LIST )
 		),
-		kTAG_CONN_PASS => array
+		kTAG_SESSION_COLLECTIONS => array
 		(
-			kTAG_NID	=> ':connection:pass',
+			kTAG_NID	=> ':session:collections',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
-									  kTAG_PRIVATE_SEARCH,
-									  kTYPE_PRIVATE_DISPLAY )
+									  kTYPE_LIST )
 		),
-		kTAG_CONN_BASE => array
+		
+		//
+		// Transaction attributes.
+		//
+		kTAG_TRANSACTION_START => array
 		(
-			kTAG_NID	=> ':connection:database',
+			kTAG_NID	=> ':transaction:start',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+		),
+		kTAG_TRANSACTION_END => array
+		(
+			kTAG_NID	=> ':transaction:end',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+		),
+		kTAG_TRANSACTION_STATUS => array
+		(
+			kTAG_NID	=> ':transaction:status',
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
+		),
+		kTAG_TRANSACTION_COLLECTION => array
+		(
+			kTAG_NID	=> ':transaction:collection',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_SUMMARY )
 		),
-		kTAG_CONN_COLL => array
+		kTAG_TRANSACTION_RECORD => array
 		(
-			kTAG_NID	=> ':connection:collection',
+			kTAG_NID	=> ':transaction:record',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+		),
+		kTAG_TRANSACTION_FIELD => array
+		(
+			kTAG_NID	=> ':transaction:field',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+		),
+		kTAG_TRANSACTION_ALIAS => array
+		(
+			kTAG_NID	=> ':transaction:alias',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
-		kTAG_CONN_OPTS => array
+		kTAG_TRANSACTION_VALUE => array
 		(
-			kTAG_NID	=> ':connection:options',
-			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
+			kTAG_NID	=> ':transaction:value',
+			kTAG_DATA_TYPE	=> kTYPE_MIXED,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
+		kTAG_TRANSACTION_MESSAGE => array
+		(
+			kTAG_NID	=> ':transaction:message',
+			kTAG_DATA_TYPE	=> kTYPE_TEXT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_TRANSACTION_LOG => array
+		(
+			kTAG_NID	=> ':transaction:log',
+			kTAG_DATA_TYPE	=> kTYPE_STRUCT,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST )
+		),
+		
+		//
+		// Entity attributes.
+		//
 		kTAG_ENTITY_IDENT => array
 		(
 			kTAG_NID	=> ':entity:identifier',
@@ -774,6 +1095,10 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
+		
+		//
+		// User attributes.
+		//
 		kTAG_ROLES => array
 		(
 			kTAG_NID	=> ':roles',
@@ -786,71 +1111,67 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_STRUCT,
 			kTAG_DATA_KIND	=> array( kTYPE_LIST )
 		),
-		kTAG_CLASS_NAME => array
-		(
-			kTAG_NID	=> ':class',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
-		kTAG_TOKEN => array
-		(
-			kTAG_NID	=> ':token',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
 		kTAG_MANAGED_COUNT => array
 		(
 			kTAG_NID	=> ':managed-count',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_LINE_NAME => array
+		
+		//
+		// Connection attributes.
+		//
+		kTAG_CONN_PROTOCOL => array
 		(
-			kTAG_NID	=> ':line-name',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
-		kTAG_LINE_INFO => array
-		(
-			kTAG_NID	=> ':line-info',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
-		kTAG_LINE_EXAMPLES => array
-		(
-			kTAG_NID	=> ':line-examples',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
-		kTAG_LINE_SYMBOL => array
-		(
-			kTAG_NID	=> ':line-symbol',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
-		kTAG_LINE_DATA => array
-		(
-			kTAG_NID	=> ':line-data',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
-		kTAG_TRANSFORM => array
-		(
-			kTAG_NID	=> ':tag-transform',
-			kTAG_DATA_TYPE	=> kTYPE_STRUCT,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST )
-		),
-		kTAG_PREFIX => array
-		(
-			kTAG_NID	=> ':prefix',
+			kTAG_NID	=> ':connection:protocol',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_SUFFIX => array
+		kTAG_CONN_HOST => array
 		(
-			kTAG_NID	=> ':suffix',
+			kTAG_NID	=> ':connection:host',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_CONN_PORT => array
+		(
+			kTAG_NID	=> ':connection:port',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_CONN_CODE => array
+		(
+			kTAG_NID	=> ':connection:code',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
+		),
+		kTAG_CONN_PASS => array
+		(
+			kTAG_NID	=> ':connection:pass',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
+		),
+		kTAG_CONN_BASE => array
+		(
+			kTAG_NID	=> ':connection:database',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_CONN_COLL => array
+		(
+			kTAG_NID	=> ':connection:collection',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_CONN_OPTS => array
+		(
+			kTAG_NID	=> ':connection:options',
+			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		)
 	);
 
@@ -2156,13 +2477,21 @@ abstract class PersistentObject extends OntologyObject
 				return Edge::ResolveCollection(
 						Edge::ResolveDatabase( $theWrapper ) );						// ==>
 				
+			case UnitObject::kSEQ_NAME:
+				return UnitObject::ResolveCollection(
+						UnitObject::ResolveDatabase( $theWrapper ) );				// ==>
+				
 			case User::kSEQ_NAME:
 				return User::ResolveCollection(
 						User::ResolveDatabase( $theWrapper ) );						// ==>
 				
-			case UnitObject::kSEQ_NAME:
-				return UnitObject::ResolveCollection(
-						UnitObject::ResolveDatabase( $theWrapper ) );				// ==>
+			case Session::kSEQ_NAME:
+				return Session::ResolveCollection(
+						Session::ResolveDatabase( $theWrapper ) );					// ==>
+				
+			case Transaction::kSEQ_NAME:
+				return Transaction::ResolveCollection(
+						Transaction::ResolveDatabase( $theWrapper ) );				// ==>
 			
 			default:
 				throw new \Exception(
@@ -2252,6 +2581,22 @@ abstract class PersistentObject extends OntologyObject
 			return UnitObject::ResolveCollection(
 						UnitObject::ResolveDatabase( $theWrapper ) );				// ==>
 		
+		//
+		// Sessions.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Session'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Session') ) )
+			return Session::ResolveCollection(
+						Session::ResolveDatabase( $theWrapper ) );					// ==>
+		
+		//
+		// Transactions.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Transaction'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Transaction') ) )
+			return Transaction::ResolveCollection(
+						Transaction::ResolveDatabase( $theWrapper ) );				// ==>
+		
 		throw new \Exception(
 			"Cannot resolve collection: "
 		   ."unknown class name [$theClass]." );								// !@! ==>
@@ -2321,6 +2666,20 @@ abstract class PersistentObject extends OntologyObject
 		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\UnitObject') ) )
 			return kTYPE_REF_UNIT;													// ==>
 		
+		//
+		// Sessions.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Session'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Session') ) )
+			return kTYPE_REF_SESSION;												// ==>
+		
+		//
+		// Transactions.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\Transaction'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Transaction') ) )
+			return kTYPE_REF_TRANSACTION;											// ==>
+		
 		throw new \Exception(
 			"Cannot resolve type: "
 		   ."unknown class name [$theClass]." );								// !@! ==>
@@ -2368,10 +2727,16 @@ abstract class PersistentObject extends OntologyObject
 				return kTAG_EDGE_COUNT;												// ==>
 		
 			case User::kSEQ_NAME:
-				return kTAG_USER_COUNT;											// ==>
+				return kTAG_USER_COUNT;												// ==>
 		
 			case UnitObject::kSEQ_NAME:
 				return kTAG_UNIT_COUNT;												// ==>
+		
+			case Session::kSEQ_NAME:
+				return kTAG_SESSION_COUNT;											// ==>
+		
+			case Transaction::kSEQ_NAME:
+				return kTAG_TRANSACTION_COUNT;										// ==>
 		
 			default:
 				throw new \Exception(
@@ -2427,6 +2792,12 @@ abstract class PersistentObject extends OntologyObject
 		
 			case UnitObject::kSEQ_NAME:
 				return kTAG_UNIT_OFFSETS;											// ==>
+		
+			case Session::kSEQ_NAME:
+				return kTAG_SESSION_OFFSETS;										// ==>
+		
+			case Transaction::kSEQ_NAME:
+				return kTAG_TRANSACTION_OFFSETS;									// ==>
 		
 			default:
 				throw new \Exception(

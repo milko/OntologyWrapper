@@ -3582,6 +3582,8 @@ class Wrapper extends Dictionary
 				return $this->Metadata();											// ==>
 				
 			case User::kSEQ_NAME:
+			case Session::kSEQ_NAME:
+			case Transaction::kSEQ_NAME:
 				return $this->Users();												// ==>
 				
 			case UnitObject::kSEQ_NAME:
@@ -3650,6 +3652,14 @@ class Wrapper extends Dictionary
 			case UnitObject::kSEQ_NAME:
 				return UnitObject::ResolveCollection(
 						UnitObject::ResolveDatabase( $this, TRUE ) );				// ==>
+				
+			case Session::kSEQ_NAME:
+				return Session::ResolveCollection(
+						Session::ResolveDatabase( $this, TRUE ) );					// ==>
+				
+			case Transaction::kSEQ_NAME:
+				return Transaction::ResolveCollection(
+						Transaction::ResolveDatabase( $this, TRUE ) );				// ==>
 			
 			default:
 				throw new \Exception(
@@ -3709,6 +3719,12 @@ class Wrapper extends Dictionary
 				
 			case UnitObject::kSEQ_NAME:
 				return kPATH_NAMESPACE_ROOT.'\UnitObject';							// ==>
+				
+			case Session::kSEQ_NAME:
+				return kPATH_NAMESPACE_ROOT.'\Session';								// ==>
+				
+			case Transaction::kSEQ_NAME:
+				return kPATH_NAMESPACE_ROOT.'\Transaction';							// ==>
 			
 			default:
 				throw new \Exception(
@@ -3757,6 +3773,18 @@ class Wrapper extends Dictionary
 			case 'Edge':
 			case kPATH_NAMESPACE_ROOT.'\Edge':
 				return Edge::kSEQ_NAME;												// ==>
+				
+			case 'User':
+			case kPATH_NAMESPACE_ROOT.'\User':
+				return User::kSEQ_NAME;												// ==>
+				
+			case 'Session':
+			case kPATH_NAMESPACE_ROOT.'\Session':
+				return Session::kSEQ_NAME;											// ==>
+				
+			case 'Transaction':
+			case kPATH_NAMESPACE_ROOT.'\Transaction':
+				return Transaction::kSEQ_NAME;										// ==>
 			
 			default:
 				throw new \Exception(

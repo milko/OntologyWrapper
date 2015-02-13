@@ -458,8 +458,10 @@ class MongoCollection extends CollectionObject
 	 *
 	 * @access public
 	 */
-	public function updateReferenceCount( $theIdent, $theIdentOffset,
-													 $theCountOffset, $theCount = 1 )
+	public function updateReferenceCount( $theIdent,
+										  $theIdentOffset,
+										  $theCountOffset,
+										  $theCount = 1 )
 	{
 		//
 		// Set criteria.

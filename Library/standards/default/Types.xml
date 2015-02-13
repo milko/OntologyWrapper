@@ -1027,6 +1027,22 @@
 			</item>
 		</TERM>
 		
+		<!-- kTYPE_STATUS_EXECUTING -->
+		<TERM ns=":type:status" lid="executing">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Executing</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The operation is currently executing.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kTYPE_STATUS_OK -->
 		<TERM ns=":type:status" lid="ok">
 			<item const="kTAG_LABEL">

@@ -1573,7 +1573,7 @@ define( "kTAG_SESSION_END",				'@61' );
 define( "kTAG_SESSION_STATUS",			'@62' );
 
 /**
- * Session resources (<code>:session:resources</code)
+ * Session files (<code>:session:files</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
@@ -1582,7 +1582,19 @@ define( "kTAG_SESSION_STATUS",			'@62' );
  *
  * This tag indicates the file path or reference of the file(s) associated with the session.
  */
-define( "kTAG_SESSION_RESOURCES",		'@63' );
+define( "kTAG_SESSION_FILES",			'@63' );
+
+/**
+ * Session collections (<code>:session:collections</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ *	<li><em>Kind</em>: {@link kTYPE_LIST}
+ * </ul>
+ *
+ * This tag indicates the collections associated with the session.
+ */
+define( "kTAG_SESSION_COLLECTIONS",		'@64' );
 
 /*=======================================================================================
  *	TRANSACTION OFFSETS																	*
@@ -1597,7 +1609,7 @@ define( "kTAG_SESSION_RESOURCES",		'@63' );
  *
  * This tag indicates the transaction start timestamp.
  */
-define( "kTAG_TRANSACTION_START",		'@64' );
+define( "kTAG_TRANSACTION_START",		'@65' );
 
 /**
  * Transaction end (<code>:transaction:end</code)
@@ -1608,7 +1620,7 @@ define( "kTAG_TRANSACTION_START",		'@64' );
  *
  * This tag indicates the transaction end timestamp.
  */
-define( "kTAG_TRANSACTION_END",			'@65' );
+define( "kTAG_TRANSACTION_END",			'@66' );
 
 /**
  * Transaction status (<code>:transaction:status</code)
@@ -1619,7 +1631,7 @@ define( "kTAG_TRANSACTION_END",			'@65' );
  *
  * This tag indicates the transaction final status.
  */
-define( "kTAG_TRANSACTION_STATUS",		'@66' );
+define( "kTAG_TRANSACTION_STATUS",		'@67' );
 
 /**
  * Transaction collection (<code>:transaction:collection</code)
@@ -1630,7 +1642,7 @@ define( "kTAG_TRANSACTION_STATUS",		'@66' );
  *
  * This tag indicates the transaction collection or worksheet.
  */
-define( "kTAG_TRANSACTION_COLLECTION",	'@67' );
+define( "kTAG_TRANSACTION_COLLECTION",	'@68' );
 
 /**
  * Transaction record (<code>:transaction:record</code)
@@ -1641,7 +1653,7 @@ define( "kTAG_TRANSACTION_COLLECTION",	'@67' );
  *
  * This tag indicates the transaction record or row number.
  */
-define( "kTAG_TRANSACTION_RECORD",		'@68' );
+define( "kTAG_TRANSACTION_RECORD",		'@69' );
 
 /**
  * Transaction field (<code>:transaction:field</code)
@@ -1652,7 +1664,7 @@ define( "kTAG_TRANSACTION_RECORD",		'@68' );
  *
  * This tag indicates the transaction field or column number.
  */
-define( "kTAG_TRANSACTION_FIELD",		'@69' );
+define( "kTAG_TRANSACTION_FIELD",		'@6a' );
 
 /**
  * Transaction alias (<code>:transaction:alias</code)
@@ -1663,7 +1675,7 @@ define( "kTAG_TRANSACTION_FIELD",		'@69' );
  *
  * This tag indicates the transaction alias.
  */
-define( "kTAG_TRANSACTION_ALIAS",		'@6a' );
+define( "kTAG_TRANSACTION_ALIAS",		'@6b' );
 
 /**
  * Transaction value (<code>:transaction:value</code)
@@ -1674,7 +1686,7 @@ define( "kTAG_TRANSACTION_ALIAS",		'@6a' );
  *
  * This tag indicates the transaction value.
  */
-define( "kTAG_TRANSACTION_VALUE",		'@6b' );
+define( "kTAG_TRANSACTION_VALUE",		'@6c' );
 
 /**
  * Transaction message (<code>:transaction:message</code)
@@ -1685,7 +1697,7 @@ define( "kTAG_TRANSACTION_VALUE",		'@6b' );
  *
  * This tag indicates the transaction message.
  */
-define( "kTAG_TRANSACTION_MESSAGE",		'@6c' );
+define( "kTAG_TRANSACTION_MESSAGE",		'@6d' );
 
 /**
  * Transaction log (<code>:transaction:log</code)
@@ -1697,7 +1709,7 @@ define( "kTAG_TRANSACTION_MESSAGE",		'@6c' );
  *
  * This tag indicates the transaction log or sub-elements list.
  */
-define( "kTAG_TRANSACTION_LOG",			'@6d' );
+define( "kTAG_TRANSACTION_LOG",			'@6e' );
 
 /*=======================================================================================
  *	ENTITY ATTRIBUTES																	*
@@ -1714,7 +1726,7 @@ define( "kTAG_TRANSACTION_LOG",			'@6d' );
  * code should hold the most specific piece of information that can be used to identify an
  * entity.
  */
-define( "kTAG_ENTITY_IDENT",			'@6e' );
+define( "kTAG_ENTITY_IDENT",			'@6f' );
 
 /**
  * Entity first name (<code>:entity:fname</code)
@@ -1726,7 +1738,7 @@ define( "kTAG_ENTITY_IDENT",			'@6e' );
  * This tag holds a <em>string</em> representing the <em>first name</em> of an entity, this
  * implies that the entity is an individual.
  */
-define( "kTAG_ENTITY_FNAME",			'@6f' );
+define( "kTAG_ENTITY_FNAME",			'@70' );
 
 /**
  * Entity last name (<code>:entity:lname</code)
@@ -1738,7 +1750,7 @@ define( "kTAG_ENTITY_FNAME",			'@6f' );
  * This tag holds a <em>string</em> representing the <em>surname</em> of an entity, this
  * implies that the entity is an individual.
  */
-define( "kTAG_ENTITY_LNAME",			'@70' );
+define( "kTAG_ENTITY_LNAME",			'@71' );
 
 /**
  * Entity title (<code>:entity:title</code)
@@ -1749,7 +1761,7 @@ define( "kTAG_ENTITY_LNAME",			'@70' );
  *
  * This tag holds a <em>string</em> representing the <em>title</em> of an entity.
  */
-define( "kTAG_ENTITY_TITLE",			'@71' );
+define( "kTAG_ENTITY_TITLE",			'@72' );
 
 /**
  * Entity type (<code>:type:entity</code)
@@ -1761,7 +1773,7 @@ define( "kTAG_ENTITY_TITLE",			'@71' );
  * This tag holds an <em>enumerated set</em> which describes the <em>types of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_TYPE",				'@72' );
+define( "kTAG_ENTITY_TYPE",				'@73' );
 
 /**
  * Entity kind (<code>:kind:entity</code)
@@ -1773,7 +1785,7 @@ define( "kTAG_ENTITY_TYPE",				'@72' );
  * This tag holds an <em>enumerated set</em> which describes the <em>kinds of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_KIND",				'@73' );
+define( "kTAG_ENTITY_KIND",				'@74' );
 
 /**
  * Entity acronym (<code>:entity:acronym</code)
@@ -1786,7 +1798,7 @@ define( "kTAG_ENTITY_KIND",				'@73' );
  * This tag holds a a <em>list of strings</em> representing the entity <em>acronyms</em> or
  * <em>abbreviations</em>.
  */
-define( "kTAG_ENTITY_ACRONYM",			'@74' );
+define( "kTAG_ENTITY_ACRONYM",			'@75' );
 
 /**
  * Entity mail (<code>:entity:mail</code)
@@ -1798,7 +1810,7 @@ define( "kTAG_ENTITY_ACRONYM",			'@74' );
  * This tag holds a <em>list of mailing addresses discriminated by their type</em>. Each
  * element of the list represents an address which should be used according to its type.
  */
-define( "kTAG_ENTITY_MAIL",				'@75' );
+define( "kTAG_ENTITY_MAIL",				'@76' );
 
 /**
  * Entity e-mail (<code>:entity:email</code)
@@ -1810,7 +1822,7 @@ define( "kTAG_ENTITY_MAIL",				'@75' );
  * This tag holds a <em>list of e-mail addresses discriminated by their type</em>. Each
  * element of the list represents an e-mail which should be used according to its type.
  */
-define( "kTAG_ENTITY_EMAIL",			'@76' );
+define( "kTAG_ENTITY_EMAIL",			'@77' );
 
 /**
  * Entity link (<code>:entity:url</code)
@@ -1823,7 +1835,7 @@ define( "kTAG_ENTITY_EMAIL",			'@76' );
  * element of the list represents an internet link which can be categorised according to its
  * type.
  */
-define( "kTAG_ENTITY_LINK",				'@77' );
+define( "kTAG_ENTITY_LINK",				'@78' );
 
 /**
  * Entity phone (<code>:entity:phone</code)
@@ -1835,7 +1847,7 @@ define( "kTAG_ENTITY_LINK",				'@77' );
  * This tag holds a <em>list of telephone numbers discriminated by their type</em>. Each
  * element of the list represents a phone number which should be used according to its type.
  */
-define( "kTAG_ENTITY_PHONE",			'@78' );
+define( "kTAG_ENTITY_PHONE",			'@79' );
 
 /**
  * Entity fax (<code>:entity:fax</code)
@@ -1847,7 +1859,7 @@ define( "kTAG_ENTITY_PHONE",			'@78' );
  * This tag holds a <em>list of telefax numbers discriminated by their type</em>. Each
  * element of the list represents a fax number which should be used according to its type.
  */
-define( "kTAG_ENTITY_FAX",				'@79' );
+define( "kTAG_ENTITY_FAX",				'@7a' );
 
 /**
  * Entity telex (<code>:entity:tlx</code)
@@ -1859,7 +1871,7 @@ define( "kTAG_ENTITY_FAX",				'@79' );
  * This tag holds a <em>list of telex numbers discriminated by their type</em>. Each
  * element of the list represents a telex code which should be used according to its type.
  */
-define( "kTAG_ENTITY_TLX",				'@7a' );
+define( "kTAG_ENTITY_TLX",				'@7b' );
 
 /**
  * Entity affiliation (<code>:entity:affiliation</code)
@@ -1876,7 +1888,7 @@ define( "kTAG_ENTITY_TLX",				'@7a' );
  * stored in the entities collection exist solely for the purpose of providing a container
  * for system users.</em>
  */
-define( "kTAG_ENTITY_AFFILIATION",		'@7b' );
+define( "kTAG_ENTITY_AFFILIATION",		'@7c' );
 
 /**
  * Entity mationality (<code>:entity:nationality</code)
@@ -1887,7 +1899,7 @@ define( "kTAG_ENTITY_AFFILIATION",		'@7b' );
  *
  * This tag holds an <em>enumerated value representing the nationality of the entity</em>.
  */
-define( "kTAG_ENTITY_NATIONALITY",		'@7c' );
+define( "kTAG_ENTITY_NATIONALITY",		'@7d' );
 
 /**
  * Valid entity (<code>:entity:valid</code)
@@ -1900,7 +1912,7 @@ define( "kTAG_ENTITY_NATIONALITY",		'@7c' );
  * attribute is used by obsolete or defunct entities for referring to the current substitute
  * or valid entity.
  */
-define( "kTAG_ENTITY_VALID",			'@7d' );
+define( "kTAG_ENTITY_VALID",			'@7e' );
 
 /**
  * Entity PGP public key (<code>:entity:pgp-key</code)
@@ -1911,7 +1923,7 @@ define( "kTAG_ENTITY_VALID",			'@7d' );
  *
  * This tag holds the <em>PGP public key</em> which identifies a specific <em>user</em>.
  */
-define( "kTAG_ENTITY_PGP_KEY",			'@7e' );
+define( "kTAG_ENTITY_PGP_KEY",			'@7f' );
 
 /**
  * Entity PGP fingerprint (<code>:entity:pgp-fingerprint</code)
@@ -1922,7 +1934,7 @@ define( "kTAG_ENTITY_PGP_KEY",			'@7e' );
  *
  * This tag holds the <em>PGP fingerprint</em> which identifies a specific <em>user</em>.
  */
-define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@7f' );
+define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@80' );
 
 /**
  * Entity icon (<code>:entity:icon</code)
@@ -1933,7 +1945,7 @@ define( "kTAG_ENTITY_PGP_FINGERPRINT",	'@7f' );
  *
  * This tag indicates the entity icon name.
  */
-define( "kTAG_ENTITY_ICON",				'@80' );
+define( "kTAG_ENTITY_ICON",				'@81' );
 
 /*=======================================================================================
  *	USER ATTRIBUTES																		*
@@ -1950,7 +1962,7 @@ define( "kTAG_ENTITY_ICON",				'@80' );
  * value is a set of string values which are defined and managed by the user interface
  * system.
  */
-define( "kTAG_ROLES",					'@81' );
+define( "kTAG_ROLES",					'@82' );
 
 /**
  * Invites (<code>:invites</code)
@@ -1962,7 +1974,7 @@ define( "kTAG_ROLES",					'@81' );
  *
  * This tag indicates the list of invitations.
  */
-define( "kTAG_INVITES",					'@82' );
+define( "kTAG_INVITES",					'@83' );
 
 /**
  * Managed users (<code>:managed-count</code)
@@ -1973,7 +1985,7 @@ define( "kTAG_INVITES",					'@82' );
  *
  * This tag indicates the number of managed users.
  */
-define( "kTAG_MANAGED_COUNT",			'@83' );
+define( "kTAG_MANAGED_COUNT",			'@84' );
 
 /*=======================================================================================
  *	CONNECTION ATTRIBUTES																*
@@ -1989,7 +2001,7 @@ define( "kTAG_MANAGED_COUNT",			'@83' );
  * This tag holds a <em>string</em> which identifies a specific network connection
  * <em>protocol</em> or <em>scheme</em>.
  */
-define( "kTAG_CONN_PROTOCOL",			'@84' );
+define( "kTAG_CONN_PROTOCOL",			'@85' );
 
 /**
  * Connection host (<code>:connection:host</code)
@@ -2001,7 +2013,7 @@ define( "kTAG_CONN_PROTOCOL",			'@84' );
  * This tag holds a <em>string</em> which identifies a specific network connection
  * <em>domain name</em> or <em>internet address</em>.
  */
-define( "kTAG_CONN_HOST",				'@85' );
+define( "kTAG_CONN_HOST",				'@86' );
 
 /**
  * Connection port (<code>:connection:port</code)
@@ -2013,7 +2025,7 @@ define( "kTAG_CONN_HOST",				'@85' );
  * This tag holds an <em>integer</em> which identifies a specific network <em>TCP or UDP
  * port number</em>.
  */
-define( "kTAG_CONN_PORT",				'@86' );
+define( "kTAG_CONN_PORT",				'@87' );
 
 /**
  * Connection credentials code (<code>:connection:code</code)
@@ -2025,7 +2037,7 @@ define( "kTAG_CONN_PORT",				'@86' );
  * This tag holds a <em>string</em> which identifies a specific <em>code</em> used to
  * <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_CODE",				'@87' );
+define( "kTAG_CONN_CODE",				'@88' );
 
 /**
  * Connection credentials password (<code>:connection:password</code)
@@ -2037,7 +2049,7 @@ define( "kTAG_CONN_CODE",				'@87' );
  * This tag holds a <em>string</em> which identifies a specific <em>password</em> which
  * allows to <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_PASS",				'@88' );
+define( "kTAG_CONN_PASS",				'@89' );
 
 /**
  * Database name (<code>:connection:database</code)
@@ -2048,7 +2060,7 @@ define( "kTAG_CONN_PASS",				'@88' );
  *
  * This tag holds a <em>string</em> which identifies a specific <em>database</em>.
  */
-define( "kTAG_CONN_BASE",				'@89' );
+define( "kTAG_CONN_BASE",				'@8a' );
 
 /**
  * Collection name (<code>:connection:collection</code)
@@ -2060,7 +2072,7 @@ define( "kTAG_CONN_BASE",				'@89' );
  * This tag holds a <em>string</em> which identifies a specific <em>database
  * collection</em>.
  */
-define( "kTAG_CONN_COLL",				'@8a' );
+define( "kTAG_CONN_COLL",				'@8b' );
 
 /**
  * Connection options (<code>:connection:options</code)
@@ -2073,7 +2085,7 @@ define( "kTAG_CONN_COLL",				'@8a' );
  * network connection</em>. The key part identifies the option, the value part provides the
  * option value.
  */
-define( "kTAG_CONN_OPTS",				'@8b' );
+define( "kTAG_CONN_OPTS",				'@8c' );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

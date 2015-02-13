@@ -29,7 +29,7 @@
 		<!-- schema::domain:unit -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:unit</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- kTAG_ID_GRAPH -->
@@ -43,33 +43,27 @@
 		<!-- schema::domain:entity -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:entity</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- schema::domain:individual -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:individual</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- schema::domain:organisation -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::domain:organisation</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- RECORD PROPERTIES -->
 	
-		<!-- schema::ref-count -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
 		<!-- schema::record -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::record</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 	</META>
 </METADATA>

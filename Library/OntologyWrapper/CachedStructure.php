@@ -498,6 +498,14 @@ abstract class CachedStructure
 					(string) $theObject,
 					TRUE );
 		
+		//
+		// Check if resolved.
+		//
+		if( ! ($theObject instanceof Tag) )
+			throw new \Exception(
+				"Unable to cache tag: "
+			   ."the object does not exist." );									// !@! ==>
+		
 		return $this->cacheObject( $theObject );									// ==>
 	
 	} // cacheTag.
@@ -530,6 +538,14 @@ abstract class CachedStructure
 					Term::kSEQ_NAME,
 					(string) $theObject,
 					TRUE );
+		
+		//
+		// Check if resolved.
+		//
+		if( ! ($theObject instanceof Term) )
+			throw new \Exception(
+				"Unable to cache term: "
+			   ."the object does not exist." );									// !@! ==>
 		
 		return $this->cacheObject( $theObject );									// ==>
 	
@@ -569,6 +585,14 @@ abstract class CachedStructure
 					(string) $theObject,
 					kQUERY_OBJECT );
 		
+		//
+		// Check if resolved.
+		//
+		if( ! ($theObject instanceof Node) )
+			throw new \Exception(
+				"Unable to cache node: "
+			   ."the object does not exist." );									// !@! ==>
+		
 		return $this->cacheObject( $theObject );									// ==>
 	
 	} // cacheNode.
@@ -594,13 +618,21 @@ abstract class CachedStructure
 		//
 		// Handle identifier.
 		//
-		if( ! ($theObject instanceof Term) )
+		if( ! ($theObject instanceof Edge) )
 			$theObject
 				= PersistentObject::ResolveObject(
 					$this->mWrapper,
-					Term::kSEQ_NAME,
+					Edge::kSEQ_NAME,
 					(string) $theObject,
 					TRUE );
+		
+		//
+		// Check if resolved.
+		//
+		if( ! ($theObject instanceof Edge) )
+			throw new \Exception(
+				"Unable to cache edge: "
+			   ."the object does not exist." );									// !@! ==>
 		
 		return $this->cacheObject( $theObject );									// ==>
 	

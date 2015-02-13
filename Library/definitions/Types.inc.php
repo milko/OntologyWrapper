@@ -729,6 +729,13 @@ define( "kTYPE_STATUS_OK",						':type:status:ok' );
 define( "kTYPE_STATUS_FAILED",					':type:status:failed' );
 
 /**
+ * Executing.
+ *
+ * This status indicates an idle state.
+ */
+define( "kTYPE_STATUS_EXECUTING",				':type:status:executing' );
+
+/**
  * Reports.
  *
  * This status indicates a successful completion with messages.
