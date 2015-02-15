@@ -71,21 +71,21 @@ try
 	//
 	// Set metadata database.
 	//
-	$wrapper->Metadata(
+	$wrapper->metadata(
 		new OntologyWrapper\MongoDatabase(
 			kSTANDARDS_METADATA_DB ) );
 
 	//
 	// Set entities database.
 	//
-	$wrapper->Users(
+	$wrapper->users(
 		new OntologyWrapper\MongoDatabase(
 			kSTANDARDS_ENTITIES_DB ) );
 
 	//
 	// Set units database.
 	//
-	$wrapper->Units(
+	$wrapper->units(
 		new OntologyWrapper\MongoDatabase(
 			kSTANDARDS_UNITS_DB ) );
 	
@@ -93,7 +93,7 @@ try
 	// Set graph database.
 	//
 	if( kGRAPH_DO )
-		$wrapper->Graph(
+		$wrapper->graph(
 			new OntologyWrapper\Neo4jGraph(
 				kSTANDARDS_GRAPH_DB ) );
 

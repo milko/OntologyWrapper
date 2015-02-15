@@ -217,6 +217,73 @@ define( "kTAG_FULL_TEXT_06",			'text-06' );
 define( "kTAG_FULL_TEXT_03",			'text-03' );
 
 /*=======================================================================================
+ *	FILE OBJECT INTERNAL TAGS															*
+ *======================================================================================*/
+
+/**
+ * Filename (<code>filename</code>)
+ *
+ * Data type: kTYPE_STRING
+ *
+ * This tag holds a <em>string</em> representing a file name or path.
+ */
+define( "kTAG_FILE_NAME",				'filename' );
+
+/**
+ * Upload date (<code>uploadDate</code>)
+ *
+ * Data type: kTYPE_TIME_STAMP
+ *
+ * This tag holds a <em>time-stamp</em> indicating an upload event date.
+ */
+define( "kTAG_FILE_UPLOAD_DATE",		'uploadDate' );
+
+/**
+ * Length (<code>length</code>)
+ *
+ * Data type: kTYPE_INT
+ *
+ * This tag holds an <em>integer</em> representing a generic length.
+ */
+define( "kTAG_FILE_LENGTH",				'length' );
+
+/**
+ * Chunk size (<code>chunkSize</code>)
+ *
+ * Data type: kTYPE_INT
+ *
+ * This tag holds an <em>integer</em> representing a chunk size.
+ */
+define( "kTAG_FILE_CHUNK_SIZE",			'chunkSize' );
+
+/**
+ * Checksum (<code>md5</code>)
+ *
+ * Data type: kTYPE_STRING
+ *
+ * This tag holds a <em>string</em> representing an MD5 checksum.
+ */
+define( "kTAG_FILE_MD5",				'md5' );
+
+/**
+ * Content type (<code>contentType</code>)
+ *
+ * Data type: kTYPE_STRING
+ *
+ * This tag holds a <em>string</em> representing the file's MIME type.
+ */
+define( "kTAG_FILE_MIME_TYPE",			'contentType' );
+
+/**
+ * Aliases (<code>aliases</code>)
+ *
+ * Data type: kTYPE_STRING (array)
+ *
+ * This tag holds a list of <em>strings</em> representing the file's aliases.
+ */
+define( "kTAG_FILE_ALIASES",			'aliases' );
+
+/*=======================================================================================
  *	OBJECT IDENTIFICATION TAGS															*
  *======================================================================================*/
 

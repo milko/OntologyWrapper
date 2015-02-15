@@ -1,32 +1,32 @@
 <?php
 
 /**
- * MongoCollection.php
+ * MongoObjectCollection.php
  *
- * This file contains the definition of the {@link MongoCollection} class.
+ * This file contains the definition of the {@link MongoObjectCollection} class.
  */
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\CollectionObject;
+use OntologyWrapper\ObjectCollection;
 use OntologyWrapper\MongoDatabase;
 
 /*=======================================================================================
  *																						*
- *									MongoCollection.php									*
+ *									MongoObjectCollection.php									*
  *																						*
  *======================================================================================*/
 
 /**
- * Mongo database
+ * Mongo collection
  *
- * This class is a <i>concrete</i> implementation of the {@link CollectionObject} wrapping a
- * {@link MongoDB} class.
+ * This class is a <i>concrete</i> implementation of the {@link ObjectCollection} wrapping a
+ * {@link MongoObjectCollection} class.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
  */
-class MongoCollection extends CollectionObject
+class MongoObjectCollection extends ObjectCollection
 {
 		
 
@@ -43,7 +43,7 @@ class MongoCollection extends CollectionObject
 	 *==================================================================================*/
 
 	/**
-	 * Drop the database
+	 * Drop the collection
 	 *
 	 * This method will drop the current collection.
 	 *
@@ -148,8 +148,8 @@ class MongoCollection extends CollectionObject
 	 * We first check if the current collection is connected, if that is not the case, we
 	 * raise an exception.
 	 *
-	 * In this class we map the method over the {@link MongoCollection::findOne()} method
-	 * when retrieving objects or identifiers and {@link MongoCollection::findOne()} method
+	 * In this class we map the method over the {@link MongoObjectCollection::findOne()} method
+	 * when retrieving objects or identifiers and {@link MongoObjectCollection::findOne()} method
 	 * when retrieving counts.
 	 *
 	 * @param array					$theCriteria		Selection criteria.
@@ -161,8 +161,9 @@ class MongoCollection extends CollectionObject
 	 *
 	 * @throws Exception
 	 */
-	public function matchOne( $theCriteria, $theResult = kQUERY_DEFAULT,
-											$theFields = Array() )
+	public function matchOne( $theCriteria,
+							  $theResult = kQUERY_DEFAULT,
+							  $theFields = Array() )
 	{
 		//
 		// Check if connected.
@@ -281,7 +282,7 @@ class MongoCollection extends CollectionObject
 	/**
 	 * Match all objects
 	 *
-	 * In this class we perform the query using the {@link MongoCollection::find()} method,
+	 * In this class we perform the query using the {@link MongoObjectCollection::find()} method,
 	 * we then return a {@link MongoIterator} instance with the query cursor and collection.
 	 *
 	 * @param array					$theCriteria		Selection criteria.
@@ -774,7 +775,7 @@ class MongoCollection extends CollectionObject
 	 * Set index
 	 *
 	 * In this class the two parameters are the same as those received by the
-	 * {@link MongoCollection::ensureIndex()} method.
+	 * {@link MongoObjectCollection::ensureIndex()} method.
 	 *
 	 * @param array					$theIndex			Offset to index and index types.
 	 * @param array					$theOptions			Index options.
@@ -806,8 +807,8 @@ class MongoCollection extends CollectionObject
 	/**
 	 * Delete index
 	 *
-	 * In this class we use {@link MongoCollection::deleteIndexes()} to delete all indexes
-	 * and {@link MongoCollection::deleteIndex()} to delete specific indexes.
+	 * In this class we use {@link MongoObjectCollection::deleteIndexes()} to delete all indexes
+	 * and {@link MongoObjectCollection::deleteIndex()} to delete specific indexes.
 	 *
 	 * @param mixed					$theIndex			Offset or offsets.
 	 *
@@ -1206,7 +1207,7 @@ class MongoCollection extends CollectionObject
 
 	 
 
-} // class MongoCollection.
+} // class MongoObjectCollection.
 
 
 ?>

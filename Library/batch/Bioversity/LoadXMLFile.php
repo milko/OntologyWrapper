@@ -100,19 +100,19 @@ try
 	// Set metadata.
 	//
 	echo( "  • Setting metadata.\n" );
-	$wrapper->Metadata( $database );
+	$wrapper->metadata( $database );
 	
 	//
 	// Set units.
 	//
 	echo( "  • Setting units.\n" );
-	$wrapper->Units( $database );
+	$wrapper->units( $database );
 	
 	//
 	// Set entities.
 	//
 	echo( "  • Setting users.\n" );
-	$wrapper->Users( $database );
+	$wrapper->users( $database );
 	
 	//
 	// Check graph database.
@@ -123,7 +123,7 @@ try
 		// Set graph database.
 		//
 		echo( "  • Setting graph.\n" );
-		$wrapper->Graph(
+		$wrapper->graph(
 			new OntologyWrapper\Neo4jGraph(
 				$graph ) );
 	

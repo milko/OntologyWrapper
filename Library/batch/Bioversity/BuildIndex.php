@@ -92,11 +92,11 @@ try
 	//
 	// Set databases.
 	//
-	$meta = $wrapper->Metadata(
+	$meta = $wrapper->metadata(
 		new OntologyWrapper\MongoDatabase( $database ) );
-	$wrapper->Users(
+	$wrapper->users(
 		new OntologyWrapper\MongoDatabase( $database ) );
-	$wrapper->Units(
+	$wrapper->units(
 		new OntologyWrapper\MongoDatabase( $database ) );
 
 	//

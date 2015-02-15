@@ -375,7 +375,7 @@ class Edge extends MetadataObject
 		//
 		// Get metadata database.
 		//
-		$database = $theWrapper->Metadata();
+		$database = $theWrapper->metadata();
 		if( $database instanceof DatabaseObject )
 		{
 			//
@@ -735,7 +735,7 @@ class Edge extends MetadataObject
 			//
 			$id = $this->__toString();
 			$dictionary = $this->mDictionary;
-			$graph = $dictionary->Graph();
+			$graph = $dictionary->graph();
 		
 			//
 			// Resolve collection.

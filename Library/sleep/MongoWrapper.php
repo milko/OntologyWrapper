@@ -252,7 +252,7 @@ class MongoWrapper extends Wrapper
 			//
 			// Handle collection.
 			//
-			if( $theCollection instanceof MongoCollection )
+			if( $theCollection instanceof MongoObjectCollection )
 				return $this->updateObject(
 							$theCriteria,
 							$theUpdates,
@@ -474,7 +474,7 @@ class MongoWrapper extends Wrapper
 			//
 			// Handle collection.
 			//
-			if( $theCollection instanceof MongoCollection )
+			if( $theCollection instanceof MongoObjectCollection )
 				return $this->deleteObject(
 							$theObject,
 							$theCollection );										// ==>
@@ -868,7 +868,7 @@ class MongoWrapper extends Wrapper
 	 * This method will insert the provided object into the provided collection.
 	 *
 	 * @param PersistentObject		$theObject			Object to insert.
-	 * @param MongoCollection		$theCollection		Collection in which to insert.
+	 * @param MongoObjectCollection		$theCollection		Collection in which to insert.
 	 *
 	 * @access protected
 	 * @return mixed				The object's native identifier, or <tt>NULL</tt>.
@@ -877,7 +877,7 @@ class MongoWrapper extends Wrapper
 	 * @uses getBatch()
 	 */
 	protected function insertObject( PersistentObject	$theObject,
-									 MongoCollection	$theCollection )
+									 MongoObjectCollection	$theCollection )
 	{
 		//
 		// Serialise object.
@@ -933,7 +933,7 @@ class MongoWrapper extends Wrapper
 	 *
 	 * @param array					$theCriteria		Selection criteria.
 	 * @param array					$theActions			Update actions.
-	 * @param MongoCollection		$theCollection		Collection in which to insert.
+	 * @param MongoObjectCollection		$theCollection		Collection in which to insert.
 	 *
 	 * @access protected
 	 * @return mixed				The operation result.
@@ -943,7 +943,7 @@ class MongoWrapper extends Wrapper
 	 */
 	protected function updateObject( 					$theCriteria,
 														$theActions,
-									 MongoCollection	$theCollection )
+									 MongoObjectCollection	$theCollection )
 	{
 		//
 		// Handle batch.
@@ -996,13 +996,13 @@ class MongoWrapper extends Wrapper
 	 * Note that this method expects the object to have its native identifier.
 	 *
 	 * @param PersistentObject		$theObject			Object to insert.
-	 * @param MongoCollection		$theCollection		Collection in which to insert.
+	 * @param MongoObjectCollection		$theCollection		Collection in which to insert.
 	 *
 	 * @access protected
 	 * @return mixed				The operation result.
 	 */
 	protected function replaceObject( PersistentObject	$theObject,
-									  MongoCollection	$theCollection )
+									  MongoObjectCollection	$theCollection )
 	{
 		//
 		// Serialise object.
@@ -1031,7 +1031,7 @@ class MongoWrapper extends Wrapper
 	 * <tt>NULL</tt> if the identifier was not matched.
 	 *
 	 * @param mixed					$theIdentifier		Object native identifier.
-	 * @param MongoCollection		$theCollection		Collection in which to insert.
+	 * @param MongoObjectCollection		$theCollection		Collection in which to insert.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means deleted or added to batch.
@@ -1040,7 +1040,7 @@ class MongoWrapper extends Wrapper
 	 * @uses getBatch()
 	 */
 	protected function deleteObject(					$theIdentifier,
-									 MongoCollection	$theCollection )
+									 MongoObjectCollection	$theCollection )
 	{
 		//
 		// Init local storage.
@@ -1102,12 +1102,12 @@ class MongoWrapper extends Wrapper
 	 * This method will locate and return, or create and return the batch objec
 	 * corresponding to the provided collection.
 	 *
-	 * @param MongoCollection		$theCollection		Collection batch.
+	 * @param MongoObjectCollection		$theCollection		Collection batch.
 	 * @param string				$theType			Batch type (i, u, d).
 	 *
 	 * @access protected
 	 */
-	protected function getBatch( MongoCollection $theCollection, $theType )
+	protected function getBatch( MongoObjectCollection $theCollection, $theType )
 	{
 		//
 		// Init local storage.

@@ -431,22 +431,22 @@ class MongoDatabase extends DatabaseObject
 	 *==================================================================================*/
 
 	/**
-	 * Return a new collection instance
+	 * Return a new object collection instance
 	 *
-	 * We implement this method to return a {@link MongoCollection} instance.
+	 * We implement this method to return a {@link MongoObjectCollection} instance.
 	 *
 	 * @param array					$theOffsets			Full collection offsets.
 	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
-	 * @return CollectionObject		Collection instance.
+	 * @return MongoObjectCollection	Collection instance.
 	 */
 	protected function newCollection( $theOffsets, $doOpen = TRUE )
 	{
 		//
 		// Instantiate collection.
 		//
-		$collection = new MongoCollection( $theOffsets );
+		$collection = new MongoObjectCollection( $theOffsets );
 		
 		//
 		// Copy dictionary.
@@ -462,6 +462,44 @@ class MongoDatabase extends DatabaseObject
 		return $collection;															// ==>
 	
 	} // newCollection.
+
+	 
+	/*===================================================================================
+	 *	newFiler																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return a new file collection instance
+	 *
+	 * We implement this method to return a {@link MongoFileCollection} instance.
+	 *
+	 * @param array					$theOffsets			Full collection offsets.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
+	 *
+	 * @access protected
+	 * @return MongoFileCollection	Collection instance.
+	 */
+	protected function newFiler( $theOffsets, $doOpen = TRUE )
+	{
+		//
+		// Instantiate collection.
+		//
+		$collection = new MongoFileCollection( $theOffsets );
+		
+		//
+		// Copy dictionary.
+		//
+		$collection->dictionary( $this->dictionary() );
+		
+		//
+		// Open connection.
+		//
+		if( $doOpen )
+			$collection->openConnection();
+		
+		return $collection;															// ==>
+	
+	} // newFiler.
 
 	 
 

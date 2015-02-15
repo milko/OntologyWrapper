@@ -73,13 +73,13 @@ try
 	// Set databases.
 	//
 	echo( "  • Setting databases.\n" );
-	$wrapper->Metadata(
+	$wrapper->metadata(
 		new OntologyWrapper\MongoDatabase(
 			"$database?connect=1" ) );
-	$wrapper->Users(
+	$wrapper->users(
 		new OntologyWrapper\MongoDatabase(
 			"$database?connect=1" ) );
-	$wrapper->Units(
+	$wrapper->units(
 		new OntologyWrapper\MongoDatabase(
 			"$database?connect=1" ) );
 	
@@ -92,7 +92,7 @@ try
 		// Set graph database.
 		//
 		echo( "  • Setting graph.\n" );
-		$wrapper->Graph(
+		$wrapper->graph(
 			new OntologyWrapper\Neo4jGraph(
 				$graph ) );
 	

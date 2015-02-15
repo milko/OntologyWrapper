@@ -113,13 +113,13 @@ try
 	//
 	// Set databases.
 	//
-	$meta = $wrapper->Metadata(
+	$meta = $wrapper->metadata(
 		new OntologyWrapper\MongoDatabase(
 			$base_db ) );
-	$wrapper->Users(
+	$wrapper->users(
 		new OntologyWrapper\MongoDatabase(
 			$base_db ) );
-	$wrapper->Units(
+	$wrapper->units(
 		new OntologyWrapper\MongoDatabase(
 			$base_db ) );
 

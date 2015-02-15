@@ -340,7 +340,7 @@ abstract class UnitObject extends PersistentObject
 		//
 		// Get units database.
 		//
-		$database = $theWrapper->Units();
+		$database = $theWrapper->units();
 		if( $database instanceof DatabaseObject )
 		{
 			//

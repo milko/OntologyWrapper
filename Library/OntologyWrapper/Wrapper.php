@@ -135,7 +135,7 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
-	 *	Metadata																		*
+	 *	metadata																		*
 	 *==================================================================================*/
 
 	/**
@@ -170,7 +170,7 @@ class Wrapper extends Dictionary
 	 * @uses isInited()
 	 * @uses isReady()
 	 */
-	public function Metadata( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
+	public function metadata( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
 	{
 		//
 		// Check metadata type.
@@ -223,18 +223,18 @@ class Wrapper extends Dictionary
 		
 		return $save;																// ==>
 	
-	} // Metadata.
+	} // metadata.
 
 	 
 	/*===================================================================================
-	 *	Users																			*
+	 *	users																			*
 	 *==================================================================================*/
 
 	/**
 	 * Manage entities database
 	 *
-	 * This method can be used to manage the <i>entities database</i>, it accepts a
-	 * parameter which represents either the entities database instance or the requested
+	 * This method can be used to manage the <i>users database</i>, it accepts a
+	 * parameter which represents either the users database instance or the requested
 	 * operation, depending on its value:
 	 *
 	 * <ul>
@@ -262,7 +262,7 @@ class Wrapper extends Dictionary
 	 * @uses isInited()
 	 * @uses isReady()
 	 */
-	public function Users( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
+	public function users( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
 	{
 		//
 		// Check entities type.
@@ -302,11 +302,11 @@ class Wrapper extends Dictionary
 		
 		return $save;																// ==>
 	
-	} // Users.
+	} // users.
 
 	 
 	/*===================================================================================
-	 *	Units																			*
+	 *	units																			*
 	 *==================================================================================*/
 
 	/**
@@ -341,7 +341,7 @@ class Wrapper extends Dictionary
 	 * @uses isInited()
 	 * @uses isReady()
 	 */
-	public function Units( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
+	public function units( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
 	{
 		//
 		// Check units type.
@@ -366,6 +366,9 @@ class Wrapper extends Dictionary
 			//
 			if( $doOpen )
 				$theValue->openConnection();
+			
+			//
+			// Create files collection
 		
 		} // Setting new value.
 		
@@ -381,11 +384,11 @@ class Wrapper extends Dictionary
 		
 		return $save;																// ==>
 	
-	} // Units.
+	} // units.
 
 	 
 	/*===================================================================================
-	 *	Graph																			*
+	 *	graph																			*
 	 *==================================================================================*/
 
 	/**
@@ -420,7 +423,7 @@ class Wrapper extends Dictionary
 	 * @uses isInited()
 	 * @uses isReady()
 	 */
-	public function Graph( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
+	public function graph( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
 	{
 		//
 		// Check units type.
@@ -450,7 +453,7 @@ class Wrapper extends Dictionary
 		
 		return $save;																// ==>
 	
-	} // Graph.
+	} // graph.
 
 		
 
@@ -717,7 +720,7 @@ class Wrapper extends Dictionary
 		//
 		// Set tags sequence number.
 		//
-		$this->Metadata()->setSequenceNumber( Tag::kSEQ_NAME, kTAG_SEQUENCE_START );
+		$this->metadata()->setSequenceNumber( Tag::kSEQ_NAME, kTAG_SEQUENCE_START );
 		
 		//
 		// Load XML enumerated files.
@@ -3597,15 +3600,15 @@ class Wrapper extends Dictionary
 			case Term::kSEQ_NAME:
 			case Node::kSEQ_NAME:
 			case Edge::kSEQ_NAME:
-				return $this->Metadata();											// ==>
+				return $this->metadata();											// ==>
 				
 			case User::kSEQ_NAME:
 			case Session::kSEQ_NAME:
 			case Transaction::kSEQ_NAME:
-				return $this->Users();												// ==>
+				return $this->users();												// ==>
 				
 			case UnitObject::kSEQ_NAME:
-				return $this->Units();												// ==>
+				return $this->units();												// ==>
 			
 			default:
 				throw new \Exception(

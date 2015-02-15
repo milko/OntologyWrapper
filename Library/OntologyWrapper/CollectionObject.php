@@ -28,8 +28,21 @@ require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
  * Collection object
  *
  * This <i>abstract</i> class is the ancestor of all classes representing database
- * collection instances, this class extends the {@link ConnectionObject} class to implement
- * collection specific functionality prototypes.
+ * collection instances, this class extends the {@link ConnectionObject} class by
+ * implementing an interface for the following functionalities:
+ *
+ * <ul>
+ *	<li><em>Creation interface.</em> All collections can be dropped.
+ *	<li><em>Query interface.</em> All collections share the same query framework, one can
+ *		match one object, all objects from a selection, or all aobjects in the collection.
+ *	<li><em>Modification interface.</em> All collections should allow objects to have their
+ *		data members modified without needing to load the whole object.
+ *	<li><em>Indexing interface.</em> All collections should allow indexing of object data
+ *		members.
+ *	<li><em>Time stamps.</em> All collections should provide a native time stamp type.
+ *	<li><em>Name.</em> All collections should have a name.
+ *	<li><em>Database.</em> All collections should allow creating a database.
+ * </ul>
  *
  * In this library we use the MongoDB query language to express selection criteria, when
  * deriving classes that handle different database engines you can translate the Mongo query
@@ -57,8 +70,8 @@ abstract class CollectionObject extends ConnectionObject
 	/**
 	 * Instantiate class.
 	 *
-	 * We overload the constructor to instantiate a database from the provided parameter if
-	 * the parent object was not provided.
+	 * We overload the constructor to instantiate a collection from the provided parameter
+	 * if the parent object was not provided.
 	 *
 	 * @param mixed					$theParameter		Data source name or parameters.
 	 * @param ConnectionObject		$theParent			Connection parent.
@@ -132,145 +145,10 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC PERSISTENCE INTERFACE							*
+ *								PUBLIC MODIFICATION INTERFACE							*
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	commit																			*
-	 *==================================================================================*/
-
-	/**
-	 * Insert an object
-	 *
-	 * The method expects the provided parameter to be either an array or an
-	 * {@link ArrayObject} instance.
-	 *
-	 * The method will call the virtual {@link insertData()} method, passing the received
-	 * object to it, which will perform the actual commit.
-	 *
-	 * The method will return the inserted object's identifier, {@link kTAG_NID}.
-	 *
-	 * This method will also take care of setting the {@link kTAG_CLASS} offset.
-	 *
-	 * @param reference				$theObject			Object to commit.
-	 * @param array					$theOptions			Insert options.
-	 *
-	 * @access public
-	 * @return mixed				Inserted object identifier.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_CLASS
-	 *
-	 * @uses isConnected()
-	 * @uses insertData()
-	 */
-	public function commit( &$theObject, $theOptions = Array() )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-		{
-			//
-			// Check object type.
-			//
-			if( is_array( $theObject )
-			 || ($theObject instanceof \ArrayObject) )
-			{
-			 	//
-			 	// Set class.
-			 	//
-			 	if( is_object( $theObject ) )
-				 	$theObject[ kTAG_CLASS ]
-				 		= get_class( $theObject );
-			 	
-				return $this->insertData( $theObject, $theOptions );				// ==>
-			 
-			 } // Correct type.
-			
-			throw new \Exception(
-				"Unable to commit object: "
-			   ."provided invalid or unsupported data type." );					// !@! ==>
-		
-		} // Connected.
-			
-		throw new \Exception(
-			"Unable to commit object: "
-		   ."connection is not open." );										// !@! ==>
-	
-	} // commit.
-
-	 
-	/*===================================================================================
-	 *	save																			*
-	 *==================================================================================*/
-
-	/**
-	 * Save or replace an object
-	 *
-	 * The method expects the provided parameter to be either an array or an
-	 * {@link ArrayObject} instance.
-	 *
-	 * The method will call the virtual {@link replaceData()} method, passing the received
-	 * object to it, which will perform the actual replace.
-	 *
-	 * The method will return the replaced object's identifier, {@link kTAG_NID}.
-	 *
-	 * This method will also take care of setting the {@link kTAG_CLASS} offset.
-	 *
-	 * @param reference				$theObject			Object to commit.
-	 * @param array					$theOptions			Insert options.
-	 *
-	 * @access public
-	 * @return mixed				Replaced object identifier.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_CLASS
-	 *
-	 * @uses isConnected()
-	 * @uses insertData()
-	 */
-	public function save( &$theObject, $theOptions = Array() )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-		{
-			//
-			// Check object type.
-			//
-			if( is_array( $theObject )
-			 || ($theObject instanceof \ArrayObject) )
-			{
-			 	//
-			 	// Set class.
-			 	//
-			 	if( is_object( $theObject )
-			 	 && (! $theObject->offsetExists( kTAG_CLASS )) )
-				 	$theObject[ kTAG_CLASS ]
-				 		= get_class( $theObject );
-			 	
-				return $this->replaceData( $theObject, $theOptions );				// ==>
-			 
-			 } // Correct type.
-			
-			throw new \Exception(
-				"Unable to save object: "
-			   ."provided invalid or unsupported data type." );					// !@! ==>
-		
-		} // Connected.
-			
-		throw new \Exception(
-			"Unable to save object: "
-		   ."connection is not open." );										// !@! ==>
-	
-	} // save.
 
 	 
 	/*===================================================================================
@@ -280,7 +158,7 @@ abstract class CollectionObject extends ConnectionObject
 	/**
 	 * Modify object(s)
 	 *
-	 * This method should modify the the objects selected by the provided criteria applying
+	 * This method should modify the objects selected by the provided criteria applying
 	 * the provided modifications using the provided options.
 	 *
 	 * The method will return an array structured as follows:
@@ -311,12 +189,13 @@ abstract class CollectionObject extends ConnectionObject
 	/**
 	 * Delete an object
 	 *
-	 * The method expects the provided parameter to be a {@link PersistentObject} instance.
+	 * The method expects the provided parameter to be either the object itself, or the
+	 * object's native identifier.
 	 *
 	 * The method will return the deleted object's identifier, {@link kTAG_NID}, if the
-	 * object was deleted and raise an exception if the operation could not be completed.
+	 * object was deleted, or raise an exception if the operation could not be completed.
 	 *
-	 * @param reference				$theObject			Object to delete.
+	 * @param mixed					$theObject			Object or identifier.
 	 * @param array					$theOptions			Delete options.
 	 *
 	 * @access public
@@ -324,12 +203,12 @@ abstract class CollectionObject extends ConnectionObject
 	 *
 	 * @throws Exception
 	 *
-	 * @see kTAG_CLASS
+	 * @see kTAG_NID
 	 *
 	 * @uses isConnected()
 	 * @uses deleteIdentifier()
 	 */
-	public function delete( &$theObject, $theOptions = Array() )
+	public function delete( $theObject, $theOptions = Array() )
 	{
 		//
 		// Check if connected.
@@ -337,26 +216,24 @@ abstract class CollectionObject extends ConnectionObject
 		if( $this->isConnected() )
 		{
 			//
-			// Check object type.
+			// Handle object.
 			//
 			if( $theObject instanceof PersistentObject )
 			{
-			 	//
+				//
 			 	// Check identifier.
 			 	//
 			 	if( $theObject->offsetExists( kTAG_NID ) )
-					return $this->deleteIdentifier(
-						$theObject[ kTAG_NID ], $theOptions );						// ==>
+			 		$theObject = $theObject->offsetGet( kTAG_NID );
+			 	
+			 	else
+					throw new \Exception(
+						"Unable to delete object: "
+					   ."missing object identifier." );							// !@! ==>
 			
-				throw new \Exception(
-					"Unable to delete object: "
-				   ."missing object identifier." );								// !@! ==>
-			 
-			 } // Correct type.
-			
-			throw new \Exception(
-				"Unable to delete object: "
-			   ."provided invalid or not committed object." );					// !@! ==>
+			} // Provided object.
+				
+			return $this->deleteIdentifier( $theObject );							// ==>
 		
 		} // Connected.
 			
@@ -365,174 +242,6 @@ abstract class CollectionObject extends ConnectionObject
 		   ."connection is not open." );										// !@! ==>
 	
 	} // delete.
-
-		
-
-/*=======================================================================================
- *																						*
- *									PUBLIC QUERY INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	matchOne																		*
-	 *==================================================================================*/
-
-	/**
-	 * Match one object
-	 *
-	 * This method should select a single object according to the provided criteria, the
-	 * method should return a value according to the second parameter.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theCriteria</b>: This parameter represents the selection criteria, this
-	 *		value is an array which represents a query expressed in the MongoDB query
-	 *		language.
-	 *	<li><b>$theResult</b>: This parameter determines what the method should return, it
-	 *		is a bitfield which accepts two sets of values:
-	 *	 <ul>
-	 *		<li><tt>{@link kQUERY_ASSERT}</tt>: If this flag is set and the criteria doesn't
-	 *			match any record, the method should raise an exception.
-	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
-	 *			only one of these should be provided:
-	 *		 <ul>
-	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
-	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
-	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
-	 *				identifier.
-	 *			<li><tt>{@link kQUERY_COUNT}</tt>: Return the number of matched objects.
-	 *		 </ul>
-	 *	 </ul>
-	 *	<li><b>$theFields</b>: This parameter represents the fields selection, it is an
-	 *		array indexed by offset with a boolean value indicating whether or not to
-	 *		include the field.
-	 * </ul>
-	 *
-	 * If you omit the second parameter, the method should return the matched object.
-	 *
-	 * If there is more than one match for the provided criteria, this method will return
-	 * only the first one, in no particular order.
-	 *
-	 * If there is no match, the method will return <tt>NULL</tt> if the
-	 * {@link kQUERY_ASSERT} flag was <em>not</em> set, or raise an exception.
-	 *
-	 * Concrete derived classes should implement this method.
-	 *
-	 * @param array					$theCriteria		Selection criteria.
-	 * @param bitfield				$theResult			Result type.
-	 * @param array					$theFields			Fields selection.
-	 *
-	 * @access public
-	 * @return mixed				Matched data or <tt>NULL</tt>.
-	 */
-	abstract public function matchOne( $theCriteria, $theResult = kQUERY_DEFAULT,
-													 $theFields = Array() );
-
-	 
-	/*===================================================================================
-	 *	matchAll																		*
-	 *==================================================================================*/
-
-	/**
-	 * Match all objects
-	 *
-	 * This method should select the set of objects matching the provided criteria, the
-	 * method should return an object implementing the {@link Iterator}, {@link Countable}
-	 * and {iCursor} interfaces.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theCriteria</b>: This parameter represents the selection criteria, this
-	 *		value is an array which represents a query expressed in the MongoDB query
-	 *		language.
-	 *	<li><b>$theResult</b>: This parameter will be passed to the iterator returned by the
-	 *		method, it determines what kind of data the iterator will return. This parameter
-	 *		is a bitfield which accepts two sets of values:
-	 *	 <ul>
-	 *		<li><tt>{@link kQUERY_ASSERT}</tt>: If this flag is set and the criteria doesn't
-	 *			match any record, the method should raise an exception.
-	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
-	 *			only one of these should be provided:
-	 *		 <ul>
-	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return an object iterator (default).
-	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return an array iterator.
-	 *			<li><tt>{@link kQUERY_NID}</tt>: Return an identifier iterator.
-	 *		 </ul>
-	 *			Any other value will trigger an exception.
-	 *	 </ul>
-	 *	<li><b>$theFields</b>: This parameter represents the fields selection, it is an
-	 *		array indexed by offset with a boolean value indicating whether or not to
-	 *		include the field.
-	 *	<li><b>$theKey</b>: This parameter represents the iterator key offset, it can be
-	 *		used to set which value the {@link key()} function should return: the value is
-	 *		the offset that will be used to get the key value.
-	 * </ul>
-	 *
-	 * If you omit the second parameter, the the iterator returned by this method will
-	 * objects.
-	 *
-	 * Concrete derived classes should implement this method.
-	 *
-	 * @param array					$theCriteria		Selection criteria.
-	 * @param bitfield				$theResult			Result type.
-	 * @param array					$theFields			Fields selection.
-	 * @param array					$theKey				Key offset.
-	 *
-	 * @access public
-	 * @return ObjectIterator		Matched data iterator.
-	 */
-	abstract public function matchAll( $theCriteria = Array(),
-									   $theResult = kQUERY_DEFAULT,
-									   $theFields = Array(),
-									   $theKey = NULL );
-
-	 
-	/*===================================================================================
-	 *	getAll																			*
-	 *==================================================================================*/
-
-	/**
-	 * Return all objects
-	 *
-	 * This method should select all the objects of the collection and return an iterator,
-	 * this iterator is not an instance of {@link ObjectIterator}, but the cursor of the
-	 * native database engine; by default it should be an iterator whose elements are array
-	 * representations of the selected objects.
-	 *
-	 * Concrete derived classes should implement this method.
-	 *
-	 * @param array					$theFields			Fields selection.
-	 *
-	 * @access public
-	 * @return Iterator				Selection of all objects in the collection.
-	 */
-	abstract public function getAll( $theFields = Array() );
-
-	 
-	/*===================================================================================
-	 *	aggregate																		*
-	 *==================================================================================*/
-
-	/**
-	 * Aggregate pipeline
-	 *
-	 * This method expects an aggregation pipeline and should return the result as an
-	 * iterator.
-	 *
-	 * Concrete derived classes must implement this method.
-	 *
-	 * @param array					$thePipeline		Aggregation pipeline.
-	 * @param array					$theOptions			Aggregation options.
-	 *
-	 * @access public
-	 * @return Iterator				Aggregated results.
-	 */
-	abstract public function aggregate( $thePipeline, $theOptions = Array() );
 
 		
 
@@ -684,101 +393,6 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC SEQUENCE MANAGEMENT INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	setSequenceNumber																*
-	 *==================================================================================*/
-
-	/**
-	 * Set sequence number
-	 *
-	 * This method should initialise a sequence number associated to the provided parameter.
-	 * This operation is equivalent to resetting an auto-number for a database.
-	 *
-	 * Once the sequence is set, the next requested sequence number will hold the value set
-	 * by this method, so to start counting from <tt>1</tt> you should provide this value to
-	 * this method.
-	 *
-	 * This method is intended to be handled by database objects, in this class we simply
-	 * let the object's parent, a database, perform the action.
-	 *
-	 * Derived classes should never need to overload this method.
-	 *
-	 * @param string				$theSequence		Sequence selector.
-	 * @param integer				$theNumber			Sequence number.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 */
-	public function setSequenceNumber( $theSequence, $theNumber = 1 )
-	{
-		//
-		// Check parent.
-		//
-		if( ! ($this->mParent instanceof DatabaseObject) )
-			throw new \Exception(
-				"Unable to set sequence number: "
-			   ."the collection is missing its database." );					// !@! ==>
-		
-		//
-		// Let papa do it.
-		//
-		$this->mParent->setSequenceNumber( $theSequence, $theNumber );
-	
-	} // setSequenceNumber.
-
-	 
-	/*===================================================================================
-	 *	getSequenceNumber																*
-	 *==================================================================================*/
-
-	/**
-	 * Return sequence number
-	 *
-	 * This method should return a sequence number associated to the provided parameter.
-	 * This operation is equivalent to requesting an auto-number for a database.
-	 *
-	 * Each time a sequence number is requested, the sequence seed is updated, so use this
-	 * method only when the sequence is required.
-	 *
-	 * If the sequence selector is not found, a new one will be created starting with the
-	 * number <tt>1</tt>, so, if you need to start with another number, use the
-	 * {@link setSequenceNumber()} before.
-	 *
-	 * This method is intended to be handled by database objects, in this class we simply
-	 * let the object's parent, a database, perform the action.
-	 *
-	 * Derived classes should never need to overload this method.
-	 *
-	 * @param string				$theSequence		Sequence selector.
-	 *
-	 * @access public
-	 * @return integer				Sequence number.
-	 */
-	public function getSequenceNumber( $theSequence )
-	{
-		//
-		// Check parent.
-		//
-		if( ! ($this->mParent instanceof DatabaseObject) )
-			throw new \Exception(
-				"Unable to get sequence number: "
-			   ."the collection is missing its database." );					// !@! ==>
-		
-		return $this->mParent->getSequenceNumber( $theSequence );				 // ==>
-	
-	} // getSequenceNumber.
-
-		
-
-/*=======================================================================================
- *																						*
  *							PUBLIC INDEX MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -811,7 +425,7 @@ abstract class CollectionObject extends ConnectionObject
 	 *
 	 * @access public
 	 */
-	abstract public function createIndex( $theIndex, $theOptions );
+	abstract public function createIndex( $theIndex, $theOptions = Array() );
 
 	 
 	/*===================================================================================
@@ -1006,50 +620,6 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	insertData																		*
-	 *==================================================================================*/
-
-	/**
-	 * Insert provided data
-	 *
-	 * This method should be implemented by concrete derived classes, it should commit a
-	 * new record in the current collection featuring the provided data and return the
-	 * record identifier.
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param reference				$theData			Data to commit.
-	 * @param array					$theOptions			Insert options.
-	 *
-	 * @access protected
-	 * @return mixed				Object identifier.
-	 */
-	abstract protected function insertData( &$theData, &$theOptions );
-
-	 
-	/*===================================================================================
-	 *	replaceData																		*
-	 *==================================================================================*/
-
-	/**
-	 * Save or replace provided data
-	 *
-	 * This method should be implemented by concrete derived classes, it should save or
-	 * replace a record in the current collection featuring the provided data and return the
-	 * record identifier.
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param reference				$theData			Data to save.
-	 * @param array					$theOptions			Replace options.
-	 *
-	 * @access protected
-	 * @return mixed				Object identifier.
-	 */
-	abstract protected function replaceData( &$theData, &$theOptions );
-
-	 
-	/*===================================================================================
 	 *	deleteIdentifier																*
 	 *==================================================================================*/
 
@@ -1068,7 +638,7 @@ abstract class CollectionObject extends ConnectionObject
 	 * @access protected
 	 * @return mixed				Object identifier or <tt>NULL</tt>.
 	 */
-	abstract protected function deleteIdentifier( $theIdentifier, &$theOptions );
+	abstract protected function deleteIdentifier( $theIdentifier, $theOptions );
 
 	 
 

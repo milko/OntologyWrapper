@@ -347,7 +347,7 @@ class Node extends MetadataObject
 		//
 		// Get metadata database.
 		//
-		$database = $theWrapper->Metadata();
+		$database = $theWrapper->metadata();
 		if( $database instanceof DatabaseObject )
 		{
 			//
@@ -1023,7 +1023,7 @@ class Node extends MetadataObject
 			//
 			// Init local storage.
 			//
-			$graph = $this->mDictionary->Graph();
+			$graph = $this->mDictionary->graph();
 	
 			//
 			// Set sequence number.

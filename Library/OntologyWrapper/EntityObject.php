@@ -309,7 +309,7 @@ abstract class EntityObject extends UnitObject
 		//
 		// Get users database.
 		//
-		$database = $theWrapper->Users();
+		$database = $theWrapper->users();
 		if( $database instanceof DatabaseObject )
 		{
 			//

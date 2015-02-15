@@ -3689,7 +3689,7 @@ abstract class PersistentObject extends OntologyObject
 		// Handle graph references.
 		//
 		if( (! $this->isCommitted())
-		 && (($graph = $this->mDictionary->Graph()) !== NULL) )
+		 && (($graph = $this->mDictionary->graph()) !== NULL) )
 			$this->preCommitGraphReferences( $graph );
 		
 		//

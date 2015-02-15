@@ -1,10 +1,10 @@
 <?php
 
 /**
- * {@link MongoCollection} test suite.
+ * {@link MongoObjectCollection} test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * {@link MongoCollection} class.
+ * {@link MongoObjectCollection} class.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Test
@@ -52,7 +52,7 @@ define( 'kDEBUG_PARENT', FALSE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\MongoCollection
+class MyClass extends OntologyWrapper\MongoObjectCollection
 {
 	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
@@ -95,17 +95,17 @@ try
 	//
 	// Set databases.
 	//
-	$meta = $wrapper->Metadata(
+	$meta = $wrapper->metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
-	$entities = $wrapper->Users(
+	$entities = $wrapper->users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
-	$units = $wrapper->Units(
+	$units = $wrapper->units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	$units->drop();
-//	$graph = $wrapper->Graph(
+//	$graph = $wrapper->graph(
 //		new OntologyWrapper\Neo4jGraph(
 //			"neo4j://localhost:7474" ) );
 //	$graph->drop( '/Volumes/Data/Neo4j/*' );

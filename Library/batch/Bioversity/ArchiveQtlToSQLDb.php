@@ -156,19 +156,19 @@ try
 	// Set metadata.
 	//
 	echo( "  • Setting metadata.\n" );
-	$wrapper->Metadata( $mongo );
+	$wrapper->metadata( $mongo );
 	
 	//
 	// Set units.
 	//
 	echo( "  • Setting units.\n" );
-	$wrapper->Units( $mongo );
+	$wrapper->units( $mongo );
 	
 	//
 	// Set entities.
 	//
 	echo( "  • Setting users.\n" );
-	$wrapper->Users( $mongo );
+	$wrapper->users( $mongo );
 	
 	//
 	// Check graph database.
@@ -179,7 +179,7 @@ try
 		// Set graph database.
 		//
 		echo( "  • Setting graph.\n" );
-		$wrapper->Graph(
+		$wrapper->graph(
 			new OntologyWrapper\Neo4jGraph(
 				$graph ) );
 	

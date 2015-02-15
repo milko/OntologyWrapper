@@ -295,7 +295,7 @@ class Term extends MetadataObject
 		//
 		// Get metadata database.
 		//
-		$database = $theWrapper->Metadata();
+		$database = $theWrapper->metadata();
 		if( $database instanceof DatabaseObject )
 		{
 			//

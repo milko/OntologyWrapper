@@ -111,13 +111,13 @@ try
 	//
 	// Set databases.
 	//
-	$meta = $wrapper->Metadata(
+	$meta = $wrapper->metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
-	$wrapper->Users(
+	$wrapper->users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
-	$wrapper->Units(
+	$wrapper->units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
@@ -408,6 +408,7 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	$data = $structure->matchSymbolNodes( "KINGDOM" );
+	$node = $data[ 0 ];
 	echo( '<pre>' ); print_r( $data ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
@@ -434,18 +435,18 @@ try
 	echo( '<hr>' );
 
 	//
-	// Match node "37411".
+	// Match node "$node".
 	//
-	echo( '<h4>Match node "37411"</h4>' );
+	echo( '<h4>Match node "$node"</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $structure->matchNodeSymbol( 37411 );' );
+	echo( '$data = $structure->matchNodeSymbol( $node );' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$data = $structure->matchNodeSymbol( 37411 );
+	$data = $structure->matchNodeSymbol( $node );
 	echo( '<pre>' ); print_r( $data ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );

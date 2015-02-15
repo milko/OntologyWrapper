@@ -3647,10 +3647,16 @@ abstract class PersistentObject extends OntologyObject
 		$this->preCommit( $tags, $refs );
 		
 		//
+		// Set class.
+		//
+		$this->offsetSet( kTAG_CLASS, get_class( $this ) );
+		
+		//
 		// Set creation time stamp.
 		//
 		if( ! $this->offsetExists( kTAG_RECORD_CREATED ) )
-			$this->offsetSet( kTAG_RECORD_CREATED, $theCollection->getTimeStamp() );
+			$this->offsetSet( kTAG_RECORD_CREATED,
+							  $theCollection->getTimeStamp() );
 	
 		//
 		// Commit.
@@ -3754,9 +3760,15 @@ abstract class PersistentObject extends OntologyObject
 		$this->preCommit( $tags, $refs );
 		
 		//
+		// Set class.
+		//
+		$this->offsetSet( kTAG_CLASS, get_class( $this ) );
+		
+		//
 		// Set modification time stamp.
 		//
-		$this->offsetSet( kTAG_RECORD_MODIFIED, $theCollection->getTimeStamp() );
+		$this->offsetSet( kTAG_RECORD_MODIFIED,
+						  $theCollection->getTimeStamp() );
 	
 		//
 		// Commit.
@@ -4190,7 +4202,7 @@ abstract class PersistentObject extends OntologyObject
 		// Handle graph references.
 		//
 		if( (! $this->isCommitted())
-		 && (($graph = $this->mDictionary->Graph()) !== NULL) )
+		 && (($graph = $this->mDictionary->graph()) !== NULL) )
 			$this->preCommitGraphReferences( $graph );
 		
 		//

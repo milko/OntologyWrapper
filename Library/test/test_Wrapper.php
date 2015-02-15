@@ -140,12 +140,12 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$test->Metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
-	$test->Metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
-	echo( '$test->Users( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
-	$test->Users( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
-	echo( '$test->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
-	$test->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	echo( '$test->metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
+	$test->metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	echo( '$test->users( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
+	$test->users( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	echo( '$test->units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
+	$test->units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );

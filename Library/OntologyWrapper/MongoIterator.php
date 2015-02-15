@@ -9,7 +9,7 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\MongoIterator;
-use OntologyWrapper\MongoCollection;
+use OntologyWrapper\MongoObjectCollection;
 
 /*=======================================================================================
  *																						*

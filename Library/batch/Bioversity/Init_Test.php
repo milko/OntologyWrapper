@@ -72,7 +72,7 @@ try
 	// Set metadata.
 	//
 	echo( "  • Setting metadata.\n" );
-	$meta = $wrapper->Metadata(
+	$meta = $wrapper->metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
@@ -80,7 +80,7 @@ try
 	// Set units.
 	//
 	echo( "  • Setting units.\n" );
-	$units = $wrapper->Units(
+	$units = $wrapper->units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
@@ -88,7 +88,7 @@ try
 	// Set entities.
 	//
 	echo( "  • Setting users.\n" );
-	$entities = $wrapper->Users(
+	$entities = $wrapper->users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
@@ -101,7 +101,7 @@ try
 		// Set graph database.
 		//
 		echo( "  • Setting graph.\n" );
-		$graph = $wrapper->Graph(
+		$graph = $wrapper->graph(
 			new OntologyWrapper\Neo4jGraph(
 				"neo4j://localhost:7474" ) );
 	

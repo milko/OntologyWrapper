@@ -70,7 +70,7 @@ class MyClass extends OntologyWrapper\PersistentObject
 	static function ResolveDatabase( OntologyWrapper\Wrapper $theWrapper,
 															 $doAssert = TRUE,
 															 $doOpen = TRUE )
-	{	return $theWrapper->Units();											}
+	{	return $theWrapper->units();											}
 
 	static function ResolveRefCountTag( $theCollection )
 	{
@@ -197,13 +197,13 @@ try
 	//
 	// Set databases.
 	//
-	$meta = $wrapper->Metadata(
+	$meta = $wrapper->metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->Users(
+	$wrapper->users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->Units(
+	$wrapper->units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	

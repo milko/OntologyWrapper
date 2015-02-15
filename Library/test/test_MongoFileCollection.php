@@ -1,21 +1,21 @@
 <?php
 
 /**
- * {@link Service} test suite.
+ * {@link MongoFileCollection} test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * {@link Service} class.
+ * {@link MongoFileCollection} class.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Test
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 26/08/2014
+ *	@version	1.00 15/02/2015
  */
 
 /*=======================================================================================
  *																						*
- *									test_getClimate.php									*
+ *								test_MongoFileCollection.php							*
  *																						*
  *======================================================================================*/
 
@@ -61,13 +61,23 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 
 
 /*=======================================================================================
+ *	RUNTIME SETTINGS																	*
+ *======================================================================================*/
+ 
+//
+// Debug switches.
+//
+define( 'kDEBUG_PARENT', FALSE );
+
+
+/*=======================================================================================
  *	TEST																				*
  *======================================================================================*/
 
 //
 // Init local storage.
 //
-$base_url = 'http://localhost/services/Bioversity/Service.php';
+$base_url = 'http://localhost/gateway/Service.php';
  
 //
 // Test class.
@@ -102,59 +112,96 @@ try
 		$wrapper->loadTagCache();
 	
 	//
-	// Set parameters.
+	// Instantiate filer.
 	//
-	$shape = array( kTAG_TYPE => 'Point',
-					kTAG_GEOMETRY => array( 7.456, 46.302 ) );
-	$range = array( 1240, 1260 );
-	$dist = 5000;
-	$result
-		= OntologyWrapper\UnitObject::GetClimateData(
-			$wrapper, $shape, $range, $dist );
-
-	//
-	// Test getClimate.
-	//
-	echo( '<h4>Test getClimate</h4>' );
+	echo( '<h4>Instantiate filer</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'Shape:' );
+	echo( '$filer = $wrapper->users()->filer( "test" );' );
+	$filer = $wrapper->users()->filer( "test" );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $shape ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $filer->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Save file.
+	//
+	echo( '<h4>Save file</h4>' );
+	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'Range:' );
+	echo( '$id = $filer->saveFile( __FILE__ );' );
+	$id = $filer->saveFile( __FILE__ );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $range ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $id ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Match by ID.
+	//
+	echo( '<h4>Match by ID</h4>' );
+	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'Distance:' );
+	echo( '$file = $filer->matchID( $id );' );
+	$file = $filer->matchID( $id );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $dist ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $file ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Save data.
+	//
+	echo( '<h4>Save data</h4>' );
+	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'Result:' );
+	echo( '$id = $filer->saveData( "PIPPO" );' );
+	$id = $filer->saveData( "PIPPO" );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $id ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Match by ID.
+	//
+	echo( '<h4>Match by ID</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$file = $filer->matchID( $id );' );
+	$file = $filer->matchID( $id );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $file ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
