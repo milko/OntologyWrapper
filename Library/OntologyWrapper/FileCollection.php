@@ -161,15 +161,15 @@ abstract class FileCollection extends CollectionObject
 						if( array_key_exists( $exclude, $theMetadata ) )
 							unset( $theMetadata[ $exclude ] );
 					}
-			
-					//
-					// Set MIME type.
-					//
-					if( ! array_key_exists( kTAG_FILE_MIME_TYPE, $theMetadata ) )
-						$theMetadata[ kTAG_FILE_MIME_TYPE ]
-							= mime_content_type( $theFile->getRealPath() );
 	
 				} // Provided metadata.
+		
+				//
+				// Set MIME type.
+				//
+				if( ! array_key_exists( kTAG_FILE_MIME_TYPE, $theMetadata ) )
+					$theMetadata[ kTAG_FILE_MIME_TYPE ]
+						= mime_content_type( $theFile->getRealPath() );
 				
 				return $this->storeFile( $theFile, $theMetadata, $theOptions );		// ==>
 			

@@ -77,7 +77,8 @@ define( 'kDEBUG_PARENT', FALSE );
 //
 // Init local storage.
 //
-$base_url = 'http://localhost/gateway/Service.php';
+$prefix = "TEST";
+$path = '/Library/WebServer/Library/OntologyWrapper/Library/snippets/Test Templates';
  
 //
 // Test class.
@@ -118,8 +119,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$filer = $wrapper->users()->filer( "test" );' );
-	$filer = $wrapper->users()->filer( "test" );
+	echo( '$filer = $wrapper->users()->filer( $prefix );' );
+	$filer = $wrapper->users()->filer( Prefix );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -131,14 +132,20 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Save file.
+	// Save file 1.
 	//
-	echo( '<h4>Save file</h4>' );
+	echo( '<h4>Save file 1</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$id = $filer->saveFile( __FILE__ );' );
-	$id = $filer->saveFile( __FILE__ );
+	$file = "$path/Test1.xlsx";
+	echo( "File: $file" );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$id = $filer->saveFile( $file );' );
+	$id = $filer->saveFile( $file );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -150,9 +157,54 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Match by ID.
+	// Match file 1.
 	//
-	echo( '<h4>Match by ID</h4>' );
+	echo( '<h4>Match file 1</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$file = $filer->matchID( $id );' );
+	$file = $filer->matchID( $id );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $file ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Save file 2.
+	//
+	echo( '<h4>Save file 2</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$file = "$path/Test2.xls";
+	echo( "File: $file" );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$id = $filer->saveFile( $file );' );
+	$id = $filer->saveFile( $file );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $id ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Match file 2.
+	//
+	echo( '<h4>Match file 2</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );

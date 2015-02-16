@@ -1644,10 +1644,9 @@ define( "kTAG_SESSION_STATUS",			'@62' );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
- *	<li><em>Kind</em>: {@link kTYPE_LIST}
  * </ul>
  *
- * This tag indicates the file path or reference of the file(s) associated with the session.
+ * This tag indicates the reference to the session files.
  */
 define( "kTAG_SESSION_FILES",			'@63' );
 
