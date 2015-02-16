@@ -360,7 +360,7 @@ trait MongoObjectCollectionTrait
 		//
 		// Serialise object.
 		//
-		OntologyWrapper\ContainerObject::Object2Array( $theData, $data );
+		\OntologyWrapper\ContainerObject::Object2Array( $theData, $data );
 		
 		//
 		// Insert.
@@ -402,7 +402,7 @@ trait MongoObjectCollectionTrait
 		//
 		// Serialise object.
 		//
-		OntologyWrapper\ContainerObject::Object2Array( $theData, $data );
+		\OntologyWrapper\ContainerObject::Object2Array( $theData, $data );
 		
 		//
 		// Replace.
