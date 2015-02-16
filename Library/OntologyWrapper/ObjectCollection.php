@@ -217,6 +217,8 @@ abstract class ObjectCollection extends CollectionObject
 	 * The method expects the provided parameter to be either an array or an
 	 * {@link ArrayObject} instance.
 	 *
+	 * This method will also set the object {@link kTAG_CLASS} here.
+	 *
 	 * The method will call the virtual {@link insertData()} method, passing the received
 	 * object to it, which will perform the actual commit.
 	 *
@@ -229,8 +231,6 @@ abstract class ObjectCollection extends CollectionObject
 	 * @return mixed				Inserted object identifier.
 	 *
 	 * @throws Exception
-	 *
-	 * @see kTAG_CLASS
 	 *
 	 * @uses isConnected()
 	 * @uses insertData()
@@ -247,7 +247,16 @@ abstract class ObjectCollection extends CollectionObject
 			//
 			if( is_array( $theObject )
 			 || ($theObject instanceof \ArrayObject) )
+			{
+				//
+				// Set class.
+				//
+				if( $theObject instanceof PersistentObject )
+					$theObject->offsetSet( kTAG_CLASS, get_class( $theObject ) );
+				
 				return $this->insertData( $theObject, $theOptions );				// ==>
+			
+			} // Valid data type.
 			
 			throw new \Exception(
 				"Unable to commit object: "
@@ -275,6 +284,10 @@ abstract class ObjectCollection extends CollectionObject
 	 * The method will call the virtual {@link replaceData()} method, passing the received
 	 * object to it, which will perform the actual replace.
 	 *
+	 * If you want to update the object's {@link kTAG_CLASS}, you will have to do so in the
+	 * {@link replaceData()} method <em>after</em> serialising the object, this is because
+	 * this data member is protected.
+	 *
 	 * The method will return the replaced object's identifier, {@link kTAG_NID}.
 	 *
 	 * @param reference				$theObject			Object to commit.
@@ -284,8 +297,6 @@ abstract class ObjectCollection extends CollectionObject
 	 * @return mixed				Replaced object identifier.
 	 *
 	 * @throws Exception
-	 *
-	 * @see kTAG_CLASS
 	 *
 	 * @uses isConnected()
 	 * @uses replaceData()

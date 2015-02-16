@@ -3647,11 +3647,6 @@ abstract class PersistentObject extends OntologyObject
 		$this->preCommit( $tags, $refs );
 		
 		//
-		// Set class.
-		//
-		$this->offsetSet( kTAG_CLASS, get_class( $this ) );
-		
-		//
 		// Set creation time stamp.
 		//
 		if( ! $this->offsetExists( kTAG_RECORD_CREATED ) )
@@ -3758,11 +3753,6 @@ abstract class PersistentObject extends OntologyObject
 		// Prepare object.
 		//
 		$this->preCommit( $tags, $refs );
-		
-		//
-		// Set class.
-		//
-		$this->offsetSet( kTAG_CLASS, get_class( $this ) );
 		
 		//
 		// Set modification time stamp.

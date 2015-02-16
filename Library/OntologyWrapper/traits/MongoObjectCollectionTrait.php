@@ -389,7 +389,8 @@ trait MongoObjectCollectionTrait
 	/**
 	 * Save or replace provided data
 	 *
-	 * In this class we save the provided array and return its {@link kTAG_NID} value.
+	 * In this class we save the provided array, update the object's {@link kTAG_CLASS} and
+	 * return its {@link kTAG_NID} value.
 	 *
 	 * @param reference				$theData			Data to save.
 	 * @param array					$theOptions			Replace options.
@@ -403,6 +404,12 @@ trait MongoObjectCollectionTrait
 		// Serialise object.
 		//
 		\OntologyWrapper\ContainerObject::Object2Array( $theData, $data );
+		
+		//
+		// Set class.
+		//
+		if( $theData instanceof PersistentObject )
+			$data[ kTAG_CLASS ] = get_class( $theData );
 		
 		//
 		// Replace.
