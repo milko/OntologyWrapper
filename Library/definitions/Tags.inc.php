@@ -655,7 +655,7 @@ define( "kTAG_USERS",					'@1a' );
  *	<li><em>Type</em>: {@link kTYPE_REF_SESSION}
  * </ul>
  *
- * This tag holds an <em>integer</em> representing a <em>session native identifier</em>, it
+ * This tag holds an <em>ObjectId</em> representing a <em>session native identifier</em>, it
  * is a <em>reference to a session object</em>.
  */
 define( "kTAG_SESSION",					'@1b' );
@@ -668,7 +668,7 @@ define( "kTAG_SESSION",					'@1b' );
  *	<li><em>Kind</em>: {@link kTYPE_LIST}
  * </ul>
  *
- * This tag holds a <em>list of integers</em> representing <em>session object
+ * This tag holds a <em>list of ObjectId</em> representing <em>session object
  * references</em>, these elements are the <em>native identifiers</em> of the <em>session
  * objects</em> they reference.
  */
@@ -681,7 +681,7 @@ define( "kTAG_SESSIONS",				'@1c' );
  *	<li><em>Type</em>: {@link kTYPE_REF_TRANSACTION}
  * </ul>
  *
- * This tag holds an <em>integer</em> representing a <em>transaction native identifier</em>,
+ * This tag holds an <em>ObjectId</em> representing a <em>transaction native identifier</em>,
  * it is a <em>reference to a transaction object</em>.
  */
 define( "kTAG_TRANSACTION",				'@1d' );
@@ -694,7 +694,7 @@ define( "kTAG_TRANSACTION",				'@1d' );
  *	<li><em>Kind</em>: {@link kTYPE_LIST}
  * </ul>
  *
- * This tag holds a <em>list of integers</em> representing <em>transaction object
+ * This tag holds a <em>list of ObjectId</em> representing <em>transaction object
  * references</em>, these elements are the <em>native identifiers</em> of the
  * <em>transaction objects</em> they reference.
  */

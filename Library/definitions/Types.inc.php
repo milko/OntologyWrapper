@@ -500,6 +500,121 @@ define( "kTYPE_NODE_ENUMERATION",				':type:node:enumeration' );
 define( "kTYPE_NODE_TERM",						':type:node:term' );
 
 /*=======================================================================================
+ *	DEFAULT SESSION TYPES																*
+ *======================================================================================*/
+
+/**
+ * Upload.
+ *
+ * This type of session covers template uploads.
+ */
+define( "kTYPE_SESSION_UPLOAD",					':type:session:100' );
+
+/**
+ * Update.
+ *
+ * Update session.
+ *
+ * This type of session covers data updates.
+ */
+define( "kTYPE_SESSION_UPDATE",					':type:session:200' );
+
+/*=======================================================================================
+ *	DEFAULT TRANSACTION TYPES															*
+ *======================================================================================*/
+
+/**
+ * Template acquisition.
+ *
+ * This type of transaction covers the registration of a template.
+ */
+define( "kTYPE_TRANS_TMPL_ACQUISITION",			':type:transaction:110' );
+
+/**
+ * Template storage.
+ *
+ * This type of transaction covers the template file storage.
+ */
+define( "kTYPE_TRANS_TMPL_STORAGE",				':type:transaction:120' );
+
+/**
+ * Template parsing.
+ *
+ * This type of transaction covers the parsing of the template file.
+ */
+define( "kTYPE_TRANS_TMPL_PARSE",				':type:transaction:130' );
+
+/**
+ * Template warehouse.
+ *
+ * This type of transaction covers the set up of the template's warehouse resources.
+ */
+define( "kTYPE_TRANS_TMPL_WAREHOUSE",			':type:transaction:140' );
+
+/**
+ * Template worksheets validation.
+ *
+ * This type of transaction covers the validation of the template's worksheets.
+ */
+define( "kTYPE_TRANS_TMPL_WORKSHEETS",			':type:transaction:150' );
+
+/**
+ * Template properties validation.
+ *
+ * This type of transaction covers the validation of the template's properties.
+ */
+define( "kTYPE_TRANS_TMPL_PROPERTIES",			':type:transaction:160' );
+
+/**
+ * Template records validation.
+ *
+ * This type of transaction covers the validation of the template's records.
+ */
+define( "kTYPE_TRANS_TMPL_RECORDS",				':type:transaction:170' );
+
+/**
+ * Template transaction cleanup.
+ *
+ * This type of transaction covers the cleanup of the template warehouse resources.
+ */
+define( "kTYPE_TRANS_TMPL_CLEANUP",				':type:transaction:180' );
+
+/**
+ * Template transaction close.
+ *
+ * This type of transaction covers the closing of the template transaction.
+ */
+define( "kTYPE_TRANS_TMPL_CLOSE",				':type:transaction:190' );
+
+/**
+ * Update resources selection.
+ *
+ * This type of transaction covers the selection of the update resources.
+ */
+define( "kTYPE_TRANS_UPDT_RESOURCES",			':type:transaction:210' );
+
+/**
+ * Data update.
+ *
+ * This type of transaction covers the data update.
+ */
+define( "kTYPE_TRANS_UPDT_DATA",				':type:transaction:220' );
+
+/**
+ * Update transaction cleanup.
+ *
+ * This type of transaction covers the cleanup of the update transaction resources.
+ */
+define( "kTYPE_TRANS_UPDT_CLEANUP",				':type:transaction:280' );
+
+/**
+ * Update transaction close.
+ *
+ * This type of transaction covers the closing of the update transaction.
+ */
+define( "kTYPE_TRANS_UPDT_CLOSE",				':type:transaction:290' );
+
+/*=======================================================================================
  *	CARDINALITY TYPES																	*
  *======================================================================================*/
 

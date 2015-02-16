@@ -32,6 +32,13 @@ use OntologyWrapper\PersistentObject;
  */
 abstract class SessionObject extends PersistentObject
 {
+	/**
+	 * Offset accessors trait.
+	 *
+	 * We use this trait to provide a common framework for methods that manage offsets.
+	 */
+	use	traits\AccessorOffset;
+
 		
 
 /*=======================================================================================
@@ -133,6 +140,225 @@ abstract class SessionObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC MEMBER ACCESSOR INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	manageSession																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage session
+	 *
+	 * This method can be used to manage the session reference, the provided parameter is
+	 * either the new session reference, or <tt>NULL</tt> to retrieve the current reference,
+	 * the parameter will be handled as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>NULL</tt>: <em>Retrieve session</tt>:
+	 *	  <ul>
+	 *		<li><em>The object is not committed</em>: The method will return the object's
+	 *			value.
+	 *		<li><em>The object is committed</em>: The method will read the object from the
+	 *			database and use the persistent value.
+	 *	  </ul>
+	 *	<li><em>other</em>: <em>Set session</tt>:
+	 *	  <ul>
+	 *		<li><em>The object is not committed</em>: The method will set the provided
+	 *			value in the current object.
+	 *		<li><em>The object is committed</em>: The method will first set the value in the
+	 *			persistent object, then set it in the current object
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * If the second parameter is <tt>TRUE</tt>, if a session is found, the method will
+	 * return the referenced object
+	 *
+	 * The method will return the current session or <tt>NULL</tt> if not set.
+	 *
+	 * @param mixed					$theValue			Session object or reference.
+	 * @param boolean				$doObject			TRUE return object.
+	 *
+	 * @access public
+	 * @return mixed				Session object or reference.
+	 *
+	 * @throws Exception
+	 */
+	public function manageSession( $theValue = NULL, $doObject = FALSE )
+	{
+@@@ MILKO @@@ CHECK IT.
+		//
+		// Retrieve value.
+		//
+		if( $theValue === NULL )
+		{
+			//
+			// Handle uncommitted.
+			//
+			if( ! $this->committed() )
+			{
+				//
+				// Check if there.
+				//
+				if( ! $this->offsetExists( kTAG_SESSION ) )
+					return NULL;													// ==>
+					
+				//
+				// Return reference.
+				//
+				if( ! $doObject )
+					return $this->offsetGet( kTAG_SESSION );						// ==>
+				
+				//
+				// Check wrapper.
+				//
+				if( ! $this->mDictionary !== NULL )
+					throw new \Exception(
+						"Unable to get session: "
+					   ."missing wrapper." );									// !@! ==>
+		
+				//
+				// Return object.
+				//
+				return
+					static::ResolveObject(
+						$this->mDictionary,
+						Session::kSEQ_NAME,
+						$this->offsetGet( kTAG_SESSION ),
+						TRUE );														// ==>
+			
+			} // Not committed.
+		
+			//
+			// Get persistent object.
+			//
+			$persistent = $this->resolvePersistent( TRUE );
+				
+			//
+			// Check if there.
+			//
+			if( ! $persistent->offsetExists( kTAG_SESSION ) )
+				return NULL;														// ==>
+				
+			//
+			// Return reference.
+			//
+			if( ! $doObject )
+				return $persistent->offsetGet( kTAG_SESSION );						// ==>
+	
+			//
+			// Return object.
+			//
+			return
+				static::ResolveObject(
+					$this->mDictionary,
+					Session::kSEQ_NAME,
+					$persistent->offsetGet( kTAG_SESSION ),
+					TRUE );															// ==>
+	
+		} // Retrieve value.
+	
+		//
+		// Normalise session.
+		//
+		if( $theValue instanceof Session )
+			$theValue = $theValue->offsetGet( kTAG_NID );
+		
+		//
+		// Normalise identifier.
+		//
+		if( ! ($theValue instanceof \MongoId) )
+		{
+			//
+			// Convert to string.
+			//
+			$theValue = (string) $theValue;
+			
+			//
+			// Handle valid identifier.
+			//
+			if( \MongoId::isValid( $theValue ) )
+				$theValue = new \MongoId( $theValue );
+			
+			//
+			// Invalid identifier.
+			//
+			else
+				throw new \Exception(
+					"Unable to set session: "
+				   ."invalid identifier in object [$theValue]." );				// !@! ==>
+		}
+		
+		//
+		// Set data member.
+		//
+		$this->offsetSet( kTAG_SESSION, $theValue );
+			
+		//
+		// Handle uncommitted.
+		//
+		if( ! $this->committed() )
+		{
+			//
+			// Return reference.
+			//
+			if( ! $doObject )
+				return $theValue;													// ==>
+	
+			//
+			// Return object.
+			//
+			return
+				static::ResolveObject(
+					$this->mDictionary,
+					Session::kSEQ_NAME,
+					$theValue,
+					TRUE );															// ==>
+		
+		} // Not committed.
+		
+		//
+		// Check wrapper.
+		//
+		if( ! $this->mDictionary !== NULL )
+			throw new \Exception(
+				"Unable to set session: "
+			   ."missing wrapper." );											// !@! ==>
+
+		//
+		// Set property.
+		//
+		static::ResolveCollection(
+			static::ResolveDatabase( $this->mDictionary, TRUE ) )
+				->replaceOffsets(
+					$this->offsetGet( kTAG_NID ),
+					array( kTAG_SESSION => $theValue ) );
+		
+		//
+		// Return reference.
+		//
+		if( ! $doObject )
+			return $theValue;														// ==>
+
+		//
+		// Return object.
+		//
+		return
+			static::ResolveObject(
+				$this->mDictionary,
+				Session::kSEQ_NAME,
+				$theValue,
+				TRUE );																// ==>
+	
+	} // manageSession.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -203,6 +429,81 @@ abstract class SessionObject extends PersistentObject
 		return $id;																	// ==>
 	
 	} // commit.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC MEMBER ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	manageSession																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage session
+	 *
+	 * This method can be used to manage the session reference, the provided parameter is
+	 * either the new session reference, or <tt>NULL</tt> to retrieve the current reference.
+	 *
+	 * If the object is committed, the method will both set the session in the current
+	 * object and update the session in the committed object.
+	 *
+	 * The method will return the current session or <tt>NULL</tt> if not set.
+	 *
+	 * @param mixed					$theSession			Session object or reference.
+	 * @param boolean				$doAssert			Raise exception if not matched.
+	 *
+	 * @access public
+	 * @return PersistentObject		Referenced user or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
+	 */
+	public function getSession( $theWrapper = NULL, $doAssert = TRUE )
+	{
+		//
+		// Check session.
+		//
+		if( $this->offsetExists( kTAG_SESSION ) )
+		{
+			//
+			// Resolve wrapper.
+			//
+			$this->resolveWrapper( $theWrapper );
+		
+			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $theWrapper, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( kTAG_NID => $this->offsetGet( kTAG_SESSION ) );
+			
+			//
+			// Locate object.
+			//
+			$object = $collection->matchOne( $criteria );
+			if( $doAssert
+			 && ($object === NULL) )
+				throw new \Exception(
+					"Unable to get session: "
+				   ."referenced object not matched." );							// !@! ==>
+			
+			return $object;															// ==>
+		
+		} // Has session.
+		
+		return NULL;																// ==>
+	
+	} // getSession.
 
 		
 
@@ -283,7 +584,7 @@ abstract class SessionObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC OPERATIONS INTERFACE								*
+ *								PUBLIC UPDATE INTERFACE									*
  *																						*
  *======================================================================================*/
 
@@ -400,10 +701,72 @@ abstract class SessionObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OPERATIONS INTERFACE								*
+ *							STATIC MEMBERS ACCESSOR INTERFACE							*
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	GetObject																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get the object
+	 *
+	 * This method can be used to retrieve the object from the provided wrapper identified
+	 * by the provided identifier of the caller's class.
+	 *
+	 * It is assumed that the calling class is derived from this one.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 *
+	 * @static
+	 * @return						SessionObject or <tt>NULL</tt>.
+	 */
+	static function GetObject( Wrapper $theWrapper, $theIdentifier )
+	{
+		//
+		// Normalise identifier.
+		//
+		if( ! ($theIdentifier instanceof \MongoId) )
+		{
+			//
+			// Convert to string.
+			//
+			$theIdentifier = (string) $theIdentifier;
+			
+			//
+			// Handle valid identifier.
+			//
+			if( \MongoId::isValid( $theIdentifier ) )
+				$theIdentifier = new \MongoId( $theIdentifier );
+			
+			//
+			// Invalid identifier.
+			//
+			else
+				throw new \Exception(
+					"Cannot retrieve object: "
+				   ."invalid identifier [$theIdentifier]." );					// !@! ==>
+		}
+		
+		//
+		// Set criteria.
+		//
+		$criteria = array( kTAG_NID => $theIdentifier );
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
+		
+		return $collection->matchOne( $criteria, kQUERY_OBJECT );					// ==>
+	
+	} // GetObject.
 
 	 
 	/*===================================================================================
@@ -855,7 +1218,7 @@ abstract class SessionObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED OPERATIONS INTERFACE							*
+ *							PROTECTED MEMBER MANAGEMENT INTERFACE						*
  *																						*
  *======================================================================================*/
 

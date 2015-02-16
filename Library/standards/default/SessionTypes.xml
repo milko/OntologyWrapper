@@ -45,7 +45,7 @@
 	
 	<!-- Upload -->
 	
-	<!-- :type:session:100 -->
+	<!-- kTYPE_SESSION_UPLOAD -->
 	<META>
 		<TERM ns=":type:session" lid="100">
 			<item const="kTAG_LABEL">
@@ -71,7 +71,7 @@
 			<item const="kTAG_OBJECT" node="pid">enum::type:session</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:110 -->
+	<!-- kTYPE_TRANS_TMPL_ACQUISITION -->
 	<META>
 		<TERM ns=":type:transaction" lid="110">
 			<item const="kTAG_LABEL">
@@ -101,7 +101,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:120 -->
+	<!-- kTYPE_TRANS_TMPL_STORAGE -->
 	<META>
 		<TERM ns=":type:transaction" lid="120">
 			<item const="kTAG_LABEL">
@@ -131,7 +131,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:130 -->
+	<!-- kTYPE_TRANS_TMPL_PARSE -->
 	<META>
 		<TERM ns=":type:transaction" lid="130">
 			<item const="kTAG_LABEL">
@@ -161,7 +161,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:140 -->
+	<!-- kTYPE_TRANS_TMPL_WAREHOUSE -->
 	<META>
 		<TERM ns=":type:transaction" lid="140">
 			<item const="kTAG_LABEL">
@@ -191,7 +191,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:150 -->
+	<!-- :kTYPE_TRANS_TMPL_WORKSHEETS -->
 	<META>
 		<TERM ns=":type:transaction" lid="150">
 			<item const="kTAG_LABEL">
@@ -221,7 +221,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:160 -->
+	<!-- kTYPE_TRANS_TMPL_PROPERTIES -->
 	<META>
 		<TERM ns=":type:transaction" lid="160">
 			<item const="kTAG_LABEL">
@@ -251,7 +251,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:170 -->
+	<!-- kTYPE_TRANS_TMPL_RECORDS -->
 	<META>
 		<TERM ns=":type:transaction" lid="170">
 			<item const="kTAG_LABEL">
@@ -281,7 +281,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:180 -->
+	<!-- kTYPE_TRANS_TMPL_CLEANUP -->
 	<META>
 		<TERM ns=":type:transaction" lid="180">
 			<item const="kTAG_LABEL">
@@ -311,7 +311,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:190 -->
+	<!-- kTYPE_TRANS_TMPL_CLOSE -->
 	<META>
 		<TERM ns=":type:transaction" lid="190">
 			<item const="kTAG_LABEL">
@@ -344,7 +344,7 @@
 	
 	<!-- Update -->
 	
-	<!-- :type:session:200 -->
+	<!-- kTYPE_SESSION_UPDATE -->
 	<META>
 		<TERM ns=":type:session" lid="200">
 			<item const="kTAG_LABEL">
@@ -370,7 +370,7 @@
 			<item const="kTAG_OBJECT" node="pid">enum::type:session</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:210 -->
+	<!-- kTYPE_TRANS_UPDT_RESOURCES -->
 	<META>
 		<TERM ns=":type:transaction" lid="210">
 			<item const="kTAG_LABEL">
@@ -400,7 +400,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:200</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:220 -->
+	<!-- kTYPE_TRANS_UPDT_DATA -->
 	<META>
 		<TERM ns=":type:transaction" lid="220">
 			<item const="kTAG_LABEL">
@@ -430,7 +430,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:200</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:280 -->
+	<!-- kTYPE_TRANS_UPDT_CLEANUP -->
 	<META>
 		<TERM ns=":type:transaction" lid="280">
 			<item const="kTAG_LABEL">
@@ -460,7 +460,7 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:200</item>
 		</EDGE>
 	</META>
-	<!-- :type:transaction:290 -->
+	<!-- kTYPE_TRANS_UPDT_CLOSE -->
 	<META>
 		<TERM ns=":type:transaction" lid="290">
 			<item const="kTAG_LABEL">

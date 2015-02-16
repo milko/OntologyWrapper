@@ -7727,6 +7727,57 @@ MILKO - Need to check.
 
 	 
 	/*===================================================================================
+	 *	resolvePersistent																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve persistent object
+	 *
+	 * This method will return the object matching the current object's identifier in the
+	 * database.
+	 *
+	 * The method will raise an exception if the current object does not have its native
+	 * identifier.
+	 *
+	 * @param boolean				$doAssert			TRUE means assert.
+	 *
+	 * @access protected
+	 * @return SessionObject		The object's persistent copy.
+	 *
+	 * @throws Exception
+	 */
+	protected function resolvePersistent( $doAssert = TRUE )
+	{
+		//
+		// Check native identifier.
+		//
+		if( $this->offsetExists( kTAG_NID ) )
+		{
+			//
+			// Check wrapper.
+			//
+			if( $this->mDictionary !== NULL )
+				return
+					static::ResolveObject(
+						$this->mDictionary,
+						static::kSEQ_NAME,
+						$this->offsetGet( kTAG_NID ),
+						$doAssert );												// ==>
+		
+			throw new \Exception(
+				"Cannot resolve persistent object: "
+			   ."missing wrapper." );											// !@! ==>
+		
+		} // Has native identifier.
+		
+		throw new \Exception(
+			"Cannot resolve persistent object: "
+		   ."missing native identifier." );										// !@! ==>
+	
+	} // resolveWrapper.
+
+	 
+	/*===================================================================================
 	 *	compareObjectOffsets															*
 	 *==================================================================================*/
 
