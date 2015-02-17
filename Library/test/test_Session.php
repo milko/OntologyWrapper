@@ -127,10 +127,14 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$session[ kTAG_SESSION_TYPE ] = ":type:session:100";' );
-	$session[ kTAG_SESSION_TYPE ] = ":type:session:100";
-	echo( '$session[ kTAG_USER ] = $user;<br />' );
-	$session[ kTAG_USER ] = $user;
+	echo( '$session->manageType( kTYPE_SESSION_UPLOAD );<br />' );
+	$session->manageType( kTYPE_SESSION_UPLOAD );
+	echo( '$session->manageStatus( kTYPE_STATUS_OK );<br />' );
+	$session->manageStatus( kTYPE_STATUS_OK );
+	echo( '$session->manageStart( TRUE );<br />' );
+	$session->manageStart( TRUE );
+	echo( '$session->manageUser( $user );' );
+	$session->manageUser( $user );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -151,12 +155,19 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
+	var_dump( $session->getName( kSTANDARDS_LANGUAGE ) );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+OntologyWrapper\Session::Delete( $wrapper, $id );
+exit;
 		
 	//
 	// Update processed count.
@@ -165,8 +176,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$count = $session->updateProcessed();' );
-	$count = $session->updateProcessed();
+	echo( '$count = $session->manageProcessed();' );
+	$count = $session->manageProcessed();
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -200,8 +211,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$count = $session->updateValidated( 2 );' );
-	$count = $session->updateValidated( 2 );
+	echo( '$count = $session->manageValidated( 2 );' );
+	$count = $session->manageValidated( 2 );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -235,8 +246,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$count = $session->updateRejected( 3 );' );
-	$count = $session->updateRejected( 3 );
+	echo( '$count = $session->manageRejected( 3 );' );
+	$count = $session->manageRejected( 3 );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -270,8 +281,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$count = $session->updateSkipped( -1 );' );
-	$count = $session->updateSkipped( -1 );
+	echo( '$count = $session->manageSkipped( -1 );' );
+	$count = $session->manageSkipped( -1 );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );

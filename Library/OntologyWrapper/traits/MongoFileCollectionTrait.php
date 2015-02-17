@@ -373,14 +373,14 @@ trait MongoFileCollectionTrait
 	 * here.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param array					$theOptions			Insert options.
+	 * @param array					$theOptions			Delete options.
 	 *
 	 * @access protected
 	 * @return mixed				Object identifier or <tt>NULL</tt>.
 	 */
-	protected function deleteIdentifier( $theIdentifier, $theOptions )
+	protected function deleteIdentifier( $theIdentifier, $theOptions = Array() )
 	{
-		return $this->connection()->delete( $theIdentifier );						// ==>
+		return $this->connection()->delete( $theIdentifier, $theOptions );			// ==>
 	
 	} // deleteIdentifier.
 

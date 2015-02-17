@@ -32,13 +32,6 @@ use OntologyWrapper\PersistentObject;
  */
 abstract class SessionObject extends PersistentObject
 {
-	/**
-	 * Offset accessors trait.
-	 *
-	 * We use this trait to provide a common framework for methods that manage offsets.
-	 */
-	use	traits\AccessorOffset;
-
 		
 
 /*=======================================================================================
@@ -59,55 +52,79 @@ abstract class SessionObject extends PersistentObject
 	 * Objects derived from this class feature a <tt>MongoId</tt> native identifier, in this
 	 * class we convert string identifiers to this type.
 	 *
+	 * We also assert that the container is provided and is a wrapper.
+	 *
 	 * @param ConnectionObject		$theContainer		Persistent store.
 	 * @param mixed					$theIdentifier		Object identifier.
 	 *
 	 * @access public
 	 *
-	 * @see kTAG_TAG kTAG_TERM
-	 *
-	 * @uses isInited()
+	 * @throws Exception
 	 */
 	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
 	{
 		//
-		// Normalise identifier.
+		// Assert container.
 		//
-		if( $theIdentifier !== NULL )
+		if( $theContainer !== NULL )
 		{
 			//
-			// Convert to MongoId.
+			// Assert wrapper.
 			//
-			if( (! is_array( $theIdentifier ))
-			 && (! ($theIdentifier instanceof \MongoId)) )
+			if( $theContainer instanceof Wrapper )
 			{
 				//
-				// Convert to string.
+				// Normalise identifier.
 				//
-				$theIdentifier = (string) $theIdentifier;
+				if( $theIdentifier !== NULL )
+				{
+					//
+					// Convert to MongoId.
+					//
+					if( (! is_array( $theIdentifier ))
+					 && (! ($theIdentifier instanceof \MongoId)) )
+					{
+						//
+						// Convert to string.
+						//
+						$theIdentifier = (string) $theIdentifier;
 				
-				//
-				// Handle valid identifier.
-				//
-				if( \MongoId::isValid( $theIdentifier ) )
-					$theIdentifier = new \MongoId( $theIdentifier );
+						//
+						// Handle valid identifier.
+						//
+						if( \MongoId::isValid( $theIdentifier ) )
+							$theIdentifier = new \MongoId( $theIdentifier );
 				
-				//
-				// Invalid identifier.
-				//
-				else
-					throw new \Exception(
-						"Cannot instantiate object: "
-					   ."invalid identifier [$theIdentifier]." );				// !@! ==>
-			}
+						//
+						// Invalid identifier.
+						//
+						else
+							throw new \Exception(
+								"Cannot instantiate object: "
+							   ."invalid identifier [$theIdentifier]." );		// !@! ==>
+					}
 		
-		} // Provided identifier.
+				} // Provided identifier.
 		
-		//
-		// Call parent method.
-		// Note that we assert the object's existance.
-		//
-		parent::__construct( $theContainer, $theIdentifier, TRUE );
+				//
+				// Call parent method.
+				// Note that we assert the object's existance.
+				//
+				parent::__construct( $theContainer, $theIdentifier, TRUE );
+			
+			} // Provided container.
+			
+			else
+				throw new \Exception(
+					"Cannot instantiate object: "
+				   ."expecting the data wrapper." );							// !@! ==>
+		
+		} // Provided container.
+		
+		else
+			throw new \Exception(
+				"Cannot instantiate object: "
+			   ."expecting the container." );									// !@! ==>
 
 	} // Constructor.
 
@@ -123,6 +140,8 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @access public
 	 * @return string				The persistent identifier as a string.
+	 *
+	 * @see kTAG_NID
 	 */
 	public function __toString()
 	{
@@ -135,225 +154,6 @@ abstract class SessionObject extends PersistentObject
 		return '';																	// ==>
 	
 	} // __toString.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC MEMBER ACCESSOR INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	manageSession																	*
-	 *==================================================================================*/
-
-	/**
-	 * Manage session
-	 *
-	 * This method can be used to manage the session reference, the provided parameter is
-	 * either the new session reference, or <tt>NULL</tt> to retrieve the current reference,
-	 * the parameter will be handled as follows:
-	 *
-	 * <ul>
-	 *	<li><tt>NULL</tt>: <em>Retrieve session</tt>:
-	 *	  <ul>
-	 *		<li><em>The object is not committed</em>: The method will return the object's
-	 *			value.
-	 *		<li><em>The object is committed</em>: The method will read the object from the
-	 *			database and use the persistent value.
-	 *	  </ul>
-	 *	<li><em>other</em>: <em>Set session</tt>:
-	 *	  <ul>
-	 *		<li><em>The object is not committed</em>: The method will set the provided
-	 *			value in the current object.
-	 *		<li><em>The object is committed</em>: The method will first set the value in the
-	 *			persistent object, then set it in the current object
-	 *	  </ul>
-	 * </ul>
-	 *
-	 * If the second parameter is <tt>TRUE</tt>, if a session is found, the method will
-	 * return the referenced object
-	 *
-	 * The method will return the current session or <tt>NULL</tt> if not set.
-	 *
-	 * @param mixed					$theValue			Session object or reference.
-	 * @param boolean				$doObject			TRUE return object.
-	 *
-	 * @access public
-	 * @return mixed				Session object or reference.
-	 *
-	 * @throws Exception
-	 */
-	public function manageSession( $theValue = NULL, $doObject = FALSE )
-	{
-@@@ MILKO @@@ CHECK IT.
-		//
-		// Retrieve value.
-		//
-		if( $theValue === NULL )
-		{
-			//
-			// Handle uncommitted.
-			//
-			if( ! $this->committed() )
-			{
-				//
-				// Check if there.
-				//
-				if( ! $this->offsetExists( kTAG_SESSION ) )
-					return NULL;													// ==>
-					
-				//
-				// Return reference.
-				//
-				if( ! $doObject )
-					return $this->offsetGet( kTAG_SESSION );						// ==>
-				
-				//
-				// Check wrapper.
-				//
-				if( ! $this->mDictionary !== NULL )
-					throw new \Exception(
-						"Unable to get session: "
-					   ."missing wrapper." );									// !@! ==>
-		
-				//
-				// Return object.
-				//
-				return
-					static::ResolveObject(
-						$this->mDictionary,
-						Session::kSEQ_NAME,
-						$this->offsetGet( kTAG_SESSION ),
-						TRUE );														// ==>
-			
-			} // Not committed.
-		
-			//
-			// Get persistent object.
-			//
-			$persistent = $this->resolvePersistent( TRUE );
-				
-			//
-			// Check if there.
-			//
-			if( ! $persistent->offsetExists( kTAG_SESSION ) )
-				return NULL;														// ==>
-				
-			//
-			// Return reference.
-			//
-			if( ! $doObject )
-				return $persistent->offsetGet( kTAG_SESSION );						// ==>
-	
-			//
-			// Return object.
-			//
-			return
-				static::ResolveObject(
-					$this->mDictionary,
-					Session::kSEQ_NAME,
-					$persistent->offsetGet( kTAG_SESSION ),
-					TRUE );															// ==>
-	
-		} // Retrieve value.
-	
-		//
-		// Normalise session.
-		//
-		if( $theValue instanceof Session )
-			$theValue = $theValue->offsetGet( kTAG_NID );
-		
-		//
-		// Normalise identifier.
-		//
-		if( ! ($theValue instanceof \MongoId) )
-		{
-			//
-			// Convert to string.
-			//
-			$theValue = (string) $theValue;
-			
-			//
-			// Handle valid identifier.
-			//
-			if( \MongoId::isValid( $theValue ) )
-				$theValue = new \MongoId( $theValue );
-			
-			//
-			// Invalid identifier.
-			//
-			else
-				throw new \Exception(
-					"Unable to set session: "
-				   ."invalid identifier in object [$theValue]." );				// !@! ==>
-		}
-		
-		//
-		// Set data member.
-		//
-		$this->offsetSet( kTAG_SESSION, $theValue );
-			
-		//
-		// Handle uncommitted.
-		//
-		if( ! $this->committed() )
-		{
-			//
-			// Return reference.
-			//
-			if( ! $doObject )
-				return $theValue;													// ==>
-	
-			//
-			// Return object.
-			//
-			return
-				static::ResolveObject(
-					$this->mDictionary,
-					Session::kSEQ_NAME,
-					$theValue,
-					TRUE );															// ==>
-		
-		} // Not committed.
-		
-		//
-		// Check wrapper.
-		//
-		if( ! $this->mDictionary !== NULL )
-			throw new \Exception(
-				"Unable to set session: "
-			   ."missing wrapper." );											// !@! ==>
-
-		//
-		// Set property.
-		//
-		static::ResolveCollection(
-			static::ResolveDatabase( $this->mDictionary, TRUE ) )
-				->replaceOffsets(
-					$this->offsetGet( kTAG_NID ),
-					array( kTAG_SESSION => $theValue ) );
-		
-		//
-		// Return reference.
-		//
-		if( ! $doObject )
-			return $theValue;														// ==>
-
-		//
-		// Return object.
-		//
-		return
-			static::ResolveObject(
-				$this->mDictionary,
-				Session::kSEQ_NAME,
-				$theValue,
-				TRUE );																// ==>
-	
-	} // manageSession.
 
 		
 
@@ -447,138 +247,109 @@ abstract class SessionObject extends PersistentObject
 	/**
 	 * Manage session
 	 *
-	 * This method can be used to manage the session reference, the provided parameter is
-	 * either the new session reference, or <tt>NULL</tt> to retrieve the current reference.
+	 * This method can be used to manage the session reference, the method accepts the
+	 * follo<ing parameters:
 	 *
-	 * If the object is committed, the method will both set the session in the current
-	 * object and update the session in the committed object.
+	 * <ul>
+	 *	<li><b>$theValue</b>: <em>Session or operation</em>:
+	 *	  <ul>
+	 *		<li><tt>NULL</tt>: <em>Retrieve session</em>:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will return the
+	 *				object's value.
+	 *			<li><em>The object is committed</em>: The method will return the persistent
+	 *				object's value and update the current object.
+	 *		  </ul>
+	 *		<li><tt>FALSE</tt>: <em>Delete session</em>:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will delete the current
+	 *				object's value and return the old value.
+	 *			<li><em>The object is committed</em>: The method will delete the persistent
+	 *				and current object's values and return the old persistent object's
+	 *				value.
+	 *		  </ul>
+	 *		<li><em>other</em>: <em>Set session</em>:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will set the provided
+	 *				value in the current object.
+	 *			<li><em>The object is committed</em>: The method will first set the value in
+	 *				the persistent object, then set it in the current object and return it.
+	 *		  </ul>
+	 *	  </ul>
+	 *	<li><b>$doObject</b>: <em>Result type</em>: If <tt>TRUE</tt>, the method will
+	 *		return the session object, rather than its reference.
+	 * </ul>
 	 *
-	 * The method will return the current session or <tt>NULL</tt> if not set.
+	 * The object must have been instantiated with a wrapper.
 	 *
-	 * @param mixed					$theSession			Session object or reference.
-	 * @param boolean				$doAssert			Raise exception if not matched.
+	 * The method will return the session or <tt>NULL</tt> if not set.
 	 *
-	 * @access public
-	 * @return PersistentObject		Referenced user or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 */
-	public function getSession( $theWrapper = NULL, $doAssert = TRUE )
-	{
-		//
-		// Check session.
-		//
-		if( $this->offsetExists( kTAG_SESSION ) )
-		{
-			//
-			// Resolve wrapper.
-			//
-			$this->resolveWrapper( $theWrapper );
-		
-			//
-			// Resolve collection.
-			//
-			$collection
-				= static::ResolveCollection(
-					static::ResolveDatabase( $theWrapper, TRUE ) );
-			
-			//
-			// Set criteria.
-			//
-			$criteria = array( kTAG_NID => $this->offsetGet( kTAG_SESSION ) );
-			
-			//
-			// Locate object.
-			//
-			$object = $collection->matchOne( $criteria );
-			if( $doAssert
-			 && ($object === NULL) )
-				throw new \Exception(
-					"Unable to get session: "
-				   ."referenced object not matched." );							// !@! ==>
-			
-			return $object;															// ==>
-		
-		} // Has session.
-		
-		return NULL;																// ==>
-	
-	} // getSession.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC OBJECT REFERENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	getSession																		*
-	 *==================================================================================*/
-
-	/**
-	 * Get referenced session
-	 *
-	 * This method will return the referenced session object; if none is set, the method
-	 * will return <tt>NULL</tt>, or raise an exception if the second parameter is
-	 * <tt>TRUE</tt>.
-	 *
-	 * The first parameter is the wrapper in which the current object is, or will be,
-	 * stored: if the current object has the {@link dictionary()}, this parameter may be
-	 * omitted; if the wrapper cannot be resolved, the method will raise an exception.
-	 *
-	 * @param Wrapper				$theWrapper			Wrapper.
-	 * @param boolean				$doAssert			Raise exception if not matched.
+	 * @param mixed					$theValue			Session object or reference.
+	 * @param boolean				$doObject			TRUE return object.
 	 *
 	 * @access public
-	 * @return PersistentObject		Referenced user or <tt>NULL</tt>.
+	 * @return mixed				Session object or reference.
 	 *
 	 * @throws Exception
+	 *
+	 * @see kTAG_SESSION
+	 *
+	 * @uses handleReference()
 	 */
-	public function getSession( $theWrapper = NULL, $doAssert = TRUE )
+	public function manageSession( $theValue = NULL, $doObject = FALSE )
 	{
 		//
-		// Check session.
+		// Check reference.
 		//
-		if( $this->offsetExists( kTAG_SESSION ) )
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
 		{
 			//
-			// Resolve wrapper.
+			// Handle object.
 			//
-			$this->resolveWrapper( $theWrapper );
-		
-			//
-			// Resolve collection.
-			//
-			$collection
-				= static::ResolveCollection(
-					static::ResolveDatabase( $theWrapper, TRUE ) );
+			if( $theValue instanceof Session )
+				$theValue = $theValue->offsetGet( kTAG_NID );
 			
 			//
-			// Set criteria.
+			// Normalise identifier.
 			//
-			$criteria = array( kTAG_NID => $this->offsetGet( kTAG_SESSION ) );
+			if( ! ($theValue instanceof \MongoId) )
+			{
+				//
+				// Convert to string.
+				//
+				$theValue = (string) $theValue;
+			
+				//
+				// Handle valid identifier.
+				//
+				if( \MongoId::isValid( $theValue ) )
+					$theValue = new \MongoId( $theValue );
+			
+				//
+				// Invalid identifier.
+				//
+				else
+					throw new \Exception(
+						"Unable to set session: "
+					   ."invalid identifier in object [$theValue]." );			// !@! ==>
+			
+			} // Convert to MongoId.
 			
 			//
-			// Locate object.
+			// Check if object exists.
 			//
-			$object = $collection->matchOne( $criteria );
-			if( $doAssert
-			 && ($object === NULL) )
-				throw new \Exception(
-					"Unable to get session: "
-				   ."referenced object not matched." );							// !@! ==>
-			
-			return $object;															// ==>
-		
-		} // Has session.
-		
-		return NULL;																// ==>
+			Session::ResolveObject( $this->mDictionary,
+									Session::kSEQ_NAME,
+									$theValue,
+									TRUE );
 	
-	} // getSession.
+		} // Checked reference.
+		
+		return $this->handleReference(
+					kTAG_SESSION, 'Session', $theValue, $doObject );				// ==>
+	
+	} // manageSession.
 
 		
 
@@ -591,358 +362,187 @@ abstract class SessionObject extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	updateProcessed																	*
+	 *	manageProcessed																	*
 	 *==================================================================================*/
 
 	/**
-	 * Update the processed count
+	 * Manage the processed count
 	 *
-	 * This method will update the processed count by the provided delta.
+	 * This method will either retrieve the current processed count from the persistent
+	 * object, or increment the count by the provided value.
 	 *
-	 * The method will first update the object in the database, then update the counter in
-	 * the current object and return the updated value relative to the contents of the
-	 * current object. Because of this, the count should not be counted on :-)
+	 * If the parameter is <tt>NULL</tt>, the method will retrieve the count; if not, the
+	 * method will cast the parameter to an integer and update the count of the persistent
+	 * object by that value and return <tt>TRUE</tt>.
 	 *
-	 * @param int					$theCount			Increment delta.
+	 * The current object's count will not be updated, because of this, the count should not
+	 * be counted on :-)
+	 *
+	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
 	 *
 	 * @access public
-	 * @return int					Updated count relative to current object.
 	 *
 	 * @see kTAG_PROCESSED
+	 *
+	 * @uses resolvePersistent()
+	 * @uses updateCount()
 	 */
-	public function updateProcessed( $theCount = 1 )
+	public function manageProcessed( $theValue = NULL )
 	{
-		return $this->updateCount( kTAG_PROCESSED, $theCount );						// ==>
+		//
+		// Retrieve count.
+		//
+		if( $theValue === NULL )
+			return
+				$this->resolvePersistent( TRUE )
+					->offsetGet( kTAG_PROCESSED );									// ==>
+		
+		//
+		// Update count.
+		//
+		$this->updateCount( kTAG_PROCESSED, (int) $theValue );
+		
+		return TRUE;																// ==>
 	
-	} // updateProcessed.
+	} // manageProcessed.
 
 	 
 	/*===================================================================================
-	 *	updateValidated																	*
+	 *	manageValidated																	*
 	 *==================================================================================*/
 
 	/**
-	 * Update the validated count
+	 * Manage the validated count
 	 *
-	 * This method will update the validated count by the provided delta.
+	 * This method will either retrieve the current validated count from the persistent
+	 * object, or increment the count by the provided value.
 	 *
-	 * The method will first update the object in the database, then update the counter in
-	 * the current object and return the updated value relative to the contents of the
-	 * current object. Because of this, the count should not be counted on :-)
+	 * If the parameter is <tt>NULL</tt>, the method will retrieve the count; if not, the
+	 * method will cast the parameter to an integer and update the count of the persistent
+	 * object by that value and return <tt>TRUE</tt>.
 	 *
-	 * @param int					$theCount			Increment delta.
+	 * The current object's count will not be updated, because of this, the count should not
+	 * be counted on :-)
+	 *
+	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
 	 *
 	 * @access public
-	 * @return int					Updated count relative to current object.
 	 *
 	 * @see kTAG_VALIDATED
+	 *
+	 * @uses resolvePersistent()
+	 * @uses updateCount()
 	 */
-	public function updateValidated( $theCount = 1 )
+	public function manageValidated( $theValue = NULL )
 	{
-		return $this->updateCount( kTAG_VALIDATED, $theCount );						// ==>
+		//
+		// Retrieve count.
+		//
+		if( $theValue === NULL )
+			return
+				$this->resolvePersistent( TRUE )
+					->offsetGet( kTAG_VALIDATED );									// ==>
+		
+		//
+		// Update count.
+		//
+		$this->updateCount( kTAG_VALIDATED, (int) $theValue );
+		
+		return TRUE;																// ==>
 	
-	} // updateValidated.
+	} // manageValidated.
 
 	 
 	/*===================================================================================
-	 *	updateRejected																	*
+	 *	manageRejected																	*
 	 *==================================================================================*/
 
 	/**
-	 * Update the rejected count
+	 * Manage the rejected count
 	 *
-	 * This method will update the rejected count by the provided delta.
+	 * This method will either retrieve the current rejected count from the persistent
+	 * object, or increment the count by the provided value.
 	 *
-	 * The method will first update the object in the database, then update the counter in
-	 * the current object and return the updated value relative to the contents of the
-	 * current object. Because of this, the count should not be counted on :-)
+	 * If the parameter is <tt>NULL</tt>, the method will retrieve the count; if not, the
+	 * method will cast the parameter to an integer and update the count of the persistent
+	 * object by that value and return <tt>TRUE</tt>.
 	 *
-	 * @param int					$theCount			Increment delta.
+	 * The current object's count will not be updated, because of this, the count should not
+	 * be counted on :-)
+	 *
+	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
 	 *
 	 * @access public
-	 * @return int					Updated count relative to current object.
 	 *
 	 * @see kTAG_REJECTED
+	 *
+	 * @uses resolvePersistent()
+	 * @uses updateCount()
 	 */
-	public function updateRejected( $theCount = 1 )
+	public function manageRejected( $theValue = NULL )
 	{
-		return $this->updateCount( kTAG_REJECTED, $theCount );						// ==>
+		//
+		// Retrieve count.
+		//
+		if( $theValue === NULL )
+			return
+				$this->resolvePersistent( TRUE )
+					->offsetGet( kTAG_REJECTED );									// ==>
+		
+		//
+		// Update count.
+		//
+		$this->updateCount( kTAG_REJECTED, (int) $theValue );
+		
+		return TRUE;																// ==>
 	
-	} // updateRejected.
+	} // manageRejected.
 
 	 
 	/*===================================================================================
-	 *	updateSkipped																	*
+	 *	manageSkipped																	*
 	 *==================================================================================*/
 
 	/**
-	 * Update the skipped count
+	 * Manage the skipped count
 	 *
-	 * This method will update the skipped count by the provided delta.
+	 * This method will either retrieve the current skipped count from the persistent
+	 * object, or increment the count by the provided value.
 	 *
-	 * The method will first update the object in the database, then update the counter in
-	 * the current object and return the updated value relative to the contents of the
-	 * current object. Because of this, the count should not be counted on :-)
+	 * If the parameter is <tt>NULL</tt>, the method will retrieve the count; if not, the
+	 * method will cast the parameter to an integer and update the count of the persistent
+	 * object by that value and return <tt>TRUE</tt>.
 	 *
-	 * @param int					$theCount			Increment delta.
+	 * The current object's count will not be updated, because of this, the count should not
+	 * be counted on :-)
+	 *
+	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
 	 *
 	 * @access public
-	 * @return int					Updated count relative to current object.
 	 *
 	 * @see kTAG_SKIPPED
+	 *
+	 * @uses resolvePersistent()
+	 * @uses updateCount()
 	 */
-	public function updateSkipped( $theCount = 1 )
-	{
-		return $this->updateCount( kTAG_SKIPPED, $theCount );						// ==>
-	
-	} // updateSkipped.
-
-		
-
-/*=======================================================================================
- *																						*
- *							STATIC MEMBERS ACCESSOR INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	GetObject																		*
-	 *==================================================================================*/
-
-	/**
-	 * Get the object
-	 *
-	 * This method can be used to retrieve the object from the provided wrapper identified
-	 * by the provided identifier of the caller's class.
-	 *
-	 * It is assumed that the calling class is derived from this one.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 *
-	 * @static
-	 * @return						SessionObject or <tt>NULL</tt>.
-	 */
-	static function GetObject( Wrapper $theWrapper, $theIdentifier )
+	public function manageSkipped( $theValue = NULL )
 	{
 		//
-		// Normalise identifier.
+		// Retrieve count.
 		//
-		if( ! ($theIdentifier instanceof \MongoId) )
-		{
-			//
-			// Convert to string.
-			//
-			$theIdentifier = (string) $theIdentifier;
-			
-			//
-			// Handle valid identifier.
-			//
-			if( \MongoId::isValid( $theIdentifier ) )
-				$theIdentifier = new \MongoId( $theIdentifier );
-			
-			//
-			// Invalid identifier.
-			//
-			else
-				throw new \Exception(
-					"Cannot retrieve object: "
-				   ."invalid identifier [$theIdentifier]." );					// !@! ==>
-		}
+		if( $theValue === NULL )
+			return
+				$this->resolvePersistent( TRUE )
+					->offsetGet( kTAG_SKIPPED );									// ==>
 		
 		//
-		// Set criteria.
+		// Update count.
 		//
-		$criteria = array( kTAG_NID => $theIdentifier );
+		$this->updateCount( kTAG_SKIPPED, (int) $theValue );
 		
-		//
-		// Resolve collection.
-		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $theWrapper, TRUE ) );
-		
-		return $collection->matchOne( $criteria, kQUERY_OBJECT );					// ==>
+		return TRUE;																// ==>
 	
-	} // GetObject.
-
-	 
-	/*===================================================================================
-	 *	SetSession																		*
-	 *==================================================================================*/
-
-	/**
-	 * Set the session
-	 *
-	 * This method can be used to set the session reference of the object identified by
-	 * the provided identifier of the calling class.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param mixed					$theSession			Session reference.
-	 *
-	 * @static
-	 */
-	static function SetSession( Wrapper $theWrapper, $theIdentifier, $theSession )
-	{
-		//
-		// Normalise session reference.
-		//
-		if( ! ($theSession instanceof \MongoId) )
-		{
-			//
-			// Convert to string.
-			//
-			$theSession = (string) $theSession;
-			
-			//
-			// Handle valid identifier.
-			//
-			if( \MongoId::isValid( $theSession ) )
-				$theSession = new \MongoId( $theSession );
-			
-			//
-			// Invalid identifier.
-			//
-			else
-				throw new \Exception(
-					"Cannot set session: "
-				   ."invalid session reference [$theSession]." );				// !@! ==>
-		}
-		
-		//
-		// Normalise identifier.
-		//
-		if( ! ($theIdentifier instanceof \MongoId) )
-		{
-			//
-			// Convert to string.
-			//
-			$theIdentifier = (string) $theIdentifier;
-			
-			//
-			// Handle valid identifier.
-			//
-			if( \MongoId::isValid( $theIdentifier ) )
-				$theIdentifier = new \MongoId( $theIdentifier );
-			
-			//
-			// Invalid identifier.
-			//
-			else
-				throw new \Exception(
-					"Cannot set session: "
-				   ."invalid identifier [$theIdentifier]." );				// !@! ==>
-		}
-		
-		//
-		// Resolve collection.
-		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $theWrapper, TRUE ) );
-	
-		//
-		// Set property.
-		//
-		$collection->replaceOffsets(
-			$theIdentifier,								// Object ID.
-			array( kTAG_SESSION => $theSession ) );		// Modifications.
-	
-	} // SetSession.
-
-		
-	/*===================================================================================
-	 *	UpdateCounter																	*
-	 *==================================================================================*/
-
-	/**
-	 * Update a counter
-	 *
-	 * This method can be used to increment or decrement one of the following counters:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kTAG_PROCESSED}</tt>: Processed count.
-	 *	<li><tt>{@link kTAG_VALIDATED}</tt>: Processed count.
-	 *	<li><tt>{@link kTAG_REJECTED}</tt>: Processed count.
-	 *	<li><tt>{@link kTAG_SKIPPED}</tt>: Processed count.
-	 * </ul>
-	 *
-	 * If you provide an offset that is not among the ones above, the method will raise an
-	 * exception.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param string				$theCounter			Counter offset.
-	 * @param int					$theCount			Increment delta.
-	 *
-	 * @static
-	 */
-	static function UpdateCounter( Wrapper $theWrapper,
-										   $theIdentifier,
-										   $theCounter,
-										   $theCount = 1 )
-	{
-		//
-		// Check counter.
-		//
-		switch( $theCounter )
-		{
-			case kTAG_PROCESSED:
-			case kTAG_VALIDATED:
-			case kTAG_REJECTED:
-			case kTAG_SKIPPED:
-				break;
-			
-			default:
-				throw new \Exception(
-					"Cannot increment counter: "
-				   ."invalid counter reference [$theCounter]." );				// !@! ==>
-		}
-		
-		//
-		// Normalise identifier.
-		//
-		if( ! ($theIdentifier instanceof \MongoId) )
-		{
-			//
-			// Convert to string.
-			//
-			$theIdentifier = (string) $theIdentifier;
-			
-			//
-			// Handle valid identifier.
-			//
-			if( \MongoId::isValid( $theIdentifier ) )
-				$theIdentifier = new \MongoId( $theIdentifier );
-			
-			//
-			// Invalid identifier.
-			//
-			else
-				throw new \Exception(
-					"Cannot increment counter: "
-				   ."invalid identifier [$theIdentifier]." );					// !@! ==>
-		}
-		
-		//
-		// Resolve collection.
-		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $theWrapper, TRUE ) );
-	
-		//
-		// Increment count.
-		//
-		$collection->updateReferenceCount( $theIdentifier,		// Native identifier.
-										   kTAG_NID,			// Identifier offset.
-										   $theCounter,			// Counter offset.
-										   (int) $theCount );	// Count.
-	
-	} // UpdateCounter.
+	} // manageSkipped.
 
 	 
 
@@ -969,12 +569,10 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @static
 	 * @return DatabaseObject		Database or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
 	 */
 	static function ResolveDatabase( Wrapper $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
 	{
-		return EntityObject::ResolveDatabase( $theWrapper, $doAssert, $doOpen );	// ==>
+		return User::ResolveDatabase( $theWrapper, $doAssert, $doOpen );			// ==>
 	
 	} // ResolveDatabase.
 
@@ -1061,22 +659,21 @@ abstract class SessionObject extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	postOffsetSet																	*
+	 *	preOffsetSet																	*
 	 *==================================================================================*/
 
 	/**
-	 * Handle offset and value after setting it
+	 * Handle offset and value before setting it
 	 *
-	 * In this class we intercept the session reference and cast it to a MongoId.
+	 * We overload this method to convert objects into their native identifiers.
 	 *
 	 * @param reference				$theOffset			Offset reference.
 	 * @param reference				$theValue			Offset value reference.
 	 *
 	 * @access protected
-	 *
-	 * @see kTAG_SESSION
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
 	 */
-	protected function postOffsetSet( &$theOffset, &$theValue )
+	protected function preOffsetSet( &$theOffset, &$theValue )
 	{
 		//
 		// Intercept object references.
@@ -1084,19 +681,9 @@ abstract class SessionObject extends PersistentObject
 		if( $theValue instanceof PersistentObject )
 			$theValue = $theValue->reference();
 		
-		//
-		// Call parent method to resolve offset.
-		//
-		parent::postOffsetSet( $theOffset, $theValue );
-		
-		//
-		// Set initialised status.
-		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_USER ) &&
-						 \ArrayObject::offsetExists( kTAG_SESSION_TYPE ) &&
-						 \ArrayObject::offsetExists( kTAG_SESSION_STATUS ) );
+		return parent::preOffsetSet( $theOffset, $theValue );						// ==>
 	
-	} // postOffsetSet.
+	} // preOffsetSet.
 
 		
 
@@ -1153,6 +740,8 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @access protected
 	 * @return mixed				The object's native identifier.
+	 *
+	 * @throws Exception
 	 */
 	protected function updateObject( CollectionObject $theCollection, $theOptions )
 	{
@@ -1186,8 +775,6 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @access protected
 	 *
-	 * @throws Exception
-	 *
 	 * @see kTAG_PROCESSED kTAG_VALIDATED kTAG_REJECTED kTAG_SKIPPED
 	 */
 	protected function preCommitPrepare( &$theTags, &$theRefs )
@@ -1200,17 +787,10 @@ abstract class SessionObject extends PersistentObject
 		//
 		// Initialise counters.
 		//
-		if( ! $this->offsetExists( kTAG_PROCESSED ) )
-			$this->offsetSet( kTAG_PROCESSED, 0 );
-			
-		if( ! $this->offsetExists( kTAG_VALIDATED ) )
-			$this->offsetSet( kTAG_VALIDATED, 0 );
-			
-		if( ! $this->offsetExists( kTAG_REJECTED ) )
-			$this->offsetSet( kTAG_REJECTED, 0 );
-			
-		if( ! $this->offsetExists( kTAG_SKIPPED ) )
-			$this->offsetSet( kTAG_SKIPPED, 0 );
+		$this->offsetSet( kTAG_SKIPPED, 0 );
+		$this->offsetSet( kTAG_REJECTED, 0 );
+		$this->offsetSet( kTAG_VALIDATED, 0 );
+		$this->offsetSet( kTAG_PROCESSED, 0 );
 		
 	} // preCommitPrepare.
 
@@ -1225,54 +805,408 @@ abstract class SessionObject extends PersistentObject
 
 	 
 	/*===================================================================================
+	 *	handleOffset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage offset
+	 *
+	 * This method can be used to manage object offset properties, the method expects the
+	 * following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: <em>Property offset</em>, the offset of the property.
+	 *	<li><b>$theValue</b>: <em>Value or operation</em>, depending on the type, this
+	 *		parameter is either the new value to be set, or the requested operation:
+	 *	  <ul>
+	 *		<li><tt>NULL</tt>: <em>Retrieve value</em>, the current value will be returned,
+	 *			the source of the value depends on the following:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will return the value
+	 *				stored in the current object.
+	 *			<li><em>The object is committed</em>: The method will read the current
+	 *				object from the database and use the value stored in it.
+	 *		  </ul>
+	 *		<li><tt>FALSE</tt>: <em>Delete value</em>, the value will be deleted:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will remove the value
+	 *				from the current object and return the old value.
+	 *			<li><em>The object is committed</em>: The method will remove the value from
+	 *				both the current and persistent objects and return the old value stored
+	 *				in the persistent object.
+	 *		  </ul>
+	 *		<li><em>other</em>: <em>Set value</em>, the provided value will be set:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will set the provided
+	 *				value in the current object and return the value.
+	 *			<li><em>The object is committed</em>: The method will set the value in both
+	 *				the current and persistent objects and return the value.
+	 *		  </ul>
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * @param string				$theOffset			Value offset.
+	 * @param mixed					$theValue			Object or operation.
+	 *
+	 * @access protected
+	 * @return mixed				Object or reference.
+	 *
+	 * @uses committed()
+	 * @uses resolvePersistent()
+	 */
+	protected function handleOffset( $theOffset, $theValue = NULL )
+	{
+		//
+		// Handle committed current object.
+		//
+		if( ! $this->committed() )
+		{
+			//
+			// Return current value.
+			//
+			if( $theValue === NULL )
+				return $this->offsetGet( $theOffset );								// ==>
+			
+			//
+			// Delete value.
+			//
+			if( $theValue === FALSE )
+			{
+				//
+				// Get current value.
+				//
+				$save = $this->offsetGet( $theOffset );
+				
+				//
+				// Delete value.
+				//
+				$this->offsetUnset( $theOffset );
+				
+				return $save;														// ==>
+			
+			} // Delete value.
+			
+			//
+			// Set value.
+			//
+			$this->offsetSet( $theOffset, $theValue );
+			
+			return $theValue;														// ==>
+			
+		} // Current object is not committed.
+	
+		//
+		// Get persistent value.
+		//
+		$save
+			= $this
+				->resolvePersistent( TRUE )
+					->offsetGet( $theOffset );
+		
+		//
+		// Delete value.
+		//
+		if( $theValue === FALSE )
+		{
+			//
+			// Remove from current object.
+			//
+			$this->offsetUnset( $theOffset );
+			
+			//
+			// Remove from persistent object.
+			//
+			static::ResolveCollection(
+				static::ResolveDatabase( $this->mDictionary, TRUE ) )
+					->replaceOffsets(
+						$this->offsetGet( kTAG_NID ),
+						array( $theOffset => NULL ) );
+			
+			return $save;															// ==>
+		
+		} // Delete value.
+		
+		//
+		// Return value.
+		//
+		if( $theValue === NULL )
+		{
+			//
+			// Update current object.
+			//
+			$this->offsetSet( $theOffset, $save );
+		
+			return $save;															// ==>
+		
+		} // Return value.
+		
+		//
+		// Set in current object.
+		//
+		$this->offsetSet( $theOffset, $theValue );
+		
+		//
+		// Set in persistent object.
+		//
+		static::ResolveCollection(
+			static::ResolveDatabase( $this->mDictionary, TRUE ) )
+				->replaceOffsets(
+					$this->offsetGet( kTAG_NID ),
+					array( $theOffset => $theValue ) );
+		
+		return $theValue;															// ==>
+	
+	} // handleOffset.
+
+	 
+	/*===================================================================================
+	 *	handleReference																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage reference
+	 *
+	 * This method can be used to manage object references, the method expects the following
+	 * parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: <em>Reference offset</tt>, the offset of the reference.
+	 *	<li><b>$theValue</b>: <em>Value or operation</em>, depending on the type, this
+	 *		parameter is either the new reference to be set, or the requested operation:
+	 *	  <ul>
+	 *		<li><tt>NULL</tt>: <em>Retrieve value</em>, the current value will be returned,
+	 *			the source of the value depends on the following:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will return the value
+	 *				stored in the current object.
+	 *			<li><em>The object is committed</em>: The method will read the current
+	 *				object from the database and use its value.
+	 *		  </ul>
+	 *		<li><tt>FALSE</tt>: <em>Delete value</em>, the value will be deleted:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will remove the value
+	 *				from the current object and return the old value.
+	 *			<li><em>The object is committed</em>: The method will remove the value from
+	 *				both the current and persistent objects and return the old value stored
+	 *				in the persistent object.
+	 *		  </ul>
+	 *		<li><em>other</em>: <em>Set value</em>, the provided value will be set:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will set the provided
+	 *				value in the current object.
+	 *			<li><em>The object is committed</em>: The method will first set the value in the
+	 *				persistent object, then set it in the current object.
+	 *		  </ul>
+	 *	  </ul>
+	 *	<li><b>$theClass</b>: <em>Object class</em>, this parameter holds the class of the
+	 *		referenced object.
+	 *	<li><b>$doObject</b>: <em>Return reference or object</tt>, if this parameter is
+	 *		<tt>TRUE</tt>, the method will return the actual object, if not, it will
+	 *		return the object reference.
+	 * </ul>
+	 *
+	 * When setting the value, the reference will be checked; when retrieving the value,
+	 * if the value is not set, the method will return <tt>NULL</tt>.
+	 *
+	 * @param string				$theOffset			Value offset.
+	 * @param string				$theClass			Object class.
+	 * @param mixed					$theValue			Object or operation.
+	 * @param boolean				$doObject			TRUE return object.
+	 *
+	 * @access protected
+	 * @return mixed				Object or reference.
+	 *
+	 * @uses committed()
+	 * @uses resolvePersistent()
+	 */
+	protected function handleReference( $theOffset, $theClass, $theValue = NULL,
+															   $doObject = FALSE )
+	{
+		//
+		// Handle committed current object.
+		//
+		if( ! $this->committed() )
+		{
+			//
+			// Get current value.
+			//
+			$save = $this->offsetGet( $theOffset );
+			
+			//
+			// Delete value.
+			//
+			if( $theValue === FALSE )
+				$this->offsetUnset( $theOffset );
+			
+			//
+			// Set value.
+			//
+			elseif( $theValue !== NULL )
+				$this->offsetSet( $theOffset, $theValue );
+			
+			//
+			// Return object.
+			//
+			if( $doObject )
+			{
+				//
+				// Check if there.
+				//
+				if( $save === NULL )
+					return NULL;													// ==>
+	
+				//
+				// Return object.
+				//
+				return
+					static::ResolveObject(
+						$this->mDictionary,
+						$theClass::kSEQ_NAME,
+						$save,
+						TRUE );														// ==>
+			
+			} // Return object.
+			
+			return $save;															// ==>
+			
+		} // Current object is not committed.
+	
+		//
+		// Get persistent value.
+		//
+		$save
+			= $this
+				->resolvePersistent( TRUE )
+					->offsetGet( $theOffset );
+		
+		//
+		// Delete value.
+		//
+		if( $theValue === FALSE )
+		{
+			//
+			// Remove from current object.
+			//
+			$this->offsetUnset( $theOffset );
+			
+			//
+			// Remove from persistent object.
+			//
+			static::ResolveCollection(
+				static::ResolveDatabase( $this->mDictionary, TRUE ) )
+					->replaceOffsets(
+						$this->offsetGet( kTAG_NID ),
+						array( $theOffset => NULL ) );
+		
+		} // Delete value.
+		
+		//
+		// Set value.
+		//
+		elseif( $theValue !== NULL )
+		{
+			//
+			// Set in current object.
+			//
+			$this->offsetSet( $theOffset, $theValue );
+			
+			//
+			// Set in persistent object.
+			//
+			static::ResolveCollection(
+				static::ResolveDatabase( $this->mDictionary, TRUE ) )
+					->replaceOffsets(
+						$this->offsetGet( kTAG_NID ),
+						array( $theOffset => $theValue ) );
+		
+		} // Set value.
+		
+		//
+		// Update current object's value.
+		//
+		else
+			$this->offsetSet( $theOffset, $save );
+
+		//
+		// Return reference.
+		//
+		if( ! $doObject )
+			return $save;															// ==>
+
+		//
+		// Check if there.
+		//
+		if( $save === NULL )
+			return NULL;															// ==>
+			
+		//
+		// Return object.
+		//
+		return
+			static::ResolveObject(
+				$this->mDictionary,
+				$theClass::kSEQ_NAME,
+				$save,
+				TRUE );																// ==>
+	
+	} // handleReference.
+
+	 
+	/*===================================================================================
 	 *	updateCount																		*
 	 *==================================================================================*/
 
 	/**
 	 * Update a counter
 	 *
-	 * This method will update the count of the provided offset by the provided delta, the
-	 * method will first update the object in the database, then update the counter in the
-	 * current object and return the updated value relative to the contents of the current
-	 * object. Because of this, the count should not be counted on :-)
+	 * This method will update the count of the provided offset by the provided delta of the
+	 * persistent object.
 	 *
 	 * @param string				$theCounter			Counter offset.
 	 * @param int					$theCount			Increment delta.
 	 *
 	 * @access protected
-	 * @return int					Updated count relative to current object.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_PROCESSED kTAG_VALIDATED kTAG_REJECTED kTAG_SKIPPED
 	 */
 	protected function updateCount( $theCounter, $theCount )
 	{
 		//
-		// Check wrapper.
+		// Check counter.
 		//
-		if( $this->mDictionary !== NULL )
+		switch( $theCounter )
 		{
-			//
-			// Check identifier.
-			//
-			if( $this->offsetExists( kTAG_NID ) )
-				static::UpdateCounter(
-					$this->mDictionary,
-					$this->offsetGet( kTAG_NID ),
-					$theCounter,
-					$theCount );
-			else
-				throw new \Exception( "Missing native identifier." );			// !@! ==>
+			case kTAG_PROCESSED:
+			case kTAG_VALIDATED:
+			case kTAG_REJECTED:
+			case kTAG_SKIPPED:
+				break;
 		
-			//
-			// Update in object.
-			//
-			$count = $this->offsetGet( $theCounter );
-			$count += (int) $theCount;
-			$this->offsetSet( $theCounter, $count );
+			default:
+				throw new \Exception(
+					"Cannot increment counter: "
+				   ."invalid counter reference [$theCounter]." );				// !@! ==>
+	
+		} // Valid counter.
 		
-			return $count;															// ==>
+		//
+		// Check identifier.
+		//
+		if( ! $this->offsetExists( kTAG_NID ) )
+			throw new \Exception(
+				"Cannot increment counter: "
+			   ."missing object identifier." );									// !@! ==>
 		
-		} // Has wrapper.
-		
-		throw new \Exception( "Missing wrapper." );								// !@! ==>
+		//
+		// Update count.
+		//
+		static::ResolveCollection(
+			static::ResolveDatabase( $this->mDictionary, TRUE ) )
+				->updateReferenceCount(
+					array( kTAG_NID => $theIdentifier ),
+					array( $theCounter =>  (int) $theCount ) );
 	
 	} // updateCount.
 

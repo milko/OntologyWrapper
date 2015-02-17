@@ -4513,8 +4513,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			foreach( $theOffsets as $key => $value )
 				$tag_collection->updateSet(
-					$key,									// Tag identifiers.
-					kTAG_ID_HASH,							// Tags identifiers offset.
+					array( kTAG_ID_HASH => $key ),			// Criteria.
 					array( $offsets_tag => $value ),		// Offsets set.
 					TRUE );									// Add to set.
 		
@@ -4658,8 +4657,7 @@ abstract class PersistentObject extends OntologyObject
 		$list = $this->compareObjectOffsets( $offsets, $theOffsets, TRUE );
 		foreach( $list as $key => $value )
 			$tag_collection->updateSet(
-				$key,									// Tag identifiers.
-				kTAG_ID_HASH,							// Tags identifiers offset.
+					array( kTAG_ID_HASH => $key ),		// Criteria.
 				array( $offsets_tag
 						=> array_values( $value ) ),	// Offsets set.
 				TRUE );									// Add to set.
@@ -4701,8 +4699,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		foreach( $list as $key => $value )
 			$tag_collection->updateSet(
-				$key,									// Tag identifiers.
-				kTAG_ID_HASH,							// Tags identifiers offset.
+				array( kTAG_ID_HASH => $key ),			// Criteria.
 				array( $offsets_tag
 						=> array_values( $value ) ),	// Offsets set.
 				FALSE );								// Pull from set.
@@ -4986,8 +4983,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			foreach( $theOffsets as $key => $value )
 				$tag_collection->updateSet(
-					$key,									// Tag identifiers.
-					kTAG_ID_HASH,							// Tags identifiers offset.
+					array( kTAG_ID_HASH => $key ),			// Criteria.
 					array( $tag_ref_count
 							=> array_values( $value ) ),	// Offsets set.
 					FALSE );								// Pull from set.
@@ -6539,6 +6535,13 @@ MILKO - Need to check.
 		$tag_ref_count = static::ResolveRefCountTag( static::kSEQ_NAME );
 		
 		//
+		// Set criteria.
+		//
+		$criteria = ( is_array( $theIdent ) )
+				  ? array( $theIdentOffset => array( '$in' => $theIdent ) )
+				  : array( $theIdentOffset => $theIdent );
+		
+		//
 		// Resolve collection.
 		//
 		$collection
@@ -6549,7 +6552,7 @@ MILKO - Need to check.
 		// Update reference count.
 		//
 		$collection->updateReferenceCount(
-			$theIdent, $theIdentOffset, $tag_ref_count, $theCount );
+			$criteria, array( $tag_ref_count => $theCount ) );
 	
 	} // updateObjectReferenceCount.
 

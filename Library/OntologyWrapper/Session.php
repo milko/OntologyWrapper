@@ -170,139 +170,468 @@ class Session extends SessionObject
 
 	 
 	/*===================================================================================
-	 *	type																				*
+	 *	manageType																		*
 	 *==================================================================================*/
 
 	/**
 	 * Manage session type
 	 *
-	 * This method can be used to manage the <i>session type</i>, it accepts a parameter
-	 * which represents either the type or the requested operation, depending on its value:
+	 * This method can be used to set or retrieve the <i>session type</i>, it accepts a
+	 * parameter which represents either the type or the requested operation, depending on
+	 * its value:
 	 *
 	 * <ul>
 	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><tt>FALSE</tt>: Delete the current value.
-	 *	<li><i>other</i>: Set the value with the provided parameter.
+	 *	<li><em>other</em>: Set the value with the provided parameter.
 	 * </ul>
 	 *
-	 * The second parameter is a boolean which if <tt>TRUE</tt> will return the <i>old</i>
-	 * value when replacing or resetting; if <tt>FALSE</tt>, it will return the current
-	 * value.
-	 *
-	 * If the object is committed, the method will only return the existing value.
+	 * If the object is committed and you attempt to set the type, the method will raise an
+	 * exception.
 	 *
 	 * @param mixed					$theValue			New type or operation.
-	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
 	 *
 	 * @access public
-	 * @return mixed				<i>New</i> or <i>old</i> type.
+	 * @return mixed				Current type.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_SESSION_TYPE
 	 *
 	 * @uses committed()
-	 * @uses manageOffset()
 	 */
-	public function type( $theValue = NULL, $getOld = FALSE )
+	public function manageType( $theValue = NULL )
 	{
 		//
-		// Handle committed object.
+		// Return current value.
 		//
-		if( $this->committed() )
+		if( $theValue === NULL )
 			return $this->offsetGet( kTAG_SESSION_TYPE );							// ==>
 		
-		return $this->manageOffset( kTAG_SESSION_TYPE, $theValue, $getOld );		// ==>
+		//
+		// Go on if not committed.
+		//
+		if( ! $this->committed() )
+		{
+			//
+			// Check value.
+			//
+			switch( $theValue )
+			{
+				case kTYPE_SESSION_UPLOAD:
+				case kTYPE_SESSION_UPDATE:
+					$this->offsetSet( kTAG_SESSION_TYPE, $theValue );
+					return $theValue;												// ==>
+			}
+			
+			throw new \Exception(
+				"Cannot set session type: "
+			   ."invalid enumeration [$theValue]." );							// !@! ==>
+		
+		} // Object not committed.
+		
+		throw new \Exception(
+			"Cannot set session type: "
+		   ."the object is committed." );										// !@! ==>
 	
 	} // type.
 
 	 
 	/*===================================================================================
-	 *	start																			*
+	 *	manageStart																		*
 	 *==================================================================================*/
 
 	/**
 	 * Manage session start
 	 *
-	 * This method can be used to manage the <i>session start</i>, it accepts a parameter
-	 * which represents either the start time stamp or the requested operation, depending on
-	 * its value:
+	 * This method can be used to set or retrieve the <i>session start</i>, it accepts a
+	 * parameter which represents either the starting time stamp or the requested operation,
+	 * depending on its value:
 	 *
 	 * <ul>
 	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><tt>FALSE</tt>: Delete the current value.
-	 *	<li><i>other</i>: Set the value with the provided parameter.
+	 *	<li><tt>TRUE</tt>: Set with current time stamp.
+	 *	<li><em>other</em>: Set the value with the provided parameter.
 	 * </ul>
 	 *
-	 * The second parameter is a boolean which if <tt>TRUE</tt> will return the <i>old</i>
-	 * value when replacing or resetting; if <tt>FALSE</tt>, it will return the current
-	 * value.
+	 * If the object is committed and you attempt to set the start, the method will raise an
+	 * exception.
 	 *
-	 * If the object is committed, the method will only return the existing value.
+	 * The object must have been instantiated with a wrapper.
 	 *
 	 * @param mixed					$theValue			New start or operation.
-	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
 	 *
 	 * @access public
-	 * @return mixed				<i>New</i> or <i>old</i> start.
+	 * @return mixed				Current start.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_SESSION_START
 	 *
 	 * @uses committed()
-	 * @uses manageOffset()
 	 */
-	public function start( $theValue = NULL, $getOld = FALSE )
+	public function manageStart( $theValue = NULL )
 	{
 		//
-		// Handle committed object.
+		// Return current value.
 		//
-		if( $this->committed() )
+		if( $theValue === NULL )
 			return $this->offsetGet( kTAG_SESSION_START );							// ==>
 		
-		return $this->manageOffset( kTAG_SESSION_START, $theValue, $getOld );		// ==>
+		//
+		// Go on if not committed.
+		//
+		if( ! $this->committed() )
+		{
+			//
+			// Init value.
+			//
+			if( $theValue === TRUE )
+				$theValue
+					= self::ResolveCollection(
+						self::ResolveDatabase( $this->mDictionary, TRUE ) )
+							->getTimeStamp();
+			
+			//
+			// Set value.
+			//
+			$this->offsetSet( kTAG_SESSION_START, $theValue );
+			
+			return $theValue;														// ==>
+		
+		} // Object not committed.
+		
+		throw new \Exception(
+			"Cannot set session start: "
+		   ."the object is committed." );										// !@! ==>
 	
-	} // start.
+	} // manageStart.
 
 	 
 	/*===================================================================================
-	 *	end																				*
+	 *	manageEnd																		*
 	 *==================================================================================*/
 
 	/**
 	 * Manage session end
 	 *
-	 * This method can be used to manage the <i>session end</i>, it accepts a parameter
-	 * which represents either the end time stamp or the requested operation, depending on
+	 * This method can be used to set or retrieve the <i>session end</i>, it accepts a
+	 * parameter which represents either the ending time stamp or the requested operation,
+	 * depending on its value:
+	 *
+	 * <ul>
+	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
+	 *		object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will return the
+	 *			value taken from the persistent object and will update the current object
+	 *			with that value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			return the value found in the current object.
+	 *	  </ul>
+	 *	<li><tt>TRUE</tt>: Set with current time stamp, depending on the commit status of
+	 *		the object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will set the
+	 *			current time stamp in the persistent object and update the current object's
+	 *			value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			set the current time stamp in the current object.
+	 *	  </ul>
+	 *	<li><em>other</em>: Set the value with the provided parameter, depending on the
+	 *		commit status of the object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will set the
+	 *			provided value in the persistent object and update the current object's
+	 *			value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			set the provided value in the current object.
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
+	 *
+	 * The object must have been instantiated with a wrapper.
+	 *
+	 * @param mixed					$theValue			New end or operation.
+	 *
+	 * @access public
+	 * @return mixed				Current end.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_SESSION_END
+	 *
+	 * @uses handleOffset()
+	 */
+	public function manageEnd( $theValue = NULL )
+	{
+		//
+		// Check value.
+		//
+		if( $theValue !== FALSE )
+		{
+			//
+			// Init value.
+			//
+			if( $theValue === TRUE )
+				$theValue
+					= self::ResolveCollection(
+						self::ResolveDatabase( $this->mDictionary, TRUE ) )
+							->getTimeStamp();
+			
+			return $this->handleOffset( kTAG_SESSION_END, $theValue );				// ==>
+		
+		} // Not allowed to delete.
+		
+		throw new \Exception(
+			"Cannot delete session end." );										// !@! ==>
+	
+	} // manageEnd.
+
+	 
+	/*===================================================================================
+	 *	manageStatus																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage session status
+	 *
+	 * This method can be used to set or retrieve the <i>session status</i>, it accepts a
+	 * parameter which represents either the status or the requested operation, depending on
 	 * its value:
 	 *
 	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><i>other</i>: Set the value with the provided parameter.
+	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
+	 *		object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will return the
+	 *			value taken from the persistent object and will update the current object
+	 *			with that value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			return the value found in the current object.
+	 *	  </ul>
+	 *	<li><em>other</em>: Set the value with the provided parameter, depending if the
+	 *		the object is committed or not:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will set the
+	 *			provided value in the persistent object and update the current object's
+	 *			value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			set the provided value in the current object.
+	 *	  </ul>
 	 * </ul>
 	 *
-	 * The existing value is not taken from the object, but rather read from the database,
-	 * since this property can only be set externally.
+	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
 	 *
-	 * The method 
+	 * The object must have been instantiated with a wrapper.
 	 *
-	 * @param mixed					$theValue			New start or operation.
+	 * @param mixed					$theValue			New status or operation.
 	 *
 	 * @access public
-	 * @return mixed				Current end timestamp.
+	 * @return mixed				Current status.
 	 *
-	 * @uses committed()
-	 * @uses manageOffset()
+	 * @throws Exception
+	 *
+	 * @see kTAG_SESSION_STATUS
+	 * @see kTYPE_STATUS_OK kTYPE_STATUS_FAILED kTYPE_STATUS_EXECUTING
+	 *
+	 * @uses handleOffset()
 	 */
-	public function end( $theValue = NULL )
+	public function manageStatus( $theValue = NULL )
 	{
 		//
-		// Handle committed object.
+		// Check value.
+		//
+		if( $theValue !== FALSE )
+		{
+			//
+			// Check status.
+			//
+			if( $theValue !== NULL )
+			{
+				//
+				// Check value.
+				//
+				switch( $theValue )
+				{
+					case kTYPE_STATUS_OK:
+					case kTYPE_STATUS_FAILED:
+					case kTYPE_STATUS_EXECUTING:
+						break;
+					
+					default:
+						throw new \Exception(
+							"Cannot set session status: "
+						   ."invalid status type [$theValue]." );				// !@! ==>
+				
+				} // Parsed status.
+			
+			} // Provided status.
+			
+			return $this->handleOffset( kTAG_SESSION_STATUS, $theValue );			// ==>
+		
+		} // Not allowed to delete.
+		
+		throw new \Exception(
+			"Cannot delete session status." );									// !@! ==>
+	
+	} // manageStatus.
+
+	 
+	/*===================================================================================
+	 *	manageUser																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage user
+	 *
+	 * This method can be used to manage the session user, the method accepts the follo<ing
+	 * parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: <em>User or operation</em>:
+	 *	  <ul>
+	 *		<li><tt>NULL</tt>: <em>Retrieve user</em>:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will return the
+	 *				object's value.
+	 *			<li><em>The object is committed</em>: The method will return the persistent
+	 *				object's value and update the current object.
+	 *		  </ul>
+	 *		<li><em>other</em>: <em>Set user</em>:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will set the provided
+	 *				value in the current object.
+	 *			<li><em>The object is committed</em>: The method will first set the value in
+	 *				the persistent object, then set it in the current object and return it.
+	 *		  </ul>
+	 *	  </ul>
+	 *	<li><b>$doObject</b>: <em>Result type</em>: If <tt>TRUE</tt>, the method will
+	 *		return the user object, rather than its reference.
+	 * </ul>
+	 *
+	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
+	 *
+	 * The object must have been instantiated with a wrapper.
+	 *
+	 * The method will return the user or <tt>NULL</tt> if not set.
+	 *
+	 * @param mixed					$theValue			Session object or reference.
+	 * @param boolean				$doObject			TRUE return object.
+	 *
+	 * @access public
+	 * @return mixed				Session object or reference.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_USER
+	 *
+	 * @uses handleReference()
+	 */
+	public function manageUser( $theValue = NULL, $doObject = FALSE )
+	{
+		//
+		// Check value.
+		//
+		if( $theValue !== FALSE )
+		{
+			//
+			// Check reference.
+			//
+			if( $theValue !== NULL )
+			{
+				//
+				// Handle object.
+				//
+				if( $theValue instanceof User )
+					$theValue = $theValue->offsetGet( kTAG_NID );
+			
+				//
+				// Check if object exists.
+				//
+				User::ResolveObject( $this->mDictionary,
+									 User::kSEQ_NAME,
+									 $theValue,
+									 TRUE );
+	
+			} // Checked reference.
+		
+			return $this->handleReference(
+						kTAG_USER, 'User', $theValue, $doObject );					// ==>
+		
+		} // Not allowed to delete.
+		
+		throw new \Exception(
+			"Cannot delete session user." );									// !@! ==>
+	
+	} // manageUser.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC OPERATIONS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	saveFile																		*
+	 *==================================================================================*/
+
+	/**
+	 * Save file
+	 *
+	 * This method will save the file referenced by the provided path with the provided
+	 * metadata.
+	 *
+	 * The method will add the current session and user references to the metadata.
+	 *
+	 * If the object is not committed, the method will raise an exception.
+	 *
+	 * @param string				$theFile			File path.
+	 * @param array					$theMetadata		File metadata.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access public
+	 * @return ObjectId				File object identifier.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_USER kTAG_SESSION
+	 *
+	 * @uses committed()
+	 * @uses filesCollection()
+	 */
+	public function saveFile( $theFile, $theMetadata = Array(), $theOptions = Array() )
+	{
+		//
+		// Check if committed.
 		//
 		if( $this->committed() )
 		{
+			//
+			// Set user.
+			//
+			$theMetadata[ kTAG_USER ] = $this->offsetGet( kTAG_USER );
+		
+			//
+			// Set session.
+			//
+			$theMetadata[ kTAG_SESSION ] = $this->offsetGet( kTAG_NID );
+			
+			return
+				$this->filesCollection()
+					->saveFile( $theFile, $theMetadata, $theOptions );				// ==>
 		
 		} // Object is committed.
 		
-		return NULL;																// ==>
-			return $this->offsetGet( kTAG_SESSION_START );							// ==>
-		
-		return $this->manageOffset( kTAG_SESSION_START, $theValue, $getOld );		// ==>
+		throw new \Exception(
+			"Cannot save file: "
+		   ."the session is not committed." );									// !@! ==>
 	
-	} // end.
+	} // saveFile.
 
 	
 
@@ -321,88 +650,68 @@ class Session extends SessionObject
 	/**
 	 * Get object name
 	 *
-	 * In this class we return the object identifier.
+	 * In this class we return the session type, start and status.
 	 *
 	 * @param string				$theLanguage		Name language.
 	 *
 	 * @access public
 	 * @return string				Object name.
+	 *
+	 * @see kTAG_SESSION_TYPE kTAG_SESSION_START kTAG_SESSION_STATUS
 	 */
-	public function getName( $theLanguage )					{	return $this->__toString();	}
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC OBJECT REFERENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	getUser																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get referenced user
-	 *
-	 * This method will return the requesting user object; if none is set, the method will
-	 * return <tt>NULL</tt>, or raise an exception if the second parameter is <tt>TRUE</tt>.
-	 *
-	 * The first parameter is the wrapper in which the current object is, or will be,
-	 * stored: if the current object has the {@link dictionary()}, this parameter may be
-	 * omitted; if the wrapper cannot be resolved, the method will raise an exception.
-	 *
-	 * @param Wrapper				$theWrapper			Wrapper.
-	 * @param boolean				$doAssert			Raise exception if not matched.
-	 *
-	 * @access public
-	 * @return PersistentObject		Referenced user or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 */
-	public function getUser( $theWrapper = NULL, $doAssert = TRUE )
+	public function getName( $theLanguage )
 	{
 		//
-		// Check user.
+		// Init local storage.
 		//
-		if( $this->offsetExists( kTAG_USER ) )
-		{
-			//
-			// Resolve wrapper.
-			//
-			$this->resolveWrapper( $theWrapper );
+		$name = Array();
 		
-			//
-			// Resolve collection.
-			//
-			$collection
-				= User::ResolveCollection(
-					User::ResolveDatabase( $theWrapper, TRUE ) );
-			
-			//
-			// Set criteria.
-			//
-			$criteria = array( kTAG_NID => $this->offsetGet( kTAG_USER ) );
-			
-			//
-			// Locate object.
-			//
-			$object = $collection->matchOne( $criteria );
-			if( $doAssert
-			 && ($object === NULL) )
-				throw new \Exception(
-					"Unable to get user: "
-				   ."referenced object not matched." );							// !@! ==>
-			
-			return $object;															// ==>
+		//
+		// Set type.
+		//
+		if( $this->offsetExists( kTAG_SESSION_TYPE ) )
+			$name[]
+				= self::SelectLanguageString(
+					Term::ResolveObject(
+						$this->mDictionary,
+						Term::kSEQ_NAME,
+						$this->offsetGet( kTAG_SESSION_TYPE ),
+						TRUE )
+							->offsetGet( kTAG_LABEL ),
+					$theLanguage );
 		
-		} // Has user.
+		//
+		// Set start.
+		//
+		if( $this->offsetExists( kTAG_SESSION_START ) )
+			$name[]
+				= date(
+					'Y/m/d h:i:s',
+					$this->offsetGet( kTAG_SESSION_START )
+						->sec )
+				 .' '
+				 . $this->offsetGet( kTAG_SESSION_START )
+				 	->usec;
 		
-		return NULL;																// ==>
+		//
+		// Set status.
+		//
+		if( $this->offsetExists( kTAG_SESSION_STATUS ) )
+			$name[]
+				= '('
+				 .self::SelectLanguageString(
+					Term::ResolveObject(
+						$this->mDictionary,
+						Term::kSEQ_NAME,
+						$this->offsetGet( kTAG_SESSION_STATUS ),
+						TRUE )
+							->offsetGet( kTAG_LABEL ),
+					$theLanguage )
+				 .')';
+		
+		return implode( ' ', $name );												// ==>
 	
-	} // getUser.
+	} // getName.
 
 		
 
@@ -476,225 +785,6 @@ class Session extends SessionObject
 
 /*=======================================================================================
  *																						*
- *								STATIC INSTANTIATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	NewUploadSession																*
-	 *==================================================================================*/
-
-	/**
-	 * Create upload session
-	 *
-	 * This method can be used to instantiate and commit an upload session, the method
-	 * expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theWrapper</b>: The data wrapper.
-	 *	<li><b>$theUser</b>: The reference of the user requesting the upload.
-	 * </ul>
-	 *
-	 * @param Wrapper				$theWrapper			Wrapper.
-	 * @param string				$theUser			Requesting user native identifier.
-	 *
-	 * The method will:
-	 *
-	 * <ul>
-	 *	<li>Instantiate the session.
-	 *	<li>Set type (kTYPE_SESSION_UPLOAD), status (kTYPE_STATUS_EXECUTING), user and files
-	 *		collection name.
-	 *	<li>Commit the session.
-	 *	<li>Return the session object.
-	 * </ul>
-	 *
-	 * @static
-	 * @return SessionObject		Upload session.
-	 */
-	static function NewUploadSession( Wrapper $theWrapper, $theUser )
-	{
-		//
-		// Instantiate object.
-		//
-		$session = new Session( $theWrapper );
-		
-		//
-		// Set type.
-		//
-		$session->offsetSet( kTAG_SESSION_TYPE, kTYPE_SESSION_UPLOAD );
-		
-		//
-		// Set status.
-		//
-		$session->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_EXECUTING );
-		
-		//
-		// Set user.
-		//
-		$session->offsetSet( kTAG_USER, $theUser );
-		
-		//
-		// Set files collection name.
-		//
-		$session->offsetSet( kTAG_SESSION_FILES, '_templates_'.kPORTAL_PREFIX );
-		
-		return $session->commit();													// ==>
-	
-	} // NewUploadSession.
-
-		
-
-/*=======================================================================================
- *																						*
- *							STATIC MEMBERS ACCESSOR INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	SetEnd																			*
-	 *==================================================================================*/
-
-	/**
-	 * Set end time stamp
-	 *
-	 * This method can be used to set the end timestamp of the session identified by the
-	 * provided parameters.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 *
-	 * @static
-	 */
-	static function SetEnd( Wrapper $theWrapper, $theIdentifier )
-	{
-		//
-		// Normalise identifier.
-		//
-		if( ! ($theIdentifier instanceof \MongoId) )
-		{
-			//
-			// Convert to string.
-			//
-			$theIdentifier = (string) $theIdentifier;
-			
-			//
-			// Handle valid identifier.
-			//
-			if( \MongoId::isValid( $theIdentifier ) )
-				$theIdentifier = new \MongoId( $theIdentifier );
-			
-			//
-			// Invalid identifier.
-			//
-			else
-				throw new \Exception(
-					"Cannot set ending timestamp: "
-				   ."invalid identifier [$theIdentifier]." );					// !@! ==>
-		}
-		
-		//
-		// Resolve collection.
-		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $theWrapper, TRUE ) );
-	
-		//
-		// Set property.
-		//
-		$collection->replaceOffsets(
-			$theIdentifier,												// Object ID.
-			array( kTAG_SESSION_END => $collection->getTimeStamp() ) );	// Modifications.
-	
-	} // SetEnd.
-
-		
-	/*===================================================================================
-	 *	SetStatus																		*
-	 *==================================================================================*/
-
-	/**
-	 * Set the status
-	 *
-	 * This method can be used to set the session status of the object identified by
-	 * the provided identifier of the calling class.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param string				$theStatus			Status value.
-	 *
-	 * @static
-	 */
-	static function SetStatus( Wrapper $theWrapper, $theIdentifier, $theStatus )
-	{
-		//
-		// Check status.
-		//
-		switch( $theStatus )
-		{
-			case kTYPE_STATUS_OK:
-			case kTYPE_STATUS_FAILED:
-			case kTYPE_STATUS_EXECUTING:
-				break;
-			
-			//
-			// Invalid status.
-			//
-			default:
-				throw new \Exception(
-					"Cannot set status: "
-				   ."invalid status value [$theStatus]." );						// !@! ==>
-		}
-		
-		//
-		// Normalise identifier.
-		//
-		if( ! ($theIdentifier instanceof \MongoId) )
-		{
-			//
-			// Convert to string.
-			//
-			$theIdentifier = (string) $theIdentifier;
-			
-			//
-			// Handle valid identifier.
-			//
-			if( \MongoId::isValid( $theIdentifier ) )
-				$theIdentifier = new \MongoId( $theIdentifier );
-			
-			//
-			// Invalid identifier.
-			//
-			else
-				throw new \Exception(
-					"Cannot set status: "
-				   ."invalid identifier [$theIdentifier]." );					// !@! ==>
-		}
-		
-		//
-		// Resolve collection.
-		//
-		$collection
-			= Session::ResolveCollection(
-				Session::ResolveDatabase( $theWrapper, TRUE ) );
-	
-		//
-		// Set property.
-		//
-		$collection->replaceOffsets(
-			$theIdentifier,										// Object ID.
-			array( kTAG_SESSION_STATUS => $theStatus ) );		// Modifications.
-	
-	} // SetStatus.
-
-		
-
-/*=======================================================================================
- *																						*
  *								STATIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -742,6 +832,12 @@ class Session extends SessionObject
 								  array( "name" => "STATUS" ) );
 		
 		//
+		// Set session start index.
+		//
+		$collection->createIndex( array( kTAG_SESSION_START => 1 ),
+								  array( "name" => "START" ) );
+		
+		//
 		// Set session user index.
 		//
 		$collection->createIndex( array( kTAG_USER => 1 ),
@@ -780,21 +876,22 @@ class Session extends SessionObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Session status.
-	 *	<li><tt>{@link kTAG_SESSION_START}</tt>: Session start.
 	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
+	 *	<li><tt>{@link kTAG_SESSION_FILES}</tt>: Session files collection.
+	 *	<li><tt>{@link kTAG_SESSION_COLLECTIONS}</tt>: Session working collections.
 	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of unmanaged offsets.
 	 *
-	 * @see kTAG_SESSION_STATUS kTAG_SESSION_START kTAG_SESSION_END
+	 * @see kTAG_SESSION_STATUS kTAG_SESSION_END
 	 */
 	static function UnmanagedOffsets()
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
-			array( kTAG_SESSION_STATUS,
-				   kTAG_SESSION_START, kTAG_SESSION_END ) );						// ==>
+			array( kTAG_SESSION_STATUS, kTAG_SESSION_END,
+				   kTAG_SESSION_FILES, kTAG_SESSION_COLLECTIONS ) );				// ==>
 	
 	} // UnmanagedOffsets.
 
@@ -923,20 +1020,26 @@ class Session extends SessionObject
 	 * @throws Exception
 	 *
 	 * @see kTAG_SESSION_START kTAG_SESSION_STATUS
+	 *
+	 * @uses manageStart()
+	 * @uses manageStatus()
 	 */
 	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{
 		//
 		// Initialise session start.
 		//
-		if( ! $this->offsetExists( kTAG_SESSION_START ) )
-			$this->offsetSet( kTAG_SESSION_START, new \MongoTimestamp() );
+		$this->manageStart( TRUE );
 		
 		//
 		// Initialise session status.
 		//
-		if( ! $this->offsetExists( kTAG_SESSION_STATUS ) )
-			$this->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_EXECUTING );
+		$this->manageStatus( kTYPE_STATUS_EXECUTING );
+		
+		//
+		// Set files collection.
+		//
+		$this->offsetSet( kTAG_SESSION_FILES, $this->filesCollectionName() );
 		
 		//
 		// Call parent method.
@@ -944,6 +1047,126 @@ class Session extends SessionObject
 		parent::preCommitPrepare( $theTags, $theRefs );
 		
 	} // preCommitPrepare.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *						PROTECTED OBJECT REFERENCING INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateManyToOne																	*
+	 *==================================================================================*/
+
+	/**
+	 * Update many to one relationships
+	 *
+	 * In this class we overload this method to delete all related transactions and files
+	 * when deleting the session.
+	 *
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 */
+	protected function updateManyToOne( $theOptions )
+	{
+		//
+		// Check options.
+		//
+		if( ($theOptions & kFLAG_OPT_DELETE)	// Deleting
+		 && ($theOptions & kFLAG_OPT_REL_ONE) )	// and many to one relationships.
+		{
+			//
+			// Set criteria.
+			//
+			$criteria = array( kTAG_SESSION => $this->offsetGet( kTAG_NID ) );
+			
+			//
+			// Select transactions.
+			//
+			$list
+				= Transaction::ResolveCollection(
+					Transaction::ResolveDatabase(
+						$this->mDictionary ) )
+							->matchAll( $criteria, kQUERY_OBJECT );
+			
+			//
+			// Delete transactions.
+			//
+			foreach( $list as $object )
+				$object->deleteObject();
+		
+			//
+			// Delete files.
+			//
+			$this->filesCollection()->deleteByCriteria( $criteria );
+		
+		} // Deleting session.
+	
+	} // updateManyToOne.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED NAMING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	filesCollectionName																*
+	 *==================================================================================*/
+
+	/**
+	 * Get files collection name
+	 *
+	 * This method will return the files collection name according to the object's type.
+	 *
+	 * The method expects the session type to have been set and the object not to have been
+	 * committed, or it will raise an exception.
+	 *
+	 * @access protected
+	 * @return string				The files collection name.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_SESSION_FILES
+	 * @see kPORTAL_PREFIX
+	 */
+	protected function filesCollectionName()
+	{
+		//
+		// Check type.
+		//
+		if( $this->offsetExists( kTAG_SESSION_TYPE ) )
+		{
+			//
+			// Check value.
+			//
+			switch( $type = $this->offsetGet( kTAG_SESSION_TYPE ) )
+			{
+				case kTYPE_SESSION_UPLOAD:
+				case kTYPE_SESSION_UPDATE:
+					return '_templates_'.kPORTAL_PREFIX;							// ==>
+			}
+			
+			throw new \Exception(
+				"Cannot set files collection: "
+			   ."invalid session type [$type]." );								// !@! ==>
+		
+		} // Has type.
+		
+		throw new \Exception(
+			"Cannot set files collection: "
+		   ."the object is committed." );										// !@! ==>
+		
+	} // filesCollectionName.
 
 	 
 

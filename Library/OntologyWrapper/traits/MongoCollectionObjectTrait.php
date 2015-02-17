@@ -116,145 +116,15 @@ trait MongoCollectionObjectTrait
 
 	 
 	/*===================================================================================
-	 *	updateReferenceCount															*
-	 *==================================================================================*/
-
-	/**
-	 * Update reference count
-	 *
-	 * In this class we use the <tt>$inc</tt> operator.
-	 *
-	 * @param mixed					$theIdent			Object identifier or identifiers.
-	 * @param string				$theIdentOffset		Object identifier offset.
-	 * @param string				$theCountOffset		Reference count offset.
-	 * @param integer				$theCount			Reference count delta.
-	 *
-	 * @access public
-	 */
-	public function updateReferenceCount( $theIdent,
-										  $theIdentOffset,
-										  $theCountOffset,
-										  $theCount = 1 )
-	{
-		//
-		// Set criteria.
-		//
-		$criteria = ( is_array( $theIdent ) )
-				  ? array( (string) $theIdentOffset => array( '$in' => $theIdent ) )
-				  : array( (string) $theIdentOffset => $theIdent );
-	
-		//
-		// Set modifications.
-		//
-		$modifications = array( '$inc' => array( (string) $theCountOffset
-											  => (int) $theCount ) );
-	
-		//
-		// Set options.
-		//
-		$options = array( 'multiple' => TRUE, 'upsert' => FALSE );
-		
-		//
-		// Update.
-		//
-		$ok = $this->mConnection->update( $criteria, $modifications, $options );
-		if( ! $ok[ 'ok' ] )
-			throw new Exception( $ok[ 'err' ] );								// !@! ==>
-	
-	} // updateReferenceCount.
-
-	 
-	/*===================================================================================
-	 *	updateSet																		*
-	 *==================================================================================*/
-
-	/**
-	 * Update set
-	 *
-	 * In this class we use the <tt>$addToSet</tt> and the <tt>$pull</tt> operators.
-	 *
-	 * @param mixed					$theIdent			Object identifier or identifiers.
-	 * @param string				$theIdentOffset		Object identifier offset.
-	 * @param array					$theElements		List of elements to be added.
-	 * @param boolean				$doAdd				<tt>TRUE</tt> add.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 */
-	public function updateSet( $theIdent, $theIdentOffset, $theElements, $doAdd )
-	{
-		//
-		// Check elements.
-		//
-		if( ! is_array( $theElements ) )
-			throw new \Exception(
-				"Unable to add to set: "
-			   ."expecting an array of elements." );							// !@! ==>
-		
-		//
-		// Set criteria.
-		//
-		$criteria = ( is_array( $theIdent ) )
-				  ? array( (string) $theIdentOffset => array( '$in' => $theIdent ) )
-				  : array( (string) $theIdentOffset => $theIdent );
-		
-		//
-		// Set options.
-		//
-		$options = array( 'multiple' => is_array( $theIdent ),
-						  'upsert' => FALSE );
-		
-		//
-		// Init modifications.
-		//
-		$modifications = ( $doAdd )
-					   ? array( '$addToSet' => Array() )
-					   : array( '$pullAll' => Array() );
-		
-		//
-		// Reference actions.
-		//
-		if( $doAdd )
-			$ref = & $modifications[ '$addToSet' ];
-		else
-			$ref = & $modifications[ '$pullAll' ];
-		
-		//
-		// Add elements.
-		//
-		foreach( $theElements as $offset => $value )
-		{
-			if( $doAdd )
-				$ref[ (string) $offset ] = ( is_array( $value ) )
-										 ? array( '$each' => $value )
-										 : $value;
-			elseif( ! is_array( $value ) )
-				$ref[ (string) $offset ] = array( $value );
-			else
-				$ref[ (string) $offset ] = $value;
-		}
-	
-		//
-		// Update.
-		//
-		$ok = $this->mConnection->update( $criteria, $modifications, $options );
-		if( ! $ok[ 'ok' ] )
-			throw new Exception( $ok[ 'err' ] );								// !@! ==>
-	
-	} // updateSet.
-
-	 
-	/*===================================================================================
 	 *	replaceOffsets																	*
 	 *==================================================================================*/
 
 	/**
 	 * Replace offsets
 	 *
-	 * In this class we use the <tt>$set</tt> operator.
+	 * In this class we use the <tt>$set</tt> and <tt>$unset</tt> operators.
 	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param mixed					$theCriteria		Object selection criteria or id.
 	 * @param array					$theProperties		Properties to be added or replaced.
 	 *
 	 * @access public
@@ -262,8 +132,14 @@ trait MongoCollectionObjectTrait
 	 *
 	 * @throws Exception
 	 */
-	public function replaceOffsets( $theIdentifier, $theProperties )
+	public function replaceOffsets( $theCriteria, $theProperties )
 	{
+		//
+		// Check criteria.
+		//
+		if( ! is_array( $theCriteria ) )
+			$theCriteria = array( kTAG_NID => $theCriteria );
+		
 		//
 		// Check offsets.
 		//
@@ -275,87 +151,285 @@ trait MongoCollectionObjectTrait
 			return 0;																// ==>
 		
 		//
-		// Set criteria.
+		// Divide replace from delete.
 		//
-		$criteria = array( kTAG_NID => $theIdentifier );
-	
+		$rep = $del = Array();
+		foreach( $theProperties as $key => $value )
+		{
+			if( $value === NULL )
+				$del[ $key ] = "";
+			else
+				$rep[ $key ] = $value;
+		}
+		
 		//
-		// Set modifications.
+		// Init results.
 		//
-		$modifications = array( '$set' => $theProperties );
-	
+		$results = 0;
+		
 		//
 		// Set options.
 		//
-		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
+		$options = array( 'upsert' => FALSE,
+						  'multiple' => TRUE );
 		
 		//
-		// Update.
+		// Remove.
 		//
-		$ok = $this->mConnection->update( $criteria, $modifications, $options );
-		if( ! $ok[ 'ok' ] )
-			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+		if( count( $del ) )
+		{
+			//
+			// Set modifications.
+			//
+			$modifications = array( '$unset' => $theProperties );
+	
+			//
+			// Update.
+			//
+			$ok = $this->mConnection->update( $theCriteria, $modifications, $options );
+			if( ! $ok[ 'ok' ] )
+				throw new Exception( $ok[ 'err' ] );							// !@! ==>
+			
+			//
+			// Update resupts.
+			//
+			$results += $ok[ 'n' ];
 		
-		return $ok[ 'n' ];															// ==>
+		} // Has deletions.
+		
+		//
+		// Replace.
+		//
+		if( count( $rep ) )
+		{
+			//
+			// Set modifications.
+			//
+			$modifications = array( '$set' => $theProperties );
+	
+			//
+			// Update.
+			//
+			$ok = $this->mConnection->update( $theCriteria, $modifications, $options );
+			if( ! $ok[ 'ok' ] )
+				throw new Exception( $ok[ 'err' ] );							// !@! ==>
+			
+			//
+			// Update resupts.
+			//
+			$results += $ok[ 'n' ];
+		
+		} // Has deletions.
+	
+		return $results;															// ==>
 	
 	} // replaceOffsets.
 
 	 
 	/*===================================================================================
-	 *	deleteOffsets																	*
+	 *	updateSet																		*
 	 *==================================================================================*/
 
 	/**
-	 * Delete offsets
+	 * Update set
 	 *
-	 * In this class we use the <tt>$unset</tt> operator.
+	 * In this class we use the <tt>$addToSet</tt> and the <tt>$pull</tt> operators.
 	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
-	 * @param array					$theOffsets			Offsets to be deleted.
+	 * @param mixed					$theCriteria		Object selection criteria or id.
+	 * @param array					$theElements		List of elements to be added.
+	 * @param boolean				$doAdd				<tt>TRUE</tt> add.
 	 *
 	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
+	 *
+	 * @throws Exception
 	 */
-	public function deleteOffsets( $theIdentifier, $theOffsets )
+	public function updateSet( $theCriteria, $theElements, $doAdd )
 	{
 		//
-		// Check offsets.
+		// Check criteria.
 		//
-		if( ! is_array( $theOffsets ) )
-			throw new \Exception(
-				"Unable to delete properties: "
-			   ."expecting an array." );										// !@! ==>
-		elseif( ! count( $theOffsets ) )
-			return 0;																// ==>
+		if( ! is_array( $theCriteria ) )
+			$theCriteria = array( kTAG_NID => $theCriteria );
 		
 		//
-		// Set criteria.
+		// Handle elements.
 		//
-		$criteria = array( kTAG_NID => $theIdentifier );
+		if( is_array( $theElements ) )
+		{
+			//
+			// Check elements count.
+			//
+			if( count( $theElements ) )
+			{
+				//
+				// Set options.
+				//
+				$options = array( 'upsert' => FALSE,
+								  'multiple' => TRUE );
+				
+				//
+				// Iterate values.
+				//
+				$modifications = Array();
+				foreach( $theElements as $key => $value )
+				{
+					//
+					// Add to set.
+					//
+					if( $doAdd )
+						$modifications[ $key ]
+							= ( is_array( $value ) )
+							? array( '$each' => $value )
+							: $value;
+					
+					//
+					// Remove from set.
+					//
+					else
+						$modifications[ $key ]
+							= ( is_array( $value ) )
+							? $value
+							: array( $value );
+				
+				} // Iterating elements.
+				
+				//
+				// Finalise modifications.
+				//
+				$modifications = ( $doAdd )
+							   ? array( '$addToSet' => $modifications )
+							   : array( '$pullAll' => $modifications );
 	
+				//
+				// Update.
+				//
+				$ok = $this->mConnection->update( $theCriteria, $modifications, $options );
+				if( ! $ok[ 'ok' ] )
+					throw new Exception( $ok[ 'err' ] );						// !@! ==>
+			
+			} // provided elements.
+		
+		} // Provided elements array
+		
+		else
+			throw new \Exception(
+				"Unable to add to set: "
+			   ."expecting an array of elements." );							// !@! ==>
+		
+	} // updateSet.
+
+	 
+	/*===================================================================================
+	 *	updateStructList																*
+	 *==================================================================================*/
+
+	/**
+	 * Update list of structures
+	 *
+	 * In this class we use the <tt>$addToSet</tt> and the <tt>$pull</tt> operators.
+	 *
+	 * Note that the elements parameter is expected to be correct, no check is done.
+	 *
+	 * @param mixed					$theCriteria		Object selection criteria or id.
+	 * @param array					$theElements		List of structures to be added.
+	 * @param boolean				$doAdd				<tt>TRUE</tt> add.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function updateStructList( $theCriteria, $theElements, $doAdd )
+	{
 		//
-		// Set modifications.
+		// Check criteria.
 		//
-		$tmp = Array();
-		foreach( $theOffsets as $offset )
-			$tmp[] = array( $offset => '' );
-		$modifications = array( '$unset' => $tmp );
-	
+		if( ! is_array( $theCriteria ) )
+			$theCriteria = array( kTAG_NID => $theCriteria );
+		
+		//
+		// Check elements.
+		//
+		if( ! is_array( $theElements ) )
+			throw new \Exception(
+				"Unable to add to set: "
+			   ."expecting an array of elements." );							// !@! ==>
+		
 		//
 		// Set options.
 		//
-		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
+		$options = array( 'upsert' => FALSE,
+						  'multiple' => TRUE );
+		
+		//
+		// Init modifications.
+		//
+		$modifications = ( $doAdd )
+					   ? array( '$push' => $theElements )
+					   : array( '$pull' => $theElements );
+	
+		//
+		// Update.
+		//
+		$ok = $this->mConnection->update( $theCriteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+	
+	} // updateStructList.
+
+	 
+	/*===================================================================================
+	 *	updateReferenceCount															*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference count
+	 *
+	 * In this class we use the <tt>$inc</tt> operator.
+	 *
+	 * Note that the increments are expecyted to be correct, no check is done.
+	 *
+	 * @param mixed					$theCriteria		Object selection criteria or id.
+	 * @param array					$theElements		List of offsets and increments.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function updateReferenceCount( $theCriteria, $theElements )
+	{
+		//
+		// Check criteria.
+		//
+		if( ! is_array( $theCriteria ) )
+			$theCriteria = array( kTAG_NID => $theCriteria );
+		
+		//
+		// Check elements.
+		//
+		if( ! is_array( $theElements ) )
+			throw new \Exception(
+				"Unable to update count: "
+			   ."expecting an array of elements." );							// !@! ==>
+		
+		//
+		// Set options.
+		//
+		$options = array( 'upsert' => FALSE,
+						  'multiple' => TRUE );
+		
+		//
+		// Set modifications.
+		//
+		$modifications = array( '$inc' => $theElements );
 		
 		//
 		// Update.
 		//
-		$ok = $this->mConnection->update( $criteria, $modifications, $options );
+		$ok = $this->mConnection->update( $theCriteria, $modifications, $options );
 		if( ! $ok[ 'ok' ] )
 			throw new Exception( $ok[ 'err' ] );								// !@! ==>
-		
-		return $ok[ 'n' ];															// ==>
 	
-	} // deleteOffsets.
+	} // updateReferenceCount.
 
 		
 

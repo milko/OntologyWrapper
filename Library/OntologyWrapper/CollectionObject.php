@@ -254,41 +254,48 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	updateReferenceCount															*
+	 *	replaceOffsets																	*
 	 *==================================================================================*/
 
 	/**
-	 * Update reference count
+	 * Replace offsets
 	 *
-	 * This method should update the reference count of the provided objects, the method
-	 * accepts the following parameters:
+	 * This method should be used to replace or remove offsets in the object matching the
+	 * provided criteria.
+	 *
+	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theIdent</b>: The object reference or list of references.
-	 *	<li><b>$theIdentOffset</b>: The offset corresponding to the provided references,
-	 *		this corresponds to a tag sequence number.
-	 *	<li><b>$theCountOffset</b>: The offset holding the reference count, this corresponds
-	 *		to a tag sequence number.
-	 *	<li><b>$theCount</b>: The number by which the count must be incremented.
+	 *	<li><b>$theCriteria</b>: Object selection criteria or object identifier:
+	 *	  <ul>
+	 *		<li><tt>array</tt>: The selection criteria in MongoDB standard.
+	 *		<li><em>other</em>: The object native identifier.
+	 *	  </ul>
+	 *	<li><b>$theProperties</b>: The properties to be replaced or removed, it is an array
+	 *		structured as follows:
+	 *	  <ul>
+	 *		<li><em>index</em>: The offset.
+	 *		<li><em>value</em>: The the value:
+	 *		  <ul>
+	 *			<li><tt>NULL</tt>: The offset will be removed.
+	 *			<li><em>other</em>: The offset value will be replaced with the provided
+	 *				value.
+	 *		  </ul>
+	 *	  </ul>
 	 * </ul>
 	 *
-	 * The method should select all objects whose <tt>$theIdentOffset</tt> matches the list
-	 * of references provided in <tt>$theIdent</tt> and for each one increment the value
-	 * stored in the <tt>$theCountOffset</tt> by the count provided in <tt>$theCount</tt>.
+	 * If the matched objects do not feature the property, this will be added; unmatched
+	 * objects will not be created.
 	 *
 	 * Derived classes must implement this method.
 	 *
-	 * @param mixed					$theIdent			Object identifier or identifiers.
-	 * @param string				$theIdentOffset		Object identifier offset.
-	 * @param string				$theCountOffset		Reference count offset.
-	 * @param integer				$theCount			Reference count delta.
+	 * @param mixed					$theCriteria		Object selection criteria or id.
+	 * @param array					$theProperties		Properties to be added or replaced.
 	 *
 	 * @access public
+	 * @return integer				Number of objects affected.
 	 */
-	abstract public function updateReferenceCount( $theIdent,
-												   $theIdentOffset,
-												   $theCountOffset,
-												   $theCount = 1 );
+	abstract public function replaceOffsets( $theCriteria, $theProperties );
 
 	 
 	/*===================================================================================
@@ -298,98 +305,141 @@ abstract class CollectionObject extends ConnectionObject
 	/**
 	 * Update set
 	 *
-	 * This method should add or delete the provided elements to and from the set contained
-	 * in the provided object reference, the method accepts the following parameters:
+	 * This method should either add or remove the provided values from the sets in the
+	 * objects matching the provided criteria.
+	 *
+	 * The method will treat the target properties as sets, by preventing duplicate
+	 * elements. The method accepts the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theIdent</b>: The object reference or list of references.
-	 *	<li><b>$theIdentOffset</b>: The offset corresponding to the provided references,
-	 *		this corresponds to a tag sequence number.
-	 *	<li><b>$theElements</b>: The list of elements to be added or deleted, this is an
-	 *		aray structured as follows:
+	 *	<li><b>$theCriteria</b>: Object selection criteria or object identifier:
+	 *	  <ul>
+	 *		<li><tt>array</tt>: The selection criteria in MongoDB standard.
+	 *		<li><em>other</em>: The object native identifier.
+	 *	  </ul>
+	 *	<li><b>$theElements</b>: The list of set offsets and values as an array structured
+	 *		as follows:
 	 *	 <ul>
-	 *		<li><tt>key</tt>: The offset of the set.
-	 *		<li><tt>value</tt>: The value or values to be added.
+	 *		<li><em>key</em>: The set offset.
+	 *		<li><em>value</em>: The values to be added or removed.
 	 *	 </ul>
 	 *	<li><b>$doAdd</b>: If <tt>TRUE</tt> the elements will be added; if <tt>FALSE</tt>
 	 *		the elements will be deleted.
 	 * </ul>
 	 *
-	 * The method should select all objects whose <tt>$theIdentOffset</tt> matches the list
-	 * of references provided in <tt>$theIdent</tt>, once the object is located, the method
-	 * should iterate the elements in <tt>$theElements</tt> adding or removing from the
-	 * offset provided in the element key the value or values provided in the element value,
-	 * without generating duplicates when adding.
+	 * The method will select the objects according to the provided criteria and either
+	 * remove matching values, or add the provided values preventing duplicate elements in
+	 * the set.
+	 *
+	 * If the matched objects do not feature the property, this will be added; unmatched
+	 * objects will not be created.
 	 *
 	 * Derived classes must implement this method.
 	 *
-	 * @param mixed					$theIdent			Object identifier or identifiers.
-	 * @param string				$theIdentOffset		Object identifier offset.
+	 * @param mixed					$theCriteria		Object selection criteria or id.
 	 * @param array					$theElements		List of elements to be added.
 	 * @param boolean				$doAdd				<tt>TRUE</tt> add.
 	 *
 	 * @access public
 	 */
-	abstract public function updateSet( $theIdent, $theIdentOffset, $theElements, $doAdd );
-
-	 
-	/*===================================================================================
-	 *	replaceOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Replace offsets
-	 *
-	 * This method should set or replace the provided offsets in the object identified by
-	 * the provided native identifier.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
-	 *	<li><b>$theProperties</b>: The properties to be added or replaced in the object.
-	 * </ul>
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
-	 * @param array					$theProperties		Properties to be added or replaced.
-	 *
-	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
-	 */
-	abstract public function replaceOffsets( $theIdentifier, $theProperties );
-
-	 
-	/*===================================================================================
-	 *	deleteOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Delete offsets
-	 *
-	 * This method should delete the provided offsets from the object identified by the
-	 * provided native identifier.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
-	 *	<li><b>$theOffsets</b>: The offsets to be deleted from the object, only the top
-	 *		level offsets, not the offset values.
-	 * </ul>
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
-	 * @param array					$theOffsets			Offsets to be deleted.
-	 *
-	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
-	 */
-	abstract public function deleteOffsets( $theIdentifier, $theOffsets );
+	abstract public function updateSet( $theCriteria, $theElements, $doAdd );
 
 		
+	/*===================================================================================
+	 *	updateStructList																*
+	 *==================================================================================*/
+
+	/**
+	 * Update list of structures
+	 *
+	 * This method should either add or remove structures from the objects selected by the
+	 * provided criteria.
+	 *
+	 * The method expects the target properties to be lists of structures, if you want to
+	 * remove elements from a set, use the {@link updateSet()} method.
+	 *
+	 * These are the parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theCriteria</b>: Object selection criteria or object identifier:
+	 *	  <ul>
+	 *		<li><tt>array</tt>: The selection criteria in MongoDB standard.
+	 *		<li><em>other</em>: The object native identifier.
+	 *	  </ul>
+	 *	<li><b>$theElements</b>: The list of offsets and structures as an array structured
+	 *		as follows:
+	 *	 <ul>
+	 *		<li><em>key</em>: The structure offset.
+	 *		<li><em>value</em>: Depending on whether to add or remove:
+	 *		  <ul>
+	 *			<li><em>Add</em>: The structure to be added.
+	 *			<li><em>Delete</em>: The selection criteria for the elements to be removed
+	 *				in MongoDB standard.
+	 *		  </ul>
+	 *	 </ul>
+	 *	<li><b>$doAdd</b>: If <tt>TRUE</tt> the elements will be added; if <tt>FALSE</tt>
+	 *		the elements will be deleted.
+	 * </ul>
+	 *
+	 * The provided offsets must correspond to list of structures, the method will select
+	 * the objects matching the provided criteria and either add the values of the provided
+	 * array, or use the values of the provided array as a selector to determine which
+	 * elements of the structures list should be removed.
+	 *
+	 * If the matched objects do not feature the property, this will be added; unmatched
+	 * objects will not be created.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theCriteria		Object selection criteria or id.
+	 * @param array					$theElements		List of structures to be added.
+	 * @param boolean				$doAdd				<tt>TRUE</tt> add.
+	 *
+	 * @access public
+	 */
+	abstract public function updateStructList( $theCriteria, $theElements, $doAdd );
+
+	 
+	/*===================================================================================
+	 *	updateReferenceCount															*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference count
+	 *
+	 * This method should update the reference count of the provided offsets in the objects
+	 * selected by the provided criteria, the methodaccepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theCriteria</b>: Object selection criteria or object identifier:
+	 *	  <ul>
+	 *		<li><tt>array</tt>: The selection criteria in MongoDB standard.
+	 *		<li><em>other</em>: The object native identifier.
+	 *	  </ul>
+	 *	<li><b>$theElements</b>: The list of counter offsets and increments as an array:
+	 *	 <ul>
+	 *		<li><em>key</em>: The counter offset.
+	 *		<li><em>value</em>: The counter increment.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The provided offsets must correspond to numeric properties, the method will select
+	 * the objects matching the provided criteria and apply the provided increment to the
+	 * corresponding offsets.
+	 *
+	 * If the matched objects do not feature the property, this will be set to the provided
+	 * increment; unmatched objects will not be created.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theCriteria		Object selection criteria or id.
+	 * @param array					$theElements		List of offsets and increments.
+	 *
+	 * @access public
+	 */
+	abstract public function updateReferenceCount( $theCriteria, $theElements );
+
+	 
 
 /*=======================================================================================
  *																						*
@@ -633,12 +683,12 @@ abstract class CollectionObject extends ConnectionObject
 	 * Derived classes must implement this method.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param array					$theOptions			Insert options.
+	 * @param array					$theOptions			Delete options.
 	 *
 	 * @access protected
 	 * @return mixed				Object identifier or <tt>NULL</tt>.
 	 */
-	abstract protected function deleteIdentifier( $theIdentifier, $theOptions );
+	abstract protected function deleteIdentifier( $theIdentifier, $theOptions = Array() );
 
 	 
 

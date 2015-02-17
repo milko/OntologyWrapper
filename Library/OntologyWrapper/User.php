@@ -1024,10 +1024,8 @@ class User extends Individual
 				static::ResolveCollection(
 					static::ResolveDatabase( $this->mDictionary, TRUE ) )
 						->updateReferenceCount(
-							$referrer,				// Referrer ID.
-							kTAG_NID,				// ID offset.
-							kTAG_MANAGED_COUNT,		// Count offset.
-							(int) $theDelta );		// Delta.
+							array( kTAG_NID => $referrer ),
+							array( kTAG_MANAGED_COUNT => (int) $theDelta ) );
 		
 		} // Positive or negative delta.
 	

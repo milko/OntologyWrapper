@@ -902,8 +902,6 @@ class Term extends MetadataObject
 	 * @param reference				$theTags			Property leaf tags.
 	 *
 	 * @access protected
-	 *
-	 * @uses updateReferenceCount()
 	 */
 	protected function postDeleteTags( &$theTags )										   {}
 

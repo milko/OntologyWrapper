@@ -204,6 +204,8 @@ trait MongoObjectCollectionTrait
 			// Handle fields.
 			//
 			if( count( $theFields ) )
+				$theFields = new \ArrayObject( $theFields );
+		/*
 			{
 				//
 				// Prevent fields if requested object.
@@ -219,6 +221,7 @@ trait MongoObjectCollectionTrait
 					$theFields = new \ArrayObject( $theFields );
 			
 			} // Provided fields selection.
+		*/
 					
 			//
 			// Get result.
@@ -457,7 +460,7 @@ trait MongoObjectCollectionTrait
 	 * @access protected
 	 * @return mixed				Object identifier or <tt>NULL</tt>.
 	 */
-	protected function deleteIdentifier( $theIdentifier, $theOptions )
+	protected function deleteIdentifier( $theIdentifier, $theOptions = Array() )
 	{
 		//
 		// Normalise options.
