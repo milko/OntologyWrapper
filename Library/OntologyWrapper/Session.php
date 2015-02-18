@@ -570,7 +570,7 @@ class Session extends SessionObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC OPERATIONS INTERFACE								*
+ *									PUBLIC FILES INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -632,6 +632,78 @@ class Session extends SessionObject
 		   ."the session is not committed." );									// !@! ==>
 	
 	} // saveFile.
+
+	 
+	/*===================================================================================
+	 *	getFile																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get file
+	 *
+	 * This method will retrieve the file object matched by the provided identifier.
+	 *
+	 * The method will add the current session and user references to the metadata.
+	 *
+	 * If the object is not committed, the method will raise an exception.
+	 *
+	 * @param string				$theIdentifier		File object identifier.
+	 *
+	 * @access public
+	 * @return MongoGridFSFile		File object.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_USER kTAG_SESSION
+	 *
+	 * @uses committed()
+	 * @uses filesCollection()
+	 */
+	public function getFile( $theIdentifier )
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->committed() )
+		{
+			//
+			// Normalise identifier.
+			//
+			if( ! ($theIdentifier instanceof \MongoId) )
+			{
+				//
+				// Convert to string.
+				//
+				$theIdentifier = (string) $theIdentifier;
+	
+				//
+				// Handle valid identifier.
+				//
+				if( \MongoId::isValid( $theIdentifier ) )
+					$theIdentifier = new \MongoId( $theIdentifier );
+	
+				//
+				// Invalid identifier.
+				//
+				else
+					throw new \Exception(
+						"Cannot get file: "
+					   ."invalid identifier [$theIdentifier]." );				// !@! ==>
+
+			} // Provided identifier.
+			
+			return
+				$this->filesCollection()
+					->matchOne( array( kTAG_NID => $theIdentifier ),
+								kQUERY_OBJECT );									// ==>
+		
+		} // Object is committed.
+		
+		throw new \Exception(
+			"Cannot save file: "
+		   ."the session is not committed." );									// !@! ==>
+	
+	} // getFile.
 
 	
 
@@ -712,6 +784,69 @@ class Session extends SessionObject
 		return implode( ' ', $name );												// ==>
 	
 	} // getName.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+		
+	/*===================================================================================
+	 *	Delete																			*
+	 *==================================================================================*/
+
+	/**
+	 * Delete an object
+	 *
+	 * We overload this method to normalise the identifier.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 *
+	 * @static
+	 * @return mixed				Identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses DeleteFieldsSelection()
+	 */
+	static function Delete( Wrapper $theWrapper, $theIdentifier )
+	{
+		//
+		// Normalise identifier.
+		//
+		if( ! ($theIdentifier instanceof \MongoId) )
+		{
+			//
+			// Convert to string.
+			//
+			$theIdentifier = (string) $theIdentifier;
+	
+			//
+			// Handle valid identifier.
+			//
+			if( \MongoId::isValid( $theIdentifier ) )
+				$theIdentifier = new \MongoId( $theIdentifier );
+	
+			//
+			// Invalid identifier.
+			//
+			else
+				throw new \Exception(
+					"Cannot instantiate object: "
+				   ."invalid identifier [$theIdentifier]." );					// !@! ==>
+
+		} // Provided identifier.
+		
+		return parent::Delete( $theWrapper, $theIdentifier );						// ==>
+	
+	} // Delete.
 
 		
 
@@ -1081,7 +1216,7 @@ class Session extends SessionObject
 		 && ($theOptions & kFLAG_OPT_REL_ONE) )	// and many to one relationships.
 		{
 			//
-			// Set criteria.
+			// Set session criteria.
 			//
 			$criteria = array( kTAG_SESSION => $this->offsetGet( kTAG_NID ) );
 			
@@ -1104,6 +1239,21 @@ class Session extends SessionObject
 			// Delete files.
 			//
 			$this->filesCollection()->deleteByCriteria( $criteria );
+			
+			//
+			// Select sessions.
+			//
+			$list
+				= Session::ResolveCollection(
+					Session::ResolveDatabase(
+						$this->mDictionary ) )
+							->matchAll( $criteria, kQUERY_OBJECT );
+			
+			//
+			// Delete sessions.
+			//
+			foreach( $list as $object )
+				$object->deleteObject();
 		
 		} // Deleting session.
 	

@@ -65,6 +65,12 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *======================================================================================*/
 
 //
+// Init local storage.
+//
+$user = ":domain:individual://ITA406/pgrdiversity.bioversityinternational.org:E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2;";
+$file = kPATH_DEFINITIONS_ROOT."/Api.inc.php";
+	
+//
 // Test class.
 //
 try
@@ -96,11 +102,6 @@ try
 	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
 	
-	//
-	// Set test user.
-	//
-	$user = ":domain:individual://ITA406/pgrdiversity.bioversityinternational.org:E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2;";
-		
 	//
 	// Instantiate empty session.
 	//
@@ -166,176 +167,77 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-OntologyWrapper\Session::Delete( $wrapper, $id );
-exit;
 		
 	//
-	// Update processed count.
+	// Create other session.
 	//
-	echo( '<h4>Update processed count</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$count = $session->manageProcessed();' );
-	$count = $session->manageProcessed();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $count );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$session = new OntologyWrapper\\Session( $wrapper, $id );' );
-	$session = new OntologyWrapper\Session( $wrapper, $id );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-		
-	//
-	// Update validated count.
-	//
-	echo( '<h4>Update validated count</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$count = $session->manageValidated( 2 );' );
-	$count = $session->manageValidated( 2 );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $count );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$session = new OntologyWrapper\\Session( $wrapper, $id );' );
-	$session = new OntologyWrapper\Session( $wrapper, $id );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-		
-	//
-	// Update rejected count.
-	//
-	echo( '<h4>Update rejected count</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$count = $session->manageRejected( 3 );' );
-	$count = $session->manageRejected( 3 );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $count );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$session = new OntologyWrapper\\Session( $wrapper, $id );' );
-	$session = new OntologyWrapper\Session( $wrapper, $id );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-		
-	//
-	// Update skipped count.
-	//
-	echo( '<h4>Update skipped count</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$count = $session->manageSkipped( -1 );' );
-	$count = $session->manageSkipped( -1 );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $count );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$session = new OntologyWrapper\\Session( $wrapper, $id );' );
-	$session = new OntologyWrapper\Session( $wrapper, $id );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
-		
-	//
-	// Set session.
-	//
-	echo( '<h4>Set session</h4>' );
+	echo( '<h4>Create other session</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$other = new OntologyWrapper\\Session( $wrapper );<br />' );
 	$other = new OntologyWrapper\Session( $wrapper );
-	echo( '$other[ kTAG_SESSION_TYPE ] = ":type:session:200";<br />' );
-	$other[ kTAG_SESSION_TYPE ] = ":type:session:200";
-	echo( '$other[ kTAG_USER ] = $user;<br />' );
-	$other[ kTAG_USER ] = $user;
-	echo( '$id = $other->commit();' );
-	$alt_id = $other->commit();
+	echo( '$other->manageType( kTYPE_SESSION_UPDATE );<br />' );
+	$other->manageType( kTYPE_SESSION_UPDATE );
+	echo( '$other->manageStatus( kTYPE_STATUS_OK );<br />' );
+	$other->manageStatus( kTYPE_STATUS_OK );
+	echo( '$other->manageUser( $user );' );
+	$other->manageUser( $user );
+	echo( '$id_other = $other->commit();' );
+	$id_other = $other->commit();
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $alt_id );
+	var_dump( $id_other );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $other->getName( kSTANDARDS_LANGUAGE ) );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $other->getArrayCopy() ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+		
+	//
+	// Set members.
+	//
+	echo( '<h4>Set members</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$ok = $session->manageSession( $other );<br />' );
+	$ok = $session->manageSession( $other );
+	echo( '$ok = $session->manageEnd( TRUE );<br />' );
+	$ok = $session->manageEnd( TRUE );
+	echo( '$ok = $session->manageStatus( kTYPE_STATUS_FAILED );<br />' );
+	$ok = $session->manageStatus( kTYPE_STATUS_FAILED );
+	echo( '$count = $session->manageProcessed();<br />' );
+	$count = $session->manageProcessed();
+	echo( '$count = $session->manageValidated( 2 );<br />' );
+	$count = $session->manageValidated( 2 );
+	echo( '$count = $session->manageRejected( 3 );<br />' );
+	$count = $session->manageRejected( 3 );
+	echo( '$count = $session->manageSkipped( -1 );<br />' );
+	$count = $session->manageSkipped( -1 );
+	echo( '$file_id = $session->saveFile( $file );' );
+	$file_id = $session->saveFile( $file );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'OntologyWrapper\\Session::SetSession( $wrapper, $id, $alt_id );<br />' );
-	OntologyWrapper\Session::SetSession( $wrapper, $id, $alt_id );
 	echo( '$session = new OntologyWrapper\\Session( $wrapper, $id );' );
 	$session = new OntologyWrapper\Session( $wrapper, $id );
 	echo( kSTYLE_HEAD_POS );
@@ -349,22 +251,35 @@ exit;
 	echo( '<hr>' );
 		
 	//
-	// Set status.
+	// Get file.
 	//
-	echo( '<h4>Set status</h4>' );
+	echo( '<h4>Get file</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'OntologyWrapper\\Session::SetStatus( $wrapper, $id, kTYPE_STATUS_OK );<br />' );
-	OntologyWrapper\Session::SetStatus( $wrapper, $id, kTYPE_STATUS_OK );
-	echo( '$session = new OntologyWrapper\\Session( $wrapper, $id );' );
-	$session = new OntologyWrapper\Session( $wrapper, $id );
+	echo( '$object = $session->getFile( $file_id );' );
+	$object = $session->getFile( $file_id );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $session->getArrayCopy() ); echo( '</pre>' );
+	var_dump( $object->file );
 	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+		
+	//
+	// Delete session.
+	//
+	echo( '<h4>Delete session</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'OntologyWrapper\\Session::Delete( $wrapper, $id_other );<br />' );
+	OntologyWrapper\Session::Delete( $wrapper, $id_other );
+	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );

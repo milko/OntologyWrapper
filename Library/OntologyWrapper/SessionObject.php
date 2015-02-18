@@ -1205,7 +1205,7 @@ abstract class SessionObject extends PersistentObject
 		static::ResolveCollection(
 			static::ResolveDatabase( $this->mDictionary, TRUE ) )
 				->updateReferenceCount(
-					array( kTAG_NID => $theIdentifier ),
+					array( kTAG_NID => $this->offsetGet( kTAG_NID ) ),
 					array( $theCounter =>  (int) $theCount ) );
 	
 	} // updateCount.
