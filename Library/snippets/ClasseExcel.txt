@@ -1,0 +1,28 @@
+Classe: ExcelTemplateParser
+
+__construct( string $theFile )
+$theFile=Il path del file.
+
+array getWorksheets()
+Dammi la lista delle worksheet (nomi).
+
+int getMax( string $theWorksheet, int & $theRow, int & $theCol )
+Dammi nei due parametri l'ultima riga e l'ultima colonna del worksheet.
+
+mixed getCell( string $theWorksheet, int $theRow, int $theCol )
+Dammi i contenuti della cella con riga=$theRow e colonna=$theCol.
+
+array getRow( string $theWorksheet, int $theRow, int $theCols )
+Dammi i valori della riga $theRow per $theCols colonne.
+
+array getCol( string $theWorksheet, int $theRows, int $theCol )
+Dammi i valori della colonna $theCol per $theRows righe.
+
+array getCols( string $theWorksheet, int $theRow, array $theCols )
+Dammi i contenuti delle colonne in $theCols della riga $theRow.
+
+array getRows( string $theWorksheet, array $theRows, int $theCol )
+Dammi i contenuti delle righe $theRows alla colonna $theCol.
+
+object getWorksheetRow( string $theWorksheet, int $theRow )
+Dammi l'oggetto di PHPExcel col quale posso iterare la riga.

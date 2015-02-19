@@ -326,12 +326,26 @@ trait MongoCollectionObjectTrait
 	/**
 	 * Update list of structures
 	 *
-	 * In this class we use the <tt>$addToSet</tt> and the <tt>$pull</tt> operators.
+	 * In this class we use the <tt>$push</tt> and the <tt>$pull</tt> operators.
+	 *
+	 * When adding structures, the elements parameter should be structured as follows:
+	 *
+	 * <ul>
+	 *	<li><em>key</em>: The structures list offset.
+	 *	<li><em>value</em>: The structure to be added.
+	 * </ul>
+	 *
+	 * When deleting, the elements array must be structured as follows:
+	 *
+	 * <ul>
+	 *	<li><em>key</em>: The structures list offset.
+	 *	<li><em>value</em>: The selection criteria to be applied to the list od structures.
+	 * </ul>
 	 *
 	 * Note that the elements parameter is expected to be correct, no check is done.
 	 *
 	 * @param mixed					$theCriteria		Object selection criteria or id.
-	 * @param array					$theElements		List of structures to be added.
+	 * @param array					$theElements		List of structure elements.
 	 * @param boolean				$doAdd				<tt>TRUE</tt> add.
 	 *
 	 * @access public

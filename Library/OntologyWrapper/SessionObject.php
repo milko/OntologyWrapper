@@ -18,6 +18,13 @@ use OntologyWrapper\PersistentObject;
  *======================================================================================*/
 
 /**
+ * Domains.
+ *
+ * This file contains the domain definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
+
+/**
  * Session object
  *
  * This <i>abstract</i> class is the ancestor of all classes representing session or
@@ -241,7 +248,7 @@ abstract class SessionObject extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	manageSession																	*
+	 *	session																			*
 	 *==================================================================================*/
 
 	/**
@@ -296,7 +303,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @uses handleReference()
 	 */
-	public function manageSession( $theValue = NULL, $doObject = FALSE )
+	public function session( $theValue = NULL, $doObject = FALSE )
 	{
 		//
 		// Check reference.
@@ -349,7 +356,7 @@ abstract class SessionObject extends PersistentObject
 		return $this->handleReference(
 					kTAG_SESSION, 'Session', $theValue, $doObject );				// ==>
 	
-	} // manageSession.
+	} // session.
 
 		
 
@@ -362,7 +369,7 @@ abstract class SessionObject extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	manageProcessed																	*
+	 *	processed																		*
 	 *==================================================================================*/
 
 	/**
@@ -387,7 +394,7 @@ abstract class SessionObject extends PersistentObject
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
 	 */
-	public function manageProcessed( $theValue = NULL )
+	public function processed( $theValue = NULL )
 	{
 		//
 		// Retrieve count.
@@ -404,11 +411,11 @@ abstract class SessionObject extends PersistentObject
 		
 		return TRUE;																// ==>
 	
-	} // manageProcessed.
+	} // processed.
 
 	 
 	/*===================================================================================
-	 *	manageValidated																	*
+	 *	validated																		*
 	 *==================================================================================*/
 
 	/**
@@ -433,7 +440,7 @@ abstract class SessionObject extends PersistentObject
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
 	 */
-	public function manageValidated( $theValue = NULL )
+	public function validated( $theValue = NULL )
 	{
 		//
 		// Retrieve count.
@@ -450,11 +457,11 @@ abstract class SessionObject extends PersistentObject
 		
 		return TRUE;																// ==>
 	
-	} // manageValidated.
+	} // validated.
 
 	 
 	/*===================================================================================
-	 *	manageRejected																	*
+	 *	rejected																		*
 	 *==================================================================================*/
 
 	/**
@@ -479,7 +486,7 @@ abstract class SessionObject extends PersistentObject
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
 	 */
-	public function manageRejected( $theValue = NULL )
+	public function rejected( $theValue = NULL )
 	{
 		//
 		// Retrieve count.
@@ -496,11 +503,11 @@ abstract class SessionObject extends PersistentObject
 		
 		return TRUE;																// ==>
 	
-	} // manageRejected.
+	} // rejected.
 
 	 
 	/*===================================================================================
-	 *	manageSkipped																	*
+	 *	skipped																			*
 	 *==================================================================================*/
 
 	/**
@@ -525,7 +532,7 @@ abstract class SessionObject extends PersistentObject
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
 	 */
-	public function manageSkipped( $theValue = NULL )
+	public function skipped( $theValue = NULL )
 	{
 		//
 		// Retrieve count.
@@ -542,7 +549,63 @@ abstract class SessionObject extends PersistentObject
 		
 		return TRUE;																// ==>
 	
-	} // manageSkipped.
+	} // skipped.
+
+	 
+	/*===================================================================================
+	 *	counters																		*
+	 *==================================================================================*/
+
+	/**
+	 * Retrieve operation counters
+	 *
+	 * This method can be used to retrieve the current operations counters, the method will
+	 * return an array with the following keys:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_SKIPPED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_REJECTED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_VALIDATED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_PROCESSED}</tt>: Processed elements.
+	 * </ul>
+	 *
+	 * If the object is committed, the method will fetch the data from the persistent object
+	 * and update the current object.
+	 *
+	 * @access public
+	 * @return array				Operation counters.
+	 *
+	 * @uses session()
+	 */
+	public function counters()
+	{
+		//
+		// Handle committed object.
+		//
+		if( $this->committed() )
+		{
+			//
+			// Update session.
+			//
+			$object = $this->resolvePersistent( TRUE );
+			
+			//
+			// Set counters.
+			//
+			$counters = array( kTAG_SKIPPED, kTAG_REJECTED,
+							   kTAG_VALIDATED, kTAG_PROCESSED );
+			foreach( $counters as $counter )
+				$this->offsetSet( $counter, $object->offsetGet( $counter ) );
+		
+		} // Object is committed.
+		
+		return array(
+				kTAG_SKIPPED => $this->offsetGet( kTAG_SKIPPED ),
+				kTAG_REJECTED => $this->offsetGet( kTAG_REJECTED ),
+				kTAG_VALIDATED => $this->offsetGet( kTAG_VALIDATED ),
+				kTAG_PROCESSED => $this->offsetGet( kTAG_PROCESSED ) );				// ==>
+	
+	} // counters.
 
 	 
 
@@ -665,7 +728,11 @@ abstract class SessionObject extends PersistentObject
 	/**
 	 * Handle offset and value before setting it
 	 *
-	 * We overload this method to convert objects into their native identifiers.
+	 * We overload this method to convert objects into their native identifiers and to
+	 * manage other offsets according to the commit state of the object: if the object is
+	 * not committed, the method will only manage the offsets in the current object; if the
+	 * object is committed, some offsets will be locked, while other offsets will be set
+	 * both in the current and persistent objects.
 	 *
 	 * @param reference				$theOffset			Offset reference.
 	 * @param reference				$theValue			Offset value reference.
@@ -776,14 +843,11 @@ abstract class SessionObject extends PersistentObject
 	 * @access protected
 	 *
 	 * @see kTAG_PROCESSED kTAG_VALIDATED kTAG_REJECTED kTAG_SKIPPED
+	 *
+	 * @uses start()
 	 */
 	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{
-		//
-		// Call parent method.
-		//
-		parent::preCommitPrepare( $theTags, $theRefs );
-		
 		//
 		// Initialise counters.
 		//
@@ -791,6 +855,21 @@ abstract class SessionObject extends PersistentObject
 		$this->offsetSet( kTAG_REJECTED, 0 );
 		$this->offsetSet( kTAG_VALIDATED, 0 );
 		$this->offsetSet( kTAG_PROCESSED, 0 );
+		
+		//
+		// Initialise transaction status.
+		//
+		$this->status( kTYPE_STATUS_EXECUTING );
+		
+		//
+		// Initialise start.
+		//
+		$this->start( TRUE );
+		
+		//
+		// Call parent method.
+		//
+		parent::preCommitPrepare( $theTags, $theRefs );
 		
 	} // preCommitPrepare.
 

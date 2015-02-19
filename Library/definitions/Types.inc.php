@@ -520,7 +520,7 @@ define( "kTYPE_SESSION_UPLOAD",					':type:session:100' );
 define( "kTYPE_SESSION_UPDATE",					':type:session:200' );
 
 /*=======================================================================================
- *	DEFAULT TRANSACTION TYPES															*
+ *	DEFAULT UPLOAD TRANSACTION TYPES													*
  *======================================================================================*/
 
 /**
@@ -585,6 +585,10 @@ define( "kTYPE_TRANS_TMPL_CLEANUP",				':type:transaction:180' );
  * This type of transaction covers the closing of the template transaction.
  */
 define( "kTYPE_TRANS_TMPL_CLOSE",				':type:transaction:190' );
+
+/*=======================================================================================
+ *	DEFAULT UPDATE TRANSACTION TYPES													*
+ *======================================================================================*/
 
 /**
  * Update resources selection.

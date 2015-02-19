@@ -23,13 +23,6 @@ use OntologyWrapper\CollectionObject;
  *======================================================================================*/
 
 /**
- * Domains.
- *
- * This file contains the domain definitions.
- */
-require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
-
-/**
  * Session object
  *
  * A session is a collection of transactions and their individual operations, this class
@@ -170,7 +163,7 @@ class Session extends SessionObject
 
 	 
 	/*===================================================================================
-	 *	manageType																		*
+	 *	type																			*
 	 *==================================================================================*/
 
 	/**
@@ -199,7 +192,7 @@ class Session extends SessionObject
 	 *
 	 * @uses committed()
 	 */
-	public function manageType( $theValue = NULL )
+	public function type( $theValue = NULL )
 	{
 		//
 		// Return current value.
@@ -237,7 +230,7 @@ class Session extends SessionObject
 
 	 
 	/*===================================================================================
-	 *	manageStart																		*
+	 *	start																			*
 	 *==================================================================================*/
 
 	/**
@@ -269,7 +262,7 @@ class Session extends SessionObject
 	 *
 	 * @uses committed()
 	 */
-	public function manageStart( $theValue = NULL )
+	public function start( $theValue = NULL )
 	{
 		//
 		// Return current value.
@@ -304,11 +297,11 @@ class Session extends SessionObject
 			"Cannot set session start: "
 		   ."the object is committed." );										// !@! ==>
 	
-	} // manageStart.
+	} // start.
 
 	 
 	/*===================================================================================
-	 *	manageEnd																		*
+	 *	end																				*
 	 *==================================================================================*/
 
 	/**
@@ -363,7 +356,7 @@ class Session extends SessionObject
 	 *
 	 * @uses handleOffset()
 	 */
-	public function manageEnd( $theValue = NULL )
+	public function end( $theValue = NULL )
 	{
 		//
 		// Check value.
@@ -386,11 +379,11 @@ class Session extends SessionObject
 		throw new \Exception(
 			"Cannot delete session end." );										// !@! ==>
 	
-	} // manageEnd.
+	} // end.
 
 	 
 	/*===================================================================================
-	 *	manageStatus																	*
+	 *	status																			*
 	 *==================================================================================*/
 
 	/**
@@ -437,7 +430,7 @@ class Session extends SessionObject
 	 *
 	 * @uses handleOffset()
 	 */
-	public function manageStatus( $theValue = NULL )
+	public function status( $theValue = NULL )
 	{
 		//
 		// Check value.
@@ -475,11 +468,11 @@ class Session extends SessionObject
 		throw new \Exception(
 			"Cannot delete session status." );									// !@! ==>
 	
-	} // manageStatus.
+	} // status.
 
 	 
 	/*===================================================================================
-	 *	manageUser																		*
+	 *	user																			*
 	 *==================================================================================*/
 
 	/**
@@ -528,7 +521,7 @@ class Session extends SessionObject
 	 *
 	 * @uses handleReference()
 	 */
-	public function manageUser( $theValue = NULL, $doObject = FALSE )
+	public function user( $theValue = NULL, $doObject = FALSE )
 	{
 		//
 		// Check value.
@@ -564,16 +557,81 @@ class Session extends SessionObject
 		throw new \Exception(
 			"Cannot delete session user." );									// !@! ==>
 	
-	} // manageUser.
+	} // user.
 
 	
 
 /*=======================================================================================
  *																						*
- *									PUBLIC FILES INTERFACE								*
+ *								PUBLIC OPERATIONS INTERFACE								*
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	newTransaction																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create transaction
+	 *
+	 * This method will create and commit a new transaction returning its object.
+	 *
+	 * If the current object is not committed, the method will raise an exception.
+	 *
+	 * @param string				$theType			Transaction type.
+	 * @param string				$theCollection		Transaction collection.
+	 *
+	 * @access public
+	 * @return Transaction			Transaction object.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses committed()
+	 */
+	public function newTransaction( $theType, $theCollection = NULL )
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->committed() )
+		{
+			//
+			// Instantiate object.
+			//
+			$transaction = new Transaction( $this->mDictionary );
+		
+			//
+			// Set session.
+			//
+			$transaction->session( $this );
+		
+			//
+			// Set type.
+			//
+			$transaction->type( $theType );
+		
+			//
+			// Set collection.
+			//
+			if( $theCollection !== NULL )
+				$transaction->collection( $theCollection );
+			
+			//
+			// Commit transaction.
+			//
+			$transaction->commit();
+			
+			return $transaction;													// ==>
+		
+		} // Object is committed.
+		
+		throw new \Exception(
+			"Cannot create transaction: "
+		   ."the session is not committed." );									// !@! ==>
+	
+	} // newTransaction.
 
 	 
 	/*===================================================================================
@@ -1154,23 +1212,10 @@ class Session extends SessionObject
 	 *
 	 * @throws Exception
 	 *
-	 * @see kTAG_SESSION_START kTAG_SESSION_STATUS
-	 *
-	 * @uses manageStart()
-	 * @uses manageStatus()
+	 * @see kTAG_SESSION_FILES
 	 */
 	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{
-		//
-		// Initialise session start.
-		//
-		$this->manageStart( TRUE );
-		
-		//
-		// Initialise session status.
-		//
-		$this->manageStatus( kTYPE_STATUS_EXECUTING );
-		
 		//
 		// Set files collection.
 		//
