@@ -251,8 +251,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_ACQUISITION, "Collection" );<br />' );
-	$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_ACQUISITION, "Collection" );
+	echo( '$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_IDENT, "Collection" );<br />' );
+	$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_IDENT, "Collection" );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );

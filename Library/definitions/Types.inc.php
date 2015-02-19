@@ -524,65 +524,65 @@ define( "kTYPE_SESSION_UPDATE",					':type:session:200' );
  *======================================================================================*/
 
 /**
- * Template acquisition.
- *
- * This type of transaction covers the registration of a template.
- */
-define( "kTYPE_TRANS_TMPL_ACQUISITION",			':type:transaction:110' );
-
-/**
  * Template storage.
  *
- * This type of transaction covers the template file storage.
+ * Store the template file.
  */
-define( "kTYPE_TRANS_TMPL_STORAGE",				':type:transaction:120' );
+define( "kTYPE_TRANS_TMPL_STORAGE",				':type:transaction:110' );
+
+/**
+ * Template identification.
+ *
+ * Identify and verify template.
+ */
+define( "kTYPE_TRANS_TMPL_IDENT",				':type:transaction:120' );
 
 /**
  * Template parsing.
  *
- * This type of transaction covers the parsing of the template file.
+ * Parse template and load template structure.
  */
 define( "kTYPE_TRANS_TMPL_PARSE",				':type:transaction:130' );
 
 /**
- * Template warehouse.
+ * Template worksheets.
  *
- * This type of transaction covers the set up of the template's warehouse resources.
+ * Identify and assert worksheets.
  */
-define( "kTYPE_TRANS_TMPL_WAREHOUSE",			':type:transaction:140' );
+define( "kTYPE_TRANS_TMPL_WORKSHEETS",			':type:transaction:140' );
 
 /**
- * Template worksheets validation.
+ * Template columns.
  *
- * This type of transaction covers the validation of the template's worksheets.
+ * Identify and assert columns.
  */
-define( "kTYPE_TRANS_TMPL_WORKSHEETS",			':type:transaction:150' );
+define( "kTYPE_TRANS_TMPL_COLUMNS",				':type:transaction:150' );
 
 /**
- * Template properties validation.
+ * Template data.
  *
- * This type of transaction covers the validation of the template's properties.
+ * Verify and load data.
  */
-define( "kTYPE_TRANS_TMPL_PROPERTIES",			':type:transaction:160' );
+define( "kTYPE_TRANS_TMPL_DATA",				':type:transaction:160' );
 
 /**
- * Template records validation.
+ * Template duplicates.
  *
- * This type of transaction covers the validation of the template's records.
+ * Assert duplicate records.
  */
-define( "kTYPE_TRANS_TMPL_RECORDS",				':type:transaction:170' );
+define( "kTYPE_TRANS_TMPL_DUPS",				':type:transaction:170' );
 
 /**
- * Template transaction cleanup.
+ * Template cleanup.
  *
- * This type of transaction covers the cleanup of the template warehouse resources.
+ * Cleanup resources.
  */
-define( "kTYPE_TRANS_TMPL_CLEANUP",				':type:transaction:180' );
+define( "kTYPE_TRANS_TMPL_CLEAN",				':type:transaction:180' );
 
 /**
- * Template transaction close.
+ * Template close.
  *
- * This type of transaction covers the closing of the template transaction.
+ * Close session.
  */
 define( "kTYPE_TRANS_TMPL_CLOSE",				':type:transaction:190' );
 

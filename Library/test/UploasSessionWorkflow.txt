@@ -1,0 +1,41 @@
+Upload Service
+-------
+1.)		Service receives upload request with user and template file path.
+2.)		Service deletes existing uploads.
+2.)		Service instantiates session with type and user.
+3.)		Service launches SessionUpload script
+4.)		Service returns session identifier.
+
+SessionUpload script
+--------------------
+0.)		Instantiate SessionUpload, allocate work resources.
+
+1.)		Store template file.
+2.)		Identify and verify template.
+			==> Fatal error.
+3.)		Parse template and load template structure.
+4.)		Identify and assert worksheets.
+			==> Fatal error.
+5.)		Identify and assert columns.
+			==> Fatal error.
+6.)		Verify and load data.
+7.)		Assert duplicate records.
+8.)		Cleanup resources.
+9.)		Close session.
+
+UpdateService
+-------
+1.)		Service receives upload identifier with requesting user.
+2.)		Service deletes existing updates.
+2.)		Service instantiates session with upload session, type and user.
+3.)		Service launches SessionUpdate script
+4.)		Service returns session identifier.
+
+SessionUpdate script
+--------------------
+0.)		Instantiate SessionUpdate, allocate work resources.
+
+1.)		Assert duplicate records (7).
+2.)		Load objects.
+8.)		Cleanup resources.
+9.)		Close session.

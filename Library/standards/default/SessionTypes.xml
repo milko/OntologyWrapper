@@ -71,39 +71,9 @@
 			<item const="kTAG_OBJECT" node="pid">enum::type:session</item>
 		</EDGE>
 	</META>
-	<!-- kTYPE_TRANS_TMPL_ACQUISITION -->
-	<META>
-		<TERM ns=":type:transaction" lid="110">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Template acquisition</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The template is acquired by the system.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
-		</EDGE>
-	</META>
 	<!-- kTYPE_TRANS_TMPL_STORAGE -->
 	<META>
-		<TERM ns=":type:transaction" lid="120">
+		<TERM ns=":type:transaction" lid="110">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -131,19 +101,49 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
+	<!-- kTYPE_TRANS_TMPL_IDENT -->
+	<META>
+		<TERM ns=":type:transaction" lid="120">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Template identification</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The template is identified and verified.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
+		</EDGE>
+	</META>
 	<!-- kTYPE_TRANS_TMPL_PARSE -->
 	<META>
 		<TERM ns=":type:transaction" lid="130">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Template parse</item>
+					<item const="kTAG_TEXT">Template parsing</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The template is identified and parsed.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The template dictionary is loaded and parsed.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -161,19 +161,19 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- kTYPE_TRANS_TMPL_WAREHOUSE -->
+	<!-- kTYPE_TRANS_TMPL_WORKSHEETS -->
 	<META>
 		<TERM ns=":type:transaction" lid="140">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Data warehouse setup</item>
+					<item const="kTAG_TEXT">Collections identification</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Setup data warehouse resources.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Identify template collections and assert required elements.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -191,19 +191,19 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- :kTYPE_TRANS_TMPL_WORKSHEETS -->
+	<!-- :kTYPE_TRANS_TMPL_COLUMNS -->
 	<META>
 		<TERM ns=":type:transaction" lid="150">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Template worksheets validation</item>
+					<item const="kTAG_TEXT">Fields identification</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Select relevant template worksheets and ensure all required worksheets have been provided.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Identify template collection fields and assert required elements.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -221,19 +221,19 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- kTYPE_TRANS_TMPL_PROPERTIES -->
+	<!-- kTYPE_TRANS_TMPL_DATA -->
 	<META>
 		<TERM ns=":type:transaction" lid="160">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Template properties validation</item>
+					<item const="kTAG_TEXT">Template data load</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Select relevant properties and ensure all required properties have been provided.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Verify and load template data.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -251,19 +251,19 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- kTYPE_TRANS_TMPL_RECORDS -->
+	<!-- kTYPE_TRANS_TMPL_DUPS -->
 	<META>
 		<TERM ns=":type:transaction" lid="170">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Template data validation</item>
+					<item const="kTAG_TEXT">Assert duplicates</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Iterate and validate template data.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Identify and flag duplicate records.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -281,19 +281,19 @@
 			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
-	<!-- kTYPE_TRANS_TMPL_CLEANUP -->
+	<!-- kTYPE_TRANS_TMPL_CLEAN -->
 	<META>
 		<TERM ns=":type:transaction" lid="180">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Transaction cleanup</item>
+					<item const="kTAG_TEXT">Session cleanup</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Clean temporary data.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Remove temporary data.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -317,13 +317,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Transaction closed</item>
+					<item const="kTAG_TEXT">Close session</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Close transaction.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Close upload session.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -370,19 +370,19 @@
 			<item const="kTAG_OBJECT" node="pid">enum::type:session</item>
 		</EDGE>
 	</META>
-	<!-- kTYPE_TRANS_UPDT_RESOURCES -->
+	<!-- kTYPE_TRANS_UPDT_DUPLICATES -->
 	<META>
 		<TERM ns=":type:transaction" lid="210">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Resource selection</item>
+					<item const="kTAG_TEXT">Assert duplicates</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[All relevant resources are selected and initialised.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Identify and flag duplicate records.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -406,13 +406,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Data update</item>
+					<item const="kTAG_TEXT">Load data objects</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Uploaded data is iterated and updated.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Uploaded data is compiled and stored in the public portal]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -436,13 +436,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Transaction cleanup</item>
+					<item const="kTAG_TEXT">Session cleanup</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Clean temporary data.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Remove temporary data.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -466,13 +466,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Transaction closed</item>
+					<item const="kTAG_TEXT">Close session</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Close transaction.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Close update session.]]></item>
 				</item>
 			</item>
 		</TERM>
