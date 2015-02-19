@@ -2370,4 +2370,24 @@
 			</item>
 		</TERM>
 	</META>
+	
+	<!-- Error attributes -->
+	
+	<META>
+		<!-- kTAG_ERROR_TYPE -->
+		<TERM ns=":error" lid="type">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Error type</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The type or category to which an error belongs.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
 </METADATA>

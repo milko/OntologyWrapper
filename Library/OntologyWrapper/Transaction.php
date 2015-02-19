@@ -649,6 +649,7 @@ class Transaction extends SessionObject
 	 * @param string				$theTag				Transaction tag reference.
 	 * @param mixed					$theValue			Transaction value.
 	 * @param int					$theField			Transaction field.
+	 * @param string				$theError			Error type.
 	 *
 	 * @access public
 	 *
@@ -656,7 +657,8 @@ class Transaction extends SessionObject
 	 */
 	public function setLog( $theStatus, $theMessage = NULL,
 										$theAlias = NULL, $theTag = NULL,
-										$theValue = NULL, $theField = NULL )
+										$theValue = NULL, $theField = NULL,
+										$theError = NULL )
 	{
 		//
 		// Handle committed object.
@@ -701,6 +703,8 @@ class Transaction extends SessionObject
 					$record[ kTAG_TRANSACTION_VALUE ] = $theValue;
 				if( $theField !== NULL )
 					$record[ kTAG_TRANSACTION_FIELD ] = $theField;
+				if( $theError !== NULL )
+					$record[ kTAG_ERROR_TYPE ] = $theTag;
 				if( $theTag !== NULL )
 					$record[ kTAG_TAG ] = $theTag;
 				
@@ -950,6 +954,7 @@ class Transaction extends SessionObject
 	 *	<li><tt>{@link kTAG_TRANSACTION_FIELD}</tt>: Transaction field.
 	 *	<li><tt>{@link kTAG_TRANSACTION_VALUE}</tt>: Transaction value.
 	 *	<li><tt>{@link kTAG_TRANSACTION_MESSAGE}</tt>: Transaction message.
+	 *	<li><tt>{@link kTAG_ERROR_TYPE}</tt>: Error type.
 	 *	<li><tt>{@link kTAG_TAG}</tt>: Transaction tag.
 	 * </ul>
 	 *
@@ -967,7 +972,7 @@ class Transaction extends SessionObject
 			array( kTAG_TRANSACTION_STATUS,
 				   kTAG_TRANSACTION_START, kTAG_TRANSACTION_END,
 				   kTAG_TRANSACTION_ALIAS, kTAG_TRANSACTION_FIELD, kTAG_TRANSACTION_VALUE,
-				   kTAG_TRANSACTION_MESSAGE, kTAG_TAG ) );							// ==>
+				   kTAG_TRANSACTION_MESSAGE, kTAG_ERROR_TYPE, kTAG_TAG ) );			// ==>
 	
 	} // UnmanagedOffsets.
 

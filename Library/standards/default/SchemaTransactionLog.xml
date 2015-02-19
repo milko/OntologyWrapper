@@ -60,6 +60,12 @@
 			<item const="kTAG_OBJECT" node="tag">:transaction:status</item>
 		</EDGE>
 	
+		<!-- kTAG_ERROR_TYPE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:error:type</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
 		<!-- kTAG_TRANSACTION_MESSAGE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:transaction:message</item>

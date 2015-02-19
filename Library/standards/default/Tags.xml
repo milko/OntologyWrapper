@@ -4239,4 +4239,40 @@
 			</item>
 		</NODE>
 	</META>
+	
+	<!-- Error attributes -->
+	
+	<!-- @8d -->
+	<!-- kTAG_ERROR_TYPE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:error:type</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-06</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_ERROR_TYPE</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Error type</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the error type, it is a string that categorises the error]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 </METADATA>
