@@ -106,5 +106,11 @@
 			<item const="kTAG_SUBJECT" node="tag">:skipped</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+
+		<!-- schema::error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::error</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
 	</META>
 </METADATA>

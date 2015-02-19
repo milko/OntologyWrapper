@@ -2168,6 +2168,29 @@ define( "kTAG_CONN_OPTS",				'@8c' );
  */
 define( "kTAG_ERROR_TYPE",				'@8d' );
 
+/**
+ * Error code (<code>:error:code</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ * </ul>
+ *
+ * This tag holds the error code, it is a string that identifies the error.
+ */
+define( "kTAG_ERROR_CODE",				'@8e' );
+
+/**
+ * Error resource (<code>:error:resource</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_URL}
+ * </ul>
+ *
+ * This tag holds the internet address of the resource which might help correcting the
+ * error.
+ */
+define( "kTAG_ERROR_RESOURCE",			'@8f' );
+
 /*=======================================================================================
  *	OPERATION OFFSETS																	*
  *======================================================================================*/

@@ -2389,5 +2389,37 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- kTAG_ERROR_CODE -->
+		<TERM ns=":error" lid="code">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Error code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The code or identifier of an error.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_ERROR_RESOURCE -->
+		<TERM ns=":error" lid="resource">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Error resource</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The information resource associated with the error.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 </METADATA>

@@ -1172,6 +1172,30 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_NID	=> ':connection:options',
 			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		
+		//
+		// Error attributes.
+		//
+		kTAG_ERROR_TYPE => array
+		(
+			kTAG_NID	=> ':error:type',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
+		),
+		kTAG_ERROR_CODE => array
+		(
+			kTAG_NID	=> ':error:code',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_ERROR_RESOURCE => array
+		(
+			kTAG_NID	=> ':error:resource',
+			kTAG_DATA_TYPE	=> kTYPE_URL,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		)
 	);
 

@@ -98,6 +98,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 
+		<!-- schema::error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::error</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+
 		<!-- kTAG_TRANSACTION_LOG -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:transaction:log</item>
