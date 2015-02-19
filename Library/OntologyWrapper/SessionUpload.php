@@ -20,19 +20,8 @@ use OntologyWrapper\Session;
  * Upload session
  *
  * This class implements an upload session object, it gets instantiated by providing the
- * requesting user and the upload template file path, the class implements the workflow
+ * related session and the upload template file path, the class implements the workflow
  * needed to execute a data template upload.
- *
- * The class features the following default offsets:
- *
- * <ul>
- *	<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. The native identifier of a
- *		session is automatically generated when inserted the first time, it can then be
- *		used to reference the object and have {@link Transaction} objects update its
- *		members.
- *	<li><tt>{@link kTAG_SESSION_TYPE}</tt>: <em>Session type</em>. This required enumerated
- *		value indicates the type, function or scope of the session.
- *	<li><tt>{@link kTAG_SESSION_START}</tt>: <em>Session start</em>. The starting time stamp
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 18/02/2015
@@ -47,15 +36,6 @@ class SessionUpload
 	use	traits\AccessorProperty;
 
 	/**
-	 * Data wrapper.
-	 *
-	 * This data member holds the <i>data wrapper</i>.
-	 *
-	 * @var Wrapper
-	 */
-	protected $mWrapper = NULL;
-
-	/**
 	 * Session.
 	 *
 	 * This data member holds the <i>session object</i>.
@@ -63,6 +43,16 @@ class SessionUpload
 	 * @var Session
 	 */
 	protected $mSession = NULL;
+
+	/**
+	 * Template.
+	 *
+	 * This data member holds the <i>template</i> reference, it will be an SplFileInfo object,
+	 * once the file will be saved, it will be a file object.
+	 *
+	 * @var mixed
+	 */
+	protected $mTemplate = NULL;
 
 	/**
 	 * Transaction.
@@ -93,8 +83,7 @@ class SessionUpload
 	 * This class is instantiated by providing a data wrapper, a requesting user and the
 	 * path to the template file.
 	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param User					$theUser			Requesting user reference or object.
+	 * @param Session				$theSession			Related session object.
 	 * @param string				$theFile			Template file path.
 	 *
 	 * @access public
@@ -102,32 +91,22 @@ class SessionUpload
 	 * @uses wrapper()
 	 * @uses session()
 	 */
-	public function __construct( Wrapper $theWrapper, $theUser, $theFile )
+	public function __construct( Session $theSession, $theFile )
 	{
 		//
-		// Set wrapper.
+		// Set session.
 		//
-		$this->wrapper( $theWrapper );
+		$this->session( $theSession );
 		
 		//
-		// Instantiate session.
+		// Set file path.
 		//
-		$this->session( new Session( $this->wrapper() ) );
-		$this->session()->type( kTYPE_SESSION_UPLOAD );
-		$this->session()->user( $theUser );
-		$this->session()->commit();
+		$this->template( $theFile );
 		
 		//
-		// Set metadata.
+		// Allocate resources.
 		//
-		$metadata
-			= array( kTAG_SESSION_TYPE
-				  => $this->session()->offsetGet( kTAG_SESSION_TYPE ) );
-		
-		//
-		// Set file.
-		//
-		$this->session()->saveFile( $theFile, $metadata );
+		$this->allocateResources();
 
 	} // Constructor.
 
@@ -146,50 +125,17 @@ class SessionUpload
 	 *==================================================================================*/
 
 	/**
-	 * Manage wrapper
+	 * Get wrapper
 	 *
-	 * This method can be used to set or retrieve the <i>data wrapper</i>, the method
-	 * expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><tt>$theValue</tt>: The property value or operation:
-	 *	 <ul>
-	 *		<li><tt>NULL</tt>: Return the current property value.
-	 *		<li><tt>Wrapper</tt>: Set the value in the property.
-	 *	 </ul>
-	 *	<li><tt>$getOld</tt>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><tt>TRUE</tt>: Return the value of the property <em>before</em> it was
-	 *			eventually modified.
-	 *		<li><tt>FALSE</tt>: Return the value of the property <em>after</em> it was
-	 *			eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param mixed					$theValue			New wrapper or operation.
-	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 * This method can be used to retrieve the <i>data wrapper</i>, the method will use the
+	 * wrapper of the session member.
 	 *
 	 * @access public
-	 * @return mixed				Current or old wrapper.
+	 * @return Wrapper				Data wrapper.
 	 *
-	 * @throws Exception
-	 *
-	 * @uses manageProperty()
+	 * @uses session()
 	 */
-	public function wrapper( $theValue = NULL, $getOld = FALSE )
-	{
-		//
-		// Check new value.
-		//
-		if( ($theValue !== NULL)
-		 && (! ($theValue instanceof Wrapper)) )
-			throw new \Exception(
-				"Cannot set session wrapper: "
-			   ."invalid data type." );											// !@! ==>
-		
-		return $this->manageProperty( $this->mWrapper, $theValue, $getOld );		// ==>
-	
-	} // wrapper.
+	public function wrapper()					{	return $this->session()->dictionary();	}
 
 	 
 	/*===================================================================================
@@ -242,6 +188,84 @@ class SessionUpload
 		return $this->manageProperty( $this->mSession, $theValue, $getOld );		// ==>
 	
 	} // session.
+
+	 
+	/*===================================================================================
+	 *	template																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage template
+	 *
+	 * This method can be used to set or retrieve the <i>template</i>, the method expects
+	 * the following parameters:
+	 *
+	 * <ul>
+	 *	<li><tt>$theValue</tt>: The property value or operation:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Return the current property value.
+	 *		<li><tt>SplFileInfo</tt>: Set the value in the property.
+	 *		<li><em>other</em>: The method will raise an exception.
+	 *	 </ul>
+	 *	<li><tt>$getOld</tt>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Return the value of the property <em>before</em> it was
+	 *			eventually modified.
+	 *		<li><tt>FALSE</tt>: Return the value of the property <em>after</em> it was
+	 *			eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * Note that the data member will hold a file object once the file will have been saved,
+	 * this can only be done using offsets, so, the method will return a mixed result.
+	 *
+	 * Replacing or clearing the value is only allowed if the current data member is
+	 * <tt>NULL</tt> or if it holds an SplFileInfo, if that is not the case, the method will
+	 * raise an exception.
+	 *
+	 * @param mixed					$theValue			New file reference or operation.
+	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 *
+	 * @access public
+	 * @return mixed				Current or old file.
+	 *
+	 * @uses manageProperty()
+	 */
+	public function template( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check new value.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Save current value.
+			//
+			if( ($this->mTemplate !== NULL)
+			 && (! ($this->mTemplate instanceof \SplFileInfo)) )
+				throw new \Exception(
+					"Cannot set template: "
+				   ."the file was already saved." );							// !@! ==>
+			
+			//
+			// Handle path.
+			//
+			if( ! ($theValue instanceof \SplFileInfo) )
+				$theValue = new \SplFileInfo( (string) $theValue );
+			
+			//
+			// Check if readable.
+			//
+			if( ! $theFile->isReadable() )
+				throw new \Exception(
+					"Cannot set template: "
+				   ."the file is not readable." );								// !@! ==>
+		
+		} // New template or delete.
+		
+		return $this->manageProperty( $this->mTemplate, $theValue, $getOld );		// ==>
+	
+	} // template.
 
 	 
 	/*===================================================================================
@@ -479,6 +503,60 @@ class SessionUpload
 	 * @uses session()
 	 */
 	public function counters()					{	return $this->session()->counters();	}
+
+	
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED OPERATIONS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	saveTemplate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Save template
+	 *
+	 * This method can be used to save the current object's template in the session's file
+	 * store.
+	 *
+	 * Once saved, the template data member will hold the file object.
+	 *
+	 * @access public
+	 * @return ObjecId				The file object identifier.
+	 *
+	 * @uses session()
+	 */
+	public function saveTemplate()
+	{
+		//
+		// Get file path.
+		//
+		if( $this->mTemplate instanceof \SplFileInfo )
+			$path = $this->mTemplate->getRealPath();
+		
+		//
+		// Check if set.
+		//
+		elseif( $this->mTemplate === NULL )
+			throw new \Exception(
+				"Cannot save template: "
+			   ."missing file reference." );									// !@! ==>
+		
+		//
+		// Set metadata.
+		//
+		$metadata
+			= array( kTAG_SESSION_TYPE
+				  => $this->session()->offsetGet( kTAG_SESSION_TYPE ) );
+		
+		$this->session()->saveFile( $path, $metadata );								// ==>
+
+	} // saveTemplate.
 
 	 
 
