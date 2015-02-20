@@ -513,8 +513,6 @@ define( "kTYPE_SESSION_UPLOAD",					':type:session:100' );
 /**
  * Update.
  *
- * Update session.
- *
  * This type of session covers data updates.
  */
 define( "kTYPE_SESSION_UPDATE",					':type:session:200' );
@@ -524,99 +522,215 @@ define( "kTYPE_SESSION_UPDATE",					':type:session:200' );
  *======================================================================================*/
 
 /**
- * Template storage.
+ * Store template file.
  *
- * Store the template file.
+ * The template file is stored in the database.
  */
-define( "kTYPE_TRANS_TMPL_STORAGE",				':type:transaction:110' );
+define( "kTYPE_TRANS_TMPL_STORE",				':type:transaction:110' );
 
 /**
- * Template identification.
+ * Load template file.
  *
- * Identify and verify template.
+ * Parse, identify and load template data dictionary and template file elements.
  */
-define( "kTYPE_TRANS_TMPL_IDENT",				':type:transaction:120' );
+define( "kTYPE_TRANS_TMPL_LOAD",				':type:transaction:120' );
 
 /**
- * Template parsing.
+ * Validate template structure.
  *
- * Parse template and load template structure.
+ * Check if all required worksheets and worksheet columns are present.
  */
-define( "kTYPE_TRANS_TMPL_PARSE",				':type:transaction:130' );
+define( "kTYPE_TRANS_TMPL_STRUCT",				':type:transaction:130' );
 
 /**
- * Template worksheets.
+ * Allocate resources.
  *
- * Identify and assert worksheets.
+ * Create template validation data repository and working resources.
  */
-define( "kTYPE_TRANS_TMPL_WORKSHEETS",			':type:transaction:140' );
+define( "kTYPE_TRANS_TMPL_SETUP",				':type:transaction:140' );
 
 /**
- * Template columns.
+ * Validate worksheet data.
  *
- * Identify and assert columns.
+ * Validate the worksheet data.
+ *
+ * <em>One per worksheet</em>
  */
-define( "kTYPE_TRANS_TMPL_COLUMNS",				':type:transaction:150' );
+define( "kTYPE_TRANS_TMPL_WORKSHEET",			':type:transaction:150' );
 
 /**
- * Template data.
+ * Validate worksheet relationships.
  *
- * Verify and load data.
+ * Validate the relationships of the worksheet.
+ *
+ * <em>One per worksheet</em>
  */
-define( "kTYPE_TRANS_TMPL_DATA",				':type:transaction:160' );
+define( "kTYPE_TRANS_TMPL_RELATIONSHIPS",		':type:transaction:160' );
 
 /**
- * Template duplicates.
+ * Identify existing objects.
  *
- * Assert duplicate records.
+ * Identify which records exist already in the database.
  */
-define( "kTYPE_TRANS_TMPL_DUPS",				':type:transaction:170' );
+define( "kTYPE_TRANS_TMPL_DUPLICATES",			':type:transaction:170' );
 
 /**
- * Template cleanup.
- *
  * Cleanup resources.
+ *
+ * Remove all upload temporary working resources.
  */
 define( "kTYPE_TRANS_TMPL_CLEAN",				':type:transaction:180' );
 
 /**
- * Template close.
- *
  * Close session.
+ *
+ * Close template upload session.
  */
 define( "kTYPE_TRANS_TMPL_CLOSE",				':type:transaction:190' );
+
+/*=======================================================================================
+ *	TEMPLATE LOAD TRANSACTIONS															*
+ *======================================================================================*/
+
+/**
+ * Check file type.
+ *
+ * Identify and assert file type.
+ */
+define( "kTYPE_TRANS_TMPL_LOAD_FILE",			':type:transaction:121' );
+
+/**
+ * Check template type.
+ *
+ * Identify and assert template type.
+ */
+define( "kTYPE_TRANS_TMPL_LOAD_TYPE",			':type:transaction:122' );
+
+/**
+ * Load template data dictionary.
+ *
+ * Load and allocate template data dictionary.
+ */
+define( "kTYPE_TRANS_TMPL_LOAD_DDICT",			':type:transaction:123' );
+
+/**
+ * Load template elements.
+ *
+ * Load and allocate template elements.
+ */
+define( "kTYPE_TRANS_TMPL_LOAD_ITEMS",			':type:transaction:124' );
+
+/*=======================================================================================
+ *	TEMPLATE STRUCTURE VALIDATION TRANSACTIONS											*
+ *======================================================================================*/
+
+/**
+ * Check template worksheets.
+ *
+ * Identify relevant worksheets and assert required.
+ */
+define( "kTYPE_TRANS_TMPL_STRUCT_WORKSHEETS",	':type:transaction:131' );
+
+/**
+ * Check template columns.
+ *
+ * Identify relevant columns and assert required.
+ */
+define( "kTYPE_TRANS_TMPL_STRUCT_COLUMNS",		':type:transaction:132' );
+
+/*=======================================================================================
+ *	TEMPLATE WORKSHEET DATA VALIDATION TRANSACTIONS										*
+ *======================================================================================*/
+
+/**
+ * Validate worksheet row data.
+ *
+ * Validate and load worksheet row data.
+ */
+define( "kTYPE_TRANS_TMPL_WORKSHEET_ROW",		':type:transaction:151' );
+
+/*=======================================================================================
+ *	TEMPLATE WORKSHEET RELATIONSHIPS VALIDATION TRANSACTIONS							*
+ *======================================================================================*/
+
+/**
+ * Validate worksheet row relationships.
+ *
+ * Validate and load worksheet row relationships.
+ */
+define( "kTYPE_TRANS_TMPL_RELATIONSHIPS_ROW",	':type:transaction:161' );
+
+/*=======================================================================================
+ *	TEMPLATE WORKSHEET DUPLICATE RECORD TRANSACTIONS									*
+ *======================================================================================*/
+
+/**
+ * Replace record.
+ *
+ * The record will be replaced in the database.
+ */
+define( "kTYPE_TRANS_TMPL_DUPLICATES_ROW",		':type:transaction:171' );
 
 /*=======================================================================================
  *	DEFAULT UPDATE TRANSACTION TYPES													*
  *======================================================================================*/
 
 /**
- * Update resources selection.
+ * Allocate resources.
  *
- * This type of transaction covers the selection of the update resources.
+ * Identify template data repository and working resources.
  */
-define( "kTYPE_TRANS_UPDT_RESOURCES",			':type:transaction:210' );
+define( "kTYPE_TRANS_UPDT_SETUP",				':type:transaction:210' );
 
 /**
- * Data update.
+ * Identify existing objects.
  *
- * This type of transaction covers the data update.
+ * Identify which records exist already in the database since the upload.
  */
-define( "kTYPE_TRANS_UPDT_DATA",				':type:transaction:220' );
+define( "kTYPE_TRANS_UPDT_DUPLICATES",			':type:transaction:270' );
 
 /**
- * Update transaction cleanup.
+ * Update database.
  *
- * This type of transaction covers the cleanup of the update transaction resources.
+ * Load template data in the database.
  */
-define( "kTYPE_TRANS_UPDT_CLEANUP",				':type:transaction:280' );
+define( "kTYPE_TRANS_UPDT_DATA",				':type:transaction:250' );
 
 /**
- * Update transaction close.
+ * Cleanup resources.
  *
- * This type of transaction covers the closing of the update transaction.
+ * Remove all update temporary working resources.
+ */
+define( "kTYPE_TRANS_UPDT_CLEAN",				':type:transaction:280' );
+
+/**
+ * Close session.
+ *
+ * Close template update session.
  */
 define( "kTYPE_TRANS_UPDT_CLOSE",				':type:transaction:290' );
+
+/*=======================================================================================
+ *	TEMPLATE WORKSHEET DATA LOAD TRANSACTIONS											*
+ *======================================================================================*/
+
+/**
+ * Validate worksheet row data.
+ *
+ * Validate and load worksheet row data.
+ */
+define( "kTYPE_TRANS_UPDT_DATA_OBJECT",			':type:transaction:251' );
+
+/*=======================================================================================
+ *	TEMPLATE WORKSHEET DUPLICATE RECORD TRANSACTIONS									*
+ *======================================================================================*/
+
+/**
+ * Duplicate record.
+ *
+ * A duplicate record was found in the database.
+ */
+define( "kTYPE_TRANS_UPDT_DUPLICATES_ROW",		':type:transaction:271' );
 
 /*=======================================================================================
  *	CARDINALITY TYPES																	*

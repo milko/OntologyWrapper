@@ -730,7 +730,7 @@ abstract class PersistentObject extends OntologyObject
 		),
 		
 		//
-		// Geometric attributes.
+		// Generic geometric attributes.
 		//
 		kTAG_GEO_SHAPE => array
 		(
@@ -750,7 +750,7 @@ abstract class PersistentObject extends OntologyObject
 		),
 		
 		//
-		// Generic attributes.
+		// Generic time attributes.
 		//
 		kTAG_RECORD_CREATED => array
 		(
@@ -766,34 +766,70 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
 		),
-		kTAG_PROCESSED => array
+		
+		//
+		// Generic counter attributes.
+		//
+		kTAG_COUNTER_PROCESSED => array
 		(
-			kTAG_NID	=> ':processed',
+			kTAG_NID	=> ':counter:processed',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
 		),
-		kTAG_VALIDATED => array
+		kTAG_COUNTER_VALIDATED => array
 		(
-			kTAG_NID	=> ':validated',
+			kTAG_NID	=> ':counter:validated',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
 		),
-		kTAG_REJECTED => array
+		kTAG_COUNTER_REJECTED => array
 		(
-			kTAG_NID	=> ':rejected',
+			kTAG_NID	=> ':counter:rejected',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
 		),
-		kTAG_SKIPPED => array
+		kTAG_COUNTER_SKIPPED => array
 		(
-			kTAG_NID	=> ':skipped',
+			kTAG_NID	=> ':counter:skipped',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
 		),
+		kTAG_COUNTER_COLLECTIONS => array
+		(
+			kTAG_NID	=> ':counter:collections',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_COUNTER_RECORDS => array
+		(
+			kTAG_NID	=> ':counter:records',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_COUNTER_FIELDS => array
+		(
+			kTAG_NID	=> ':counter:fields',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_COUNTER_PROGRESS => array
+		(
+			kTAG_NID	=> ':counter:progress',
+			kTAG_DATA_TYPE	=> kTYPE_FLOAT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		
+		//
+		// Generic string element attributes.
+		//
 		kTAG_PREFIX => array
 		(
 			kTAG_NID	=> ':prefix',
@@ -806,15 +842,19 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_LIST )
 		),
-		kTAG_CLASS_NAME => array
-		(
-			kTAG_NID	=> ':class',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
 		kTAG_TOKEN => array
 		(
 			kTAG_NID	=> ':token',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		
+		//
+		// Generic static attributes.
+		//
+		kTAG_CLASS_NAME => array
+		(
+			kTAG_NID	=> ':class',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
@@ -937,8 +977,8 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_TRANSACTION_FIELD => array
 		(
 			kTAG_NID	=> ':transaction:field',
-			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
 		kTAG_TRANSACTION_ALIAS => array
 		(

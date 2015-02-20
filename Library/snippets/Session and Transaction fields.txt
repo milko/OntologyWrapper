@@ -1,0 +1,41 @@
+kTAG_SESSION_TYPE				Upload, Validate, Update, etc.
+kTAG_SESSION_START
+kTAG_SESSION_END
+kTAG_SESSION_STATUS				Completed, failed, crashed.
+kTAG_USER
+kTAG_SESSION
+kTAG_SESSION_FILES				For uploads it contains the file reference.
+kTAG_SESSION_COLLECTIONS		Working collections.
+kTAG_COUNTER_PROCESSED			Processed items.
+kTAG_COUNTER_VALIDATED			Validated elements.
+kTAG_COUNTER_REJECTED			Rejected elements.
+kTAG_COUNTER_SKIPPED			Skipped elements.
+kTAG_COUNTER_COLLECTIONS		Collections count.
+kTAG_COUNTER_RECORDS			Records count elements.
+kTAG_COUNTER_FIELDS				Fields count.
+kTAG_COUNTER_PROGRESS			Progress.
+
+kTAG_SESSION
+kTAG_TRANSACTION
+kTAG_TRANSACTION
+kTAG_TRANSACTION_TYPE			Validation, Transfer, etc.
+kTAG_TRANSACTION_START
+kTAG_TRANSACTION_END
+kTAG_TRANSACTION_STATUS			Error, Warning, Notice, Action.
+kTAG_COUNTER_PROCESSED			Processed items.
+kTAG_COUNTER_VALIDATED			Validated elements.
+kTAG_COUNTER_REJECTED			Rejected elements.
+kTAG_COUNTER_SKIPPED			Skipped elements.
+kTAG_COUNTER_COLLECTIONS		Collections count.
+kTAG_COUNTER_RECORDS			Records count elements.
+kTAG_COUNTER_FIELDS				Fields count.
+kTAG_COUNTER_PROGRESS			Progress.
+kTAG_TRANSACTION_COLLECTION		Worksheet for template import.
+kTAG_TRANSACTION_RECORD			Row number for template import.
+kTAG_TRANSACTION_LOG
+	kTAG_TRANSACTION_ALIAS		Symbol for validation.
+	kTAG_TRANSACTION_FIELD		Column name for template import.
+	kTAG_TRANSACTION_VALUE		For errors and warnings the value.
+	kTAG_TAG
+	kTAG_TRANSACTION_STATUS		Error, Warning, Notice, Action.
+	kTAG_TRANSACTION_MESSAGE

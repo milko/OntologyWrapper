@@ -45,16 +45,16 @@ use OntologyWrapper\CollectionObject;
  *		stamp of the transaction, it is generally set by the transaction destructor.
  *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: <em>Transaction status</em>. The result
  *		or outcome of the transaction.
- *	<li><tt>{@link kTAG_PROCESSED}</tt>: <em>Processed elements</em>. The number of elements
+ *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: <em>Processed elements</em>. The number of elements
  *		processed by the transaction, this will typically be the operations count relating
  *		to this transaction.
- *	<li><tt>{@link kTAG_VALIDATED}</tt>: <em>Validated elements</em>. The number of elements
+ *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: <em>Validated elements</em>. The number of elements
  *		validated by the transaction, this will typically be the operations count that
  *		were cleared by the validation process.
- *	<li><tt>{@link kTAG_REJECTED}</tt>: <em>Rejected elements</em>. The number of elements
+ *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: <em>Rejected elements</em>. The number of elements
  *		rejected by the transaction, this will typically be the operations count that were
  *		not cleared by the validation process.
- *	<li><tt>{@link kTAG_SKIPPED}</tt>: <em>Skipped elements</em>. The number of elements
+ *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: <em>Skipped elements</em>. The number of elements
  *		skipped by the transaction, this will typically be the operations count that were
  *		skipped by the validation process; such as empty fields.
  *	<li><tt>{@link kTAG_TRANSACTION_COLLECTION}</tt>: <em>Transaction colloection</em>. This
@@ -229,7 +229,7 @@ class Transaction extends SessionObject
 			//
 			switch( $theValue )
 			{
-				case kTYPE_TRANS_TMPL_STORAGE:
+				case kTYPE_TRANS_TMPL_STORE:
 				case kTYPE_TRANS_TMPL_IDENT:
 				case kTYPE_TRANS_TMPL_PARSE:
 				case kTYPE_TRANS_TMPL_WORKSHEETS:

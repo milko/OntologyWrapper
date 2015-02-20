@@ -1,0 +1,54 @@
+Upload Service
+-------
+1.)		Service receives upload request with user and template file path.
+2.)		Service deletes existing uploads.
+2.)		Service instantiates session with type and user.
+3.)		Service launches SessionUpload script
+4.)		Service returns session identifier.
+
+SessionUpload script
+--------------------
+0.)		Instantiate SessionUpload with session and file.
+
+1.)		Store template file and set file object reference in session.
+2.)		Load template file.
+	1.)	File type identification.
+			==> Fatal error.
+	2.)	Template identification.
+			==> Fatal error.
+	3.)	Template data dictionary load.
+	4.) Template elements load
+3.)		Validate template structure
+	1.)	Assert required worksheets
+			==> Fatal error.
+	2.)	Assert required worksheet columns
+			==> Fatal error.
+4.)		Allocate working resources
+5.)		Validate worksheet data (1 per worksheet)
+	•	Nested transactions for each worksheet record.
+6.)		Validate worksheet relationships (1 per worksheet)
+	•	Nested transactions for each worksheet record.
+7.)		Assert duplicate records
+	•	Nested transactions for each duplicate record.
+8.)		Cleanup resources.
+9.)		Close session.
+
+UpdateService
+-------
+1.)		Service receives upload identifier with requesting user.
+2.)		Service deletes existing updates.
+2.)		Service instantiates session with upload session, type and user.
+3.)		Service launches SessionUpdate script
+4.)		Service returns session identifier.
+
+SessionUpdate script
+--------------------
+0.)		Instantiate SessionUpdate, allocate work resources.
+
+1.)		Allocate working resources (4).
+1.)		Assert duplicate records (7).
+	•	Nested transactions for each new duplicate record.
+5.)		Load worksheet data
+	•	Nested transaction for each record error.
+8.)		Cleanup resources.
+9.)		Close session.

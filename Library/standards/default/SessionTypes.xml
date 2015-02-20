@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	DEFAULT SESSION & TRANSACTION TYPES
+	DEFAULT SESSION TYPES
 	SessionTypes.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Session types -->
+	<!-- Session type -->
 	
 	<!-- enum::type:session -->
 	<META>
@@ -25,26 +25,8 @@
 		</NODE>
 	</META>
 	
-	<!-- Transaction type -->
-	
-	<!-- enum::type:transaction -->
-	<META>
-		<NODE term=":type:transaction" pid="enum::type:transaction">
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all transaction types.]]></item>
-				</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- Upload -->
-	
+	<!-- Session types -->
+		
 	<!-- kTYPE_SESSION_UPLOAD -->
 	<META>
 		<TERM ns=":type:session" lid="100">
@@ -61,7 +43,7 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE>
+		<NODE pid="enum::type:session:100">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
@@ -69,276 +51,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::type:session</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_TMPL_STORAGE -->
-	<META>
-		<TERM ns=":type:transaction" lid="110">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Template storage</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The template is stored and archived into the system.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_TMPL_IDENT -->
-	<META>
-		<TERM ns=":type:transaction" lid="120">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Template identification</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The template is identified and verified.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_TMPL_PARSE -->
-	<META>
-		<TERM ns=":type:transaction" lid="130">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Template parsing</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The template dictionary is loaded and parsed.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_TMPL_WORKSHEETS -->
-	<META>
-		<TERM ns=":type:transaction" lid="140">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Collections identification</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Identify template collections and assert required elements.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
-		</EDGE>
-	</META>
-	<!-- :kTYPE_TRANS_TMPL_COLUMNS -->
-	<META>
-		<TERM ns=":type:transaction" lid="150">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Fields identification</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Identify template collection fields and assert required elements.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_TMPL_DATA -->
-	<META>
-		<TERM ns=":type:transaction" lid="160">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Template data load</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Verify and load template data.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_TMPL_DUPS -->
-	<META>
-		<TERM ns=":type:transaction" lid="170">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Assert duplicates</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Identify and flag duplicate records.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_TMPL_CLEAN -->
-	<META>
-		<TERM ns=":type:transaction" lid="180">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Session cleanup</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Remove temporary data.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_TMPL_CLOSE -->
-	<META>
-		<TERM ns=":type:transaction" lid="190">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Close session</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Close upload session.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:100</item>
 		</EDGE>
 	</META>
 	
@@ -360,7 +72,7 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE>
+		<NODE pid="enum::type:session:200">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
@@ -368,126 +80,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::type:session</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_UPDT_DUPLICATES -->
-	<META>
-		<TERM ns=":type:transaction" lid="210">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Assert duplicates</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Identify and flag duplicate records.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:200</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_UPDT_DATA -->
-	<META>
-		<TERM ns=":type:transaction" lid="220">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Load data objects</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Uploaded data is compiled and stored in the public portal]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:200</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_UPDT_CLEANUP -->
-	<META>
-		<TERM ns=":type:transaction" lid="280">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Session cleanup</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Remove temporary data.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:200</item>
-		</EDGE>
-	</META>
-	<!-- kTYPE_TRANS_UPDT_CLOSE -->
-	<META>
-		<TERM ns=":type:transaction" lid="290">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Close session</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Close update session.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:session:200</item>
 		</EDGE>
 	</META>
 </METADATA>

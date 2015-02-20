@@ -56,16 +56,16 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_SESSION_COLLECTIONS}</tt>: <em>Session collection</em>. The list of
  *		collection names related to the session operations; these collections are temporary
  *		and will be cleared once the session terminates.
- *	<li><tt>{@link kTAG_PROCESSED}</tt>: <em>Processed elements</em>. The number of elements
+ *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: <em>Processed elements</em>. The number of elements
  *		processed by the session, this will typically be the transactions count relating to
  *		this session.
- *	<li><tt>{@link kTAG_VALIDATED}</tt>: <em>Validated elements</em>. The number of elements
+ *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: <em>Validated elements</em>. The number of elements
  *		validated by the session, this will typically be the transactions count that were
  *		cleared by the validation process.
- *	<li><tt>{@link kTAG_REJECTED}</tt>: <em>Rejected elements</em>. The number of elements
+ *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: <em>Rejected elements</em>. The number of elements
  *		rejected by the session, this will typically be the transactions count that were
  *		not cleared by the validation process.
- *	<li><tt>{@link kTAG_SKIPPED}</tt>: <em>Skipped elements</em>. The number of elements
+ *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: <em>Skipped elements</em>. The number of elements
  *		skipped by the session, this will typically be the transactions count that were
  *		skipped by the validation process; such as empty data template lines.
  * </ul>
@@ -558,6 +558,88 @@ class Session extends SessionObject
 			"Cannot delete session user." );									// !@! ==>
 	
 	} // user.
+
+	 
+	/*===================================================================================
+	 *	collections																				*
+	 *==================================================================================*/
+
+	/**
+	 * Manage session collections
+	 *
+	 * This method can be used to set or retrieve the <i>session end</i>, it accepts a
+	 * parameter which represents either the ending time stamp or the requested operation,
+	 * depending on its value:
+	 *
+	 * <ul>
+	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
+	 *		object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will return the
+	 *			value taken from the persistent object and will update the current object
+	 *			with that value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			return the value found in the current object.
+	 *	  </ul>
+	 *	<li><tt>TRUE</tt>: Set with current time stamp, depending on the commit status of
+	 *		the object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will set the
+	 *			current time stamp in the persistent object and update the current object's
+	 *			value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			set the current time stamp in the current object.
+	 *	  </ul>
+	 *	<li><em>other</em>: Set the value with the provided parameter, depending on the
+	 *		commit status of the object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will set the
+	 *			provided value in the persistent object and update the current object's
+	 *			value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			set the provided value in the current object.
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
+	 *
+	 * The object must have been instantiated with a wrapper.
+	 *
+	 * @param mixed					$theValue			New end or operation.
+	 *
+	 * @access public
+	 * @return mixed				Current end.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_SESSION_END
+	 *
+	 * @uses handleOffset()
+	 */
+	public function collections( $theValue = NULL )
+	{
+		//
+		// Check value.
+		//
+		if( $theValue !== FALSE )
+		{
+			//
+			// Init value.
+			//
+			if( $theValue === TRUE )
+				$theValue
+					= self::ResolveCollection(
+						self::ResolveDatabase( $this->mDictionary, TRUE ) )
+							->getTimeStamp();
+			
+			return $this->handleOffset( kTAG_SESSION_END, $theValue );				// ==>
+		
+		} // Not allowed to delete.
+		
+		throw new \Exception(
+			"Cannot delete session end." );										// !@! ==>
+	
+	} // collections.
 
 	
 

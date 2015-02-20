@@ -31,6 +31,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 
+		<!-- kTAG_TRANSACTION -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:transaction:reference</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
 		<!-- kTAG_TRANSACTION_TYPE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:type:transaction</item>
@@ -61,29 +67,17 @@
 			<item const="kTAG_SUBJECT" node="tag">:transaction:status</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-
-		<!-- kTAG_PROCESSED -->
+		
+		<!-- schema::error -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:processed</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::error</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 
-		<!-- kTAG_VALIDATED -->
+		<!-- schema::counter -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:validated</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-
-		<!-- kTAG_REJECTED -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:rejected</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-
-		<!-- kTAG_SKIPPED -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:skipped</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::counter</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 
 		<!-- kTAG_TRANSACTION_COLLECTION -->
@@ -96,12 +90,6 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:transaction:record</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-
-		<!-- schema::error -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::error</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 
 		<!-- kTAG_TRANSACTION_LOG -->

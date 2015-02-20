@@ -382,32 +382,63 @@ abstract class SessionObject extends PersistentObject
 	 * method will cast the parameter to an integer and update the count of the persistent
 	 * object by that value and return <tt>TRUE</tt>.
 	 *
+	 * The second parameter represents the offset of the reference count, if the parameter
+	 * is provided, the method will also update the {@link kTAG_COUNTER_PROGRESS} property
+	 * in the persistent object; the parameter may tajke the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections progress.
+	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records progress.
+	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields progress.
+	 * </ul>
+	 *
 	 * The current object's count will not be updated, because of this, the count should not
 	 * be counted on :-)
 	 *
+	 * Note that an exception will be triggered if the object is not committed.
+	 *
 	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
+	 * @param string				$theCounter			Total count offset.
 	 *
 	 * @access public
 	 *
-	 * @see kTAG_PROCESSED
+	 * @throws Exception
+	 *
+	 * @see kTAG_COUNTER_PROCESSED
 	 *
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
 	 */
-	public function processed( $theValue = NULL )
+	public function processed( $theValue = NULL, $theCounter = NULL )
 	{
+		//
+		// Validate counter.
+		//
+		if( $theCounter !== NULL )
+		{
+			case kTAG_COUNTER_FIELDS:
+			case kTAG_COUNTER_RECORDS:
+			case kTAG_COUNTER_COLLECTIONS:
+				break;
+			
+			default:
+				throw new \Exception(
+					"Unable to set progress: "
+				   ."Provided invalid counter reference [$theCounter]." );		// !@! ==>
+		}
+		
 		//
 		// Retrieve count.
 		//
 		if( $theValue === NULL )
 			return
 				$this->resolvePersistent( TRUE )
-					->offsetGet( kTAG_PROCESSED );									// ==>
+					->offsetGet( kTAG_COUNTER_PROCESSED );
 		
 		//
 		// Update count.
 		//
-		$this->updateCount( kTAG_PROCESSED, (int) $theValue );
+		$this->updateCount( kTAG_COUNTER_PROCESSED, (int) $theValue, $theCounter );
 		
 		return TRUE;																// ==>
 	
@@ -435,7 +466,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @access public
 	 *
-	 * @see kTAG_VALIDATED
+	 * @see kTAG_COUNTER_VALIDATED
 	 *
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
@@ -448,12 +479,12 @@ abstract class SessionObject extends PersistentObject
 		if( $theValue === NULL )
 			return
 				$this->resolvePersistent( TRUE )
-					->offsetGet( kTAG_VALIDATED );									// ==>
+					->offsetGet( kTAG_COUNTER_VALIDATED );									// ==>
 		
 		//
 		// Update count.
 		//
-		$this->updateCount( kTAG_VALIDATED, (int) $theValue );
+		$this->updateCount( kTAG_COUNTER_VALIDATED, (int) $theValue );
 		
 		return TRUE;																// ==>
 	
@@ -481,7 +512,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @access public
 	 *
-	 * @see kTAG_REJECTED
+	 * @see kTAG_COUNTER_REJECTED
 	 *
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
@@ -494,12 +525,12 @@ abstract class SessionObject extends PersistentObject
 		if( $theValue === NULL )
 			return
 				$this->resolvePersistent( TRUE )
-					->offsetGet( kTAG_REJECTED );									// ==>
+					->offsetGet( kTAG_COUNTER_REJECTED );									// ==>
 		
 		//
 		// Update count.
 		//
-		$this->updateCount( kTAG_REJECTED, (int) $theValue );
+		$this->updateCount( kTAG_COUNTER_REJECTED, (int) $theValue );
 		
 		return TRUE;																// ==>
 	
@@ -527,7 +558,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @access public
 	 *
-	 * @see kTAG_SKIPPED
+	 * @see kTAG_COUNTER_SKIPPED
 	 *
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
@@ -540,12 +571,12 @@ abstract class SessionObject extends PersistentObject
 		if( $theValue === NULL )
 			return
 				$this->resolvePersistent( TRUE )
-					->offsetGet( kTAG_SKIPPED );									// ==>
+					->offsetGet( kTAG_COUNTER_SKIPPED );									// ==>
 		
 		//
 		// Update count.
 		//
-		$this->updateCount( kTAG_SKIPPED, (int) $theValue );
+		$this->updateCount( kTAG_COUNTER_SKIPPED, (int) $theValue );
 		
 		return TRUE;																// ==>
 	
@@ -563,10 +594,14 @@ abstract class SessionObject extends PersistentObject
 	 * return an array with the following keys:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SKIPPED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_REJECTED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_VALIDATED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_PROCESSED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
+	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
+	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
+	 *	<li><tt>{@link kTAG_COUNTER_PROGRESS}</tt>: Progress.
 	 * </ul>
 	 *
 	 * If the object is committed, the method will fetch the data from the persistent object
@@ -580,6 +615,15 @@ abstract class SessionObject extends PersistentObject
 	public function counters()
 	{
 		//
+		// Init local storage.
+		//
+		$result = Array();
+		$counters = array( kTAG_COUNTER_SKIPPED, kTAG_COUNTER_REJECTED,
+						   kTAG_COUNTER_VALIDATED, kTAG_COUNTER_PROCESSED,
+						   kTAG_COUNTER_COLLECTIONS, kTAG_COUNTER_RECORDS,
+						   kTAG_COUNTER_FIELDS );
+		
+		//
 		// Handle committed object.
 		//
 		if( $this->committed() )
@@ -592,18 +636,24 @@ abstract class SessionObject extends PersistentObject
 			//
 			// Set counters.
 			//
-			$counters = array( kTAG_SKIPPED, kTAG_REJECTED,
-							   kTAG_VALIDATED, kTAG_PROCESSED );
 			foreach( $counters as $counter )
-				$this->offsetSet( $counter, $object->offsetGet( $counter ) );
+			{
+				if( $object->offsetExists( $counter ) )
+					$this->offsetSet( $counter, $object->offsetGet( $counter ) );
+			}
 		
 		} // Object is committed.
 		
-		return array(
-				kTAG_SKIPPED => $this->offsetGet( kTAG_SKIPPED ),
-				kTAG_REJECTED => $this->offsetGet( kTAG_REJECTED ),
-				kTAG_VALIDATED => $this->offsetGet( kTAG_VALIDATED ),
-				kTAG_PROCESSED => $this->offsetGet( kTAG_PROCESSED ) );				// ==>
+		//
+		// Build result.
+		//
+		foreach( $counters as $counter )
+		{
+			if( $this->offsetExists( $counter ) )
+				$serult[ $counter ] = $this->offsetGet( $counter );
+		}
+		
+		return $result;																// ==>
 	
 	} // counters.
 
@@ -661,23 +711,23 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kTAG_SESSION}</tt>: Session reference.
-	 *	<li><tt>{@link kTAG_PROCESSED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_VALIDATED}</tt>: Validated elements.
-	 *	<li><tt>{@link kTAG_REJECTED}</tt>: Rejected elements.
-	 *	<li><tt>{@link kTAG_SKIPPED}</tt>: Skipped elements.
+	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Validated elements.
+	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Rejected elements.
+	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped elements.
 	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of unmanaged offsets.
 	 *
-	 * @see kTAG_SESSION kTAG_PROCESSED kTAG_VALIDATED kTAG_REJECTED kTAG_SKIPPED
+	 * @see kTAG_SESSION kTAG_COUNTER_PROCESSED kTAG_COUNTER_VALIDATED kTAG_COUNTER_REJECTED kTAG_COUNTER_SKIPPED
 	 */
 	static function UnmanagedOffsets()
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
 			array( kTAG_SESSION,
-				   kTAG_PROCESSED, kTAG_VALIDATED, kTAG_REJECTED, kTAG_SKIPPED ) );	// ==>
+				   kTAG_COUNTER_PROCESSED, kTAG_COUNTER_VALIDATED, kTAG_COUNTER_REJECTED, kTAG_COUNTER_SKIPPED ) );	// ==>
 	
 	} // UnmanagedOffsets.
 
@@ -842,7 +892,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_PROCESSED kTAG_VALIDATED kTAG_REJECTED kTAG_SKIPPED
+	 * @see kTAG_COUNTER_PROCESSED kTAG_COUNTER_VALIDATED kTAG_COUNTER_REJECTED kTAG_COUNTER_SKIPPED
 	 *
 	 * @uses start()
 	 */
@@ -851,10 +901,10 @@ abstract class SessionObject extends PersistentObject
 		//
 		// Initialise counters.
 		//
-		$this->offsetSet( kTAG_SKIPPED, 0 );
-		$this->offsetSet( kTAG_REJECTED, 0 );
-		$this->offsetSet( kTAG_VALIDATED, 0 );
-		$this->offsetSet( kTAG_PROCESSED, 0 );
+		$this->offsetSet( kTAG_COUNTER_SKIPPED, 0 );
+		$this->offsetSet( kTAG_COUNTER_REJECTED, 0 );
+		$this->offsetSet( kTAG_COUNTER_VALIDATED, 0 );
+		$this->offsetSet( kTAG_COUNTER_PROCESSED, 0 );
 		
 		//
 		// Initialise transaction status.
@@ -1241,6 +1291,8 @@ abstract class SessionObject extends PersistentObject
 	 * This method will update the count of the provided offset by the provided delta of the
 	 * persistent object.
 	 *
+	 * 
+	 *
 	 * @param string				$theCounter			Counter offset.
 	 * @param int					$theCount			Increment delta.
 	 *
@@ -1248,7 +1300,7 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @throws Exception
 	 *
-	 * @see kTAG_PROCESSED kTAG_VALIDATED kTAG_REJECTED kTAG_SKIPPED
+	 * @see kTAG_COUNTER_PROCESSED kTAG_COUNTER_VALIDATED kTAG_COUNTER_REJECTED kTAG_COUNTER_SKIPPED
 	 */
 	protected function updateCount( $theCounter, $theCount )
 	{
@@ -1257,10 +1309,10 @@ abstract class SessionObject extends PersistentObject
 		//
 		switch( $theCounter )
 		{
-			case kTAG_PROCESSED:
-			case kTAG_VALIDATED:
-			case kTAG_REJECTED:
-			case kTAG_SKIPPED:
+			case kTAG_COUNTER_PROCESSED:
+			case kTAG_COUNTER_VALIDATED:
+			case kTAG_COUNTER_REJECTED:
+			case kTAG_COUNTER_SKIPPED:
 				break;
 		
 			default:

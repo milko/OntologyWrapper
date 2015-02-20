@@ -63,6 +63,21 @@ class SessionUpload
 	 */
 	protected $mTransaction = NULL;
 
+	/**
+	 * Collections.
+	 *
+	 * This data member holds the <i>list of working collections</i> as an array structured
+	 * as follows:
+	 *
+	 * <ul>
+	 *	<li><em>index</tt>: The collection name.
+	 *	<li><em>value</tt>: The collection object.
+	 * </ul>
+	 *
+	 * @var array
+	 */
+	protected $mCollections = NULL;
+
 		
 
 /*=======================================================================================
@@ -102,11 +117,6 @@ class SessionUpload
 		// Set file path.
 		//
 		$this->template( $theFile );
-		
-		//
-		// Allocate resources.
-		//
-		$this->allocateResources();
 
 	} // Constructor.
 
@@ -491,10 +501,10 @@ class SessionUpload
 	 * return an array with the following keys:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SKIPPED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_REJECTED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_VALIDATED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_PROCESSED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed elements.
 	 * </ul>
 	 *
 	 * @access public
@@ -557,6 +567,54 @@ class SessionUpload
 		$this->session()->saveFile( $path, $metadata );								// ==>
 
 	} // saveTemplate.
+
+	 
+	/*===================================================================================
+	 *	initCollections																	*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise working collections
+	 *
+	 * This method will instantiate all working collections, the method expects an array
+	 * of collection names, the resulting collection names will be composed as follows:
+	 * <user database kTAG_CONN_BASE>_<worksheet name>, the list will be set both in the
+	 * data member and the session kTAG_SESSION_COLLECTIONS offset.
+	 *
+	 * The parameter is expected to be an array.
+	 *
+	 * @param array					$theNames			Collection names.
+	 *
+	 * @access public
+	 *
+	 * @uses session()
+	 */
+	public function initCollections( $theNames )
+	{
+		//
+		// Drop eventual collections.
+		//
+		if( is_array( $this->mCollections ) )
+		{
+			foreach( $this->mCollections as $collection )
+				$collection->drop();
+		}
+		
+		//
+		// Instantiate collections.
+		//
+		$this->mCollections = Array();
+		foreach( $theNames as $collection )
+			$this->mCollection[ $collection ]
+				= Session::ResolveDatabase( $this->session()->dictionary(), TRUE, TRUE )
+					->collection( $collection, TRUE );
+		
+		//
+		// Save collections in session.
+		//
+		$this->session()->
+
+	} // initCollections.
 
 	 
 

@@ -1367,7 +1367,7 @@
 		</TERM>
 	</META>
 	
-	<!-- Generic attributes -->
+	<!-- Generic time attributes -->
 	
 	<META>
 		<!-- kTAG_RECORD_CREATED -->
@@ -1401,9 +1401,13 @@
 				</item>
 			</item>
 		</TERM>
-		
-		<!-- kTAG_PROCESSED -->
-		<TERM ns="" lid="processed">
+	</META>
+	
+	<!-- Generic counter attributes -->
+	
+	<META>
+		<!-- kTAG_COUNTER_PROCESSED -->
+		<TERM ns=":counter" lid="processed">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1418,8 +1422,8 @@
 			</item>
 		</TERM>
 		
-		<!-- kTAG_VALIDATED -->
-		<TERM ns="" lid="validated">
+		<!-- kTAG_COUNTER_VALIDATED -->
+		<TERM ns=":counter" lid="validated">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1434,8 +1438,8 @@
 			</item>
 		</TERM>
 		
-		<!-- kTAG_REJECTED -->
-		<TERM ns="" lid="rejected">
+		<!-- kTAG_COUNTER_REJECTED -->
+		<TERM ns=":counter" lid="rejected">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1450,8 +1454,8 @@
 			</item>
 		</TERM>
 		
-		<!-- kTAG_SKIPPED -->
-		<TERM ns="" lid="skipped">
+		<!-- kTAG_COUNTER_SKIPPED -->
+		<TERM ns=":counter" lid="skipped">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1466,6 +1470,74 @@
 			</item>
 		</TERM>
 		
+		<!-- kTAG_COUNTER_COLLECTIONS -->
+		<TERM ns=":counter" lid="collections">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collections</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Number of collections.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_COUNTER_RECORDS -->
+		<TERM ns=":counter" lid="records">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Records</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Number of records.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_COUNTER_FIELDS -->
+		<TERM ns=":counter" lid="fields">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Fields</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Number of fields.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_COUNTER_PROGRESS -->
+		<TERM ns=":counter" lid="progress">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Progress</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Current progress.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- String element attributes -->
+	
+	<META>
 		<!-- kTAG_PREFIX -->
 		<TERM ns="" lid="prefix">
 			<item const="kTAG_LABEL">
@@ -1498,22 +1570,6 @@
 			</item>
 		</TERM>
 		
-		<!-- kTAG_CLASS_NAME -->
-		<TERM ns="" lid="class">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Class</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Class name.]]></item>
-				</item>
-			</item>
-		</TERM>
-		
 		<!-- kTAG_TOKEN -->
 		<TERM ns="" lid="token">
 			<item const="kTAG_LABEL">
@@ -1526,6 +1582,26 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[A token character or string.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Static attributes -->
+	
+	<META>
+		<!-- kTAG_CLASS_NAME -->
+		<TERM ns="" lid="class">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Class</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Class name.]]></item>
 				</item>
 			</item>
 		</TERM>

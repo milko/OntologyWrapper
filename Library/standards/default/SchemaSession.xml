@@ -83,28 +83,10 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 
-		<!-- kTAG_PROCESSED -->
+		<!-- schema::counter -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:processed</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-
-		<!-- kTAG_VALIDATED -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:validated</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-
-		<!-- kTAG_REJECTED -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:rejected</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-
-		<!-- kTAG_SKIPPED -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:skipped</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::counter</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 
 		<!-- schema::error -->
