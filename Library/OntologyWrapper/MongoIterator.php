@@ -8,8 +8,8 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\MongoIterator;
-use OntologyWrapper\MongoObjectCollection;
+use OntologyWrapper\ObjectIterator;
+use OntologyWrapper\MongoCollection;
 
 /*=======================================================================================
  *																						*

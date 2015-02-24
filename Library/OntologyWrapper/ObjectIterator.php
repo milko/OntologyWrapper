@@ -228,6 +228,14 @@ abstract class ObjectIterator implements \Iterator,
 				case UnitObject::kSEQ_NAME:
 					$offset = UnitObject::GetReferenceKey();
 					break;
+		
+				case Session::kSEQ_NAME:
+					$offset = Session::GetReferenceKey();
+					break;
+		
+				case Transaction::kSEQ_NAME:
+					$offset = Transaction::GetReferenceKey();
+					break;
 			
 				default:
 					$offset = kTAG_NID;

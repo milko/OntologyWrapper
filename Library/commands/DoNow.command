@@ -13,6 +13,15 @@
 SOCKET="socket=/tmp/mysql.sock"
 
 ########################################################################################
+#   Initialise institutes                                                              #
+########################################################################################
+
+#
+# Init institutes.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/4-Init_Institutes.php
+
+########################################################################################
 #   Initialise users                                                                   #
 ########################################################################################
 
@@ -21,6 +30,100 @@ SOCKET="socket=/tmp/mysql.sock"
 #
 php -f /Library/WebServer/Library/OntologyWrapper/Library/settings/ResetUsers.php \
 	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Backup                                                                             #
+########################################################################################
+
+#
+# Backup and archive main dictionary.
+#
+rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+mongodump --directoryperdb \
+		  --db 'BIOVERSITY' \
+		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.inst.zip"
+ditto -c -k --sequesterRsrc --keepParent \
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.inst.zip"
+rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+
+########################################################################################
+#   Handle checklists                                                                  #
+########################################################################################
+
+#
+# Load CWR checklist.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
+	"cwr_ck" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Handle inventories                                                                 #
+########################################################################################
+
+#
+# Load CWR inventory.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
+	"cwr_in" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Handle GRIN CWR inventory                                                          #
+########################################################################################
+
+#
+# Load GRIN CWR inventory.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
+	"grin_cwr" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Handle EUFGIS                                                                      #
+########################################################################################
+
+#
+# Load EUFGIS.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
+	"eufgis" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Handle QTLs                                                                        #
+########################################################################################
+
+#
+# Load QTL.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
+	"qtl" \
+	"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
+#   Backup and archive database                                                        #
+########################################################################################
+
+#
+# Backup and archive.
+#
+rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
+mongodump --directoryperdb \
+		  --db 'BIOVERSITY' \
+		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.insitu.zip"
+ditto -c -k --sequesterRsrc --keepParent \
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
+	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.insitu.zip"
+rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
 
 ########################################################################################
 #   Load templates                                                                     #
@@ -65,6 +168,5 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Build
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":taxon:crop" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":taxon:crop:category" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":taxon:crop:group" N
-
 
 exit

@@ -4,8 +4,7 @@ kTAG_SESSION_END
 kTAG_SESSION_STATUS				Completed, failed, crashed.
 kTAG_USER
 kTAG_SESSION
-kTAG_SESSION_FILES				For uploads it contains the file reference.
-kTAG_SESSION_COLLECTIONS		Working collections.
+kTAG_CONN_COLLS					Working collections.
 kTAG_COUNTER_PROCESSED			Processed items.
 kTAG_COUNTER_VALIDATED			Validated elements.
 kTAG_COUNTER_REJECTED			Rejected elements.
@@ -16,7 +15,6 @@ kTAG_COUNTER_FIELDS				Fields count.
 kTAG_COUNTER_PROGRESS			Progress.
 
 kTAG_SESSION
-kTAG_TRANSACTION
 kTAG_TRANSACTION
 kTAG_TRANSACTION_TYPE			Validation, Transfer, etc.
 kTAG_TRANSACTION_START

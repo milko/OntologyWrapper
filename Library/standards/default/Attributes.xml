@@ -565,6 +565,38 @@
 				</item>
 			</item>
 		</TERM>
+	
+		<!-- kTAG_FILE -->
+		<TERM ns=":file" lid="reference">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">File</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A file reference.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_FILES -->
+		<TERM ns=":file" lid="references">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">File references</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A list of file references.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Object relationship attributes -->
@@ -1757,38 +1789,6 @@
 				</item>
 			</item>
 		</TERM>
-		
-		<!-- kTAG_SESSION_FILES -->
-		<TERM ns=":session" lid="files">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Session files</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The files or resources associated with the session.]]></item>
-				</item>
-			</item>
-		</TERM>
-		
-		<!-- kTAG_SESSION_COLLECTIONS -->
-		<TERM ns=":session" lid="collections">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Session collections</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The collections used by the session.]]></item>
-				</item>
-			</item>
-		</TERM>
 	</META>
 	
 	<!-- transaction attributes -->
@@ -2414,6 +2414,22 @@
 			</item>
 		</TERM>
 	
+		<!-- kTAG_CONN_BASES -->
+		<TERM ns=":connection" lid="databases">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Databases</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of database names.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
 		<!-- kTAG_CONN_COLL -->
 		<TERM ns=":connection" lid="collection">
 			<item const="kTAG_LABEL">
@@ -2426,6 +2442,22 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Database collection name.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_CONN_COLLS -->
+		<TERM ns=":connection" lid="collections">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collections</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of collection names.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2494,6 +2526,58 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[The information resource associated with the error.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- File attributes -->
+	
+	<META>
+		<!-- kTAG_FILE_REF -->
+		<TERM ns=":file" lid="ref">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">File reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The file reference.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_FILE_COLLECTION -->
+		<TERM ns=":file" lid="collection">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">File collection</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The file collection name.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_FILE_DATABASE -->
+		<TERM ns=":file" lid="database">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">File database</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The file database name.]]></item>
 				</item>
 			</item>
 		</TERM>

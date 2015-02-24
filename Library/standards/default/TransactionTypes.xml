@@ -27,6 +27,37 @@
 	
 	<!-- Upload transaction -->
 	
+	<!-- kTYPE_TRANS_TMPL_PREPARE -->
+	<META>
+		<TERM ns=":type:transaction" lid="100">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Prepare upload</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Delete all previous upload sessions.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE pid="enum::type:transaction:100">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:session:100</item>
+		</EDGE>
+	</META>
+	
 	<!-- kTYPE_TRANS_TMPL_STORE -->
 	<META>
 		<TERM ns=":type:transaction" lid="110">

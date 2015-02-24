@@ -1,10 +1,10 @@
 <?php
 
 /**
- * {@link MongoObjectCollection} test suite.
+ * {@link MongoCollection} test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * {@link MongoObjectCollection} class.
+ * {@link MongoCollection} class.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Test
@@ -52,7 +52,7 @@ define( 'kDEBUG_PARENT', FALSE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\MongoObjectCollection
+class MyClass extends OntologyWrapper\MongoCollection
 {
 	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}

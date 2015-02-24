@@ -434,6 +434,22 @@
 			</item>
 		</TERM>
 		
+		<!-- kTYPE_REF_FILE -->
+		<TERM ns=":type:ref" lid="file">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">File reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A file reference is a string that must correspond to the native identifier of a file object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kTYPE_REF_SELF -->
 		<TERM ns=":type:ref" lid="self">
 			<item const="kTAG_LABEL">

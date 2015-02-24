@@ -71,18 +71,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 
-		<!-- kTAG_SESSION_FILES -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:session:files</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-
-		<!-- kTAG_SESSION_COLLECTIONS -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:session:collections</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-
 		<!-- schema::counter -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::counter</item>

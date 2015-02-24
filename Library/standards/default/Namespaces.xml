@@ -282,6 +282,22 @@
 			</item>
 		</TERM>
 		
+		<!-- File -->
+		<TERM ns="" lid="file">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">File</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A data file.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- Error -->
 		<TERM ns="" lid="error">
 			<item const="kTAG_LABEL">

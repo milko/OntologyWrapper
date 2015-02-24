@@ -578,8 +578,7 @@ class SessionUpload
 	 *
 	 * This method will instantiate all working collections, the method expects an array
 	 * of collection names, the resulting collection names will be composed as follows:
-	 * <user database kTAG_CONN_BASE>_<worksheet name>, the list will be set both in the
-	 * data member and the session kTAG_SESSION_COLLECTIONS offset.
+	 * <user database kTAG_CONN_BASE>_<worksheet name>.
 	 *
 	 * The parameter is expected to be an array.
 	 *

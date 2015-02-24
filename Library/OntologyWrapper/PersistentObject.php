@@ -337,6 +337,19 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTYPE_LIST )
 		),
+		kTAG_FILE => array
+		(
+			kTAG_NID	=> ':file:reference',
+			kTAG_DATA_TYPE	=> kTYPE_REF_FILE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_FILES => array
+		(
+			kTAG_NID	=> ':file:references',
+			kTAG_DATA_TYPE	=> kTYPE_REF_FILE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
+		),
 		
 		//
 		// Object relationship attributes.
@@ -922,20 +935,6 @@ abstract class PersistentObject extends OntologyObject
 									  kTYPE_FULL_TEXT_03,
 									  kTYPE_SUMMARY )
 		),
-		kTAG_SESSION_FILES => array
-		(
-			kTAG_NID	=> ':session:files',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
-									  kTYPE_LIST )
-		),
-		kTAG_SESSION_COLLECTIONS => array
-		(
-			kTAG_NID	=> ':session:collections',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
-									  kTYPE_LIST )
-		),
 		
 		//
 		// Transaction attributes.
@@ -1201,11 +1200,25 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
+		kTAG_CONN_BASES => array
+		(
+			kTAG_NID	=> ':connection:databases',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
+		),
 		kTAG_CONN_COLL => array
 		(
 			kTAG_NID	=> ':connection:collection',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_CONN_COLLS => array
+		(
+			kTAG_NID	=> ':connection:collections',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
 		),
 		kTAG_CONN_OPTS => array
 		(
@@ -1906,6 +1919,159 @@ abstract class PersistentObject extends OntologyObject
 		$this->parseObject( $tags, $refs, TRUE, $doText );
 	
 	} // validate.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC FILE MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	saveFile																		*
+	 *==================================================================================*/
+
+	/**
+	 * Save file
+	 *
+	 * This method will save the file referenced by the provided path with the provided
+	 * metadata.
+	 *
+	 * By default, the method will add the current object reference to the metadata, derived
+	 * classes should first load their relevant data and then call the parent method that
+	 * will actually save the object.
+	 *
+	 * If the current object is not committed, the method will raise an exception.
+	 *
+	 * @param string				$thePath			File path.
+	 * @param array					$theMetadata		File metadata.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access public
+	 * @return ObjectId				File object identifier.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses committed()
+	 */
+	public function saveFile( $thePath, $theMetadata = NULL, $theOptions = Array() )
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->committed() )
+		{
+			//
+			// Get files collection.
+			//
+			$collection = static::ResolveDatabase( $this->mDictionary, TRUE )->filer();
+		
+			//
+			// Initialise metadata.
+			//
+			$theMetadata = $this->initFileMetadata( $theMetadata );
+			
+			//
+			// Set current object reference.
+			//
+			$theMetadata->offsetSet( static::ResolveReferenceTag(),
+									 $this->offsetGet( kTAG_NID ) );
+			
+			return
+				$collection->saveFile( $thePath, $theMetadata, $theOptions );				// ==>
+		
+		} // Object is committed.
+		
+		throw new \Exception(
+			"Cannot save file: "
+		   ."the session is not committed." );									// !@! ==>
+	
+	} // saveFile.
+
+	 
+	/*===================================================================================
+	 *	getFile																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get file
+	 *
+	 * This method will retrieve the file object matched by the provided identifier.
+	 *
+	 * The second parameter rewpresents the results type: see
+	 * {@link CollectionObject::matchOne()}.
+	 *
+	 * @param string				$theIdentifier		File object identifier.
+	 * @param bitfield				$theResult			Result type.
+	 *
+	 * @access public
+	 * @return FileObject			File object.
+	 */
+	public function getFile( $theIdentifier, $theResult = kQUERY_OBJECT )
+	{
+		//
+		// Get files collection.
+		//
+		$collection = static::ResolveDatabase( $this->mDictionary, TRUE )->filer();
+		
+		//
+		// Normalise identifier.
+		//
+		$theIdentifier = $collection->getObjectId( $theIdentifier );
+		
+		return
+			$collection
+				->matchOne(
+					array( kTAG_NID => $theIdentifier ), $theResult );				// ==>
+	
+	} // getFile.
+
+	 
+	/*===================================================================================
+	 *	getObjectFiles																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get object files
+	 *
+	 * This method will retrieve the list of files referenced by the current object.
+	 *
+	 * The method parameter rewpresents the results type: see
+	 * {@link CollectionObject::matchOne()}.
+	 *
+	 * If the current object is not committed, the method will raise an exception.
+	 *
+	 * @param bitfield				$theResult			Result type.
+	 *
+	 * @access public
+	 * @return ObjectIterator		Object iterator.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses committed()
+	 */
+	public function getObjectFiles( $theResult = kQUERY_OBJECT )
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->committed() )
+			return
+				static::ResolveDatabase( $this->mDictionary, TRUE )
+					->filer()
+						->matchAll(
+							array( static::ResolveReferenceTag()
+								=> $this->offsetGet( kTAG_NID ),
+							$theResult ) );											// ==>
+		
+		throw new \Exception(
+			"Cannot retrieve files: "
+		   ."the current object is not committed." );							// !@! ==>
+	
+	} // getObjectFiles.
 
 	
 
@@ -2874,6 +3040,86 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
+	 *	ResolveReferenceTag																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve reference tag
+	 *
+	 * This method will return the offset corresponding to the default reference offset
+	 * corresponding to the current object's class.
+	 *
+	 * In this class we check the current <tt>kSEQ_NAME</tt> constant and determine to
+	 * which offset it corresponds, derived classes may overload this method to provide a
+	 * custom offset.
+	 *
+	 * The provided parameter is a boolean that determines whether to return the scalar or
+	 * list version of the offset.
+	 *
+	 * @param boolean				$doList				TRUE means list offset.
+	 *
+	 * @static
+	 * @return string				Offset.
+	 *
+	 * @throws Exception
+	 */
+	static function ResolveReferenceTag( $doList = FALSE )
+	{
+		//
+		// Select offsets tag according to current collection.
+		//
+		switch( $tmp = static::kSEQ_NAME )
+		{
+			case Tag::kSEQ_NAME:
+				return ( $doList )
+					 ? kTAG_TAGS													// ==>
+					 : kTAG_TAG;													// ==>
+		
+			case Term::kSEQ_NAME:
+				return ( $doList )
+					 ? kTAG_TERMS													// ==>
+					 : kTAG_TERM;													// ==>
+		
+			case Node::kSEQ_NAME:
+				return ( $doList )
+					 ? kTAG_NODES													// ==>
+					 : kTAG_NODE;													// ==>
+	
+			case Edge::kSEQ_NAME:
+				return ( $doList )
+					 ? kTAG_EDGES													// ==>
+					 : kTAG_EDGE;													// ==>
+		
+			case User::kSEQ_NAME:
+				return ( $doList )
+					 ? kTAG_USERS													// ==>
+					 : kTAG_USER;													// ==>
+		
+			case Session::kSEQ_NAME:
+				return ( $doList )
+					 ? kTAG_SESSIONS												// ==>
+					 : kTAG_SESSION;												// ==>
+		
+			case Transaction::kSEQ_NAME:
+				return ( $doList )
+					 ? kTAG_TRANSACTIONS											// ==>
+					 : kTAG_TRANSACTION;											// ==>
+		
+			case UnitObject::kSEQ_NAME:
+				return ( $doList )
+					 ? kTAG_UNITS													// ==>
+					 : kTAG_UNIT;													// ==>
+		
+		} // Parsed collection name.
+		
+		throw new \Exception(
+			"Cannot resolve reference tag: "
+		   ."invalid collection name [$tmp]." );								// !@! ==>
+	
+	} // ResolveReferenceTag.
+
+	 
+	/*===================================================================================
 	 *	Offsets2Tags																	*
 	 *==================================================================================*/
 
@@ -3240,10 +3486,10 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param array					$theOffsets			Offsets to normalise.
 	 *
-	 * @access protected
+	 * @static
 	 * @return array				Clustered offsets
 	 */
-	protected function ClusterObjectOffsets( $theOffsets )
+	static function ClusterObjectOffsets( $theOffsets )
 	{
 		//
 		// Init local storage.
@@ -5907,6 +6153,13 @@ MILKO - Need to check.
 										   $theType, $theClass, $thePath )
 	{
 		//
+		// Resolve collection.
+		//
+		$collection
+			= $theClass::ResolveCollection(
+				$theClass::ResolveDatabase( $this->mDictionary ) );
+
+		//
 		// Cast identifier.
 		//
 		switch( $theType )
@@ -5920,6 +6173,12 @@ MILKO - Need to check.
 				$theProperty = (string) $theProperty;
 				break;
 
+			case kTYPE_REF_SESSION:
+			case kTYPE_REF_TRANSACTION:
+			case kTYPE_REF_FILE:
+				$theProperty = $collection->getObjectId( $theProperty );
+				break;
+				
 			case kTYPE_REF_NODE:
 				$theProperty = (int) $theProperty;
 				break;
@@ -5942,17 +6201,15 @@ MILKO - Need to check.
 					case Node::kSEQ_NAME:
 						$theProperty = (int) $theProperty;
 						break;
+					case kTYPE_REF_SESSION:
+					case kTYPE_REF_TRANSACTION:
+					case kTYPE_REF_FILE:
+						$theProperty = $collection->getObjectId( $theProperty );
+						break;
 				}
 				break;
 
 		} // Parsed type.
-
-		//
-		// Resolve collection.
-		//
-		$collection
-			= $theClass::ResolveCollection(
-				$theClass::ResolveDatabase( $this->mDictionary ) );
 
 		//
 		// Handle references list.
@@ -6056,6 +6313,56 @@ MILKO - Need to check.
 					$this->parseStructure(
 						$theProperty[ $idx ], $path, $tags, $theRefs, TRUE );
 				}
+				break;
+			
+			//
+			// Handle native database object references.
+			//
+			case kTYPE_REF_SESSION:
+			case kTYPE_REF_TRANSACTION:
+				//
+				// Handle array.
+				//
+				if( is_array( $theProperty ) )
+				{
+					$keys = array_keys( $theProperty );
+					foreach( $keys as $key )
+						$theProperty[ $key ]
+							= static::ResolveCollection(
+								static::ResolveDatabase( $this->mDictionary ) )
+									->getObjectId( $theProperty[ $key ] );
+				}
+				//
+				// Handle scalar.
+				//
+				else
+					$theProperty
+						= static::ResolveCollection(
+							static::ResolveDatabase( $this->mDictionary ) )
+								->getObjectId( $theProperty );
+				break;
+	
+			case kTYPE_REF_FILE:
+				//
+				// Handle array.
+				//
+				if( is_array( $theProperty ) )
+				{
+					$keys = array_keys( $theProperty );
+					foreach( $keys as $key )
+						$theProperty[ $key ]
+							= FileObject::ResolveCollection(
+								FileObject::ResolveDatabase( $this->mDictionary ) )
+									->getObjectId( $theProperty[ $key ] );
+				}
+				//
+				// Handle scalar.
+				//
+				else
+					$theProperty
+						= FileObject::ResolveCollection(
+							FileObject::ResolveDatabase( $this->mDictionary ) )
+								->getObjectId( $theProperty );
 				break;
 	
 			//
@@ -6442,6 +6749,15 @@ MILKO - Need to check.
 			case kTYPE_REF_UNIT:
 				return kPATH_NAMESPACE_ROOT.'\UnitObject';							// ==>
 		
+			case kTYPE_REF_SESSION:
+				return kPATH_NAMESPACE_ROOT.'\Session';								// ==>
+		
+			case kTYPE_REF_TRANSACTION:
+				return kPATH_NAMESPACE_ROOT.'\Transaction';							// ==>
+		
+			case kTYPE_REF_FILE:
+				return kPATH_NAMESPACE_ROOT.'\FileObject';							// ==>
+		
 			case kTYPE_REF_SELF:
 				if( $this instanceof Tag )
 					return kPATH_NAMESPACE_ROOT.'\Tag';								// ==>
@@ -6455,6 +6771,12 @@ MILKO - Need to check.
 					return kPATH_NAMESPACE_ROOT.'\User';							// ==>
 				elseif( $this instanceof UnitObject )
 					return kPATH_NAMESPACE_ROOT.'\UnitObject';						// ==>
+				elseif( $this instanceof Session )
+					return kPATH_NAMESPACE_ROOT.'\Session';							// ==>
+				elseif( $this instanceof Transaction )
+					return kPATH_NAMESPACE_ROOT.'\Transaction';						// ==>
+				elseif( $this instanceof FileObject )
+					return kPATH_NAMESPACE_ROOT.'\FileObject';						// ==>
 				break;
 		
 		} // Parsed collection name.
@@ -6508,6 +6830,15 @@ MILKO - Need to check.
 		
 			case kTYPE_REF_UNIT:
 				return UnitObject::kSEQ_NAME;										// ==>
+		
+			case kTYPE_REF_SESSION:
+				return Session::kSEQ_NAME;											// ==>
+		
+			case kTYPE_REF_TRANSACTION:
+				return Transaction::kSEQ_NAME;										// ==>
+		
+			case kTYPE_REF_FILE:
+				return FileObject::kSEQ_NAME;										// ==>
 		
 			case kTYPE_REF_SELF:
 				return static::kSEQ_NAME;											// ==>
@@ -8255,6 +8586,57 @@ MILKO - Need to check.
 		} // Value provided.
 	
 	} // addToFullText.
+
+	 
+	/*===================================================================================
+	 *	initFileMetadata																*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise file metadata
+	 *
+	 * This method will return a {@link FileMetadataObject} according to the provided
+	 * parameter, the method expects either a {@link FileMetadataObject} instance, an
+	 * array or <tt>NULL</tt>; in this last case, the method will return an empty instance.
+	 *
+	 * Any other type will raise an exception.
+	 *
+	 * @param mixed					$theValue			Metadata.
+	 *
+	 * @access protected
+	 */
+	protected function initFileMetadata( $theValue )
+	{
+		//
+		// Initialise the metadata.
+		//
+		if( ! ($theValue instanceof FileMetadataObject) )
+		{
+			//
+			// Empty.
+			//
+			if( $theValue === NULL )
+				$theValue = new FileMetadataObject( $this->mDictionary );
+			
+			//
+			// Provided array.
+			//
+			elseif( is_array( $theValue ) )
+				$theValue = new FileMetadataObject( $this->mDictionary, $theValue );
+			
+			//
+			// Invalid type.
+			//
+			else
+				throw new \Exception(
+					"Cannot instantiate file metadata: "
+				   ."provided invalid metadata type." );						// !@! ==>
+		
+		} // Need to instantiate.
+		
+		return $theValue;															// ==>
+	
+	} // initFileMetadata.
 
 	 
 

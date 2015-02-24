@@ -280,6 +280,14 @@ define( "kTYPE_REF_SESSION",					':type:ref:session' );
 define( "kTYPE_REF_TRANSACTION",				':type:ref:transaction' );
 
 /**
+ * File reference.
+ *
+ * An <i>file reference</i> is a <em>string</em> that must correspond to the native
+ * identifier of a {@link FileObject} object.
+ */
+define( "kTYPE_REF_FILE",						':type:ref:file' );
+
+/**
  * Self reference.
  *
  * This type defines an <em>reference</em> to an <em>object of the same class</em>.
@@ -289,6 +297,14 @@ define( "kTYPE_REF_SELF",						':type:ref:self' );
 /*=======================================================================================
  *	CUSTOM DATA TYPES																	*
  *======================================================================================*/
+
+/**
+ * Object identifier.
+ *
+ * A n<i>object identifier</i> is a <em>database native type</em> expressing an object
+ * unique identifier, <em>its structure is dependent on the specific database driver</em>.
+ */
+define( "kTYPE_OBJECT_ID",						':type:object-id' );
 
 /**
  * Time-stamp.
@@ -520,6 +536,13 @@ define( "kTYPE_SESSION_UPDATE",					':type:session:200' );
 /*=======================================================================================
  *	DEFAULT UPLOAD TRANSACTION TYPES													*
  *======================================================================================*/
+
+/**
+ * Prepare upload session.
+ *
+ * Delete all previous upload sessions.
+ */
+define( "kTYPE_TRANS_TMPL_PREPARE",				':type:transaction:100' );
 
 /**
  * Store template file.

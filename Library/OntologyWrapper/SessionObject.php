@@ -31,6 +31,38 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  * transaction objects that can persist in a container and that are constituted by ontology
  * offsets.
  *
+ * The class features the following default offsets:
+ *
+ * <ul>
+ *	<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. The native identifier of a
+ *		session or transaction is automatically generated when inserted the first time, it
+ *		can then be used to reference the object and have {@link Transaction} objects update
+ *		its members.
+ *	<li><tt>{@link kTAG_SESSION}</tt>: <em>Session</em>. The object reference of the session
+ *		to which the current object is related.
+ *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: <em>Processed elements</em>. The number of elements
+ *		processed by the session, this will typically be the transactions count relating to
+ *		this session.
+ *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: <em>Validated elements</em>. The number of elements
+ *		validated by the session, this will typically be the transactions count that were
+ *		cleared by the validation process.
+ *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: <em>Rejected elements</em>. The number of elements
+ *		rejected by the session, this will typically be the transactions count that were
+ *		not cleared by the validation process.
+ *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: <em>Skipped elements</em>. The number of elements
+ *		skipped by the session, this will typically be the transactions count that were
+ *		skipped by the validation process; such as empty data template lines.
+ *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: <em>Collections count</em>. The total
+ *		number of collections.
+ *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: <em>Records count</em>. The total number of
+ *		records.
+ *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: <em>Fields count</em>. The total number of
+ *		fields.
+ *	<li><tt>{@link kTAG_COUNTER_PROGRESS}</tt>: <em>Progress</em>. The current progress
+ *		percentage: it is the percentage of the processed count by one of the three above
+ *		properties.
+ * </ul>
+ *
  * The main purpose of this class is to implement abstract methods common to all session
  * objects.
  *
@@ -56,8 +88,8 @@ abstract class SessionObject extends PersistentObject
 	/**
 	 * Instantiate class.
 	 *
-	 * Objects derived from this class feature a <tt>MongoId</tt> native identifier, in this
-	 * class we convert string identifiers to this type.
+	 * Objects derived from this class feature a native identifier, in this class we convert
+	 * string identifiers to this type.
 	 *
 	 * We also assert that the container is provided and is a wrapper.
 	 *
@@ -83,35 +115,12 @@ abstract class SessionObject extends PersistentObject
 				//
 				// Normalise identifier.
 				//
-				if( $theIdentifier !== NULL )
-				{
-					//
-					// Convert to MongoId.
-					//
-					if( (! is_array( $theIdentifier ))
-					 && (! ($theIdentifier instanceof \MongoId)) )
-					{
-						//
-						// Convert to string.
-						//
-						$theIdentifier = (string) $theIdentifier;
-				
-						//
-						// Handle valid identifier.
-						//
-						if( \MongoId::isValid( $theIdentifier ) )
-							$theIdentifier = new \MongoId( $theIdentifier );
-				
-						//
-						// Invalid identifier.
-						//
-						else
-							throw new \Exception(
-								"Cannot instantiate object: "
-							   ."invalid identifier [$theIdentifier]." );		// !@! ==>
-					}
-		
-				} // Provided identifier.
+				if( ($theIdentifier !== NULL)
+				 && (! is_array( $theIdentifier )) )
+					$theIdentifier
+						= static::ResolveCollection(
+							static::ResolveDatabase( $theContainer, TRUE ) )
+							->getObjectId( $theIdentifier );
 		
 				//
 				// Call parent method.
@@ -143,7 +152,7 @@ abstract class SessionObject extends PersistentObject
 	/**
 	 * <h4>Return global identifier</h4>
 	 *
-	 * In this class we return the string representation of the <tt>MongoId</tt>.
+	 * In this class we return the string representation of the native identifier.
 	 *
 	 * @access public
 	 * @return string				The persistent identifier as a string.
@@ -194,13 +203,10 @@ abstract class SessionObject extends PersistentObject
 		//
 		$id = parent::insert( $theWrapper, $theOptions );
 		
-		//
-		// Handle MongoId.
-		//
-		if( $id instanceof \MongoId )
-			return (string) $id;													// ==>
-		
-		return $id;																	// ==>
+		return
+			static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) )
+					->setObjectId( $id );											// ==>
 	
 	} // insert.
 
@@ -227,13 +233,10 @@ abstract class SessionObject extends PersistentObject
 		//
 		$id = parent::commit( $theWrapper, $theOptions );
 		
-		//
-		// Handle MongoId.
-		//
-		if( $id instanceof \MongoId )
-			return (string) $id;													// ==>
-		
-		return $id;																	// ==>
+		return
+			static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) )
+					->setObjectId( $id );											// ==>
 	
 	} // commit.
 
@@ -314,34 +317,16 @@ abstract class SessionObject extends PersistentObject
 			//
 			// Handle object.
 			//
-			if( $theValue instanceof Session )
+			if( $theValue instanceof PesistentObject )
 				$theValue = $theValue->offsetGet( kTAG_NID );
 			
 			//
 			// Normalise identifier.
 			//
-			if( ! ($theValue instanceof \MongoId) )
-			{
-				//
-				// Convert to string.
-				//
-				$theValue = (string) $theValue;
-			
-				//
-				// Handle valid identifier.
-				//
-				if( \MongoId::isValid( $theValue ) )
-					$theValue = new \MongoId( $theValue );
-			
-				//
-				// Invalid identifier.
-				//
-				else
-					throw new \Exception(
-						"Unable to set session: "
-					   ."invalid identifier in object [$theValue]." );			// !@! ==>
-			
-			} // Convert to MongoId.
+			$theValue
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary, TRUE ) )
+					->getObjectId( $theValue );
 			
 			//
 			// Check if object exists.
@@ -357,6 +342,189 @@ abstract class SessionObject extends PersistentObject
 					kTAG_SESSION, 'Session', $theValue, $doObject );				// ==>
 	
 	} // session.
+
+	 
+	/*===================================================================================
+	 *	totalCollections																*
+	 *==================================================================================*/
+
+	/**
+	 * Manage collections count
+	 *
+	 * This method can be used to set or retrieve the <i>collections count</i>, it accepts a
+	 * parameter which represents either the count or the requested operation, depending on
+	 * its value:
+	 *
+	 * <ul>
+	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
+	 *		object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will return the
+	 *			value taken from the persistent object and will update the current object
+	 *			with that value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			return the value found in the current object.
+	 *	  </ul>
+	 *	<li><em>other</em>: Set the value with the provided parameter, depending on the
+	 *		commit status of the object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will set the
+	 *			provided value in the persistent object and update the current object's
+	 *			value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			set the provided value in the current object.
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
+	 *
+	 * The object must have been instantiated with a wrapper.
+	 *
+	 * @param mixed					$theValue			New count or operation.
+	 *
+	 * @access public
+	 * @return mixed				Total collections count.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_COUNTER_COLLECTIONS
+	 *
+	 * @uses handleOffset()
+	 */
+	public function totalCollections( $theValue = NULL )
+	{
+		//
+		// Check value.
+		//
+		if( $theValue !== FALSE )
+			return $this->handleOffset( kTAG_COUNTER_COLLECTIONS, $theValue );		// ==>
+		
+		throw new \Exception(
+			"Cannot delete collections count." );								// !@! ==>
+	
+	} // totalCollections.
+
+	 
+	/*===================================================================================
+	 *	totalRecords																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage records count
+	 *
+	 * This method can be used to set or retrieve the <i>records count</i>, it accepts a
+	 * parameter which represents either the count or the requested operation, depending on
+	 * its value:
+	 *
+	 * <ul>
+	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
+	 *		object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will return the
+	 *			value taken from the persistent object and will update the current object
+	 *			with that value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			return the value found in the current object.
+	 *	  </ul>
+	 *	<li><em>other</em>: Set the value with the provided parameter, depending on the
+	 *		commit status of the object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will set the
+	 *			provided value in the persistent object and update the current object's
+	 *			value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			set the provided value in the current object.
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
+	 *
+	 * The object must have been instantiated with a wrapper.
+	 *
+	 * @param mixed					$theValue			New count or operation.
+	 *
+	 * @access public
+	 * @return mixed				Total records count.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_COUNTER_RECORDS
+	 *
+	 * @uses handleOffset()
+	 */
+	public function totalRecords( $theValue = NULL )
+	{
+		//
+		// Check value.
+		//
+		if( $theValue !== FALSE )
+			return $this->handleOffset( kTAG_COUNTER_RECORDS, $theValue );			// ==>
+		
+		throw new \Exception(
+			"Cannot delete records count." );									// !@! ==>
+	
+	} // totalRecords.
+
+	 
+	/*===================================================================================
+	 *	totalFields																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage fields count
+	 *
+	 * This method can be used to set or retrieve the <i>fields count</i>, it accepts a
+	 * parameter which represents either the count or the requested operation, depending on
+	 * its value:
+	 *
+	 * <ul>
+	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
+	 *		object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will return the
+	 *			value taken from the persistent object and will update the current object
+	 *			with that value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			return the value found in the current object.
+	 *	  </ul>
+	 *	<li><em>other</em>: Set the value with the provided parameter, depending on the
+	 *		commit status of the object:
+	 *	  <ul>
+	 *		<li><em>Committed</em>: If the object is committed, the method will set the
+	 *			provided value in the persistent object and update the current object's
+	 *			value.
+	 *		<li><em>Not committed</em>: If the object is not committed, the method will
+	 *			set the provided value in the current object.
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
+	 *
+	 * The object must have been instantiated with a wrapper.
+	 *
+	 * @param mixed					$theValue			New count or operation.
+	 *
+	 * @access public
+	 * @return mixed				Total fields count.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_COUNTER_FIELDS
+	 *
+	 * @uses handleOffset()
+	 */
+	public function totalFields( $theValue = NULL )
+	{
+		//
+		// Check value.
+		//
+		if( $theValue !== FALSE )
+			return $this->handleOffset( kTAG_COUNTER_FIELDS, $theValue );			// ==>
+		
+		throw new \Exception(
+			"Cannot delete records count." );									// !@! ==>
+	
+	} // totalFields.
 
 		
 
@@ -416,15 +584,18 @@ abstract class SessionObject extends PersistentObject
 		//
 		if( $theCounter !== NULL )
 		{
-			case kTAG_COUNTER_FIELDS:
-			case kTAG_COUNTER_RECORDS:
-			case kTAG_COUNTER_COLLECTIONS:
-				break;
+			switch( $theCounter )
+			{
+				case kTAG_COUNTER_FIELDS:
+				case kTAG_COUNTER_RECORDS:
+				case kTAG_COUNTER_COLLECTIONS:
+					break;
 			
-			default:
-				throw new \Exception(
-					"Unable to set progress: "
-				   ."Provided invalid counter reference [$theCounter]." );		// !@! ==>
+				default:
+					throw new \Exception(
+						"Unable to set progress: "
+					   ."Provided invalid counter reference [$theCounter]." );	// !@! ==>
+			}
 		}
 		
 		//
@@ -621,7 +792,7 @@ abstract class SessionObject extends PersistentObject
 		$counters = array( kTAG_COUNTER_SKIPPED, kTAG_COUNTER_REJECTED,
 						   kTAG_COUNTER_VALIDATED, kTAG_COUNTER_PROCESSED,
 						   kTAG_COUNTER_COLLECTIONS, kTAG_COUNTER_RECORDS,
-						   kTAG_COUNTER_FIELDS );
+						   kTAG_COUNTER_FIELDS, kTAG_COUNTER_PROGRESS );
 		
 		//
 		// Handle committed object.
@@ -650,7 +821,7 @@ abstract class SessionObject extends PersistentObject
 		foreach( $counters as $counter )
 		{
 			if( $this->offsetExists( $counter ) )
-				$serult[ $counter ] = $this->offsetGet( $counter );
+				$result[ $counter ] = $this->offsetGet( $counter );
 		}
 		
 		return $result;																// ==>
@@ -715,19 +886,28 @@ abstract class SessionObject extends PersistentObject
 	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Validated elements.
 	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Rejected elements.
 	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped elements.
+	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
+	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
+	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
+	 *	<li><tt>{@link kTAG_COUNTER_PROGRESS}</tt>: Progress.
 	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of unmanaged offsets.
 	 *
-	 * @see kTAG_SESSION kTAG_COUNTER_PROCESSED kTAG_COUNTER_VALIDATED kTAG_COUNTER_REJECTED kTAG_COUNTER_SKIPPED
+	 * @see kTAG_COUNTER_PROCESSED kTAG_COUNTER_VALIDATED
+	 * @see kTAG_COUNTER_REJECTED kTAG_COUNTER_SKIPPED
+	 * @see kTAG_COUNTER_FIELDS kTAG_COUNTER_RECORDS kTAG_COUNTER_COLLECTIONS
+	 * @see kTAG_COUNTER_PROGRESS
 	 */
 	static function UnmanagedOffsets()
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
 			array( kTAG_SESSION,
-				   kTAG_COUNTER_PROCESSED, kTAG_COUNTER_VALIDATED, kTAG_COUNTER_REJECTED, kTAG_COUNTER_SKIPPED ) );	// ==>
+				   kTAG_COUNTER_PROCESSED, kTAG_COUNTER_VALIDATED,
+				   kTAG_COUNTER_COLLECTIONS, kTAG_COUNTER_RECORDS,
+				   kTAG_COUNTER_FIELDS, kTAG_COUNTER_PROGRESS ) );					// ==>
 	
 	} // UnmanagedOffsets.
 
@@ -1295,14 +1475,18 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @param string				$theCounter			Counter offset.
 	 * @param int					$theCount			Increment delta.
+	 * @param string				$theTotal			Total count offset.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
 	 *
-	 * @see kTAG_COUNTER_PROCESSED kTAG_COUNTER_VALIDATED kTAG_COUNTER_REJECTED kTAG_COUNTER_SKIPPED
+	 * @see kTAG_COUNTER_PROCESSED kTAG_COUNTER_VALIDATED
+	 * @see kTAG_COUNTER_REJECTED kTAG_COUNTER_SKIPPED
+	 * @see kTAG_COUNTER_FIELDS kTAG_COUNTER_RECORDS kTAG_COUNTER_COLLECTIONS
+	 * @see kTAG_COUNTER_PROGRESS
 	 */
-	protected function updateCount( $theCounter, $theCount )
+	protected function updateCount( $theCounter, $theCount, $theTotal = NULL )
 	{
 		//
 		// Check counter.
@@ -1337,7 +1521,35 @@ abstract class SessionObject extends PersistentObject
 			static::ResolveDatabase( $this->mDictionary, TRUE ) )
 				->updateReferenceCount(
 					array( kTAG_NID => $this->offsetGet( kTAG_NID ) ),
-					array( $theCounter =>  (int) $theCount ) );
+					array( $theCounter => (int) $theCount ) );
+		
+		//
+		// Handle progress.
+		//
+		if( ($theTotal !== NULL)
+		 && $this->offsetExists( $theTotal ) )
+		{
+			//
+			// Calculate progress.
+			//
+			$progress = ( $this->offsetGet( $theCounter ) * 100 )
+					  / $this->offsetGet( $theTotal );
+			
+			//
+			// Update progress in object.
+			//
+			$this->offsetSet( kTAG_COUNTER_PROGRESS, $progress );
+			
+			//
+			// Update progress in database.
+			//
+			static::ResolveCollection(
+				static::ResolveDatabase( $this->mDictionary, TRUE ) )
+					->replaceOffsets(
+						array( kTAG_NID => $this->offsetGet( kTAG_NID ) ),
+						array( kTAG_COUNTER_PROGRESS => $progress ) );
+		
+		} // Provided total count.
 	
 	} // updateCount.
 

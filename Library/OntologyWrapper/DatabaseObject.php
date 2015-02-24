@@ -135,7 +135,7 @@ abstract class DatabaseObject extends ConnectionObject
 	 * This method can be used to return a collection connection from the current database.
 	 *
 	 * The method expects a single parameter which represents the collection name, the
-	 * method should return an instance of a class derived from {@link ObjectCollection}.
+	 * method should return an instance of a class derived from {@link CollectionObject}.
 	 *
 	 * @param string				$theName			Collection name.
 	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
@@ -177,23 +177,23 @@ abstract class DatabaseObject extends ConnectionObject
 	 *==================================================================================*/
 
 	/**
-	 * Return filer connection
+	 * Return file connection
 	 *
 	 * This method can be used to return a file collection connection from the current
-	 * database.
+	 * database, it uses its {@link DatabaseObject::filer()} method.
 	 *
-	 * The method expects a single parameter which represents the collection name, the
-	 * method should return an instance of a class derived from {@link FileCollection}.
+	 * By default the collection name will be {@link FileObject::kSEQ_NAME}.
 	 *
-	 * @param string				$theName			Collection name.
+	 * The method parameter determines whether the connection should be opened.
+	 *
 	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access public
-	 * @return FileCollection		Filer object.
+	 * @return CollectionObject		Filer object.
 	 *
 	 * @uses newFiler()
 	 */
-	public function filer( $theName, $doOpen = TRUE )
+	public function filer( $doOpen = TRUE )
 	{
 		//
 		// Get current database parameters.
@@ -203,7 +203,7 @@ abstract class DatabaseObject extends ConnectionObject
 		//
 		// Add collection name.
 		//
-		$params[ kTAG_CONN_COLL ] = $theName;
+		$params[ kTAG_CONN_COLL ] = FileObject::kSEQ_NAME;
 		
 		//
 		// Instantiate collection.
@@ -384,7 +384,7 @@ abstract class DatabaseObject extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	newCollection																		*
+	 *	newCollection																	*
 	 *==================================================================================*/
 
 	/**
@@ -392,7 +392,7 @@ abstract class DatabaseObject extends ConnectionObject
 	 *
 	 * This method should be implemented by concrete derived classes, it expects a list of
 	 * offsets which include database information and should use them to instantiate a
-	 * {@link ObjectCollection} instance.
+	 * {@link CollectionObject} instance.
 	 *
 	 * Derived classes must implement this method.
 	 *
@@ -416,7 +416,7 @@ abstract class DatabaseObject extends ConnectionObject
 	 *
 	 * This method should be implemented by concrete derived classes, it expects a list of
 	 * offsets which include database information and should use them to instantiate a
-	 * {@link FileCollection} instance.
+	 * file collection instance.
 	 *
 	 * Derived classes must implement this method.
 	 *
@@ -426,7 +426,7 @@ abstract class DatabaseObject extends ConnectionObject
 	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
-	 * @return FileCollection		Collection instance.
+	 * @return CollectionObject		Collection instance.
 	 */
 	abstract protected function newFiler( $theOffsets, $doOpen = TRUE );
 

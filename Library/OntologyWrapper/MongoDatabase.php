@@ -433,20 +433,20 @@ class MongoDatabase extends DatabaseObject
 	/**
 	 * Return a new object collection instance
 	 *
-	 * We implement this method to return a {@link MongoObjectCollection} instance.
+	 * We implement this method to return a {@link MongoCollection} instance.
 	 *
 	 * @param array					$theOffsets			Full collection offsets.
 	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
-	 * @return MongoObjectCollection	Collection instance.
+	 * @return MongoCollection		Collection instance.
 	 */
 	protected function newCollection( $theOffsets, $doOpen = TRUE )
 	{
 		//
 		// Instantiate collection.
 		//
-		$collection = new MongoObjectCollection( $theOffsets );
+		$collection = new MongoCollection( $theOffsets );
 		
 		//
 		// Copy dictionary.

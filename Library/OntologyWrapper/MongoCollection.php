@@ -1,35 +1,38 @@
 <?php
 
 /**
- * MongoCollectionObjectTrait.php
+ * MongoCollection.php
  *
- * This file contains the definition of the {@link MongoCollectionObjectTrait} trait.
+ * This file contains the definition of the {@link MongoCollection} class.
  */
 
-namespace OntologyWrapper\traits;
+namespace OntologyWrapper;
+
+use OntologyWrapper\MongoDatabase;
+use OntologyWrapper\CollectionObject;
 
 /*=======================================================================================
  *																						*
- *							MongoCollectionObjectTrait.php								*
+ *									MongoCollection.php									*
  *																						*
  *======================================================================================*/
 
 /**
- * MongoDB collection trait
+ * Mongo database
  *
- * The main purpose of this trait is to implement the MongoDB specific methods related to
- * the {@link CollectionObject} abstract class.
+ * This class is a <i>concrete</i> implementation of the {@link CollectionObject} wrapping a
+ * {@link MongoDB} class.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 15/02/2015
+ *	@version	1.00 07/02/2014
  */
-trait MongoCollectionObjectTrait
+class MongoCollection extends CollectionObject
 {
 		
 
 /*=======================================================================================
  *																						*
- *								PUBLIC CREATION INTERFACE								*
+ *								PUBLIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/
 
@@ -64,6 +67,361 @@ trait MongoCollectionObjectTrait
 		$this->mConnection->drop();
 	
 	} // drop.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									PUBLIC QUERY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	matchID																			*
+	 *==================================================================================*/
+
+	/**
+	 * Match by ID
+	 *
+	 * In this class we use the <tt>findOne()</tt> method.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param boolean				$doAssert			Assert existance.
+	 *
+	 * @access public
+	 * @return mixed				Matched object or <tt>NULL</tt>.
+	 */
+	public function matchID( $theIdentifier, $doAssert = TRUE )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Match identifier.
+			//
+			$found = $this->connection()->findOne( array( kTAG_NID => $theIdentifier ) );
+			
+			//
+			// Handle not found.
+			//
+			if( $doAssert
+			 && ($found === NULL) )
+				throw new \Exception(
+					"Unable to match identifier: "
+				   ."object not found [".(string) $theIdentifier."]." );		// !@! ==>
+			
+			return $found;															// ==>
+		
+		} // Is connected.
+			
+		throw new \Exception(
+			"Unable to match identifier: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // matchID.
+
+	 
+	/*===================================================================================
+	 *	matchOne																		*
+	 *==================================================================================*/
+
+	/**
+	 * Match one object
+	 *
+	 * We first check if the current collection is connected, if that is not the case, we
+	 * raise an exception.
+	 *
+	 * In this class we map the method over the {@link MongoCollection::findOne()} method
+	 * when retrieving objects or identifiers and {@link MongoCollection::find()} method
+	 * when retrieving counts.
+	 *
+	 * @param array					$theCriteria		Selection criteria.
+	 * @param array					$theFields			Fields selection.
+	 * @param bitfield				$theResult			Result type.
+	 *
+	 * @access public
+	 * @return mixed				Matched data or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
+	 */
+	public function matchOne( $theCriteria,
+							  $theResult = kQUERY_DEFAULT,
+							  $theFields = Array() )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Handle fields.
+			//
+			if( count( $theFields ) )
+			{
+				//
+				// Prevent fields if requested object.
+				//
+				if( ($theResult & kRESULT_MASK) == kQUERY_OBJECT )
+					$theFields = Array();
+				
+				//
+				// Convert fields to object.
+				// This is necessary since PHP treats numeric indexes as integers.
+				//
+				else
+					$theFields = new \ArrayObject( $theFields );
+			
+			} // Provided fields selection.
+						
+			//
+			// Get result.
+			//
+			switch( $theResult & kRESULT_MASK )
+			{
+				case kQUERY_NID:
+					//
+					// Convert fields to object.
+					// This is necessary since PHP treats numeric indexes as integers.
+					//
+					$theFields = new \ArrayObject( array( kTAG_NID => TRUE ) );
+				case kQUERY_OBJECT:
+				case kQUERY_ARRAY:
+					$object
+						= $this->
+							mConnection->
+								findOne( $theCriteria, $theFields );
+					break;
+					
+				case kQUERY_COUNT:
+					$rs
+						= $this->
+							mConnection->
+								find( $theCriteria );
+					return $rs->count();											// ==>
+					break;
+			
+			} // Parsed result flags.
+			
+			//
+			// Handle no matches.
+			//
+			if( $object === NULL )
+			{
+				//
+				// Assert.
+				//
+				if( $theResult & kQUERY_ASSERT )
+					throw new \Exception(
+						"Unable to match object." );							// !@! ==>
+				
+				return NULL;														// ==>
+			
+			} // No matches.
+			
+			//
+			// Handle result.
+			//
+			switch( $theResult & kRESULT_MASK )
+			{
+				case kQUERY_ARRAY:
+				
+					return $object;													// ==>
+					
+				case kQUERY_NID:
+				
+					if( ! array_key_exists( kTAG_NID, $object ) )
+						throw new \Exception(
+							"Unable to resolve identifier: "
+						   ."missing object identifier." );						// !@! ==>
+					
+					return $object[ kTAG_NID ];										// ==>
+				
+				case kQUERY_OBJECT:
+				
+					if( ! array_key_exists( kTAG_CLASS, $object ) )
+						throw new \Exception(
+							"Unable to resolve object: "
+						   ."missing object class." );							// !@! ==>
+					
+					$class = $object[ kTAG_CLASS ];
+					
+					return new $class( $this->dictionary(), $object );				// ==>
+			
+			} // Parsed result flags.
+		
+		} // Connected.
+			
+		throw new \Exception(
+			"Unable to match object: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // matchOne.
+
+	 
+	/*===================================================================================
+	 *	matchAll																		*
+	 *==================================================================================*/
+
+	/**
+	 * Match all objects
+	 *
+	 * In this class we perform the query using the {@link MongoCollection::find()} method,
+	 * we then return a {@link MongoIterator} instance with the query cursor and collection.
+	 *
+	 * @param array					$theCriteria		Selection criteria.
+	 * @param bitfield				$theResult			Result type.
+	 * @param array					$theFields			Fields selection.
+	 * @param array					$theKey				Key offset.
+	 *
+	 * @access public
+	 * @return ObjectIterator		Matched data iterator.
+	 */
+	public function matchAll( $theCriteria = Array(),
+							  $theResult = kQUERY_DEFAULT,
+							  $theFields = Array(),
+							  $theKey = NULL )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Handle fields.
+			//
+			if( count( $theFields ) )
+				$theFields = new \ArrayObject( $theFields );
+		/*
+			{
+				//
+				// Prevent fields if requested object.
+				//
+				if( ($theResult & kRESULT_MASK) == kQUERY_OBJECT )
+					$theFields = Array();
+				
+				//
+				// Convert fields to object.
+				// This is necessary since PHP treats numeric indexes as integers.
+				//
+				else
+					$theFields = new \ArrayObject( $theFields );
+			
+			} // Provided fields selection.
+		*/
+					
+			//
+			// Get result.
+			//
+			switch( $theResult & kRESULT_MASK )
+			{
+				case kQUERY_NID:
+					//
+					// Set native identifier in fields.
+					// This is necessary since PHP treats numeric indexes as integers.
+					//
+					$theFields = new \ArrayObject( array( kTAG_NID => TRUE ) );
+				case kQUERY_OBJECT:
+				case kQUERY_ARRAY:
+					$cursor
+						= $this->
+							mConnection->
+								find( $theCriteria, $theFields );
+					break;
+					
+				case kQUERY_COUNT:
+					return $this->mConnection->find( $theCriteria )->count();		// ==>
+			
+			} // Parsed result flags.
+			
+			//
+			// Handle no matches.
+			//
+			if( (! $cursor->count())
+			 && ($theResult & kQUERY_ASSERT) )
+				throw new \Exception(
+					"No matches." );											// !@! ==>
+			
+			return new MongoIterator(
+					$cursor, $this,
+					$theCriteria, $theFields, $theKey,
+					$theResult & kRESULT_MASK );									// ==>
+		
+		} // Connected.
+			
+		throw new \Exception(
+			"Unable to perform query: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // matchAll.
+
+	 
+	/*===================================================================================
+	 *	getAll																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return all objects
+	 *
+	 * In this class we return a { @link MongoCursor} object.
+	 *
+	 * @param array					$theFields			Fields selection.
+	 *
+	 * @access public
+	 * @return Iterator				Selection of all objects in the collection.
+	 */
+	public function getAll( $theFields = Array() )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Convert fields to object.
+			// This is necessary since PHP treats numeric indexes as integers.
+			//
+			if( count( $theFields ) )
+				$theFields = new \ArrayObject( $theFields );
+			
+			return $this->mConnection->find( Array(), $theFields );					// ==>
+		
+		} // Connected.
+			
+		throw new \Exception(
+			"Unable to get all object: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // getAll.
+
+	 
+	/*===================================================================================
+	 *	aggregate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Aggregate pipeline
+	 *
+	 * In this class we use the <tt>aggregateCursor()</tt> method.
+	 *
+	 * @param array					$thePipeline		Aggregation pipeline.
+	 * @param array					$theOptions			Aggregation options.
+	 *
+	 * @access public
+	 * @return Iterator				Aggregated results.
+	 */
+	public function aggregate( $thePipeline, $theOptions = Array() )
+	{
+//
+// MILKO - For some reason the aggregate cursor doesn't work.
+//
+		return $this->mConnection->aggregate( $thePipeline, $theOptions );			// ==>
+		return $this->mConnection->aggregateCursor( $thePipeline, $theOptions );	// ==>
+	
+	} // aggregate.
 
 		
 
@@ -104,15 +462,6 @@ trait MongoCollectionObjectTrait
 					  'modified' => $ok[ 'updatedExisting' ] );						// ==>
 	
 	} // modify.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC MODIFICATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
 
 	 
 	/*===================================================================================
@@ -390,7 +739,7 @@ trait MongoCollectionObjectTrait
 	
 	} // updateStructList.
 
-	 
+		
 	/*===================================================================================
 	 *	updateReferenceCount															*
 	 *==================================================================================*/
@@ -462,8 +811,7 @@ trait MongoCollectionObjectTrait
 	/**
 	 * Set index
 	 *
-	 * In this class the two parameters are the same as those received by the
-	 * {@link MongoObjectCollection::ensureIndex()} method.
+	 * In this class we use the <tt>createIndex</tt> Mongo method.
 	 *
 	 * @param array					$theIndex			Offset to index and index types.
 	 * @param array					$theOptions			Index options.
@@ -495,7 +843,7 @@ trait MongoCollectionObjectTrait
 	/**
 	 * Get index
 	 *
-	 * In this class we use the getIndexInfo() Mongo function.
+	 * In this class we use the getIndexInfo() Mongo method.
 	 *
 	 * @access public
 	 * @return array				The collection index information.
@@ -567,8 +915,8 @@ trait MongoCollectionObjectTrait
 	/**
 	 * Delete index
 	 *
-	 * In this class we use {@link MongoObjectCollection::deleteIndexes()} to delete all indexes
-	 * and {@link MongoObjectCollection::deleteIndex()} to delete specific indexes.
+	 * In this class we use <tt>deleteIndexes()</tt> to delete all indexes and
+	 * {@link deleteIndex()} to delete specific indexes.
 	 *
 	 * @param mixed					$theIndex			Offset or offsets.
 	 *
@@ -606,10 +954,119 @@ trait MongoCollectionObjectTrait
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC CONNECTION MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isConnected																		*
+	 *==================================================================================*/
+
+	/**
+	 * Check if connection is open
+	 *
+	 * We overload this method to assume the object is connected if the resource is a
+	 * {@link MongoDB}.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> is open.
+	 */
+	public function isConnected()
+	{
+		return ( $this->mConnection instanceof \MongoCollection );					// ==>
+	
+	} // isConnected.
+
+		
+
+/*=======================================================================================
+ *																						*
  *									PUBLIC TYPE INTERFACE								*
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	getObjectId																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get object identifier
+	 *
+	 * In this class we return a MongoId.
+	 *
+	 * @param string				$theIdentifier		String version of the identifier.
+	 *
+	 * @access public
+	 * @return MongoId				Native cobject identifier.
+	 */
+	public function getObjectId( $theIdentifier )
+	{
+		//
+		// Normalise identifier.
+		//
+		if( ! ($theIdentifier instanceof \MongoId) )
+		{
+			//
+			// Convert to string.
+			//
+			$theIdentifier = (string) $theIdentifier;
+
+			//
+			// Handle valid identifier.
+			//
+			if( \MongoId::isValid( $theIdentifier ) )
+				$theIdentifier = new \MongoId( $theIdentifier );
+
+			//
+			// Invalid identifier.
+			//
+			else
+				throw new \Exception(
+					"Cannot use identifier: "
+				   ."invalid identifier [$theIdentifier]." );					// !@! ==>
+		
+		} // Not a native identifier.
+		
+		return $theIdentifier;														// ==>
+	
+	} // getObjectId.
+
+	 
+	/*===================================================================================
+	 *	setObjectId																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set object identifier
+	 *
+	 * In this class we expect a MongoId.
+	 *
+	 * @param MongoId				$theIdentifier		Native version of the identifier.
+	 *
+	 * @access public
+	 * @return string				Object identifier as a string.
+	 */
+	public function setObjectId( $theIdentifier )
+	{
+		//
+		// Check identifier.
+		//
+		if( $theIdentifier instanceof \MongoId )
+			return (string) $theIdentifier;											// ==>
+		
+		$type = ( is_object( $theIdentifier ) )
+			  ? get_class( $theIdentifier )
+			  : gettype( $theIdentifier );
+			
+		throw new \Exception(
+			"Unable to convert identifier: "
+		   ."invalid identifier data type [$type]" );							// !@! ==>
+	
+	} // getObjectId.
 
 	 
 	/*===================================================================================
@@ -712,53 +1169,6 @@ trait MongoCollectionObjectTrait
 
 	 
 	/*===================================================================================
-	 *	newDatabase																		*
-	 *==================================================================================*/
-
-	/**
-	 * Return a new database instance
-	 *
-	 * We implement the method to return a {@link MongoServer} instance.
-	 *
-	 * @param mixed					$theParameter		Server parameters.
-	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
-	 *
-	 * @access protected
-	 * @return DatabaseObject		Database instance.
-	 */
-	protected function newDatabase( $theParameter, $doOpen = TRUE)
-	{
-		//
-		// Instantiate database.
-		//
-		$database = new \OntologyWrapper\MongoDatabase( $theParameter );
-		
-		//
-		// Set dictionary.
-		//
-		$database->dictionary( $this->dictionary() );
-		
-		//
-		// Open connection.
-		//
-		if( $doOpen )
-			$database->openConnection();
-		
-		return $database;															// ==>
-	
-	} // newDatabase.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED CONNECTION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
 	 *	connectionOpen																	*
 	 *==================================================================================*/
 
@@ -829,9 +1239,190 @@ trait MongoCollectionObjectTrait
 	 */
 	protected function connectionClose()					{	$this->mConnection = NULL;	}
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	newDatabase																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return a new database instance
+	 *
+	 * We implement the method to return a {@link MongoServer} instance.
+	 *
+	 * @param mixed					$theParameter		Server parameters.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
+	 *
+	 * @access protected
+	 * @return DatabaseObject		Database instance.
+	 */
+	protected function newDatabase( $theParameter, $doOpen = TRUE)
+	{
+		//
+		// Instantiate database.
+		//
+		$database = new MongoDatabase( $theParameter );
+		
+		//
+		// Set dictionary.
+		//
+		$database->dictionary( $this->dictionary() );
+		
+		//
+		// Open connection.
+		//
+		if( $doOpen )
+			$database->openConnection();
+		
+		return $database;															// ==>
+	
+	} // newDatabase.
+
+	 
+	/*===================================================================================
+	 *	insertData																		*
+	 *==================================================================================*/
+
+	/**
+	 * Insert provided data
+	 *
+	 * In this class we commit the provided array and return its {@link kTAG_NID} value.
+	 *
+	 * @param reference				$theData			Data to commit.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier.
+	 */
+	protected function insertData( &$theData, $theOptions )
+	{
+		//
+		// Serialise object.
+		//
+		ContainerObject::Object2Array( $theData, $data );
+		
+		//
+		// Insert.
+		//
+		$ok = $this->mConnection->insert( $data, $theOptions );
+		
+		//
+		// Get identifier.
+		//
+		$id = $data[ kTAG_NID ];
+		
+		//
+		// Set identifier.
+		//
+		$theData[ kTAG_NID ] = $id;
+		
+		return $id;																	// ==>
+	
+	} // insertData.
+
+	 
+	/*===================================================================================
+	 *	replaceData																		*
+	 *==================================================================================*/
+
+	/**
+	 * Save or replace provided data
+	 *
+	 * In this class we save the provided array, update the object's {@link kTAG_CLASS} and
+	 * return its {@link kTAG_NID} value.
+	 *
+	 * @param reference				$theData			Data to save.
+	 * @param array					$theOptions			Replace options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier.
+	 */
+	protected function replaceData( $theData, $theOptions )
+	{
+		//
+		// Serialise object.
+		//
+		ContainerObject::Object2Array( $theData, $data );
+		
+		//
+		// Set class.
+		//
+		if( $theData instanceof PersistentObject )
+			$data[ kTAG_CLASS ] = get_class( $theData );
+		
+		//
+		// Replace.
+		//
+		$ok = $this->mConnection->save( $data, $theOptions );
+		
+		//
+		// Get identifier.
+		//
+		$id = $data[ kTAG_NID ];
+		
+		//
+		// Set identifier.
+		//
+		$theData[ kTAG_NID ] = $id;
+		
+		return $id;																	// ==>
+	
+	} // replaceData.
+
+	 
+	/*===================================================================================
+	 *	deleteIdentifier																*
+	 *==================================================================================*/
+
+	/**
+	 * Delete provided identifier
+	 *
+	 * This method should be implemented by concrete derived classes, it should delete the
+	 * object matched by the provided identifier, if the object was matched, the method
+	 * should return the identifier, if not, it should return <tt>NULL</tt>.
+	 *
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier or <tt>NULL</tt>.
+	 */
+	protected function deleteIdentifier( $theIdentifier, $theOptions = Array() )
+	{
+		//
+		// Normalise options.
+		//
+		if( ! is_array( $theOptions ) )
+			$theOptions = Array();
+		
+		//
+		// Set only one option.
+		//
+		$theOptions[ "justOne" ] = TRUE;
+		
+		//
+		// Delete object.
+		//
+		$ok = $this->mConnection->remove( array( kTAG_NID => $theIdentifier ),
+										  $theOptions );
+		
+		return ( $ok[ 'n' ] > 0 )
+			 ? $theIdentifier														// ==>
+			 : NULL;																// ==>
+	
+	} // deleteIdentifier.
+
 	 
 
-} // trait MongoCollectionObjectTrait.
+} // class MongoCollection.
 
 
 ?>

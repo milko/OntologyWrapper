@@ -32,11 +32,10 @@ use OntologyWrapper\CollectionObject;
  * The class features the following default offsets:
  *
  * <ul>
- *	<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. The native identifier of a
- *		transaction is automatically generated when inserted the first time, it can then be
- *		used to reference the object.
  *	<li><tt>{@link kTAG_SESSION}</tt>: <em>Session</em>. This required property is a
  *		reference to the session to which the current transaction belongs.
+ *	<li><tt>{@link kTAG_TRANSACTION}</tt>: <em>Transaction</em>. This optional property is a
+ *		reference to the parent transaction.
  *	<li><tt>{@link kTAG_TRANSACTION_TYPE}</tt>: <em>Transaction type</em>. This required
  *		enumerated value indicates the type, function or scope of the transaction.
  *	<li><tt>{@link kTAG_TRANSACTION_START}</tt>: <em>Transaction start</em>. The starting
@@ -45,18 +44,6 @@ use OntologyWrapper\CollectionObject;
  *		stamp of the transaction, it is generally set by the transaction destructor.
  *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: <em>Transaction status</em>. The result
  *		or outcome of the transaction.
- *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: <em>Processed elements</em>. The number of elements
- *		processed by the transaction, this will typically be the operations count relating
- *		to this transaction.
- *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: <em>Validated elements</em>. The number of elements
- *		validated by the transaction, this will typically be the operations count that
- *		were cleared by the validation process.
- *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: <em>Rejected elements</em>. The number of elements
- *		rejected by the transaction, this will typically be the operations count that were
- *		not cleared by the validation process.
- *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: <em>Skipped elements</em>. The number of elements
- *		skipped by the transaction, this will typically be the operations count that were
- *		skipped by the validation process; such as empty fields.
  *	<li><tt>{@link kTAG_TRANSACTION_COLLECTION}</tt>: <em>Transaction colloection</em>. This
  *		property contains the alias of the collection to which the transaction belongs; this
  *		value is not related to database collections, rather to elements such as the
@@ -179,6 +166,100 @@ class Transaction extends SessionObject
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	transaction																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage transaction
+	 *
+	 * This method can be used to manage the transaction reference, the method accepts the
+	 * follo<ing parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: <em>Transaction or operation</em>:
+	 *	  <ul>
+	 *		<li><tt>NULL</tt>: <em>Retrieve transaction</em>:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will return the
+	 *				object's value.
+	 *			<li><em>The object is committed</em>: The method will return the persistent
+	 *				object's value and update the current object.
+	 *		  </ul>
+	 *		<li><tt>FALSE</tt>: <em>Delete transaction</em>:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will delete the current
+	 *				object's value and return the old value.
+	 *			<li><em>The object is committed</em>: The method will delete the persistent
+	 *				and current object's values and return the old persistent object's
+	 *				value.
+	 *		  </ul>
+	 *		<li><em>other</em>: <em>Set transaction</em>:
+	 *		  <ul>
+	 *			<li><em>The object is not committed</em>: The method will set the provided
+	 *				value in the current object.
+	 *			<li><em>The object is committed</em>: The method will first set the value in
+	 *				the persistent object, then set it in the current object and return it.
+	 *		  </ul>
+	 *	  </ul>
+	 *	<li><b>$doObject</b>: <em>Result type</em>: If <tt>TRUE</tt>, the method will
+	 *		return the transaction object, rather than its reference.
+	 * </ul>
+	 *
+	 * The object must have been instantiated with a wrapper.
+	 *
+	 * The method will return the transaction or <tt>NULL</tt> if not set.
+	 *
+	 * @param mixed					$theValue			Transaction object or reference.
+	 * @param boolean				$doObject			TRUE return object.
+	 *
+	 * @access public
+	 * @return mixed				Transaction object or reference.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_TRANSACTION
+	 *
+	 * @uses handleReference()
+	 */
+	public function transaction( $theValue = NULL, $doObject = FALSE )
+	{
+		//
+		// Check reference.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Handle object.
+			//
+			if( $theValue instanceof PesistentObject )
+				$theValue = $theValue->offsetGet( kTAG_NID );
+			
+			//
+			// Normalise identifier.
+			//
+			$theValue
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary, TRUE ) )
+					->getObjectId( $theValue );
+			
+			//
+			// Check if object exists.
+			//
+			Session::ResolveObject( $this->mDictionary,
+									Transaction::kSEQ_NAME,
+									$theValue,
+									TRUE );
+	
+		} // Checked reference.
+		
+		return $this->handleReference(
+					kTAG_TRANSACTION, 'Transaction', $theValue, $doObject );		// ==>
+	
+	} // transaction.
 
 	 
 	/*===================================================================================
@@ -897,6 +978,13 @@ class Transaction extends SessionObject
 								  array( "name" => "SESSION" ) );
 		
 		//
+		// Set transaction index.
+		//
+		$collection->createIndex( array( kTAG_TRANSACTION => 1 ),
+								  array( "name" => "TRANSACTION",
+								  		 "sparse" => TRUE ) );
+		
+		//
 		// Set transaction type index.
 		//
 		$collection->createIndex( array( kTAG_TRANSACTION_TYPE => 1 ),
@@ -947,6 +1035,7 @@ class Transaction extends SessionObject
 	 * includes:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Parent transaction.
 	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Transaction status.
 	 *	<li><tt>{@link kTAG_TRANSACTION_START}</tt>: Transaction start.
 	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end.
@@ -963,13 +1052,13 @@ class Transaction extends SessionObject
 	 *
 	 * @see kTAG_TRANSACTION_STATUS kTAG_TRANSACTION_START kTAG_TRANSACTION_END
 	 * @see kTAG_TRANSACTION_ALIAS kTAG_TRANSACTION_FIELD kTAG_TRANSACTION_VALUE
-	 * @see kTAG_TRANSACTION_MESSAGE kTAG_TAG
+	 * @see kTAG_TRANSACTION_MESSAGE kTAG_TAG kTAG_TRANSACTION
 	 */
 	static function UnmanagedOffsets()
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
-			array( kTAG_TRANSACTION_STATUS,
+			array( kTAG_TRANSACTION_STATUS, kTAG_TRANSACTION,
 				   kTAG_TRANSACTION_START, kTAG_TRANSACTION_END,
 				   kTAG_TRANSACTION_ALIAS, kTAG_TRANSACTION_FIELD, kTAG_TRANSACTION_VALUE,
 				   kTAG_TRANSACTION_MESSAGE, kTAG_ERROR_TYPE, kTAG_TAG ) );			// ==>

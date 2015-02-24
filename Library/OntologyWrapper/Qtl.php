@@ -3,7 +3,7 @@
 /**
  * Qtl.php
  *
- * This file contains the definition of the {@link Mission} class.
+ * This file contains the definition of the {@link Qtl} class.
  */
 
 namespace OntologyWrapper;

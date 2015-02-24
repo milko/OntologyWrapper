@@ -32,10 +32,6 @@ use OntologyWrapper\CollectionObject;
  * The class features the following default offsets:
  *
  * <ul>
- *	<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. The native identifier of a
- *		session is automatically generated when inserted the first time, it can then be
- *		used to reference the object and have {@link Transaction} objects update its
- *		members.
  *	<li><tt>{@link kTAG_SESSION_TYPE}</tt>: <em>Session type</em>. This required enumerated
  *		value indicates the type, function or scope of the session.
  *	<li><tt>{@link kTAG_SESSION_START}</tt>: <em>Session start</em>. The starting time stamp
@@ -46,28 +42,9 @@ use OntologyWrapper\CollectionObject;
  *		of the operation.
  *	<li><tt>{@link kTAG_USER}</tt>: <em>Session user</em>. The object reference for the user
  *		that launched the session.
- *	<li><tt>{@link kTAG_SESSION}</tt>: <em>Session</em>. The object reference of the session
- *		to which this session is related; for instance, an upload session will reference an
- *		update session, so that when the latter completes successfully, the upload session
- *		can be cleared.
- *	<li><tt>{@link kTAG_SESSION_FILES}</tt>: <em>Session files</em>. The list of file
- *		references relating to the subject of the session, such as a template data file for
- *		upload sessions; these resources are persistent.
- *	<li><tt>{@link kTAG_SESSION_COLLECTIONS}</tt>: <em>Session collection</em>. The list of
+ *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: <em>Session collections</em>. The list of
  *		collection names related to the session operations; these collections are temporary
  *		and will be cleared once the session terminates.
- *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: <em>Processed elements</em>. The number of elements
- *		processed by the session, this will typically be the transactions count relating to
- *		this session.
- *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: <em>Validated elements</em>. The number of elements
- *		validated by the session, this will typically be the transactions count that were
- *		cleared by the validation process.
- *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: <em>Rejected elements</em>. The number of elements
- *		rejected by the session, this will typically be the transactions count that were
- *		not cleared by the validation process.
- *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: <em>Skipped elements</em>. The number of elements
- *		skipped by the session, this will typically be the transactions count that were
- *		skipped by the validation process; such as empty data template lines.
  * </ul>
  *
  * The typical workflow of a session is as follows:
@@ -810,27 +787,10 @@ class Session extends SessionObject
 			// Normalise identifier.
 			//
 			if( ! ($theIdentifier instanceof \MongoId) )
-			{
-				//
-				// Convert to string.
-				//
-				$theIdentifier = (string) $theIdentifier;
-	
-				//
-				// Handle valid identifier.
-				//
-				if( \MongoId::isValid( $theIdentifier ) )
-					$theIdentifier = new \MongoId( $theIdentifier );
-	
-				//
-				// Invalid identifier.
-				//
-				else
-					throw new \Exception(
-						"Cannot get file: "
-					   ."invalid identifier [$theIdentifier]." );				// !@! ==>
-
-			} // Provided identifier.
+				$theIdentifier
+					= static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ) )
+						->getObjectId( $theIdentifier );
 			
 			return
 				$this->filesCollection()
@@ -961,28 +921,10 @@ class Session extends SessionObject
 		//
 		// Normalise identifier.
 		//
-		if( ! ($theIdentifier instanceof \MongoId) )
-		{
-			//
-			// Convert to string.
-			//
-			$theIdentifier = (string) $theIdentifier;
-	
-			//
-			// Handle valid identifier.
-			//
-			if( \MongoId::isValid( $theIdentifier ) )
-				$theIdentifier = new \MongoId( $theIdentifier );
-	
-			//
-			// Invalid identifier.
-			//
-			else
-				throw new \Exception(
-					"Cannot instantiate object: "
-				   ."invalid identifier [$theIdentifier]." );					// !@! ==>
-
-		} // Provided identifier.
+		$theIdentifier
+			= static::ResolveCollection(
+				static::ResolveDatabase( $this->mDictionary, TRUE ) )
+				->getObjectId( $theIdentifier );
 		
 		return parent::Delete( $theWrapper, $theIdentifier );						// ==>
 	
@@ -1007,11 +949,8 @@ class Session extends SessionObject
 	 *
 	 * This method will return the files collection associated with the current session.
 	 *
-	 * This method can only be called if the {@link kTAG_SESSION_FILES} member is set and
-	 * if the object has its dictionary set.
-	 *
 	 * @access public
-	 * @return FileCollection		Files collection.
+	 * @return CollectionObject		Files collection.
 	 *
 	 * @throws Exception
 	 */
@@ -1027,22 +966,11 @@ class Session extends SessionObject
 			//
 			$database = $this->mDictionary->users();
 			if( $database !== NULL )
-			{
-				//
-				// Get collection name.
-				//
-				if( $this->offsetExists( kTAG_SESSION_FILES ) )
-					return
-						$database
-							->filer(
-								$this->offsetGet( kTAG_SESSION_FILES ),
-								TRUE );												// ==>
-		
-				throw new \Exception(
-					"Cannot get files collection: "
-				   ."missing files collection name." );							// !@! ==>
-			
-			} // Has users database.
+				return
+					$database
+						->filer(
+							FileObject::kSEQ_NAME,
+							TRUE );													// ==>
 		
 			throw new \Exception(
 				"Cannot get files collection: "
@@ -1152,8 +1080,7 @@ class Session extends SessionObject
 	 * <ul>
 	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Session status.
 	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
-	 *	<li><tt>{@link kTAG_SESSION_FILES}</tt>: Session files collection.
-	 *	<li><tt>{@link kTAG_SESSION_COLLECTIONS}</tt>: Session working collections.
+	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Session working collections.
 	 * </ul>
 	 *
 	 * @static
@@ -1165,8 +1092,7 @@ class Session extends SessionObject
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
-			array( kTAG_SESSION_STATUS, kTAG_SESSION_END,
-				   kTAG_SESSION_FILES, kTAG_SESSION_COLLECTIONS ) );				// ==>
+			array( kTAG_SESSION_STATUS, kTAG_SESSION_END, kTAG_CONN_COLLS ) );		// ==>
 	
 	} // UnmanagedOffsets.
 
@@ -1268,48 +1194,6 @@ class Session extends SessionObject
 	
 	} // postOffsetUnset.
 
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED PRE-COMMIT INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	preCommitPrepare																*
-	 *==================================================================================*/
-
-	/**
-	 * Prepare object before commit
-	 *
-	 * In this class we initialise the session start and status properties.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_SESSION_FILES
-	 */
-	protected function preCommitPrepare( &$theTags, &$theRefs )
-	{
-		//
-		// Set files collection.
-		//
-		$this->offsetSet( kTAG_SESSION_FILES, $this->filesCollectionName() );
-		
-		//
-		// Call parent method.
-		//
-		parent::preCommitPrepare( $theTags, $theRefs );
-		
-	} // preCommitPrepare.
-
 	
 
 /*=======================================================================================
@@ -1382,68 +1266,21 @@ class Session extends SessionObject
 			foreach( $list as $object )
 				$object->deleteObject();
 		
+			//
+			// Delete working collections.
+			//
+			if( $this->offsetExists( kTAG_CONN_COLLS ) )
+			{
+				foreach( $this->offsetGet( kTAG_CONN_COLLS ) as $collection )
+					$this->resolveDatabase( static::kSEQ_NAME )
+						->collection( $collection )
+							->drop();
+		
+			} // Has working collections.
+		
 		} // Deleting session.
 	
 	} // updateManyToOne.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED NAMING INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	filesCollectionName																*
-	 *==================================================================================*/
-
-	/**
-	 * Get files collection name
-	 *
-	 * This method will return the files collection name according to the object's type.
-	 *
-	 * The method expects the session type to have been set and the object not to have been
-	 * committed, or it will raise an exception.
-	 *
-	 * @access protected
-	 * @return string				The files collection name.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_SESSION_FILES
-	 * @see kPORTAL_PREFIX
-	 */
-	protected function filesCollectionName()
-	{
-		//
-		// Check type.
-		//
-		if( $this->offsetExists( kTAG_SESSION_TYPE ) )
-		{
-			//
-			// Check value.
-			//
-			switch( $type = $this->offsetGet( kTAG_SESSION_TYPE ) )
-			{
-				case kTYPE_SESSION_UPLOAD:
-				case kTYPE_SESSION_UPDATE:
-					return '_templates_'.kPORTAL_PREFIX;							// ==>
-			}
-			
-			throw new \Exception(
-				"Cannot set files collection: "
-			   ."invalid session type [$type]." );								// !@! ==>
-		
-		} // Has type.
-		
-		throw new \Exception(
-			"Cannot set files collection: "
-		   ."the object is committed." );										// !@! ==>
-		
-	} // filesCollectionName.
 
 	 
 

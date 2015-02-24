@@ -24,18 +24,6 @@
 		</NODE>
 	
 		<!-- PROPERTIES -->
-	
-		<!-- kTAG_SESSION -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:session:reference</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-
-		<!-- kTAG_TRANSACTION -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:transaction:reference</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
 
 		<!-- kTAG_TRANSACTION_TYPE -->
 		<EDGE>
@@ -65,6 +53,18 @@
 			 which must be loaded before this file. -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:transaction:status</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- kTAG_SESSION -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:session:reference</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- kTAG_TRANSACTION -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:transaction:reference</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
