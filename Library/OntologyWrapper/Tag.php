@@ -518,6 +518,37 @@ class Tag extends MetadataObject
 		$collection->createIndex( array( kTAG_LABEL => 1 ),
 								  array( "name" => "LABEL" ) );
 		
+		//
+		// Set offset references.
+		//
+		$collection->createIndex( array( kTAG_TAG_OFFSETS => 1 ),
+								  array( "name" => "TAGS_OFFSETS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_TERM_OFFSETS => 1 ),
+								  array( "name" => "TERMS_OFFSETS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_NODE_OFFSETS => 1 ),
+								  array( "name" => "NODES_OFFSETS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_EDGE_OFFSETS => 1 ),
+								  array( "name" => "EDGES_OFFSETS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_UNIT_OFFSETS => 1 ),
+								  array( "name" => "UNITS_OFFSETS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_USER_OFFSETS => 1 ),
+								  array( "name" => "USERS_OFFSETS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_SESSION_OFFSETS => 1 ),
+								  array( "name" => "SESSIONS_OFFSETS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_TRANSACTION_OFFSETS => 1 ),
+								  array( "name" => "TRANSACTIONS_OFFSETS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_FILE_OFFSETS => 1 ),
+								  array( "name" => "FILES_OFFSETS",
+								  		 "sparse" => TRUE ) );
+		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
