@@ -568,6 +568,13 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
 									  kTAG_PRIVATE_MODIFY )
 		),
+		kTAG_FILE_COUNT => array
+		(
+			kTAG_NID	=> ':ref-count:file',
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
 		
 		//
 		// Object offset reference attributes.
@@ -645,6 +652,16 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_TRANSACTION_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:transaction',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
+		),
+		kTAG_FILE_OFFSETS => array
+		(
+			kTAG_NID	=> ':offset:file',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
 									  kTYPE_LIST,
@@ -2509,6 +2526,15 @@ abstract class PersistentObject extends OntologyObject
 		$collection->createIndex( array( kTAG_USER_COUNT => 1 ),
 								  array( "name" => "USERS_COUNT",
 								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_SESSION_COUNT => 1 ),
+								  array( "name" => "SESSIONS_COUNT",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_TRANSACTION_COUNT => 1 ),
+								  array( "name" => "TRANSACTIONS_COUNT",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_FILE_COUNT => 1 ),
+								  array( "name" => "FILES_COUNT",
+								  		 "sparse" => TRUE ) );
 		
 		//
 		// Set graph node identifier index.
@@ -2722,6 +2748,10 @@ abstract class PersistentObject extends OntologyObject
 			case Transaction::kSEQ_NAME:
 				return Transaction::ResolveCollection(
 						Transaction::ResolveDatabase( $theWrapper ) );				// ==>
+				
+			case FileObject::kSEQ_NAME:
+				return FileObject::ResolveCollection(
+						FileObject::ResolveDatabase( $theWrapper ) );				// ==>
 			
 			default:
 				throw new \Exception(
@@ -2827,6 +2857,14 @@ abstract class PersistentObject extends OntologyObject
 			return Transaction::ResolveCollection(
 						Transaction::ResolveDatabase( $theWrapper ) );				// ==>
 		
+		//
+		// Files.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\FileObject'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\FileObject') ) )
+			return FileObject::ResolveCollection(
+						FileObject::ResolveDatabase( $theWrapper ) );				// ==>
+		
 		throw new \Exception(
 			"Cannot resolve collection: "
 		   ."unknown class name [$theClass]." );								// !@! ==>
@@ -2910,6 +2948,13 @@ abstract class PersistentObject extends OntologyObject
 		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\Transaction') ) )
 			return kTYPE_REF_TRANSACTION;											// ==>
 		
+		//
+		// Files.
+		//
+		if( ($theClass == (kPATH_NAMESPACE_ROOT.'\FileObject'))
+		 || is_subclass_of( $theClass, (kPATH_NAMESPACE_ROOT.'\FileObject') ) )
+			return kTYPE_REF_FILE;													// ==>
+		
 		throw new \Exception(
 			"Cannot resolve type: "
 		   ."unknown class name [$theClass]." );								// !@! ==>
@@ -2967,6 +3012,9 @@ abstract class PersistentObject extends OntologyObject
 		
 			case Transaction::kSEQ_NAME:
 				return kTAG_TRANSACTION_COUNT;										// ==>
+		
+			case FileObject::kSEQ_NAME:
+				return kTAG_FILE_COUNT;												// ==>
 		
 			default:
 				throw new \Exception(
@@ -3028,6 +3076,9 @@ abstract class PersistentObject extends OntologyObject
 		
 			case Transaction::kSEQ_NAME:
 				return kTAG_TRANSACTION_OFFSETS;									// ==>
+		
+			case FileObject::kSEQ_NAME:
+				return kTAG_FILE_OFFSETS;											// ==>
 		
 			default:
 				throw new \Exception(
@@ -3095,6 +3146,11 @@ abstract class PersistentObject extends OntologyObject
 					 ? kTAG_USERS													// ==>
 					 : kTAG_USER;													// ==>
 		
+			case UnitObject::kSEQ_NAME:
+				return ( $doList )
+					 ? kTAG_UNITS													// ==>
+					 : kTAG_UNIT;													// ==>
+		
 			case Session::kSEQ_NAME:
 				return ( $doList )
 					 ? kTAG_SESSIONS												// ==>
@@ -3105,10 +3161,10 @@ abstract class PersistentObject extends OntologyObject
 					 ? kTAG_TRANSACTIONS											// ==>
 					 : kTAG_TRANSACTION;											// ==>
 		
-			case UnitObject::kSEQ_NAME:
+			case FileObject::kSEQ_NAME:
 				return ( $doList )
-					 ? kTAG_UNITS													// ==>
-					 : kTAG_UNIT;													// ==>
+					 ? kTAG_FILES													// ==>
+					 : kTAG_FILE;													// ==>
 		
 		} // Parsed collection name.
 		
@@ -3216,6 +3272,12 @@ abstract class PersistentObject extends OntologyObject
 	 *			object.
 	 *		<li><tt>{@link kTAG_USER_COUNT}</tt>: Number of users referencing the current
 	 *			object.
+	 *		<li><tt>{@link kTAG_SESSION_COUNT}</tt>: Number of sessions referencing the
+	 *			current object.
+	 *		<li><tt>{@link kTAG_TRANSACTION_COUNT}</tt>: Number of transactions referencing
+	 *			the current object.
+	 *		<li><tt>{@link kTAG_FILE_COUNT}</tt>: Number of files referencing the current
+	 *			object.
 	 *	 </ul>
 	 *	<li><em>Offset tracking offsets</em>:
 	 *	 <ul>
@@ -3224,7 +3286,10 @@ abstract class PersistentObject extends OntologyObject
 	 *		<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node object offsets.
 	 *		<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge object offsets.
 	 *		<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit object offsets.
-	 *		<li><tt>{@link kTAG_USER_OFFSETS}</tt>: Entity object offsets.
+	 *		<li><tt>{@link kTAG_USER_OFFSETS}</tt>: User object offsets.
+	 *		<li><tt>{@link kTAG_SESSION_OFFSETS}</tt>: Session object offsets.
+	 *		<li><tt>{@link kTAG_TRANSACTION_COUNT}</tt>: Transaction object offsets.
+	 *		<li><tt>{@link kTAG_FILE_COUNT}</tt>: File object offsets.
 	 *	 </ul>
 	 *	<li><em>Time-stamp offsets</em>:
 	 *	 <ul>
@@ -3242,10 +3307,14 @@ abstract class PersistentObject extends OntologyObject
 			parent::ExternalOffsets(),
 			array( kTAG_TAG_COUNT, kTAG_TERM_COUNT,
 				   kTAG_NODE_COUNT, kTAG_EDGE_COUNT,
-				   kTAG_UNIT_COUNT, kTAG_USER_COUNT ),
+				   kTAG_UNIT_COUNT, kTAG_USER_COUNT,
+				   kTAG_SESSION_COUNT, kTAG_TRANSACTION_COUNT,
+				   kTAG_FILE_COUNT ),
 			array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS,
 				   kTAG_NODE_OFFSETS, kTAG_EDGE_OFFSETS,
-				   kTAG_UNIT_OFFSETS, kTAG_USER_OFFSETS ),
+				   kTAG_UNIT_OFFSETS, kTAG_USER_OFFSETS,
+				   kTAG_SESSION_OFFSETS, kTAG_TRANSACTION_OFFSETS,
+				   kTAG_FILE_OFFSETS ),
 			array( kTAG_RECORD_CREATED, kTAG_RECORD_MODIFIED ) );					// ==>
 	
 	} // ExternalOffsets.
@@ -3441,7 +3510,8 @@ abstract class PersistentObject extends OntologyObject
 	static function GetReferenceTypes()
 	{
 		return array( kTYPE_REF_TAG, kTYPE_REF_TERM, kTYPE_REF_NODE, kTYPE_REF_EDGE,
-					  kTYPE_REF_USER, kTYPE_REF_UNIT,
+					  kTYPE_REF_USER, kTYPE_REF_UNIT, kTYPE_REF_SESSION,
+					  kTYPE_REF_TRANSACTION, kTYPE_REF_FILE,
 					  kTYPE_REF_SELF,
 					  kTYPE_ENUM, kTYPE_SET );										// ==>
 	
@@ -3465,7 +3535,8 @@ abstract class PersistentObject extends OntologyObject
 		return array
 		(
 			kTAG_TAG_COUNT, kTAG_TERM_COUNT, kTAG_NODE_COUNT,
-			kTAG_EDGE_COUNT, kTAG_UNIT_COUNT, kTAG_USER_COUNT
+			kTAG_EDGE_COUNT, kTAG_UNIT_COUNT, kTAG_USER_COUNT,
+			kTAG_SESSION_COUNT, kTAG_TRANSACTION_COUNT, kTAG_FILER_COUNT
 		);																			// ==>
 	
 	} // GetReferenceCounts.

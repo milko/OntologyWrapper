@@ -1841,9 +1841,42 @@
 		</NODE>
 	</META>
 	
+	<!-- @3d -->
+	<!-- kTAG_FILE_COUNT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:ref-count:file</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_FILE_COUNT</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">File references count</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer value representing the number of file objects featuring the current property. This is generally used to assess tag usage frequency in file objects.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Object offset reference tags -->
 	
-	<!-- @3d -->
+	<!-- @3e -->
 	<!-- kTAG_TAG_OFFSETS -->
 	<META>
 		<TAG>
@@ -1879,7 +1912,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @3e -->
+	<!-- @3f -->
 	<!-- kTAG_TERM_OFFSETS -->
 	<META>
 		<TAG>
@@ -1915,7 +1948,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @3f -->
+	<!-- @40 -->
 	<!-- kTAG_NODE_OFFSETS -->
 	<META>
 		<TAG>
@@ -1951,7 +1984,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @40 -->
+	<!-- @41 -->
 	<!-- kTAG_EDGE_OFFSETS -->
 	<META>
 		<TAG>
@@ -1987,7 +2020,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @41 -->
+	<!-- @42 -->
 	<!-- kTAG_UNIT_OFFSETS -->
 	<META>
 		<TAG>
@@ -2023,7 +2056,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @42 -->
+	<!-- @43 -->
 	<!-- kTAG_USER_OFFSETS -->
 	<META>
 		<TAG>
@@ -2059,7 +2092,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @43 -->
+	<!-- @44 -->
 	<!-- kTAG_SESSION_OFFSETS -->
 	<META>
 		<TAG>
@@ -2095,7 +2128,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @44 -->
+	<!-- @45 -->
 	<!-- kTAG_TRANSACTION_OFFSETS -->
 	<META>
 		<TAG>
@@ -2131,9 +2164,45 @@
 		</NODE>
 	</META>
 	
+	<!-- @46 -->
+	<!-- kTAG_FILE_OFFSETS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:offset:file</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
+			</item>
+			<item const="kTAG_ID_SYMBOL">kTAG_FILE_OFFSETS</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">File offsets</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An array of strings representing the set of offset paths in which the holding tag was referenced as a leaf offset in file objects. This property is held exclusively by tag objects.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Object statistical tags -->
 		
-	<!-- @45 -->
+	<!-- @47 -->
 	<!-- kTAG_OBJECT_TAGS -->
 	<META>
 		<TAG>
@@ -2163,7 +2232,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @46 -->
+	<!-- @48 -->
 	<!-- kTAG_OBJECT_OFFSETS -->
 	<META>
 		<TAG>
@@ -2192,7 +2261,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @47 -->
+	<!-- @49 -->
 	<!-- kTAG_OBJECT_REFERENCES -->
 	<META>
 		<TAG>
@@ -2223,7 +2292,7 @@
 	
 	<!-- Property description tags -->
 	
-	<!-- @48 -->
+	<!-- @4a -->
 	<!-- kTAG_TAG_STRUCT -->
 	<META>
 		<TAG>
@@ -2251,7 +2320,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @49 -->
+	<!-- @4b -->
 	<!-- kTAG_TAG_STRUCT_IDX -->
 	<META>
 		<TAG>
@@ -2279,7 +2348,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @4a -->
+	<!-- @4c -->
 	<!-- kTAG_MIN_VAL -->
 	<META>
 		<TAG>
@@ -2306,7 +2375,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @4b -->
+	<!-- @4d -->
 	<!-- kTAG_MIN_RANGE -->
 	<META>
 		<TAG>
@@ -2333,7 +2402,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @4c -->
+	<!-- @4e -->
 	<!-- kTAG_MAX_VAL -->
 	<META>
 		<TAG>
@@ -2360,7 +2429,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @4d -->
+	<!-- @4f -->
 	<!-- kTAG_MAX_RANGE -->
 	<META>
 		<TAG>
@@ -2387,7 +2456,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @4e -->
+	<!-- @50 -->
 	<!-- kTAG_PATTERN -->
 	<META>
 		<TAG>
@@ -2413,7 +2482,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @4f -->
+	<!-- @51 -->
 	<!-- kTAG_DECIMALS -->
 	<META>
 		<TAG>
@@ -2441,7 +2510,7 @@
 	
 	<!-- Geometric attributes -->
 	
-	<!-- @50 -->
+	<!-- @52 -->
 	<!-- kTAG_GEO_SHAPE -->
 	<META>
 		<TAG>
@@ -2469,7 +2538,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @51 -->
+	<!-- @53 -->
 	<!-- kTAG_GEO_SHAPE_DISP -->
 	<META>
 		<TAG>
@@ -2499,7 +2568,7 @@
 	
 	<!-- Generic time tags -->
 	
-	<!-- @52 -->
+	<!-- @54 -->
 	<!-- kTAG_RECORD_CREATED -->
 	<META>
 		<TAG>
@@ -2526,7 +2595,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @53 -->
+	<!-- @55 -->
 	<!-- kTAG_RECORD_MODIFIED -->
 	<META>
 		<TAG>
@@ -2555,7 +2624,7 @@
 	
 	<!-- Generic counter tags -->
 	
-	<!-- @54 -->
+	<!-- @56 -->
 	<!-- kTAG_COUNTER_PROCESSED -->
 	<META>
 		<TAG>
@@ -2582,7 +2651,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @55 -->
+	<!-- @57 -->
 	<!-- kTAG_COUNTER_VALIDATED -->
 	<META>
 		<TAG>
@@ -2609,7 +2678,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @56 -->
+	<!-- @58 -->
 	<!-- kTAG_COUNTER_REJECTED -->
 	<META>
 		<TAG>
@@ -2636,7 +2705,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @57 -->
+	<!-- @59 -->
 	<!-- kTAG_COUNTER_SKIPPED -->
 	<META>
 		<TAG>
@@ -2663,7 +2732,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @58 -->
+	<!-- @5a -->
 	<!-- kTAG_COUNTER_COLLECTIONS -->
 	<META>
 		<TAG>
@@ -2690,7 +2759,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @59 -->
+	<!-- @5b -->
 	<!-- kTAG_COUNTER_RECORDS -->
 	<META>
 		<TAG>
@@ -2717,7 +2786,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @5a -->
+	<!-- @5c -->
 	<!-- kTAG_COUNTER_FIELDS -->
 	<META>
 		<TAG>
@@ -2744,7 +2813,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @5b -->
+	<!-- @5d -->
 	<!-- kTAG_COUNTER_PROGRESS -->
 	<META>
 		<TAG>
@@ -2773,7 +2842,7 @@
 	
 	<!-- Template attributes -->
 	
-	<!-- @5c -->
+	<!-- @5e -->
 	<!-- kTAG_PREFIX -->
 	<META>
 		<TAG>
@@ -2799,7 +2868,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @5d -->
+	<!-- @5f -->
 	<!-- kTAG_SUFFIX -->
 	<META>
 		<TAG>
@@ -2825,7 +2894,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @5e -->
+	<!-- @60 -->
 	<!-- kTAG_TOKEN -->
 	<META>
 		<TAG>
@@ -2853,7 +2922,7 @@
 	
 	<!-- Static attributes -->
 	
-	<!-- @5f -->
+	<!-- @61 -->
 	<!-- kTAG_CLASS_NAME -->
 	<META>
 		<TAG>
@@ -2881,7 +2950,7 @@
 	
 	<!-- Template attributes -->
 	
-	<!-- @60 -->
+	<!-- @62 -->
 	<!-- kTAG_LINE_NAME -->
 	<META>
 		<TAG>
@@ -2907,7 +2976,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @61 -->
+	<!-- @63 -->
 	<!-- kTAG_LINE_INFO -->
 	<META>
 		<TAG>
@@ -2933,7 +3002,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @62 -->
+	<!-- @64 -->
 	<!-- kTAG_LINE_EXAMPLES -->
 	<META>
 		<TAG>
@@ -2959,7 +3028,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @63 -->
+	<!-- @65 -->
 	<!-- kTAG_LINE_SYMBOL -->
 	<META>
 		<TAG>
@@ -2985,7 +3054,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @64 -->
+	<!-- @66 -->
 	<!-- kTAG_LINE_DATA -->
 	<META>
 		<TAG>
@@ -3011,7 +3080,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @65 -->
+	<!-- @67 -->
 	<!-- kTAG_TRANSFORM -->
 	<META>
 		<TAG>
@@ -3039,7 +3108,7 @@
 	
 	<!-- Session tags -->
 	
-	<!-- @66 -->
+	<!-- @68 -->
 	<!-- kTAG_SESSION_START -->
 	<META>
 		<TAG>
@@ -3071,7 +3140,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @67 -->
+	<!-- @69 -->
 	<!-- kTAG_SESSION_END -->
 	<META>
 		<TAG>
@@ -3103,7 +3172,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @68 -->
+	<!-- @6a -->
 	<!-- kTAG_SESSION_STATUS -->
 	<META>
 		<TAG>
@@ -3139,7 +3208,7 @@
 	
 	<!-- Transaction tags -->
 	
-	<!-- @69 -->
+	<!-- @6b -->
 	<!-- kTAG_TRANSACTION_START -->
 	<META>
 		<TAG>
@@ -3171,7 +3240,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @6a -->
+	<!-- @6c -->
 	<!-- kTAG_TRANSACTION_END -->
 	<META>
 		<TAG>
@@ -3203,7 +3272,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @6b -->
+	<!-- @6d -->
 	<!-- kTAG_TRANSACTION_STATUS -->
 	<META>
 		<TAG>
@@ -3237,7 +3306,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @6c -->
+	<!-- @6e -->
 	<!-- kTAG_TRANSACTION_COLLECTION -->
 	<META>
 		<TAG>
@@ -3271,7 +3340,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @6d -->
+	<!-- @6f -->
 	<!-- kTAG_TRANSACTION_RECORD -->
 	<META>
 		<TAG>
@@ -3303,7 +3372,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @6e -->
+	<!-- @70 -->
 	<!-- kTAG_TRANSACTION_FIELD -->
 	<META>
 		<TAG>
@@ -3335,7 +3404,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @6f -->
+	<!-- @71 -->
 	<!-- kTAG_TRANSACTION_ALIAS -->
 	<META>
 		<TAG>
@@ -3369,7 +3438,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @70 -->
+	<!-- @72 -->
 	<!-- kTAG_TRANSACTION_VALUE -->
 	<META>
 		<TAG>
@@ -3401,7 +3470,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @71 -->
+	<!-- @73 -->
 	<!-- kTAG_TRANSACTION_MESSAGE -->
 	<META>
 		<TAG>
@@ -3433,7 +3502,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @72 -->
+	<!-- @74 -->
 	<!-- kTAG_TRANSACTION_LOG -->
 	<META>
 		<TAG>
@@ -3468,7 +3537,7 @@
 	
 	<!-- Entity attributes -->
 	
-	<!-- @73 -->
+	<!-- @75 -->
 	<!-- kTAG_ENTITY_IDENT -->
 	<META>
 		<TAG>
@@ -3495,7 +3564,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @74 -->
+	<!-- @76 -->
 	<!-- kTAG_ENTITY_FNAME -->
 	<META>
 		<TAG>
@@ -3522,7 +3591,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @75 -->
+	<!-- 7 -->
 	<!-- kTAG_ENTITY_LNAME -->
 	<META>
 		<TAG>
@@ -3549,7 +3618,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @76 -->
+	<!-- @78 -->
 	<!-- kTAG_ENTITY_TITLE -->
 	<META>
 		<TAG>
@@ -3575,7 +3644,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @77 -->
+	<!-- @79 -->
 	<!-- kTAG_ENTITY_TYPE -->
 	<META>
 		<TAG>
@@ -3603,7 +3672,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @78 -->
+	<!-- @7a -->
 	<!-- kTAG_ENTITY_KIND -->
 	<META>
 		<TAG>
@@ -3631,7 +3700,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @79 -->
+	<!-- @7b -->
 	<!-- kTAG_ENTITY_ACRONYM -->
 	<META>
 		<TAG>
@@ -3665,7 +3734,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @7a -->
+	<!-- @7c -->
 	<!-- kTAG_ENTITY_MAIL -->
 	<META>
 		<TAG>
@@ -3697,7 +3766,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @7b -->
+	<!-- @7d -->
 	<!-- kTAG_ENTITY_EMAIL -->
 	<META>
 		<TAG>
@@ -3729,7 +3798,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @7c -->
+	<!-- @7e -->
 	<!-- kTAG_ENTITY_LINK -->
 	<META>
 		<TAG>
@@ -3761,7 +3830,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @7d -->
+	<!-- @7f -->
 	<!-- kTAG_ENTITY_PHONE -->
 	<META>
 		<TAG>
@@ -3793,7 +3862,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @7e -->
+	<!-- @80 -->
 	<!-- kTAG_ENTITY_FAX -->
 	<META>
 		<TAG>
@@ -3825,7 +3894,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @7f -->
+	<!-- @81 -->
 	<!-- kTAG_ENTITY_TLX -->
 	<META>
 		<TAG>
@@ -3857,7 +3926,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @80 -->
+	<!-- @82 -->
 	<!-- kTAG_ENTITY_AFFILIATION -->
 	<META>
 		<TAG>
@@ -3883,7 +3952,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @81 -->
+	<!-- @83 -->
 	<!-- kTAG_ENTITY_NATIONALITY -->
 	<META>
 		<TAG>
@@ -3917,7 +3986,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @82 -->
+	<!-- @84 -->
 	<!-- kTAG_ENTITY_VALID -->
 	<META>
 		<TAG>
@@ -3943,7 +4012,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @83 -->
+	<!-- 5 -->
 	<!-- kTAG_ENTITY_PGP_KEY -->
 	<META>
 		<TAG>
@@ -3969,7 +4038,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @84 -->
+	<!-- @86 -->
 	<!-- kTAG_ENTITY_PGP_FINGERPRINT -->
 	<META>
 		<TAG>
@@ -3995,7 +4064,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @85 -->
+	<!-- @87 -->
 	<!-- kTAG_ENTITY_ICON -->
 	<META>
 		<TAG>
@@ -4023,7 +4092,7 @@
 	
 	<!-- User tags -->
 	
-	<!-- @86 -->
+	<!-- @88 -->
 	<!-- kTAG_ROLES -->
 	<META>
 		<TAG>
@@ -4051,7 +4120,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @87 -->
+	<!-- @89 -->
 	<!-- kTAG_INVITES -->
 	<META>
 		<TAG>
@@ -4078,7 +4147,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @88 -->
+	<!-- @8a -->
 	<!-- kTAG_MANAGED_COUNT -->
 	<META>
 		<TAG>
@@ -4106,7 +4175,7 @@
 	
 	<!-- Connection attributes -->
 	
-	<!-- @89 -->
+	<!-- @8b -->
 	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
 		<TAG>
@@ -4138,7 +4207,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @8a -->
+	<!-- @8c -->
 	<!-- kTAG_CONN_HOST -->
 	<META>
 		<TAG>
@@ -4170,7 +4239,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @8b -->
+	<!-- @8d -->
 	<!-- kTAG_CONN_PORT -->
 	<META>
 		<TAG>
@@ -4202,7 +4271,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @8c -->
+	<!-- @8e -->
 	<!-- kTAG_CONN_CODE -->
 	<META>
 		<TAG>
@@ -4230,7 +4299,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @8d -->
+	<!-- @8f -->
 	<!-- kTAG_CONN_PASS -->
 	<META>
 		<TAG>
@@ -4258,7 +4327,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @8e -->
+	<!-- @90 -->
 	<!-- kTAG_CONN_BASE -->
 	<META>
 		<TAG>
@@ -4290,7 +4359,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @8f -->
+	<!-- @91 -->
 	<!-- kTAG_CONN_BASES -->
 	<META>
 		<TAG>
@@ -4323,7 +4392,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @90 -->
+	<!-- @92 -->
 	<!-- kTAG_CONN_COLL -->
 	<META>
 		<TAG>
@@ -4355,7 +4424,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @91 -->
+	<!-- @93 -->
 	<!-- kTAG_CONN_COLLS -->
 	<META>
 		<TAG>
@@ -4388,7 +4457,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @92 -->
+	<!-- @94 -->
 	<!-- kTAG_CONN_OPTS -->
 	<META>
 		<TAG>
@@ -4422,7 +4491,7 @@
 	
 	<!-- Error attributes -->
 	
-	<!-- @93 -->
+	<!-- @95 -->
 	<!-- kTAG_ERROR_TYPE -->
 	<META>
 		<TAG>
@@ -4456,7 +4525,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @94 -->
+	<!-- @96 -->
 	<!-- kTAG_ERROR_CODE -->
 	<META>
 		<TAG>
@@ -4488,7 +4557,7 @@
 		</NODE>
 	</META>
 	
-	<!-- @95 -->
+	<!-- @97 -->
 	<!-- kTAG_ERROR_RESOURCE -->
 	<META>
 		<TAG>

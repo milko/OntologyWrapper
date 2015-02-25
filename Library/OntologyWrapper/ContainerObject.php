@@ -348,25 +348,21 @@ class ContainerObject extends \ArrayObject
 	 *
 	 * This method can be used to obtain an array of arrays from a nested structure.
 	 *
-	 * The method expects as the first parameter a reference to an {@link ArrayObject} or to
-	 * an array, it will convert the provided parameter to an array and traverse it,
-	 * converting recursively any {@link ArrayObject} instance into an array.
+	 * The method expects an {@link ArrayObject} or to an array, it will convert the
+	 * provided parameter to an array and traverse it, converting recursively any
+	 * {@link ArrayObject} instance into an array.
 	 *
-	 * The method accepts the following parameters:
+	 * The first parameter represents the source structure, the second parameter will
+	 * receive the flattened structure.
 	 *
-	 * <ul>
-	 *	<li><tt>$theSource</tt>: Source structure reference (<em>read-only</em>).
-	 *	<li><tt>$theDestination</tt>: Destination array reference.
-	 * </ul>
-	 *
-	 * @param reference				$theSource			Reference to the source structure.
+	 * @param mixed					$theSource			Source structure.
 	 * @param reference				$theDestination		Reference to the destination array.
 	 *
 	 * @static
 	 *
 	 * @throws Exception
 	 */
-	static function Object2Array( &$theSource, &$theDestination )
+	static function Object2Array( $theSource, &$theDestination )
 	{
 		//
 		// Init destination.

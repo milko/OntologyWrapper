@@ -561,7 +561,7 @@ class MongoFileCollection extends MongoCollection
 			//
 			// Init local storage.
 			//
-			$file = $theData->getFile();
+			$file = $theData->getFileMember();
 			
 			//
 			// Serialise metadata.
@@ -608,12 +608,12 @@ class MongoFileCollection extends MongoCollection
 			//
 			// Set object.
 			//
-			$theData->setObject( $object );
+			$theData->setObjectMember( $object );
 			
 			//
 			// Clear file.
 			//
-			$theData->clearFile();
+			$theData->clearFileMember();
 			
 			//
 			// Load metadata.

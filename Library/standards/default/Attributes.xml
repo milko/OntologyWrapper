@@ -1045,6 +1045,22 @@
 				</item>
 			</item>
 		</TERM>
+	
+		<!-- kTAG_FILE_COUNT -->
+		<TERM ns=":ref-count" lid="file">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Files count</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the number of file objects featuring a specific property.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Object offset reference attributes -->
@@ -1174,6 +1190,22 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[The list of paths or locations within a structure in which a specific property can be found in transaction objects.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_FILE_OFFSETS -->
+		<TERM ns=":offset" lid="file">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">file offsets</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The list of paths or locations within a structure in which a specific property can be found in file objects.]]></item>
 				</item>
 			</item>
 		</TERM>

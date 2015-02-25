@@ -40,8 +40,8 @@ use OntologyWrapper\PersistentObject;
  *	<li><tt>{@link setFileReference()}</tt>: Set the file component from a file reference.
  *	<li><tt>{@link setFileUpload()}</tt>: Set the file component from an upload form.
  *	<li><tt>{@link setFileContents()}</tt>: Set the file component from the file contents.
- *	<li><tt>{@link getObject()}</tt>: Retrieve the file native object.
- *	<li><tt>{@link setObject()}</tt>: Set the file native object.
+ *	<li><tt>{@link getObjectMember()}</tt>: Retrieve the file native object.
+ *	<li><tt>{@link setObjectMember()}</tt>: Set the file native object.
  *	<li><tt>{@link getContents()}</tt>: Retrieve the file contents.
  *	<li><tt>{@link getStream()}</tt>: Retrieve the file stream resource.
  *	<li><tt>{@link writeFile()}</tt>: Write the file to disk.
@@ -173,6 +173,12 @@ abstract class FileObject extends PersistentObject
 		
 		else
 			parent::__construct( $theContainer, $theIdentifier, $doAssert );
+		
+		//
+		// Set inited status.
+		//
+		$this->isInited( ($this->mFile !== NULL)
+					  || ($this->mObject !== NULL) );
 
 	} // Constructor.
 
@@ -190,6 +196,32 @@ abstract class FileObject extends PersistentObject
 	 * @return string				The file path.
 	 */
 	public function __toString()							{	return $this->fileName();	}
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return by default the filename.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )	{	return $this->offsetGet( kTAG_FILE_NAME );	}
 
 		
 
@@ -229,7 +261,19 @@ abstract class FileObject extends PersistentObject
 	 *
 	 * @access public
 	 */
-	public function clearFileMember()							{	$this->mFile = NULL;	}
+	public function clearFileMember()
+	{	
+		//
+		// Clear member.
+		//
+		$this->mFile = NULL;
+		
+		//
+		// Set initialised status.
+		//
+		$this->isInited( $this->mObject !== NULL );
+	
+	} // clearFileMember.
 
 	 
 	/*===================================================================================
@@ -273,6 +317,11 @@ abstract class FileObject extends PersistentObject
 				throw new \Exception(
 					"Unable to set file reference: "
 				   ."the file is not readable." );								// !@! ==>
+			
+			//
+			// Set initialised status.
+			//
+			$this->isInited( TRUE );
 		
 		} // Not committed.
 		
@@ -314,6 +363,11 @@ abstract class FileObject extends PersistentObject
 			throw new \Exception(
 				"Unable to set file upload: "
 			   ."the object is committed." );									// !@! ==>
+		
+		//
+		// Set initialised status.
+		//
+		$this->isInited( TRUE );
 	
 	} // setFileUpload.
 
@@ -348,6 +402,11 @@ abstract class FileObject extends PersistentObject
 			throw new \Exception(
 				"Unable to set file contents: "
 			   ."the object is committed." );									// !@! ==>
+		
+		//
+		// Set initialised status.
+		//
+		$this->isInited( TRUE );
 	
 	} // setFileContents.
 
@@ -362,7 +421,7 @@ abstract class FileObject extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	getObject																		*
+	 *	getObjectMember																	*
 	 *==================================================================================*/
 
 	/**
@@ -373,11 +432,11 @@ abstract class FileObject extends PersistentObject
 	 * @access public
 	 * @return mixed				File object.
 	 */
-	public function getObject()									{	return $this->mObject;	}
+	public function getObjectMember()							{	return $this->mObject;	}
 
 	 
 	/*===================================================================================
-	 *	setObject																		*
+	 *	setObjectMember																	*
 	 *==================================================================================*/
 
 	/**
@@ -396,7 +455,7 @@ abstract class FileObject extends PersistentObject
 	 *
 	 * @throws Exception
 	 */
-	public function setObject( $theValue )
+	public function setObjectMember( $theValue )
 	{
 		//
 		// Check if committed.
@@ -408,8 +467,13 @@ abstract class FileObject extends PersistentObject
 			throw new \Exception(
 				"Unable to set file contents: "
 			   ."the object is committed." );									// !@! ==>
+		
+		//
+		// Set initialised status.
+		//
+		$this->isInited( TRUE );
 	
-	} // setFileUpload.
+	} // setObjectMember.
 
 		
 
@@ -550,6 +614,110 @@ abstract class FileObject extends PersistentObject
 		return $theDatabase->filer( $doOpen );										// ==>
 	
 	} // ResolveCollection.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value after setting it
+	 *
+	 * In this class we link the inited status with the presence of either the file
+	 * or the file object.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 *
+	 * @uses isInited()
+	 */
+	protected function postOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Call parent method to resolve offset.
+		//
+		parent::postOffsetSet( $theOffset, $theValue );
+		
+		//
+		// Set initialised status.
+		//
+		$this->isInited( ($this->mFile !== NULL)
+					  || ($this->mObject !== NULL) );
+	
+	} // postOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	postOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset after deleting it
+	 *
+	 * In this class we link the inited status with the presence of either the file
+	 * or the file object.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 *
+	 * @uses isInited()
+	 */
+	protected function postOffsetUnset( &$theOffset )
+	{
+		//
+		// Call parent method to resolve offset.
+		//
+		parent::postOffsetUnset( $theOffset );
+		
+		//
+		// Set initialised status.
+		//
+		$this->isInited( ($this->mFile !== NULL)
+					  || ($this->mObject !== NULL) );
+	
+	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>UNIT</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		return $theRoot->addChild( kIO_XML_TRANS_UNITS );							// ==>
+	
+	} // xmlUnitElement.
 
 	 
 

@@ -77,8 +77,7 @@ define( 'kDEBUG_PARENT', FALSE );
 //
 // Init local storage.
 //
-$prefix = "TEST";
-$path = '/Library/WebServer/Library/OntologyWrapper/Library/snippets/Test Templates';
+$path = '/Library/WebServer/Library/OntologyWrapper/Library/test/test_MongoFileObject.php';
  
 //
 // Test class.
@@ -111,6 +110,44 @@ try
 	//
 	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
+	
+	//
+	// Instantiate object.
+	//
+	echo( '<h4>Instantiate object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$object = new OntologyWrapper\\MongoFileObject( $wrapper );' );
+	$object = new OntologyWrapper\MongoFileObject( $wrapper );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$object->setFileReference( $path );' );
+	$object->setFileReference( $path );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $object->getFileMember() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$id = $object->commit();' );
+	$id = $object->commit();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+exit;
 	
 	//
 	// Instantiate filer.
