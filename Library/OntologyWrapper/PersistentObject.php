@@ -2506,6 +2506,14 @@ abstract class PersistentObject extends OntologyObject
 								  array( "name" => "OFFSETS" ) );
 		
 		//
+		// Set graph node identifier index.
+		//
+		if( kGRAPH_DO )
+			$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
+									  array( "name" => "GRAPH",
+											 "sparse" => TRUE ) );
+		
+		//
 		// Set reference counts.
 		//
 		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
@@ -2535,14 +2543,6 @@ abstract class PersistentObject extends OntologyObject
 		$collection->createIndex( array( kTAG_FILE_COUNT => 1 ),
 								  array( "name" => "FILES_COUNT",
 								  		 "sparse" => TRUE ) );
-		
-		//
-		// Set graph node identifier index.
-		//
-		if( kGRAPH_DO )
-			$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
-									  array( "name" => "GRAPH",
-											 "sparse" => TRUE ) );
 		
 		return $collection;															// ==>
 	
