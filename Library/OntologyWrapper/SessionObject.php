@@ -828,6 +828,58 @@ abstract class SessionObject extends PersistentObject
 	
 	} // counters.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+		
+	/*===================================================================================
+	 *	Delete																			*
+	 *==================================================================================*/
+
+	/**
+	 * Delete an object
+	 *
+	 * We overload this method to normalise the identifier.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 *
+	 * @static
+	 * @return mixed				Identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 */
+	static function Delete( Wrapper $theWrapper, $theIdentifier )
+	{
+		//
+		// Get collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
+		
+		//
+		// Perform deletion.
+		//
+		$theIdentifier
+			= parent::Delete( $theWrapper,
+							  $collection->getObjectId( $theIdentifier ) );
+		
+		return ( $theIdentifier === NULL )
+			 ? NULL																	// ==>
+			 : $collection->setObjectId( $theIdentifier );							// ==>
+	
+	} // Delete.
+
 	 
 
 /*=======================================================================================

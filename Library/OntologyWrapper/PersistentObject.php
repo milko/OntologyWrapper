@@ -1954,27 +1954,23 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Save file
 	 *
-	 * This method will save the file referenced by the provided path with the provided
+	 * This method will save the file referenced by the provided parameter with the provided
 	 * metadata.
-	 *
-	 * By default, the method will add the current object reference to the metadata, derived
-	 * classes should first load their relevant data and then call the parent method that
-	 * will actually save the object.
 	 *
 	 * If the current object is not committed, the method will raise an exception.
 	 *
-	 * @param string				$thePath			File path.
+	 * @param mixed					$theFile			File reference or path.
 	 * @param array					$theMetadata		File metadata.
 	 * @param array					$theOptions			Insert options.
 	 *
 	 * @access public
-	 * @return ObjectId				File object identifier.
+	 * @return mixed				File object identifier.
 	 *
 	 * @throws Exception
 	 *
 	 * @uses committed()
 	 */
-	public function saveFile( $thePath, $theMetadata = NULL, $theOptions = Array() )
+	public function saveFile( $theFile, $theMetadata = Array(), $theOptions = Array() )
 	{
 		//
 		// Check if committed.
@@ -1982,23 +1978,39 @@ abstract class PersistentObject extends OntologyObject
 		if( $this->committed() )
 		{
 			//
-			// Get files collection.
+			// Check metadata.
 			//
-			$collection = static::ResolveDatabase( $this->mDictionary, TRUE )->filer();
-		
-			//
-			// Initialise metadata.
-			//
-			$theMetadata = $this->initFileMetadata( $theMetadata );
+			if( $theMetadata instanceof \ArrayObject )
+				$theMetadata = $theMetadata->getArrayCopy();
+			elseif( ! is_array( $theMetadata ) )
+				throw new \Exception(
+					"Cannot save file: "
+				   ."provided invalid metadata type." );						// !@! ==>
 			
 			//
-			// Set current object reference.
+			// Create file reference object.
 			//
-			$theMetadata->offsetSet( static::ResolveReferenceTag(),
-									 $this->offsetGet( kTAG_NID ) );
+			$file
+				= FileObject::ResolveCollection(
+					FileObject::ResolveDatabase( $this->mDictionary, TRUE, TRUE ),
+					TRUE )
+					->newFileReference( $theFile );
 			
-			return
-				$collection->saveFile( $thePath, $theMetadata, $theOptions );				// ==>
+			//
+			// Copy object reference.
+			//
+			$this->copySelfReference( $file );
+			
+			//
+			// Set metadata.
+			//
+			foreach( $theMetadata as $key => $value )
+				$file[ $key ] = $value;
+			
+			//
+			// Commit file object.
+			//
+			return $file->commit();													// ==>
 		
 		} // Object is committed.
 		
@@ -2007,88 +2019,6 @@ abstract class PersistentObject extends OntologyObject
 		   ."the session is not committed." );									// !@! ==>
 	
 	} // saveFile.
-
-	 
-	/*===================================================================================
-	 *	getFile																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get file
-	 *
-	 * This method will retrieve the file object matched by the provided identifier.
-	 *
-	 * The second parameter rewpresents the results type: see
-	 * {@link CollectionObject::matchOne()}.
-	 *
-	 * @param string				$theIdentifier		File object identifier.
-	 * @param bitfield				$theResult			Result type.
-	 *
-	 * @access public
-	 * @return FileObject			File object.
-	 */
-	public function getFile( $theIdentifier, $theResult = kQUERY_OBJECT )
-	{
-		//
-		// Get files collection.
-		//
-		$collection = static::ResolveDatabase( $this->mDictionary, TRUE )->filer();
-		
-		//
-		// Normalise identifier.
-		//
-		$theIdentifier = $collection->getObjectId( $theIdentifier );
-		
-		return
-			$collection
-				->matchOne(
-					array( kTAG_NID => $theIdentifier ), $theResult );				// ==>
-	
-	} // getFile.
-
-	 
-	/*===================================================================================
-	 *	getObjectFiles																	*
-	 *==================================================================================*/
-
-	/**
-	 * Get object files
-	 *
-	 * This method will retrieve the list of files referenced by the current object.
-	 *
-	 * The method parameter rewpresents the results type: see
-	 * {@link CollectionObject::matchOne()}.
-	 *
-	 * If the current object is not committed, the method will raise an exception.
-	 *
-	 * @param bitfield				$theResult			Result type.
-	 *
-	 * @access public
-	 * @return ObjectIterator		Object iterator.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses committed()
-	 */
-	public function getObjectFiles( $theResult = kQUERY_OBJECT )
-	{
-		//
-		// Check if committed.
-		//
-		if( $this->committed() )
-			return
-				static::ResolveDatabase( $this->mDictionary, TRUE )
-					->filer()
-						->matchAll(
-							array( static::ResolveReferenceTag()
-								=> $this->offsetGet( kTAG_NID ),
-							$theResult ) );											// ==>
-		
-		throw new \Exception(
-			"Cannot retrieve files: "
-		   ."the current object is not committed." );							// !@! ==>
-	
-	} // getObjectFiles.
 
 	
 
@@ -2218,9 +2148,9 @@ abstract class PersistentObject extends OntologyObject
 		$object = $collection->matchOne( $criteria, kQUERY_OBJECT, $fields );
 		
 		//
-		// Delete object.
+		// Call protected method.
 		//
-		if( $object instanceof self )
+		if( $object instanceof PersistentObject )
 			return $object->deleteObject();											// ==>
 		
 		return NULL;																// ==>
@@ -6009,7 +5939,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Handle objects.
 		//
-		if( is_object( $theProperty ) )
+		if( is_object( $theProperty )
+		 && ($theProperty instanceof self) )
 		{
 			//
 			// Verify class.
@@ -7170,6 +7101,38 @@ MILKO - Need to check.
 			Tag::UpdateRange( $this->mDictionary, $bounds, kTAG_ID_HASH );
 		
 	} // updateTagRanges.
+
+	 
+	/*===================================================================================
+	 *	copySelfReference																*
+	 *==================================================================================*/
+
+	/**
+	 * Copy self reference
+	 *
+	 * This method should add to the provided object a reference to the current object, in
+	 * this class we add by default a reference tag with the identifier of the current
+	 * object, in derived classes you may overload this method to add other relevant
+	 * references.
+	 *
+	 * It is assumed that the current object is committed and that it has the native
+	 * identifier, no check will be made for this.
+	 *
+	 * @param PersistentObject		$theObject			Target object.
+	 *
+	 * @access protected
+	 */
+	protected function copySelfReference( PersistentObject $theObject )
+	{
+		//
+		// Set generic reference to self.
+		//
+		$theObject
+			->offsetSet(
+				static::ResolveReferenceTag(),
+				$this->offsetGet( kTAG_NID ) );
+		
+	} // copySelfReference.
 
 		
 
@@ -8626,57 +8589,6 @@ MILKO - Need to check.
 		} // Value provided.
 	
 	} // addToFullText.
-
-	 
-	/*===================================================================================
-	 *	initFileMetadata																*
-	 *==================================================================================*/
-
-	/**
-	 * Initialise file metadata
-	 *
-	 * This method will return a {@link FileMetadataObject} according to the provided
-	 * parameter, the method expects either a {@link FileMetadataObject} instance, an
-	 * array or <tt>NULL</tt>; in this last case, the method will return an empty instance.
-	 *
-	 * Any other type will raise an exception.
-	 *
-	 * @param mixed					$theValue			Metadata.
-	 *
-	 * @access protected
-	 */
-	protected function initFileMetadata( $theValue )
-	{
-		//
-		// Initialise the metadata.
-		//
-		if( ! ($theValue instanceof FileMetadataObject) )
-		{
-			//
-			// Empty.
-			//
-			if( $theValue === NULL )
-				$theValue = new FileMetadataObject( $this->mDictionary );
-			
-			//
-			// Provided array.
-			//
-			elseif( is_array( $theValue ) )
-				$theValue = new FileMetadataObject( $this->mDictionary, $theValue );
-			
-			//
-			// Invalid type.
-			//
-			else
-				throw new \Exception(
-					"Cannot instantiate file metadata: "
-				   ."provided invalid metadata type." );						// !@! ==>
-		
-		} // Need to instantiate.
-		
-		return $theValue;															// ==>
-	
-	} // initFileMetadata.
 
 	 
 

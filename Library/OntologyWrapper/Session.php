@@ -781,105 +781,6 @@ class Session extends SessionObject
  *======================================================================================*/
 
 
-		
-	/*===================================================================================
-	 *	Delete																			*
-	 *==================================================================================*/
-
-	/**
-	 * Delete an object
-	 *
-	 * We overload this method to normalise the identifier.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param mixed					$theIdentifier		Object native identifier.
-	 *
-	 * @static
-	 * @return mixed				Identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses ResolveDatabase()
-	 * @uses ResolveCollection()
-	 * @uses DeleteFieldsSelection()
-	 */
-	static function Delete( Wrapper $theWrapper, $theIdentifier )
-	{
-		//
-		// Normalise identifier.
-		//
-		$theIdentifier
-			= static::ResolveCollection(
-				static::ResolveDatabase( $this->mDictionary, TRUE ) )
-				->getObjectId( $theIdentifier );
-		
-		return parent::Delete( $theWrapper, $theIdentifier );						// ==>
-	
-	} // Delete.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC COLLECTION REFERENCE INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	filesCollection																	*
-	 *==================================================================================*/
-
-	/**
-	 * Get files collection
-	 *
-	 * This method will return the files collection associated with the current session.
-	 *
-	 * @access public
-	 * @return CollectionObject		Files collection.
-	 *
-	 * @throws Exception
-	 */
-	public function filesCollection()
-	{
-		//
-		// Check data dictionary.
-		//
-		if( $this->mDictionary !== NULL )
-		{
-			//
-			// Get users database.
-			//
-			$database = $this->mDictionary->users();
-			if( $database !== NULL )
-				return
-					$database
-						->filer(
-							FileObject::kSEQ_NAME,
-							TRUE );													// ==>
-		
-			throw new \Exception(
-				"Cannot get files collection: "
-			   ."missing users database." );									// !@! ==>
-		
-		} // Has data dictionary.
-		
-		throw new \Exception(
-			"Cannot get files collection: "
-		   ."missing data wrapper." );											// !@! ==>
-	
-	} // filesCollection.
-
-	 
-
-/*=======================================================================================
- *																						*
- *								STATIC PERSISTENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
 	 
 	/*===================================================================================
 	 *	CreateIndexes																	*
@@ -1168,6 +1069,54 @@ class Session extends SessionObject
 		} // Deleting session.
 	
 	} // updateManyToOne.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED REFERENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	copySelfReference																*
+	 *==================================================================================*/
+
+	/**
+	 * Copy self reference
+	 *
+	 * In this class, besides setting a self reference, we also set a reference to the user.
+	 *
+	 * @param PersistentObject		$theObject			Target object.
+	 *
+	 * @access protected
+	 */
+	protected function copySelfReference( PersistentObject $theObject )
+	{
+		//
+		// Set user reference.
+		//
+		if( $this->offsetExists( kTAG_USER ) )
+			$theObject->offsetSet(
+				kTAG_USER,
+				$this->offsetGet( kTAG_USER ) );
+		
+		//
+		// Set users reference.
+		//
+		if( $this->offsetExists( kTAG_USERS ) )
+			$theObject->offsetSet(
+				kTAG_USERS,
+				$this->offsetGet( kTAG_USERS ) );
+		
+		//
+		// Call parent method.
+		//
+		parent::copySelfReference( $theObject );
+		
+	} // copySelfReference.
 
 	 
 

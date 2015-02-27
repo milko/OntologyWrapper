@@ -103,7 +103,9 @@ class MongoCollection extends CollectionObject
 			//
 			// Match identifier.
 			//
-			$found = $this->connection()->findOne( array( kTAG_NID => $theIdentifier ) );
+			$found
+				= $this->connection()
+					->findOne( array( kTAG_NID => $theIdentifier ) );
 			
 			//
 			// Handle not found.

@@ -121,7 +121,7 @@ class MongoFileIterator extends MongoIterator
 		switch( $this->resultType() )
 		{
 			case kQUERY_OBJECT:
-				return new MongoFileObject( $this->collection->dictionary(),
+				return new MongoFileObject( $this->collection()->dictionary(),
 											$theObject );							// ==>
 		
 			case kQUERY_ARRAY:

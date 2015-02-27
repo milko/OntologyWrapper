@@ -71,13 +71,30 @@ define( 'kDEBUG_PARENT', FALSE );
 
 
 /*=======================================================================================
+ *	CLASS SETTINGS																		*
+ *======================================================================================*/
+ 
+//
+// Cast current class.
+//
+class MyClass extends OntologyWrapper\MongoFileObject
+{
+	public function Inited()	{	return ( $this->isInited() ) ? 'checked="1"' : '';	}
+	public function Dirty()		{	return ( $this->isDirty() ) ? 'checked="1"' : '';	}
+	public function Committed()	{	return ( $this->isCommitted() ) ? 'checked="1"' : '';	}
+	public function Alias()		{	return ( $this->isAlias() ) ? 'checked="1"' : '';	}
+}
+
+
+/*=======================================================================================
  *	TEST																				*
  *======================================================================================*/
 
 //
 // Init local storage.
 //
-$path = '/Library/WebServer/Library/OntologyWrapper/Library/test/test_MongoFileObject.php';
+$file1 = '/Library/WebServer/Library/OntologyWrapper/Library/test/test_file.xml';
+$file2 = '/Library/WebServer/Library/OntologyWrapper/Library/test/test_file.json';
  
 //
 // Test class.
@@ -112,20 +129,27 @@ try
 		$wrapper->loadTagCache();
 	
 	//
-	// Instantiate object.
+	// Instantiate with file reference.
 	//
-	echo( '<h4>Instantiate object</h4>' );
+	echo( '<h4>Instantiate with file reference</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$object = new OntologyWrapper\\MongoFileObject( $wrapper );' );
-	$object = new OntologyWrapper\MongoFileObject( $wrapper );
+	echo( '$object = new MyClass( $wrapper, new SplFileInfo( $file1 ) );' );
+	$object = new MyClass( $wrapper, new SplFileInfo( $file1 ) );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$object->setFileReference( $path );' );
-	$object->setFileReference( $path );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$object->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$object->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$object->Committed().'>&nbsp;' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$object->Alias().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'File member' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -135,54 +159,39 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
+	echo( 'Object member' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $object->getObjectMember() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $object->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Commit object.
+	//
+	echo( '<h4>Commit object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
 	echo( '$id = $object->commit();' );
 	$id = $object->commit();
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $id );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
-exit;
-	
-	//
-	// Instantiate filer.
-	//
-	echo( '<h4>Instantiate filer</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$filer = $wrapper->users()->filer( $prefix );' );
-	$filer = $wrapper->users()->filer( $prefix );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $filer->getArrayCopy() ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Create and save file.
-	//
-	echo( '<h4>Create and save file</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$file = OntologyWrapper\\MongoFileObject::NewFile( $filer, "$path/CWR_Checklist_Template.xlsx" );' );
-	$file = OntologyWrapper\MongoFileObject::NewFile( $filer, "/Library/WebServer/Library/OntologyWrapper/Library/test/test_MongoFileObject.php" );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$id = $file->getID();' );
-	$id = $file->getID();
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$object->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$object->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$object->Committed().'>&nbsp;' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$object->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -192,133 +201,197 @@ exit;
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $file->getSize();' );
-	$data = $file->getSize();
+	echo( 'File member' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
+	var_dump( $object->getFileMember() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $file->getHash();' );
-	$data = $file->getHash();
+	echo( 'Object member' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
+	var_dump( $object->getObjectMember() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $file->fileName();' );
-	$data = $file->fileName();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $file->fileDate();' );
-	$data = $file->fileDate();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $file->fileType();' );
-	$data = $file->fileType();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $file->getMeta();' );
-	$data = $file->getMeta();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
+	var_dump( $object->getArrayCopy() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	echo( '<hr>' );
 	
 	//
-	// Query files.
+	// Modify metadata.
 	//
-	echo( '<h4>Query files</h4>' );
+	echo( '<h4>Modify metadata</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$cursor = $filer->matchAll( array( kTAG_FILE_MIME_TYPE => "text/x-php" ), kQUERY_OBJECT );' );
-	$cursor = $filer->matchAll( array( kTAG_FILE_MIME_TYPE => "text/x-php" ), kQUERY_OBJECT );
+	echo( '$object->offsetSet( kTAG_NAME, "John Doe" );' );
+	$object->offsetSet( kTAG_NAME, "John Doe" );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $cursor->count();' );
-	$data = $cursor->count();
+	echo( '$ok = $object->commit();' );
+	$ok = $object->commit();
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
+	var_dump( $ok );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'foreach( $cursor as item ) echo( (string) $item->getID() );' );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$object->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$object->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$object->Committed().'>&nbsp;' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$object->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	foreach( $cursor as $item )
-		var_dump( $item->getID() );
+	var_dump( $object->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Add file.
+	//
+	echo( '<h4>Add file</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$id_bis = $object->saveFile( $file2 );' );
+	$id_bis = $object->saveFile( $file2 );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id_bis );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Instantiate from identifier.
+	//
+	echo( '<h4>Instantiate from identifier</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$object = new MyClass( $wrapper, $id );' );
+	$object = new MyClass( $wrapper, $id );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$object->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$object->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$object->Committed().'>&nbsp;' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$object->Alias().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'File member' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $object->getFileMember() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$cursor = $filer->matchAll( array( kTAG_FILE_MIME_TYPE => "text/x-php" ), kQUERY_ARRAY );' );
-	$cursor = $filer->matchAll( array( kTAG_FILE_MIME_TYPE => "text/x-php" ), kQUERY_ARRAY );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $cursor->count();' );
-	$data = $cursor->count();
+	echo( 'Object member' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
+	var_dump( $file_object = $object->getObjectMember() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $object->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Instantiate from file object.
+	//
+	echo( '<h4>Instantiate from file object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$object = new MyClass( $wrapper, $file_object );' );
+	$object = new MyClass( $wrapper, $file_object );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$object->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$object->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$object->Committed().'>&nbsp;' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$object->Alias().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'File member' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $object->getFileMember() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( 'foreach( $cursor as item ) echo( (string) $item->getID() );' );
+	echo( 'Object member' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	foreach( $cursor as $item )
-		var_dump( $item->getID() );
+	var_dump( $object->getObjectMember() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $object->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Delete file object.
+	//
+	echo( '<h4>Delete file object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$ok = MyClass::Delete( $wrapper, $id );' );
+	$ok = MyClass::Delete( $wrapper, $id );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

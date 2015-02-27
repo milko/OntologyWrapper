@@ -72,12 +72,7 @@ class MongoFileCollection extends MongoCollection
 			//
 			// Instantiate object.
 			//
-			$object = new MongoFileObject( $this->dictionary() );
-			
-			//
-			// Set file reference.
-			//
-			$object->setFileReference( $theFile );
+			$object = new MongoFileObject( $this->dictionary(), $theFile );
 			
 			//
 			// Init MIME type.
@@ -85,6 +80,8 @@ class MongoFileCollection extends MongoCollection
 			$object->offsetSet(
 				kTAG_FILE_MIME_TYPE,
 				mime_content_type( $theFile->getRealPath() ) );
+			
+			return $object;															// ==>
 		
 		} // File is readable.
 		
@@ -121,6 +118,8 @@ class MongoFileCollection extends MongoCollection
 		// Set file reference.
 		//
 		$object->setFileUpload( (string) $theFile );
+		
+		return $object;																// ==>
 	
 	} // newFileUpload.
 
@@ -151,6 +150,8 @@ class MongoFileCollection extends MongoCollection
 		// Set file reference.
 		//
 		$object->setFileContent( (string) $theFile );
+		
+		return $object;																// ==>
 	
 	} // newFileContent.
 
@@ -177,7 +178,7 @@ class MongoFileCollection extends MongoCollection
 	 * @param boolean				$doAssert			Assert existance.
 	 *
 	 * @access public
-	 * @return fileObject			Matched object or <tt>NULL</tt>.
+	 * @return MongoGridFSFile		Matched object or <tt>NULL</tt>.
 	 */
 	public function matchID( $theIdentifier, $doAssert = TRUE )
 	{
@@ -189,7 +190,7 @@ class MongoFileCollection extends MongoCollection
 			//
 			// Match identifier.
 			//
-			$found = $this->connection()->get( $theIdentifier );
+			$found = $this->connection()->get( $this->getObjectId( $theIdentifier ) );
 			
 			//
 			// Handle not found.
@@ -274,6 +275,7 @@ class MongoFileCollection extends MongoCollection
 					// This is necessary since PHP treats numeric indexes as integers.
 					//
 					$theFields = new \ArrayObject( array( kTAG_NID => TRUE ) );
+				case kQUERY_ARRAY:
 				case kQUERY_OBJECT:
 					$object
 						= $this->
@@ -312,6 +314,10 @@ class MongoFileCollection extends MongoCollection
 			//
 			switch( $theResult & kRESULT_MASK )
 			{
+				case kQUERY_ARRAY:
+				
+					return $object->file;											// ==>
+					
 				case kQUERY_NID:
 				
 					if( ! array_key_exists( kTAG_NID, $object->file ) )
@@ -601,7 +607,7 @@ class MongoFileCollection extends MongoCollection
 						(string) $file, $data, $theOptions );
 			
 			//
-			// Reload object.
+			// Reload.
 			//
 			$object = $this->matchID( $id, TRUE );
 			
@@ -621,7 +627,7 @@ class MongoFileCollection extends MongoCollection
 			foreach( $object->file as $key => $value )
 				$theData[ $key ] = $value;
 			
-			return $id;																// ==>
+			return $this->setObjectId( $id );										// ==>
 		
 		} // Provided file object. 
 			
@@ -639,8 +645,11 @@ class MongoFileCollection extends MongoCollection
 	/**
 	 * Save or replace provided data
 	 *
-	 * In this class we save the provided array, update the object's {@link kTAG_CLASS} and
-	 * return its {@link kTAG_NID} value.
+	 * In this class we overload this method since the <tt>save()</tt> method doesn't exist
+	 * in the <tt>MongoGridFS</tt> class, which means that we need to do an
+	 * <tt>update()</tt>.
+	 *
+	 * In this class we ignore the options.
 	 *
 	 * @param reference				$theData			Data to save.
 	 * @param array					$theOptions			Replace options.
@@ -651,32 +660,56 @@ class MongoFileCollection extends MongoCollection
 	protected function replaceData( $theData, $theOptions )
 	{
 		//
-		// Serialise object.
+		// check object identifier.
 		//
-		ContainerObject::Object2Array( $theData, $data );
+		$id = $theData[ kTAG_NID ];
+		if( $id !== NULL )
+		{
+			//
+			// Normalise identifier.
+			//
+			$id = $this->getObjectId( $id );
 		
-		//
-		// Set class.
-		//
-		if( $theData instanceof PersistentObject )
-			$data[ kTAG_CLASS ] = get_class( $theData );
+			//
+			// Serialise object.
+			//
+			ContainerObject::Object2Array( $theData, $data );
+			
+			//
+			// Update class.
+			//
+			if( $theData instanceof PersistentObject )
+				$data[ kTAG_CLASS ] = get_class( $theData );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( kTAG_NID => $id );
+			
+			//
+			// Set the metadata.
+			//
+			$metadata = array( '$set' => $data );
+			
+			//
+			// Set the options.
+			//
+			$options = array( 'upsert' => FALSE, 'multiple' => FALSE );
+			
+			//
+			// Update.
+			//
+			$ok = $this->modify( $criteria, $metadata, $options );
+			
+			return ( $ok[ 'modified' ] )
+				 ? $this->setObjectId( $id )										// ==>
+				 : NULL;															// ==>
 		
-		//
-		// Replace.
-		//
-		$ok = $this->mConnection->save( $data, $theOptions );
-		
-		//
-		// Get identifier.
-		//
-		$id = $data[ kTAG_NID ];
-		
-		//
-		// Set identifier.
-		//
-		$theData[ kTAG_NID ] = $id;
-		
-		return $id;																	// ==>
+		} // Has persistent idetifier.
+			
+		throw new \Exception(
+			"Unable to replace data: "
+		   ."missing persistent identifier." );									// !@! ==>
 	
 	} // replaceData.
 
@@ -714,8 +747,9 @@ class MongoFileCollection extends MongoCollection
 		//
 		// Delete object.
 		//
-		$ok = $this->mConnection->remove( array( kTAG_NID => $theIdentifier ),
-										  $theOptions );
+		$ok = $this->mConnection->remove(
+				array( kTAG_NID => $this->getObjectId( $theIdentifier ) ),
+				$theOptions );
 		
 		return ( $ok[ 'n' ] > 0 )
 			 ? $theIdentifier														// ==>

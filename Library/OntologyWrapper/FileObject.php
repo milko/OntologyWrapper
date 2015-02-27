@@ -118,8 +118,12 @@ abstract class FileObject extends PersistentObject
 	/**
 	 * Instantiate class.
 	 *
-	 * This class overloads the inherited constructor by handling instantiation by
-	 * identifier.
+	 * This class overloads the inherited constructor by handling instantiation by file
+	 * reference and identifier.
+	 *
+	 * The class may be instantiated with an SplFileInfo object, in which case, the method
+	 * will use that value to set the object's file reference, any other value other than an
+	 * array will be considered the object's identifier.
 	 *
 	 * @param mixed					$theContainer		Data wrapper or properties.
 	 * @param mixed					$theIdentifier		Object identifier or properties.
@@ -138,36 +142,61 @@ abstract class FileObject extends PersistentObject
 								 $doAssert = TRUE )
 	{
 		//
-		// Query database.
+		// Identifier is either an identifier or a file reference.
 		//
 		if( ($theIdentifier !== NULL)
 		 && (! is_array( $theIdentifier ))
 		 && ($theContainer instanceof Wrapper) )
 		{
 			//
-			// Set dictionary.
+			// Instantiate by file reference.
 			//
-			$this->dictionary( $theContainer );
-		
-			//
-			// Find object.
-			//
-			$found
-				= static::ResolveCollection(
-					static::ResolveDatabase( $theContainer ) )
-						->matchID( $theIdentifier, TRUE );
+			if( $theIdentifier instanceof \SplFileInfo )
+			{
+				//
+				// Call parent constructor.
+				//
+				parent::__construct( $theContainer );
+				
+				//
+				// Set file reference.
+				//
+				$this->setFileReference( $theIdentifier );
+				
+			} // Provided file reference.
 			
 			//
-			// Set committed status.
+			// Instantiate by identifier.
 			//
-			$this->isCommitted( TRUE );
+			else
+			{
+				//
+				// Get collection.
+				//
+				$collection
+					= static::ResolveCollection(
+						static::ResolveDatabase( $theContainer, TRUE, TRUE ),
+						TRUE );
+			
+				//
+				// Set file object.
+				//
+				$this->mObject
+					= $collection->matchID(
+						$collection->getObjectId( $theIdentifier ),
+						TRUE );
+			
+				//
+				// Call parent constructor.
+				//
+				parent::__construct( $theContainer, $this->mObject->file );
+			
+			} // Provided identifier.
 			
 			//
-			// Extract object components.
+			// Reset dirty flag.
 			//
-			$this->mFile = NULL;
-			$this->mObject = $found;
-			parent::__construct( $found->file );
+			$this->isDirty( FALSE );
 		
 		} // Provided object identifier.
 		
@@ -259,6 +288,9 @@ abstract class FileObject extends PersistentObject
 	 *
 	 * This method can be used to clear the file reference data member.
 	 *
+	 * <em>You should never need to use this method, it exists to allow FileCollection
+	 * instances to clear this member, once the object member was loaded.</em>
+	 *
 	 * @access public
 	 */
 	public function clearFileMember()
@@ -311,7 +343,21 @@ abstract class FileObject extends PersistentObject
 			// Check if readable.
 			//
 			if( $theValue->isReadable() )
+			{
+				//
+				// Set data member.
+				//
 				$this->mFile = $theValue;
+				
+				//
+				// Set MIME type.
+				//
+				$finfo = finfo_open( FILEINFO_MIME_TYPE );
+				$this->offsetSet( kTAG_FILE_MIME_TYPE,
+								  finfo_file( $finfo, $theValue->getRealPath() ) );
+				finfo_close($finfo);
+			
+			} // File is readable.
 		
 			else
 				throw new \Exception(
@@ -539,6 +585,58 @@ abstract class FileObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+		
+	/*===================================================================================
+	 *	Delete																			*
+	 *==================================================================================*/
+
+	/**
+	 * Delete an object
+	 *
+	 * We overload this method to normalise the identifier.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 *
+	 * @static
+	 * @return mixed				Identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 */
+	static function Delete( Wrapper $theWrapper, $theIdentifier )
+	{
+		//
+		// Get collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
+		
+		//
+		// Perform deletion.
+		//
+		$theIdentifier
+			= parent::Delete( $theWrapper,
+							  $collection->getObjectId( $theIdentifier ) );
+		
+		return ( $theIdentifier === NULL )
+			 ? NULL																	// ==>
+			 : $collection->setObjectId( $theIdentifier );							// ==>
+	
+	} // Delete.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -688,6 +786,74 @@ abstract class FileObject extends PersistentObject
 					  || ($this->mObject !== NULL) );
 	
 	} // postOffsetUnset.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *						PROTECTED OBJECT REFERENCING INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateManyToOne																	*
+	 *==================================================================================*/
+
+	/**
+	 * Update many to one relationships
+	 *
+	 * In this class we overload this method to delete all related files.
+	 *
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 */
+	protected function updateManyToOne( $theOptions )
+	{
+		//
+		// Check options.
+		//
+		if( ($theOptions & kFLAG_OPT_DELETE)	// Deleting
+		 && ($theOptions & kFLAG_OPT_REL_ONE) )	// and many to one relationships.
+		{
+			//
+			// Get collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary, TRUE ) );
+			
+			//
+			// Init criteria.
+			//
+			$criteria = array( '$or' => Array() );
+		
+			//
+			// Remove file.
+			//
+			$criteria[ '$or' ][] = array( kTAG_FILE => $this->offsetGet( kTAG_NID ) );
+		
+			//
+			// Remove files.
+			//
+			$criteria[ '$or' ][] = array( kTAG_FILES => $this->offsetGet( kTAG_NID ) );
+		
+			//
+			// Get related.
+			//
+			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+		
+			//
+			// Delete related.
+			//
+			foreach( $list as $element )
+				$element->deleteObject();
+		
+		} // Deleting file.
+	
+	} // updateManyToOne.
 
 		
 

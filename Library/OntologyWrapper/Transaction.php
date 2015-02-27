@@ -1163,6 +1163,71 @@ class Transaction extends SessionObject
 	
 	} // postOffsetUnset.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED REFERENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	copySelfReference																*
+	 *==================================================================================*/
+
+	/**
+	 * Copy self reference
+	 *
+	 * In this class, besides setting a self reference, we also set a reference to the user
+	 * and the session.
+	 *
+	 * @param PersistentObject		$theObject			Target object.
+	 *
+	 * @access protected
+	 */
+	protected function copySelfReference( PersistentObject $theObject )
+	{
+		//
+		// Set user reference.
+		//
+		if( $this->offsetExists( kTAG_USER ) )
+			$theObject->offsetSet(
+				kTAG_USER,
+				$this->offsetGet( kTAG_USER ) );
+		
+		//
+		// Set users reference.
+		//
+		if( $this->offsetExists( kTAG_USERS ) )
+			$theObject->offsetSet(
+				kTAG_USERS,
+				$this->offsetGet( kTAG_USERS ) );
+		
+		//
+		// Set session reference.
+		//
+		if( $this->offsetExists( kTAG_SESSION ) )
+			$theObject->offsetSet(
+				kTAG_SESSION,
+				$this->offsetGet( kTAG_SESSION ) );
+		
+		//
+		// Set sessions reference.
+		//
+		if( $this->offsetExists( kTAG_SESSIONS ) )
+			$theObject->offsetSet(
+				kTAG_SESSIONS,
+				$this->offsetGet( kTAG_SESSIONS ) );
+		
+		//
+		// Call parent method.
+		//
+		parent::copySelfReference( $theObject );
+		
+	} // copySelfReference.
+
 	 
 
 } // class Transaction.

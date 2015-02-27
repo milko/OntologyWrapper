@@ -69,21 +69,19 @@ class MongoFileObject extends FileObject
 		 && ($theIdentifier instanceof \MongoGridFSFile) )
 		{
 			//
-			// Set dictionary.
-			//
-			$this->dictionary( $theContainer );
-			
-			//
 			// Extract object components.
 			//
-			$this->mFile = NULL;
 			$this->mObject = $theIdentifier;
-			parent::__construct( $theIdentifier->file );
 			
 			//
-			// Set committed status.
+			// Call parent method.
 			//
-			$this->isCommitted( TRUE );
+			parent::__construct( $theContainer, $theIdentifier->file );
+			
+			//
+			// Reset dirty flag.
+			//
+			$this->isDirty( FALSE );
 		
 		} // Provided object identifier.
 		
