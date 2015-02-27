@@ -1363,17 +1363,7 @@ class MongoCollection extends CollectionObject
 		//
 		$ok = $this->mConnection->save( $data, $theOptions );
 		
-		//
-		// Get identifier.
-		//
-		$id = $data[ kTAG_NID ];
-		
-		//
-		// Set identifier.
-		//
-		$theData[ kTAG_NID ] = $id;
-		
-		return $id;																	// ==>
+		return $data[ kTAG_NID ];													// ==>
 	
 	} // replaceData.
 

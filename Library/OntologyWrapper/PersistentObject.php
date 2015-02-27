@@ -2513,37 +2513,6 @@ abstract class PersistentObject extends OntologyObject
 									  array( "name" => "GRAPH",
 											 "sparse" => TRUE ) );
 		
-		//
-		// Set reference counts.
-		//
-		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
-								  array( "name" => "TAGS_COUNT",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
-								  array( "name" => "TERMS_COUNT",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
-								  array( "name" => "NODES_COUNT",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
-								  array( "name" => "EDGES_COUNT",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
-								  array( "name" => "UNITS_COUNT",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_USER_COUNT => 1 ),
-								  array( "name" => "USERS_COUNT",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_SESSION_COUNT => 1 ),
-								  array( "name" => "SESSIONS_COUNT",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_TRANSACTION_COUNT => 1 ),
-								  array( "name" => "TRANSACTIONS_COUNT",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_FILE_COUNT => 1 ),
-								  array( "name" => "FILES_COUNT",
-								  		 "sparse" => TRUE ) );
-		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
@@ -3662,7 +3631,7 @@ abstract class PersistentObject extends OntologyObject
 				if( in_array( $theOffset, $this->lockedOffsets() ) )
 					throw new \Exception(
 						"Cannot set the [$theOffset] offset: "
-					   ."the object is committed." );							// !@! ==>
+					   ."the object is commited." );							// !@! ==>
 		
 			} // Object is committed.
 			
@@ -3785,8 +3754,8 @@ abstract class PersistentObject extends OntologyObject
 				//
 				if( in_array( $theOffset, $this->lockedOffsets() ) )
 					throw new \Exception(
-						"Cannot delete the [$theOffset] offset: "
-					   ."the object is committed." );							// !@! ==>
+						"Cannot unset the [$theOffset] offset: "
+					   ."the object is commited." );							// !@! ==>
 		
 			} // Object is committed.
 		

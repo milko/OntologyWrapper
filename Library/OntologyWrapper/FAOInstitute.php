@@ -450,7 +450,15 @@ class FAOInstitute extends Institution
 										continue;							// =>
 									
 									} // First run.
-
+									
+									//
+									// Verify record.
+									//
+									if( count( $header ) != count( $data ) )
+									{
+										echo( "    ==> Invalid record format at source." );
+										continue;							// =>
+									}
 									
 									//
 									// Increment processed.
@@ -855,19 +863,21 @@ class FAOInstitute extends Institution
 			if( (! strlen( $value ))
 			 || ($value == 'null') )
 				$value = NULL;
-			
+		
 			//
 			// Set.
 			//
 			$theRecord[ $key ] = $value;
-		
+	
 		} // Cleaning data.
-		
+	
 		//
 		// Add offsets.
+		// This section is taking into consideration that data sometimes is not correct:
+		// we try here to foix it.
 		//
 		$theRecord = array_combine( $theHeader, $theRecord );
-		
+	
 		//
 		// Fix valid code.
 		//
@@ -875,7 +885,7 @@ class FAOInstitute extends Institution
 		 && strlen( $theRecord[ 'V_INSTCODE' ] )
 		 && ($theRecord[ 'V_INSTCODE' ] == $theRecord[ 'INSTCODE' ]) )
 			$theRecord[ 'V_INSTCODE' ] = NULL;
-		
+	
 		//
 		// Fix date.
 		//
@@ -885,13 +895,13 @@ class FAOInstitute extends Institution
 				= substr( $theRecord[ 'UPDATED_ON' ], 6, 4 )
 				 .substr( $theRecord[ 'UPDATED_ON' ], 3, 2 )
 				 .substr( $theRecord[ 'UPDATED_ON' ], 0, 2 );
-			
+		
 		//
 		// Import record.
 		//
 		foreach( $theRecord as $key => $value )
 			$this->importProperty( $key, $value );
-		
+	
 		//
 		// Handle address.
 		//

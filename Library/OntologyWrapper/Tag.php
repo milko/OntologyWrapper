@@ -519,34 +519,34 @@ class Tag extends MetadataObject
 								  array( "name" => "LABEL" ) );
 		
 		//
-		// Set offset references.
+		// Set reference counts.
 		//
-		$collection->createIndex( array( kTAG_TAG_OFFSETS => 1 ),
-								  array( "name" => "TAGS_OFFSETS",
+		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
+								  array( "name" => "TAGS_COUNT",
 								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_TERM_OFFSETS => 1 ),
-								  array( "name" => "TERMS_OFFSETS",
+		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
+								  array( "name" => "TERMS_COUNT",
 								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_NODE_OFFSETS => 1 ),
-								  array( "name" => "NODES_OFFSETS",
+		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
+								  array( "name" => "NODES_COUNT",
 								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_EDGE_OFFSETS => 1 ),
-								  array( "name" => "EDGES_OFFSETS",
+		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
+								  array( "name" => "EDGES_COUNT",
 								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_UNIT_OFFSETS => 1 ),
-								  array( "name" => "UNITS_OFFSETS",
+		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
+								  array( "name" => "UNITS_COUNT",
 								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_USER_OFFSETS => 1 ),
-								  array( "name" => "USERS_OFFSETS",
+		$collection->createIndex( array( kTAG_USER_COUNT => 1 ),
+								  array( "name" => "USERS_COUNT",
 								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_SESSION_OFFSETS => 1 ),
-								  array( "name" => "SESSIONS_OFFSETS",
+		$collection->createIndex( array( kTAG_SESSION_COUNT => 1 ),
+								  array( "name" => "SESSIONS_COUNT",
 								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_TRANSACTION_OFFSETS => 1 ),
-								  array( "name" => "TRANSACTIONS_OFFSETS",
+		$collection->createIndex( array( kTAG_TRANSACTION_COUNT => 1 ),
+								  array( "name" => "TRANSACTIONS_COUNT",
 								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_FILE_OFFSETS => 1 ),
-								  array( "name" => "FILES_OFFSETS",
+		$collection->createIndex( array( kTAG_FILE_COUNT => 1 ),
+								  array( "name" => "FILES_COUNT",
 								  		 "sparse" => TRUE ) );
 		
 		return $collection;															// ==>
