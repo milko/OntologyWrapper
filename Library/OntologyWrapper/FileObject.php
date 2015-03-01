@@ -663,31 +663,7 @@ abstract class FileObject extends PersistentObject
 	 */
 	static function ResolveDatabase( Wrapper $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
 	{
-		//
-		// Get users database.
-		//
-		$database = $theWrapper->users();
-		if( $database instanceof DatabaseObject )
-		{
-			//
-			// Open connection.
-			//
-			if( $doOpen )
-				$database->openConnection();
-			
-			return $database;														// ==>
-		
-		} // Retrieved metadata database.
-		
-		//
-		// Raise exception.
-		//
-		if( $doAssert )
-			throw new \Exception(
-				"Unable to resolve database: "
-			   ."missing users reference in wrapper." );						// !@! ==>
-		
-		return NULL;																// ==>
+		return User::ResolveDatabase( $theWrapper, $doAssert, $doOpen );			// ==>
 	
 	} // ResolveDatabase.
 
@@ -852,6 +828,12 @@ abstract class FileObject extends PersistentObject
 				$element->deleteObject();
 		
 		} // Deleting file.
+		
+		//
+		// Call parent method.
+		//
+		else
+			parent::updateManyToOne( $theOptions );
 	
 	} // updateManyToOne.
 

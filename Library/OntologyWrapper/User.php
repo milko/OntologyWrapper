@@ -738,6 +738,89 @@ class User extends Individual
 	
 	} // preCommitObjectIdentifiers.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *						PROTECTED OBJECT REFERENCING INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateManyToOne																	*
+	 *==================================================================================*/
+
+	/**
+	 * Update many to one relationships
+	 *
+	 * In this class we overload this method to delete all related sessions and files.
+	 *
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 */
+	protected function updateManyToOne( $theOptions )
+	{
+		//
+		// Check options.
+		//
+		if( ($theOptions & kFLAG_OPT_DELETE)	// Deleting
+		 && ($theOptions & kFLAG_OPT_REL_ONE) )	// and many to one relationships.
+		{
+			//
+			// Get sessions collection.
+			//
+			$collection
+				= Session::ResolveCollection(
+					Session::ResolveDatabase( $this->mDictionary, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( '$or' => Array() );
+			$criteria[ '$or' ][] = array( kTAG_USER => $this->offsetGet( kTAG_NID ) );
+			$criteria[ '$or' ][] = array( kTAG_USERS => $this->offsetGet( kTAG_NID ) );
+		
+			//
+			// Delete related.
+			//
+			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			foreach( $list as $element )
+				$element->deleteObject();
+		
+			//
+			// Get files collection.
+			//
+			$collection
+				= FileObject::ResolveCollection(
+					FileObject::ResolveDatabase( $this->mDictionary, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( '$or' => Array() );
+			$criteria[ '$or' ][] = array( kTAG_USER => $this->offsetGet( kTAG_NID ) );
+			$criteria[ '$or' ][] = array( kTAG_USERS => $this->offsetGet( kTAG_NID ) );
+		
+			//
+			// Delete related.
+			//
+			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			foreach( $list as $element )
+				$element->deleteObject();
+		
+		} // Deleting file.
+		
+		//
+		// Call parent method.
+		//
+		else
+			parent::updateManyToOne( $theOptions );
+	
+	} // updateManyToOne.
+
 		
 
 /*=======================================================================================

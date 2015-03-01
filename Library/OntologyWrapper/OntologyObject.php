@@ -512,7 +512,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Intercept nested offsets.
 		//
-		if( preg_match( '/^#[0-9a-f]+(\.#[0-9a-f]+)+/', $theOffset ) )
+		if( preg_match( '/^@[0-9a-f]+(\.@[0-9a-f]+)+/', $theOffset ) )
 			return $this->nestedOffsetUnset( $theOffset, $toot, $value );			// ==>
 		
 		return parent::offsetUnset( $theOffset );									// ==>

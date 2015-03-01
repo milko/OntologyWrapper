@@ -34,6 +34,8 @@ use OntologyWrapper\CollectionObject;
  * <ul>
  *	<li><tt>{@link kTAG_SESSION}</tt>: <em>Session</em>. This required property is a
  *		reference to the session to which the current transaction belongs.
+ *	<li><tt>{@link kTAG_USER}</tt>: <em>Transaction user</em>. The object reference for the
+ *		user that triggered the transaction, it will be generally passed by the session.
  *	<li><tt>{@link kTAG_TRANSACTION}</tt>: <em>Transaction</em>. This optional property is a
  *		reference to the parent transaction.
  *	<li><tt>{@link kTAG_TRANSACTION_TYPE}</tt>: <em>Transaction type</em>. This required
@@ -162,396 +164,186 @@ class Transaction extends SessionObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC MEMBERS ACCESSOR INTERFACE							*
+ *								PUBLIC ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	transaction																		*
+	 *	offsetExists																	*
 	 *==================================================================================*/
 
 	/**
-	 * Manage transaction
+	 * Check if an offset exists
 	 *
-	 * This method can be used to manage the transaction reference, the method accepts the
-	 * follo<ing parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: <em>Transaction or operation</em>:
-	 *	  <ul>
-	 *		<li><tt>NULL</tt>: <em>Retrieve transaction</em>:
-	 *		  <ul>
-	 *			<li><em>The object is not committed</em>: The method will return the
-	 *				object's value.
-	 *			<li><em>The object is committed</em>: The method will return the persistent
-	 *				object's value and update the current object.
-	 *		  </ul>
-	 *		<li><tt>FALSE</tt>: <em>Delete transaction</em>:
-	 *		  <ul>
-	 *			<li><em>The object is not committed</em>: The method will delete the current
-	 *				object's value and return the old value.
-	 *			<li><em>The object is committed</em>: The method will delete the persistent
-	 *				and current object's values and return the old persistent object's
-	 *				value.
-	 *		  </ul>
-	 *		<li><em>other</em>: <em>Set transaction</em>:
-	 *		  <ul>
-	 *			<li><em>The object is not committed</em>: The method will set the provided
-	 *				value in the current object.
-	 *			<li><em>The object is committed</em>: The method will first set the value in
-	 *				the persistent object, then set it in the current object and return it.
-	 *		  </ul>
-	 *	  </ul>
-	 *	<li><b>$doObject</b>: <em>Result type</em>: If <tt>TRUE</tt>, the method will
-	 *		return the transaction object, rather than its reference.
-	 * </ul>
-	 *
-	 * The object must have been instantiated with a wrapper.
-	 *
-	 * The method will return the transaction or <tt>NULL</tt> if not set.
-	 *
-	 * @param mixed					$theValue			Transaction object or reference.
-	 * @param boolean				$doObject			TRUE return object.
-	 *
-	 * @access public
-	 * @return mixed				Transaction object or reference.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TRANSACTION
-	 *
-	 * @uses handleReference()
-	 */
-	public function transaction( $theValue = NULL, $doObject = FALSE )
-	{
-		//
-		// Check reference.
-		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE) )
-		{
-			//
-			// Handle object.
-			//
-			if( $theValue instanceof PesistentObject )
-				$theValue = $theValue->offsetGet( kTAG_NID );
-			
-			//
-			// Normalise identifier.
-			//
-			$theValue
-				= static::ResolveCollection(
-					static::ResolveDatabase( $this->mDictionary, TRUE ) )
-					->getObjectId( $theValue );
-			
-			//
-			// Check if object exists.
-			//
-			Session::ResolveObject( $this->mDictionary,
-									Transaction::kSEQ_NAME,
-									$theValue,
-									TRUE );
-	
-		} // Checked reference.
-		
-		return $this->handleReference(
-					kTAG_TRANSACTION, 'Transaction', $theValue, $doObject );		// ==>
-	
-	} // transaction.
-
-	 
-	/*===================================================================================
-	 *	type																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage transaction type
-	 *
-	 * This method can be used to set or retrieve the <i>transaction type</i>, it accepts a
-	 * parameter which represents either the type or the requested operation, depending on
-	 * its value:
+	 * We overload this method to intercept the following offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><em>other</em>: Set the value with the provided parameter.
+	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Referencing transaction.
+	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end.
+	 *	<li><tt>{@link kTAG_TRANSACTION_LOG}</tt>: Transaction log.
 	 * </ul>
 	 *
-	 * If the object is committed and you attempt to set the type, the method will raise an
-	 * exception.
+	 * Note that this method will consider the offset extern, only if provided as an offset,
+	 * if provided as a tag native identifier it will function in the default manner.
 	 *
-	 * @param mixed					$theValue			New type or operation.
+	 * @param mixed					$theOffset			Offset.
 	 *
 	 * @access public
-	 * @return mixed				Current type.
+	 * @return boolean				<tt>TRUE</tt> the offset exists.
 	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TRANSACTION_TYPE
-	 *
-	 * @uses committed()
+	 * @uses resolvePersistent()
 	 */
-	public function type( $theValue = NULL )
+	public function offsetExists( $theOffset )
 	{
 		//
-		// Return current value.
+		// Handle committed objects.
 		//
-		if( $theValue === NULL )
-			return $this->offsetGet( kTAG_TRANSACTION_TYPE );						// ==>
-		
-		//
-		// Go on if not committed.
-		//
-		if( ! $this->committed() )
+		if( $this->committed() )
 		{
 			//
-			// Check value.
+			// Handle extern properties.
 			//
-			switch( $theValue )
+			switch( $theOffset )
 			{
-				case kTYPE_TRANS_TMPL_PREPARE:
-				case kTYPE_TRANS_TMPL_STORE:
-				case kTYPE_TRANS_TMPL_LOAD:
-				case kTYPE_TRANS_TMPL_STRUCT:
-				case kTYPE_TRANS_TMPL_SETUP:
-				case kTYPE_TRANS_TMPL_WORKSHEET:
-				case kTYPE_TRANS_TMPL_RELATIONSHIPS:
-				case kTYPE_TRANS_TMPL_DUPLICATES:
-				case kTYPE_TRANS_TMPL_CLEAN:
-				case kTYPE_TRANS_TMPL_CLOSE:
-					$this->offsetSet( kTAG_TRANSACTION_TYPE, $theValue );
-					return $theValue;												// ==>
+				case kTAG_TRANSACTION:
+				case kTAG_TRANSACTION_END:
+				case kTAG_TRANSACTION_LOG:
+					return
+						in_array( $theOffset,
+								  $this->resolvePersistent( TRUE )
+								  	->arrayKeys() );								// ==>
 			}
-			
-			throw new \Exception(
-				"Cannot set transaction type: "
-			   ."invalid enumeration [$theValue]." );							// !@! ==>
 		
-		} // Object not committed.
+		} // Committed.
 		
-		throw new \Exception(
-			"Cannot set transaction type: "
-		   ."the object is committed." );										// !@! ==>
+		return parent::offsetExists( $theOffset );									// ==>
 	
-	} // type.
+	} // offsetExists.
 
 	 
 	/*===================================================================================
-	 *	start																			*
+	 *	offsetGet																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage transaction start
+	 * Return a value at a given offset
 	 *
-	 * This method can be used to set or retrieve the <i>transaction start</i>, it accepts a
-	 * parameter which represents either the starting time stamp or the requested operation,
-	 * depending on its value:
-	 *
-	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><tt>TRUE</tt>: Set with current time stamp.
-	 *	<li><em>other</em>: Set the value with the provided parameter.
-	 * </ul>
-	 *
-	 * If the object is committed and you attempt to set the start, the method will raise an
-	 * exception.
-	 *
-	 * The object must have been instantiated with a wrapper.
-	 *
-	 * @param mixed					$theValue			New start or operation.
-	 *
-	 * @access public
-	 * @return mixed				Current start.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TRANSACTION_START
-	 *
-	 * @uses committed()
-	 */
-	public function start( $theValue = NULL )
-	{
-		//
-		// Return current value.
-		//
-		if( $theValue === NULL )
-			return $this->offsetGet( kTAG_TRANSACTION_START );						// ==>
-		
-		//
-		// Go on if not committed.
-		//
-		if( ! $this->committed() )
-		{
-			//
-			// Init value.
-			//
-			if( $theValue === TRUE )
-				$theValue
-					= self::ResolveCollection(
-						self::ResolveDatabase( $this->mDictionary, TRUE ) )
-							->getTimeStamp();
-			
-			//
-			// Set value.
-			//
-			$this->offsetSet( kTAG_TRANSACTION_START, $theValue );
-			
-			return $theValue;														// ==>
-		
-		} // Object not committed.
-		
-		throw new \Exception(
-			"Cannot set transaction start: "
-		   ."the object is committed." );										// !@! ==>
-	
-	} // start.
-
-	 
-	/*===================================================================================
-	 *	end																				*
-	 *==================================================================================*/
-
-	/**
-	 * Manage transaction end
-	 *
-	 * This method can be used to set or retrieve the <i>transaction end</i>, it accepts a
-	 * parameter which represents either the ending time stamp or the requested operation,
-	 * depending on its value:
+	 * We overload this method to intercept extern properties, these are prompted from the
+	 * database rather than from the object when the latter is committed: these are the
+	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
-	 *		object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will return the
-	 *			value taken from the persistent object and will update the current object
-	 *			with that value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			return the value found in the current object.
-	 *	  </ul>
-	 *	<li><tt>TRUE</tt>: Set with current time stamp, depending on the commit status of
-	 *		the object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will set the
-	 *			current time stamp in the persistent object and update the current object's
-	 *			value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			set the current time stamp in the current object.
-	 *	  </ul>
-	 *	<li><em>other</em>: Set the value with the provided parameter, depending on the
-	 *		commit status of the object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will set the
-	 *			provided value in the persistent object and update the current object's
-	 *			value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			set the provided value in the current object.
-	 *	  </ul>
+	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Referencing transaction.
+	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Status.
+	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end.
+	 *	<li><tt>{@link kTAG_TRANSACTION_LOG}</tt>: Transaction log.
 	 * </ul>
 	 *
-	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
+	 * Note that this method will consider the offset extern, only if provided as an offset,
+	 * if provided as a tag native identifier it will function in the default manner.
 	 *
-	 * The object must have been instantiated with a wrapper.
-	 *
-	 * @param mixed					$theValue			New end or operation.
-	 *
-	 * @access public
-	 * @return mixed				Current end.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TRANSACTION_END
-	 *
-	 * @uses handleOffset()
-	 */
-	public function end( $theValue = NULL )
-	{
-		//
-		// Check value.
-		//
-		if( $theValue !== FALSE )
-		{
-			//
-			// Init value.
-			//
-			if( $theValue === TRUE )
-				$theValue
-					= self::ResolveCollection(
-						self::ResolveDatabase( $this->mDictionary, TRUE ) )
-							->getTimeStamp();
-			
-			return $this->handleOffset( kTAG_TRANSACTION_END, $theValue );			// ==>
-		
-		} // Not allowed to delete.
-		
-		throw new \Exception(
-			"Cannot delete transaction end." );										// !@! ==>
-	
-	} // end.
-
-	 
-	/*===================================================================================
-	 *	status																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage transaction status
-	 *
-	 * This method can be used to set or retrieve the <i>transaction status</i>, it accepts a
-	 * parameter which represents either the status or the requested operation, depending on
-	 * its value:
-	 *
-	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
-	 *		object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will return the
-	 *			value taken from the persistent object and will update the current object
-	 *			with that value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			return the value found in the current object.
-	 *	  </ul>
-	 *	<li><em>other</em>: Set the value with the provided parameter, depending if the
-	 *		the object is committed or not:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will set the
-	 *			provided value in the persistent object and update the current object's
-	 *			value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			set the provided value in the current object.
-	 *	  </ul>
-	 * </ul>
-	 *
-	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
-	 *
-	 * The object must have been instantiated with a wrapper.
-	 *
-	 * @param mixed					$theValue			New status or operation.
+	 * @param mixed					$theOffset			Offset.
 	 *
 	 * @access public
-	 * @return mixed				Current status.
+	 * @return mixed				Offset value or <tt>NULL</tt>.
 	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TRANSACTION_STATUS
-	 * @see kTYPE_STATUS_OK kTYPE_STATUS_EXECUTING
-	 * @see kTYPE_STATUS_MESSAGE kTYPE_STATUS_WARNING
-	 * @see kTYPE_STATUS_ERROR kTYPE_STATUS_FATAL kTYPE_STATUS_EXCEPTION
-	 *
-	 * @uses handleOffset()
+	 * @uses resolvePersistent()
 	 */
-	public function status( $theValue = NULL )
+	public function offsetGet( $theOffset )
 	{
 		//
-		// Check value.
+		// Handle committed objects.
 		//
-		if( $theValue !== FALSE )
+		if( $this->committed() )
 		{
 			//
-			// Check status.
+			// Handle extern properties.
 			//
-			if( $theValue !== NULL )
+			switch( $theOffset )
 			{
+				case kTAG_TRANSACTION:
+				case kTAG_TRANSACTION_STATUS:
+				case kTAG_TRANSACTION_END:
+				case kTAG_TRANSACTION_LOG:
+					$data = $this->resolvePersistent( TRUE )->getArrayCopy();
+					return ( array_key_exists( $theOffset, $data ) )
+						 ? $data[ $theOffset ]										// ==>
+						 : NULL;													// ==>
+			}
+		
+		} // Committed.
+		
+		return parent::offsetGet( $theOffset );										// ==>
+	
+	} // offsetGet.
+
+	 
+	/*===================================================================================
+	 *	offsetSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set a value at a given offset
+	 *
+	 * We overload this method to intercept extern properties, these are set in the database
+	 * rather than from the object when the latter is committed: these are the extern
+	 * offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Referencing transaction.
+	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Status.
+	 *	<li><tt>{@link kTAG_TRANSACTION_LOG}</tt>: Transaction log.
+	 *	<li><tt>{@link kTAG_TRANSACTION_START}</tt>: Transaction start, we also intercept
+	 *		<tt>TRUE</tt> for setting the current time stamp.
+	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end, we also intercept
+	 *		<tt>TRUE</tt> for setting the current time stamp.
+	 * </ul>
+	 *
+	 * Note that this method will consider the offset extern, only if provided as an offset,
+	 * if provided as a tag native identifier it will function in the default manner.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Value to set at offset.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function offsetSet( $theOffset, $theValue )
+	{
+		//
+		// Parse by offset.
+		//
+		switch( $theOffset )
+		{
+			case kTAG_TRANSACTION:
+				//
+				// Normalise value.
+				//
+				if( $theValue instanceof Transaction )
+					$theValue = $theValue->offsetGet( kTAG_NID );
+				
+				//
+				// Handle committed.
+				//
+				if( $this->committed() )
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => $theValue ) );
+				
+				//
+				// Handle uncommitted.
+				//
+				else
+					parent::offsetSet( $theOffset, $theValue );
+				
+				break;
+			
+			case kTAG_TRANSACTION_STATUS:
 				//
 				// Check value.
 				//
@@ -572,135 +364,128 @@ class Transaction extends SessionObject
 						   ."invalid status type [$theValue]." );				// !@! ==>
 				
 				} // Parsed status.
+				
+				//
+				// Handle committed.
+				//
+				if( $this->committed() )
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => $theValue ) );
+				
+				//
+				// Handle uncommitted.
+				//
+				else
+					parent::offsetSet( $theOffset, $theValue );
+				
+				break;
 			
-			} // Provided status.
+			case kTAG_TRANSACTION_END:
+			case kTAG_TRANSACTION_STATUS:
+				//
+				// Set current stamp.
+				//
+				if( $theValue === TRUE )
+					$theValue
+						= self::ResolveCollection(
+							self::ResolveDatabase( $this->mDictionary, TRUE ) )
+								->getTimeStamp();
 			
-			return $this->handleOffset( kTAG_TRANSACTION_STATUS, $theValue );		// ==>
-		
-		} // Not allowed to delete.
-		
-		throw new \Exception(
-			"Cannot delete transaction status." );								// !@! ==>
+			case kTAG_TRANSACTION_LOG:
+				
+				//
+				// Handle committed.
+				//
+				if( $this->committed() )
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => $theValue ) );
+				
+				//
+				// Handle uncommitted.
+				//
+				else
+					parent::offsetSet( $theOffset, $theValue );
+				
+				break;
+			
+			default:
+				parent::offsetSet( $theOffset, $theValue );
+				
+				break;
+		}
 	
-	} // status.
+	} // offsetSet.
 
 	 
 	/*===================================================================================
-	 *	collection																		*
+	 *	offsetUnset																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage transaction collection
+	 * Reset a value at a given offset
 	 *
-	 * This method can be used to set or retrieve the <i>transaction collection</i>, it
-	 * accepts a parameter which represents either the collection or the requested
-	 * operation, depending on its value:
+	 * We overload this method to intercept extern properties:
 	 *
 	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><em>other</em>: Set the value with the provided parameter.
+	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Referencing transaction.
+	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Status.
+	 *	<li><tt>{@link kTAG_TRANSACTION_LOG}</tt>: Transaction log.
+	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end, we also intercept
+	 *		<tt>TRUE</tt> for setting the current time stamp.
 	 * </ul>
 	 *
-	 * If the object is committed and you attempt to set the value, the method will raise an
-	 * exception.
+	 * Note that this method will consider the offset extern, only if provided as an offset,
+	 * if provided as a tag native identifier it will function in the default manner.
 	 *
-	 * @param mixed					$theValue			New collection or operation.
-	 *
-	 * @access public
-	 * @return mixed				Current collection.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TRANSACTION_COLLECTION
-	 *
-	 * @uses committed()
-	 */
-	public function collection( $theValue = NULL )
-	{
-		//
-		// Return current value.
-		//
-		if( $theValue === NULL )
-			return $this->offsetGet( kTAG_TRANSACTION_COLLECTION );					// ==>
-		
-		//
-		// Go on if not committed.
-		//
-		if( ! $this->committed() )
-		{
-			//
-			// Set offset.
-			//
-			$this->offsetSet( kTAG_TRANSACTION_COLLECTION, (string) $theValue );
-			
-			return $theValue;														// ==>
-		
-		} // Not committed.
-		
-		throw new \Exception(
-			"Cannot set transaction collection: "
-		   ."the object is committed." );										// !@! ==>
-	
-	} // collection.
-
-	 
-	/*===================================================================================
-	 *	record																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage transaction record
-	 *
-	 * This method can be used to set or retrieve the <i>transaction record number</i>, it
-	 * accepts a parameter which represents either the record or the requested operation,
-	 * depending on its value:
-	 *
-	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><em>other</em>: Set the value with the provided parameter.
-	 * </ul>
-	 *
-	 * If the object is committed and you attempt to set the value, the method will raise an
-	 * exception.
-	 *
-	 * @param mixed					$theValue			New record number or operation.
+	 * @param string				$theOffset			Offset.
 	 *
 	 * @access public
-	 * @return mixed				Current record number.
 	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TRANSACTION_RECORD
-	 *
-	 * @uses committed()
+	 * @uses nestedOffsetUnset()
 	 */
-	public function record( $theValue = NULL )
+	public function offsetUnset( $theOffset )
 	{
 		//
-		// Return current value.
+		// Handle committed objects.
 		//
-		if( $theValue === NULL )
-			return $this->offsetGet( kTAG_TRANSACTION_RECORD );						// ==>
-		
-		//
-		// Go on if not committed.
-		//
-		if( ! $this->committed() )
+		if( $this->committed() )
 		{
 			//
-			// Set offset.
+			// Handle extern properties.
 			//
-			$this->offsetSet( kTAG_TRANSACTION_RECORD, (int) $theValue );
-			
-			return $theValue;														// ==>
+			switch( $theOffset )
+			{
+				case kTAG_TRANSACTION:
+				case kTAG_TRANSACTION_STATUS:
+				case kTAG_TRANSACTION_LOG:
+				case kTAG_TRANSACTION_END:
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ) )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => NULL ) );
+					break;
+				
+				default:
+					parent::offsetUnset( $theOffset );
+					break;
+			}
 		
-		} // Not committed.
+		} // Committed.
 		
-		throw new \Exception(
-			"Cannot set transaction record: "
-		   ."the object is committed." );										// !@! ==>
+		//
+		// Handle uncommitted objects.
+		//
+		else
+			parent::offsetUnset( $theOffset );
 	
-	} // record.
+	} // offsetUnset.
 
 	
 
@@ -815,44 +600,6 @@ class Transaction extends SessionObject
 			   ."the object is not committed." );								// !@! ==>
 	
 	} // setLog.
-
-	 
-	/*===================================================================================
-	 *	getLog																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get transaction log
-	 *
-	 * This method will return the current object's transaction log.
-	 *
-	 * @access public
-	 * @return array				Transaction log.
-	 */
-	public function getLog()
-	{
-		//
-		// Handle committed object.
-		//
-		if( $this->committed() )
-		{
-			//
-			// Get logs.
-			//
-			$logs
-				= $this->resolvePersistent( TRUE )
-					->offsetGet( kTAG_TRANSACTION_LOG );
-			
-			//
-			// Set logs.
-			//
-			$this->offsetSet( kTAG_TRANSACTION_LOG, $logs );
-		
-		} // Object is committed.
-		
-		return $this->offsetGet( kTAG_TRANSACTION_LOG );							// ==>
-	
-	} // getLog.
 
 	
 
@@ -1038,12 +785,12 @@ class Transaction extends SessionObject
 	 * <ul>
 	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Parent transaction.
 	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Transaction status.
-	 *	<li><tt>{@link kTAG_TRANSACTION_START}</tt>: Transaction start.
 	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end.
-	 *	<li><tt>{@link kTAG_TRANSACTION_ALIAS}</tt>: Transaction alias.
-	 *	<li><tt>{@link kTAG_TRANSACTION_FIELD}</tt>: Transaction field.
-	 *	<li><tt>{@link kTAG_TRANSACTION_VALUE}</tt>: Transaction value.
-	 *	<li><tt>{@link kTAG_TRANSACTION_MESSAGE}</tt>: Transaction message.
+	 *	<li><tt>{@link kTAG_TRANSACTION_LOG}</tt>: Transaction log.
+	 *	<li><tt>{@link kTAG_TRANSACTION_ALIAS}</tt>: Transaction log alias.
+	 *	<li><tt>{@link kTAG_TRANSACTION_FIELD}</tt>: Transaction log field.
+	 *	<li><tt>{@link kTAG_TRANSACTION_VALUE}</tt>: Transaction log value.
+	 *	<li><tt>{@link kTAG_TRANSACTION_MESSAGE}</tt>: Transaction log message.
 	 *	<li><tt>{@link kTAG_ERROR_TYPE}</tt>: Error type.
 	 *	<li><tt>{@link kTAG_TAG}</tt>: Transaction tag.
 	 * </ul>
@@ -1059,8 +806,8 @@ class Transaction extends SessionObject
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
-			array( kTAG_TRANSACTION_STATUS, kTAG_TRANSACTION,
-				   kTAG_TRANSACTION_START, kTAG_TRANSACTION_END,
+			array( kTAG_TRANSACTION,
+				   kTAG_TRANSACTION_STATUS, kTAG_TRANSACTION_END,
 				   kTAG_TRANSACTION_ALIAS, kTAG_TRANSACTION_FIELD, kTAG_TRANSACTION_VALUE,
 				   kTAG_TRANSACTION_MESSAGE, kTAG_ERROR_TYPE, kTAG_TAG ) );			// ==>
 	
@@ -1163,6 +910,142 @@ class Transaction extends SessionObject
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_STATUS ) );
 	
 	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PRE-COMMIT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitPrepare																*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare object before commit
+	 *
+	 * In this class we initialise the transaction status and start time stamp.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @see kTAG_TRANSACTION_START kTAG_TRANSACTION_STATUS
+	 *
+	 * @uses start()
+	 */
+	protected function preCommitPrepare( &$theTags, &$theRefs )
+	{
+		//
+		// Initialise transaction start.
+		//
+		if( ! $this->offsetExists( kTAG_TRANSACTION_START ) )
+			$this->offsetSet( kTAG_TRANSACTION_START, TRUE );
+		
+		//
+		// Initialise session status.
+		//
+		if( ! $this->offsetExists( kTAG_TRANSACTION_STATUS ) )
+			$this->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_EXECUTING );
+		
+		//
+		// Call parent method.
+		//
+		parent::preCommitPrepare( $theTags, $theRefs );
+		
+	} // preCommitPrepare.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *						PROTECTED OBJECT REFERENCING INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateManyToOne																	*
+	 *==================================================================================*/
+
+	/**
+	 * Update many to one relationships
+	 *
+	 * In this class we overload this method to delete all related transactions and files.
+	 *
+	 * @param bitfield				$theOptions			Operation options.
+	 *
+	 * @access protected
+	 */
+	protected function updateManyToOne( $theOptions )
+	{
+		//
+		// Check options.
+		//
+		if( ($theOptions & kFLAG_OPT_DELETE)	// Deleting
+		 && ($theOptions & kFLAG_OPT_REL_ONE) )	// and many to one relationships.
+		{
+			//
+			// Get transactions collection.
+			//
+			$collection
+				= Transaction::ResolveCollection(
+					Transaction::ResolveDatabase( $this->mDictionary, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( '$or' => Array() );
+			$criteria[ '$or' ][]
+				= array( kTAG_TRANSACTION => $this->offsetGet( kTAG_NID ) );
+			$criteria[ '$or' ][]
+				= array( kTAG_TRANSACTIONS => $this->offsetGet( kTAG_NID ) );
+		
+			//
+			// Delete related.
+			//
+			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			foreach( $list as $element )
+				$element->deleteObject();
+		
+			//
+			// Get files collection.
+			//
+			$collection
+				= FileObject::ResolveCollection(
+					FileObject::ResolveDatabase( $this->mDictionary, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( '$or' => Array() );
+			$criteria[ '$or' ][]
+				= array( kTAG_TRANSACTION => $this->offsetGet( kTAG_NID ) );
+			$criteria[ '$or' ][]
+				= array( kTAG_TRANSACTIONS => $this->offsetGet( kTAG_NID ) );
+		
+			//
+			// Delete related.
+			//
+			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			foreach( $list as $element )
+				$element->deleteObject();
+		
+		} // Deleting file.
+		
+		//
+		// Call parent method.
+		//
+		else
+			parent::updateManyToOne( $theOptions );
+	
+	} // updateManyToOne.
 
 		
 

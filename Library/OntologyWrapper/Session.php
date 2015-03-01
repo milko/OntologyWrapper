@@ -40,8 +40,6 @@ use OntologyWrapper\CollectionObject;
  *		the session, it is generally set by the session destructor.
  *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: <em>Session status</em>. The result or outcome
  *		of the operation.
- *	<li><tt>{@link kTAG_USER}</tt>: <em>Session user</em>. The object reference for the user
- *		that launched the session.
  *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: <em>Session collections</em>. The list of
  *		collection names related to the session operations; these collections are temporary
  *		and will be cleared once the session terminates.
@@ -133,292 +131,186 @@ class Session extends SessionObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC MEMBERS ACCESSOR INTERFACE							*
+ *								PUBLIC ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	type																			*
+	 *	offsetExists																	*
 	 *==================================================================================*/
 
 	/**
-	 * Manage session type
+	 * Check if an offset exists
 	 *
-	 * This method can be used to set or retrieve the <i>session type</i>, it accepts a
-	 * parameter which represents either the type or the requested operation, depending on
-	 * its value:
+	 * We overload this method to intercept the following offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><em>other</em>: Set the value with the provided parameter.
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
+	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
+	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Working collections.
 	 * </ul>
 	 *
-	 * If the object is committed and you attempt to set the type, the method will raise an
-	 * exception.
+	 * Note that this method will consider the offset extern, only if provided as an offset,
+	 * if provided as a tag native identifier it will function in the default manner.
 	 *
-	 * @param mixed					$theValue			New type or operation.
+	 * @param mixed					$theOffset			Offset.
 	 *
 	 * @access public
-	 * @return mixed				Current type.
+	 * @return boolean				<tt>TRUE</tt> the offset exists.
 	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_SESSION_TYPE
-	 *
-	 * @uses committed()
+	 * @uses resolvePersistent()
 	 */
-	public function type( $theValue = NULL )
+	public function offsetExists( $theOffset )
 	{
 		//
-		// Return current value.
+		// Handle committed objects.
 		//
-		if( $theValue === NULL )
-			return $this->offsetGet( kTAG_SESSION_TYPE );							// ==>
-		
-		//
-		// Go on if not committed.
-		//
-		if( ! $this->committed() )
+		if( $this->committed() )
 		{
 			//
-			// Check value.
+			// Handle extern properties.
 			//
-			switch( $theValue )
+			switch( $theOffset )
 			{
-				case kTYPE_SESSION_UPLOAD:
-				case kTYPE_SESSION_UPDATE:
-					$this->offsetSet( kTAG_SESSION_TYPE, $theValue );
-					return $theValue;												// ==>
+				case kTAG_SESSION:
+				case kTAG_SESSION_END:
+				case kTAG_CONN_COLLS:
+					return
+						in_array( $theOffset,
+								  $this->resolvePersistent( TRUE )
+								  	->arrayKeys() );								// ==>
 			}
-			
-			throw new \Exception(
-				"Cannot set session type: "
-			   ."invalid enumeration [$theValue]." );							// !@! ==>
 		
-		} // Object not committed.
+		} // Committed.
 		
-		throw new \Exception(
-			"Cannot set session type: "
-		   ."the object is committed." );										// !@! ==>
+		return parent::offsetExists( $theOffset );									// ==>
 	
-	} // type.
+	} // offsetExists.
 
 	 
 	/*===================================================================================
-	 *	start																			*
+	 *	offsetGet																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage session start
+	 * Return a value at a given offset
 	 *
-	 * This method can be used to set or retrieve the <i>session start</i>, it accepts a
-	 * parameter which represents either the starting time stamp or the requested operation,
-	 * depending on its value:
-	 *
-	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><tt>TRUE</tt>: Set with current time stamp.
-	 *	<li><em>other</em>: Set the value with the provided parameter.
-	 * </ul>
-	 *
-	 * If the object is committed and you attempt to set the start, the method will raise an
-	 * exception.
-	 *
-	 * The object must have been instantiated with a wrapper.
-	 *
-	 * @param mixed					$theValue			New start or operation.
-	 *
-	 * @access public
-	 * @return mixed				Current start.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_SESSION_START
-	 *
-	 * @uses committed()
-	 */
-	public function start( $theValue = NULL )
-	{
-		//
-		// Return current value.
-		//
-		if( $theValue === NULL )
-			return $this->offsetGet( kTAG_SESSION_START );							// ==>
-		
-		//
-		// Go on if not committed.
-		//
-		if( ! $this->committed() )
-		{
-			//
-			// Init value.
-			//
-			if( $theValue === TRUE )
-				$theValue
-					= self::ResolveCollection(
-						self::ResolveDatabase( $this->mDictionary, TRUE ) )
-							->getTimeStamp();
-			
-			//
-			// Set value.
-			//
-			$this->offsetSet( kTAG_SESSION_START, $theValue );
-			
-			return $theValue;														// ==>
-		
-		} // Object not committed.
-		
-		throw new \Exception(
-			"Cannot set session start: "
-		   ."the object is committed." );										// !@! ==>
-	
-	} // start.
-
-	 
-	/*===================================================================================
-	 *	end																				*
-	 *==================================================================================*/
-
-	/**
-	 * Manage session end
-	 *
-	 * This method can be used to set or retrieve the <i>session end</i>, it accepts a
-	 * parameter which represents either the ending time stamp or the requested operation,
-	 * depending on its value:
+	 * We overload this method to intercept extern properties, these are prompted from the
+	 * database rather than from the object when the latter is committed: these are the
+	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
-	 *		object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will return the
-	 *			value taken from the persistent object and will update the current object
-	 *			with that value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			return the value found in the current object.
-	 *	  </ul>
-	 *	<li><tt>TRUE</tt>: Set with current time stamp, depending on the commit status of
-	 *		the object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will set the
-	 *			current time stamp in the persistent object and update the current object's
-	 *			value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			set the current time stamp in the current object.
-	 *	  </ul>
-	 *	<li><em>other</em>: Set the value with the provided parameter, depending on the
-	 *		commit status of the object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will set the
-	 *			provided value in the persistent object and update the current object's
-	 *			value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			set the provided value in the current object.
-	 *	  </ul>
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
+	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Status.
+	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
+	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Fields count.
 	 * </ul>
 	 *
-	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
+	 * Note that this method will consider the offset extern, only if provided as an offset,
+	 * if provided as a tag native identifier it will function in the default manner.
 	 *
-	 * The object must have been instantiated with a wrapper.
-	 *
-	 * @param mixed					$theValue			New end or operation.
-	 *
-	 * @access public
-	 * @return mixed				Current end.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_SESSION_END
-	 *
-	 * @uses handleOffset()
-	 */
-	public function end( $theValue = NULL )
-	{
-		//
-		// Check value.
-		//
-		if( $theValue !== FALSE )
-		{
-			//
-			// Init value.
-			//
-			if( $theValue === TRUE )
-				$theValue
-					= self::ResolveCollection(
-						self::ResolveDatabase( $this->mDictionary, TRUE ) )
-							->getTimeStamp();
-			
-			return $this->handleOffset( kTAG_SESSION_END, $theValue );				// ==>
-		
-		} // Not allowed to delete.
-		
-		throw new \Exception(
-			"Cannot delete session end." );										// !@! ==>
-	
-	} // end.
-
-	 
-	/*===================================================================================
-	 *	status																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage session status
-	 *
-	 * This method can be used to set or retrieve the <i>session status</i>, it accepts a
-	 * parameter which represents either the status or the requested operation, depending on
-	 * its value:
-	 *
-	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
-	 *		object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will return the
-	 *			value taken from the persistent object and will update the current object
-	 *			with that value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			return the value found in the current object.
-	 *	  </ul>
-	 *	<li><em>other</em>: Set the value with the provided parameter, depending if the
-	 *		the object is committed or not:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will set the
-	 *			provided value in the persistent object and update the current object's
-	 *			value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			set the provided value in the current object.
-	 *	  </ul>
-	 * </ul>
-	 *
-	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
-	 *
-	 * The object must have been instantiated with a wrapper.
-	 *
-	 * @param mixed					$theValue			New status or operation.
+	 * @param mixed					$theOffset			Offset.
 	 *
 	 * @access public
-	 * @return mixed				Current status.
+	 * @return mixed				Offset value or <tt>NULL</tt>.
 	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_SESSION_STATUS
-	 * @see kTYPE_STATUS_OK kTYPE_STATUS_FAILED kTYPE_STATUS_EXECUTING
-	 *
-	 * @uses handleOffset()
+	 * @uses resolvePersistent()
 	 */
-	public function status( $theValue = NULL )
+	public function offsetGet( $theOffset )
 	{
 		//
-		// Check value.
+		// Handle committed objects.
 		//
-		if( $theValue !== FALSE )
+		if( $this->committed() )
 		{
 			//
-			// Check status.
+			// Handle extern properties.
 			//
-			if( $theValue !== NULL )
+			switch( $theOffset )
 			{
+				case kTAG_SESSION:
+				case kTAG_SESSION_STATUS:
+				case kTAG_SESSION_END:
+				case kTAG_CONN_COLLS:
+					$data = $this->resolvePersistent( TRUE )->getArrayCopy();
+					return ( array_key_exists( $theOffset, $data ) )
+						 ? $data[ $theOffset ]										// ==>
+						 : NULL;													// ==>
+			}
+		
+		} // Committed.
+		
+		return parent::offsetGet( $theOffset );										// ==>
+	
+	} // offsetGet.
+
+	 
+	/*===================================================================================
+	 *	offsetSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set a value at a given offset
+	 *
+	 * We overload this method to intercept extern properties, these are set in the database
+	 * rather than from the object when the latter is committed: these are the extern
+	 * offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
+	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Status, we also check the value.
+	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Working collections.
+	 *	<li><tt>{@link kTAG_SESSION_START}</tt>: Session start, we also intercept
+	 *		<tt>TRUE</tt> for setting the current time stamp.
+	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end, we also intercept <tt>TRUE</tt>
+	 *		for setting the current time stamp.
+	 * </ul>
+	 *
+	 * Note that this method will consider the offset extern, only if provided as an offset,
+	 * if provided as a tag native identifier it will function in the default manner.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Value to set at offset.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function offsetSet( $theOffset, $theValue )
+	{
+		//
+		// Parse by offset.
+		//
+		switch( $theOffset )
+		{
+			case kTAG_SESSION:
+				//
+				// Normalise value.
+				//
+				if( $theValue instanceof Session )
+					$theValue = $theValue->offsetGet( kTAG_NID );
+				
+				//
+				// Handle committed.
+				//
+				if( $this->committed() )
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => $theValue ) );
+				
+				//
+				// Handle uncommitted.
+				//
+				else
+					parent::offsetSet( $theOffset, $theValue );
+				
+				break;
+			
+			case kTAG_SESSION_STATUS:
 				//
 				// Check value.
 				//
@@ -435,188 +327,128 @@ class Session extends SessionObject
 						   ."invalid status type [$theValue]." );				// !@! ==>
 				
 				} // Parsed status.
+				
+				//
+				// Handle committed.
+				//
+				if( $this->committed() )
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => $theValue ) );
+				
+				//
+				// Handle uncommitted.
+				//
+				else
+					parent::offsetSet( $theOffset, $theValue );
+				
+				break;
 			
-			} // Provided status.
+			case kTAG_SESSION_END:
+			case kTAG_SESSION_START:
+				//
+				// Set current stamp.
+				//
+				if( $theValue === TRUE )
+					$theValue
+						= self::ResolveCollection(
+							self::ResolveDatabase( $this->mDictionary, TRUE ) )
+								->getTimeStamp();
 			
-			return $this->handleOffset( kTAG_SESSION_STATUS, $theValue );			// ==>
-		
-		} // Not allowed to delete.
-		
-		throw new \Exception(
-			"Cannot delete session status." );									// !@! ==>
+			case kTAG_CONN_COLLS:
+				
+				//
+				// Handle committed.
+				//
+				if( $this->committed() )
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => $theValue ) );
+				
+				//
+				// Handle uncommitted.
+				//
+				else
+					parent::offsetSet( $theOffset, $theValue );
+				
+				break;
+			
+			default:
+				parent::offsetSet( $theOffset, $theValue );
+				
+				break;
+		}
 	
-	} // status.
+	} // offsetSet.
 
 	 
 	/*===================================================================================
-	 *	user																			*
+	 *	offsetUnset																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage user
+	 * Reset a value at a given offset
 	 *
-	 * This method can be used to manage the session user, the method accepts the follo<ing
-	 * parameters:
+	 * We overload this method to intercept extern properties:
 	 *
 	 * <ul>
-	 *	<li><b>$theValue</b>: <em>User or operation</em>:
-	 *	  <ul>
-	 *		<li><tt>NULL</tt>: <em>Retrieve user</em>:
-	 *		  <ul>
-	 *			<li><em>The object is not committed</em>: The method will return the
-	 *				object's value.
-	 *			<li><em>The object is committed</em>: The method will return the persistent
-	 *				object's value and update the current object.
-	 *		  </ul>
-	 *		<li><em>other</em>: <em>Set user</em>:
-	 *		  <ul>
-	 *			<li><em>The object is not committed</em>: The method will set the provided
-	 *				value in the current object.
-	 *			<li><em>The object is committed</em>: The method will first set the value in
-	 *				the persistent object, then set it in the current object and return it.
-	 *		  </ul>
-	 *	  </ul>
-	 *	<li><b>$doObject</b>: <em>Result type</em>: If <tt>TRUE</tt>, the method will
-	 *		return the user object, rather than its reference.
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
+	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Status, we also check the value.
+	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Working collections.
+	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end, we also intercept <tt>TRUE</tt>
+	 *		for setting the current time stamp.
 	 * </ul>
 	 *
-	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
+	 * Note that this method will consider the offset extern, only if provided as an offset,
+	 * if provided as a tag native identifier it will function in the default manner.
 	 *
-	 * The object must have been instantiated with a wrapper.
-	 *
-	 * The method will return the user or <tt>NULL</tt> if not set.
-	 *
-	 * @param mixed					$theValue			Session object or reference.
-	 * @param boolean				$doObject			TRUE return object.
+	 * @param string				$theOffset			Offset.
 	 *
 	 * @access public
-	 * @return mixed				Session object or reference.
 	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_USER
-	 *
-	 * @uses handleReference()
+	 * @uses nestedOffsetUnset()
 	 */
-	public function user( $theValue = NULL, $doObject = FALSE )
+	public function offsetUnset( $theOffset )
 	{
 		//
-		// Check value.
+		// Handle committed objects.
 		//
-		if( $theValue !== FALSE )
+		if( $this->committed() )
 		{
 			//
-			// Check reference.
+			// Handle extern properties.
 			//
-			if( $theValue !== NULL )
+			switch( $theOffset )
 			{
-				//
-				// Handle object.
-				//
-				if( $theValue instanceof User )
-					$theValue = $theValue->offsetGet( kTAG_NID );
-			
-				//
-				// Check if object exists.
-				//
-				User::ResolveObject( $this->mDictionary,
-									 User::kSEQ_NAME,
-									 $theValue,
-									 TRUE );
-	
-			} // Checked reference.
+				case kTAG_SESSION:
+				case kTAG_SESSION_STATUS:
+				case kTAG_CONN_COLLS:
+				case kTAG_SESSION_END:
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ) )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => NULL ) );
+					break;
+				
+				default:
+					parent::offsetUnset( $theOffset );
+					break;
+			}
 		
-			return $this->handleReference(
-						kTAG_USER, 'User', $theValue, $doObject );					// ==>
+		} // Committed.
 		
-		} // Not allowed to delete.
-		
-		throw new \Exception(
-			"Cannot delete session user." );									// !@! ==>
-	
-	} // user.
-
-	 
-	/*===================================================================================
-	 *	collections																				*
-	 *==================================================================================*/
-
-	/**
-	 * Manage session collections
-	 *
-	 * This method can be used to set or retrieve the <i>session end</i>, it accepts a
-	 * parameter which represents either the ending time stamp or the requested operation,
-	 * depending on its value:
-	 *
-	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value, depending on the commit status of the
-	 *		object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will return the
-	 *			value taken from the persistent object and will update the current object
-	 *			with that value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			return the value found in the current object.
-	 *	  </ul>
-	 *	<li><tt>TRUE</tt>: Set with current time stamp, depending on the commit status of
-	 *		the object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will set the
-	 *			current time stamp in the persistent object and update the current object's
-	 *			value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			set the current time stamp in the current object.
-	 *	  </ul>
-	 *	<li><em>other</em>: Set the value with the provided parameter, depending on the
-	 *		commit status of the object:
-	 *	  <ul>
-	 *		<li><em>Committed</em>: If the object is committed, the method will set the
-	 *			provided value in the persistent object and update the current object's
-	 *			value.
-	 *		<li><em>Not committed</em>: If the object is not committed, the method will
-	 *			set the provided value in the current object.
-	 *	  </ul>
-	 * </ul>
-	 *
-	 * If you provide <tt>FALSE</tt> as a value, the method will raise an exception.
-	 *
-	 * The object must have been instantiated with a wrapper.
-	 *
-	 * @param mixed					$theValue			New end or operation.
-	 *
-	 * @access public
-	 * @return mixed				Current end.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_SESSION_END
-	 *
-	 * @uses handleOffset()
-	 */
-	public function collections( $theValue = NULL )
-	{
 		//
-		// Check value.
+		// Handle uncommitted objects.
 		//
-		if( $theValue !== FALSE )
-		{
-			//
-			// Init value.
-			//
-			if( $theValue === TRUE )
-				$theValue
-					= self::ResolveCollection(
-						self::ResolveDatabase( $this->mDictionary, TRUE ) )
-							->getTimeStamp();
-			
-			return $this->handleOffset( kTAG_SESSION_END, $theValue );				// ==>
-		
-		} // Not allowed to delete.
-		
-		throw new \Exception(
-			"Cannot delete session end." );										// !@! ==>
+		else
+			parent::offsetUnset( $theOffset );
 	
-	} // collections.
+	} // offsetUnset.
 
 	
 
@@ -635,12 +467,14 @@ class Session extends SessionObject
 	/**
 	 * Create transaction
 	 *
-	 * This method will create and commit a new transaction returning its object.
+	 * This method can be used to create a transaction referenced by the current session,
+	 * holding the provided parameters; the transaction will be committed by this method.
 	 *
 	 * If the current object is not committed, the method will raise an exception.
 	 *
 	 * @param string				$theType			Transaction type.
 	 * @param string				$theCollection		Transaction collection.
+	 * @param int					$theRecord			Transaction record.
 	 *
 	 * @access public
 	 * @return Transaction			Transaction object.
@@ -649,7 +483,7 @@ class Session extends SessionObject
 	 *
 	 * @uses committed()
 	 */
-	public function newTransaction( $theType, $theCollection = NULL )
+	public function newTransaction( $theType, $theCollection = NULL, $theRecord = NULL )
 	{
 		//
 		// Check if committed.
@@ -662,20 +496,28 @@ class Session extends SessionObject
 			$transaction = new Transaction( $this->mDictionary );
 		
 			//
-			// Set session.
+			// Set user and session.
 			//
-			$transaction->session( $this );
+			$tags = array( kTAG_USER => kTAG_USER, kTAG_NID => kTAG_SESSION );
+			foreach( $tags as $key => $value )
+				$transaction->offsetSet( $value, $this->offsetGet( $key ) );
 		
 			//
 			// Set type.
 			//
-			$transaction->type( $theType );
+			$transaction->offsetSet( kTAG_TRANSACTION_TYPE, $theType );
 		
 			//
 			// Set collection.
 			//
 			if( $theCollection !== NULL )
-				$transaction->collection( $theCollection );
+				$transaction->offsetSet( kTAG_TRANSACTION_COLLECTION, $theCollection );
+		
+			//
+			// Set record.
+			//
+			if( $theRecord !== NULL )
+				$transaction->offsetSet( kTAG_TRANSACTION_RECORD, $theRecord );
 			
 			//
 			// Commit transaction.
@@ -866,6 +708,7 @@ class Session extends SessionObject
 	 * includes:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referred session.
 	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Session status.
 	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
 	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Session working collections.
@@ -880,7 +723,8 @@ class Session extends SessionObject
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
-			array( kTAG_SESSION_STATUS, kTAG_SESSION_END, kTAG_CONN_COLLS ) );		// ==>
+			array( kTAG_SESSION,
+				   kTAG_SESSION_STATUS, kTAG_SESSION_END, kTAG_CONN_COLLS ) );		// ==>
 	
 	} // UnmanagedOffsets.
 
@@ -982,6 +826,55 @@ class Session extends SessionObject
 	
 	} // postOffsetUnset.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PRE-COMMIT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitPrepare																*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare object before commit
+	 *
+	 * In this class we initialise the session status and start time stamp.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @see kTAG_SESSION_START kTAG_SESSION_STATUS
+	 *
+	 * @uses start()
+	 */
+	protected function preCommitPrepare( &$theTags, &$theRefs )
+	{
+		//
+		// Initialise session start.
+		//
+		if( ! $this->offsetExists( kTAG_SESSION_START ) )
+			$this->offsetSet( kTAG_SESSION_START, TRUE );
+		
+		//
+		// Initialise session status.
+		//
+		if( ! $this->offsetExists( kTAG_SESSION_STATUS ) )
+			$this->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_EXECUTING );
+		
+		//
+		// Call parent method.
+		//
+		parent::preCommitPrepare( $theTags, $theRefs );
+		
+	} // preCommitPrepare.
+
 	
 
 /*=======================================================================================
@@ -999,8 +892,8 @@ class Session extends SessionObject
 	/**
 	 * Update many to one relationships
 	 *
-	 * In this class we overload this method to delete all related transactions and files
-	 * when deleting the session.
+	 * In this class we overload this method to delete all related sessions, transactions
+	 * and files.
 	 *
 	 * @param bitfield				$theOptions			Operation options.
 	 *
@@ -1015,58 +908,75 @@ class Session extends SessionObject
 		 && ($theOptions & kFLAG_OPT_REL_ONE) )	// and many to one relationships.
 		{
 			//
-			// Set session criteria.
+			// Get sessions collection.
 			//
-			$criteria = array( kTAG_SESSION => $this->offsetGet( kTAG_NID ) );
-			
-			//
-			// Select transactions.
-			//
-			$list
-				= Transaction::ResolveCollection(
-					Transaction::ResolveDatabase(
-						$this->mDictionary ) )
-							->matchAll( $criteria, kQUERY_OBJECT );
-			
-			//
-			// Delete transactions.
-			//
-			foreach( $list as $object )
-				$object->deleteObject();
-		
-			//
-			// Delete files.
-			//
-			$this->filesCollection()->deleteByCriteria( $criteria );
-			
-			//
-			// Select sessions.
-			//
-			$list
+			$collection
 				= Session::ResolveCollection(
-					Session::ResolveDatabase(
-						$this->mDictionary ) )
-							->matchAll( $criteria, kQUERY_OBJECT );
+					Session::ResolveDatabase( $this->mDictionary, TRUE ) );
 			
 			//
-			// Delete sessions.
+			// Set criteria.
 			//
-			foreach( $list as $object )
-				$object->deleteObject();
+			$criteria = array( '$or' => Array() );
+			$criteria[ '$or' ][] = array( kTAG_SESSION => $this->offsetGet( kTAG_NID ) );
+			$criteria[ '$or' ][] = array( kTAG_SESSIONS => $this->offsetGet( kTAG_NID ) );
 		
 			//
-			// Delete working collections.
+			// Delete related.
 			//
-			if( $this->offsetExists( kTAG_CONN_COLLS ) )
-			{
-				foreach( $this->offsetGet( kTAG_CONN_COLLS ) as $collection )
-					$this->resolveDatabase( static::kSEQ_NAME )
-						->collection( $collection )
-							->drop();
+			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			foreach( $list as $element )
+				$element->deleteObject();
 		
-			} // Has working collections.
+			//
+			// Get transactions collection.
+			//
+			$collection
+				= Transaction::ResolveCollection(
+					Transaction::ResolveDatabase( $this->mDictionary, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( '$or' => Array() );
+			$criteria[ '$or' ][] = array( kTAG_SESSION => $this->offsetGet( kTAG_NID ) );
+			$criteria[ '$or' ][] = array( kTAG_SESSIONS => $this->offsetGet( kTAG_NID ) );
 		
-		} // Deleting session.
+			//
+			// Delete related.
+			//
+			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			foreach( $list as $element )
+				$element->deleteObject();
+		
+			//
+			// Get files collection.
+			//
+			$collection
+				= FileObject::ResolveCollection(
+					FileObject::ResolveDatabase( $this->mDictionary, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( '$or' => Array() );
+			$criteria[ '$or' ][] = array( kTAG_SESSION => $this->offsetGet( kTAG_NID ) );
+			$criteria[ '$or' ][] = array( kTAG_SESSIONS => $this->offsetGet( kTAG_NID ) );
+		
+			//
+			// Delete related.
+			//
+			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			foreach( $list as $element )
+				$element->deleteObject();
+		
+		} // Deleting file.
+		
+		//
+		// Call parent method.
+		//
+		else
+			parent::updateManyToOne( $theOptions );
 	
 	} // updateManyToOne.
 

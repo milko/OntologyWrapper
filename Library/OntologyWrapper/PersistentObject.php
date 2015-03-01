@@ -8144,7 +8144,7 @@ MILKO - Need to check.
 	 * @param boolean				$doAssert			TRUE means assert.
 	 *
 	 * @access protected
-	 * @return SessionObject		The object's persistent copy.
+	 * @return PersistentObject		The object's persistent copy.
 	 *
 	 * @throws Exception
 	 */
