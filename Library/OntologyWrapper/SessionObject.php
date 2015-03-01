@@ -229,14 +229,14 @@ abstract class SessionObject extends PersistentObject
 	public function commit( $theWrapper = NULL, $theOptions = kFLAG_OPT_REL_ONE )
 	{
 		//
-		// Call parent method.
+		// Resolve wrapper.
 		//
-		$id = parent::commit( $theWrapper, $theOptions );
+		$this->resolveWrapper( $theWrapper );
 		
 		return
 			static::ResolveCollection(
 				static::ResolveDatabase( $theWrapper, TRUE ) )
-					->setObjectId( $id );											// ==>
+					->setObjectId( parent::commit( $theWrapper, $theOptions ) );	// ==>
 	
 	} // commit.
 

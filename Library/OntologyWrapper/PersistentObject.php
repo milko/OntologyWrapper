@@ -1605,7 +1605,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$collection
 			= static::ResolveCollection(
-				static::ResolveDatabase( $theWrapper ) );
+				static::ResolveDatabase( $theWrapper, TRUE, TRUE ),
+				TRUE );
 		
 		//
 		// Normalise options.

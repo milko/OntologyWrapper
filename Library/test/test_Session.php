@@ -251,8 +251,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_IDENT, "Collection" );<br />' );
-	$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_IDENT, "Collection" );
+	echo( '$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_PREPARE, "Collection" );<br />' );
+	$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_PREPARE, "Collection" );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -443,19 +443,25 @@ try
 	echo( '<hr>' );
 		
 	//
-	// Get file.
+	// Save file.
 	//
-	echo( '<h4>Get file</h4>' );
+	echo( '<h4>Save file</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$object = $upload->getFile( $file_id );' );
-	$object = $upload->getFile( $file_id );
+	echo( '$file_id = $upload->saveFile( $file );' );
+	$file_id = $upload->saveFile( $file );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$file_object = new OntologyWrapper\\MongoFileObject( $wrapper, $file_id );' );
+	$file_object = new OntologyWrapper\MongoFileObject( $wrapper, $file_id );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $object->file );
+	var_dump( $file_object->getArrayCopy() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

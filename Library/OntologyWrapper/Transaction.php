@@ -310,13 +310,14 @@ class Transaction extends SessionObject
 			//
 			switch( $theValue )
 			{
+				case kTYPE_TRANS_TMPL_PREPARE:
 				case kTYPE_TRANS_TMPL_STORE:
-				case kTYPE_TRANS_TMPL_IDENT:
-				case kTYPE_TRANS_TMPL_PARSE:
-				case kTYPE_TRANS_TMPL_WORKSHEETS:
-				case kTYPE_TRANS_TMPL_COLUMNS:
-				case kTYPE_TRANS_TMPL_DATA:
-				case kTYPE_TRANS_TMPL_DUPS:
+				case kTYPE_TRANS_TMPL_LOAD:
+				case kTYPE_TRANS_TMPL_STRUCT:
+				case kTYPE_TRANS_TMPL_SETUP:
+				case kTYPE_TRANS_TMPL_WORKSHEET:
+				case kTYPE_TRANS_TMPL_RELATIONSHIPS:
+				case kTYPE_TRANS_TMPL_DUPLICATES:
 				case kTYPE_TRANS_TMPL_CLEAN:
 				case kTYPE_TRANS_TMPL_CLOSE:
 					$this->offsetSet( kTAG_TRANSACTION_TYPE, $theValue );
