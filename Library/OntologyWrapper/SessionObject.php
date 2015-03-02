@@ -278,14 +278,19 @@ abstract class SessionObject extends PersistentObject
 	 * This method will either retrieve the current processed count from the persistent
 	 * object, or increment the count by the provided value.
 	 *
-	 * If the parameter is <tt>NULL</tt>, the method will retrieve the count; if not, the
-	 * method will cast the parameter to an integer and update the count of the persistent
-	 * object by that value and return it.
+	 * If the first parameter is <tt>NULL</tt>, the method will retrieve the count; if not,
+	 * the method will cast the parameter to an integer and update the count of the
+	 * persistent object by that value and return it.
+	 *
+	 * The second parameter is relevant only if the first parameter is an increment: it
+	 * represents the totals offset that should be used to calculate the progress: when
+	 * provided, the method will also update the persistent object's progress.
 	 *
 	 * The current object's count will not be updated, because of this, the count should not
 	 * be counted on :-)
 	 *
 	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
+	 * @param string				$theTotal			Total count offset.
 	 *
 	 * @access public
 	 * @return int					Current count or increment.
@@ -295,7 +300,7 @@ abstract class SessionObject extends PersistentObject
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
 	 */
-	public function processed( $theValue = NULL )
+	public function processed( $theValue = NULL, $theTotal = NULL )
 	{
 		//
 		// Retrieve count.
@@ -308,7 +313,7 @@ abstract class SessionObject extends PersistentObject
 		//
 		// Update count.
 		//
-		$this->updateCount( kTAG_COUNTER_PROCESSED, (int) $theValue );
+		$this->updateCount( kTAG_COUNTER_PROCESSED, (int) $theValue, $theTotal );
 		
 		return (int) $theValue;														// ==>
 	
@@ -325,14 +330,19 @@ abstract class SessionObject extends PersistentObject
 	 * This method will either retrieve the current validated count from the persistent
 	 * object, or increment the count by the provided value.
 	 *
-	 * If the parameter is <tt>NULL</tt>, the method will retrieve the count; if not, the
-	 * method will cast the parameter to an integer and update the count of the persistent
-	 * object by that value and return it.
+	 * If the first parameter is <tt>NULL</tt>, the method will retrieve the count; if not,
+	 * the method will cast the parameter to an integer and update the count of the
+	 * persistent object by that value and return it.
+	 *
+	 * The second parameter is relevant only if the first parameter is an increment: it
+	 * represents the totals offset that should be used to calculate the progress: when
+	 * provided, the method will also update the persistent object's progress.
 	 *
 	 * The current object's count will not be updated, because of this, the count should not
 	 * be counted on :-)
 	 *
 	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
+	 * @param string				$theTotal			Total count offset.
 	 *
 	 * @access public
 	 * @return int					Current count or increment.
@@ -342,7 +352,7 @@ abstract class SessionObject extends PersistentObject
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
 	 */
-	public function validated( $theValue = NULL )
+	public function validated( $theValue = NULL, $theTotal = NULL )
 	{
 		//
 		// Retrieve count.
@@ -355,7 +365,7 @@ abstract class SessionObject extends PersistentObject
 		//
 		// Update count.
 		//
-		$this->updateCount( kTAG_COUNTER_VALIDATED, (int) $theValue );
+		$this->updateCount( kTAG_COUNTER_VALIDATED, (int) $theValue, $theTotal );
 		
 		return (int) $theValue;														// ==>
 	
@@ -372,14 +382,19 @@ abstract class SessionObject extends PersistentObject
 	 * This method will either retrieve the current rejected count from the persistent
 	 * object, or increment the count by the provided value.
 	 *
-	 * If the parameter is <tt>NULL</tt>, the method will retrieve the count; if not, the
-	 * method will cast the parameter to an integer and update the count of the persistent
-	 * object by that value and return it.
+	 * If the first parameter is <tt>NULL</tt>, the method will retrieve the count; if not,
+	 * the method will cast the parameter to an integer and update the count of the
+	 * persistent object by that value and return it.
+	 *
+	 * The second parameter is relevant only if the first parameter is an increment: it
+	 * represents the totals offset that should be used to calculate the progress: when
+	 * provided, the method will also update the persistent object's progress.
 	 *
 	 * The current object's count will not be updated, because of this, the count should not
 	 * be counted on :-)
 	 *
 	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
+	 * @param string				$theTotal			Total count offset.
 	 *
 	 * @access public
 	 * @return int					Current count or increment.
@@ -389,7 +404,7 @@ abstract class SessionObject extends PersistentObject
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
 	 */
-	public function rejected( $theValue = NULL )
+	public function rejected( $theValue = NULL, $theTotal = NULL )
 	{
 		//
 		// Retrieve count.
@@ -402,7 +417,7 @@ abstract class SessionObject extends PersistentObject
 		//
 		// Update count.
 		//
-		$this->updateCount( kTAG_COUNTER_REJECTED, (int) $theValue );
+		$this->updateCount( kTAG_COUNTER_REJECTED, (int) $theValue, $theTotal );
 		
 		return (int) $theValue;														// ==>
 	
@@ -419,14 +434,19 @@ abstract class SessionObject extends PersistentObject
 	 * This method will either retrieve the current skipped count from the persistent
 	 * object, or increment the count by the provided value.
 	 *
-	 * If the parameter is <tt>NULL</tt>, the method will retrieve the count; if not, the
-	 * method will cast the parameter to an integer and update the count of the persistent
-	 * object by that value and return it.
+	 * If the first parameter is <tt>NULL</tt>, the method will retrieve the count; if not,
+	 * the method will cast the parameter to an integer and update the count of the
+	 * persistent object by that value and return it.
+	 *
+	 * The second parameter is relevant only if the first parameter is an increment: it
+	 * represents the totals offset that should be used to calculate the progress: when
+	 * provided, the method will also update the persistent object's progress.
 	 *
 	 * The current object's count will not be updated, because of this, the count should not
 	 * be counted on :-)
 	 *
 	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
+	 * @param string				$theTotal			Total count offset.
 	 *
 	 * @access public
 	 * @return int					Current count or increment.
@@ -436,7 +456,7 @@ abstract class SessionObject extends PersistentObject
 	 * @uses resolvePersistent()
 	 * @uses updateCount()
 	 */
-	public function skipped( $theValue = NULL )
+	public function skipped( $theValue = NULL, $theTotal = NULL )
 	{
 		//
 		// Retrieve count.
@@ -449,7 +469,7 @@ abstract class SessionObject extends PersistentObject
 		//
 		// Update count.
 		//
-		$this->updateCount( kTAG_COUNTER_SKIPPED, (int) $theValue );
+		$this->updateCount( kTAG_COUNTER_SKIPPED, (int) $theValue, $theTotal );
 		
 		return (int) $theValue;														// ==>
 	
@@ -546,6 +566,7 @@ abstract class SessionObject extends PersistentObject
 	 * extern offsets:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
@@ -580,6 +601,7 @@ abstract class SessionObject extends PersistentObject
 			//
 			switch( $theOffset )
 			{
+				case kTAG_SESSION:
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:
@@ -613,6 +635,7 @@ abstract class SessionObject extends PersistentObject
 	 * extern offsets:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
@@ -647,6 +670,7 @@ abstract class SessionObject extends PersistentObject
 			//
 			switch( $theOffset )
 			{
+				case kTAG_SESSION:
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:
@@ -680,6 +704,7 @@ abstract class SessionObject extends PersistentObject
 	 * offsets:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
@@ -708,19 +733,34 @@ abstract class SessionObject extends PersistentObject
 		if( $this->committed() )
 		{
 			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary, TRUE ),
+					TRUE );
+			
+			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
+				case kTAG_SESSION:
+					//
+					// Normalise value.
+					//
+					if( $theValue instanceof Session )
+						$theValue = $theValue->offsetGet( kTAG_NID );
+					$theValue = $collection->getObjectId( $theValue );
+				
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:
 				case kTAG_COUNTER_PROGRESS:
-					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
-							->replaceOffsets(
-								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => $theValue ) );
+					$collection
+						->replaceOffsets(
+							$this->offsetGet( kTAG_NID ),
+							array( $theOffset => $theValue ) );
 					break;
 				
 				case kTAG_COUNTER_PROCESSED:
@@ -759,6 +799,7 @@ abstract class SessionObject extends PersistentObject
 	 * extern offsets:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
@@ -790,6 +831,7 @@ abstract class SessionObject extends PersistentObject
 			//
 			switch( $theOffset )
 			{
+				case kTAG_SESSION:
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:

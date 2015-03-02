@@ -329,11 +329,26 @@ class Transaction extends SessionObject
 				// Handle committed.
 				//
 				if( $this->committed() )
-					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
-							->replaceOffsets(
-								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => $theValue ) );
+				{
+					//
+					// Get collection.
+					//
+					$collection
+						= static::ResolveCollection(
+							static::ResolveDatabase( $this->mDictionary, TRUE ),
+							TRUE );
+					//
+					// Normalise identifier.
+					//
+					$theValue = $collection->getObjectId( $theValue );
+					//
+					// Update.
+					//
+					$collection
+						->replaceOffsets(
+							$this->offsetGet( kTAG_NID ),
+							array( $theOffset => $theValue ) );
+				}
 				
 				//
 				// Handle uncommitted.
@@ -384,7 +399,7 @@ class Transaction extends SessionObject
 				break;
 			
 			case kTAG_TRANSACTION_END:
-			case kTAG_TRANSACTION_STATUS:
+			case kTAG_TRANSACTION_START:
 				//
 				// Set current stamp.
 				//
@@ -551,7 +566,7 @@ class Transaction extends SessionObject
 				//
 				if( $status[ $theStatus ]
 					> $status[ $this->offsetGet( kTAG_TRANSACTION_STATUS ) ] )
-					$this->status( $theStatus );
+					$this->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
 				
 				//
 				// Normalise tag.

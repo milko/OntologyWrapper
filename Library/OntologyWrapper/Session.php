@@ -147,7 +147,6 @@ class Session extends SessionObject
 	 * We overload this method to intercept the following offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
 	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
 	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Working collections.
 	 * </ul>
@@ -174,7 +173,6 @@ class Session extends SessionObject
 			//
 			switch( $theOffset )
 			{
-				case kTAG_SESSION:
 				case kTAG_SESSION_END:
 				case kTAG_CONN_COLLS:
 					return
@@ -202,7 +200,6 @@ class Session extends SessionObject
 	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
 	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Status.
 	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
 	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Fields count.
@@ -230,7 +227,6 @@ class Session extends SessionObject
 			//
 			switch( $theOffset )
 			{
-				case kTAG_SESSION:
 				case kTAG_SESSION_STATUS:
 				case kTAG_SESSION_END:
 				case kTAG_CONN_COLLS:
@@ -259,7 +255,6 @@ class Session extends SessionObject
 	 * offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
 	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Status, we also check the value.
 	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Working collections.
 	 *	<li><tt>{@link kTAG_SESSION_START}</tt>: Session start, we also intercept
@@ -285,31 +280,6 @@ class Session extends SessionObject
 		//
 		switch( $theOffset )
 		{
-			case kTAG_SESSION:
-				//
-				// Normalise value.
-				//
-				if( $theValue instanceof Session )
-					$theValue = $theValue->offsetGet( kTAG_NID );
-				
-				//
-				// Handle committed.
-				//
-				if( $this->committed() )
-					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
-							->replaceOffsets(
-								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => $theValue ) );
-				
-				//
-				// Handle uncommitted.
-				//
-				else
-					parent::offsetSet( $theOffset, $theValue );
-				
-				break;
-			
 			case kTAG_SESSION_STATUS:
 				//
 				// Check value.
@@ -424,7 +394,6 @@ class Session extends SessionObject
 			//
 			switch( $theOffset )
 			{
-				case kTAG_SESSION:
 				case kTAG_SESSION_STATUS:
 				case kTAG_CONN_COLLS:
 				case kTAG_SESSION_END:
