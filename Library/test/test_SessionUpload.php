@@ -73,7 +73,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 // Init local storage.
 //
 $user = ":domain:individual://ITA406/pgrdiversity.bioversityinternational.org:E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2;";
-$file = kPATH_DEFINITIONS_ROOT."/Api.inc.php";
+$file = "/Library/WebServer/Library/OntologyWrapper/Library/test/CWR_Checklist_Template.test.xlsx";
 	
 //
 // Test class.
@@ -108,108 +108,36 @@ try
 		$wrapper->loadTagCache();
 	
 	//
-	// Instantiate new upload.
+	// Instantiate upload session.
 	//
-	echo( '<h4>Instantiate new upload</h4>' );
+	echo( '<h4>Instantiate upload session</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$workflow = new OntologyWrapper\\SessionUpload( $wrapper, $user, $file );' );
-	$workflow = new OntologyWrapper\SessionUpload( $wrapper, $user, $file );
+	echo( '$session = new OntologyWrapper\\Session( $wrapper )<br />;' );
+	$session = new OntologyWrapper\Session( $wrapper );
+	echo( '$session[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPLOAD;<br />' );
+	$session[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPLOAD;
+	echo( '$session[ kTAG_USER ] = $user;<br />' );
+	$session[ kTAG_USER ] = $user;
+	echo( '$id = $session->commit();' );
+	$id = $session->commit();
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $workflow->getID();' );
-	$data = $workflow->getID();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $workflow->getName();' );
-	$data = $workflow->getName();
+	echo( 'ID' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
+	var_dump( $id );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $workflow->getType();' );
-	$data = $workflow->getType();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $workflow->getStart();' );
-	$data = $workflow->getStart();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $workflow->getEnd();' );
-	$data = $workflow->getEnd();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $workflow->getStatus();' );
-	$data = $workflow->getStatus();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $workflow->getUser();' );
-	$data = $workflow->getUser();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $workflow->getSession();' );
-	$data = $workflow->getSession();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $data );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $workflow->counters();' );
-	$data = $workflow->counters();
+	echo( '$data = $session->getName( kSTANDARDS_LANGUAGE );' );
+	$data = $session->getName( kSTANDARDS_LANGUAGE );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -219,6 +147,32 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+	
+	//
+	// Instantiate new upload.
+	//
+	echo( '<h4>Instantiate new upload</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$workflow = new OntologyWrapper\\SessionUpload( $session, $file );' );
+	$workflow = new OntologyWrapper\SessionUpload( $session, $file );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$ok = $workflow->execute();' );
+	$ok = $workflow->execute();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+exit;
 		
 	//
 	// Delete session.

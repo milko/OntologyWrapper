@@ -95,11 +95,11 @@ class SessionUpload
 	/**
 	 * Instantiate class.
 	 *
-	 * This class is instantiated by providing a data wrapper, a requesting user and the
-	 * path to the template file.
+	 * This class is instantiated by providing an upload session and the upload template
+	 * file reference.
 	 *
 	 * @param Session				$theSession			Related session object.
-	 * @param string				$theFile			Template file path.
+	 * @param mixed					$theFile			Template file path or reference.
 	 *
 	 * @access public
 	 *
@@ -266,7 +266,7 @@ class SessionUpload
 			//
 			// Check if readable.
 			//
-			if( ! $theFile->isReadable() )
+			if( ! $theValue->isReadable() )
 				throw new \Exception(
 					"Cannot set template: "
 				   ."the file is not readable." );								// !@! ==>
@@ -308,7 +308,7 @@ class SessionUpload
 	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
 	 *
 	 * @access public
-	 * @return mixed				Current or old session.
+	 * @return mixed				Current or old transaction.
 	 *
 	 * @uses manageProperty()
 	 */
@@ -333,186 +333,254 @@ class SessionUpload
 
 /*=======================================================================================
  *																						*
- *							PUBLIC SESSION DATA ACCESSOR INTERFACE						*
+ *								PUBLIC SESSION INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	getID																			*
+	 *	execute																			*
 	 *==================================================================================*/
 
 	/**
-	 * Get session ID
+	 * Execute session
 	 *
-	 * This method can be used to retrieve the session ID.
+	 * This method will execute the current session.
 	 *
 	 * @access public
-	 * @return string				Session name.
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 *
 	 * @uses session()
 	 */
-	public function getID()	{	return (string) $this->session()->offsetGet( kTAG_NID );	}
-
-	 
-	/*===================================================================================
-	 *	getName																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get session name
-	 *
-	 * This method can be used to retrieve the session name.
-	 *
-	 * @param string				$theLanguage		Name language.
-	 *
-	 * @access public
-	 * @return string				Session name.
-	 *
-	 * @uses session()
-	 */
-	public function getName( $theLanguage = kSTANDARDS_LANGUAGE )
+	public function execute()
 	{
-		return $this->session()->getName( $theLanguage );							// ==>
+		//
+		// TRY BLOCK.
+		//
+		try
+		{
+			//
+			// Initialise workflow.
+			//
+			$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 	
-	} // getName.
+			//
+			// Transaction prepare.
+			//
+			if( ! $this->sessionPrepare() )
+			{
+				$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+				$this->session()->offsetSet( kTAG_SESSION_END, TRUE );
+				$this->session()->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_FAILED );
+			
+				return FALSE;														// ==>
+			}
+			else
+				$this->session()->progress( 10 );
+	
+			//
+			// Transaction store.
+			//
+			if( ! $this->sessionStore() )
+			{
+				$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+				$this->session()->offsetSet( kTAG_SESSION_END, TRUE );
+				$this->session()->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_FAILED );
+			
+				return FALSE;														// ==>
+			}
+			else
+				$this->session()->progress( 10 );
+			
+			//
+			// Close session.
+			//
+			$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+			$this->session()->offsetSet( kTAG_SESSION_END, TRUE );
+			$this->session()->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_OK );
 
-	 
-	/*===================================================================================
-	 *	getType																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get session type
-	 *
-	 * This method can be used to retrieve the session type.
-	 *
-	 * @access public
-	 * @return string				Session type.
-	 *
-	 * @uses session()
-	 */
-	public function getType()						{	return $this->session()->type();	}
-
-	 
-	/*===================================================================================
-	 *	getStart																		*
-	 *==================================================================================*/
-
-	/**
-	 * Get session start
-	 *
-	 * This method can be used to retrieve the session start.
-	 *
-	 * @access public
-	 * @return MongoDate			Session start.
-	 *
-	 * @uses session()
-	 */
-	public function getStart()						{	return $this->session()->start();	}
-
-	 
-	/*===================================================================================
-	 *	getEnd																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get session end
-	 *
-	 * This method can be used to retrieve the session end.
-	 *
-	 * @access public
-	 * @return MongoDate			Session end.
-	 *
-	 * @uses session()
-	 */
-	public function getEnd()							{	return $this->session()->end();	}
-
-	 
-	/*===================================================================================
-	 *	getStatus																		*
-	 *==================================================================================*/
-
-	/**
-	 * Get session end
-	 *
-	 * This method can be used to retrieve the session status.
-	 *
-	 * @access public
-	 * @return string				Session status.
-	 *
-	 * @uses session()
-	 */
-	public function getStatus()						{	return $this->session()->status();	}
-
-	 
-	/*===================================================================================
-	 *	getUser																			*
-	 *==================================================================================*/
-
-	/**
-	 * Get session user
-	 *
-	 * This method can be used to retrieve the session user identifier.
-	 *
-	 * @access public
-	 * @return string				Session user.
-	 *
-	 * @uses session()
-	 */
-	public function getUser()						{	return $this->session()->user();	}
-
-	 
-	/*===================================================================================
-	 *	getSession																		*
-	 *==================================================================================*/
-
-	/**
-	 * Get referencing session
-	 *
-	 * This method can be used to retrieve the referencing session identifier.
-	 *
-	 * @access public
-	 * @return ObjectId				Referencing session identifier.
-	 *
-	 * @uses session()
-	 */
-	public function getSession()					{	return $this->session()->session();	}
+			return TRUE;															// ==>
+		}
+		
+		//
+		// CATCH BLOCK.
+		//
+		catch( Exception $error )
+		{
+			$this->session()->offsetSet( kTAG_ERROR_TYPE, 'Exception' );
+			if( $error->getCode() )
+				$this->session()->offsetSet( kTAG_ERROR_CODE, $error->getCode() );
+			$this->session()->offsetSet( kTAG_TRANSACTION_MESSAGE, $error->getMessage() );
+			
+			$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+			$this->session()->offsetSet( kTAG_SESSION_END, TRUE );
+			$this->session()->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_FAILED );
+		}
+		
+		return FALSE;																// ==>
+		
+	} // execute.
 
 	
 
 /*=======================================================================================
  *																						*
- *						PUBLIC SESSION COUNTERS ACCESSOR INTERFACE						*
+ *							PROTECTED TRANSACTIONS INTERFACE							*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	counters																		*
+	 *	sessionPrepare																	*
 	 *==================================================================================*/
 
 	/**
-	 * Manage operation counters
+	 * Prepare session
 	 *
-	 * This method can be used to retrieve the current operations counters, the method will
-	 * return an array with the following keys:
+	 * This method will perform the initialisation transaction, clearing any pending upload
+	 * sessions.
 	 *
-	 * <ul>
-	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed elements.
-	 * </ul>
-	 *
-	 * @access public
-	 * @return array				Operation counters.
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 *
 	 * @uses session()
 	 */
-	public function counters()					{	return $this->session()->counters();	}
+	protected function sessionPrepare()
+	{
+		//
+		// Load pending sessions.
+		//
+		$sessions
+			= Session::ResolveCollection(
+				Session::ResolveDatabase( $this->wrapper(), TRUE ), TRUE )
+					->matchAll(
+						array( kTAG_NID
+								=> array( '$ne'
+									=> $this->session()->offsetGet( kTAG_NID ) ),
+							   kTAG_SESSION_TYPE => kTYPE_SESSION_UPLOAD,
+							   kTAG_SESSION => array( '$exists' => FALSE ) ),
+						kQUERY_NID );
+		
+		//
+		// Handle sessions list.
+		//
+		if( $count = $sessions->count() )
+		{
+			//
+			// Create transaction.
+			//
+			$transaction
+				= $this->transaction(
+					$this->session()->newTransaction( kTYPE_TRANS_TMPL_PREPARE ) );
+			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+			
+			//
+			// Set count.
+			//
+			$transaction->offsetSet( kTAG_COUNTER_COLLECTIONS, $count );
+			
+			//
+			// Save increment.
+			//
+			$increment = 100 / $count;
+			
+			//
+			// Delete sessions.
+			//
+			foreach( $sessions as $session )
+			{
+				//
+				// Delete session.
+				//
+				Session::Delete( $this->wrapper(), $session );
+				
+				//
+				// Update progress.
+				//
+				$transaction->processed( 1 );
+				$transaction->progress( $increment );
+			}
+		
+			//
+			// Close transaction.
+			//
+			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		}
+		
+		return TRUE;																// ==>
+
+	} // sessionPrepare.
+
+	 
+	/*===================================================================================
+	 *	sessionStore																	*
+	 *==================================================================================*/
+
+	/**
+	 * Store template
+	 *
+	 * This method will store the current template.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses session()
+	 */
+	protected function sessionStore()
+	{
+		//
+		// Create transaction.
+		//
+		$transaction
+			= $this->transaction(
+				$this->session()->newTransaction( kTYPE_TRANS_TMPL_STORE ) );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
+		// Get file path.
+		//
+		if( $this->mTemplate instanceof \SplFileInfo )
+			$path = $this->mTemplate->getRealPath();
+		
+		//
+		// Check if set.
+		//
+		elseif( $this->mTemplate === NULL )
+			throw new \Exception(
+				"Cannot save template: "
+			   ."missing file reference." );									// !@! ==>
+		
+		//
+		// Set metadata.
+		//
+		$metadata
+			= array( kTAG_SESSION_TYPE
+				  => $this->session()->offsetGet( kTAG_SESSION_TYPE ) );
+		
+		//
+		// Save template.
+		//
+		$id = $this->session()->saveFile( $path, $metadata );
+		
+		//
+		// Save file reference.
+		//
+		$transaction->offsetSet( kTAG_FILE, $id );
+	
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // sessionStore.
 
 	
 
@@ -611,7 +679,7 @@ class SessionUpload
 		//
 		// Save collections in session.
 		//
-		$this->session()->
+		$this->session()->offsetSet( kTAG_COUNTER_COLLECTIONS, $this->mCollections );
 
 	} // initCollections.
 

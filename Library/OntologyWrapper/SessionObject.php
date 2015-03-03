@@ -269,6 +269,53 @@ abstract class SessionObject extends PersistentObject
 
 	 
 	/*===================================================================================
+	 *	progress																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the progress
+	 *
+	 * This method will either retrieve the current progress count from the persistent
+	 * object, or increment the count by the provided value.
+	 *
+	 * If the parameter is <tt>NULL</tt>, the method will retrieve the count; if not,
+	 * the method will cast the parameter to an integer and update the count of the
+	 * persistent object by that value and return it.
+	 *
+	 * The current object's count will not be updated, because of this, the count should not
+	 * be counted on :-)
+	 *
+	 * @param mixed					$theValue			Increment delta or <tt>NULL</tt>.
+	 *
+	 * @access public
+	 * @return int					Current count or increment.
+	 *
+	 * @see kTAG_COUNTER_PROGRESS
+	 *
+	 * @uses resolvePersistent()
+	 * @uses updateCount()
+	 */
+	public function progress( $theValue = NULL )
+	{
+		//
+		// Retrieve count.
+		//
+		if( $theValue === NULL )
+			return
+				$this->resolvePersistent( TRUE )
+					->offsetGet( kTAG_COUNTER_PROGRESS );							// ==>
+		
+		//
+		// Update count.
+		//
+		$this->updateCount( kTAG_COUNTER_PROGRESS, (int) $theValue );
+		
+		return (int) $theValue;														// ==>
+	
+	} // progress.
+
+	 
+	/*===================================================================================
 	 *	processed																		*
 	 *==================================================================================*/
 
@@ -752,6 +799,24 @@ abstract class SessionObject extends PersistentObject
 					if( $theValue instanceof Session )
 						$theValue = $theValue->offsetGet( kTAG_NID );
 					$theValue = $collection->getObjectId( $theValue );
+					$collection
+						->replaceOffsets(
+							$this->offsetGet( kTAG_NID ),
+							array( $theOffset => $theValue ) );
+					break;
+				
+				case kTAG_FILE:
+					//
+					// Normalise value.
+					//
+					if( $theValue instanceof FileObject )
+						$theValue = $theValue->offsetGet( kTAG_NID );
+					$theValue = $collection->getObjectId( $theValue );
+					$collection
+						->replaceOffsets(
+							$this->offsetGet( kTAG_NID ),
+							array( $theOffset => $theValue ) );
+					break;
 				
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
@@ -1185,6 +1250,7 @@ abstract class SessionObject extends PersistentObject
 		//
 		switch( $theCounter )
 		{
+			case kTAG_COUNTER_PROGRESS:
 			case kTAG_COUNTER_PROCESSED:
 			case kTAG_COUNTER_VALIDATED:
 			case kTAG_COUNTER_REJECTED:
