@@ -75,6 +75,13 @@ define( "kPATH_CLASSES_ROOT",		kPATH_LIBRARY_ROOT."/classes" );
  */
 define( "kPATH_LIBRARY_NEO4J",	"/Library/WebServer/Library/Neo4jphp" );
 
+/**
+ * PHPExcel library root.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the PHPExcel library directory.
+ */
+define( "kPATH_LIBRARY_EXCEL",	"/Library/WebServer/Library/PHPExcel/Classes" );
+
 /*=======================================================================================
  *	DEFAULT LINKS																		*
  *======================================================================================*/
@@ -162,5 +169,29 @@ function Neo4jAutoload( $theClassName )
 		require_once( $_path );
 
 } spl_autoload_register( 'Neo4jAutoload' );
+
+/*=======================================================================================
+ *	PHPEXCEL AUTOLOADER																	*
+ *======================================================================================*/
+
+/**
+ * This section allows automatic inclusion of the PHPExcel library classes.
+ */
+function PHPExcelAutoload( $theClassName )
+{
+	//
+	// Build path.
+	//
+	$_path = kPATH_LIBRARY_EXCEL
+			.str_replace( '_', DIRECTORY_SEPARATOR, $theClassName )
+			.'.php';
+	
+	//
+	// Check file.
+	//
+	if( file_exists( $_path ) )
+		require_once( $_path );
+
+} spl_autoload_register( 'PHPExcelAutoload' );
 
 ?>

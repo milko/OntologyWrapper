@@ -844,6 +844,53 @@ class Session extends SessionObject
 		
 	} // preCommitPrepare.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PRE-DELETE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preDeleteFinalise																*
+	 *==================================================================================*/
+
+	/**
+	 * Finalise object before delete
+	 *
+	 * We overload this method to drop any related collection.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> the object can be deleted.
+	 */
+	protected function preDeleteFinalise()
+	{	
+		//
+		// Handle working collections.
+		//
+		if( $this->offsetExists( kTAG_CONN_COLLS ) )
+		{
+			//
+			// Get sessions database.
+			//
+			$database = static::ResolveDatabase( $this->mDictionary, TRUE );
+			
+			//
+			// Iterate collections.
+			//
+			foreach( $this->offsetGet( kTAG_CONN_COLLS ) as $collection )
+				$database->collection( $collection, TRUE )
+					->drop();
+		
+		} // Has working collections.
+		
+		return TRUE;																// ==>
+	
+	} // preDeletePrepare.
+
 	
 
 /*=======================================================================================
@@ -938,25 +985,6 @@ class Session extends SessionObject
 			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
 			foreach( $list as $element )
 				$element->deleteObject();
-			
-			//
-			// Handle working collections.
-			//
-			if( $this->offsetExists( kTAG_CONN_COLLS ) )
-			{
-				//
-				// Get sessions database.
-				//
-				$database = Session::ResolveDatabase( $this->mDictionary, TRUE ) );
-				
-				//
-				// Iterate collections.
-				//
-				foreach( $this->offsetGet( kTAG_CONN_COLLS ) as $collection )
-					$database->collection( $collectionm TRUE )
-						->drop();
-			
-			} // Has working collections.
 		
 		} // Deleting file.
 		

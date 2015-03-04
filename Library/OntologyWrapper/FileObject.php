@@ -224,7 +224,7 @@ abstract class FileObject extends PersistentObject
 	 * @access public
 	 * @return string				The file path.
 	 */
-	public function __toString()							{	return $this->fileName();	}
+	public function __toString()			{	return $this->offsetGet( kTAG_FILE_NAME );	}
 
 	
 
