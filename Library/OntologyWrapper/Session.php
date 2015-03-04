@@ -938,6 +938,25 @@ class Session extends SessionObject
 			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
 			foreach( $list as $element )
 				$element->deleteObject();
+			
+			//
+			// Handle working collections.
+			//
+			if( $this->offsetExists( kTAG_CONN_COLLS ) )
+			{
+				//
+				// Get sessions database.
+				//
+				$database = Session::ResolveDatabase( $this->mDictionary, TRUE ) );
+				
+				//
+				// Iterate collections.
+				//
+				foreach( $this->offsetGet( kTAG_CONN_COLLS ) as $collection )
+					$database->collection( $collectionm TRUE )
+						->drop();
+			
+			} // Has working collections.
 		
 		} // Deleting file.
 		
