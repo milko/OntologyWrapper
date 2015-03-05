@@ -1,16 +1,16 @@
 <?php
 
 /**
- * ExcelTemplateParser.php
+ * ExcelParser.php
  *
- * This file contains the definition of the {@link ExcelTemplateParser} class.
+ * This file contains the definition of the {@link ExcelParser} class.
  */
 
 namespace OntologyWrapper;
 
 /*=======================================================================================
  *																						*
- *									ExcelTemplateParser.php								*
+ *										ExcelParser.php									*
  *																						*
  *======================================================================================*/
 
@@ -29,7 +29,7 @@ require_once( kPATH_LIBRARY_EXCEL."/PHPExcel.php" );
  *	@author		Alessandro Gubitosi <gubi.ale@iod.io>
  *	@version	1.00 19/02/2014
  */
-class ExcelTemplateParser
+class ExcelParser
 {
 	/**
 	 * Excel object.
@@ -694,7 +694,7 @@ class ExcelTemplateParser
 
 	 
 
-} // class ExcelTemplateParser.
+} // class ExcelParser.
 
 
 ?>

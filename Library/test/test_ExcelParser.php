@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *								test_ExcelTemplateParser.php							*
+ *									test_ExcelParser.php								*
  *																						*
  *======================================================================================*/
 
@@ -81,8 +81,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$parser = new OntologyWrapper\\ExcelTemplateParser( $file );' );
-	$parser = new OntologyWrapper\ExcelTemplateParser( $file );
+	echo( '$parser = new OntologyWrapper\\ExcelParser( $file );' );
+	$parser = new OntologyWrapper\ExcelParser( $file );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
