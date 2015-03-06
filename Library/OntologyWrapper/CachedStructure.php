@@ -577,7 +577,7 @@ abstract class CachedStructure
 				= ( is_int( $theObject ) )
 				? PersistentObject::ResolveObject(
 					$this->mWrapper,
-					Tag::kSEQ_NAME,
+					Node::kSEQ_NAME,
 					$theObject,
 					TRUE )
 				: Node::GetPidNode(

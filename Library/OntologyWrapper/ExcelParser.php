@@ -168,9 +168,8 @@ class ExcelParser
 				$stats[ "title" ] = $sheet->getTitle();
 				$stats[ "last_row" ] = $sheet->getHighestRow();
 				$stats[ "last_column" ] = $sheet->getHighestColumn();
-				$stats[ "columns_count" ] = ord( $sheet->getHighestColumn() ) - 64;
 				$stats[ "last_column_index" ]
-					= \PHPExcel_Cell::columnIndexFromString( $sheet->getHighestColumn() );
+					= $this->getColumnNumber( $sheet->getHighestColumn() );
 				
 				//
 				// Handle all worksheets.
@@ -241,7 +240,7 @@ class ExcelParser
 			//
 			if( is_int( $theCol )
 			 || ctype_digit( $theCol ) )
-				$theCol = \PHPExcel_Cell::stringFromColumnIndex( (int) $theCol - 1 );
+				$theCol = $this->getColumnName( (int) $theCol - 1 );
 			
 			//
 			// Handle all rows.
@@ -304,7 +303,7 @@ class ExcelParser
 			// Handle all columns.
 			//
 			if( $theCols === NULL )
-				$theCols = array( 'A', (int) $stats[ "columns_count" ] );
+				$theCols = array( 'A', (int) $stats[ "last_column_index" ] );
 			
 			//
 			// Handle column index.
@@ -319,6 +318,61 @@ class ExcelParser
 		return NULL;																// ==>
 	
 	} // getCols.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC COORDINATES INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getColumnName																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get a column name
+	 *
+	 * Provided a column index, this method will return a column name.
+	 *
+	 * Note that the column indexes are expected to be 1-based.
+	 *
+	 * @param int					$theColumn			Column number.
+	 *
+	 * @access public
+	 * @return string				Column name.
+	 */
+	public function getColumnName( $theColumn )
+	{
+		return \PHPExcel_Cell::stringFromColumnIndex( (int) $theColumn );			// ==>
+	
+	} // getColumnName.
+
+	 
+	/*===================================================================================
+	 *	getColumnNumber																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get a column number
+	 *
+	 * Provided a column name, this method will return a column index.
+	 *
+	 * Note that the column indexes are 1-based.
+	 *
+	 * @param string				$theColumn			Column name.
+	 *
+	 * @access public
+	 * @return int					Column number.
+	 */
+	public function getColumnNumber( $theColumn )
+	{
+		return \PHPExcel_Cell::columnIndexFromString( $theColumn );					// ==>
+	
+	} // getColumnNumber.
 
 	
 
@@ -532,7 +586,7 @@ class ExcelParser
 			$theCols[ 0 ] = ( is_int( $theCols[ 0 ] )
 						   || ctype_digit( $theCols[ 0 ] ) )
 						  ? (int) $theCols[ 0 ]
-						  : \PHPExcel_Cell::columnIndexFromString( $theCols[ 0 ] );
+						  : $this->getColumnNumber( $theCols[ 0 ] );
 			
 			//
 			// Check start.
@@ -564,7 +618,7 @@ class ExcelParser
 				$value
 					= $this->getCellValue( $theWorksheet,
 										   $theRow,
-										   \PHPExcel_Cell::stringFromColumnIndex( $col ) );
+										   $this->getColumnName( $col ) );
 				
 				//
 				// Handle cell.
@@ -577,7 +631,7 @@ class ExcelParser
 				//
 				$index = ( is_int( $start ) )
 					   ? ($col + 1)
-					   : \PHPExcel_Cell::stringFromColumnIndex( $col );
+					   : $this->getColumnName( $col );
 				
 				//
 				// Save value.
@@ -585,7 +639,7 @@ class ExcelParser
 				$result[ $index ]
 					= $this->getCellValue( $theWorksheet,
 										   $theRow,
-										   \PHPExcel_Cell::stringFromColumnIndex( $col ) );
+										   $this->getColumnName( $col ) );
 			
 			} // Iterating range.
 			

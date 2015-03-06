@@ -927,6 +927,117 @@ abstract class SessionObject extends PersistentObject
 	
 	} // offsetUnset.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC OPERATIONS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	newTransaction																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create transaction
+	 *
+	 * This method can be used to create a transaction referenced by the current object,
+	 * holding the provided parameters; the transaction will be committed by this method.
+	 *
+	 * If the current object is not committed, the method will raise an exception.
+	 *
+	 * @param string				$theType			Transaction type.
+	 * @param string				$theCollection		Transaction collection.
+	 * @param int					$theRecord			Transaction record.
+	 *
+	 * @access public
+	 * @return Transaction			Transaction object.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses committed()
+	 */
+	public function newTransaction( $theType, $theCollection = NULL, $theRecord = NULL )
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->committed() )
+		{
+			//
+			// Instantiate object.
+			//
+			$transaction = new Transaction( $this->mDictionary );
+			
+			//
+			// Handle session.
+			//
+			if( $this instanceof Session )
+			{
+				//
+				// Set user.
+				//
+				$transaction->offsetSet( kTAG_USER, $this->offsetGet( kTAG_USER ) );
+			
+				//
+				// Set session.
+				//
+				$transaction->offsetSet( kTAG_SESSION, $this->offsetGet( kTAG_NID ) );
+			
+			} // Session.
+			
+			//
+			// Handle transaction.
+			//
+			else
+			{
+				//
+				// Set session reference.
+				//
+				$transaction->offsetSet( kTAG_TRANSACTION, $this->offsetGet( kTAG_NID ) );
+		
+				//
+				// Set transaction reference.
+				//
+				$transaction->offsetSet( kTAG_SESSION, $this->offsetGet( kTAG_SESSION ) );
+			
+			} // Transaction.
+		
+			//
+			// Set type.
+			//
+			$transaction->offsetSet( kTAG_TRANSACTION_TYPE, $theType );
+		
+			//
+			// Set collection.
+			//
+			if( $theCollection !== NULL )
+				$transaction->offsetSet( kTAG_TRANSACTION_COLLECTION, $theCollection );
+		
+			//
+			// Set record.
+			//
+			if( $theRecord !== NULL )
+				$transaction->offsetSet( kTAG_TRANSACTION_RECORD, $theRecord );
+			
+			//
+			// Commit transaction.
+			//
+			$transaction->commit();
+			
+			return $transaction;													// ==>
+		
+		} // Object is committed.
+		
+		throw new \Exception(
+			"Cannot create transaction: "
+		   ."the object is not committed." );									// !@! ==>
+	
+	} // newTransaction.
+
 		
 
 /*=======================================================================================

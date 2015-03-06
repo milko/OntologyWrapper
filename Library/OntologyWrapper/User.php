@@ -26,7 +26,7 @@ use OntologyWrapper\Individual;
  *
  * <ul>
  *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: <em>Sequence ID</em>. This persistent automatic
- *		attribute is set when the record is first inserted, it will be used as the suffix
+ *		attribute is set when the record is first inserted, it will be used as the prefix
  *		for elements related to the user.
  *	<li><tt>{@link kTAG_CONN_CODE}</tt>: <em>User code</em>. This required attribute
  *		represents the user access code.

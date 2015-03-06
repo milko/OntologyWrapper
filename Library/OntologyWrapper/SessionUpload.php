@@ -52,16 +52,6 @@ class SessionUpload
 	protected $mSession = NULL;
 
 	/**
-	 * Template.
-	 *
-	 * This data member holds the <i>template</i> reference, it will be an SplFileInfo
-	 * object.
-	 *
-	 * @var mixed
-	 */
-	protected $mTemplate = NULL;
-
-	/**
 	 * Transaction.
 	 *
 	 * This data member holds the <i>current transaction object</i>.
@@ -71,28 +61,22 @@ class SessionUpload
 	protected $mTransaction = NULL;
 
 	/**
-	 * Collections.
+	 * File.
 	 *
-	 * This data member holds the <i>list of working collections</i> as an array structured
-	 * as follows:
+	 * This data member holds the <i>template file</i> reference.
 	 *
-	 * <ul>
-	 *	<li><em>index</tt>: The collection name.
-	 *	<li><em>value</tt>: The collection object.
-	 * </ul>
-	 *
-	 * @var array
+	 * @var SplFileInfo
 	 */
-	protected $mCollections = NULL;
+	protected $mFile = NULL;
 
 	/**
-	 * Work file reference.
+	 * Template parser.
 	 *
-	 * This data member holds the object used to parse the Excel template file.
+	 * This data member holds the template parser.
 	 *
-	 * @var mixed
+	 * @var ExcelTemplateParser
 	 */
-	protected $mWorkFile = NULL;
+	protected $mParser = NULL;
 
 		
 
@@ -119,8 +103,8 @@ class SessionUpload
 	 *
 	 * @access public
 	 *
-	 * @uses wrapper()
 	 * @uses session()
+	 * @uses file()
 	 */
 	public function __construct( Session $theSession, $theFile )
 	{
@@ -130,9 +114,9 @@ class SessionUpload
 		$this->session( $theSession );
 		
 		//
-		// Set file path.
+		// Set file reference.
 		//
-		$this->template( $theFile );
+		$this->file( $theFile );
 
 	} // Constructor.
 
@@ -147,15 +131,20 @@ class SessionUpload
 	 * In this class we delete the template file when destructing the object.
 	 *
 	 * @access public
+	 *
+	 * @uses file()
 	 */
 	public function __destruct()
 	{
 		//
 		// Delete template file.
 		//
-		$file = $this->template();
+		$file = $this->file();
 		if( $file instanceof \SplFileInfo )
-			unlink( $file->getRealPath() );
+		{
+			if( $file->isWritable() )
+				unlink( $file->getRealPath() );
+		}
 
 	} // Destructor.
 
@@ -202,7 +191,7 @@ class SessionUpload
 	 *	 <ul>
 	 *		<li><tt>NULL</tt>: Return the current property value.
 	 *		<li><tt>Session</tt>: Set the value in the property.
-	 *		<li><tt>string</tt>: Set the value with the object identified by the value.
+	 *		<li><tt>string</tt>: Resolve session and set the value.
 	 *	 </ul>
 	 *	<li><tt>$getOld</tt>: Determines what the method will return:
 	 *	 <ul>
@@ -213,16 +202,27 @@ class SessionUpload
 	 *	 </ul>
 	 * </ul>
 	 *
+	 * It is not allowed to delete sessions, this means that providing <tt>FALSE</tt> will
+	 * raise an exception.
+	 *
 	 * @param mixed					$theValue			New session or operation.
 	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
 	 *
 	 * @access public
 	 * @return mixed				Current or old session.
 	 *
+	 * @uses wrapper()
 	 * @uses manageProperty()
 	 */
 	public function session( $theValue = NULL, $getOld = FALSE )
 	{
+		//
+		// Prevent deleting.
+		//
+		if( $theValue === FALSE )
+			throw new \Exception(
+				"You cannot delete the current session." );						// !@! ==>
+		
 		//
 		// Check new value.
 		//
@@ -240,73 +240,6 @@ class SessionUpload
 
 	 
 	/*===================================================================================
-	 *	template																		*
-	 *==================================================================================*/
-
-	/**
-	 * Manage template
-	 *
-	 * This method can be used to set or retrieve the <i>template</i>, the method expects
-	 * the following parameters:
-	 *
-	 * <ul>
-	 *	<li><tt>$theValue</tt>: The property value or operation:
-	 *	 <ul>
-	 *		<li><tt>NULL</tt>: Return the current property value.
-	 *		<li><tt>SplFileInfo</tt>: Set the value in the property.
-	 *		<li><em>other</em>: The method will raise an exception.
-	 *	 </ul>
-	 *	<li><tt>$getOld</tt>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><tt>TRUE</tt>: Return the value of the property <em>before</em> it was
-	 *			eventually modified.
-	 *		<li><tt>FALSE</tt>: Return the value of the property <em>after</em> it was
-	 *			eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * The first time this member is set, the value is supposed to reference the original
-	 * template file; the next time the member is set, it will hold the reference to the
-	 * template working copy.
-	 *
-	 * @param mixed					$theValue			New file reference or operation.
-	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
-	 *
-	 * @access public
-	 * @return mixed				Current or old file.
-	 *
-	 * @uses manageProperty()
-	 */
-	public function template( $theValue = NULL, $getOld = FALSE )
-	{
-		//
-		// Check new value.
-		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE) )
-		{
-			//
-			// Handle path.
-			//
-			if( ! ($theValue instanceof \SplFileInfo) )
-				$theValue = new \SplFileInfo( (string) $theValue );
-			
-			//
-			// Check if readable.
-			//
-			if( ! $theValue->isReadable() )
-				throw new \Exception(
-					"Cannot set template: "
-				   ."the file is not readable." );								// !@! ==>
-		
-		} // New template.
-		
-		return $this->manageProperty( $this->mTemplate, $theValue, $getOld );		// ==>
-	
-	} // template.
-
-	 
-	/*===================================================================================
 	 *	transaction																		*
 	 *==================================================================================*/
 
@@ -320,8 +253,8 @@ class SessionUpload
 	 *	<li><tt>$theValue</tt>: The property value or operation:
 	 *	 <ul>
 	 *		<li><tt>NULL</tt>: Return the current property value.
-	 *		<li><tt>Session</tt>: Set the value in the property.
-	 *		<li><tt>string</tt>: Set the value with the object identified by the value.
+	 *		<li><tt>Transaction</tt>: Set the value in the property.
+	 *		<li><tt>string</tt>: Resolve transaction and set the value.
 	 *	 </ul>
 	 *	<li><tt>$getOld</tt>: Determines what the method will return:
 	 *	 <ul>
@@ -332,16 +265,27 @@ class SessionUpload
 	 *	 </ul>
 	 * </ul>
 	 *
+	 * It is not allowed to delete transactions, this means that providing <tt>FALSE</tt>
+	 * will raise an exception.
+	 *
 	 * @param mixed					$theValue			New transaction or operation.
 	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
 	 *
 	 * @access public
 	 * @return mixed				Current or old transaction.
 	 *
+	 * @uses wrapper()
 	 * @uses manageProperty()
 	 */
 	public function transaction( $theValue = NULL, $getOld = FALSE )
 	{
+		//
+		// Prevent deleting.
+		//
+		if( $theValue === FALSE )
+			throw new \Exception(
+				"You cannot delete the current transaction." );					// !@! ==>
+		
 		//
 		// Check new value.
 		//
@@ -356,6 +300,71 @@ class SessionUpload
 		return $this->manageProperty( $this->mTransaction, $theValue, $getOld );	// ==>
 	
 	} // transaction.
+
+	 
+	/*===================================================================================
+	 *	file																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage template file
+	 *
+	 * This method can be used to set or retrieve the <i>template</i>, the method expects
+	 * the following parameters:
+	 *
+	 * <ul>
+	 *	<li><tt>$theValue</tt>: The property value or operation:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Return the current property value.
+	 *		<li><tt>SplFileInfo</tt>: Set the value in the property.
+	 *		<li><em>other</em>: The method will assume the value is a string holding the
+	 *			template file path.
+	 *	 </ul>
+	 *	<li><tt>$getOld</tt>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Return the value of the property <em>before</em> it was
+	 *			eventually modified.
+	 *		<li><tt>FALSE</tt>: Return the value of the property <em>after</em> it was
+	 *			eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * It is not allowed to delete the file reference, this means that providing
+	 * <tt>FALSE</tt> will raise an exception.
+	 *
+	 * @param mixed					$theValue			New file reference or operation.
+	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 *
+	 * @access public
+	 * @return mixed				Current or old file.
+	 *
+	 * @uses manageProperty()
+	 */
+	public function file( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Prevent deleting.
+		//
+		if( $theValue === FALSE )
+			throw new \Exception(
+				"You cannot delete the current file reference." );				// !@! ==>
+		
+		//
+		// Check new value.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Handle path.
+			//
+			if( ! ($theValue instanceof \SplFileInfo) )
+				$theValue = new \SplFileInfo( (string) $theValue );
+		
+		} // New template.
+		
+		return $this->manageProperty( $this->mFile, $theValue, $getOld );			// ==>
+	
+	} // file.
 
 	
 
@@ -380,6 +389,12 @@ class SessionUpload
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 *
 	 * @uses session()
+	 * @uses sessionPrepare()
+	 * @uses sessionStore()
+	 * @uses sessionLoad()
+	 * @uses succeedSession()
+	 * @uses failSession()
+	 * @uses exceptionSession()
 	 */
 	public function execute()
 	{
@@ -397,44 +412,47 @@ class SessionUpload
 			// Transaction prepare.
 			//
 			if( ! $this->sessionPrepare() )
-			{
-				$this->failSession();
+				return $this->failSession();										// ==>
 			
-				return FALSE;														// ==>
-			}
-			else
-				$this->session()->progress( 10 );
-	
 			//
-			// Transaction store.
+			// Progress.
 			//
-			if( ! $this->sessionStore() )
-			{
-				$this->failSession();
-			
-				return FALSE;														// ==>
-			}
-			else
-				$this->session()->progress( 10 );
+			$this->session()->progress( 10 );
 	
 			//
 			// Transaction load.
 			//
 			if( ! $this->sessionLoad() )
-			{
-				$this->failSession();
-			
-				return FALSE;														// ==>
-			}
-			else
-				$this->session()->progress( 10 );
+				return $this->failSession();										// ==>
 			
 			//
-			// Close session.
+			// Progress.
 			//
-			$this->succeedSession();
-
-			return TRUE;															// ==>
+			$this->session()->progress( 10 );
+	
+			//
+			// Transaction store.
+			//
+			if( ! $this->sessionStore() )
+				return $this->failSession();										// ==>
+			
+			//
+			// Progress.
+			//
+			$this->session()->progress( 10 );
+	
+			//
+			// Transaction structure.
+			//
+			if( ! $this->sessionStructure() )
+				return $this->failSession();										// ==>
+			
+			//
+			// Progress.
+			//
+			$this->session()->progress( 10 );
+			
+			return $this->succeedSession();											// ==>
 		}
 		
 		//
@@ -442,10 +460,8 @@ class SessionUpload
 		//
 		catch( Exception $error )
 		{
-			$this->exceptionSession( $error );
+			return $this->exceptionSession( $error );								// ==>
 		}
-		
-		return FALSE;																// ==>
 		
 	} // execute.
 
@@ -466,16 +482,244 @@ class SessionUpload
 	/**
 	 * Prepare session
 	 *
-	 * This method will perform the initialisation transaction, clearing any pending upload
-	 * sessions.
+	 * This method will perform the initialisation transaction:
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 *
 	 * @uses session()
+	 * @uses transaction()
+	 * @uses checkFileReference()
+	 * @uses deletePendingSessions()
 	 */
 	protected function sessionPrepare()
 	{
+		//
+		// Instantiate transaction.
+		//
+		$transaction
+			= $this->transaction(
+				$this->session()->newTransaction( kTYPE_TRANS_TMPL_PREPARE ) );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
+		// Delete pending sessions.
+		//
+		if( ! $this->deletePendingSessions() )
+			return FALSE;															// ==>
+	
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // sessionPrepare.
+
+	 
+	/*===================================================================================
+	 *	sessionLoad																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load template
+	 *
+	 * This method will:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTYPE_TRANS_TMPL_LOAD_FILE}</tt>: Identify and assert file.
+	 *	<li><tt>{@link kTYPE_TRANS_TMPL_LOAD_TYPE}</tt>: Identify and assert file type.
+	 *	<li><tt>{@link kTYPE_TRANS_TMPL_LOAD_DDICT}</tt>: Load template structure.
+	 *	<li><tt>{@link kTYPE_TRANS_TMPL_LOAD_ITEMS}</tt>: Load template stracture elements.
+	 * </ul>
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses session()
+	 * @uses transaction()
+	 */
+	protected function sessionLoad()
+	{
+		//
+		// Create transaction.
+		//
+		$transaction
+			= $this->transaction(
+				$this->session()->newTransaction( kTYPE_TRANS_TMPL_LOAD ) );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
+		// Check file.
+		//
+		if( ! $this->checkFile() )
+			return FALSE;															// ==>
+	
+		//
+		// Check file type.
+		//
+		if( ! $this->checkFileType() )
+			return FALSE;															// ==>
+	
+		//
+		// Load template.
+		//
+		if( ! $this->loadTemplate() )
+			return FALSE;															// ==>
+		
+		//
+		// Load template structure.
+		//
+		if( ! $this->loadTemplateStructure() )
+			return FALSE;															// ==>
+	
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // sessionLoad.
+
+	 
+	/*===================================================================================
+	 *	sessionStore																	*
+	 *==================================================================================*/
+
+	/**
+	 * Store template file
+	 *
+	 * This method will store the current template file into the database.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses session()
+	 * @uses transaction()
+	 * @uses saveTemplateFile()
+	 */
+	protected function sessionStore()
+	{
+		//
+		// Instantiate transaction.
+		//
+		$transaction
+			= $this->transaction(
+				$this->session()->newTransaction( kTYPE_TRANS_TMPL_STORE ) );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
+		// Save file.
+		//
+		if( ! $this->saveTemplateFile() )
+			return FALSE;															// ==>
+	
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // sessionStore.
+
+	 
+	/*===================================================================================
+	 *	sessionStructure																*
+	 *==================================================================================*/
+
+	/**
+	 * Check required template elements
+	 *
+	 * This method will:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTYPE_TRANS_TMPL_STRUCT_WORKSHEETS}</tt>: Assert required worksheets.
+	 *	<li><tt>{@link kTYPE_TRANS_TMPL_STRUCT_COLUMNS}</tt>: Assert required columns.
+	 * </ul>
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses session()
+	 * @uses transaction()
+	 */
+	protected function sessionStructure()
+	{
+		//
+		// Create transaction.
+		//
+		$transaction
+			= $this->transaction(
+				$this->session()->newTransaction( kTYPE_TRANS_TMPL_STRUCT ) );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
+		// Check required worksheets.
+		//
+		if( ! $this->checkRequiredWorksheets() )
+			return FALSE;															// ==>
+		
+		//
+		// Check required worksheet fields.
+		//
+		if( ! $this->checkRequiredFields() )
+			return FALSE;															// ==>
+	
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // sessionStructure.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OPERATIONS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	deletePendingSessions															*
+	 *==================================================================================*/
+
+	/**
+	 * Delete pending sessions
+	 *
+	 * This method will delete all pending sessions, that is, all user sessions of type
+	 * upload that do not have a referencing session and that do not correspond to the
+	 * current session.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses wrapper()
+	 * @uses session()
+	 * @uses transaction()
+	 */
+	protected function deletePendingSessions()
+	{
+		//
+		// Init local storage.
+		//
+		$transaction = $this->transaction();
+		
 		//
 		// Load pending sessions.
 		//
@@ -495,14 +739,6 @@ class SessionUpload
 		//
 		if( $count = $sessions->count() )
 		{
-			//
-			// Create transaction.
-			//
-			$transaction
-				= $this->transaction(
-					$this->session()->newTransaction( kTYPE_TRANS_TMPL_PREPARE ) );
-			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-			
 			//
 			// Set count.
 			//
@@ -529,55 +765,88 @@ class SessionUpload
 				$transaction->processed( 1 );
 				$transaction->progress( $increment );
 			}
-		
-			//
-			// Close transaction.
-			//
-			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
-			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		}
 		
 		return TRUE;																// ==>
 
-	} // sessionPrepare.
+	} // deletePendingSessions.
 
 	 
 	/*===================================================================================
-	 *	sessionStore																	*
+	 *	checkFile																		*
 	 *==================================================================================*/
 
 	/**
-	 * Store template
+	 * Check file
 	 *
-	 * This method will store the current template.
+	 * This method will check whether the file is valid and readable.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 *
-	 * @uses session()
+	 * @uses file()
+	 * @uses transaction()
 	 */
-	protected function sessionStore()
+	protected function checkFile()
 	{
 		//
 		// Init local storage.
 		//
-		$collection
-			= FileObject::ResolveCollection(
-				FileObject::ResolveDatabase( $this->wrapper(), TRUE ), TRUE );
+		$file = $this->file();
 		
 		//
 		// Create transaction.
 		//
 		$transaction
-			= $this->transaction(
-				$this->session()->newTransaction( kTYPE_TRANS_TMPL_STORE ) );
+			= $this->transaction()
+				->newTransaction( kTYPE_TRANS_TMPL_LOAD_FILE );
 		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
-		// Save file reference.
+		// Check file.
 		//
-		$transaction->offsetSet( kTAG_FILE, $this->saveTemplate() );
+		if( $file->getType() != 'file' )
+		{
+			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
+			$transaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_FILE );
+			$transaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_FILE_BAD );
+			$transaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
+									 'The file is either a directory or is invalid ['
+									.$file->getRealPath()
+									.'].' );
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+			
+			//
+			// Remove reference to prevent deleting.
+			//
+			$this->mFile = NULL;
+			
+			return $this->failTransaction( kTYPE_STATUS_FATAL );					// ==>
+		
+		} // Bad file.
+		
+		//
+		// Check if readable.
+		//
+		if( ! $file->isReadable() )
+		{
+			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
+			$transaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_FILE );
+			$transaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_FILE_UNRWAD );
+			$transaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
+									 'The file cannot be read ['
+									.$file->getRealPath()
+									.'].' );
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+			
+			//
+			// Remove reference to prevent deleting.
+			//
+			$this->mFile = NULL;
+			
+			return $this->failTransaction( kTYPE_STATUS_FATAL );					// ==>
+		
+		} // Unreadable.
 	
 		//
 		// Close transaction.
@@ -588,55 +857,108 @@ class SessionUpload
 		
 		return TRUE;																// ==>
 
-	} // sessionStore.
+	} // checkFile.
 
 	 
 	/*===================================================================================
-	 *	sessionLoad																		*
+	 *	checkFileType																	*
+	 *==================================================================================*/
+
+	/**
+	 * Check file type
+	 *
+	 * This method will check whether the file type is supported.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses transaction()
+	 */
+	protected function checkFileType()
+	{
+		//
+		// Init local storage.
+		//
+		$file = $this->file();
+		
+		//
+		// Create transaction.
+		//
+		$transaction
+			= $this->transaction()
+				->newTransaction( kTYPE_TRANS_TMPL_LOAD_TYPE );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
+		// Check file extension.
+		//
+		switch( $tmp = $file->getExtension() )
+		{
+			case 'xlsx':	//	Excel (OfficeOpenXML) Spreadsheet
+			case 'xlsm':	//	Excel (OfficeOpenXML) Macro Spreadsheet
+			case 'xltx':	//	Excel (OfficeOpenXML) Template
+			case 'xltm':	//	Excel (OfficeOpenXML) Macro Template
+			case 'xls':		//	Excel (BIFF) Spreadsheet
+			case 'xlt':		//	Excel (BIFF) Template
+			case 'xml':		//	Excel 2003 SpreadSheetML
+				break;
+			
+			default:
+				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
+				$transaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_FILE );
+				$transaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_FILE_UNSUP );
+				$transaction->offsetSet( kTAG_ERROR_RESOURCE,
+										 "http://filext.com/file-extension/$tmp" );
+				$transaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
+										 'The file type is not supported, please submit '
+										."an Excel file." );
+				$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+				
+				return $this->failTransaction( kTYPE_STATUS_FATAL );				// ==>
+		}
+	
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // checkFileType.
+
+	 
+	/*===================================================================================
+	 *	loadTemplate																	*
 	 *==================================================================================*/
 
 	/**
 	 * Load template
 	 *
-	 * This method will parse, identify and load template data dictionary and template file
-	 * elements.
+	 * This method will instantiate the template parser
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 *
-	 * @uses session()
+	 * @uses file()
+	 * @uses transaction()
 	 */
-	protected function sessionLoad()
+	protected function loadTemplate()
 	{
 		//
 		// Create transaction.
 		//
 		$transaction
-			= $this->transaction(
-				$this->session()->newTransaction( kTYPE_TRANS_TMPL_LOAD ) );
+			= $this->transaction()
+				->newTransaction( kTYPE_TRANS_TMPL_LOAD_DDICT );
 		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
-		// Load template file.
+		// Instantiate parser.
 		//
-		$this->mWorkFile = \PHPExcel_IOFactory::load( $this->template()->getRealPath() );
-		
-		//
-		// Check PID.
-		//
-		$properties = $this->mWorkFile->getProperties();
-		if( in_array( 'PID', $properties->getCustomProperties() ) )
-		{
-			//
-			// Get template PID.
-			//
-			$pid = $properties->getCustomPropertyValue( 'PID' );
-var_dump( $pid );
-		}
-		else
-			throw new \Exception(
-				"Cannot load template: "
-			   ."missing PID property." );										// !@! ==>
+		$this->mParser = new ExcelTemplateParser( $this->wrapper(), $this->file() );
 	
 		//
 		// Close transaction.
@@ -647,7 +969,168 @@ var_dump( $pid );
 		
 		return TRUE;																// ==>
 
-	} // sessionLoad.
+	} // loadTemplate.
+
+	 
+	/*===================================================================================
+	 *	loadTemplateStructure															*
+	 *==================================================================================*/
+
+	/**
+	 * Load template structure
+	 *
+	 * This method will load the template structure
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses transaction()
+	 */
+	protected function loadTemplateStructure()
+	{
+		//
+		// Create transaction.
+		//
+		$transaction
+			= $this->transaction()
+				->newTransaction( kTYPE_TRANS_TMPL_LOAD_ITEMS );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
+		// Load structure.
+		//
+		if( ! $this->mParser->loadStructure( $transaction ) )
+			return $this->failTransaction();										// ==>
+	
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // loadTemplateStructure.
+
+	 
+	/*===================================================================================
+	 *	saveTemplateFile																*
+	 *==================================================================================*/
+
+	/**
+	 * Check file reference
+	 *
+	 * This method will check whether the file reference points to a valid file and if the
+	 * file is readable; it will also check if the file type is compatible with Excel
+	 * files.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses session()
+	 */
+	protected function saveTemplateFile()
+	{
+		//
+		// Init local storage.
+		//
+		$file = $this->file();
+		$session = $this->session();
+		
+		//
+		// Get file path.
+		//
+		$path = $file->getRealPath();
+		
+		//
+		// Set metadata.
+		//
+		$metadata
+			= array( kTAG_SESSION_TYPE
+				  => $session->offsetGet( kTAG_SESSION_TYPE ) );
+		
+		//
+		// Save file.
+		//
+		$session->saveFile( $path, $metadata );
+		
+		return TRUE;																// ==>
+
+	} // saveTemplateFile.
+
+	 
+	/*===================================================================================
+	 *	checkRequiredWorksheets															*
+	 *==================================================================================*/
+
+	/**
+	 * Assert required worksheets
+	 *
+	 * This method will check whether all required worksheets are there.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses transaction()
+	 */
+	protected function checkRequiredWorksheets()
+	{
+		//
+		// Create transaction.
+		//
+		$transaction
+			= $this->transaction()
+				->newTransaction( kTYPE_TRANS_TMPL_STRUCT_WORKSHEETS );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
+		// Load structure.
+		//
+		if( ! $this->mParser->checkRequiredWorksheets( $transaction ) )
+			return $this->failTransaction();										// ==>
+	
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // checkRequiredWorksheets.
+
+	 
+	/*===================================================================================
+	 *	checkRequiredFields																*
+	 *==================================================================================*/
+
+	/**
+	 * Assert required fields
+	 *
+	 * This method will check whether all required worksheets are there.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses transaction()
+	 */
+	protected function checkRequiredFields()
+	{
+		//
+		// Load structure.
+		//
+		if( ! $this->mParser->checkRequiredColumns( $this->transaction() ) )
+			return $this->failTransaction();										// ==>
+		
+		return TRUE;																// ==>
+
+	} // checkRequiredFields.
 
 	
 
@@ -670,14 +1153,25 @@ var_dump( $pid );
 	 * progress to 100, set the ending time and set the OK status.
 	 *
 	 * @access public
+	 * @return boolean				Returns <tt>TRUE</tt>.
 	 *
 	 * @uses session()
 	 */
 	public function succeedSession()
 	{
-		$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-		$this->session()->offsetSet( kTAG_SESSION_END, TRUE );
-		$this->session()->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_OK );
+		//
+		// Init local storage.
+		//
+		$session = $this->session();
+		
+		//
+		// Close session.
+		//
+		$session->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$session->offsetSet( kTAG_SESSION_END, TRUE );
+		$session->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_OK );
+		
+		return TRUE;																// ==>
 
 	} // succeedSession.
 
@@ -689,21 +1183,67 @@ var_dump( $pid );
 	/**
 	 * Fail session
 	 *
-	 * This method can be used to set the session data in the case of a <em>intercepted</em>
-	 * error, it will set the progress to 100, set the ending time and set the failed
-	 * status.
+	 * This method can be used to set the session data in the case of an
+	 * <em>intercepted</em> error, it will set the progress to 100, set the ending time and
+	 * set the failed status.
 	 *
 	 * @access public
+	 * @return boolean				Returns <tt>FALSE</tt>.
 	 *
 	 * @uses session()
 	 */
 	public function failSession()
 	{
-		$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-		$this->session()->offsetSet( kTAG_SESSION_END, TRUE );
-		$this->session()->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_FAILED );
+		//
+		// Init local storage.
+		//
+		$session = $this->session();
+		
+		//
+		// Close session.
+		//
+		$session->offsetSet( kTAG_SESSION_END, TRUE );
+		$session->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_FAILED );
+		
+		return FALSE;																// ==>
 
 	} // failSession.
+
+	 
+	/*===================================================================================
+	 *	failTransaction																	*
+	 *==================================================================================*/
+
+	/**
+	 * Fail transaction
+	 *
+	 * This method can be used to set the transaction data in the case of an
+	 * <em>intercepted</em> error, it will set the progress to 100, set the ending time and
+	 * set the failed status.
+	 *
+	 * @param string				$theStatus			Status code.
+	 *
+	 * @access public
+	 * @return boolean				Returns <tt>FALSE</tt>.
+	 *
+	 * @uses session()
+	 */
+	public function failTransaction( $theStatus = kTYPE_STATUS_FAILED )
+	{
+		//
+		// Init local storage.
+		//
+		$transaction = $this->transaction();
+		
+		//
+		// Close session.
+		//
+		$transaction->offsetSet( kTAG_SESSION_END, TRUE );
+		$transaction->offsetSet( kTAG_SESSION_STATUS, $theStatus );
+		
+		return FALSE;																// ==>
+
+	} // failTransaction.
 
 	 
 	/*===================================================================================
@@ -720,119 +1260,67 @@ var_dump( $pid );
 	 * @param Exception				$theError			Exception.
 	 *
 	 * @access public
+	 * @return boolean				Returns <tt>FALSE</tt>.
 	 *
 	 * @uses session()
+	 * @uses failSession()
 	 */
 	public function exceptionSession( \Exception $theError )
 	{
 		//
-		// Set error info.
+		// Init local storage.
 		//
-		$this->session()->offsetSet( kTAG_ERROR_TYPE, 'Exception' );
-		if( $theError->getCode() )
-			$this->session()->offsetSet( kTAG_ERROR_CODE, $theError->getCode() );
-		$this->session()->offsetSet( kTAG_TRANSACTION_MESSAGE, $theError->getMessage() );
+		$session = $this->session();
 		
 		//
-		// Set session info.
+		// Set error info.
 		//
-		$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-		$this->session()->offsetSet( kTAG_SESSION_END, TRUE );
-		$this->session()->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_FAILED );
+		$session->offsetSet( kTAG_ERROR_TYPE, 'Exception' );
+		if( $theError->getCode() )
+			$session->offsetSet( kTAG_ERROR_CODE, $theError->getCode() );
+		$session->offsetSet( kTAG_TRANSACTION_MESSAGE, $theError->getMessage() );
+		
+		return $this->failSession();												// ==>
 
 	} // exceptionSession.
 
-	 
-	/*===================================================================================
-	 *	saveTemplate																	*
-	 *==================================================================================*/
+	
 
-	/**
-	 * Save template
-	 *
-	 * This method can be used to save the current object's template in the session's file
-	 * store.
-	 *
-	 * Once saved, the template data member will hold the file object.
-	 *
-	 * @access public
-	 * @return string				The file object identifier.
-	 *
-	 * @uses session()
-	 */
-	public function saveTemplate()
-	{
-		//
-		// Get file path.
-		//
-		if( $this->mTemplate instanceof \SplFileInfo )
-			$path = $this->mTemplate->getRealPath();
-		
-		//
-		// Check if set.
-		//
-		elseif( $this->mTemplate === NULL )
-			throw new \Exception(
-				"Cannot save template: "
-			   ."missing file reference." );									// !@! ==>
-		
-		//
-		// Set metadata.
-		//
-		$metadata
-			= array( kTAG_SESSION_TYPE
-				  => $this->session()->offsetGet( kTAG_SESSION_TYPE ) );
-		
-		return $this->session()->saveFile( $path, $metadata );						// ==>
+/*=======================================================================================
+ *																						*
+ *									PROTECTED UTILITIES									*
+ *																						*
+ *======================================================================================*/
 
-	} // saveTemplate.
 
 	 
 	/*===================================================================================
-	 *	initCollections																	*
+	 *	getCollectionName																*
 	 *==================================================================================*/
 
 	/**
-	 * Initialise working collections
+	 * Compile a collection name
 	 *
-	 * This method will instantiate all working collections, the method expects an array
-	 * of collection names, the resulting collection names will be composed as follows:
-	 * <user database kTAG_CONN_BASE>_<worksheet name>.
+	 * This method can be used to compile collection names according to the current user,
+	 * the method expects a suffix and will return the full collection name.
 	 *
-	 * The parameter is expected to be an array.
-	 *
-	 * @param array					$theNames			Collection names.
+	 * @param string				$theSuffix			Collection name suffix.
 	 *
 	 * @access public
+	 * @return string				Collection name.
 	 *
 	 * @uses session()
 	 */
-	public function initCollections( $theNames )
+	public function getCollectionName( $theSuffix )
 	{
 		//
-		// Drop eventual collections.
+		// Get current session user.
 		//
-		if( is_array( $this->mCollections ) )
-		{
-			foreach( $this->mCollections as $collection )
-				$collection->drop();
-		}
+		$user = new User( $this->wrapper(), $this->session()->offsetGet( kTAG_USER ) );
 		
-		//
-		// Instantiate collections.
-		//
-		$this->mCollections = Array();
-		foreach( $theNames as $collection )
-			$this->mCollection[ $collection ]
-				= Session::ResolveDatabase( $this->session()->dictionary(), TRUE, TRUE )
-					->collection( $collection, TRUE );
-		
-		//
-		// Save collections in session.
-		//
-		$this->session()->offsetSet( kTAG_COUNTER_COLLECTIONS, $this->mCollections );
+		return $user->offsetGet( kTAG_ID_SEQUENCE )."_$theSuffix";					// ==>
 
-	} // initCollections.
+	} // getCollectionName.
 
 	 
 

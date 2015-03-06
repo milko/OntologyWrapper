@@ -1026,5 +1026,90 @@ define( "kTYPE_STATUS_FATAL",					':type:status:fatal' );
  */
 define( "kTYPE_STATUS_EXCEPTION",				':type:status:exception' );
 
+/*=======================================================================================
+ *	ERROR TYPES																			*
+ *======================================================================================*/
+
+/**
+ * Unexpected error.
+ *
+ * This type indicates an unexpected error or bug.
+ */
+define( "kTYPE_ERROR_BUG",						'Unexpected error' );
+
+/**
+ * Invalid template file.
+ *
+ * This type indicates an incorrect template file.
+ */
+define( "kTYPE_ERROR_BAD_TMPL_FILE",			'Invalid template file' );
+
+/**
+ * Invalid template structure.
+ *
+ * This type indicates an incorrect template file structure.
+ */
+define( "kTYPE_ERROR_BAD_TMPL_STRUCT",			'Incorrect template structure' );
+
+/*=======================================================================================
+ *	ERROR CODES																			*
+ *======================================================================================*/
+
+/**
+ * Invalid file.
+ *
+ * The template file is invalid.
+ */
+define( "kTYPE_ERROR_CODE_FILE_BAD",			-1 );
+
+/**
+ * Unreadable file.
+ *
+ * The template file is unreadable.
+ */
+define( "kTYPE_ERROR_CODE_FILE_UNRWAD",			-2 );
+
+/**
+ * Unsupported file type.
+ *
+ * The template file is not supported.
+ */
+define( "kTYPE_ERROR_CODE_FILE_UNSUP",			-3 );
+
+/**
+ * Missing PID.
+ *
+ * The template file is missing its PID custom property.
+ */
+define( "kTYPE_ERROR_CODE_NO_PID",				-4 );
+
+/**
+ * Unknown PID.
+ *
+ * The template file PID is unknown or unsupported.
+ */
+define( "kTYPE_ERROR_CODE_BAD_PID",				-5 );
+
+/**
+ * Missing required worksheet.
+ *
+ * The template is missing required worksheets.
+ */
+define( "kTYPE_ERROR_CODE_REQ_WKSHEET",			-6 );
+
+/**
+ * Missing required column.
+ *
+ * The template is missing required columns.
+ */
+define( "kTYPE_ERROR_CODE_REQ_COLUMN",			-7 );
+
+/**
+ * Invalid template worksheet node reference.
+ *
+ * The worksheet record contains an invalid node reference.
+ */
+define( "kTYPE_ERROR_CODE_BUG_WRKSHEET_NODE",	-8 );
+
 
 ?>
