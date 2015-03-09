@@ -752,10 +752,19 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
+	 *	<li><tt>{@link kTAG_FILE}</tt>: File reference.
+	 *	<li><tt>{@link kTAG_ERROR_TYPE}</tt>: Error type.
+	 *	<li><tt>{@link kTAG_ERROR_CODE}</tt>: Error code.
+	 *	<li><tt>{@link kTAG_ERROR_RESOURCE}</tt>: Error resource.
+	 *	<li><tt>{@link kTAG_TRANSACTION_MESSAGE}</tt>: Error message.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
 	 *	<li><tt>{@link kTAG_COUNTER_PROGRESS}</tt>: Progress.
+	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed.
+	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Validated.
+	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Rejected.
+	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped.
 	 * </ul>
 	 *
 	 * The other extern properties cannot be set, since these are counters which can either
@@ -818,6 +827,11 @@ abstract class SessionObject extends PersistentObject
 							array( $theOffset => $theValue ) );
 					break;
 				
+				case kTAG_ERROR_TYPE:
+				case kTAG_ERROR_CODE:
+				case kTAG_ERROR_RESOURCE:
+				case kTAG_TRANSACTION_MESSAGE:
+				
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:
@@ -865,14 +879,19 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
+	 *	<li><tt>{@link kTAG_FILE}</tt>: File reference.
+	 *	<li><tt>{@link kTAG_ERROR_TYPE}</tt>: Error type.
+	 *	<li><tt>{@link kTAG_ERROR_CODE}</tt>: Error code.
+	 *	<li><tt>{@link kTAG_ERROR_RESOURCE}</tt>: Error resource.
+	 *	<li><tt>{@link kTAG_TRANSACTION_MESSAGE}</tt>: Error message.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
-	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed elements.
-	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Validated elements.
-	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Rejected elements.
-	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped elements.
 	 *	<li><tt>{@link kTAG_COUNTER_PROGRESS}</tt>: Progress.
+	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed.
+	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Validated.
+	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Rejected.
+	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped.
 	 * </ul>
 	 *
 	 * Note that this method will consider the offset extern, only if provided as an offset,
@@ -897,9 +916,17 @@ abstract class SessionObject extends PersistentObject
 			switch( $theOffset )
 			{
 				case kTAG_SESSION:
+				case kTAG_FILE:
+				
+				case kTAG_ERROR_TYPE:
+				case kTAG_ERROR_CODE:
+				case kTAG_ERROR_RESOURCE:
+				case kTAG_TRANSACTION_MESSAGE:
+				
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:
+				
 				case kTAG_COUNTER_PROCESSED:
 				case kTAG_COUNTER_VALIDATED:
 				case kTAG_COUNTER_REJECTED:

@@ -572,7 +572,8 @@ class Transaction extends SessionObject
 				//
 				// Normalise tag.
 				//
-				$theTag = $this->resolveOffset( $theTag, TRUE );
+				if( $theTag !== NULL )
+					$theTag = $this->resolveOffset( $theTag, TRUE );
 				
 				//
 				// Load record.
@@ -587,7 +588,7 @@ class Transaction extends SessionObject
 				if( $theField !== NULL )
 					$record[ kTAG_TRANSACTION_FIELD ] = $theField;
 				if( $theError !== NULL )
-					$record[ kTAG_ERROR_TYPE ] = $theTag;
+					$record[ kTAG_ERROR_TYPE ] = $theError;
 				if( $theTag !== NULL )
 					$record[ kTAG_TAG ] = $theTag;
 				

@@ -9896,6 +9896,28 @@ $rs_units = & $rs_units[ 'result' ];
 					$ref[ $property ]
 						= $data[ $property ];
 			}
+			
+			//
+			// Load additional properties.
+			//
+			if( (! $doProgress)
+			 || ( array_key_exists( kTAG_SESSION_STATUS, $data )
+			   && ( ($data[ kTAG_SESSION_STATUS ] == kTYPE_STATUS_FAILED)
+				 || ($data[ kTAG_SESSION_STATUS ] == kTYPE_STATUS_FATAL)
+				 || ($data[ kTAG_SESSION_STATUS ] == kTYPE_STATUS_EXCEPTION) ) ) )
+			{
+				$extra = array( kTAG_ERROR_TYPE, kTAG_ERROR_CODE, kTAG_TRANSACTION_MESSAGE,
+								kTAG_ERROR_RESOURCE );
+				foreach( $extra as $property )
+				{
+					//
+					// Check property.
+					//
+					if( array_key_exists( $property, $data ) )
+						$ref[ $property ]
+							= $data[ $property ];
+				}
+			}
 		
 		} // Iterating sessions.
 		
@@ -9979,6 +10001,36 @@ $rs_units = & $rs_units[ 'result' ];
 				if( array_key_exists( kTAG_COUNTER_RECORDS, $data ) )
 					$ref[ kTAG_COUNTER_RECORDS ]
 						= $data[ kTAG_COUNTER_RECORDS ];
+			}
+			
+			//
+			// Load additional properties.
+			//
+			if( (! $doProgress)
+			 || ( array_key_exists( kTAG_TRANSACTION_STATUS, $data )
+			   && ( ($data[ kTAG_TRANSACTION_STATUS ] == kTYPE_STATUS_FAILED)
+				 || ($data[ kTAG_TRANSACTION_STATUS ] == kTYPE_STATUS_FATAL)
+				 || ($data[ kTAG_TRANSACTION_STATUS ] == kTYPE_STATUS_EXCEPTION) ) ) )
+			{
+				$extra = array( kTAG_TRANSACTION_RECORD,
+								kTAG_ERROR_TYPE, kTAG_ERROR_CODE, kTAG_TRANSACTION_MESSAGE,
+								kTAG_ERROR_RESOURCE );
+				foreach( $extra as $property )
+				{
+					//
+					// Check property.
+					//
+					if( array_key_exists( $property, $data ) )
+						$ref[ $property ]
+							= $data[ $property ];
+					
+					//
+					// Check log.
+					//
+					if( array_key_exists( kTAG_TRANSACTION_LOG, $data ) )
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DOCU ]
+							= $data[ kTAG_TRANSACTION_LOG ];
+				}
 			}
 		
 		} // Iterating transactions.
