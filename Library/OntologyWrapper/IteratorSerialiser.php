@@ -278,6 +278,7 @@ class IteratorSerialiser
 	 * <ul>
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_DYNAMIC}</tt>: Exclude dynamic tags.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_PRIVATE}</tt>: Exclude private tags.
+	 *	<li><tt>{@link kFLAG_FORMAT_OPT_TYPE_KIND}</tt>: Exclude tag type and kind.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_NATIVES}</tt>: Include tag native identifiers in
 	 *		formatted results with offset {@link kAPI_PARAM_TAG}.
 	 *	<li><tt>{@link kFLAG_FORMAT_OPT_VALUES}</tt>: Include values in formatted results
@@ -1528,17 +1529,24 @@ class IteratorSerialiser
 	protected function setTagType( &$theContainer, $theTag, $setKind = TRUE )
 	{
 		//
-		// Set data type.
+		// Skip if excluded.
 		//
-		$theContainer[ kAPI_PARAM_DATA_TYPE ] = $theTag[ kTAG_DATA_TYPE ];
+		if( ! ($this->options() & kFLAG_FORMAT_OPT_TYPE_KIND) )
+		{
+			//
+			// Set data type.
+			//
+			$theContainer[ kAPI_PARAM_DATA_TYPE ] = $theTag[ kTAG_DATA_TYPE ];
 		
-		//
-		// Set data kind.
-		//
-		if( $setKind
-		 && array_key_exists( kTAG_DATA_KIND, $theTag ) )
-			$theContainer[ kAPI_PARAM_DATA_KIND ]
-				= $theTag[ kTAG_DATA_KIND ];
+			//
+			// Set data kind.
+			//
+			if( $setKind
+			 && array_key_exists( kTAG_DATA_KIND, $theTag ) )
+				$theContainer[ kAPI_PARAM_DATA_KIND ]
+					= $theTag[ kTAG_DATA_KIND ];
+		
+		} // Not excluded by options.
 		
 	} // setTagType.
 

@@ -5835,8 +5835,8 @@ class Service extends ContainerObject
 			//
 			// Allocate transactions list.
 			//
-			$result[ $session ][ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
-			$ref = & $result[ $session ][ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
+			$result[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
+			$ref = & $result[ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
 			
 			//
 			// Load upload transactions.
@@ -9760,7 +9760,8 @@ $rs_units = & $rs_units[ 'result' ];
 					NULL,											// Domain.
 					NULL,											// Shape.
 					kFLAG_FORMAT_OPT_DYNAMIC |						// Options.
-					kFLAG_FORMAT_OPT_PRIVATE );
+					kFLAG_FORMAT_OPT_PRIVATE |
+					kFLAG_FORMAT_OPT_TYPE_KIND );
 	
 		//
 		// Serialise iterator.
@@ -9829,7 +9830,8 @@ $rs_units = & $rs_units[ 'result' ];
 					NULL,											// Domain.
 					NULL,											// Shape.
 					kFLAG_FORMAT_OPT_DYNAMIC |						// Options.
-					kFLAG_FORMAT_OPT_PRIVATE );
+					kFLAG_FORMAT_OPT_PRIVATE |
+					kFLAG_FORMAT_OPT_TYPE_KIND );
 	
 		//
 		// Serialise iterator.
@@ -9876,14 +9878,8 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Iterate sessions (will be only one).
 		//
-		foreach( $theSession as $id => $data )
+		foreach( $theSession as $data )
 		{
-			//
-			// Allocate session element.
-			//
-			$theContainer[ $id ] = Array();
-			$ref = & $theContainer[ $id ];
-			
 			//
 			// Set session properties.
 			//
@@ -9893,7 +9889,7 @@ $rs_units = & $rs_units[ 'result' ];
 				// Check property.
 				//
 				if( array_key_exists( $property, $data ) )
-					$ref[ $property ]
+					$theContainer[ $property ]
 						= $data[ $property ];
 			}
 			
@@ -9914,7 +9910,7 @@ $rs_units = & $rs_units[ 'result' ];
 					// Check property.
 					//
 					if( array_key_exists( $property, $data ) )
-						$ref[ $property ]
+						$theContainer[ $property ]
 							= $data[ $property ];
 				}
 			}
@@ -9959,13 +9955,14 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Iterate transactions.
 		//
-		foreach( $theTransaction as $id => $data )
+		foreach( $theTransaction as $data )
 		{
 			//
 			// Allocate transaction element.
 			//
-			$theContainer[ $id ] = Array();
-			$ref = & $theContainer[ $id ];
+			$index = count( $theContainer );
+			$theContainer[] = Array();
+			$ref = & $theContainer[ $index ];
 			
 			//
 			// Set transaction properties.
