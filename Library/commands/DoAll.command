@@ -19,7 +19,7 @@ SOCKET="socket=/tmp/mysql.sock"
 #
 # Init data dictionary.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/1-Init_Base.php
 
 #
 # Backup and archive base dictionary.
@@ -41,7 +41,7 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #
 # Init data structures.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Dict.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/2-Init_Dict.php
 
 #
 # Backup and archive main dictionary.
@@ -63,7 +63,7 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #
 # Init data collections.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/3-Init_Data.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/3-Init_Data.php
 
 #
 # Backup and archive main dictionary.
@@ -85,7 +85,7 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #
 # Init institutes.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/4-Init_Institutes.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/4-Init_Institutes.php
 
 ########################################################################################
 #   Initialise users                                                                   #
@@ -124,7 +124,7 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE abdh"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveHouseholdToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveHouseholdToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"abdh" \
@@ -133,7 +133,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load Households.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"abdh" \
 	"mongodb://localhost:27017/MAURICIO"
@@ -161,7 +161,7 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO"
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE cwr_ck"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrCkToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveCwrCkToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cwr_ck" \
@@ -170,7 +170,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load CWR checklist.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cwr_ck" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -185,7 +185,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE cwr_in"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrInToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveCwrInToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cwr_in" \
@@ -194,7 +194,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load CWR inventory.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cwr_in" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -209,7 +209,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE grin_cwr"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCwrGrinToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveCwrGrinToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"grin_cwr" \
@@ -218,7 +218,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load GRIN CWR inventory.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"grin_cwr" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -233,7 +233,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE eufgis"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveEufgisToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveEufgisToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"eufgis" \
@@ -242,7 +242,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load EUFGIS.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"eufgis" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -257,7 +257,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE qtl"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveQtlToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveQtlToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"qtl" \
@@ -266,7 +266,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load QTL.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"qtl" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -298,7 +298,7 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE cmdb_mission"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveMissionToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveMissionToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cmdb_mission" \
@@ -307,7 +307,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load Missions.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cmdb_mission" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -322,7 +322,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE cmdb_collecting"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCollectingMissionToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveCollectingMissionToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cmdb_collecting" \
@@ -331,7 +331,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load Collecting Missions.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cmdb_collecting" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -346,7 +346,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadF
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE cmdb_sample"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveCollectingSampleToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveCollectingSampleToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cmdb_sample" \
@@ -355,7 +355,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load Collecting Samples.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"cmdb_sample" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -384,13 +384,13 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #
 # Relate Missions.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/UpdateMissionRelated.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/UpdateMissionRelated.php \
 	"mongodb://localhost:27017/BIOVERSITY"
 
 #
 # Relate Collecting Missions.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/UpdateCollectingMissionRelated.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/UpdateCollectingMissionRelated.php \
 	"mongodb://localhost:27017/BIOVERSITY"
 
 ########################################################################################
@@ -420,7 +420,7 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE singer"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveSingerToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveSingerToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"singer" \
@@ -436,7 +436,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE grin"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveGrinToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveGrinToSQLDb.php \
 	"MySQLi://$1:$2@localhost/bioversity?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"grin" \
@@ -452,7 +452,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 mysql --host=localhost --user=$1 --password=$2 \
 	  --$SOCKET --database=bioversity_archive \
 	  --execute="TRUNCATE TABLE eurisco"
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/ArchiveEuriscoToSQLDb.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/ArchiveEuriscoToSQLDb.php \
 	"MySQLi://$1:$2@localhost/EURISCO_ITW?$SOCKET&persist" \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"eurisco" \
@@ -465,7 +465,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/Archi
 #
 # Load SINGER.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"singer" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -494,7 +494,7 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #
 # Load GRIN.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"grin" \
 	"mongodb://localhost:27017/BIOVERSITY"
@@ -523,7 +523,7 @@ rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY
 #
 # Load EURISCO.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/LoadFromSQLArchive.php \
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchive.php \
 	"MySQLi://$1:$2@localhost/bioversity_archive?$SOCKET&persist" \
 	"eurisco" \
 	"mongodb://localhost:27017/BIOVERSITY"

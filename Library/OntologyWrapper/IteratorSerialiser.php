@@ -1011,9 +1011,10 @@ class IteratorSerialiser
 			
 			//
 			// Allocate data.
+			// @@@ MILKO - cast to string for OnjectId.
 			//
-			$this->mData[ $object[ kTAG_NID ] ] = Array();
-			$data = & $this->mData[ $object[ kTAG_NID ] ];
+			$this->mData[ (string) $object[ kTAG_NID ] ] = Array();
+			$data = & $this->mData[ (string) $object[ kTAG_NID ] ];
 			
 			//
 			// Iterate object properties.

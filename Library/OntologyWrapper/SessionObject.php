@@ -993,18 +993,7 @@ abstract class SessionObject extends PersistentObject
 			// Handle transaction.
 			//
 			else
-			{
-				//
-				// Set session reference.
-				//
 				$transaction->offsetSet( kTAG_TRANSACTION, $this->offsetGet( kTAG_NID ) );
-		
-				//
-				// Set transaction reference.
-				//
-				$transaction->offsetSet( kTAG_SESSION, $this->offsetGet( kTAG_SESSION ) );
-			
-			} // Transaction.
 		
 			//
 			// Set type.

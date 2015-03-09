@@ -1626,6 +1626,52 @@ define( "kAPI_OP_GET_MANAGED",					'getManaged' );
  */
 define( "kAPI_OP_CHECK_USER_CODE",				'checkUserCode' );
 
+/**
+ * Upload template.
+ *
+ * This tag defines the upload template operation.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		the default language code.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user sending the template, or the user
+ *		code/password combination as an array. If the user is not allowed to submit
+ *		templates, the service will return an error.
+ *	<li><tt>{@link kAPI_PARAM_FILE_PATH}</tt>: <em>File path</em>. This required parameter
+ *		holds the template file path.
+ * </ul>
+ *
+ * The service will return the identifier of the template upload session.
+ */
+define( "kAPI_OP_UPLOAD_TEMPLATE",				'uploadTemplate' );
+
+/**
+ * Check session progress.
+ *
+ * This tag defines the check session progress operation.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		the default language code.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user requesting the session information, or the user
+ *		code/password combination as an array. If the user is not allowed to submit
+ *		templates, the service will return an error.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Session ID</em>. This required parameter
+ *		holds the session identifier we are probing.
+ * </ul>
+ *
+ * The service will return the session and root level transactions information.
+ */
+define( "kAPI_OP_SESSION_PROGRESS",				'getSessionProgress' );
+
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
  *======================================================================================*/
@@ -2035,6 +2081,14 @@ define( "kAPI_PARAM_SHAPE_OFFSET",				'shape-offset' );
  * parameter is generally used by services selecting tags or tag labels.
  */
 define( "kAPI_PARAM_EXCLUDED_TAGS",				'exclude-tags' );
+
+/**
+ * File path.
+ *
+ * This parameter represents a fie path, it is generally used to provide the file path of a
+ * data template.
+ */
+define( "kAPI_PARAM_FILE_PATH",					'path' );
 
 /**
  * Full-text search tag (string).

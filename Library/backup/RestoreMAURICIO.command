@@ -7,6 +7,8 @@
 #
 # Run command.
 #
-mongorestore --directoryperdb --drop '/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO/'
+mongorestore --db=MAURICIO \
+			 --drop \
+			 '/Library/WebServer/Library/OntologyWrapper/Library/backup/data/MAURICIO/'
 
 exit

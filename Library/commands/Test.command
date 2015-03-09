@@ -15,7 +15,7 @@
 # Init data dictionary.
 #
 start=$(date +"%s")
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/1-Init_Base.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/1-Init_Base.php
 finish=$(date +"%s")
 difftimelps=$(($finish-$start))
 echo "$(($difftimelps / 60)) minutes and $(($difftimelps % 60)) seconds."
@@ -29,7 +29,7 @@ echo
 # Init data structures.
 #
 start=$(date +"%s")
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/2-Init_Dict.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/2-Init_Dict.php
 finish=$(date +"%s")
 difftimelps=$(($finish-$start))
 echo "$(($difftimelps / 60)) minutes and $(($difftimelps % 60)) seconds."
@@ -43,7 +43,7 @@ echo
 # Init data collections.
 #
 start=$(date +"%s")
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/3-Init_Data.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/3-Init_Data.php
 finish=$(date +"%s")
 difftimelps=$(($finish-$start))
 echo "$(($difftimelps / 60)) minutes and $(($difftimelps % 60)) seconds."
@@ -57,7 +57,7 @@ echo
 # Init institutes.
 #
 start=$(date +"%s")
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Bioversity/4-Init_Institutes.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/4-Init_Institutes.php
 finish=$(date +"%s")
 difftimelps=$(($finish-$start))
 echo

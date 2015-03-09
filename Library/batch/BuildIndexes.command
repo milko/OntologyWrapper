@@ -1,20 +1,8 @@
 #!/bin/bash
 
 #
-# This script will perform the current set of operations.
+# This script will restore the data.
 #
-# $1: User.
-# $2: Pass.
-#
-
-########################################################################################
-#   Constants                                                                          #
-########################################################################################
-SOCKET="socket=/tmp/mysql.sock"
-
-########################################################################################
-#   Build indexes                                                                      #
-########################################################################################
 
 #
 # Build indexes.
@@ -23,8 +11,12 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":location:country" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:INSTCODE" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:SAMPSTAT" N
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:MLSSTAT" N
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:AVAILABLE" N
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:STORAGE" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:COLLSRC" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:COLLCODE" N
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:DONORCODE" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" "mcpd:DUPLSITE" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":location:admin-1" N
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/BuildIndex.php "mongodb://localhost:27017/BIOVERSITY" ":location:admin-2" N

@@ -7,6 +7,8 @@
 #
 # Run command.
 #
-mongorestore --directoryperdb --drop '/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY/'
+mongorestore --db=BIOVERSITY \
+			 --drop \
+			 '/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY/'
 
 exit

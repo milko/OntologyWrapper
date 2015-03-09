@@ -979,6 +979,7 @@ echo( '<hr />' );
 	
 /******************************************************************************/
 
+/*
 	//
 	// Test hashed serial identifiers.
 	//
@@ -1068,5 +1069,18 @@ echo( '<hr />' );
 	echo( 'Updated:<br />' );
 	var_dump( iterator_to_array( $upd_coll->find() ) );
 	echo( '<br />' );
+*/
 	
+/******************************************************************************/
+
+//
+// Test execution.
+//
+$script = "php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Batch_LoadTemplate.php";	
+$arg1 = "54f9f277b0a1db8f050041f2";
+$arg2 = "/Library/WebServer/Library/OntologyWrapper/Library/test/CWR_Checklist_Template.test.xlsx";
+exec( "$script '$arg1' '$arg2' > /dev/null &" );
+echo( "Done!<br />" );
+
+
 ?>

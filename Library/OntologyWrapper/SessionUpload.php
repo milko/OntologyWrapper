@@ -78,6 +78,16 @@ class SessionUpload
 	 */
 	protected $mParser = NULL;
 
+	/**
+	 * Working collections.
+	 *
+	 * This data member holds the list of working collections as an array indexed by
+	 * collection name with the connection as value.
+	 *
+	 * @var array
+	 */
+	protected $mCollections = Array();
+
 		
 
 /*=======================================================================================
@@ -451,6 +461,17 @@ class SessionUpload
 			// Progress.
 			//
 			$this->session()->progress( 10 );
+	
+			//
+			// Transaction setup.
+			//
+			if( ! $this->sessionSetup() )
+				return $this->failSession();										// ==>
+			
+			//
+			// Progress.
+			//
+			$this->session()->progress( 10 );
 			
 			return $this->succeedSession();											// ==>
 		}
@@ -684,6 +705,51 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // sessionStructure.
+
+	 
+	/*===================================================================================
+	 *	sessionSetup																	*
+	 *==================================================================================*/
+
+	/**
+	 * Setup working collections
+	 *
+	 * This method will create all working collections abd store their reference in the
+	 * session object.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses session()
+	 * @uses transaction()
+	 * @uses saveTemplateFile()
+	 */
+	protected function sessionSetup()
+	{
+		//
+		// Instantiate transaction.
+		//
+		$transaction
+			= $this->transaction(
+				$this->session()->newTransaction( kTYPE_TRANS_TMPL_SETUP ) );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
+		// Create collections.
+		//
+		if( ! $this->createWorkingCollections() )
+			return FALSE;															// ==>
+	
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // sessionSetup.
 
 	
 
@@ -1131,6 +1197,61 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // checkRequiredFields.
+
+	 
+	/*===================================================================================
+	 *	createWorkingCollections														*
+	 *==================================================================================*/
+
+	/**
+	 * Create working collections
+	 *
+	 * This method will create the working collection connections and save their reference
+	 * in the current session.
+	 *
+	 * Collection names correspond to the template worksheet names prefixed by the user
+	 * hash.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses session()
+	 */
+	protected function createWorkingCollections()
+	{
+		//
+		// Init local storage.
+		//
+		$this->mCollections = Array();
+		
+		//
+		// Iterate worksheets.
+		//
+		foreach( array_keys( $this->mParser->getWorksheets() ) as $worksheet )
+		{
+			$name = $this->getCollectionName( $worksheet );
+			$this->mCollections[ $name ]
+				= Session::ResolveDatabase( $this->wrapper(), TRUE )
+					->collection( $name, TRUE );
+		}
+		
+		//
+		// Add unit collection.
+		//
+		$name = $this->getCollectionName( UnitObject::kSEQ_NAME );
+		$this->mCollections[ $name ]
+			= Session::ResolveDatabase( $this->wrapper(), TRUE )
+				->collection( $name, TRUE );
+		
+		//
+		// Add to session.
+		//
+		$this->session()->offsetSet( kTAG_CONN_COLLS, array_keys( $this->mCollections ) );
+		
+		return TRUE;																// ==>
+
+	} // createWorkingCollections.
 
 	
 

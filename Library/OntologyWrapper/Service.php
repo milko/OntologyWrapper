@@ -9,6 +9,7 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\Wrapper;
+use OntologyWrapper\Session;
 use OntologyWrapper\ContainerObject;
 use OntologyWrapper\IteratorSerialiser;
 
@@ -281,6 +282,8 @@ class Service extends ContainerObject
 					case kAPI_OP_MOD_USER:
 					case kAPI_OP_GET_MANAGED:
 					case kAPI_OP_CHECK_USER_CODE:
+					case kAPI_OP_UPLOAD_TEMPLATE:
+					case kAPI_OP_SESSION_PROGRESS:
 					// MILKO: Remove in production.
 						$this->mResponse[ kAPI_RESPONSE_REQUEST ]
 							= $this->getArrayCopy();
@@ -518,6 +521,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_MOD_USER}</tt>: Modify user.
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
+	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template.
+	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 * </ul>
 	 *
 	 * If the operation is not recognised, the method will raise an exception.
@@ -562,6 +567,8 @@ class Service extends ContainerObject
 			case kAPI_OP_MOD_USER:
 			case kAPI_OP_GET_MANAGED:
 			case kAPI_OP_CHECK_USER_CODE:
+			case kAPI_OP_UPLOAD_TEMPLATE:
+			case kAPI_OP_SESSION_PROGRESS:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 			
@@ -640,6 +647,8 @@ class Service extends ContainerObject
 				case kAPI_OP_GET_USER:
 				case kAPI_OP_MOD_USER:
 				case kAPI_OP_GET_MANAGED:
+				case kAPI_OP_UPLOAD_TEMPLATE:
+				case kAPI_OP_SESSION_PROGRESS:
 					$encoder = new Encoder();
 					$decoded = $encoder->decodeData( $_REQUEST[ kAPI_REQUEST_PARAMETERS ] );
 					$_REQUEST[ kAPI_REQUEST_PARAMETERS ] = $decoded;
@@ -708,6 +717,7 @@ class Service extends ContainerObject
 			case kAPI_PARAM_DOMAIN:
 			case kAPI_PARAM_DATA:
 			case kAPI_PARAM_STAT:
+			case kAPI_PARAM_FILE_PATH:
 			case kAPI_PARAM_SHAPE_OFFSET:
 				if( strlen( $theValue ) )
 					$this->offsetSet( $theKey, $theValue );
@@ -920,6 +930,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_MOD_USER}</tt>: Modify user.
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
+	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template.
+	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 * </ul>
 	 *
 	 * Any unrecognised operation will raise an exception.
@@ -1008,6 +1020,14 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_CHECK_USER_CODE:
 				$this->validateCheckUserCode();
+				break;
+				
+			case kAPI_OP_UPLOAD_TEMPLATE:
+				$this->validateSubmitTemplate();
+				break;
+				
+			case kAPI_OP_SESSION_PROGRESS:
+				$this->validateSessionProgress();
 				break;
 			
 			default:
@@ -2454,6 +2474,141 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	validateSubmitTemplate															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate invite user service.
+	 *
+	 * This method will call the validation process for the template submission service, the
+	 * method will ensure all required data is provided and that the submitter user has the
+	 * required permissions.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateSubmitTemplate()
+	{
+		//
+		// Assert submitter.
+		//
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
+		{
+			//
+			// Check roles.
+			//
+			$user = $this->offsetGet( kAPI_REQUEST_USER );
+			$roles = $user->offsetGet( kTAG_ROLES );
+			if( $roles !== NULL )
+			{
+				//
+				// Check if he can submit templates.
+				//
+				if( in_array( kTYPE_ROLE_UPLOAD, $roles ) )
+				{
+					//
+					// Check template reference.
+					//
+					if( $this->offsetExists( kAPI_PARAM_FILE_PATH ) )
+					{
+						//
+						// Normalise to string.
+						//
+						$this->offsetSet(
+							kAPI_PARAM_FILE_PATH,
+							(string) $this->offsetGet( kAPI_PARAM_FILE_PATH ) );
+					
+					} // Provided template reference.
+		
+					else
+						throw new \Exception(
+							"Missing template reference." );					// !@! ==>
+				
+				} // User can upload.
+		
+				else
+					throw new \Exception(
+						"Requestor cannot upload." );							// !@! ==>
+		
+			} // User has roles.
+		
+			else
+				throw new \Exception(
+					"Requestor has no roles." );								// !@! ==>
+		
+		} // Provided submitter.
+		
+		else
+			throw new \Exception(
+				"Missing requestor." );											// !@! ==>
+		
+	} // validateSubmitTemplate.
+
+	 
+	/*===================================================================================
+	 *	validateSessionProgress															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate session progress service.
+	 *
+	 * This method will call the validation process for the session progress service, the
+	 * method will ensure all required data is provided and that the submitter user has the
+	 * required permissions.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateSessionProgress()
+	{
+		//
+		// Assert submitter.
+		//
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
+		{
+			//
+			// Check roles.
+			//
+			$user = $this->offsetGet( kAPI_REQUEST_USER );
+			$roles = $user->offsetGet( kTAG_ROLES );
+			if( $roles !== NULL )
+			{
+				//
+				// Check if he can submit templates.
+				//
+				if( in_array( kTYPE_ROLE_UPLOAD, $roles ) )
+				{
+					//
+					// Check session reference.
+					//
+					if( ! $this->offsetExists( kAPI_PARAM_ID ) )
+						throw new \Exception(
+							"Missing session reference." );						// !@! ==>
+				
+				} // User can upload.
+		
+				else
+					throw new \Exception(
+						"Requestor cannot upload." );							// !@! ==>
+		
+			} // User has roles.
+		
+			else
+				throw new \Exception(
+					"Requestor has no roles." );								// !@! ==>
+		
+		} // Provided submitter.
+		
+		else
+			throw new \Exception(
+				"Missing requestor." );											// !@! ==>
+		
+	} // validateSessionProgress.
+
+	 
+	/*===================================================================================
 	 *	validateSearchCriteria															*
 	 *==================================================================================*/
 
@@ -3803,6 +3958,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_MOD_USER}</tt>: Modify user.
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
+	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Upload template.
+	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 * </ul>
 	 *
 	 * Derived classes can parse their custom operations or call the parent method.
@@ -3908,6 +4065,14 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_CHECK_USER_CODE:
 				$this->executeCheckUserCode();
+				break;
+				
+			case kAPI_OP_UPLOAD_TEMPLATE:
+				$this->executeSubmitTemplate();
+				break;
+				
+			case kAPI_OP_SESSION_PROGRESS:
+				$this->executeSessionProgress();
 				break;
 		}
 		
@@ -4061,6 +4226,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_SHAPE" ] = kAPI_PARAM_SHAPE;
 		$ref[ "kAPI_PARAM_SHAPE_OFFSET" ] = kAPI_PARAM_SHAPE_OFFSET;
 		$ref[ "kAPI_PARAM_EXCLUDED_TAGS" ] = kAPI_PARAM_EXCLUDED_TAGS;
+		$ref[ "kAPI_PARAM_FILE_PATH" ] = kAPI_PARAM_FILE_PATH;
 		$ref[ "kAPI_PARAM_FULL_TEXT_OFFSET" ] = kAPI_PARAM_FULL_TEXT_OFFSET;
 		
 		//
@@ -5586,6 +5752,116 @@ class Service extends ContainerObject
 			= $collection->matchAll( $criteria, kQUERY_COUNT );
 		
 	} // executeCheckUserCode.
+
+	 
+	/*===================================================================================
+	 *	executeSubmitTemplate															*
+	 *==================================================================================*/
+
+	/**
+	 * Submit template.
+	 *
+	 * The method will instantiate the template upload session, launch the session batch and
+	 * return the session identifier.
+	 *
+	 * @access protected
+	 */
+	protected function executeSubmitTemplate()
+	{
+		//
+		// Init local storage.
+		//
+		$encoder = new Encoder();
+		
+		//
+		// Instantiate session.
+		//
+		$session = new Session( $this->mWrapper );
+		$session->offsetSet( kTAG_SESSION_TYPE, kTYPE_SESSION_UPLOAD );
+		$session->offsetSet( kTAG_USER, $this->offsetGet( kAPI_REQUEST_USER )
+											->offsetGet( kTAG_NID ) );
+		$id = $session->commit();
+		
+		//
+		// Launch batch.
+		//
+		$php = kPHP_BINARY;
+		$script = kPATH_BATCHES_ROOT.'/Batch_LoadTemplate.php';
+		$path = $this->offsetGet( kAPI_PARAM_FILE_PATH );
+		exec( "$php -f $script '$id' '$path' > /dev/null &" );
+		
+		//
+		// Encrypt result.
+		//
+		$id = JsonEncode( $id );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $id );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+	} // executeSubmitTemplate.
+
+	 
+	/*===================================================================================
+	 *	executeSessionProgress															*
+	 *==================================================================================*/
+
+	/**
+	 * Get session progress.
+	 *
+	 * The method will return the serialised set of root level transactions.
+	 *
+	 * @access protected
+	 */
+	protected function executeSessionProgress()
+	{
+		//
+		// Init local storage.
+		//
+		$result = Array();
+		$encoder = new Encoder();
+		$session = $this->offsetGet( kAPI_PARAM_ID );
+		
+		//
+		// Serialise session.
+		//
+		$this->loadSessionProgress( $result );
+		if( count( $result ) )
+		{
+			//
+			// Allocate transactions list.
+			//
+			$result[ $session ][ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
+			$ref = & $result[ $session ][ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
+			
+			//
+			// Load upload transactions.
+			//
+			$this->loadTransactionProgress( $ref, $session );
+			
+			//
+			// Encrypt result.
+			//
+			$data = JsonEncode( $result );
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+				= $encoder->encodeData( $data );
+
+			//
+			// Set encrypted state.
+			//
+			$this->mResponse[ kAPI_RESPONSE_STATUS ]
+							[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+		} // Found session.
+		
+		else
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		
+	} // executeSessionProgress.
 
 		
 
@@ -9176,7 +9452,7 @@ $rs_units = & $rs_units[ 'result' ];
 	/**
 	 * Serialise results.
 	 *
-	 * This method will userialise the data from the provided iterator.
+	 * This method will serialise the data from the provided iterator.
 	 *
 	 * @param ObjectIterator		$theIterator		Iterator object.
 	 *
@@ -9423,6 +9699,291 @@ $rs_units = & $rs_units[ 'result' ];
 		exit( JsonEncode( $this->mResponse ) );									// ==>
 	
 	} // _Exception2Status.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *						PROTECTED SESSION & TRANSACTION UTILITIES						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	loadSessionProgress																*
+	 *==================================================================================*/
+
+	/**
+	 * Load session progress.
+	 *
+	 * The method will resolve the session provided in the {@link kAPI_PARAM_ID} parameter,
+	 * serialise the result selecting only relevant properties, set the paging information
+	 * in the session result and set the serialised session data in the provided array
+	 * container; if the session could not be found, the method will set the container to an
+	 * empty array.
+	 *
+	 * @param array				   &$theContainer		Receives serialised session.
+	 *
+	 * @access protected
+	 * @return array				Serialised session.
+	 */
+	protected function loadSessionProgress( &$theContainer )
+	{
+		//
+		// Init local storage.
+		//
+		$session = $this->offsetGet( kAPI_PARAM_ID );
+		$collection
+			= Session::ResolveCollection(
+				Session::ResolveDatabase( $this->mWrapper, TRUE ),
+				TRUE );
+		
+		//
+		// Get session iterator.
+		//
+		$iterator
+			= $collection
+				->matchAll(
+					array( kTAG_NID => $collection->getObjectId(
+											$this->offsetGet( kAPI_PARAM_ID ) ) ),
+					kQUERY_OBJECT );
+		
+		//
+		// Instantiate results formatter.
+		//
+		$formatter
+			= new IteratorSerialiser(
+					$iterator,										// Iterator.
+					kAPI_RESULT_ENUM_DATA_FORMAT,					// Format.
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
+					NULL,											// Domain.
+					NULL,											// Shape.
+					kFLAG_FORMAT_OPT_DYNAMIC |						// Options.
+					kFLAG_FORMAT_OPT_PRIVATE );
+	
+		//
+		// Serialise iterator.
+		//
+		$formatter->serialise();
+	
+		//
+		// Set paging.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
+		
+		//
+		// Load session data.
+		//
+		$this->serialiseSession( $theContainer, $formatter->data(), TRUE );
+		
+	} // loadSessionProgress.
+
+	 
+	/*===================================================================================
+	 *	loadTransactionProgress															*
+	 *==================================================================================*/
+
+	/**
+	 * Load session progress.
+	 *
+	 * The method will resolve the session provided in the {@link kAPI_PARAM_ID} parameter,
+	 * serialise the result selecting only relevant properties, set the paging information
+	 * in the session result and set the serialised session data in the provided array
+	 * container; if the session could not be found, the method will set the container to an
+	 * empty array.
+	 *
+	 * @param array				   &$theContainer		Receives serialised session.
+	 * @param string				$theSession			Session identifier.
+	 *
+	 * @access protected
+	 */
+	protected function loadTransactionProgress( &$theContainer, $theSession )
+	{
+		//
+		// Init local storage.
+		//
+		$collection
+			= Transaction::ResolveCollection(
+				Transaction::ResolveDatabase( $this->mWrapper, TRUE ),
+				TRUE );
+		
+		//
+		// Get transaction iterator.
+		//
+		$iterator
+			= $collection
+				->matchAll(
+					array( kTAG_SESSION => $collection->getObjectId( $theSession ) ),
+					kQUERY_OBJECT );
+		$iterator->sort( array( kTAG_TRANSACTION_START => 1 ) );
+		
+		//
+		// Instantiate results formatter.
+		//
+		$formatter
+			= new IteratorSerialiser(
+					$iterator,										// Iterator.
+					kAPI_RESULT_ENUM_DATA_FORMAT,					// Format.
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
+					NULL,											// Domain.
+					NULL,											// Shape.
+					kFLAG_FORMAT_OPT_DYNAMIC |						// Options.
+					kFLAG_FORMAT_OPT_PRIVATE );
+	
+		//
+		// Serialise iterator.
+		//
+		$formatter->serialise();
+		
+		//
+		// Serialise transactions.
+		//
+		$this->serialiseTransaction( $theContainer, $formatter->data(), TRUE );
+		
+	} // loadTransactionProgress.
+
+		
+	/*===================================================================================
+	 *	serialiseSession																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise session.
+	 *
+	 * This method will serialise the provided session into the provided array parameter.
+	 *
+	 * If the last parameter is <tt>TRUE</tt>, only the session properties relevant to
+	 * progress will be serialised.
+	 *
+	 * @param array				   &$theContainer		Receives serialised session.
+	 * @param array					$theSession			Serialised session iterator.
+	 * @param boolean				$doProgress			If <tt>TRUE</tt> for progress.
+	 *
+	 * @access protected
+	 * @return array				Search criteria.
+	 */
+	protected function serialiseSession( &$theContainer, $theSession, $doProgress = TRUE )
+	{
+		//
+		// Set properties.
+		//
+		$properties = array( kTAG_SESSION_TYPE,
+							 kTAG_SESSION_START, kTAG_SESSION_END,
+							 kTAG_SESSION_STATUS,
+							 kTAG_COUNTER_PROGRESS );
+		
+		//
+		// Iterate sessions (will be only one).
+		//
+		foreach( $theSession as $id => $data )
+		{
+			//
+			// Allocate session element.
+			//
+			$theContainer[ $id ] = Array();
+			$ref = & $theContainer[ $id ];
+			
+			//
+			// Set session properties.
+			//
+			foreach( $properties as $property )
+			{
+				//
+				// Check property.
+				//
+				if( array_key_exists( $property, $data ) )
+					$ref[ $property ]
+						= $data[ $property ];
+			}
+		
+		} // Iterating sessions.
+		
+	} // serialiseSession.
+	
+	
+	/*===================================================================================
+	 *	serialiseTransaction															*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise transaction.
+	 *
+	 * This method will serialise the provided transaction into the provided array
+	 * parameter.
+	 *
+	 * If the last parameter is <tt>TRUE</tt>, only the transaction properties relevant to
+	 * progress will be serialised.
+	 *
+	 * @param array				   &$theContainer		Receives serialised transaction.
+	 * @param array					$theTransaction		Serialised transaction iterator.
+	 * @param boolean				$doProgress			If <tt>TRUE</tt> for progress.
+	 *
+	 * @access protected
+	 */
+	protected function serialiseTransaction( &$theContainer,
+											  $theTransaction,
+											  $doProgress = TRUE )
+	{
+		//
+		// Set properties.
+		//
+		$properties = array( kTAG_TRANSACTION_TYPE,
+							 kTAG_TRANSACTION_START, kTAG_TRANSACTION_END,
+							 kTAG_TRANSACTION_STATUS,
+							 kTAG_COUNTER_PROGRESS,
+							 kTAG_TRANSACTION_COLLECTION );
+		
+		//
+		// Iterate transactions.
+		//
+		foreach( $theTransaction as $id => $data )
+		{
+			//
+			// Allocate transaction element.
+			//
+			$theContainer[ $id ] = Array();
+			$ref = & $theContainer[ $id ];
+			
+			//
+			// Set transaction properties.
+			//
+			foreach( $properties as $property )
+			{
+				//
+				// Check property.
+				//
+				if( array_key_exists( $property, $data ) )
+					$ref[ $property ]
+						= $data[ $property ];
+			}
+			
+			//
+			// Handle validation transaction.
+			//
+			if( array_key_exists( kTAG_TRANSACTION_TYPE, $data )
+			 && ($data[ kTAG_TRANSACTION_TYPE ] == kTYPE_TRANS_TMPL_WORKSHEET) )
+			{
+				if( array_key_exists( kTAG_COUNTER_PROCESSED, $data ) )
+					$ref[ kTAG_COUNTER_PROCESSED ]
+						= $data[ kTAG_COUNTER_PROCESSED ];
+				if( array_key_exists( kTAG_COUNTER_VALIDATED, $data ) )
+					$ref[ kTAG_COUNTER_VALIDATED ]
+						= $data[ kTAG_COUNTER_VALIDATED ];
+				if( array_key_exists( kTAG_COUNTER_REJECTED, $data ) )
+					$ref[ kTAG_COUNTER_REJECTED ]
+						= $data[ kTAG_COUNTER_REJECTED ];
+				if( array_key_exists( kTAG_COUNTER_SKIPPED, $data ) )
+					$ref[ kTAG_COUNTER_SKIPPED ]
+						= $data[ kTAG_COUNTER_SKIPPED ];
+				if( array_key_exists( kTAG_COUNTER_RECORDS, $data ) )
+					$ref[ kTAG_COUNTER_RECORDS ]
+						= $data[ kTAG_COUNTER_RECORDS ];
+			}
+		
+		} // Iterating transactions.
+		
+	} // serialiseTransaction.
 
 		
 

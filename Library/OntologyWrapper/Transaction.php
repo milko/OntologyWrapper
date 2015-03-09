@@ -154,7 +154,8 @@ class Transaction extends SessionObject
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_SESSION ) &&
+		$this->isInited( ( \ArrayObject::offsetExists( kTAG_SESSION ) ||
+						   \ArrayObject::offsetExists( kTAG_TRANSACTION ) ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_STATUS ) );
 
@@ -887,7 +888,8 @@ class Transaction extends SessionObject
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_SESSION ) &&
+		$this->isInited( ( \ArrayObject::offsetExists( kTAG_SESSION ) ||
+						   \ArrayObject::offsetExists( kTAG_TRANSACTION ) ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_STATUS ) );
 	
@@ -920,7 +922,8 @@ class Transaction extends SessionObject
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_SESSION ) &&
+		$this->isInited( ( \ArrayObject::offsetExists( kTAG_SESSION ) ||
+						   \ArrayObject::offsetExists( kTAG_TRANSACTION ) ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_TRANSACTION_STATUS ) );
 	
