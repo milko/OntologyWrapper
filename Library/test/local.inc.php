@@ -176,6 +176,17 @@ define( "kSTANDARDS_UNITS_DB",			'mongodb://localhost:27017/BIOVERSITY?connect=1
 define( "kSTANDARDS_GRAPH_DB",			'neo4j://localhost:7474' );
 
 /*=======================================================================================
+ *	STANDARD PORTAL COLLECTION NAME														*
+ *======================================================================================*/
+
+/**
+ * Default portal collection name.
+ *
+ * This tag indicates the default portal collection name.
+ */
+define( "kSTANDARDS_PORTAL_COLLECTION",	'_portal' );
+
+/*=======================================================================================
  *	DEFAULT VALUES																		*
  *======================================================================================*/
 

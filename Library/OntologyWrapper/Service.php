@@ -284,6 +284,9 @@ class Service extends ContainerObject
 					case kAPI_OP_CHECK_USER_CODE:
 					case kAPI_OP_UPLOAD_TEMPLATE:
 					case kAPI_OP_SESSION_PROGRESS:
+					case kAPI_OP_PUT_DATA:
+					case kAPI_OP_GET_DATA:
+					case kAPI_OP_DEL_DATA:
 					// MILKO: Remove in production.
 						$this->mResponse[ kAPI_RESPONSE_REQUEST ]
 							= $this->getArrayCopy();
@@ -523,6 +526,9 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
+	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
+	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
+	 *	<li><tt>{@link kAPI_OP_DEL_DATA}</tt>: Delete data.
 	 * </ul>
 	 *
 	 * If the operation is not recognised, the method will raise an exception.
@@ -569,6 +575,9 @@ class Service extends ContainerObject
 			case kAPI_OP_CHECK_USER_CODE:
 			case kAPI_OP_UPLOAD_TEMPLATE:
 			case kAPI_OP_SESSION_PROGRESS:
+			case kAPI_OP_PUT_DATA:
+			case kAPI_OP_GET_DATA:
+			case kAPI_OP_DEL_DATA:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 			
@@ -649,6 +658,9 @@ class Service extends ContainerObject
 				case kAPI_OP_GET_MANAGED:
 				case kAPI_OP_UPLOAD_TEMPLATE:
 				case kAPI_OP_SESSION_PROGRESS:
+				case kAPI_OP_PUT_DATA:
+				case kAPI_OP_GET_DATA:
+				case kAPI_OP_DEL_DATA:
 					$encoder = new Encoder();
 					$decoded = $encoder->decodeData( $_REQUEST[ kAPI_REQUEST_PARAMETERS ] );
 					$_REQUEST[ kAPI_REQUEST_PARAMETERS ] = $decoded;
@@ -932,6 +944,9 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
+	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
+	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
+	 *	<li><tt>{@link kAPI_OP_DEL_DATA}</tt>: Delete data.
 	 * </ul>
 	 *
 	 * Any unrecognised operation will raise an exception.
@@ -1028,6 +1043,15 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_SESSION_PROGRESS:
 				$this->validateSessionProgress();
+				break;
+				
+			case kAPI_OP_PUT_DATA:
+				$this->validatePutData();
+				break;
+				
+			case kAPI_OP_GET_DATA:
+			case kAPI_OP_DEL_DATA:
+				$this->validateGetData();
 				break;
 			
 			default:
@@ -2609,6 +2633,130 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	validatePutData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate put data service.
+	 *
+	 * This method will call the validation process for the put data service, the method
+	 * will ensure all required parameters are provided and that the submitter user has the
+	 * required permissions.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validatePutData()
+	{
+		//
+		// Assert submitter.
+		//
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
+		{
+			//
+			// Check roles.
+			//
+			$user = $this->offsetGet( kAPI_REQUEST_USER );
+			$roles = $user->offsetGet( kTAG_ROLES );
+			if( $roles !== NULL )
+			{
+				//
+				// Check if he can edit pages.
+				//
+				if( in_array( kTYPE_ROLE_EDIT, $roles ) )
+				{
+					//
+					// Check data object.
+					//
+					if( ! $this->offsetExists( kAPI_PARAM_OBJECT ) )
+						throw new \Exception(
+							"Missing data object." );							// !@! ==>
+				
+				} // User can upload.
+		
+				else
+					throw new \Exception(
+						"Requestor cannot edit." );								// !@! ==>
+		
+			} // User has roles.
+		
+			else
+				throw new \Exception(
+					"Requestor has no roles." );								// !@! ==>
+		
+		} // Provided submitter.
+		
+		else
+			throw new \Exception(
+				"Missing requestor." );											// !@! ==>
+		
+	} // validatePutData.
+
+	 
+	/*===================================================================================
+	 *	validateGetData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate get data service.
+	 *
+	 * This method will call the validation process for the get data service, the method
+	 * will ensure all required parameters are provided and that the submitter user has the
+	 * required permissions.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateGetData()
+	{
+		//
+		// Assert submitter.
+		//
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
+		{
+			//
+			// Check roles.
+			//
+			$user = $this->offsetGet( kAPI_REQUEST_USER );
+			$roles = $user->offsetGet( kTAG_ROLES );
+			if( $roles !== NULL )
+			{
+				//
+				// Check if he can edit pages.
+				//
+				if( in_array( kTYPE_ROLE_EDIT, $roles ) )
+				{
+					//
+					// Check data object.
+					//
+					if( ! $this->offsetExists( kAPI_PARAM_ID ) )
+						throw new \Exception(
+							"Missing object identifier." );						// !@! ==>
+				
+				} // User can upload.
+		
+				else
+					throw new \Exception(
+						"Requestor cannot edit." );								// !@! ==>
+		
+			} // User has roles.
+		
+			else
+				throw new \Exception(
+					"Requestor has no roles." );								// !@! ==>
+		
+		} // Provided submitter.
+		
+		else
+			throw new \Exception(
+				"Missing requestor." );											// !@! ==>
+		
+	} // validateGetData.
+
+	 
+	/*===================================================================================
 	 *	validateSearchCriteria															*
 	 *==================================================================================*/
 
@@ -3960,6 +4108,9 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Upload template.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
+	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
+	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
+	 *	<li><tt>{@link kAPI_OP_DEL_DATA}</tt>: Delete data.
 	 * </ul>
 	 *
 	 * Derived classes can parse their custom operations or call the parent method.
@@ -4073,6 +4224,18 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_SESSION_PROGRESS:
 				$this->executeSessionProgress();
+				break;
+				
+			case kAPI_OP_PUT_DATA:
+				$this->executePutData();
+				break;
+				
+			case kAPI_OP_GET_DATA:
+				$this->executeGetData();
+				break;
+				
+			case kAPI_OP_DEL_DATA:
+				$this->executeDelData();
 				break;
 		}
 		
@@ -5862,6 +6025,135 @@ class Service extends ContainerObject
 			$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
 		
 	} // executeSessionProgress.
+
+	 
+	/*===================================================================================
+	 *	executePutData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Put data.
+	 *
+	 * The method will return the stored data identifier.
+	 *
+	 * @access protected
+	 */
+	protected function executePutData()
+	{
+		//
+		// Init local storage.
+		//
+		$result = Array();
+		$encoder = new Encoder();
+		$object = $this->offsetGet( kAPI_PARAM_OBJECT );
+		
+		//
+		// Save object.
+		//
+		$id
+			= User::ResolveDatabase( $this->mWrapper, TRUE )
+				->collection( kSTANDARDS_PORTAL_COLLECTION, TRUE )
+					->save( $object );
+		
+		//
+		// Encrypt result.
+		//
+		$data = JsonEncode( $id );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $data );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+	} // executePutData.
+
+	 
+	/*===================================================================================
+	 *	executeGetData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get data.
+	 *
+	 * The method will return the data matching the provided identifier.
+	 *
+	 * @access protected
+	 */
+	protected function executeGetData()
+	{
+		//
+		// Init local storage.
+		//
+		$encoder = new Encoder();
+		
+		//
+		// Save object.
+		//
+		$data
+			= User::ResolveDatabase( $this->mWrapper, TRUE )
+				->collection( kSTANDARDS_PORTAL_COLLECTION, TRUE )
+					->matchOne( array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) ),
+								kQUERY_ARRAY );
+		
+		//
+		// Encrypt result.
+		//
+		$data = JsonEncode( $data );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $data );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+	} // executeGetData.
+
+	 
+	/*===================================================================================
+	 *	executeDelData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Delete data.
+	 *
+	 * The method will return the data identifier if matched or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function executeDelData()
+	{
+		//
+		// Init local storage.
+		//
+		$encoder = new Encoder();
+		
+		//
+		// Delete object.
+		//
+		$ok
+			= User::ResolveDatabase( $this->mWrapper, TRUE )
+				->collection( kSTANDARDS_PORTAL_COLLECTION, TRUE )
+					->delete( $this->offsetGet( kAPI_PARAM_ID ) );
+		
+		//
+		// Encrypt result.
+		//
+		$data = JsonEncode( $ok );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $data );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+	} // executeDelData.
 
 		
 

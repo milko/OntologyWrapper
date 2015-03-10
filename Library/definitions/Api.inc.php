@@ -1672,6 +1672,75 @@ define( "kAPI_OP_UPLOAD_TEMPLATE",				'uploadTemplate' );
  */
 define( "kAPI_OP_SESSION_PROGRESS",				'getSessionProgress' );
 
+/**
+ * Put data.
+ *
+ * This tag defines the put data operation.
+ *
+ * This service will store the data provided in the {@link kAPI_PARAM_OBJECT} parameter
+ * into the <tt>{@link kSTANDARDS_PORTAL_COLLECTION}</tt> collection in the users database.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user requesting the operation, or the user
+ *		code/password combination as an array. If the user does not have the role
+ *		{@link kTYPE_ROLE_EDIT}, the service will return an error.
+ *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The data to be stored as a
+ *		full json record.
+ * </ul>
+ *
+ * The service will return the stored data identifier.
+ */
+define( "kAPI_OP_PUT_DATA",						'putData' );
+
+/**
+ * Get data.
+ *
+ * This tag defines the get data operation.
+ *
+ * This service will retrieve the data identified by the {@link kAPI_PARAM_ID} parameter
+ * from the <tt>{@link kSTANDARDS_PORTAL_COLLECTION}</tt> collection in the users database.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user requesting the operation, or the user
+ *		code/password combination as an array. If the user does not have the role
+ *		{@link kTYPE_ROLE_EDIT}, the service will return an error.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Data identifier ID</em>. This required parameter
+ *		holds the data unique identifier, {@link kTAG_NID}.
+ * </ul>
+ *
+ * The service will return the matched data or an empty array if not found.
+ */
+define( "kAPI_OP_GET_DATA",						'getData' );
+
+/**
+ * Del data.
+ *
+ * This tag defines the delete data operation.
+ *
+ * This service will delete the data identified by the {@link kAPI_PARAM_ID} parameter
+ * from the <tt>{@link kSTANDARDS_PORTAL_COLLECTION}</tt> collection in the users database.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user requesting the operation, or the user
+ *		code/password combination as an array. If the user does not have the role
+ *		{@link kTYPE_ROLE_EDIT}, the service will return an error.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Data identifier ID</em>. This required parameter
+ *		holds the data unique identifier, {@link kTAG_NID}.
+ * </ul>
+ *
+ * The service will return the matched data identifier or <tt>NULL</t> if not found.
+ */
+define( "kAPI_OP_DEL_DATA",						'delData' );
+
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
  *======================================================================================*/
