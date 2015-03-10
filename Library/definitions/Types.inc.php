@@ -1051,6 +1051,13 @@ define( "kTYPE_ERROR_BAD_TMPL_FILE",			'Invalid template file' );
  */
 define( "kTYPE_ERROR_BAD_TMPL_STRUCT",			'Incorrect template structure' );
 
+/**
+ * Missing required.
+ *
+ * This type indicates a missing required resource.
+ */
+define( "kTYPE_ERROR_MISSING_REQUIRED",			'Missing required' );
+
 /*=======================================================================================
  *	ERROR CODES																			*
  *======================================================================================*/
@@ -1105,11 +1112,18 @@ define( "kTYPE_ERROR_CODE_REQ_WKSHEET",			-6 );
 define( "kTYPE_ERROR_CODE_REQ_COLUMN",			-7 );
 
 /**
+ * Missing required field.
+ *
+ * The template is missing required fields.
+ */
+define( "kTYPE_ERROR_CODE_REQ_FIELD",			-8 );
+
+/**
  * Invalid template worksheet node reference.
  *
  * The worksheet record contains an invalid node reference.
  */
-define( "kTYPE_ERROR_CODE_BUG_WRKSHEET_NODE",	-8 );
+define( "kTYPE_ERROR_CODE_BUG_WRKSHEET_NODE",	-9 );
 
 
 ?>

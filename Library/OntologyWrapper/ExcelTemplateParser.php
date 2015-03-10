@@ -567,7 +567,7 @@ class ExcelTemplateParser
 
 /*=======================================================================================
  *																						*
- *									PUBLIC DATA INTERFACE								*
+ *								PUBLIC TEMPLATE INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -594,6 +594,85 @@ class ExcelTemplateParser
 		return $this->mFile->getCols( $theWorksheet, $theRow, $theCols );			// ==>
 	
 	} // getCellValue.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *									PUBLIC CACHE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getTag																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get tag
+	 *
+	 * This method will return the tag object related to the provided native identifier.
+	 *
+	 * If the object is not cached, the method will cache it.
+	 *
+	 * @param string				$theIdentifier		Object native identifier.
+	 *
+	 * @access public
+	 * @return Tag					Tag object.
+	 */
+	public function getTag( $theIdentifier )
+	{
+		return $this->mTemplate->getTag( $theIdentifier );							// ==>
+		
+	} // getTag.
+
+	 
+	/*===================================================================================
+	 *	getTerm																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get term
+	 *
+	 * This method will return the term object related to the provided native identifier.
+	 *
+	 * If the object is not cached, the method will cache it.
+	 *
+	 * @param string				$theIdentifier		Object native identifier.
+	 *
+	 * @access public
+	 * @return Term					Term object.
+	 */
+	public function getTerm( $theIdentifier )
+	{
+		return $this->mTemplate->getTerm( $theIdentifier );							// ==>
+		
+	} // getTerm.
+
+	 
+	/*===================================================================================
+	 *	getNode																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get node
+	 *
+	 * This method will return the node object related to the provided native identifier or
+	 * persistent identifier.
+	 *
+	 * If the object is not cached, the method will cache it.
+	 *
+	 * @param mixed					$theIdentifier		Object native or persistent id.
+	 *
+	 * @access public
+	 * @return Node					Node object.
+	 */
+	public function getNode( $theIdentifier )
+	{
+		return $this->mTemplate->getNode( $theIdentifier );							// ==>
+		
+	} // getNode.
 
 	
 

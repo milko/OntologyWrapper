@@ -784,7 +784,6 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$fields = $this->mParser->getFields();
 		$worksheets = $this->mParser->getWorksheets();
 		
 		//
@@ -823,10 +822,7 @@ class SessionUpload
 			//
 			// Load worksheet data.
 			//
-			if( ! $this->loadWorksheetData( $wname,
-											$worksheet,
-											$fields[ $wname ],
-											$records ) )
+			if( ! $this->loadWorksheetData( $wname, $records ) )
 				return FALSE;														// ==>
 	
 			//
@@ -1376,8 +1372,6 @@ class SessionUpload
 	 * This method will validate and load worksheet data.
 	 *
 	 * @param string				$theWorksheet		Worksheet name.
-	 * @param array					$theWorksheetData	Worksheet data.
-	 * @param array					$theFieldsData		Fields data.
 	 * @param float					$theRecords			Session records total.
 	 *
 	 * @access protected
@@ -1386,29 +1380,28 @@ class SessionUpload
 	 * @uses file()
 	 * @uses session()
 	 */
-	protected function loadWorksheetData( $theWorksheet,
-										  $theWorksheetData,
-										  $theFieldsData,
-										  $theRecords )
+	protected function loadWorksheetData( $theWorksheet, $theRecords )
 	{
 		//
 		// Init local storage.
 		//
 		$collection = $this->mCollections[ $this->getCollectionName( $theWorksheet ) ];
-		$records = $theWorksheetData[ 'last_row' ] - $theWorksheetData[ 'data_row' ] + 1;
+		$worksheet_data = $this->mParser->getWorksheets()[ $theWorksheet ];
+		$fields_data = $this->mParser->getFields()[ $theWorksheet ];
+		$records = $worksheet_data[ 'last_row' ] - $worksheet_data[ 'data_row' ] + 1;
 		
 		//
 		// Iterate rows.
 		//
-		for( $row = $theWorksheetData[ 'data_row' ];
-				$row <= $theWorksheetData[ 'last_row' ];
+		for( $row = $worksheet_data[ 'data_row' ];
+				$row <= $worksheet_data[ 'last_row' ];
 					$row++ )
 		{
 			//
 			// Load row data.
 			//
 			$record = Array();
-			foreach( $theFieldsData as $symbol => $field_data )
+			foreach( $fields_data as $symbol => $field_data )
 			{
 				//
 				// Get value.
@@ -1435,6 +1428,16 @@ class SessionUpload
 				//
 				$errors = 0;
 				$transaction = NULL;
+				
+				//
+				// Check required fields.
+				//
+				$errors
+					+= $this->checkRowRequiredFields(
+							$transaction,						// Row transaction.
+							$record,							// Row record.
+							$theWorksheet,						// Worksheet name.
+							$row );								// Row number.
 			
 				//
 				// Validate row.
@@ -1445,13 +1448,26 @@ class SessionUpload
 								$transaction,					// Row transaction.
 								$record,						// Row record.
 								$theWorksheet,					// Worksheet name.
-								$symbol,						// Field symbol.
-								$theFieldsData[ $symbol ] );	// Field data.
+								$row,							// Row number.
+								$symbol );						// Field symbol.
+				
+				//
+				// Handle errors.
+				//
+				if( $errors )
+				{
+					//
+					// Handle rejected.
+					//
+					$this->session()->rejected( 1 );
+					$this->transaction()->rejected( 1 );
+				
+				} // Has errors.
 				
 				//
 				// Handle valid row.
 				//
-				if( ! $errors )
+				else
 				{
 					//
 					// Set row number.
@@ -1516,6 +1532,105 @@ class SessionUpload
 
 	 
 	/*===================================================================================
+	 *	checkRowRequiredFields															*
+	 *==================================================================================*/
+
+	/**
+	 * Check row required fields
+	 *
+	 * This method will check whether the provided row has all required fields, if that is
+	 * not the case, the method will create the row error transaction, add the log entries
+	 * and return the number of missing fields.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array					$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 *
+	 * @access protected
+	 * @return int					Number of missing fields.
+	 *
+	 * @uses file()
+	 * @uses session()
+	 */
+	protected function checkRowRequiredFields( &$theTransaction,
+												$theRecord,
+												$theWorksheet,
+												$theRow )
+	{
+		//
+		// Get missing required fields.
+		//
+		$missing
+			= array_diff(
+				$this->mParser->getRequiredFields()[ $theWorksheet ],
+				array_keys( $theRecord ) );
+		
+		//
+		// Handle missing.
+		//
+		if( count( $missing ) )
+		{
+			//
+			// Init local storage.
+			//
+			$fields = $this->mParser->getFields()[ $theWorksheet ];
+			
+			//
+			// Create transaction.
+			//
+			if( $theTransaction === NULL )
+				$theTransaction
+					= $this->transaction()
+						->newTransaction(
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
+			
+			//
+			// Set transaction status.
+			//
+			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+			$theTransaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_MISSING_REQUIRED );
+			$theTransaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_REQ_FIELD );
+			$theTransaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
+										'The template is missing required fields.' );
+			
+			//
+			// Add logs.
+			//
+			foreach( $missing as $symbol )
+			{
+				//
+				// Init local storage.
+				//
+				$field = $fields[ $symbol ];
+				$tag
+					= $this->mParser
+						->getNode( $field[ 'node' ] )
+							->offsetGet( kTAG_TAG );
+				
+				//
+				// Set log.
+				//
+				$theTransaction->setLog(
+					kTYPE_STATUS_ERROR,				// Status.
+					'The field is missing.',		// Message.
+					$symbol,						// Alias.
+					$tag,							// Tag.
+					NULL,							// Value.
+					$field[ 'column_name' ],		// Column.
+					kTYPE_ERROR_MISSING_REQUIRED );	// Error type.
+			}
+			
+			return count( $missing );												// ==>
+		
+		} // Missing required fields.
+		
+		return 0;																	// ==>
+
+	} // checkRowRequiredFields.
+
+	 
+	/*===================================================================================
 	 *	validateProperty																*
 	 *==================================================================================*/
 
@@ -1528,8 +1643,8 @@ class SessionUpload
 	 * @param Transaction		   &$theTransaction		Transaction reference.
 	 * @param array				   &$theRecord			Row data.
 	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
 	 * @param string				$theSymbol			Field symbol.
-	 * @param array					$theFieldsData		Fields data.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
@@ -1540,9 +1655,17 @@ class SessionUpload
 	protected function validateProperty( &$theTransaction,
 										 &$theRecord,
 										  $theWorksheet,
-										  $theSymbol,
-										  $theFieldsData )
+										  $theRow,
+										  $theSymbol )
 	{
+		//
+		// Init local storage.
+		//
+		$field_data = $this->mParser->getFields()[ $theWorksheet ];
+		$field_node = $this->mParser->getNode( $field_data[ $theSymbol ][ 'node' ] );
+		$field_tag = ( $field_node->offsetExists( kTAG_TAG ) )
+				   ? $this->mParser->getTag( $field_node->offsetGet( kTAG_TAG ) )
+				   : NULL;
 
 	} // validateProperty.
 
