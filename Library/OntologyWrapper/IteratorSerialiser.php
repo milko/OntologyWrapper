@@ -889,6 +889,24 @@ class IteratorSerialiser
 	} // serialise.
 
 	 
+	/*===================================================================================
+	 *	getIteratorArray																*
+	 *==================================================================================*/
+
+	/**
+	 * Get iterator array
+	 *
+	 * This method will return an array of unserialised data from the current iterator.
+	 *
+	 * @access public
+	 */
+	public function getIteratorArray()
+	{
+		return iterator_to_array( $this->mIterator );								// ==>
+	
+	} // getIteratorArray.
+
+	 
 
 /*=======================================================================================
  *																						*

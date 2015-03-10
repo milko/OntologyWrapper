@@ -1339,8 +1339,8 @@ class SessionUpload
 	 * Fail transaction
 	 *
 	 * This method can be used to set the transaction data in the case of an
-	 * <em>intercepted</em> error, it will set the progress to 100, set the ending time and
-	 * set the failed status.
+	 * <em>intercepted</em> error, it will set the ending time, the failed status and set
+	 * both properties for all parent transactions.
 	 *
 	 * @param string				$theStatus			Status code.
 	 *
@@ -1357,10 +1357,21 @@ class SessionUpload
 		$transaction = $this->transaction();
 		
 		//
-		// Close session.
+		// Traverse parentship.
 		//
-		$transaction->offsetSet( kTAG_SESSION_END, TRUE );
-		$transaction->offsetSet( kTAG_SESSION_STATUS, $theStatus );
+		while( $transaction !== NULL )
+		{
+			//
+			// Close session.
+			//
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
+			
+			//
+			// Get parent.
+			//
+			$transaction = $transaction->getParentTranaction();
+		}
 		
 		return FALSE;																// ==>
 

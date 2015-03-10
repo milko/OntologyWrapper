@@ -161,6 +161,57 @@ class Transaction extends SessionObject
 
 	} // Constructor.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC REFERENCE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getParentTranaction																*
+	 *==================================================================================*/
+
+	/**
+	 * Get parent transaction
+	 *
+	 * This method will return the referencing transaction if set and committed; if none of
+	 * these two conditions are true, the method will return <tt>NULL</tt>.
+	 *
+	 * @access public
+	 * @return Transaction			Referencing transaction or <tt>NULL</tt>.
+	 *
+	 * @see kTAG_TRANSACTION
+	 *
+	 * @uses resolvePersistent()
+	 */
+	public function getParentTranaction()
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->committed() )
+		{
+			//
+			// Check if set.
+			//
+			$id = $this->resolvePersistent( TRUE )->offsetGet( kTAG_TRANSACTION );
+			if( $id !== NULL )
+				return
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->matchOne( array( kTAG_NID => $id ),
+										kQUERY_OBJECT | kQUERY_ASSERT );			// ==>
+		
+		} // Is committed.
+		
+		return NULL;																// ==>
+	
+	} // getParentTranaction.
+
 	
 
 /*=======================================================================================
@@ -370,6 +421,7 @@ class Transaction extends SessionObject
 					case kTYPE_STATUS_MESSAGE:
 					case kTYPE_STATUS_WARNING:
 					case kTYPE_STATUS_ERROR:
+					case kTYPE_STATUS_FAILED:
 					case kTYPE_STATUS_FATAL:
 					case kTYPE_STATUS_EXCEPTION:
 						break;

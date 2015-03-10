@@ -5996,33 +5996,24 @@ class Service extends ContainerObject
 		if( count( $result ) )
 		{
 			//
-			// Allocate transactions list.
-			//
-			$result[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
-			$ref = & $result[ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
-			
-			//
 			// Load upload transactions.
 			//
-			$this->loadTransactionProgress( $ref, $session );
-			
-			//
-			// Encrypt result.
-			//
-			$data = JsonEncode( $result );
-			$this->mResponse[ kAPI_RESPONSE_RESULTS ]
-				= $encoder->encodeData( $data );
-
-			//
-			// Set encrypted state.
-			//
-			$this->mResponse[ kAPI_RESPONSE_STATUS ]
-							[ kAPI_STATUS_CRYPTED ] = TRUE;
+			$this->loadTransactionProgress( $result, $session );
 		
 		} // Found session.
 		
-		else
-			$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		//
+		// Encrypt result.
+		//
+		$data = JsonEncode( $result );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $data );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
 		
 	} // executeSessionProgress.
 
@@ -10030,6 +10021,12 @@ $rs_units = & $rs_units[ 'result' ];
 			= Session::ResolveCollection(
 				Session::ResolveDatabase( $this->mWrapper, TRUE ),
 				TRUE );
+		$id = $collection->getObjectId( $this->offsetGet( kAPI_PARAM_ID ) );
+		
+		//
+		// Get session.
+		//
+		$object = new Session( $this->mWrapper, $id );
 		
 		//
 		// Get session iterator.
@@ -10037,8 +10034,7 @@ $rs_units = & $rs_units[ 'result' ];
 		$iterator
 			= $collection
 				->matchAll(
-					array( kTAG_NID => $collection->getObjectId(
-											$this->offsetGet( kAPI_PARAM_ID ) ) ),
+					array( kTAG_NID => $id ),
 					kQUERY_OBJECT );
 		
 		//
@@ -10068,7 +10064,7 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Load session data.
 		//
-		$this->serialiseSession( $theContainer, $formatter->data(), TRUE );
+		$this->serialiseSession( $theContainer, $formatter, TRUE );
 		
 	} // loadSessionProgress.
 
@@ -10109,6 +10105,10 @@ $rs_units = & $rs_units[ 'result' ];
 				->matchAll(
 					array( kTAG_SESSION => $collection->getObjectId( $theSession ) ),
 					kQUERY_OBJECT );
+		
+		//
+		// Sort by start time stamp.
+		//
 		$iterator->sort( array( kTAG_TRANSACTION_START => 1 ) );
 		
 		//
@@ -10133,9 +10133,86 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Serialise transactions.
 		//
-		$this->serialiseTransaction( $theContainer, $formatter->data(), TRUE );
+		$this->serialiseTransaction( $theContainer, $formatter, TRUE );
 		
 	} // loadTransactionProgress.
+
+	 
+	/*===================================================================================
+	 *	loadNestedTransactions															*
+	 *==================================================================================*/
+
+	/**
+	 * Load nested transactions
+	 *
+	 * The method will load all nested transactions related to the provided transaction
+	 * identifier.
+	 *
+	 * The transactions will be loaded in nested {@link kAPI_PARAM_RESPONSE_FRMT_DOCU}
+	 * elements.
+	 *
+	 * @param array				   &$theContainer		Receives serialised session.
+	 * @param string				$theTransaction		Transaction identifier.
+	 *
+	 * @access protected
+	 */
+	protected function loadNestedTransactions( &$theContainer, $theTransaction )
+	{
+		//
+		// Init local storage.
+		//
+		$collection
+			= Transaction::ResolveCollection(
+				Transaction::ResolveDatabase( $this->mWrapper, TRUE ),
+				TRUE );
+		
+		//
+		// Get transaction iterator.
+		//
+		$iterator
+			= $collection
+				->matchAll(
+					array( kTAG_TRANSACTION
+								=> $collection->getObjectId( $theTransaction ) ),
+					kQUERY_OBJECT );
+		
+		//
+		// Check if found.
+		//
+		if( $iterator->count() )
+		{
+			//
+			// Sort by start time stamp.
+			//
+			$iterator->sort( array( kTAG_TRANSACTION_START => 1 ) );
+		
+			//
+			// Instantiate results formatter.
+			//
+			$formatter
+				= new IteratorSerialiser(
+						$iterator,										// Iterator.
+						kAPI_RESULT_ENUM_DATA_FORMAT,					// Format.
+						$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
+						NULL,											// Domain.
+						NULL,											// Shape.
+						kFLAG_FORMAT_OPT_DYNAMIC |						// Options.
+						kFLAG_FORMAT_OPT_PRIVATE |
+						kFLAG_FORMAT_OPT_TYPE_KIND );
+	
+			//
+			// Serialise iterator.
+			//
+			$formatter->serialise();
+		
+			//
+			// Serialise transactions.
+			//
+			$this->serialiseTransaction( $theContainer, $formatter, FALSE );
+		
+		} // Found transaction.
+		
+	} // loadNestedTransactions.
 
 		
 	/*===================================================================================
@@ -10151,13 +10228,15 @@ $rs_units = & $rs_units[ 'result' ];
 	 * progress will be serialised.
 	 *
 	 * @param array				   &$theContainer		Receives serialised session.
-	 * @param array					$theSession			Serialised session iterator.
+	 * @param IteratorSerialiser	$theIterator		Session iterator serialiser.
 	 * @param boolean				$doProgress			If <tt>TRUE</tt> for progress.
 	 *
 	 * @access protected
 	 * @return array				Search criteria.
 	 */
-	protected function serialiseSession( &$theContainer, $theSession, $doProgress = TRUE )
+	protected function serialiseSession(				   &$theContainer,
+										 IteratorSerialiser $theIterator,
+										 					$doProgress = TRUE )
 	{
 		//
 		// Set properties.
@@ -10168,10 +10247,28 @@ $rs_units = & $rs_units[ 'result' ];
 							 kTAG_COUNTER_PROGRESS );
 		
 		//
+		// Set counters.
+		//
+		$counters = array( kTAG_COUNTER_RECORDS,
+						   kTAG_COUNTER_PROCESSED, kTAG_COUNTER_VALIDATED,
+						   kTAG_COUNTER_REJECTED, kTAG_COUNTER_SKIPPED );
+		
+		//
+		// Get iterator array.
+		//
+		$objects = $theIterator->getIteratorArray();
+		
+		//
 		// Iterate sessions (will be only one).
 		//
-		foreach( $theSession as $data )
+		foreach( $theIterator->data() as $data )
 		{
+			//
+			// Pop object and get status.
+			//
+			$object = array_shift( $objects );
+			$status = $object->offsetGet( kTAG_SESSION_STATUS );
+			
 			//
 			// Set session properties.
 			//
@@ -10186,16 +10283,36 @@ $rs_units = & $rs_units[ 'result' ];
 			}
 			
 			//
+			// Load counters.
+			//
+			foreach( $counters as $counter )
+			{
+				//
+				// Check property.
+				//
+				if( array_key_exists( $counter, $data )
+				 && $object->offsetGet( $counter ) )
+					$theContainer[ $counter ]
+						= $data[ $counter ];
+			}
+			
+			//
 			// Load additional properties.
 			//
 			if( (! $doProgress)
-			 || ( array_key_exists( kTAG_SESSION_STATUS, $data )
-			   && ( ($data[ kTAG_SESSION_STATUS ] == kTYPE_STATUS_FAILED)
-				 || ($data[ kTAG_SESSION_STATUS ] == kTYPE_STATUS_FATAL)
-				 || ($data[ kTAG_SESSION_STATUS ] == kTYPE_STATUS_EXCEPTION) ) ) )
+			 || ($status == kTYPE_STATUS_FATAL)
+			 || ($status == kTYPE_STATUS_FAILED)
+			 || ($status == kTYPE_STATUS_EXCEPTION) )
 			{
+				//
+				// Collect extra properties.
+				//
 				$extra = array( kTAG_ERROR_TYPE, kTAG_ERROR_CODE, kTAG_TRANSACTION_MESSAGE,
 								kTAG_ERROR_RESOURCE );
+				
+				//
+				// Iterate extra properties.
+				//
 				foreach( $extra as $property )
 				{
 					//
@@ -10226,14 +10343,14 @@ $rs_units = & $rs_units[ 'result' ];
 	 * progress will be serialised.
 	 *
 	 * @param array				   &$theContainer		Receives serialised transaction.
-	 * @param array					$theTransaction		Serialised transaction iterator.
+	 * @param IteratorSerialiser	$theIterator		Session iterator serialiser.
 	 * @param boolean				$doProgress			If <tt>TRUE</tt> for progress.
 	 *
 	 * @access protected
 	 */
-	protected function serialiseTransaction( &$theContainer,
-											  $theTransaction,
-											  $doProgress = TRUE )
+	protected function serialiseTransaction(				   &$theContainer,
+											 IteratorSerialiser $theIterator,
+										 						$doProgress = TRUE )
 	{
 		//
 		// Set properties.
@@ -10241,20 +10358,42 @@ $rs_units = & $rs_units[ 'result' ];
 		$properties = array( kTAG_TRANSACTION_TYPE,
 							 kTAG_TRANSACTION_START, kTAG_TRANSACTION_END,
 							 kTAG_TRANSACTION_STATUS,
-							 kTAG_COUNTER_PROGRESS,
-							 kTAG_TRANSACTION_COLLECTION );
+							 kTAG_COUNTER_PROGRESS, kTAG_TRANSACTION_COLLECTION );
+		
+		//
+		// Set counters.
+		//
+		$counters = array( kTAG_COUNTER_RECORDS,
+						   kTAG_COUNTER_PROCESSED, kTAG_COUNTER_VALIDATED,
+						   kTAG_COUNTER_REJECTED, kTAG_COUNTER_SKIPPED );
+		
+		//
+		// Get iterator array.
+		//
+		$objects = $theIterator->getIteratorArray();
+		
+		//
+		// Allocate transactions list.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
+		$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
 		
 		//
 		// Iterate transactions.
 		//
-		foreach( $theTransaction as $data )
+		foreach( $theIterator->data() as $data )
 		{
+			//
+			// Pop object and get status.
+			//
+			$object = array_shift( $objects );
+			$status = $object->offsetGet( kTAG_TRANSACTION_STATUS );
+			
 			//
 			// Allocate transaction element.
 			//
-			$index = count( $theContainer );
-			$theContainer[] = Array();
-			$ref = & $theContainer[ $index ];
+			$index = count( $ref );
+			$ref[] = Array();
 			
 			//
 			// Set transaction properties.
@@ -10265,61 +10404,64 @@ $rs_units = & $rs_units[ 'result' ];
 				// Check property.
 				//
 				if( array_key_exists( $property, $data ) )
-					$ref[ $property ]
+					$ref[ $index ][ $property ]
 						= $data[ $property ];
 			}
 			
 			//
-			// Handle validation transaction.
+			// Load counters.
 			//
-			if( array_key_exists( kTAG_TRANSACTION_TYPE, $data )
-			 && ($data[ kTAG_TRANSACTION_TYPE ] == kTYPE_TRANS_TMPL_WORKSHEET) )
+			foreach( $counters as $counter )
 			{
-				if( array_key_exists( kTAG_COUNTER_PROCESSED, $data ) )
-					$ref[ kTAG_COUNTER_PROCESSED ]
-						= $data[ kTAG_COUNTER_PROCESSED ];
-				if( array_key_exists( kTAG_COUNTER_VALIDATED, $data ) )
-					$ref[ kTAG_COUNTER_VALIDATED ]
-						= $data[ kTAG_COUNTER_VALIDATED ];
-				if( array_key_exists( kTAG_COUNTER_REJECTED, $data ) )
-					$ref[ kTAG_COUNTER_REJECTED ]
-						= $data[ kTAG_COUNTER_REJECTED ];
-				if( array_key_exists( kTAG_COUNTER_SKIPPED, $data ) )
-					$ref[ kTAG_COUNTER_SKIPPED ]
-						= $data[ kTAG_COUNTER_SKIPPED ];
-				if( array_key_exists( kTAG_COUNTER_RECORDS, $data ) )
-					$ref[ kTAG_COUNTER_RECORDS ]
-						= $data[ kTAG_COUNTER_RECORDS ];
+				//
+				// Check property.
+				//
+				if( array_key_exists( $counter, $data )
+				 && $object->offsetGet( $counter ) )
+					$ref[ $index ][ $counter ]
+						= $data[ $counter ];
 			}
 			
 			//
 			// Load additional properties.
 			//
 			if( (! $doProgress)
-			 || ( array_key_exists( kTAG_TRANSACTION_STATUS, $data )
-			   && ( ($data[ kTAG_TRANSACTION_STATUS ] == kTYPE_STATUS_FAILED)
-				 || ($data[ kTAG_TRANSACTION_STATUS ] == kTYPE_STATUS_FATAL)
-				 || ($data[ kTAG_TRANSACTION_STATUS ] == kTYPE_STATUS_EXCEPTION) ) ) )
+			 || ($status == kTYPE_STATUS_FATAL)
+			 || ($status == kTYPE_STATUS_FAILED)
+			 || ($status == kTYPE_STATUS_EXCEPTION) )
 			{
+				//
+				// Collect extra properties.
+				//
 				$extra = array( kTAG_TRANSACTION_RECORD,
 								kTAG_ERROR_TYPE, kTAG_ERROR_CODE, kTAG_TRANSACTION_MESSAGE,
 								kTAG_ERROR_RESOURCE );
+				
+				//
+				// Iterate extra properties.
+				//
 				foreach( $extra as $property )
 				{
 					//
 					// Check property.
 					//
 					if( array_key_exists( $property, $data ) )
-						$ref[ $property ]
+						$ref[ $index ][ $property ]
 							= $data[ $property ];
-					
-					//
-					// Check log.
-					//
-					if( array_key_exists( kTAG_TRANSACTION_LOG, $data ) )
-						$ref[ kAPI_PARAM_RESPONSE_FRMT_DOCU ]
-							= $data[ kTAG_TRANSACTION_LOG ];
 				}
+				
+				//
+				// Check log.
+				//
+				if( array_key_exists( kTAG_TRANSACTION_LOG, $data ) )
+					$ref[ $index ][ kTAG_TRANSACTION_LOG ]
+						= $data[ kTAG_TRANSACTION_LOG ];
+				
+				//
+				// Load nested transactions.
+				//
+				$this->loadNestedTransactions(
+							$ref[ $index ], $object->offsetGet( kTAG_NID ) );
 			}
 		
 		} // Iterating transactions.

@@ -262,6 +262,57 @@ abstract class SessionObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC REFERENCE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getParentSession																*
+	 *==================================================================================*/
+
+	/**
+	 * Get parent session
+	 *
+	 * This method will return the referencing session if set and committed; if none of
+	 * these two conditions are true, the method will return <tt>NULL</tt>.
+	 *
+	 * @access public
+	 * @return Session				Referencing session or <tt>NULL</tt>.
+	 *
+	 * @see kTAG_SESSION
+	 *
+	 * @uses resolvePersistent()
+	 */
+	public function getParentSession()
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->committed() )
+		{
+			//
+			// Check if set.
+			//
+			$id = $this->resolvePersistent( TRUE )->offsetGet( kTAG_SESSION );
+			if( $id !== NULL )
+				return
+					Session::ResolveCollection(
+						Session::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->matchOne( array( kTAG_NID => $id ),
+										kQUERY_OBJECT | kQUERY_ASSERT );			// ==>
+		
+		} // Is committed.
+		
+		return NULL;																// ==>
+	
+	} // getParentSession.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PUBLIC EXTERN COUNTERS INTERFACE							*
  *																						*
  *======================================================================================*/
