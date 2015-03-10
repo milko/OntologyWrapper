@@ -94,7 +94,7 @@ class ExcelTemplateParser
 	 * Fields.
 	 *
 	 * This data member holds the <i>template worksheet fields</i> matching the template
-	 * strucure, it is an array structured as follows:
+	 * structure, it is an array structured as follows:
 	 *
 	 * <ul>
 	 *	<li><em>index</em>: The worksheet name.
@@ -113,6 +113,21 @@ class ExcelTemplateParser
 	 * @var array
 	 */
 	protected $mFields = NULL;
+
+	/**
+	 * Required fields.
+	 *
+	 * This data member holds the <i>list of required fields</i> by worksheet, it is an
+	 * array structured as follows:
+	 *
+	 * <ul>
+	 *	<li><em>index</em>: The worksheet name.
+	 *	<li><em>value</em>: The list of required field symbols.
+	 * </ul>
+	 *
+	 * @var array
+	 */
+	protected $mRequiredFields = NULL;
 
 		
 
@@ -209,9 +224,14 @@ class ExcelTemplateParser
 				$this->setWorksheets();
 				
 				//
-				// Load worksheet fieldss.
+				// Load worksheet fields.
 				//
 				$this->setFields();
+				
+				//
+				// Load required fields.
+				//
+				$this->setRequiredFields();
 				
 				return TRUE;														// ==>
 			
@@ -519,6 +539,62 @@ class ExcelTemplateParser
 	 */
 	public function getFields()									{	return $this->mFields;	}
 
+	 
+	/*===================================================================================
+	 *	getRequiredFields																*
+	 *==================================================================================*/
+
+	/**
+	 * Get required fields
+	 *
+	 * This method will return an array containing all required fields as an array
+	 * structured as follows:
+	 *
+	 * <ul>
+	 *	<li><em>index</em>: The worksheet name.
+	 *	<li><em>value</em>: The list of required field symbols.
+	 * </ul>
+	 *
+	 * It is assumed that the {@link checkRequiredColumns()} method has been called
+	 * beforehand, this is because the list is compiled by that method.
+	 *
+	 * @access public
+	 * @return array				The required fields.
+	 */
+	public function getRequiredFields()					{	return $this->mRequiredFields;	}
+
+	
+
+/*=======================================================================================
+ *																						*
+ *									PUBLIC DATA INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getCellValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get cell data
+	 *
+	 * This method will return the cell data corresponding to the provided coordinates.
+	 *
+	 * @param mixed					$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param mixed					$theCols			Column name, index or range.
+	 *
+	 * @access public
+	 * @return mixed				Cell value.
+	 */
+	public function getCellValue( $theWorksheet, $theRow, $theCols = NULL )
+	{
+		return $this->mFile->getCols( $theWorksheet, $theRow, $theCols );			// ==>
+	
+	} // getCellValue.
+
 	
 
 /*=======================================================================================
@@ -586,11 +662,13 @@ class ExcelTemplateParser
 			{
 				$this->mWorksheets[ $worksheet[ 'title' ] ] = $worksheet;
 				$this->mWorksheets[ $worksheet[ 'title' ] ][ 'symbol_row' ]
-					= $this->mTemplate->getNode( $dictionary[ $worksheet[ 'title' ] ] )
-						->offsetGet( kTAG_LINE_SYMBOL );
+					= (int) $this->mTemplate
+						->getNode( $dictionary[ $worksheet[ 'title' ] ] )
+							->offsetGet( kTAG_LINE_SYMBOL );
 				$this->mWorksheets[ $worksheet[ 'title' ] ][ 'data_row' ]
-					= $this->mTemplate->getNode( $dictionary[ $worksheet[ 'title' ] ] )
-						->offsetGet( kTAG_LINE_DATA );
+					= (int) $this->mTemplate
+						->getNode( $dictionary[ $worksheet[ 'title' ] ] )
+							->offsetGet( kTAG_LINE_DATA );
 				$this->mWorksheets[ $worksheet[ 'title' ] ][ 'node' ]
 					= $dictionary[ $worksheet[ 'title' ] ];
 			}
@@ -620,6 +698,10 @@ class ExcelTemplateParser
 	 *			<li><tt>column_name</tt>: The column name.
 	 *			<li><tt>column_number</tt>: The column number.
 	 *			<li><tt>node</tt>: The worksheet's node reference.
+	 *			<li><tt>indexed</tt>: If it represents an index, <tt>TRUE</tt>.
+	 *			<li><tt>unique</tt>: If it represents a unique index, <tt>TRUE</tt>.
+	 *			<li><tt>worksheet</tt>: Referenced worksheet.
+	 *			<li><tt>field</tt>: Referenced field.
 	 *		  </ul>
 	 *	  </ul>
 	 * </ul>
@@ -636,7 +718,18 @@ class ExcelTemplateParser
 		// Init local storage.
 		//
 		$this->mFields = Array();
-		$dictionary = $this->mTemplate->getSymbolNodes();
+		$indexes = $this->mTemplate->getWorksheetIndexes();
+		$references = $this->mTemplate->getWorksheetIndexReferences();
+		
+		//
+		// Collect referencing fields.
+		//
+		$referencing = Array();
+		foreach( $references as $list )
+		{
+			foreach( $list as $element )
+				$referencing[ $element ] = $element;
+		}
 		
 		//
 		// Collect worksheet field nodes and symbols.
@@ -648,8 +741,9 @@ class ExcelTemplateParser
 			//
 			$dictionary = Array();
 			foreach( $this->mTemplate->getWorksheets()[ $value[ 'node' ] ] as $id )
-				$dictionary[ $this->mTemplate->getNode( $id )->offsetGet( kTAG_ID_SYMBOL ) ]
-					= $id;
+				$dictionary[ $this->mTemplate->getNode( $id )
+					->offsetGet( kTAG_ID_SYMBOL ) ]
+						= $id;
 			
 			//
 			// Create worksheet reference.
@@ -680,11 +774,142 @@ class ExcelTemplateParser
 					$fref[ 'column_name' ] = $name;
 					$fref[ 'column_number' ] = $this->mFile->getColumnNumber( $name );
 					$fref[ 'node' ] = $dictionary[ $symbol ];
+					
+					//
+					// Handle index.
+					//
+					if( in_array( $fref[ 'node' ], $indexes ) )
+					{
+						$fref[ 'indexed' ] = TRUE;
+						$fref[ 'unique' ] = TRUE;
+					}
+					
+					//
+					// Handle referencing.
+					//
+					elseif( in_array( $fref[ 'node' ], $referencing ) )
+						$fref[ 'indexed' ] = TRUE;
+				}
+			}
+		}
+		
+		//
+		// Set references.
+		//
+		$structure = $this->mTemplate->getWorksheets();
+		$dictionary = $this->mTemplate->getNodeSymbols();
+		foreach( $references as $target_worksheet_node => $source_field_nodes )
+		{
+			//
+			// Locate target field.
+			//
+			$target_worksheet = $dictionary[ $target_worksheet_node ];
+			$target_field = $dictionary[ $indexes[ $target_worksheet_node ] ];
+			
+			//
+			// Iterate referencing fields.
+			//
+			foreach( $source_field_nodes as $source_field_node )
+			{
+				//
+				// Locate field.
+				//
+				foreach( $structure as $source_worksheet_node => $match_field_nodes )
+				{
+					if( in_array( $source_field_node, $match_field_nodes ) )
+					{
+						$this->mFields[ $dictionary[ $source_worksheet_node ] ]
+									  [ $dictionary[ $source_field_node ] ]
+									  [ 'worksheet' ] = $target_worksheet;
+						$this->mFields[ $dictionary[ $source_worksheet_node ] ]
+									  [ $dictionary[ $source_field_node ] ]
+									  [ 'field' ] = $target_field;
+					}
 				}
 			}
 		}
 	
 	} // setFields.
+
+	 
+	/*===================================================================================
+	 *	setRequiredFields																*
+	 *==================================================================================*/
+
+	/**
+	 * Set required fields
+	 *
+	 * This method will set the relevant member with all required fields, the array is
+	 * structured as follows:
+	 *
+	 * <ul>
+	 *	<li><em>index</em>: The worksheet name.
+	 *	<li><em>value</em>: The list of required field symbols.
+	 * </ul>
+	 *
+	 * It is assumed that the {@link setFields()} method has been called beforehand.
+	 *
+	 * To retrieve the value call {@link getRequiredFields()}.
+	 *
+	 * @access protected
+	 */
+	protected function setRequiredFields()
+	{
+		//
+		// Init local storage.
+		//
+		$this->mRequiredFields = Array();
+		$fields = $this->getFields();
+		$symbols = $this->mTemplate->getNodeSymbols();
+		$worksheets = $this->mTemplate->getWorksheets();
+		$increment = 100 / count( array_keys( $worksheets ) );
+		
+		//
+		// Iterate worksheets.
+		//
+		foreach( $worksheets as $worksheet => $wfields )
+		{
+			//
+			// Init local storage.
+			//
+			$name = $symbols[ $worksheet ];
+			$this->mRequiredFields[ $name ] = Array();
+			
+			//
+			// Iterate worksheet fields.
+			//
+			foreach( $wfields as $field )
+			{
+				//
+				// Init local storage.
+				//
+				$symbol = $symbols[ $field ];
+				$node = $this->mTemplate->getNode( $field );
+				$kind = $node->offsetGet( kTAG_DATA_KIND );
+				
+				//
+				// Check if required.
+				//
+				if( ($kind !== NULL)
+				 && in_array( kTYPE_MANDATORY, $kind ) )
+					$this->mRequiredFields[ $name ][] = $symbol;
+				
+				//
+				// Check if indexed.
+				//
+				elseif( array_key_exists( $name, $fields )
+					 && array_key_exists( $symbol, $fields[ $name ] ) )
+				{
+					if( array_key_exists( 'indexed', $fields[ $name ][ $symbol ] )
+					 && $fields[ $name ][ $symbol ] )
+						$this->mRequiredFields[ $name ][] = $symbol;
+				}
+			
+			} // Iterating worksheet fields.
+		
+		} // Iterating worksheets.
+	
+	} // setRequiredFields.
 
 	 
 

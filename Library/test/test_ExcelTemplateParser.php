@@ -183,6 +183,17 @@ try
 	var_dump( $data );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$data = $tmpl->getRequiredFields();' );
+	$data = $tmpl->getRequiredFields();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $data );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );

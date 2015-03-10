@@ -166,10 +166,10 @@ class ExcelParser
 				//
 				$stats = Array();
 				$stats[ "title" ] = $sheet->getTitle();
-				$stats[ "last_row" ] = $sheet->getHighestRow();
+				$stats[ "last_row" ] = (int) $sheet->getHighestRow();
 				$stats[ "last_column" ] = $sheet->getHighestColumn();
 				$stats[ "last_column_index" ]
-					= $this->getColumnNumber( $sheet->getHighestColumn() );
+					= (int) $this->getColumnNumber( $sheet->getHighestColumn() );
 				
 				//
 				// Handle all worksheets.

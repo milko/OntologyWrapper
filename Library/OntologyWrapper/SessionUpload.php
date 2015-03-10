@@ -472,6 +472,17 @@ class SessionUpload
 			// Progress.
 			//
 			$this->session()->progress( 10 );
+	
+			//
+			// Transaction validation.
+			//
+			if( ! $this->sessionValidation() )
+				return $this->failSession();										// ==>
+			
+			//
+			// Progress.
+			//
+			$this->session()->progress( 10 );
 			
 			return $this->succeedSession();											// ==>
 		}
@@ -750,6 +761,86 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // sessionSetup.
+
+	 
+	/*===================================================================================
+	 *	sessionValidation																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate and load worksheet data
+	 *
+	 * This method will validate and load worksheet data.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses session()
+	 * @uses transaction()
+	 * @uses saveTemplateFile()
+	 */
+	protected function sessionValidation()
+	{
+		//
+		// Init local storage.
+		//
+		$fields = $this->mParser->getFields();
+		$worksheets = $this->mParser->getWorksheets();
+		
+		//
+		// Set session records.
+		//
+		$records = 0;
+		foreach( $worksheets as $worksheet )
+			$records += ($worksheet[ 'last_row' ] - $worksheet[ 'data_row' ] + 1);
+		$this->session()->offsetSet( kTAG_COUNTER_RECORDS, $records );
+		
+		//
+		// Iterate worksheets.
+		//
+		foreach( $worksheets as $wname => $worksheet )
+		{
+			//
+			// Instantiate transaction.
+			//
+			$transaction
+				= $this->transaction(
+					$this->session()
+						->newTransaction( kTYPE_TRANS_TMPL_WORKSHEET, $wname ) );
+			
+			//
+			// Init progress.
+			//
+			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+			
+			//
+			// Set records count.
+			//
+			$transaction->offsetSet(
+				kTAG_COUNTER_RECORDS,
+				$worksheet[ 'last_row' ] - $worksheet[ 'data_row' ] + 1 );
+			
+			//
+			// Load worksheet data.
+			//
+			if( ! $this->loadWorksheetData( $wname,
+											$worksheet,
+											$fields[ $wname ],
+											$records ) )
+				return FALSE;														// ==>
+	
+			//
+			// Close transaction.
+			//
+			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		} // Iterating worksheets.
+		
+		return TRUE;																// ==>
+
+	} // sessionValidation.
 
 	
 
@@ -1224,16 +1315,37 @@ class SessionUpload
 		// Init local storage.
 		//
 		$this->mCollections = Array();
+		$fields = $this->mParser->getFields();
 		
 		//
 		// Iterate worksheets.
 		//
 		foreach( array_keys( $this->mParser->getWorksheets() ) as $worksheet )
 		{
+			//
+			// Create collection.
+			//
 			$name = $this->getCollectionName( $worksheet );
 			$this->mCollections[ $name ]
 				= Session::ResolveDatabase( $this->wrapper(), TRUE )
 					->collection( $name, TRUE );
+			
+			//
+			// Add indexes.
+			//
+			foreach( $fields[ $worksheet ] as $field_name => $field )
+			{
+				if( array_key_exists( 'indexed', $field ) )
+				{
+					if( array_key_exists( 'unique', $field ) )
+						$this->mCollections[ $name ]
+							->createIndex( array( $field_name => 1 ),
+										   array( "unique" => TRUE ) );
+					else
+						$this->mCollections[ $name ]
+							->createIndex( array( $field_name => 1 ) );
+				}
+			}
 		}
 		
 		//
@@ -1252,6 +1364,187 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // createWorkingCollections.
+
+	 
+	/*===================================================================================
+	 *	loadWorksheetData																*
+	 *==================================================================================*/
+
+	/**
+	 * Load worksheet data
+	 *
+	 * This method will validate and load worksheet data.
+	 *
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param array					$theWorksheetData	Worksheet data.
+	 * @param array					$theFieldsData		Fields data.
+	 * @param float					$theRecords			Session records total.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses session()
+	 */
+	protected function loadWorksheetData( $theWorksheet,
+										  $theWorksheetData,
+										  $theFieldsData,
+										  $theRecords )
+	{
+		//
+		// Init local storage.
+		//
+		$collection = $this->mCollections[ $this->getCollectionName( $theWorksheet ) ];
+		$records = $theWorksheetData[ 'last_row' ] - $theWorksheetData[ 'data_row' ] + 1;
+		
+		//
+		// Iterate rows.
+		//
+		for( $row = $theWorksheetData[ 'data_row' ];
+				$row <= $theWorksheetData[ 'last_row' ];
+					$row++ )
+		{
+			//
+			// Load row data.
+			//
+			$record = Array();
+			foreach( $theFieldsData as $symbol => $field_data )
+			{
+				//
+				// Get value.
+				//
+				$value
+					= $this->mParser->getCellValue(
+						$theWorksheet, $row, $field_data[ 'column_name' ] );
+				
+				//
+				// Set value.
+				//
+				if( strlen( $value = trim( $value ) ) )
+					$record[ $symbol ] = $value;
+			
+			} // Loading row data.
+			
+			//
+			// Handle record.
+			//
+			if( count( $record ) )
+			{
+				//
+				// Init local storage.
+				//
+				$errors = 0;
+				$transaction = NULL;
+			
+				//
+				// Validate row.
+				//
+				foreach( array_keys( $record ) as $symbol )
+					$errors
+						+= $this->validateProperty(
+								$transaction,					// Row transaction.
+								$record,						// Row record.
+								$theWorksheet,					// Worksheet name.
+								$symbol,						// Field symbol.
+								$theFieldsData[ $symbol ] );	// Field data.
+				
+				//
+				// Handle valid row.
+				//
+				if( ! $errors )
+				{
+					//
+					// Set row number.
+					//
+					$record[ kTAG_NID ] = $row;
+					
+					//
+					// Write record.
+					//
+					$collection->commit( $record );
+					
+					//
+					// Handle validated.
+					//
+					$this->session()->validated( 1 );
+					$this->transaction()->validated( 1 );
+				
+				} // Valid row.
+								
+				//
+				// Close transaction.
+				//
+				if( $transaction !== NULL )
+				{
+					$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+					$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+					$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+				}
+				
+			} // Record has data.
+			
+			//
+			// Handle skipped.
+			//
+			else
+			{
+				$this->session()->skipped( 1 );
+				$this->transaction()->skipped( 1 );
+			
+			} // Empty record.
+			
+			//
+			// Update progress.
+			//
+			$this->session()->processed( 1, $theRecords );
+			$this->transaction()->processed( 1, $records );
+		
+		} // Iterating worksheet row.
+		
+		return TRUE;																// ==>
+
+	} // loadWorksheetData.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED VALIDATION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	validateProperty																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate property
+	 *
+	 * This method will validate the provided property value and create, if necessary the
+	 * error transaction.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param string				$theSymbol			Field symbol.
+	 * @param array					$theFieldsData		Fields data.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses session()
+	 */
+	protected function validateProperty( &$theTransaction,
+										 &$theRecord,
+										  $theWorksheet,
+										  $theSymbol,
+										  $theFieldsData )
+	{
+
+	} // validateProperty.
 
 	
 
