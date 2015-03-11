@@ -982,7 +982,8 @@ class Node extends MetadataObject
 		//
 		// Handle master reference.
 		//
-		if( $this->isAlias() )
+		if( $this->isAlias()
+		 && ($this->offsetGet( kTAG_MASTER ) != $master) )
 			$this->offsetSet( kTAG_MASTER, $master );
 		
 	} // preCommitPrepare.
@@ -1098,7 +1099,7 @@ class Node extends MetadataObject
 	 */
 	protected function lockedOffsets()
 	{
-		return array_merge( $this->InternalOffsets(),
+		return array_merge( parent::lockedOffsets(),
 							array( kTAG_TAG, kTAG_TERM ) );							// ==>
 	
 	} // lockedOffsets.

@@ -407,7 +407,7 @@
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TOKEN">@;,</item>
+			<item const="kTAG_TOKEN">;@,</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

@@ -4096,10 +4096,29 @@ class Wrapper extends Dictionary
 	protected function loadXMLNode( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Instantiate object.
+		// Instantiate existing object.
 		//
 		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
-			$object = new Node( $this, (int) (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
+		{
+			//
+			// Handle node native identifier.
+			//
+			if( ctype_digit( (string) $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+				$object = new Node( $this, (int) (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
+			
+			//
+			// Handle node persistent identifier.
+			//
+			else
+				$object
+					= Node::GetPidNode(
+						$this, (string) $theXML[ kIO_XML_ATTR_UPDATE ], kQUERY_OBJECT );
+		
+		} // Modification.
+		
+		//
+		// Instantiate new object.
+		//
 		else
 			$object = new Node( $this );
 		

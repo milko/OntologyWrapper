@@ -1472,7 +1472,7 @@ class SessionUpload
 					//
 					// Set row number.
 					//
-					$record[ kTAG_NID ] = $row;
+					$record[ kTAG_NID ] = (int) $row;
 					
 					//
 					// Write record.
@@ -1589,10 +1589,6 @@ class SessionUpload
 			// Set transaction status.
 			//
 			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
-			$theTransaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_MISSING_REQUIRED );
-			$theTransaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_REQ_FIELD );
-			$theTransaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
-										'The template is missing required fields.' );
 			
 			//
 			// Add logs.
@@ -1612,13 +1608,15 @@ class SessionUpload
 				// Set log.
 				//
 				$theTransaction->setLog(
-					kTYPE_STATUS_ERROR,				// Status.
-					'The field is missing.',		// Message.
-					$symbol,						// Alias.
-					$tag,							// Tag.
-					NULL,							// Value.
-					$field[ 'column_name' ],		// Column.
-					kTYPE_ERROR_MISSING_REQUIRED );	// Error type.
+					kTYPE_STATUS_ERROR,					// Status,
+					$symbol,							// Alias.
+					$field[ 'column_name' ],			// Field.
+					NULL,								// Value.
+					'Missing required field.',			// Message.
+					$tag,								// Tag.
+					kTYPE_ERROR_MISSING_REQUIRED,		// Error type.
+					kTYPE_ERROR_CODE_REQ_FIELD,			// Error code.
+					NULL );								// Error resource.
 			}
 			
 			return count( $missing );												// ==>
@@ -1649,8 +1647,13 @@ class SessionUpload
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 *
-	 * @uses file()
-	 * @uses session()
+	 * @uses validateString()
+	 * @uses validateInteger()
+	 * @uses validateFloat()
+	 * @uses validateBoolean()
+	 * @uses validateStruct()
+	 * @uses validateArray()
+	 * @uses validateArray()
 	 */
 	protected function validateProperty( &$theTransaction,
 										 &$theRecord,
@@ -1666,6 +1669,116 @@ class SessionUpload
 		$field_tag = ( $field_node->offsetExists( kTAG_TAG ) )
 				   ? $this->mParser->getTag( $field_node->offsetGet( kTAG_TAG ) )
 				   : NULL;
+		
+		//
+		// Cast local field.
+		//
+		if( $field_tag === NULL )
+			$theRecord[ $theSymbol ]
+				= (string) $theRecord[ $theSymbol ];
+		
+		//
+		// Handle tag field.
+		//
+		else
+		{
+			//
+			// Parse by type.
+			//
+			switch( $field_tag->offsetGet( kTAG_DATA_TYPE ) )
+			{
+				case kTYPE_MIXED:
+					break;
+			
+				case kTYPE_STRING:
+				case kTYPE_TEXT:
+					$this->validateString(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_INT:
+				case kTYPE_YEAR:
+					$this->validateInteger(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_FLOAT:
+					$this->validateFloat(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_BOOLEAN:
+					$this->validateBoolean(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_STRUCT:
+					$this->validateStruct(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_ARRAY:
+					$this->validateArray(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_LANGUAGE_STRING:
+					$this->validateLanguageString(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_LANGUAGE_STRINGS:
+					$this->validateLanguageStrings(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_TYPED_LIST:
+					$this->validateTypedList(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_SHAPE:
+					$this->validateShape(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			/*
+				case kTYPE_URL:
+					$this->validateLink(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_DATE:
+					$this->validateDate(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_ENUM:
+					$this->validateEnum(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			
+				case kTYPE_SET:
+					$this->validateEnumSet(
+						$theTransaction, $theRecord, $theWorksheet, $theRow,
+						$field_data, $field_node, $field_tag );
+					break;
+			*/
+			} // Parsing by type.
+		
+		} // Tag field.
 
 	} // validateProperty.
 
@@ -1836,6 +1949,1377 @@ class SessionUpload
 
 /*=======================================================================================
  *																						*
+ *							PROTECTED VALIDATION UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	validateString																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate string
+	 *
+	 * This method will validate the provided string property, it will simply cast the
+	 * value to a string.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function validateString( &$theTransaction,
+									   &$theRecord,
+										$theWorksheet,
+										$theRow,
+										$theFieldData,
+										$theFieldNode,
+										$theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		//
+		// Cast value.
+		//
+		$theRecord[ $symbol ] = (string) $theRecord[ $symbol ];
+
+	} // validateString.
+
+	 
+	/*===================================================================================
+	 *	validateInteger																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate integer
+	 *
+	 * This method will validate the provided integer property, it will first check if the
+	 * value is numeric, if that is not the case, it will add a log to the provided
+	 * transaction; if the value is correct, it will cast it to an integer.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function validateInteger( &$theTransaction,
+										&$theRecord,
+										 $theWorksheet,
+										 $theRow,
+										 $theFieldData,
+										 $theFieldNode,
+										 $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		//
+		// Cast value.
+		//
+		if( is_numeric( $theRecord[ $symbol ] ) )
+			$theRecord[ $symbol ]
+				= (int) $theRecord[ $symbol ];
+		
+		//
+		// Handle error.
+		//
+		else
+		{
+			//
+			// Init local storage.
+			//
+			$tag_id = ( $theFieldTag !== NULL )
+					? $theFieldTag->offsetGet( kTAG_TAG )
+					: NULL;
+			
+			//
+			// Create transaction.
+			//
+			if( $theTransaction === NULL )
+				$theTransaction
+					= $this->transaction()
+						->newTransaction(
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
+			
+			//
+			// Set transaction status.
+			//
+			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+			
+			//
+			// Set log.
+			//
+			$theTransaction->setLog(
+				kTYPE_STATUS_ERROR,								// Status,
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+				$theFieldData[ 'column_name' ],					// Field.
+				$theRecord[ $symbol ],							// Value.
+				'Invalid integer number.',						// Message.
+				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+				kTYPE_ERROR_INVALID_VALUE,						// Error type.
+				kTYPE_ERROR_CODE_BAD_NUMBER,					// Error code.
+				NULL );											// Error resource.
+		
+		} // Invalid value.
+
+	} // validateInteger.
+
+	 
+	/*===================================================================================
+	 *	validateFloat																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate float
+	 *
+	 * This method will validate the provided float property, it will first check if the
+	 * value is numeric, if that is not the case, it will add a log to the provided
+	 * transaction; if the value is correct, it will cast it to a double.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function validateFloat( &$theTransaction,
+									  &$theRecord,
+									   $theWorksheet,
+									   $theRow,
+									   $theFieldData,
+									   $theFieldNode,
+									   $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		//
+		// Cast value.
+		//
+		if( is_numeric( $theRecord[ $symbol ] ) )
+			$theRecord[ $symbol ]
+				= (double) $theRecord[ $symbol ];
+		
+		//
+		// Handle error.
+		//
+		else
+		{
+			//
+			// Init local storage.
+			//
+			$tag_id = ( $theFieldTag !== NULL )
+					? $theFieldTag->offsetGet( kTAG_TAG )
+					: NULL;
+			
+			//
+			// Create transaction.
+			//
+			if( $theTransaction === NULL )
+				$theTransaction
+					= $this->transaction()
+						->newTransaction(
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
+			
+			//
+			// Set transaction status.
+			//
+			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+			
+			//
+			// Set log.
+			//
+			$theTransaction->setLog(
+				kTYPE_STATUS_ERROR,								// Status,
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+				$theFieldData[ 'column_name' ],					// Field.
+				$theRecord[ $symbol ],							// Value.
+				'Invalid floating point number.',				// Message.
+				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+				kTYPE_ERROR_INVALID_VALUE,						// Error type.
+				kTYPE_ERROR_CODE_BAD_NUMBER,					// Error code.
+				NULL );											// Error resource.
+		
+		} // Invalid value.
+
+	} // validateFloat.
+
+	 
+	/*===================================================================================
+	 *	validateBoolean																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate boolean
+	 *
+	 * This method will validate the provided boolean property, the value will be simply
+	 * cast to a boolean, following these rules:
+	 *
+	 * <ul>
+	 *	<li><tt>y</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>n</tt>: <tt>FALSE</tt>.
+	 *	<li><tt>yes</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>no</tt>: <tt>FALSE</tt>.
+	 *	<li><tt>true</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>false</tt>: <tt>FALSE</tt>.
+	 *	<li><tt>1</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>0</tt>: <tt>FALSE</tt>.
+	 *	<li><em>other</em>: The value will be cast to a boolean..
+	 * </ul>
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function validateBoolean( &$theTransaction,
+										&$theRecord,
+										 $theWorksheet,
+										 $theRow,
+										 $theFieldData,
+										 $theFieldNode,
+										 $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		//
+		// Cast value.
+		//
+		switch( strtolower( $theRecord[ $symbol ] ) )
+		{
+			case '1':
+				$theRecord[ $symbol ] = TRUE;
+				break;
+		
+			case 'y':
+				$theRecord[ $symbol ] = TRUE;
+				break;
+		
+			case 'yes':
+				$theRecord[ $symbol ] = TRUE;
+				break;
+		
+			case 'true':
+				$theRecord[ $symbol ] = TRUE;
+				break;
+		
+			case '0':
+				$theRecord[ $symbol ] = FALSE;
+				break;
+		
+			case 'n':
+				$theRecord[ $symbol ] = FALSE;
+				break;
+		
+			case 'no':
+				$theRecord[ $symbol ] = FALSE;
+				break;
+		
+			case 'false':
+				$theRecord[ $symbol ] = FALSE;
+				break;
+			
+			default:
+				$theRecord[ $symbol ] = (boolean) $theRecord[ $symbol ];
+				break;
+		
+		} // Parsing value.
+
+	} // validateBoolean.
+
+	 
+	/*===================================================================================
+	 *	validateStruct																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate structure
+	 *
+	 * Structures cannot be expressed in a template cell, the method will raise an
+	 * exception.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function validateStruct( &$theTransaction,
+									   &$theRecord,
+										$theWorksheet,
+										$theRow,
+										$theFieldData,
+										$theFieldNode,
+										$theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		throw new \Exception(
+			"Cannot set $symbol value: "
+		   ."it is a structure, invalid template definition." );				// !@! ==>
+
+	} // validateStruct.
+
+	 
+	/*===================================================================================
+	 *	validateArray																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate array
+	 *
+	 * This method will validate the provided array property, it will load the
+	 * {@link kTAG_TOKEN} element of the node in order to separate array elements: the first
+	 * token represents the array elements separator, if there is a second token this will
+	 * be used to separate the element key and value; if there is no {@link kTAG_TOKEN}
+	 * element of the node, the array will have a single element with the contents of the
+	 * field and a warning will be issued.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function validateArray( &$theTransaction,
+									  &$theRecord,
+									   $theWorksheet,
+									   $theRow,
+									   $theFieldData,
+									   $theFieldNode,
+									   $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		//
+		// Handle tokens.
+		//
+		if( $count = strlen( $tokens ) )
+		{
+			//
+			// Separate elements.
+			//
+			$elements = explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] );
+			
+			//
+			// Separate items.
+			//
+			if( $count > 1 )
+			{
+				//
+				// Init local storage.
+				//
+				$theRecord[ $symbol ] = Array();
+				
+				//
+				// Iterate elements.
+				//
+				foreach( $elements as $element )
+				{
+					//
+					// Separate items.
+					//
+					$items = explode( substr( $tokens, 1, 1 ), $element );
+					
+					//
+					// Handle no key.
+					//
+					if( count( $items ) == 1 )
+						$theRecord[ $symbol ][] = $items[ 1 ];
+					
+					//
+					// Handle key.
+					//
+					elseif( count( $items ) == 2 )
+						$theRecord[ $symbol ][ $items[ 0 ] ] = $items[ 1 ];
+					
+					//
+					// Handle mess.
+					//
+					else
+					{
+						$key = $items[ 0 ];
+						array_shift( $items );
+						$value = implode( substr( $tokens, 1, 1 ), $items );
+						$theRecord[ $symbol ][ $key ] = $value;
+					}
+				}
+			
+			} // Has items separaor.
+			
+			//
+			// Array of elements.
+			//
+			else
+				$theRecord[ $symbol ] = $elements;
+		
+		} // Provided separator tokens.
+		
+		//
+		// Handle missing tokens.
+		//
+		else
+		{
+			//
+			// Cast value.
+			//
+			$theRecord[ $symbol ] = array( $theRecord[ $symbol ] );
+			
+			//
+			// New transaction.
+			//
+			if( $theTransaction === NULL )
+			{
+				//
+				// Create transaction.
+				//
+				$theTransaction
+					= $this->transaction()
+						->newTransaction(
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
+			
+				//
+				// Set transaction status.
+				//
+				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_WARNING );
+			
+			} // New transaction.
+			
+			//
+			// Update transaction status.
+			//
+			else
+			{
+				//
+				// Get status.
+				//
+				$status = $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS );
+				
+				//
+				// Update status.
+				//
+				if( ($status == kTYPE_STATUS_OK)
+				 || ($status == kTYPE_STATUS_MESSAGE)
+				 || ($status == kTYPE_STATUS_EXECUTING) )
+					$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS,
+												kTYPE_STATUS_WARNING );
+			
+			} // Update transaction status.
+			
+			//
+			// Set log.
+			//
+			$theTransaction->setLog(
+				kTYPE_STATUS_WARNING,							// Status,
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+				$theFieldData[ 'column_name' ],					// Field.
+				NULL,											// Value.
+				'Missing separator tokens in template.',		// Message.
+				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,					// Error type.
+				kTYPE_ERROR_CODE_NO_TOKEN,						// Error code.
+				NULL );											// Error resource.
+		
+		} // Missing tokens.
+
+	} // validateArray.
+
+	 
+	/*===================================================================================
+	 *	validateLanguageString															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate language string
+	 *
+	 * This method will validate the provided language string property, it will load the
+	 * {@link kTAG_TOKEN} element of the node in order to separate the elements and the
+	 * language from the string.
+	 *
+	 * By default there should be two tokens: the first to separate elements and the second
+	 * to separate the language from the string.
+	 *
+	 * If there is only one token, it is assumed there is no language.
+	 *
+	 * If the tokens are missing, a warning will be issued and the string will be set with
+	 * the property without language.
+	 *
+	 * If there are more than 2 tokens, only the first two will be used and no warning will
+	 * be issued.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function validateLanguageString( &$theTransaction,
+											   &$theRecord,
+												$theWorksheet,
+												$theRow,
+												$theFieldData,
+												$theFieldNode,
+												$theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		//
+		// Handle tokens.
+		//
+		if( $count = strlen( $tokens ) )
+		{
+			//
+			// Separate elements.
+			//
+			$elements = explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] );
+			foreach( $elements as $element )
+			{
+				//
+				// Handle no language.
+				//
+				if( $count == 1 )
+					$this->setLanguageString(
+						$theRecord[ $symbol ], NULL, $element );
+				
+				//
+				// Handle language.
+				//
+				else
+				{
+					$items = explode( substr( $tokens, 1, 1 ), $element );
+					if( count( $items ) == 1 )
+						$this->setLanguageString(
+							$theRecord[ $symbol ], NULL, $items[ 0 ] );
+					elseif( count( $items ) == 2 )
+						$this->setLanguageString(
+							$theRecord[ $symbol ], $items[ 0 ], $items[ 1 ] );
+					else
+					{
+						$lang = $items[ 0 ];
+						array_shift( $items );
+						$text = implode( substr( $tokens, 1, 1 ), $items );
+						$this->setLanguageString(
+							$theRecord[ $symbol ], $lang, $text );
+					}
+				}
+			
+			} // Iterating elements.
+		
+		} // Provided separator tokens.
+		
+		//
+		// Handle missing tokens.
+		//
+		else
+		{
+			//
+			// Cast value.
+			//
+			$theRecord[ $symbol ] = array( kTAG_TEXT => $theRecord[ $symbol ] );
+			
+			//
+			// New transaction.
+			//
+			if( $theTransaction === NULL )
+			{
+				//
+				// Create transaction.
+				//
+				$theTransaction
+					= $this->transaction()
+						->newTransaction(
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
+			
+				//
+				// Set transaction status.
+				//
+				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_WARNING );
+			
+			} // New transaction.
+			
+			//
+			// Update transaction status.
+			//
+			else
+			{
+				//
+				// Get status.
+				//
+				$status = $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS );
+				
+				//
+				// Update status.
+				//
+				if( ($status == kTYPE_STATUS_OK)
+				 || ($status == kTYPE_STATUS_MESSAGE)
+				 || ($status == kTYPE_STATUS_EXECUTING) )
+					$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS,
+												kTYPE_STATUS_WARNING );
+			
+			} // Update transaction status.
+			
+			//
+			// Set log.
+			//
+			$theTransaction->setLog(
+				kTYPE_STATUS_WARNING,							// Status,
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+				$theFieldData[ 'column_name' ],					// Field.
+				NULL,											// Value.
+				'Missing separator tokens in template.',		// Message.
+				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,					// Error type.
+				kTYPE_ERROR_CODE_NO_TOKEN,						// Error code.
+				NULL );											// Error resource.
+		
+		} // Missing tokens.
+
+	} // validateLanguageString.
+
+	 
+	/*===================================================================================
+	 *	validateLanguageStrings															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate language string
+	 *
+	 * This method will validate the provided language string property, it will load the
+	 * {@link kTAG_TOKEN} element of the node in order to separate the elements, the
+	 * language and the strings.
+	 *
+	 * By default there should be three tokens: the first to separate elements, the second
+	 * to separate the language and the third to separate the strings.
+	 *
+	 * If the third token is missing it is assumed there is only one string; if the second
+	 * token is missing, it is assumed that there is one string without language.
+	 *
+	 * If the tokens are missing, a warning will be issued and the string will be set with
+	 * the property without language.
+	 *
+	 * If there are more than 3 tokens, only the first three will be used and no warning
+	 * will be issued.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function validateLanguageStrings( &$theTransaction,
+												&$theRecord,
+												 $theWorksheet,
+												 $theRow,
+												 $theFieldData,
+												 $theFieldNode,
+												 $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		//
+		// Handle tokens.
+		//
+		if( $count = strlen( $tokens ) )
+		{
+			//
+			// Separate elements.
+			//
+			$elements = explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] );
+			foreach( $elements as $element )
+			{
+				//
+				// Handle one token.
+				//
+				if( $count == 1 )
+					$this->setLanguageStrings(
+						$theRecord[ $symbol ], NULL, $array( $element ) );
+				
+				//
+				// Handle two tokens.
+				//
+				elseif( $count == 2 )
+				{
+					//
+					// Get language.
+					//
+					$items = explode( substr( $tokens, 1, 1 ), $element );
+					if( count( $items ) == 1 )
+						$this->setLanguageStrings(
+							$theRecord[ $symbol ], NULL, $items );
+					elseif( count( $items ) == 2 )
+						$this->setLanguageStrings(
+							$theRecord[ $symbol ], $items[ 0 ], $array( $items[ 1 ] ) );
+					else
+					{
+						$lang = $items[ 0 ];
+						array_shift( $items );
+						$text = implode( substr( $tokens, 1, 1 ), $items );
+						$this->setLanguageString(
+							$theRecord[ $symbol ], $lang, array( $text ) );
+					}
+				}
+				
+				//
+				// Handle at least three.
+				//
+				else
+				{
+					//
+					// Get language.
+					//
+					$items = explode( substr( $tokens, 1, 1 ), $element );
+					if( count( $items ) == 1 )
+					{
+						$lang = NULL;
+						$text = explode( substr( $tokens, 2, 1 ), $items[ 0 ] );
+						$this->setLanguageStrings( $theRecord[ $symbol ], $lang, $text );
+					}
+					elseif( count( $items ) == 2 )
+					{
+						$lang = $items[ 0 ];
+						$text = explode( substr( $tokens, 2, 1 ), $items[ 1 ] );
+						$this->setLanguageStrings( $theRecord[ $symbol ], $lang, $text );
+					}
+					else
+					{
+						$lang = $items[ 0 ];
+						array_shift( $items );
+						$text = implode( substr( $tokens, 1, 1 ), $items );
+						$text = explode( substr( $tokens, 2, 1 ), $text );
+						$this->setLanguageString(
+							$theRecord[ $symbol ], $lang, $text );
+					}
+				}
+			
+			} // Iterating elements.
+		
+		} // Provided separator tokens.
+		
+		//
+		// Handle missing tokens.
+		//
+		else
+		{
+			//
+			// Cast value.
+			//
+			$theRecord[ $symbol ] = array( kTAG_TEXT => $theRecord[ $symbol ] );
+			
+			//
+			// New transaction.
+			//
+			if( $theTransaction === NULL )
+			{
+				//
+				// Create transaction.
+				//
+				$theTransaction
+					= $this->transaction()
+						->newTransaction(
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
+			
+				//
+				// Set transaction status.
+				//
+				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_WARNING );
+			
+			} // New transaction.
+			
+			//
+			// Update transaction status.
+			//
+			else
+			{
+				//
+				// Get status.
+				//
+				$status = $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS );
+				
+				//
+				// Update status.
+				//
+				if( ($status == kTYPE_STATUS_OK)
+				 || ($status == kTYPE_STATUS_MESSAGE)
+				 || ($status == kTYPE_STATUS_EXECUTING) )
+					$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS,
+												kTYPE_STATUS_WARNING );
+			
+			} // Update transaction status.
+			
+			//
+			// Set log.
+			//
+			$theTransaction->setLog(
+				kTYPE_STATUS_WARNING,							// Status,
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+				$theFieldData[ 'column_name' ],					// Field.
+				NULL,											// Value.
+				'Missing separator tokens in template.',		// Message.
+				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,					// Error type.
+				kTYPE_ERROR_CODE_NO_TOKEN,						// Error code.
+				NULL );											// Error resource.
+		
+		} // Missing tokens.
+
+	} // validateLanguageStrings.
+
+	 
+	/*===================================================================================
+	 *	validateTypedList																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate typed list
+	 *
+	 * This method will validate the provided language string property, it will load the
+	 * {@link kTAG_TOKEN} element of the node in order to separate the elements and the
+	 * type from the value.
+	 *
+	 * By default there should be two tokens: the first to separate elements, the second
+	 * to separate the type from the value.
+	 *
+	 * If there is only one token, the {@link kTAG_TYPE} is omitted.
+	 *
+	 * If the tokens are missing, a warning will be issued and the string will be set with
+	 * the property without language.
+	 *
+	 * The value token is by default {@link kTAG_TEXT}.
+	 *
+	 * If there are more than 2 tokens, only the first two will be used and no warning will
+	 * be issued.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 */
+	protected function validateTypedList( &$theTransaction,
+										  &$theRecord,
+										   $theWorksheet,
+										   $theRow,
+										   $theFieldData,
+										   $theFieldNode,
+										   $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		//
+		// Handle tokens.
+		//
+		if( $count = strlen( $tokens ) )
+		{
+			//
+			// Separate elements.
+			//
+			$elements = explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] );
+			foreach( $elements as $element )
+			{
+				//
+				// Handle no type.
+				//
+				if( $count == 1 )
+					$this->setTypedList(
+						$theRecord[ $symbol ], kTAG_TEXT, NULL, $element );
+				
+				//
+				// Handle type.
+				//
+				else
+				{
+					$items = explode( substr( $tokens, 1, 1 ), $element );
+					if( count( $items ) == 1 )
+						$this->setTypedList(
+							$theRecord[ $symbol ], kTAG_TEXT, NULL, $items[ 0 ] );
+					elseif( count( $items ) == 2 )
+						$this->setTypedList(
+							$theRecord[ $symbol ], kTAG_TEXT, $items[ 0 ], $items[ 1 ] );
+					else
+					{
+						$lang = $items[ 0 ];
+						array_shift( $items );
+						$text = implode( substr( $tokens, 1, 1 ), $items );
+						$this->setTypedList(
+							$theRecord[ $symbol ], kTAG_TEXT, $lang, $text );
+					}
+				}
+			
+			} // Iterating elements.
+		
+		} // Provided separator tokens.
+		
+		//
+		// Handle missing tokens.
+		//
+		else
+		{
+			//
+			// Cast value.
+			//
+			$theRecord[ $symbol ] = array( kTAG_TEXT => $theRecord[ $symbol ] );
+			
+			//
+			// New transaction.
+			//
+			if( $theTransaction === NULL )
+			{
+				//
+				// Create transaction.
+				//
+				$theTransaction
+					= $this->transaction()
+						->newTransaction(
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
+			
+				//
+				// Set transaction status.
+				//
+				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_WARNING );
+			
+			} // New transaction.
+			
+			//
+			// Update transaction status.
+			//
+			else
+			{
+				//
+				// Get status.
+				//
+				$status = $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS );
+				
+				//
+				// Update status.
+				//
+				if( ($status == kTYPE_STATUS_OK)
+				 || ($status == kTYPE_STATUS_MESSAGE)
+				 || ($status == kTYPE_STATUS_EXECUTING) )
+					$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS,
+												kTYPE_STATUS_WARNING );
+			
+			} // Update transaction status.
+			
+			//
+			// Set log.
+			//
+			$theTransaction->setLog(
+				kTYPE_STATUS_WARNING,							// Status,
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+				$theFieldData[ 'column_name' ],					// Field.
+				NULL,											// Value.
+				'Missing separator tokens in template.',		// Message.
+				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,					// Error type.
+				kTYPE_ERROR_CODE_NO_TOKEN,						// Error code.
+				NULL );											// Error resource.
+		
+		} // Missing tokens.
+
+	} // validateTypedList.
+
+	 
+	/*===================================================================================
+	 *	validateShape																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate shape
+	 *
+	 * This method will validate the provided shape property, by default a shape is
+	 * provided as a string of the form <tt>type</tt>=geometry where the equal
+	 * (<tt>=</tt>) sign separates the shape type from the geometry, the semicolon
+	 * (<tt>;</tt>) separates longitude/latitude pairs, the comma (<tt>,</tt>) separates the
+	 * longitude from the latitude and the colon (<tt>:</tt>) separates the eventual linear
+	 * ring coordinate arrays.
+	 *
+	 * These are the valid shape types:
+	 *
+	 * <ul>
+	 *	<tt>Point</tt>: A point <tt>Point=lon,lat</tt>.
+	 *	<tt>Circle</tt>: A circle <tt>Circle=lon,lat,radius</tt>.
+	 *	<tt>MultiPoint</tt>: A collection of points <tt>MultiPoint=lon,lat;lon,lat...</tt>.
+	 *	<tt>LineString</tt>: A collection of lines <tt>LineString=lon,lat;lon,lat...</tt>,
+	 *		in this case there must be at least two pairs of coordinates.
+	 *	<tt>Polygon</tt>: A polygon <tt>Polygon=lon,lat;lon,lat:lon,lat;lon,lat...</tt>,
+	 *		where the colon (<tt>:</tt>) separates the linear ring coordinate arrays: the
+	 *		first coordinate array represents the exterior ring, the other eventual elements
+	 *		the interior rings or holes.
+	 * </ul>
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Row data.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct shape.
+	 */
+	protected function validateShape( &$theTransaction,
+												&$theRecord,
+												 $theWorksheet,
+												 $theRow,
+												 $theFieldData,
+												 $theFieldNode,
+												 $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		
+		//
+		// Get type.
+		//
+		$items = explode( '=', $theRecord[ $symbol ] );
+		if( count( $items ) == 2 )
+		{
+			//
+			// Save by type.
+			//
+			$type = trim( $items[ 0 ] );
+			
+			//
+			// Handle point.
+			//
+			if( $type == 'Point' )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Check ring.
+					//
+					if( count( $geometry ) == 1 )
+					{
+						//
+						// Check points.
+						//
+						if( count( $geometry[ 0 ] ) == 1 )
+						{
+							//
+							// Check coordinates.
+							//
+							if( count( $geometry[ 0 ][ 0 ] ) == 2 )
+							{
+								//
+								// Set shape.
+								//
+								$theRecord[ $symbol ]
+									= array( kTAG_TYPE => $type,
+											 kTAG_GEOMETRY => $geometry[ 0 ][ 0 ] );
+								
+								return TRUE;										// ==>
+							
+							} // Two coordinates.
+						
+						} // One point.
+					
+					} // One ring.
+				
+				} // Correct geometry.
+			
+			} // Point.
+			
+			//
+			// Handle circle.
+			//
+			elseif( $type == 'Circle' )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Check ring.
+					//
+					if( count( $geometry ) == 1 )
+					{
+						//
+						// Check points.
+						//
+						if( count( $geometry[ 0 ] ) == 1 )
+						{
+							//
+							// Check coordinates.
+							//
+							if( count( $geometry[ 0 ][ 0 ] ) == 3 )
+							{
+								//
+								// Set shape.
+								//
+								$theRecord[ $symbol ]
+									= array( kTAG_TYPE => $type,
+											 kTAG_RADIUS => $geometry[ 0 ][ 0 ][ 2 ],
+											 kTAG_GEOMETRY
+											 	=> array( $geometry[ 0 ][ 0 ][ 0 ],
+											 			  $geometry[ 0 ][ 0 ][ 1 ] ) );
+								
+								return TRUE;										// ==>
+							
+							} // Two coordinates.
+						
+						} // One point.
+					
+					} // One ring.
+				
+				} // Correct geometry.
+			
+			} // Circle.
+			
+			//
+			// Handle multipoint.
+			//
+			elseif( ($type == 'MultiPoint')
+				 || ($type == 'LineString') )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Check ring.
+					//
+					if( count( $geometry ) == 1 )
+					{
+						//
+						// Check points.
+						//
+						if( count( $geometry[ 0 ] ) > 1 )
+						{
+							//
+							// Set shape.
+							//
+							$theRecord[ $symbol ]
+								= array( kTAG_TYPE => $type,
+										 kTAG_GEOMETRY => $geometry[ 0 ] );
+							
+							return TRUE;											// ==>
+						
+						} // One point.
+					
+					} // One ring.
+				
+				} // Correct geometry.
+			
+			} // MultiPoint or LineString.
+			
+			//
+			// Handle polygon.
+			//
+			elseif( $type == 'Polygon' )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Set shape.
+					//
+					$theRecord[ $symbol ]
+						= array( kTAG_TYPE => $type,
+								 kTAG_GEOMETRY => $geometry );
+					
+					return TRUE;													// ==>
+				
+				} // Correct geometry.
+			
+			} // Polygon.
+			
+			//
+			// Unsupported type.
+			//
+			else
+			{
+				//
+				// Create transaction.
+				//
+				if( $theTransaction === NULL )
+					$theTransaction
+						= $this->transaction()
+							->newTransaction(
+								kTYPE_TRANS_TMPL_WORKSHEET_ROW,
+								$theWorksheet,
+								$theRow );
+		
+				//
+				// Set transaction status.
+				//
+				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+			
+				//
+				// Set log.
+				//
+				$theTransaction->setLog(
+					kTYPE_STATUS_ERROR,								// Status,
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+					$theFieldData[ 'column_name' ],					// Field.
+					$theRecord[ $symbol ],							// Value.
+					"Invalid or unsupported shape type [$type].",	// Message.
+					$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+					kTYPE_ERROR_INVALID_VALUE,						// Error type.
+					kTYPE_ERROR_CODE_BAD_SHAPE_TYPE,				// Error code.
+					NULL );											// Error resource.
+			
+			} // Unsupported or invalid type.
+		
+		} // Has type.
+		
+		//
+		// Handle missing type.
+		//
+		else
+		{
+			//
+			// Create transaction.
+			//
+			if( $theTransaction === NULL )
+				$theTransaction
+					= $this->transaction()
+						->newTransaction(
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW,
+							$theWorksheet,
+							$theRow );
+		
+			//
+			// Set transaction status.
+			//
+			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+			
+			//
+			// Set log.
+			//
+			$theTransaction->setLog(
+				kTYPE_STATUS_ERROR,								// Status,
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+				$theFieldData[ 'column_name' ],					// Field.
+				$theRecord[ $symbol ],							// Value.
+				'Missing shape type.',							// Message.
+				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+				kTYPE_ERROR_INVALID_VALUE,						// Error type.
+				kTYPE_ERROR_CODE_NO_SHAPE_TYPE,					// Error code.
+				NULL );											// Error resource.
+		
+		} // Missing type.
+		
+		//
+		// Create transaction.
+		//
+		if( $theTransaction === NULL )
+			$theTransaction
+				= $this->transaction()
+					->newTransaction(
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,
+						$theWorksheet,
+						$theRow );
+	
+		//
+		// Set transaction status.
+		//
+		$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+		
+		//
+		// Set log.
+		//
+		$theTransaction->setLog(
+			kTYPE_STATUS_ERROR,								// Status,
+			$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+			$theFieldData[ 'column_name' ],					// Field.
+			$theRecord[ $symbol ],							// Value.
+			'Invalid geometry for [$type].',				// Message.
+			$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+			kTYPE_ERROR_INVALID_VALUE,						// Error type.
+			kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY,			// Error code.
+			NULL );											// Error resource.
+
+	} // validateShape.
+
+	
+
+/*=======================================================================================
+ *																						*
  *									PROTECTED UTILITIES									*
  *																						*
  *======================================================================================*/
@@ -1869,6 +3353,337 @@ class SessionUpload
 		return $user->offsetGet( kTAG_ID_SEQUENCE )."_$theSuffix";					// ==>
 
 	} // getCollectionName.
+
+	 
+	/*===================================================================================
+	 *	setLanguageString																*
+	 *==================================================================================*/
+
+	/**
+	 * Set a language string entry
+	 *
+	 * This method can be used to add an entry to a language string property, type
+	 * {@link kTYPE_LANGUAGE_STRING}, the method expects the destination container, the
+	 * language code and the string.
+	 *
+	 * @param array				   &$theContainer		Language string container.
+	 * @param string				$theLanguage		Language code.
+	 * @param string				$theString			String.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> added, <tt>FALSE</tt> updated.
+	 */
+	public function setLanguageString( &$theContainer, $theLanguage, $theString )
+	{
+		//
+		// Init container
+		//
+		if( ! is_array( $theContainer ) )
+			$theContainer = Array();
+
+		//
+		// Trim parameters
+		//
+		$theString = trim( $theString );
+		$theLanguage = trim( $theLanguage );
+		
+		//
+		// Skip empty string.
+		//
+		if( strlen( $theString ) )
+		{
+			//
+			// Handle language.
+			//
+			if( strlen( $theLanguage ) )
+			{
+				//
+				// Locate language.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					if( array_key_exists( kTAG_LANGUAGE, $value )
+					 && ($value[ kTAG_LANGUAGE ] == $theLanguage) )
+					{
+						$theContainer[ $key ][ kTAG_TEXT ] = $theString;
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( kTAG_LANGUAGE => $theLanguage,
+										 kTAG_TEXT => $theString );
+				
+				return TRUE;														// ==>
+			
+			} // Has language.
+			
+			//
+			// Handle no language.
+			//
+			else
+			{
+				//
+				// Locate no language.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					if( ! array_key_exists( kTAG_LANGUAGE, $value ) )
+					{
+						$theContainer[ $key ][ kTAG_TEXT ] = $theString;
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( kTAG_TEXT => $theString );
+				
+				return TRUE;														// ==>
+			
+			} // No language.
+		
+		} // Not an empty string.
+
+	} // setLanguageString.
+
+	 
+	/*===================================================================================
+	 *	setLanguageStrings																*
+	 *==================================================================================*/
+
+	/**
+	 * Set a language strings entry
+	 *
+	 * This method can be used to add an entry to a language strings property, type
+	 * {@link kTYPE_LANGUAGE_STRINGS}, the method expects the destination container, the
+	 * language code and the strings.
+	 *
+	 * @param array				   &$theContainer		Language string container.
+	 * @param string				$theLanguage		Language code.
+	 * @param array					$theStrings			Strings.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> added, <tt>FALSE</tt> updated.
+	 */
+	public function setLanguageStrings( &$theContainer, $theLanguage, $theStrings )
+	{
+		//
+		// Init container
+		//
+		if( ! is_array( $theContainer ) )
+			$theContainer = Array();
+
+		//
+		// Trim parameters
+		//
+		$theLanguage = trim( $theLanguage );
+		
+		//
+		// Skip empty strings.
+		//
+		if( count( $theStrings ) )
+		{
+			//
+			// Trim strings.
+			//
+			$strings = Array();
+			foreach( $theStrings as $string )
+			{
+				if( strlen( $tmp = trim( $string ) ) )
+					$strings[] = $tmp;
+			}
+			
+			//
+			// Normalise strings.
+			//
+			$theStrings = array_values( array_unique( $strings ) );
+			
+			//
+			// Handle language.
+			//
+			if( strlen( $theLanguage ) )
+			{
+				//
+				// Locate language.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					//
+					// Match language.
+					//
+					if( array_key_exists( kTAG_LANGUAGE, $value )
+					 && ($value[ kTAG_LANGUAGE ] == $theLanguage) )
+					{
+						//
+						// Iterate strings.
+						//
+						foreach( $theStrings as $string )
+						{
+							if( ! in_array( $string, $theContainer[ $key ][ kTAG_TEXT ] ) )
+								$theContainer[ $key ][ kTAG_TEXT ][]
+									= $string;
+						}
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( kTAG_LANGUAGE => $theLanguage,
+										 kTAG_TEXT => $theStrings );
+				
+				return TRUE;														// ==>
+			
+			} // Has language.
+			
+			//
+			// Handle no language.
+			//
+			else
+			{
+				//
+				// Locate no language.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					//
+					// Match no language.
+					//
+					if( ! array_key_exists( kTAG_LANGUAGE, $value ) )
+					{
+						//
+						// Iterate strings.
+						//
+						foreach( $theStrings as $string )
+						{
+							if( ! in_array( $string, $theContainer[ $key ][ kTAG_TEXT ] ) )
+								$theContainer[ $key ][ kTAG_TEXT ][]
+									= $string;
+						}
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( kTAG_TEXT => $theStrings );
+				
+				return TRUE;														// ==>
+			
+			} // No language.
+		
+		} // Not an empty string.
+
+	} // setLanguageStrings.
+
+	 
+	/*===================================================================================
+	 *	setTypedList																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set a typed list entry
+	 *
+	 * This method can be used to add an entry to a typed list property, type
+	 * {@link kTYPE_TYPED_LIST}, the method expects the destination container, the value
+	 * tag, the language code and the string.
+	 *
+	 * @param array				   &$theContainer		Language string container.
+	 * @param string				$theTag				Value tag.
+	 * @param string				$theType			Language code.
+	 * @param string				$theValue			String.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> added, <tt>FALSE</tt> updated.
+	 */
+	public function setTypedList( &$theContainer, $theTag, $theType, $theValue )
+	{
+		//
+		// Init container
+		//
+		if( ! is_array( $theContainer ) )
+			$theContainer = Array();
+
+		//
+		// Trim parameters
+		//
+		$theValue = trim( $theValue );
+		$theType = trim( $theType );
+		
+		//
+		// Skip empty value.
+		//
+		if( strlen( $theValue ) )
+		{
+			//
+			// Handle type.
+			//
+			if( strlen( $theType ) )
+			{
+				//
+				// Locate type.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					if( array_key_exists( kTAG_TYPE, $value )
+					 && ($value[ kTAG_TYPE ] == $theType) )
+					{
+						$theContainer[ $key ][ $theTag ] = $theValue;
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( kTAG_TYPE => $theType,
+										 $theTag => $theValue );
+				
+				return TRUE;														// ==>
+			
+			} // Has type.
+			
+			//
+			// Handle no type.
+			//
+			else
+			{
+				//
+				// Locate no type.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					if( ! array_key_exists( kTAG_TYPE, $value ) )
+					{
+						$theContainer[ $key ][ $theTag ] = $theValue;
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( $theTag => $theValue );
+				
+				return TRUE;														// ==>
+			
+			} // No type.
+		
+		} // Not an empty value.
+
+	} // setTypedList.
 
 	 
 

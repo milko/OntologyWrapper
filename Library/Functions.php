@@ -793,7 +793,221 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		
 		return $result;																// ==>
 		
-	} // CollectOffsetValues.
+	} // ParseCoordinate.
+
+	 
+	/*===================================================================================
+	 *	ParseGeometry																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse geometry
+	 *
+	 * This function will parse the provided geometry as a list of linear ring coordinate
+	 * arrays.
+	 *
+	 * The colon (<tt>:</tt>) token divides the rings, the semicolon (<tt>;</tt>) token divides
+	 * the points and the comma (<tt>,</tt>) token divides the coordinates.
+	 *
+	 * The method will return an array structured as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>rings</tt>: The array of rings.
+	 *	  <ul>
+	 *		<li><tt>coordinates</tt>: The array of coordinates.
+	 *		  <ul>
+	 *			<li><tt>point</tt>: The longitude/latitude pair.
+	 *		  </ul>
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * If the provided coordinate has one ring and one coordinate, the point may have three
+	 * elements, where the third element represents a circle radius in meters.
+	 *
+	 * In all other cases, if the provided string does not respect this structure, the
+	 * method will return <tt>FALSE</tt>.
+	 *
+	 * @param string				$theCoordinate		Geometry string.
+	 *
+	 * @return array				Parsed geometry or <tt>FALSE</tt> on errors.
+	 */
+	function ParseGeometry( $theCoordinate )
+	{
+		//
+		// Init local storage.
+		//
+		$radius = FALSE;
+		$geometry = Array();
+		
+		//
+		// Collect rings.
+		//
+		$rings = explode( ':', $theCoordinate );
+		foreach( $rings as $ring )
+		{
+			//
+			// Trim ring.
+			//
+			$ring = trim( $ring );
+			if( strlen( $ring ) )
+			{
+				//
+				// Allocate ring.
+				//
+				$index_ring = count( $geometry );
+				$geometry[ $index_ring ] = Array();
+				$ref_ring = & $geometry[ $index_ring ];
+				
+				//
+				// Collect points.
+				//
+				$points = explode( ';', $ring );
+				foreach( $points as $point )
+				{
+					//
+					// Trim point.
+					//
+					$point = trim( $point );
+					if( strlen( $point ) )
+					{
+						//
+						// Allocate point.
+						//
+						$index_point = count( $ref_ring );
+						$ref_ring[ $index_point ] = Array();
+						$ref_point = & $ref_ring[ $index_point ];
+				
+						//
+						// Collect coordinates.
+						//
+						$coordinates = explode( ';', $point );
+						foreach( $coordinates as $coordinate )
+						{
+							//
+							// Trim coordinate.
+							//
+							$coordinate = trim( $coordinate );
+							if( strlen( $coordinate ) )
+							{
+								//
+								// Collect longitude and latitude.
+								//
+								$items = Array();
+								
+								//
+								// Trim items.
+								//
+								foreach( explode( ',', $coordinate ) as $item )
+								{
+									//
+									// Trim element.
+									//
+									$item = trim( $item );
+									if( strlen( $item ) )
+										$items[] = $item;
+								
+								} // Iterating coordinate elements.
+								
+								//
+								// Handle point.
+								//
+								if( count( $items ) == 2 )
+								{
+									//
+									// Check elements.
+									//
+									foreach( $items as $item )
+									{
+										if( ! is_numeric( $item ) )
+											return FALSE;							// ==>
+									}
+									
+									//
+									// Cast elements.
+									//
+									$items[ 0 ] = (double) $items[ 0 ];
+									$items[ 1 ] = (double) $items[ 1 ];
+									
+									//
+									// Set element.
+									//
+									$ref_point = $items;
+								
+								} // Found point.
+								
+								//
+								// Handle circle.
+								//
+								elseif( count( $items ) == 3 )
+								{
+									//
+									// No two circle elements.
+									//
+									if( $radius )
+										return FALSE;								// ==>
+									
+									//
+									// Set flag.
+									//
+									$radius = TRUE;
+									
+									//
+									// Check elements.
+									//
+									foreach( $items as $item )
+									{
+										if( ! is_numeric( $item ) )
+											return FALSE;							// ==>
+									}
+									
+									//
+									// Cast elements.
+									//
+									$items[ 0 ] = (double) $items[ 0 ];
+									$items[ 1 ] = (double) $items[ 1 ];
+									$items[ 2 ] = (int) $items[ 2 ];
+									
+									//
+									// Set element.
+									//
+									$ref_point = $items;
+								
+								} // Found radius.
+								
+								//
+								// Invalid point.
+								//
+								else
+									return FALSE;									// ==>
+							
+							} // Coordinate not empty.
+				
+						} // Iterating coordinates.
+			
+					} // Point not empty.
+				
+				} // Iterating points.
+			
+			} // Ring not empty.
+			
+			//
+			// Check radius.
+			//
+			if( $radius
+			 && (count( $geometry[ $index_ring ] ) > 1) )
+				return FALSE;														// ==>
+		
+		} // Iterating rings.
+		
+		//
+		// Handle empty geometry.
+		//
+		if( ! count( $geometry ) )
+			return FALSE;															// ==>
+		
+		return $geometry;															// ==>
+		
+	} // ParseGeometry.
 
 	 
 	/*===================================================================================

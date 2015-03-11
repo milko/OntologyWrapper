@@ -31,9 +31,12 @@ kTAG_COUNTER_PROGRESS			Progress.
 kTAG_TRANSACTION_COLLECTION		Worksheet for template import.
 kTAG_TRANSACTION_RECORD			Row number for template import.
 kTAG_TRANSACTION_LOG
+	kTAG_TRANSACTION_STATUS		Error, Warning, Notice, Action.
 	kTAG_TRANSACTION_ALIAS		Symbol for validation.
 	kTAG_TRANSACTION_FIELD		Column name for template import.
 	kTAG_TRANSACTION_VALUE		For errors and warnings the value.
+	kTAG_TRANSACTION_MESSAGE	Error message.
 	kTAG_TAG
-	kTAG_TRANSACTION_STATUS		Error, Warning, Notice, Action.
-	kTAG_TRANSACTION_MESSAGE
+	kTAG_ERROR_TYPE				Error type.
+	kTAG_ERROR_CODE				Error code.
+	kTAG_ERROR_RESOURCE			Error resource.

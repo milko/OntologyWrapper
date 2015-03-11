@@ -1073,6 +1073,7 @@ echo( '<hr />' );
 	
 /******************************************************************************/
 
+/*
 //
 // Test execution.
 //
@@ -1081,6 +1082,59 @@ $arg1 = "54f9f277b0a1db8f050041f2";
 $arg2 = "/Library/WebServer/Library/OntologyWrapper/Library/test/CWR_Checklist_Template.test.xlsx";
 exec( "$script '$arg1' '$arg2' > /dev/null &" );
 echo( "Done!<br />" );
+*/
+	
+/******************************************************************************/
 
+//
+// Test parse geometry.
+//
+echo( 'Point' );
+$geometry = '101.1, 45.1';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+echo( 'Circle' );
+$geometry = '101.1, 45.1 , 1570';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+echo( 'Multipoint' );
+$geometry = '101.1, 45.1;102.2 , 46.2; 12.7, 22.8';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+echo( 'LineString' );
+$geometry = '101.1, 45.1;102.2 , 46.2; 12.7, 22.8';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+echo( 'Polygon' );
+$geometry = '12.8199,42.8422;12.8207,42.8158;12.8699,42.8166;12.8678,42.8398;12.8199,42.8422:12.8344,42.8347;12.8348,42.8225;12.857,42.8223;12.8566,42.8332;12.8344,42.8347';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+echo( '<hr>' );
+$geometry = '101.1, 45.1;';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+$geometry = '101.1, 45.1;102.2 , 46.2 : ';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+echo( '<hr>' );
+$geometry = '101.1; 45.1';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+$geometry = '101.1, 45.1 , 1570;101.1, 45.1;102.2 , 46.2';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+$geometry = '101.1, 45.1, 27.7, 32.1';
+var_dump( $geometry );
+var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+echo( '<hr>' );
 
 ?>

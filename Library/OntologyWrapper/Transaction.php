@@ -579,21 +579,23 @@ class Transaction extends SessionObject
 	 * If the object is not committed, the method will raise an exception.
 	 *
 	 * @param string				$theStatus			Transaction status.
-	 * @param string				$theMessage			Transaction message.
 	 * @param string				$theAlias			Transaction alias.
-	 * @param string				$theTag				Transaction tag reference.
-	 * @param mixed					$theValue			Transaction value.
 	 * @param int					$theField			Transaction field.
-	 * @param string				$theError			Error type.
+	 * @param mixed					$theValue			Transaction value.
+	 * @param string				$theMessage			Transaction message.
+	 * @param string				$theTag				Transaction tag reference.
+	 * @param string				$theErrorType		Error type.
+	 * @param int					$theErrorCode		Error code.
+	 * @param string				$theErrorResource	Error resource.
 	 *
 	 * @access public
 	 *
 	 * @see kTAG_TRANSACTION_LOG
 	 */
-	public function setLog( $theStatus, $theMessage = NULL,
-										$theAlias = NULL, $theTag = NULL,
-										$theValue = NULL, $theField = NULL,
-										$theError = NULL )
+	public function setLog( $theStatus, $theAlias = NULL, $theField = NULL,
+										$theValue = NULL, $theMessage = NULL,
+										$theTag = NULL, $theErrorType = NULL,
+										$theErrorCode = NULL, $theErrorResource = NULL )
 	{
 		//
 		// Handle committed object.
@@ -631,18 +633,22 @@ class Transaction extends SessionObject
 				// Load record.
 				//
 				$record[ kTAG_TRANSACTION_STATUS ] = $theStatus;
-				if( $theMessage !== NULL )
-					$record[ kTAG_TRANSACTION_MESSAGE ] = $theMessage;
 				if( $theAlias !== NULL )
 					$record[ kTAG_TRANSACTION_ALIAS ] = $theAlias;
-				if( $theValue !== NULL )
-					$record[ kTAG_TRANSACTION_VALUE ] = $theValue;
 				if( $theField !== NULL )
 					$record[ kTAG_TRANSACTION_FIELD ] = $theField;
-				if( $theError !== NULL )
-					$record[ kTAG_ERROR_TYPE ] = $theError;
+				if( $theValue !== NULL )
+					$record[ kTAG_TRANSACTION_VALUE ] = $theValue;
+				if( $theMessage !== NULL )
+					$record[ kTAG_TRANSACTION_MESSAGE ] = $theMessage;
 				if( $theTag !== NULL )
 					$record[ kTAG_TAG ] = $theTag;
+				if( $theErrorType !== NULL )
+					$record[ kTAG_ERROR_TYPE ] = $theErrorType;
+				if( $theErrorCode !== NULL )
+					$record[ kTAG_ERROR_CODE ] = (int) $theErrorCode;
+				if( $theErrorResource !== NULL )
+					$record[ kTAG_ERROR_RESOURCE ] = (int) $theErrorResource;
 				
 				//
 				// Update persistent object.

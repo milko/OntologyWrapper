@@ -411,13 +411,15 @@ class ExcelTemplateParser
 						// Add to transaction log.
 						//
 						$transaction->setLog(
-							kTYPE_STATUS_FATAL,
-							'Missing required field.',
-							$node->offsetGet( kTAG_ID_SYMBOL ),
-							$node->offsetGet( kTAG_TAG ),
-							NULL,
-							NULL,
-							kTYPE_ERROR_BAD_TMPL_STRUCT );
+							kTYPE_STATUS_FATAL,					// Status,
+							$node->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+							NULL,								// Field.
+							NULL,								// Value.
+							'Missing required column.',			// Message.
+							$node->offsetGet( kTAG_TAG ),		// Tag.
+							kTYPE_ERROR_BAD_TMPL_STRUCT,		// Error type.
+							kTYPE_ERROR_CODE_REQ_COLUMN,		// Error code.
+							NULL );								// Error resource.
 						
 						//
 						// Increment errors count.

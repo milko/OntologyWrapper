@@ -273,8 +273,18 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$transaction->setLog( kTYPE_STATUS_MESSAGE, "Message", "Alias", kTAG_LABEL, "Value", 12 );<br />' );
-	$transaction->setLog( kTYPE_STATUS_MESSAGE, "Message", "Alias", kTAG_LABEL, "Value", 12 );
+				$theTransaction->setLog(
+					kTYPE_STATUS_ERROR,					// Status,
+					$symbol,							// Alias.
+					$field[ 'column_name' ],			// Field.
+					NULL,								// Value.
+					'Missing required field.',			// Message.
+					$tag,								// Tag.
+					kTYPE_ERROR_MISSING_REQUIRED,		// Error type.
+					kTYPE_ERROR_CODE_REQ_FIELD,			// Error code.
+					NULL );								// Error resource.
+	echo( '$transaction->setLog( kTYPE_STATUS_MESSAGE, "Alias", "Field", "Value", "Message", kTAG_LABEL, kTYPE_ERROR_INVALID_VALUE, kTYPE_ERROR_CODE_FILE_UNSUP, "http://www.apple.com" );<br />' );
+	$transaction->setLog( kTYPE_STATUS_MESSAGE, "Alias", "Field", "Value", "Message", kTAG_LABEL, kTYPE_ERROR_INVALID_VALUE, kTYPE_ERROR_CODE_FILE_UNSUP, "http://www.apple.com" );
 	echo( '$data = $transaction[ kTAG_TRANSACTION_LOG ];' );
 	$data = $transaction[ kTAG_TRANSACTION_LOG ];
 	echo( kSTYLE_HEAD_POS );
@@ -286,8 +296,8 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$transaction->setLog( kTYPE_STATUS_WARNING, "Warning", "Alias", kTAG_DEFINITION, "Value", 30 );<br />' );
-	$transaction->setLog( kTYPE_STATUS_WARNING, "Warning", "Alias", kTAG_DEFINITION, "Value", 30 );
+	echo( '$transaction->setLog( kTYPE_STATUS_WARNING, "Alias", NULL, "Value", "Warning", kTAG_DEFINITION );<br />' );
+	$transaction->setLog( kTYPE_STATUS_WARNING, "Alias", NULL, "Value", "Warning", kTAG_DEFINITION );
 	echo( '$data = $transaction[ kTAG_TRANSACTION_LOG ];' );
 	$data = $transaction[ kTAG_TRANSACTION_LOG ];
 	echo( kSTYLE_HEAD_POS );

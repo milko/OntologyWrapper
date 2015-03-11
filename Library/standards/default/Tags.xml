@@ -2909,7 +2909,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a character or string which indicates a separation pattern.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a single character or a list of characters which indicate a separation pattern: the first token separates the array elements, the other tokens are applied to the elements and represent sub-element items.]]></item>
 				</item>
 			</item>
 		</TAG>
