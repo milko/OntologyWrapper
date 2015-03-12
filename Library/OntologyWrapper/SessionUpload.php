@@ -1577,20 +1577,6 @@ class SessionUpload
 			$fields = $this->mParser->getFields()[ $theWorksheet ];
 			
 			//
-			// Create transaction.
-			//
-			if( $theTransaction === NULL )
-				$theTransaction
-					= $this->transaction()
-						->newTransaction(
-							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
-			
-			//
-			// Set transaction status.
-			//
-			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
-			
-			//
 			// Add logs.
 			//
 			foreach( $missing as $symbol )
@@ -1605,18 +1591,23 @@ class SessionUpload
 							->offsetGet( kTAG_TAG );
 				
 				//
-				// Set log.
+				// Create transaction.
 				//
-				$theTransaction->setLog(
-					kTYPE_STATUS_ERROR,					// Status,
-					$symbol,							// Alias.
-					$field[ 'column_name' ],			// Field.
-					NULL,								// Value.
-					'Missing required field.',			// Message.
-					$tag,								// Tag.
-					kTYPE_ERROR_MISSING_REQUIRED,		// Error type.
-					kTYPE_ERROR_CODE_REQ_FIELD,			// Error code.
-					NULL );								// Error resource.
+				$this->failTransactionLog(
+					$theTransaction,						// Transaction.
+					$this->transaction(),					// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,			// Transaction type.
+					kTYPE_STATUS_ERROR,						// Transaction status.
+					'Missing required field.',				// Transaction message.
+					$theWorksheet,							// Worksheet.
+					$theRow,								// Row.
+					$field[ 'column_name' ],				// Column.
+					$symbol,								// Alias.
+					$tag,									// Tag.
+					NULL,									// Value.
+					kTYPE_ERROR_MISSING_REQUIRED,			// Error type.
+					kTYPE_ERROR_CODE_REQ_FIELD,				// Error code.
+					NULL );									// Error resource.
 			}
 			
 			return count( $missing );												// ==>
@@ -1693,89 +1684,103 @@ class SessionUpload
 				case kTYPE_STRING:
 				case kTYPE_TEXT:
 					$this->validateString(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_INT:
 				case kTYPE_YEAR:
 					$this->validateInteger(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_FLOAT:
 					$this->validateFloat(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_BOOLEAN:
 					$this->validateBoolean(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_STRUCT:
 					$this->validateStruct(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_ARRAY:
 					$this->validateArray(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_LANGUAGE_STRING:
 					$this->validateLanguageString(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_LANGUAGE_STRINGS:
 					$this->validateLanguageStrings(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_TYPED_LIST:
 					$this->validateTypedList(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_SHAPE:
 					$this->validateShape(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
-			/*
+			
 				case kTYPE_URL:
 					$this->validateLink(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_DATE:
 					$this->validateDate(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_ENUM:
 					$this->validateEnum(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_SET:
 					$this->validateEnumSet(
-						$theTransaction, $theRecord, $theWorksheet, $theRow,
-						$field_data, $field_node, $field_tag );
+						$theTransaction, $theRecord[ $theSymbol ],
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
-			*/
+			
 			} // Parsing by type.
 		
 		} // Tag field.
@@ -1908,6 +1913,106 @@ class SessionUpload
 
 	 
 	/*===================================================================================
+	 *	failTransactionLog																*
+	 *==================================================================================*/
+
+	/**
+	 * Fail transaction log
+	 *
+	 * This method can be used to set the transaction log in the case of an
+	 * <em>intercepted</em> error, it will set the ending time, the failed status and the
+	 * log entry.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param Transaction			$theParent			Parent transaction.
+	 * @param string				$theType			Transaction type.
+	 * @param string				$theStatus			Transaction status.
+	 * @param string				$theMessage			Message.
+	 * @param string				$theFieldWorksheet	Worksheet name.
+	 * @param int					$theFieldRow		Row number.
+	 * @param string				$theFieldColumn		Column.
+	 * @param string				$theFieldAlias		Symbol.
+	 * @param Tag					$theFieldTag		Field tag.
+	 * @param mixed					$theFieldData		Value.
+	 * @param string				$theErrorType		Error type.
+	 * @param int					$theErrorCode		Error code.
+	 * @param int					$theErrorResource	Error resource.
+	 *
+	 * @access public
+	 * @return boolean				Returns <tt>FALSE</tt>.
+	 *
+	 * @uses session()
+	 */
+	protected function failTransactionLog( &$theTransaction,
+											$theParent,
+											$theType,
+											$theStatus,
+											$theMessage,
+											$theFieldWorksheet,
+											$theFieldRow,
+											$theFieldColumn,
+											$theFieldAlias,
+											$theFieldTag,
+											$theFieldData,
+											$theErrorType,
+											$theErrorCode,
+											$theErrorResource )
+	{
+		//
+		// Init local storage.
+		//
+		$status = array( kTYPE_STATUS_EXECUTING => 0,
+						 kTYPE_STATUS_OK => 1, kTYPE_STATUS_MESSAGE => 2,
+						 kTYPE_STATUS_WARNING => 3, kTYPE_STATUS_ERROR => 4,
+						 kTYPE_STATUS_FATAL => 5, kTYPE_STATUS_EXCEPTION => 6 );
+		
+		//
+		// New transaction.
+		//
+		if( $theTransaction === NULL )
+		{
+			//
+			// Create transaction.
+			//
+			$theTransaction
+				= $theParent
+					->newTransaction( $theType, $theFieldWorksheet, $theFieldRow );
+	
+			//
+			// Set transaction status.
+			//
+			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
+	
+		} // New transaction.
+	
+		//
+		// Update transaction status.
+		//
+		elseif( $status[ $theStatus ]
+				> $status[ $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS ) ] )
+			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
+	
+		//
+		// Set log.
+		//
+		$theTransaction
+			->setLog(
+				$theStatus,				// Status,
+				$theFieldAlias,			// Alias.
+				$theFieldColumn,		// Field.
+				$theFieldData,			// Value.
+				$theMessage,			// Message.
+				$theFieldTag,			// Tag.
+				$theErrorType,			// Error type.
+				$theErrorCode,			// Error code.
+				$theErrorResource );	// Error resource.
+		
+		return FALSE;																// ==>
+
+	} // failTransactionLog.
+
+	 
+	/*===================================================================================
 	 *	exceptionSession																*
 	 *==================================================================================*/
 
@@ -1966,7 +2071,7 @@ class SessionUpload
 	 * value to a string.
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -1974,6 +2079,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateString( &$theTransaction,
 									   &$theRecord,
@@ -1987,11 +2093,50 @@ class SessionUpload
 		// Init local storage.
 		//
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		
 		//
 		// Cast value.
 		//
 		$theRecord[ $symbol ] = (string) $theRecord[ $symbol ];
+		
+		//
+		// Handle list.
+		//
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
+		{
+			//
+			// Init local storage.
+			//
+			$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+			
+			//
+			// Split elements.
+			//
+			$elements = ( strlen( $tokens ) )
+					  ? explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] )
+					  : array( $theRecord[ $symbol ] );
+			
+			//
+			// Compile results.
+			//
+			$theRecord[ $symbol ] = Array();
+			foreach( $elements as $element )
+			{
+				if( strlen( $element = trim( $element ) ) )
+					$theRecord[ $symbol ][] = $element;
+			}
+			
+			//
+			// Remove if empty.
+			//
+			if( ! count( $theRecord[ $symbol ] ) )
+				unset( $theRecord[ $symbol ] );
+		
+		} // List.
+		
+		return TRUE;																// ==>
 
 	} // validateString.
 
@@ -2008,7 +2153,7 @@ class SessionUpload
 	 * transaction; if the value is correct, it will cast it to an integer.
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -2016,6 +2161,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateInteger( &$theTransaction,
 										&$theRecord,
@@ -2028,56 +2174,126 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
+		$error = FALSE;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		
 		//
-		// Cast value.
+		// Handle list.
 		//
-		if( is_numeric( $theRecord[ $symbol ] ) )
-			$theRecord[ $symbol ]
-				= (int) $theRecord[ $symbol ];
-		
-		//
-		// Handle error.
-		//
-		else
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
 		{
 			//
 			// Init local storage.
 			//
-			$tag_id = ( $theFieldTag !== NULL )
-					? $theFieldTag->offsetGet( kTAG_TAG )
-					: NULL;
-			
-			//
-			// Create transaction.
-			//
-			if( $theTransaction === NULL )
-				$theTransaction
-					= $this->transaction()
-						->newTransaction(
-							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
-			
-			//
-			// Set transaction status.
-			//
-			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
-			
-			//
-			// Set log.
-			//
-			$theTransaction->setLog(
-				kTYPE_STATUS_ERROR,								// Status,
-				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-				$theFieldData[ 'column_name' ],					// Field.
-				$theRecord[ $symbol ],							// Value.
-				'Invalid integer number.',						// Message.
-				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-				kTYPE_ERROR_INVALID_VALUE,						// Error type.
-				kTYPE_ERROR_CODE_BAD_NUMBER,					// Error code.
-				NULL );											// Error resource.
+			$result = Array();
+			$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		
-		} // Invalid value.
+			//
+			// Split elements.
+			//
+			$elements = ( strlen( $tokens ) )
+					  ? explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] )
+					  : array( $theRecord[ $symbol ] );
+			
+			//
+			// Compile results.
+			//
+			foreach( $elements as $element )
+			{
+				//
+				// Check value.
+				//
+				$ok = CheckIntegerValue( $element );
+				
+				//
+				// Correct value.
+				//
+				if( $ok )
+					$result[] = $element;
+				
+				//
+				// Invalid value.
+				//
+				elseif( $ok === FALSE )
+				{
+					$error = TRUE;
+					break;													// =>
+				}
+			
+			} // Iterating elements.
+			
+			//
+			// Handle no errors.
+			//
+			if( ! $error )
+			{
+				//
+				// Remove if empty.
+				//
+				if( count( $result ) )
+					$theRecord[ $symbol ] = $result;
+			
+				//
+				// Set value.
+				//
+				else
+					unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			
+			} // No errors.
+		
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Check value.
+			//
+			$ok = CheckIntegerValue( $theRecord[ $symbol ] );
+			
+			//
+			// Remove if empty.
+			//
+			if( $ok === NULL )
+				unset( $theRecord[ $symbol ] );
+			
+			//
+			// Invalid value.
+			//
+			elseif( $ok === FALSE )
+				$error = TRUE;
+		
+		} // Scalar value.
+		
+		//
+		// Handle errors.
+		//
+		if( $error )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_ERROR,							// Transaction status.
+					'Invalid integer number.',					// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$theRecord[ $symbol ],						// Value.
+					kTYPE_ERROR_INVALID_VALUE,					// Error type.
+					kTYPE_ERROR_CODE_BAD_NUMBER,				// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		return TRUE;																// ==>
 
 	} // validateInteger.
 
@@ -2094,7 +2310,7 @@ class SessionUpload
 	 * transaction; if the value is correct, it will cast it to a double.
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -2102,6 +2318,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateFloat( &$theTransaction,
 									  &$theRecord,
@@ -2114,56 +2331,126 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
+		$error = FALSE;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		
 		//
-		// Cast value.
+		// Handle list.
 		//
-		if( is_numeric( $theRecord[ $symbol ] ) )
-			$theRecord[ $symbol ]
-				= (double) $theRecord[ $symbol ];
-		
-		//
-		// Handle error.
-		//
-		else
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
 		{
 			//
 			// Init local storage.
 			//
-			$tag_id = ( $theFieldTag !== NULL )
-					? $theFieldTag->offsetGet( kTAG_TAG )
-					: NULL;
+			$result = Array();
+			$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 			
 			//
-			// Create transaction.
+			// Split elements.
 			//
-			if( $theTransaction === NULL )
-				$theTransaction
-					= $this->transaction()
-						->newTransaction(
-							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
+			$elements = ( strlen( $tokens ) )
+					  ? explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] )
+					  : array( $theRecord[ $symbol ] );
 			
 			//
-			// Set transaction status.
+			// Compile results.
 			//
-			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+			foreach( $elements as $element )
+			{
+				//
+				// Check value.
+				//
+				$ok = CheckFloatValue( $element );
+				
+				//
+				// Correct value.
+				//
+				if( $ok )
+					$result[] = $element;
+				
+				//
+				// Invalid value.
+				//
+				elseif( $ok === FALSE )
+				{
+					$error = TRUE;
+					break;													// =>
+				}
+			
+			} // Iterating elements.
 			
 			//
-			// Set log.
+			// Handle no errors.
 			//
-			$theTransaction->setLog(
-				kTYPE_STATUS_ERROR,								// Status,
-				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-				$theFieldData[ 'column_name' ],					// Field.
-				$theRecord[ $symbol ],							// Value.
-				'Invalid floating point number.',				// Message.
-				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-				kTYPE_ERROR_INVALID_VALUE,						// Error type.
-				kTYPE_ERROR_CODE_BAD_NUMBER,					// Error code.
-				NULL );											// Error resource.
+			if( ! $error )
+			{
+				//
+				// Remove if empty.
+				//
+				if( count( $result ) )
+					$theRecord[ $symbol ] = $result;
+			
+				//
+				// Set value.
+				//
+				else
+					unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			
+			} // No errors.
 		
-		} // Invalid value.
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Check value.
+			//
+			$ok = CheckFloatValue( $theRecord[ $symbol ] );
+			
+			//
+			// Remove if empty.
+			//
+			if( $ok === NULL )
+				unset( $theRecord[ $symbol ] );
+			
+			//
+			// Invalid value.
+			//
+			elseif( $ok === FALSE )
+				$error = TRUE;
+		
+		} // Scalar value.
+		
+		//
+		// Handle errors.
+		//
+		if( $error )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_ERROR,							// Transaction status.
+					'Invalid floating point number.',			// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$theRecord[ $symbol ],						// Value.
+					kTYPE_ERROR_INVALID_VALUE,					// Error type.
+					kTYPE_ERROR_CODE_BAD_NUMBER,				// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		return TRUE;																// ==>
 
 	} // validateFloat.
 
@@ -2175,8 +2462,7 @@ class SessionUpload
 	/**
 	 * Validate boolean
 	 *
-	 * This method will validate the provided boolean property, the value will be simply
-	 * cast to a boolean, following these rules:
+	 * This method will validate the provided boolean property following these rules:
 	 *
 	 * <ul>
 	 *	<li><tt>y</tt>: <tt>TRUE</tt>.
@@ -2187,11 +2473,12 @@ class SessionUpload
 	 *	<li><tt>false</tt>: <tt>FALSE</tt>.
 	 *	<li><tt>1</tt>: <tt>TRUE</tt>.
 	 *	<li><tt>0</tt>: <tt>FALSE</tt>.
-	 *	<li><em>other</em>: The value will be cast to a boolean..
 	 * </ul>
 	 *
+	 * If the value does not match the above values, the methos will issue an error.
+	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -2199,6 +2486,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateBoolean( &$theTransaction,
 										&$theRecord,
@@ -2211,50 +2499,126 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
+		$error = FALSE;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		
 		//
-		// Cast value.
+		// Handle list.
 		//
-		switch( strtolower( $theRecord[ $symbol ] ) )
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
 		{
-			case '1':
-				$theRecord[ $symbol ] = TRUE;
-				break;
-		
-			case 'y':
-				$theRecord[ $symbol ] = TRUE;
-				break;
-		
-			case 'yes':
-				$theRecord[ $symbol ] = TRUE;
-				break;
-		
-			case 'true':
-				$theRecord[ $symbol ] = TRUE;
-				break;
-		
-			case '0':
-				$theRecord[ $symbol ] = FALSE;
-				break;
-		
-			case 'n':
-				$theRecord[ $symbol ] = FALSE;
-				break;
-		
-			case 'no':
-				$theRecord[ $symbol ] = FALSE;
-				break;
-		
-			case 'false':
-				$theRecord[ $symbol ] = FALSE;
-				break;
+			//
+			// Init local storage.
+			//
+			$result = Array();
+			$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 			
-			default:
-				$theRecord[ $symbol ] = (boolean) $theRecord[ $symbol ];
-				break;
+			//
+			// Split elements.
+			//
+			$elements = ( strlen( $tokens ) )
+					  ? explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] )
+					  : array( $theRecord[ $symbol ] );
+			
+			//
+			// Compile results.
+			//
+			foreach( $elements as $element )
+			{
+				//
+				// Check value.
+				//
+				$ok = CheckBooleanValue( $element );
+				
+				//
+				// Correct value.
+				//
+				if( $ok )
+					$result[] = $element;
+				
+				//
+				// Invalid value.
+				//
+				elseif( $ok === FALSE )
+				{
+					$error = TRUE;
+					break;													// =>
+				}
+			
+			} // Iterating elements.
+			
+			//
+			// Handle no errors.
+			//
+			if( ! $error )
+			{
+				//
+				// Remove if empty.
+				//
+				if( count( $result ) )
+					$theRecord[ $symbol ] = $result;
+			
+				//
+				// Set value.
+				//
+				else
+					unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			
+			} // No errors.
 		
-		} // Parsing value.
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Check value.
+			//
+			$ok = CheckBooleanValue( $theRecord[ $symbol ] );
+			
+			//
+			// Remove if empty.
+			//
+			if( $ok === NULL )
+				unset( $theRecord[ $symbol ] );
+			
+			//
+			// Invalid value.
+			//
+			elseif( $ok === FALSE )
+				$error = TRUE;
+		
+		} // Scalar value.
+		
+		//
+		// Handle errors.
+		//
+		if( $error )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_ERROR,							// Transaction status.
+					'Invalid boolean value.',					// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$theRecord[ $symbol ],						// Value.
+					kTYPE_ERROR_INVALID_VALUE,					// Error type.
+					kTYPE_ERROR_CODE_BAD_BOOLEAN,				// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		return TRUE;																// ==>
 
 	} // validateBoolean.
 
@@ -2270,7 +2634,7 @@ class SessionUpload
 	 * exception.
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -2278,6 +2642,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateStruct( &$theTransaction,
 									   &$theRecord,
@@ -2307,14 +2672,26 @@ class SessionUpload
 	 * Validate array
 	 *
 	 * This method will validate the provided array property, it will load the
-	 * {@link kTAG_TOKEN} element of the node in order to separate array elements: the first
-	 * token represents the array elements separator, if there is a second token this will
-	 * be used to separate the element key and value; if there is no {@link kTAG_TOKEN}
-	 * element of the node, the array will have a single element with the contents of the
-	 * field and a warning will be issued.
+	 * {@link kTAG_TOKEN} element of the node in order to separate array elements.
+	 *
+	 * Depending on the number of tokens:
+	 *
+	 * <ul>
+	 *	<li><tt>0</tt>: If there are no tokens, an error will be issued.
+	 *	<li><tt>1</tt>: The token will be used to separate eventual list elements, in which
+	 *		case the array will have a single keyless element.
+	 *	<li><tt>2</tt>: In case of a list property, the first token will be used to split
+	 *		list elements and the second to split array elements; if not a list property,
+	 *		the first token will be used to split array elements and the second to split the
+	 *		element key from the value.
+	 *	<li><tt>3</tt>: In case of a list property, the first token will be used to split
+	 *		list elements, the second to split array elements and the third to split the
+	 *		element key from the value; if not a list property, the last two tokens will be
+	 *		used respectively to split array elements and key/value pairs.
+	 * </ul>
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -2322,6 +2699,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateArray( &$theTransaction,
 									  &$theRecord,
@@ -2334,139 +2712,115 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		
-		//
-		// Handle tokens.
-		//
-		if( $count = strlen( $tokens ) )
-		{
-			//
-			// Separate elements.
-			//
-			$elements = explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] );
-			
-			//
-			// Separate items.
-			//
-			if( $count > 1 )
-			{
-				//
-				// Init local storage.
-				//
-				$theRecord[ $symbol ] = Array();
-				
-				//
-				// Iterate elements.
-				//
-				foreach( $elements as $element )
-				{
-					//
-					// Separate items.
-					//
-					$items = explode( substr( $tokens, 1, 1 ), $element );
-					
-					//
-					// Handle no key.
-					//
-					if( count( $items ) == 1 )
-						$theRecord[ $symbol ][] = $items[ 1 ];
-					
-					//
-					// Handle key.
-					//
-					elseif( count( $items ) == 2 )
-						$theRecord[ $symbol ][ $items[ 0 ] ] = $items[ 1 ];
-					
-					//
-					// Handle mess.
-					//
-					else
-					{
-						$key = $items[ 0 ];
-						array_shift( $items );
-						$value = implode( substr( $tokens, 1, 1 ), $items );
-						$theRecord[ $symbol ][ $key ] = $value;
-					}
-				}
-			
-			} // Has items separaor.
-			
-			//
-			// Array of elements.
-			//
-			else
-				$theRecord[ $symbol ] = $elements;
-		
-		} // Provided separator tokens.
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$count = strlen( $tokens );
 		
 		//
 		// Handle missing tokens.
 		//
+		if( ! $count )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Missing separator tokens in template.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					NULL,										// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		//
+		// Handle too many tokens.
+		//
+		if( $count > 3 )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Too many tokens in template definition.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$tokens,									// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		//
+		// Handle list.
+		//
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
+		{
+			//
+			// Split list.
+			//
+			$tmp = $theRecord[ $symbol ];
+			$ok = ( $count == 1 )
+				? CheckArrayValue( $tmp, $tokens )
+				: CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) );
+			if( ! $ok )
+			{
+				unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			}
+			
+			//
+			// Iterate list.
+			//
+			$theRecord[ $symbol ] = Array();
+			foreach( $tmp as $element )
+			{
+				if( $count == 1 )
+					$theRecord[ $symbol ][] = array( $element );
+				elseif( CheckArrayValue( $element, substr( $tokens, 1 ) ) )
+					$theRecord[ $symbol ][] = $element;
+			}
+			
+			//
+			// Handle empty set.
+			//
+			if( ! count( $theRecord[ $symbol ] ) )
+				unset( $theRecord[ $symbol ] );
+		
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
 		else
 		{
 			//
-			// Cast value.
+			// Normalise tokens.
 			//
-			$theRecord[ $symbol ] = array( $theRecord[ $symbol ] );
+			if( $count == 3 )
+				$tokens = substr( $tokens, 1 );
 			
 			//
-			// New transaction.
+			// Split.
 			//
-			if( $theTransaction === NULL )
-			{
-				//
-				// Create transaction.
-				//
-				$theTransaction
-					= $this->transaction()
-						->newTransaction(
-							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
-			
-				//
-				// Set transaction status.
-				//
-				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_WARNING );
-			
-			} // New transaction.
-			
-			//
-			// Update transaction status.
-			//
-			else
-			{
-				//
-				// Get status.
-				//
-				$status = $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS );
-				
-				//
-				// Update status.
-				//
-				if( ($status == kTYPE_STATUS_OK)
-				 || ($status == kTYPE_STATUS_MESSAGE)
-				 || ($status == kTYPE_STATUS_EXECUTING) )
-					$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS,
-												kTYPE_STATUS_WARNING );
-			
-			} // Update transaction status.
-			
-			//
-			// Set log.
-			//
-			$theTransaction->setLog(
-				kTYPE_STATUS_WARNING,							// Status,
-				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-				$theFieldData[ 'column_name' ],					// Field.
-				NULL,											// Value.
-				'Missing separator tokens in template.',		// Message.
-				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-				kTYPE_ERROR_BAD_TMPL_STRUCT,					// Error type.
-				kTYPE_ERROR_CODE_NO_TOKEN,						// Error code.
-				NULL );											// Error resource.
+			if( ! CheckArrayValue( $theRecord[ $symbol ], $tokens ) )
+				unset( $theRecord[ $symbol ] );
 		
-		} // Missing tokens.
+		} // Scalar.
+		
+		return TRUE;																// ==>
 
 	} // validateArray.
 
@@ -2479,22 +2833,26 @@ class SessionUpload
 	 * Validate language string
 	 *
 	 * This method will validate the provided language string property, it will load the
-	 * {@link kTAG_TOKEN} element of the node in order to separate the elements and the
-	 * language from the string.
+	 * {@link kTAG_TOKEN} element of the node in order to separate elements.
 	 *
-	 * By default there should be two tokens: the first to separate elements and the second
-	 * to separate the language from the string.
+	 * Depending on the number of tokens:
 	 *
-	 * If there is only one token, it is assumed there is no language.
-	 *
-	 * If the tokens are missing, a warning will be issued and the string will be set with
-	 * the property without language.
-	 *
-	 * If there are more than 2 tokens, only the first two will be used and no warning will
-	 * be issued.
+	 * <ul>
+	 *	<li><tt>0</tt>: If there are no tokens, an error will be issued.
+	 *	<li><tt>1</tt>: The token will be used to separate eventual list elements, in which
+	 *		case there will be one string without language.
+	 *	<li><tt>2</tt>: In case of a list property, the first token will be used to split
+	 *		list elements and the second to split strings; if not a list property, the first
+	 *		token will be used to split elements and the second to split the language from
+	 *		the string.
+	 *	<li><tt>3</tt>: In case of a list property, the first token will be used to split
+	 *		list elements, the second to split elements and the third to split the language
+	 *		from the string; if not a list property, the last two tokens will be used
+	 *		respectively to split elements and language/string pairs.
+	 * </ul>
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -2502,6 +2860,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateLanguageString( &$theTransaction,
 											   &$theRecord,
@@ -2514,119 +2873,239 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		
-		//
-		// Handle tokens.
-		//
-		if( $count = strlen( $tokens ) )
-		{
-			//
-			// Separate elements.
-			//
-			$elements = explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] );
-			foreach( $elements as $element )
-			{
-				//
-				// Handle no language.
-				//
-				if( $count == 1 )
-					$this->setLanguageString(
-						$theRecord[ $symbol ], NULL, $element );
-				
-				//
-				// Handle language.
-				//
-				else
-				{
-					$items = explode( substr( $tokens, 1, 1 ), $element );
-					if( count( $items ) == 1 )
-						$this->setLanguageString(
-							$theRecord[ $symbol ], NULL, $items[ 0 ] );
-					elseif( count( $items ) == 2 )
-						$this->setLanguageString(
-							$theRecord[ $symbol ], $items[ 0 ], $items[ 1 ] );
-					else
-					{
-						$lang = $items[ 0 ];
-						array_shift( $items );
-						$text = implode( substr( $tokens, 1, 1 ), $items );
-						$this->setLanguageString(
-							$theRecord[ $symbol ], $lang, $text );
-					}
-				}
-			
-			} // Iterating elements.
-		
-		} // Provided separator tokens.
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$count = strlen( $tokens );
 		
 		//
 		// Handle missing tokens.
 		//
+		if( ! $count )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Missing separator tokens in template.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					NULL,										// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		//
+		// Handle too many tokens.
+		//
+		if( $count > 3 )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Too many tokens in template definition.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$tokens,									// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		//
+		// Handle list.
+		//
+		$tmp = $theRecord[ $symbol ];
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
+		{
+			//
+			// Split list.
+			//
+			$ok = ( $count == 1 )
+				? CheckArrayValue( $tmp, $tokens )
+				: CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) );
+			if( ! $ok )
+			{
+				unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			}
+			
+			//
+			// Iterate list.
+			//
+			$theRecord[ $symbol ] = Array();
+			$value_reference = & $theRecord[ $symbol ];
+			foreach( $tmp as $list )
+			{
+				//
+				// Allocate list element.
+				//
+				$index = count( $value_reference );
+				$value_reference[ $index ] = Array();
+				$list_reference = & $value_reference[ $index ];
+				
+				//
+				// No string separator token.
+				//
+				if( $count == 1 )
+				{
+					//
+					// Allocate string.
+					//
+					$index = count( $list_reference );
+					$list_reference[ $index ] = Array();
+					$string_reference = & $list_reference[ $index ];
+					
+					//
+					// Set string.
+					//
+					$this->setLanguageString( $string_reference, NULL, $list );
+				}
+				
+				//
+				// Has string separator token.
+				//
+				else
+				{
+					//
+					// Split strings.
+					//
+					if( CheckArrayValue( $list, substr( $tokens, 1, 1 ) ) )
+					{
+						//
+						// Iterate strings.
+						//
+						foreach( $list as $element )
+						{
+							//
+							// Allocate string.
+							//
+							$index = count( $list_reference );
+							$list_reference[ $index ] = Array();
+							$string_reference = & $list_reference[ $index ];
+					
+							//
+							// Has not language separator token.
+							//
+							if( $count == 2 )
+								$this->setLanguageString(
+									$string_reference, NULL, $element );
+							
+							//
+							// Has language separator token.
+							//
+							elseif( CheckArrayValue( $element, substr( $tokens, 2, 1 ) ) )
+							{
+								//
+								// No language.
+								//
+								if( count( $element ) == 1 )
+									$this->setLanguageString(
+										$string_reference, NULL, $element[ 0 ] );
+								
+								//
+								// Has language.
+								//
+								if( count( $element ) == 2 )
+									$this->setLanguageString(
+										$string_reference, $element[ 0 ], $element[ 1 ] );
+								
+								//
+								// Is a mess.
+								//
+								else
+								{
+									$lang = $element[ 0 ];
+									array_shift( $element );
+									$text = implode( substr( $tokens, 2, 1 ), $element );
+									$this->setLanguageString(
+										$string_reference, $lang, $text );
+								
+								} // String is split.
+							
+							} //Has language separator token.
+						
+						} // Iterating strings.
+					
+					} // Split srings.
+				
+				} // Has string separator token.
+			
+			} // Iterating list elements.
+		
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
 		else
 		{
 			//
-			// Cast value.
+			// Normalise tokens.
 			//
-			$theRecord[ $symbol ] = array( kTAG_TEXT => $theRecord[ $symbol ] );
+			if( $count == 3 )
+				$tokens = substr( $tokens, 1 );
 			
 			//
-			// New transaction.
+			// Split strings.
 			//
-			if( $theTransaction === NULL )
+			if( ! CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) ) )
+				unset( $theRecord[ $symbol ] );
+			
+			//
+			// Iterate strings.
+			//
+			$theRecord[ $symbol ] = Array();
+			foreach( $tmp as $element )
 			{
 				//
-				// Create transaction.
+				// No language.
 				//
-				$theTransaction
-					= $this->transaction()
-						->newTransaction(
-							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
-			
-				//
-				// Set transaction status.
-				//
-				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_WARNING );
-			
-			} // New transaction.
-			
-			//
-			// Update transaction status.
-			//
-			else
-			{
-				//
-				// Get status.
-				//
-				$status = $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS );
+				if( count( $element ) == 1 )
+					$this->setLanguageString(
+						$theRecord[ $symbol ], NULL, $element[ 0 ] );
 				
 				//
-				// Update status.
+				// Has language.
 				//
-				if( ($status == kTYPE_STATUS_OK)
-				 || ($status == kTYPE_STATUS_MESSAGE)
-				 || ($status == kTYPE_STATUS_EXECUTING) )
-					$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS,
-												kTYPE_STATUS_WARNING );
+				if( count( $element ) == 2 )
+					$this->setLanguageString(
+						$theRecord[ $symbol ], $element[ 0 ], $element[ 1 ] );
+				
+				//
+				// String is split.
+				//
+				else
+				{
+					$lang = $element[ 0 ];
+					array_shift( $element );
+					$text = implode( substr( $tokens, 2, 1 ), $element );
+					$this->setLanguageString( $theRecord[ $symbol ], $lang, $text );
+				}
 			
-			} // Update transaction status.
-			
-			//
-			// Set log.
-			//
-			$theTransaction->setLog(
-				kTYPE_STATUS_WARNING,							// Status,
-				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-				$theFieldData[ 'column_name' ],					// Field.
-				NULL,											// Value.
-				'Missing separator tokens in template.',		// Message.
-				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-				kTYPE_ERROR_BAD_TMPL_STRUCT,					// Error type.
-				kTYPE_ERROR_CODE_NO_TOKEN,						// Error code.
-				NULL );											// Error resource.
+			} // Iterating strings.
 		
-		} // Missing tokens.
+		} // Scalar.
+		
+		//
+		// Handle empty set.
+		//
+		if( ! count( $theRecord[ $symbol ] ) )
+			unset( $theRecord[ $symbol ] );
+		
+		return TRUE;																// ==>
 
 	} // validateLanguageString.
 
@@ -2636,26 +3115,34 @@ class SessionUpload
 	 *==================================================================================*/
 
 	/**
-	 * Validate language string
+	 * Validate language strings
 	 *
-	 * This method will validate the provided language string property, it will load the
-	 * {@link kTAG_TOKEN} element of the node in order to separate the elements, the
-	 * language and the strings.
+	 * This method will validate the provided language strings property, it will load the
+	 * {@link kTAG_TOKEN} element of the node in order to separate elements.
 	 *
-	 * By default there should be three tokens: the first to separate elements, the second
-	 * to separate the language and the third to separate the strings.
+	 * Depending on the number of tokens:
 	 *
-	 * If the third token is missing it is assumed there is only one string; if the second
-	 * token is missing, it is assumed that there is one string without language.
-	 *
-	 * If the tokens are missing, a warning will be issued and the string will be set with
-	 * the property without language.
-	 *
-	 * If there are more than 3 tokens, only the first three will be used and no warning
-	 * will be issued.
+	 * <ul>
+	 *	<li><tt>0</tt>: If there are no tokens, an error will be issued.
+	 *	<li><tt>1</tt>: The token will be used to separate eventual list elements, in which
+	 *		case there will be one string without language.
+	 *	<li><tt>2</tt>: In case of a list property, the first token will be used to split
+	 *		list elements and the second to split strings; if not a list property, the first
+	 *		token will be used to split elements and the second to split the language from
+	 *		the string.
+	 *	<li><tt>3</tt>: In case of a list property, the first token will be used to split
+	 *		list elements, the second to split elements and the third to split the language
+	 *		from the strings; if not a list property, the first token will be used to split
+	 *		string blocks, the second to split the language and the third to split the list
+	 *		of strings.
+	 *	<li><tt>4</tt>: In case of a list property, the first token will be used to split
+	 *		list elements, the second to split string blocks, the third to split the
+	 *		language and the fourth to split the list of strings; if not a list property,
+	 *		the last three tokens will be used.
+	 * </ul>
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -2663,6 +3150,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateLanguageStrings( &$theTransaction,
 												&$theRecord,
@@ -2675,154 +3163,298 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		
-		//
-		// Handle tokens.
-		//
-		if( $count = strlen( $tokens ) )
-		{
-			//
-			// Separate elements.
-			//
-			$elements = explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] );
-			foreach( $elements as $element )
-			{
-				//
-				// Handle one token.
-				//
-				if( $count == 1 )
-					$this->setLanguageStrings(
-						$theRecord[ $symbol ], NULL, $array( $element ) );
-				
-				//
-				// Handle two tokens.
-				//
-				elseif( $count == 2 )
-				{
-					//
-					// Get language.
-					//
-					$items = explode( substr( $tokens, 1, 1 ), $element );
-					if( count( $items ) == 1 )
-						$this->setLanguageStrings(
-							$theRecord[ $symbol ], NULL, $items );
-					elseif( count( $items ) == 2 )
-						$this->setLanguageStrings(
-							$theRecord[ $symbol ], $items[ 0 ], $array( $items[ 1 ] ) );
-					else
-					{
-						$lang = $items[ 0 ];
-						array_shift( $items );
-						$text = implode( substr( $tokens, 1, 1 ), $items );
-						$this->setLanguageString(
-							$theRecord[ $symbol ], $lang, array( $text ) );
-					}
-				}
-				
-				//
-				// Handle at least three.
-				//
-				else
-				{
-					//
-					// Get language.
-					//
-					$items = explode( substr( $tokens, 1, 1 ), $element );
-					if( count( $items ) == 1 )
-					{
-						$lang = NULL;
-						$text = explode( substr( $tokens, 2, 1 ), $items[ 0 ] );
-						$this->setLanguageStrings( $theRecord[ $symbol ], $lang, $text );
-					}
-					elseif( count( $items ) == 2 )
-					{
-						$lang = $items[ 0 ];
-						$text = explode( substr( $tokens, 2, 1 ), $items[ 1 ] );
-						$this->setLanguageStrings( $theRecord[ $symbol ], $lang, $text );
-					}
-					else
-					{
-						$lang = $items[ 0 ];
-						array_shift( $items );
-						$text = implode( substr( $tokens, 1, 1 ), $items );
-						$text = explode( substr( $tokens, 2, 1 ), $text );
-						$this->setLanguageString(
-							$theRecord[ $symbol ], $lang, $text );
-					}
-				}
-			
-			} // Iterating elements.
-		
-		} // Provided separator tokens.
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$count = strlen( $tokens );
 		
 		//
 		// Handle missing tokens.
 		//
+		if( ! $count )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Missing separator tokens in template.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					NULL,										// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		//
+		// Handle too many tokens.
+		//
+		if( $count > 4 )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Too many tokens in template definition.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$tokens,									// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		//
+		// Handle list.
+		//
+		$tmp = $theRecord[ $symbol ];
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
+		{
+			//
+			// Split list.
+			//
+			$ok = ( $count == 1 )
+				? CheckArrayValue( $tmp, $tokens )
+				: CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) );
+			if( ! $ok )
+			{
+				unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			}
+			
+			//
+			// Iterate list.
+			//
+			$theRecord[ $symbol ] = Array();
+			$value_reference = & $theRecord[ $symbol ];
+			foreach( $tmp as $list )
+			{
+				//
+				// Allocate list element.
+				//
+				$index = count( $value_reference );
+				$value_reference[ $index ] = Array();
+				$list_reference = & $value_reference[ $index ];
+				
+				//
+				// No string separator token.
+				//
+				if( $count == 1 )
+				{
+					//
+					// Allocate string.
+					//
+					$index = count( $list_reference );
+					$list_reference[ $index ] = Array();
+					$string_reference = & $list_reference[ $index ];
+					
+					//
+					// Set string.
+					//
+					$this->setLanguageString( $string_reference, NULL, array( $list ) );
+				}
+				
+				//
+				// Has string separator token.
+				//
+				else
+				{
+					//
+					// Split strings.
+					//
+					if( CheckArrayValue( $list, substr( $tokens, 1, 1 ) ) )
+					{
+						//
+						// Iterate strings.
+						//
+						foreach( $list as $element )
+						{
+							//
+							// Allocate string.
+							//
+							$index = count( $list_reference );
+							$list_reference[ $index ] = Array();
+							$string_reference = & $list_reference[ $index ];
+					
+							//
+							// Has not language separator token.
+							//
+							if( $count == 2 )
+								$this->setLanguageString(
+									$string_reference, NULL, array( $element ) );
+							
+							//
+							// Has language separator token.
+							//
+							elseif( CheckArrayValue( $element, substr( $tokens, 2, 1 ) ) )
+							{
+								//
+								// No language.
+								//
+								if( count( $element ) == 1 )
+									$this->setLanguageString(
+										$string_reference, NULL, array( $element[ 0 ] ) );
+								
+								//
+								// Has language.
+								//
+								else
+								{
+									//
+									// Is a mess.
+									//
+									if( count( $element ) > 2 )
+									{
+										$lang = $element[ 0 ];
+										array_shift( $element );
+										$text = implode( substr( $tokens, 2, 1 ),
+														 $element );
+										$element = array( $lang, $text );
+									
+									} // String is split.
+									
+									//
+									// Has no strings list separator.
+									//
+									if( $count == 3 )
+										$this->setLanguageString(
+											$string_reference,
+											$element[ 0 ],
+											array( $element[ 1 ] ) );
+									
+									//
+									// Has strings list separator.
+									//
+									else
+									{
+										//
+										// Split strings.
+										//
+										if( CheckArrayValue( $element[ 1 ],
+															 substr( $tokens, 3, 1 ) ) )
+											$this->setLanguageString(
+												$string_reference,
+												$element[ 0 ],
+												$element[ 1 ] );
+									
+									} // Has strings list separator.
+								
+								} // Has language.
+							
+							} //Has language separator token.
+						
+						} // Iterating strings.
+					
+					} // Split srings.
+				
+				} // Has string separator token.
+			
+			} // Iterating list elements.
+		
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
 		else
 		{
 			//
-			// Cast value.
+			// Normalise tokens.
 			//
-			$theRecord[ $symbol ] = array( kTAG_TEXT => $theRecord[ $symbol ] );
+			if( $count == 4 )
+				$tokens = substr( $tokens, 1 );
 			
 			//
-			// New transaction.
+			// Split strings.
 			//
-			if( $theTransaction === NULL )
+			if( ! CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) ) )
+				unset( $theRecord[ $symbol ] );
+			
+			//
+			// Iterate strings.
+			//
+			$theRecord[ $symbol ] = Array();
+			foreach( $tmp as $element )
 			{
 				//
-				// Create transaction.
+				// No language separator.
 				//
-				$theTransaction
-					= $this->transaction()
-						->newTransaction(
-							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
-			
-				//
-				// Set transaction status.
-				//
-				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_WARNING );
-			
-			} // New transaction.
-			
-			//
-			// Update transaction status.
-			//
-			else
-			{
-				//
-				// Get status.
-				//
-				$status = $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS );
+				if( count( $tokens ) == 1 )
+					$this->setLanguageString(
+						$theRecord[ $symbol ], NULL, array( $element ) );
 				
 				//
-				// Update status.
+				// Has language separator.
 				//
-				if( ($status == kTYPE_STATUS_OK)
-				 || ($status == kTYPE_STATUS_MESSAGE)
-				 || ($status == kTYPE_STATUS_EXECUTING) )
-					$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS,
-												kTYPE_STATUS_WARNING );
+				elseif( count( $tokens ) == 2 )
+				{
+					//
+					// Split language.
+					//
+					if( CheckArrayValue( $element, substr( $tokens, 1, 1 ) ) )
+					{
+						//
+						// Is a mess.
+						//
+						if( count( $element ) > 2 )
+						{
+							$lang = $element[ 0 ];
+							array_shift( $element );
+							$text = implode( substr( $tokens, 2, 1 ), $element );
+							$element = array( $lang, $text );
+						
+						} // String is split.
+						
+						//
+						// Has no strings list separator.
+						//
+						if( $count == 2 )
+							$this->setLanguageString(
+								$theRecord[ $symbol ],
+								$element[ 0 ],
+								array( $element[ 1 ] ) );
+						
+						//
+						// Has strings list separator.
+						//
+						else
+						{
+							//
+							// Split strings.
+							//
+							if( CheckArrayValue( $element[ 1 ], substr( $tokens, 2, 1 ) ) )
+								$this->setLanguageString(
+									$theRecord[ $symbol ],
+									$element[ 0 ],
+									$element[ 1 ] );
+						
+						} // Has strings list separator.
+					
+					} // Has data.
+				
+				} // Has language separator.
 			
-			} // Update transaction status.
-			
-			//
-			// Set log.
-			//
-			$theTransaction->setLog(
-				kTYPE_STATUS_WARNING,							// Status,
-				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-				$theFieldData[ 'column_name' ],					// Field.
-				NULL,											// Value.
-				'Missing separator tokens in template.',		// Message.
-				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-				kTYPE_ERROR_BAD_TMPL_STRUCT,					// Error type.
-				kTYPE_ERROR_CODE_NO_TOKEN,						// Error code.
-				NULL );											// Error resource.
+			} // Iterating strings.
 		
-		} // Missing tokens.
+		} // Scalar.
+		
+		//
+		// Handle empty set.
+		//
+		if( ! count( $theRecord[ $symbol ] ) )
+			unset( $theRecord[ $symbol ] );
+		
+		return TRUE;																// ==>
 
 	} // validateLanguageStrings.
 
@@ -2838,21 +3470,24 @@ class SessionUpload
 	 * {@link kTAG_TOKEN} element of the node in order to separate the elements and the
 	 * type from the value.
 	 *
-	 * By default there should be two tokens: the first to separate elements, the second
-	 * to separate the type from the value.
+	 * Depending on the number of tokens:
 	 *
-	 * If there is only one token, the {@link kTAG_TYPE} is omitted.
-	 *
-	 * If the tokens are missing, a warning will be issued and the string will be set with
-	 * the property without language.
-	 *
-	 * The value token is by default {@link kTAG_TEXT}.
-	 *
-	 * If there are more than 2 tokens, only the first two will be used and no warning will
-	 * be issued.
+	 * <ul>
+	 *	<li><tt>0</tt>: If there are no tokens, an error will be issued.
+	 *	<li><tt>1</tt>: The token will be used to separate eventual list elements, in which
+	 *		case the typed list will have a single typeless element.
+	 *	<li><tt>2</tt>: In case of a list property, the first token will be used to split
+	 *		list elements and the second to split typed list elements; if not a list
+	 *		property, the first token will be used to split typed list elements and the
+	 *		second to split the type from the value.
+	 *	<li><tt>3</tt>: In case of a list property, the first token will be used to split
+	 *		list elements, the second to split typed list elements and the third to split
+	 *		the type from the value; if not a list property, the last two tokens will be
+	 *		used respectively to split typed list elements and type/value pairs.
+	 * </ul>
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -2860,6 +3495,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateTypedList( &$theTransaction,
 										  &$theRecord,
@@ -2872,119 +3508,255 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		
-		//
-		// Handle tokens.
-		//
-		if( $count = strlen( $tokens ) )
-		{
-			//
-			// Separate elements.
-			//
-			$elements = explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] );
-			foreach( $elements as $element )
-			{
-				//
-				// Handle no type.
-				//
-				if( $count == 1 )
-					$this->setTypedList(
-						$theRecord[ $symbol ], kTAG_TEXT, NULL, $element );
-				
-				//
-				// Handle type.
-				//
-				else
-				{
-					$items = explode( substr( $tokens, 1, 1 ), $element );
-					if( count( $items ) == 1 )
-						$this->setTypedList(
-							$theRecord[ $symbol ], kTAG_TEXT, NULL, $items[ 0 ] );
-					elseif( count( $items ) == 2 )
-						$this->setTypedList(
-							$theRecord[ $symbol ], kTAG_TEXT, $items[ 0 ], $items[ 1 ] );
-					else
-					{
-						$lang = $items[ 0 ];
-						array_shift( $items );
-						$text = implode( substr( $tokens, 1, 1 ), $items );
-						$this->setTypedList(
-							$theRecord[ $symbol ], kTAG_TEXT, $lang, $text );
-					}
-				}
-			
-			} // Iterating elements.
-		
-		} // Provided separator tokens.
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$count = strlen( $tokens );
 		
 		//
 		// Handle missing tokens.
 		//
+		if( ! $count )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Missing separator tokens in template.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					NULL,										// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		//
+		// Handle too many tokens.
+		//
+		if( $count > 3 )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Too many tokens in template definition.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$tokens,									// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		//
+		// Handle list.
+		//
+		$tmp = $theRecord[ $symbol ];
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
+		{
+			//
+			// Split list.
+			//
+			$ok = ( $count == 1 )
+				? CheckArrayValue( $tmp, $tokens )
+				: CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) );
+			if( ! $ok )
+			{
+				unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			}
+			
+			//
+			// Iterate list.
+			//
+			$theRecord[ $symbol ] = Array();
+			$value_reference = & $theRecord[ $symbol ];
+			foreach( $tmp as $list )
+			{
+				//
+				// Allocate list element.
+				//
+				$index = count( $value_reference );
+				$value_reference[ $index ] = Array();
+				$list_reference = & $value_reference[ $index ];
+				
+				//
+				// No string separator token.
+				//
+				if( $count == 1 )
+				{
+					//
+					// Allocate string.
+					//
+					$index = count( $list_reference );
+					$list_reference[ $index ] = Array();
+					$string_reference = & $list_reference[ $index ];
+					
+					//
+					// Set string.
+					//
+					$this->setTypedList( $string_reference, kTAG_TEXT, NULL, $list );
+				}
+				
+				//
+				// Has string separator token.
+				//
+				else
+				{
+					//
+					// Split strings.
+					//
+					if( CheckArrayValue( $list, substr( $tokens, 1, 1 ) ) )
+					{
+						//
+						// Iterate strings.
+						//
+						foreach( $list as $element )
+						{
+							//
+							// Allocate string.
+							//
+							$index = count( $list_reference );
+							$list_reference[ $index ] = Array();
+							$string_reference = & $list_reference[ $index ];
+					
+							//
+							// Has not language separator token.
+							//
+							if( $count == 2 )
+								$this->setTypedList(
+									$string_reference, kTAG_TEXT, NULL, $element );
+							
+							//
+							// Has language separator token.
+							//
+							elseif( CheckArrayValue( $element, substr( $tokens, 2, 1 ) ) )
+							{
+								//
+								// No language.
+								//
+								if( count( $element ) == 1 )
+									$this->setTypedList(
+										$string_reference, kTAG_TEXT, NULL, $element[ 0 ] );
+								
+								//
+								// Has language.
+								//
+								if( count( $element ) == 2 )
+									$this->setTypedList(
+										$string_reference,
+										kTAG_TEXT,
+										$element[ 0 ],
+										$element[ 1 ] );
+								
+								//
+								// Is a mess.
+								//
+								else
+								{
+									$type = $element[ 0 ];
+									array_shift( $element );
+									$value = implode( substr( $tokens, 2, 1 ), $element );
+									$this->setTypedList(
+										$string_reference,
+										kTAG_TEXT,
+										$type,
+										$value );
+								
+								} // String is split.
+							
+							} //Has language separator token.
+						
+						} // Iterating strings.
+					
+					} // Split srings.
+				
+				} // Has string separator token.
+			
+			} // Iterating list elements.
+		
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
 		else
 		{
 			//
-			// Cast value.
+			// Normalise tokens.
 			//
-			$theRecord[ $symbol ] = array( kTAG_TEXT => $theRecord[ $symbol ] );
+			if( $count == 3 )
+				$tokens = substr( $tokens, 1 );
 			
 			//
-			// New transaction.
+			// Split strings.
 			//
-			if( $theTransaction === NULL )
+			if( ! CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) ) )
+				unset( $theRecord[ $symbol ] );
+			
+			//
+			// Iterate strings.
+			//
+			$theRecord[ $symbol ] = Array();
+			foreach( $tmp as $element )
 			{
 				//
-				// Create transaction.
+				// No language.
 				//
-				$theTransaction
-					= $this->transaction()
-						->newTransaction(
-							kTYPE_TRANS_TMPL_WORKSHEET_ROW, $theWorksheet, $theRow );
-			
-				//
-				// Set transaction status.
-				//
-				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_WARNING );
-			
-			} // New transaction.
-			
-			//
-			// Update transaction status.
-			//
-			else
-			{
-				//
-				// Get status.
-				//
-				$status = $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS );
+				if( count( $element ) == 1 )
+					$this->setTypedList(
+						$theRecord[ $symbol ],
+						kTAG_TEXT,
+						NULL,
+						$element[ 0 ] );
 				
 				//
-				// Update status.
+				// Has language.
 				//
-				if( ($status == kTYPE_STATUS_OK)
-				 || ($status == kTYPE_STATUS_MESSAGE)
-				 || ($status == kTYPE_STATUS_EXECUTING) )
-					$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS,
-												kTYPE_STATUS_WARNING );
+				if( count( $element ) == 2 )
+					$this->setTypedList(
+						$theRecord[ $symbol ],
+						kTAG_TEXT,
+						$element[ 0 ],
+						$element[ 1 ] );
+				
+				//
+				// Value is split.
+				//
+				else
+				{
+					$type = $element[ 0 ];
+					array_shift( $element );
+					$value = implode( substr( $tokens, 2, 1 ), $element );
+					$this->setTypedList(
+						$theRecord[ $symbol ],
+						kTAG_TEXT,
+						$type,
+						$value );
+				}
 			
-			} // Update transaction status.
-			
-			//
-			// Set log.
-			//
-			$theTransaction->setLog(
-				kTYPE_STATUS_WARNING,							// Status,
-				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-				$theFieldData[ 'column_name' ],					// Field.
-				NULL,											// Value.
-				'Missing separator tokens in template.',		// Message.
-				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-				kTYPE_ERROR_BAD_TMPL_STRUCT,					// Error type.
-				kTYPE_ERROR_CODE_NO_TOKEN,						// Error code.
-				NULL );											// Error resource.
+			} // Iterating strings.
 		
-		} // Missing tokens.
+		} // Scalar.
+		
+		//
+		// Handle empty set.
+		//
+		if( ! count( $theRecord[ $symbol ] ) )
+			unset( $theRecord[ $symbol ] );
+		
+		return TRUE;																// ==>
 
 	} // validateTypedList.
 
@@ -3018,7 +3790,7 @@ class SessionUpload
 	 * </ul>
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Row data.
+	 * @param array				   &$theRecord			Data record.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param int					$theRow				Row number.
 	 * @param array					$theFieldData		Field data.
@@ -3026,295 +3798,804 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct shape.
+	 * @return boolean				<tt>TRUE</tt> correct value.
 	 */
 	protected function validateShape( &$theTransaction,
-												&$theRecord,
-												 $theWorksheet,
-												 $theRow,
-												 $theFieldData,
-												 $theFieldNode,
-												 $theFieldTag )
+									  &$theRecord,
+									   $theWorksheet,
+									   $theRow,
+									   $theFieldData,
+									   $theFieldNode,
+									   $theFieldTag )
 	{
 		//
 		// Init local storage.
 		//
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		
 		//
-		// Get type.
+		// Handle list.
 		//
-		$items = explode( '=', $theRecord[ $symbol ] );
-		if( count( $items ) == 2 )
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
 		{
 			//
-			// Save by type.
+			// Init local storage.
 			//
-			$type = trim( $items[ 0 ] );
+			$result = Array();
+			$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 			
 			//
-			// Handle point.
+			// Split elements.
 			//
-			if( $type == 'Point' )
+			$elements = ( strlen( $tokens ) )
+					  ? explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] )
+					  : array( $theRecord[ $symbol ] );
+			
+			//
+			// Compile results.
+			//
+			foreach( $elements as $element )
 			{
 				//
-				// Parse geometry.
+				// Check value.
 				//
-				$geometry = ParseGeometry( $items[ 1 ] );
-				if( $geometry !== FALSE )
+				$ok = CheckShapeValue( $element );
+				
+				//
+				// Correct value.
+				//
+				if( $ok === TRUE )
+					$result[] = $element;
+				
+				//
+				// Invalid value.
+				//
+				elseif( $ok !== NULL )
 				{
-					//
-					// Check ring.
-					//
-					if( count( $geometry ) == 1 )
+					switch( $ok )
 					{
-						//
-						// Check points.
-						//
-						if( count( $geometry[ 0 ] ) == 1 )
-						{
-							//
-							// Check coordinates.
-							//
-							if( count( $geometry[ 0 ][ 0 ] ) == 2 )
-							{
-								//
-								// Set shape.
-								//
-								$theRecord[ $symbol ]
-									= array( kTAG_TYPE => $type,
-											 kTAG_GEOMETRY => $geometry[ 0 ][ 0 ] );
-								
-								return TRUE;										// ==>
-							
-							} // Two coordinates.
+						case kTYPE_ERROR_CODE_NO_SHAPE_TYPE:
+							$message = 'Missing shape type.';
+							$error_type = kTYPE_ERROR_INVALID_VALUE;
+							break;
 						
-						} // One point.
-					
-					} // One ring.
-				
-				} // Correct geometry.
-			
-			} // Point.
-			
-			//
-			// Handle circle.
-			//
-			elseif( $type == 'Circle' )
-			{
-				//
-				// Parse geometry.
-				//
-				$geometry = ParseGeometry( $items[ 1 ] );
-				if( $geometry !== FALSE )
-				{
-					//
-					// Check ring.
-					//
-					if( count( $geometry ) == 1 )
-					{
-						//
-						// Check points.
-						//
-						if( count( $geometry[ 0 ] ) == 1 )
-						{
-							//
-							// Check coordinates.
-							//
-							if( count( $geometry[ 0 ][ 0 ] ) == 3 )
-							{
-								//
-								// Set shape.
-								//
-								$theRecord[ $symbol ]
-									= array( kTAG_TYPE => $type,
-											 kTAG_RADIUS => $geometry[ 0 ][ 0 ][ 2 ],
-											 kTAG_GEOMETRY
-											 	=> array( $geometry[ 0 ][ 0 ][ 0 ],
-											 			  $geometry[ 0 ][ 0 ][ 1 ] ) );
-								
-								return TRUE;										// ==>
-							
-							} // Two coordinates.
+						case kTYPE_ERROR_CODE_BAD_SHAPE_TYPE:
+							$message = 'Invalid or unsupported shape type.';
+							$error_type = kTYPE_ERROR_INVALID_VALUE;
+							break;
 						
-						} // One point.
+						case kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY:
+							$message = 'Invalid shape geometry.';
+							$error_type = kTYPE_ERROR_INVALID_VALUE;
+							break;
+					}
 					
-					} // One ring.
+					return
+						$this->failTransactionLog(
+							$theTransaction,							// Transaction.
+							$this->transaction(),						// Parent.
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+							kTYPE_STATUS_ERROR,							// Status.
+							$message,									// Message.
+							$theWorksheet,								// Worksheet.
+							$theRow,									// Row.
+							$theFieldData[ 'column_name' ],				// Column.
+							$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+							$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+							$theRecord[ $symbol ],						// Value.
+							$error_type,								// Error type.
+							$ok,										// Error code.
+							NULL										// Error resource.
+						);															// ==>
 				
-				} // Correct geometry.
+				} // Error.
 			
-			} // Circle.
-			
-			//
-			// Handle multipoint.
-			//
-			elseif( ($type == 'MultiPoint')
-				 || ($type == 'LineString') )
-			{
-				//
-				// Parse geometry.
-				//
-				$geometry = ParseGeometry( $items[ 1 ] );
-				if( $geometry !== FALSE )
-				{
-					//
-					// Check ring.
-					//
-					if( count( $geometry ) == 1 )
-					{
-						//
-						// Check points.
-						//
-						if( count( $geometry[ 0 ] ) > 1 )
-						{
-							//
-							// Set shape.
-							//
-							$theRecord[ $symbol ]
-								= array( kTAG_TYPE => $type,
-										 kTAG_GEOMETRY => $geometry[ 0 ] );
-							
-							return TRUE;											// ==>
-						
-						} // One point.
-					
-					} // One ring.
-				
-				} // Correct geometry.
-			
-			} // MultiPoint or LineString.
+			} // Iterating elements.
 			
 			//
-			// Handle polygon.
+			// Remove if empty.
 			//
-			elseif( $type == 'Polygon' )
-			{
-				//
-				// Parse geometry.
-				//
-				$geometry = ParseGeometry( $items[ 1 ] );
-				if( $geometry !== FALSE )
-				{
-					//
-					// Set shape.
-					//
-					$theRecord[ $symbol ]
-						= array( kTAG_TYPE => $type,
-								 kTAG_GEOMETRY => $geometry );
-					
-					return TRUE;													// ==>
-				
-				} // Correct geometry.
-			
-			} // Polygon.
-			
+			if( count( $result ) )
+				$theRecord[ $symbol ] = $result;
+		
 			//
-			// Unsupported type.
+			// Set value.
 			//
 			else
-			{
-				//
-				// Create transaction.
-				//
-				if( $theTransaction === NULL )
-					$theTransaction
-						= $this->transaction()
-							->newTransaction(
-								kTYPE_TRANS_TMPL_WORKSHEET_ROW,
-								$theWorksheet,
-								$theRow );
-		
-				//
-				// Set transaction status.
-				//
-				$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+				unset( $theRecord[ $symbol ] );
 			
-				//
-				// Set log.
-				//
-				$theTransaction->setLog(
-					kTYPE_STATUS_ERROR,								// Status,
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-					$theFieldData[ 'column_name' ],					// Field.
-					$theRecord[ $symbol ],							// Value.
-					"Invalid or unsupported shape type [$type].",	// Message.
-					$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-					kTYPE_ERROR_INVALID_VALUE,						// Error type.
-					kTYPE_ERROR_CODE_BAD_SHAPE_TYPE,				// Error code.
-					NULL );											// Error resource.
-			
-			} // Unsupported or invalid type.
+			return TRUE;															// ==>
 		
-		} // Has type.
+		} // List.
 		
 		//
-		// Handle missing type.
+		// Check value.
+		//
+		$ok = CheckShapeValue( $theRecord[ $symbol ] );
+		
+		//
+		// Empty value.
+		//
+		elseif( $ok === NULL )
+			unset( $theRecord[ $symbol ] );
+		
+		//
+		// Invalid value.
+		//
+		elseif( $ok !== TRUE )
+		{
+			switch( $ok )
+			{
+				case kTYPE_ERROR_CODE_NO_SHAPE_TYPE:
+					$message = 'Missing shape type.';
+					$error_type = kTYPE_ERROR_INVALID_VALUE;
+					break;
+				
+				case kTYPE_ERROR_CODE_BAD_SHAPE_TYPE:
+					$message = 'Invalid or unsupported shape type.';
+					$error_type = kTYPE_ERROR_INVALID_VALUE;
+					break;
+				
+				case kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY:
+					$message = 'Invalid shape geometry.';
+					$error_type = kTYPE_ERROR_INVALID_VALUE;
+					break;
+			}
+			
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+					kTYPE_STATUS_ERROR,							// Status.
+					$message,									// Message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$theRecord[ $symbol ],						// Value.
+					$error_type,								// Error type.
+					$ok,										// Error code.
+					NULL										// Error resource.
+				);																	// ==>
+		
+		} // Error.
+		
+		return TRUE;																// ==>
+
+	} // validateShape.
+
+	 
+	/*===================================================================================
+	 *	validateLink																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate link
+	 *
+	 * This method will validate the provided URL property, it will load the link headers to
+	 * check if the URL is active, if that is not the case, the method will issue a
+	 * warning.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Data record.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
+	 */
+	protected function validateLink( &$theTransaction,
+									 &$theRecord,
+									  $theWorksheet,
+									  $theRow,
+									  $theFieldData,
+									  $theFieldNode,
+									  $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$error = FALSE;
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		
+		//
+		// Handle list.
+		//
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
+		{
+			//
+			// Init local storage.
+			//
+			$result = Array();
+			$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		
+			//
+			// Handle missing tokens.
+			//
+			if( ! count( $tokens ) )
+				return
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_WARNING,						// Transaction status.
+						'Missing separator tokens in template.',	// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						NULL,										// Value.
+						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+						kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+						NULL										// Error resource.
+					);																// ==>
+		
+			//
+			// Handle too many tokens.
+			//
+			if( $count > 1 )
+				return
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_WARNING,						// Transaction status.
+						'Too many tokens in template definition.',	// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$tokens,									// Value.
+						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+						kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+						NULL										// Error resource.
+					);																// ==>
+		
+			//
+			// Split elements.
+			//
+			$elements = ( strlen( $tokens ) )
+					  ? explode( $tokens, $theRecord[ $symbol ] )
+					  : array( $theRecord[ $symbol ] );
+			
+			//
+			// Compile results.
+			//
+			foreach( $elements as $element )
+			{
+				//
+				// Trim value.
+				//
+				$element = trim( $element );
+				if( strlen( $element ) )
+				{
+					//
+					// Check link.
+					//
+					if( @get_headers( $element ) === FALSE )
+					{
+						$error = TRUE;
+						break;												// =>
+					}
+		
+					//
+					// Add value.
+					//
+					$result[] = $element;
+				
+				} // Not empty.
+		
+			} // Iterating elements.
+			
+			//
+			// Handle no errors.
+			//
+			if( ! $error )
+			{
+				//
+				// Remove if empty.
+				//
+				if( count( $result ) )
+					$theRecord[ $symbol ] = $result;
+			
+				//
+				// Set value.
+				//
+				else
+					unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			
+			} // No errors.
+		
+		} // List.
+		
+		//
+		// Handle scalar.
 		//
 		else
 		{
 			//
-			// Create transaction.
+			// Trim value.
 			//
-			if( $theTransaction === NULL )
-				$theTransaction
-					= $this->transaction()
-						->newTransaction(
-							kTYPE_TRANS_TMPL_WORKSHEET_ROW,
-							$theWorksheet,
-							$theRow );
-		
-			//
-			// Set transaction status.
-			//
-			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+			$theRecord[ $symbol ] = trim( $theRecord[ $symbol ] );
+			if( strlen( $theRecord[ $symbol ] ) )
+			{
+				//
+				// Check link.
+				//
+				if( @get_headers( $theRecord[ $symbol ] ) === FALSE )
+					$error = TRUE;
+			
+			} // Not empty.
 			
 			//
-			// Set log.
+			// Remove if empty.
 			//
-			$theTransaction->setLog(
-				kTYPE_STATUS_ERROR,								// Status,
-				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-				$theFieldData[ 'column_name' ],					// Field.
-				$theRecord[ $symbol ],							// Value.
-				'Missing shape type.',							// Message.
-				$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-				kTYPE_ERROR_INVALID_VALUE,						// Error type.
-				kTYPE_ERROR_CODE_NO_SHAPE_TYPE,					// Error code.
-				NULL );											// Error resource.
+			else
+				unset( $theRecord[ $symbol ] );
 		
-		} // Missing type.
+		} // Scalar value.
 		
 		//
-		// Create transaction.
+		// Handle errors.
 		//
-		if( $theTransaction === NULL )
-			$theTransaction
-				= $this->transaction()
-					->newTransaction(
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,
-						$theWorksheet,
-						$theRow );
+		if( $error )
+			return
+				$this->failTransactionLog(
+					$theTransaction,								// Transaction.
+					$this->transaction(),							// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,					// Transaction type.
+					kTYPE_STATUS_WARNING,							// Transaction status.
+					'Invalid or inactive link.',					// Transaction message.
+					$theWorksheet,									// Worksheet.
+					$theRow,										// Row.
+					$theFieldData[ 'column_name' ],					// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+					$theRecord[ $symbol ],							// Value.
+					kTYPE_ERROR_INVALID_VALUE,						// Error type.
+					kTYPE_ERROR_CODE_BAD_LINK,						// Error code.
+					NULL											// Error resource.
+				);																	// ==>
+		
+		return TRUE;																// ==>
+
+	} // validateLink.
+
+	 
+	/*===================================================================================
+	 *	validateDate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate date
+	 *
+	 * This method will validate the provided date property, it will attempt to interpret
+	 * the date if it was not provided in the expected manner and issue an error if the
+	 * date is not valid.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Data record.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
+	 */
+	protected function validateDate( &$theTransaction,
+									 &$theRecord,
+									  $theWorksheet,
+									  $theRow,
+									  $theFieldData,
+									  $theFieldNode,
+									  $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$theFieldData = $theFieldData[ $symbol ];
+		
+		//
+		// Cast date.
+		//
+		$date = $theRecord[ $symbol ] = (string) $theRecord[ $symbol ];
+		
+		//
+		// Handle non-standard format.
+		//
+		if( ! ctype_digit( $theRecord[ $symbol ] ) )
+		{
+			//
+			// Check - separator.
+			//
+			if( strpos( '-', $date ) === FALSE )
+			{
+				//
+				// Check / separator.
+				//
+				if( strpos( '/', $date ) === FALSE )
+				{
+					//
+					// Check space separator.
+					//
+					if( strpos( ' ', $date ) === FALSE )
+						return
+							$this->failTransactionLog(
+								$theTransaction,							// Transaction.
+								$this->transaction(),						// Parent.
+								kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+								kTYPE_STATUS_ERROR,							// Status.
+								'Invalid date format.',						// Message.
+								$theWorksheet,								// Worksheet.
+								$theRow,									// Row.
+								$theFieldData[ 'column_name' ],				// Column.
+								$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+								$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+								$theRecord[ $symbol ],						// Value.
+								kTYPE_ERROR_INVALID_VALUE,					// Error type.
+								kTYPE_ERROR_CODE_BAD_DATE_FORMAT,			// Error code.
+								NULL										// Error res.
+							);														// ==>
+					
+					else
+						$items = explode( ' ', $date );
+				
+				} // No slash separator.
+				
+				else
+					$items = explode( '/', $date );
+			
+			} // No dash separator.
+			
+			else
+				$items = explode( '-', $date );
+			
+			//
+			// Normalise elements.
+			//
+			$elements = Array();
+			foreach( $items as $item )
+			{
+				if( strlen( $item = trim( $item ) ) )
+					$elements[] = $item;
+			}
+			
+			//
+			// Check format.
+			//
+			if( (! count( $elements ))										// No elements,
+			 || (count( $elements ) != 3)									// or not ok,
+			 || ( (strlen( $elements[ 0 ] ) != 4)							// or no start y
+			   && (strlen( $elements[ count( $elements ) - 1 ] ) != 4) ) )	// and no end y.
+				return
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+						kTYPE_STATUS_ERROR,							// Status.
+						'Invalid date format.',						// Message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$theRecord[ $symbol ],						// Value.
+						kTYPE_ERROR_INVALID_VALUE,					// Error type.
+						kTYPE_ERROR_CODE_BAD_DATE_FORMAT,			// Error code.
+						NULL										// Error res.
+					);																// ==>
+			
+			//
+			// Init date.
+			//
+			$date = '';
+			
+			//
+			// Check YYYYMMDD.
+			//
+			if( strlen( $elements[ 0 ] ) == 4 )
+			{
+				foreach( $elements as $element )
+					$date .= $element;
+			}
+			
+			//
+			// Check DDMMYYYY.
+			//
+			else
+			{
+				for( $i = count( $elements ) - 1; $i >= 0; $i-- )
+					$date .= $elements[ $i ];
+			}
+		
+		} // Non-standard format.
+		
+		//
+		// Check date content.
+		//
+		if( ! ctype_digit( $date ) )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+					kTYPE_STATUS_ERROR,							// Status.
+					'Invalid date contents.',					// Message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$theRecord[ $symbol ],						// Value.
+					kTYPE_ERROR_INVALID_VALUE,					// Error type.
+					kTYPE_ERROR_CODE_BAD_DATE_FORMAT,			// Error code.
+					NULL										// Error res.
+				);																	// ==>
+		
+		//
+		// Check full date.
+		//
+		if( strlen( $date ) == 8 )
+		{
+			$y = (int) substr( $date, 0, 4 );
+			$m = (int) substr( $date, 4, 2 );
+			$d = (int) substr( $date, 6, 2 );
+		}
 	
 		//
-		// Set transaction status.
+		// Month.
 		//
-		$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_ERROR );
+		elseif( strlen( $date ) == 6 )
+		{
+			$y = (int) substr( $date, 0, 4 );
+			$m = (int) substr( $date, 4, 2 );
+			$d = 1;
+		}
+	
+		//
+		// Year.
+		//
+		elseif( strlen( $date ) == 4 )
+		{
+			$y = (int) substr( $date, 0, 4 );
+			$m = 1;
+			$d = 1;
+		}
 		
 		//
-		// Set log.
+		// Bad format.
 		//
-		$theTransaction->setLog(
-			kTYPE_STATUS_ERROR,								// Status,
-			$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-			$theFieldData[ 'column_name' ],					// Field.
-			$theRecord[ $symbol ],							// Value.
-			'Invalid geometry for [$type].',				// Message.
-			$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-			kTYPE_ERROR_INVALID_VALUE,						// Error type.
-			kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY,			// Error code.
-			NULL );											// Error resource.
+		else
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+					kTYPE_STATUS_ERROR,							// Status.
+					'Invalid date structure.',					// Message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$theRecord[ $symbol ],						// Value.
+					kTYPE_ERROR_INVALID_VALUE,					// Error type.
+					kTYPE_ERROR_CODE_BAD_DATE_FORMAT,			// Error code.
+					NULL										// Error res.
+				);																	// ==>
+		
+		//
+		// Check date.
+		//
+		if( ! checkdate( $m, $d, $y ) )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+					kTYPE_STATUS_ERROR,							// Status.
+					'Invalid date value.',						// Message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$theRecord[ $symbol ],						// Value.
+					kTYPE_ERROR_INVALID_VALUE,					// Error type.
+					kTYPE_ERROR_CODE_BAD_DATE,					// Error code.
+					NULL										// Error res.
+				);																	// ==>
+		
+		//
+		// Check year.
+		//
+		if( ($y < 1900)
+		 || ($y > (int) date( "Y" )) )
+			return
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+					kTYPE_STATUS_WARNING,						// Status.
+					'Double check if year is correct.',			// Message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$theRecord[ $symbol ],						// Value.
+					kTYPE_ERROR_DUBIOUS_VALUE,					// Error type.
+					kTYPE_ERROR_CODE_DUBIOUS_YEAR,				// Error code.
+					NULL										// Error res.
+				);																	// ==>
+		
+		//
+		// Set date.
+		//
+		$theRecord[ $symbol ] = $date;
+		
+		return TRUE;																// ==>
 
-	} // validateShape.
+	} // validateDate.
+
+	 
+	/*===================================================================================
+	 *	validateEnum																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate enumeration
+	 *
+	 * This method will validate the provided enumerated property, it will attempt to
+	 * match the provided value with the {@link kTAG_PREFIX} and {@link kTAG_SUFFIX} node
+	 * elements in the terms collection; if there is not a match, the method will issue an
+	 * error.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Data record.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
+	 */
+	protected function validateEnum( &$theTransaction,
+									 &$theRecord,
+									  $theWorksheet,
+									  $theRow,
+									  $theFieldData,
+									  $theFieldNode,
+									  $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$combinations = Array();
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$theFieldData = $theFieldData[ $symbol ];
+		$prefix = $theFieldNode->offsetGet( kTAG_PREFIX );
+		$suffix = $theFieldNode->offsetGet( kTAG_SUFFIX );
+		$collection
+			= Term::ResolveCollection(
+				Term::ResolveDatabase( $this->wrapper(), TRUE ),
+				TRUE );
+		
+		//
+		// Cast enumeration.
+		//
+		$theRecord[ $symbol ] = (string) $theRecord[ $symbol ];
+		
+		//
+		// Handle no prefix or suffix.
+		//
+		if( ($prefix === NULL)
+		 && ($suffix === NULL) )
+			$combinations[] = $theRecord[ $symbol ];
+		
+		//
+		// Handle prefix.
+		//
+		elseif( is_array( $prefix ) )
+		{
+			//
+			// Iterate prefixes.
+			//
+			foreach( $prefix as $pre )
+			{
+				//
+				// Handle suffixes.
+				//
+				if( is_array( $suffix ) )
+				{
+					//
+					// Iterate suffixes.
+					//
+					foreach( $suffix as $suf )
+						$combinations[] = $pre.$theRecord[ $symbol ].$suf;
+				
+				} // Has suffix.
+				
+				//
+				// Handle no suffix.
+				//
+				else
+					$combinations[] = $pre.$theRecord[ $symbol ];
+			
+			} // Iterating prefixes.
+		
+		} // Has prefix.
+		
+		//
+		// Handle suffix.
+		//
+		else
+		{
+			//
+			// Iterate suffixes.
+			//
+			foreach( $suffix as $suf )
+				$combinations[] = $theRecord[ $symbol ].$suf;
+		
+		} // Has suffix.
+		
+		//
+		// Check combinations.
+		//
+		foreach( $combinations as $combination )
+		{
+			//
+			// Check terms.
+			//
+			if( $collection->matchOne( array( kTAG_NID => $combination ), kQUERY_COUNT ) )
+			{
+				//
+				// Set value.
+				//
+				$theRecord[ $symbol ] = $combination;
+				
+				return TRUE;														// ==>
+			}
+		
+		} // Iterating combinations.
+		
+		return
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+				kTYPE_STATUS_ERROR,							// Status.
+				'Invalid code.',							// Message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				$theRecord[ $symbol ],						// Value.
+				kTYPE_ERROR_INVALID_CODE,					// Error type.
+				kTYPE_ERROR_CODE_INVALID_ENUM,				// Error code.
+				NULL										// Error res.
+			);																		// ==>
+
+	} // validateEnum.
 
 	
 

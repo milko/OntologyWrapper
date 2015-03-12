@@ -1065,6 +1065,20 @@ define( "kTYPE_ERROR_MISSING_REQUIRED",			'Missing required' );
  */
 define( "kTYPE_ERROR_INVALID_VALUE",			'Invalid value' );
 
+/**
+ * Unmatched code.
+ *
+ * The code is invalid.
+ */
+define( "kTYPE_ERROR_INVALID_CODE",				'Invalid code' );
+
+/**
+ * Dubious value.
+ *
+ * The value may be incorrect.
+ */
+define( "kTYPE_ERROR_DUBIOUS_VALUE",			'Dubious value' );
+
 /*=======================================================================================
  *	ERROR CODES																			*
  *======================================================================================*/
@@ -1074,7 +1088,14 @@ define( "kTYPE_ERROR_INVALID_VALUE",			'Invalid value' );
  *
  * Missing separator tokens in template definition.
  */
-define( "kTYPE_ERROR_CODE_NO_TOKEN",			 1 );
+define( "kTYPE_ERROR_CODE_NO_TOKEN",			  1 );
+
+/**
+ * Too many tokens.
+ *
+ * Invalid number of tokens in template definition.
+ */
+define( "kTYPE_ERROR_CODE_BAD_TOKENS",			  2 );
 
 /**
  * Invalid file.
@@ -1147,25 +1168,67 @@ define( "kTYPE_ERROR_CODE_BUG_WRKSHEET_NODE",	 -9 );
 define( "kTYPE_ERROR_CODE_BAD_NUMBER",			-10 );
 
 /**
+ * Invalid boolean.
+ *
+ * The value is not a boolean.
+ */
+define( "kTYPE_ERROR_CODE_BAD_BOOLEAN",			-11 );
+
+/**
  * Missing shape type.
  *
  * The shape is missing its type.
  */
-define( "kTYPE_ERROR_CODE_NO_SHAPE_TYPE",		-11 );
+define( "kTYPE_ERROR_CODE_NO_SHAPE_TYPE",		-12 );
 
 /**
  * Bad shape type.
  *
  * The shape type is invalid or unsupported.
  */
-define( "kTYPE_ERROR_CODE_BAD_SHAPE_TYPE",		-12 );
+define( "kTYPE_ERROR_CODE_BAD_SHAPE_TYPE",		-13 );
 
 /**
  * Bad shape geometry.
  *
  * The shape geometry is invalid or unsupported.
  */
-define( "kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY",	-13 );
+define( "kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY",	-14 );
+
+/**
+ * Bad link.
+ *
+ * The link is invalid or not active.
+ */
+define( "kTYPE_ERROR_CODE_BAD_LINK",			-15 );
+
+/**
+ * Bad date format.
+ *
+ * Invalid date format.
+ */
+define( "kTYPE_ERROR_CODE_BAD_DATE_FORMAT",		-16 );
+
+/**
+ * Bad date.
+ *
+ * Invalid date.
+ */
+define( "kTYPE_ERROR_CODE_BAD_DATE",			-17 );
+
+/**
+ * Dubious year.
+ *
+ * The year may be incorrect.
+ */
+define( "kTYPE_ERROR_CODE_DUBIOUS_YEAR",		-18 );
+
+/**
+ * Invalid enumeration.
+ *
+ * Enumeration not found.
+ */
+define( "kTYPE_ERROR_CODE_INVALID_ENUM",		-19 );
 
 
 ?>

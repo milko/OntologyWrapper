@@ -11,6 +11,16 @@ require_once( 'includes.inc.php' );
 require_once( 'local.inc.php' );
 
 //
+// Tags.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
+
+//
+// Types.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
+
+//
 // Functions.
 //
 require_once( kPATH_LIBRARY_ROOT."/Functions.php" );
@@ -1086,6 +1096,7 @@ echo( "Done!<br />" );
 	
 /******************************************************************************/
 
+/*
 //
 // Test parse geometry.
 //
@@ -1099,7 +1110,7 @@ $geometry = '101.1, 45.1 , 1570';
 var_dump( $geometry );
 var_dump( ParseGeometry( $geometry ) );
 echo( '<hr>' );
-echo( 'Multipoint' );
+echo( 'MultiPoint' );
 $geometry = '101.1, 45.1;102.2 , 46.2; 12.7, 22.8';
 var_dump( $geometry );
 var_dump( ParseGeometry( $geometry ) );
@@ -1134,6 +1145,69 @@ var_dump( ParseGeometry( $geometry ) );
 $geometry = '101.1, 45.1, 27.7, 32.1';
 var_dump( $geometry );
 var_dump( ParseGeometry( $geometry ) );
+echo( '<hr>' );
+echo( '<hr>' );
+	
+/******************************************************************************/
+
+//
+// Test check geometry.
+//
+echo( 'Point' );
+$geometry = 'Point=101.1, 45.1';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
+echo( '<hr>' );
+echo( 'Circle' );
+$geometry = 'Circle=101.1, 45.1 , 1570';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
+echo( '<hr>' );
+echo( 'MultiPoint' );
+$geometry = 'MultiPoint=101.1, 45.1;102.2 , 46.2; 12.7, 22.8';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
+echo( '<hr>' );
+echo( 'LineString' );
+$geometry = 'LineString=101.1, 45.1;102.2 , 46.2; 12.7, 22.8';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
+echo( '<hr>' );
+echo( 'Polygon' );
+$geometry = 'Polygon=12.8199,42.8422;12.8207,42.8158;12.8699,42.8166;12.8678,42.8398;12.8199,42.8422:12.8344,42.8347;12.8348,42.8225;12.857,42.8223;12.8566,42.8332;12.8344,42.8347';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
+echo( '<hr>' );
+echo( '<hr>' );
+$geometry = 'Point=101.1, 45.1;';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
+echo( '<hr>' );
+$geometry = 'MultiPoint=101.1, 45.1;102.2 , 46.2 : ';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
+echo( '<hr>' );
+echo( '<hr>' );
+$geometry = 'Point=101.1; 45.1';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
+echo( '<hr>' );
+$geometry = 'MultiPoint=101.1, 45.1 , 1570;101.1, 45.1;102.2 , 46.2';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
+$geometry = 'MultiPoint=101.1, 45.1, 27.7, 32.1';
+var_dump( $geometry );
+var_dump( CheckShapeValue( $geometry ) );
+var_dump( $geometry );
 echo( '<hr>' );
 echo( '<hr>' );
 

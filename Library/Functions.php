@@ -1042,5 +1042,740 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		
 	} // SetAsCDATA.
 
+	 
+	/*===================================================================================
+	 *	CheckIntegerValue																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate integer value
+	 *
+	 * This function will ensure that the provided value can be cast to an integer, it will
+	 * return the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>TRUE</tt>: The value can be cast to an integer.
+	 *	<li><tt>FALSE</tt>: The value cannot be cast to an integer.
+	 *	<li><tt>NULL</tt>: The value is empty.
+	 * </ul>
+	 *
+	 * The value will be converted to a string and trimmed, if it is empty, the method will
+	 * return <tt>NULL</tt> without modifying the provided value.
+	 *
+	 * If the value is numeric, the method will cast the provided value to an integer and
+	 * return <tt>TRUE</tt>.
+	 *
+	 * If the value is not numeric, the method will return <tt>FALSE</tt> without modifying
+	 * the provided value.
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 *
+	 * @return mixed				<tt>TRUE</tt> correct value.
+	 */
+	function CheckIntegerValue( &$theValue )
+	{
+		//
+		// Check integer.
+		//
+		if( is_int( $theValue ) )
+			return TRUE;															// ==>
+		
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $theValue ) )
+			return NULL;															// ==>
+		
+		//
+		// Check if numeric.
+		//
+		if( ! is_numeric( $value ) )
+			return FALSE;															// ==>
+		
+		//
+		// Cast value.
+		//
+		$theValue = (int) $value;
+		
+		return TRUE;																// ==>
+
+	} // CheckIntegerValue.
+
+	 
+	/*===================================================================================
+	 *	CheckFloatValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate float value
+	 *
+	 * This function will ensure that the provided value can be cast to an double, it will
+	 * return the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>TRUE</tt>: The value can be cast to an double.
+	 *	<li><tt>FALSE</tt>: The value cannot be cast to an double.
+	 *	<li><tt>NULL</tt>: The value is empty.
+	 * </ul>
+	 *
+	 * The value will be converted to a string and trimmed, if it is empty, the method will
+	 * return <tt>NULL</tt> without modifying the provided value.
+	 *
+	 * If the value is numeric, the method will cast the provided value to a double and
+	 * return <tt>TRUE</tt>.
+	 *
+	 * If the value is not numeric, the method will return <tt>FALSE</tt> without modifying
+	 * the provided value.
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 *
+	 * @return mixed				<tt>TRUE</tt> correct value.
+	 */
+	function CheckFloatValue( &$theValue )
+	{
+		//
+		// Check double.
+		//
+		if( is_float( $theValue )
+		 || is_double( $theValue ) )
+			return TRUE;															// ==>
+		
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $theValue ) )
+			return NULL;															// ==>
+		
+		//
+		// Check if numeric.
+		//
+		if( ! is_numeric( $value ) )
+			return FALSE;															// ==>
+		
+		//
+		// Cast value.
+		//
+		$theValue = (double) $value;
+		
+		return TRUE;																// ==>
+
+	} // CheckFloatValue.
+
+	 
+	/*===================================================================================
+	 *	CheckBooleanValue																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate boolean value
+	 *
+	 * This function will ensure that the provided value can be interpreted as a boolean, it
+	 * will return the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>TRUE</tt>: The value can be considered a boolean.
+	 *	<li><tt>FALSE</tt>: The value cannot be considered a boolean.
+	 *	<li><tt>NULL</tt>: The value is empty.
+	 * </ul>
+	 *
+	 * The value will be converted to a string and trimmed, if it is empty, the method will
+	 * return <tt>NULL</tt> without modifying the provided value.
+	 *
+	 * The value will be checked for the following types:
+	 *
+	 * <ul>
+	 *	<li><tt>y</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>n</tt>: <tt>FALSE</tt>.
+	 *	<li><tt>yes</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>no</tt>: <tt>FALSE</tt>.
+	 *	<li><tt>true</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>false</tt>: <tt>FALSE</tt>.
+	 *	<li><tt>1</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>0</tt>: <tt>FALSE</tt>.
+	 * </ul>
+	 *
+	 * If the value is not among the above choices, the method will return <tt>FALSE</tt>
+	 * without modifying the provided value.
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 *
+	 * @return mixed				<tt>TRUE</tt> correct value.
+	 */
+	function CheckBooleanValue( &$theValue )
+	{
+		//
+		// Check boolean.
+		//
+		if( is_bool( $theValue ) )
+			return TRUE;															// ==>
+		
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $value ) )
+			return NULL;															// ==>
+		
+		//
+		// Cast value.
+		//
+		switch( strtolower( $value ) )
+		{
+			case '1':
+			case 'y':
+			case 'yes':
+			case 'true':
+				$theValue = TRUE;
+				return TRUE;														// ==>
+		
+			case '0':
+			case 'n':
+			case 'no':
+			case 'false':
+				$theValue = FALSE;
+				return TRUE;														// ==>
+			
+			default:
+				return FALSE;														// ==>
+		
+		} // Parsing value.
+
+	} // CheckBooleanValue.
+
+	 
+	/*===================================================================================
+	 *	CheckArrayValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate array value
+	 *
+	 * This function will convert the provided string to a {@link kTYPE_ARRAY} type value.
+	 *
+	 * Such values are key/value pairs, in order to split elements, the function expects a
+	 * parameter that represents the the separator tokens: the first token will separate
+	 * elements, the second token will separate the key from the value.
+	 *
+	 * If no token is provided, the function will return <tt>FALSE</tt> with the value
+	 * untouched.
+	 *
+	 * This function will return the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>TRUE</tt>: The value was split into an array.
+	 *	<li><tt>FALSE</tt>: Missing tokens, value untouched.
+	 *	<li><tt>NULL</tt>: The value is empty, value untouched.
+	 * </ul>
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 * @param string				$theTokens			Tokens.
+	 *
+	 * @return mixed				<tt>TRUE</tt> split values.
+	 */
+	function CheckArrayValue( &$theValue, $theTokens = NULL )
+	{
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $theValue ) )
+			return NULL;															// ==>
+		
+		//
+		// Get tokens count.
+		//
+		$count = strlen( $theTokens );
+		if( ! $count )
+			return FALSE;															// ==>
+		
+		//
+		// Split elements.
+		//
+		$result = Array();
+		$elements = explode( substr( $theTokens, 0, 1 ), $value );
+		foreach( $elements as $element )
+		{
+			//
+			// Slip empty elements.
+			//
+			if( ! strlen( $element = trim( $element ) ) )
+				continue;													// =>
+			
+			//
+			// Handle no key.
+			//
+			if( $count == 1 )
+				$result[] = $element;
+			
+			//
+			// Split key/value.
+			//
+			else
+			{
+				//
+				// Split.
+				//
+				if( CheckArrayValue( $element, substr( $theTokens, 1, 1 ) ) )
+				{
+					//
+					// Set value.
+					//
+					if( count( $element ) == 1 )
+						$result[] = $element[ 0 ];
+					
+					//
+					// Set key.
+					//
+					if( count( $element ) == 2 )
+						$result[ $element[ 0 ] ] = $element[ 1 ];
+					
+					//
+					// Handle mess.
+					//
+					else
+					{
+						//
+						// Set key.
+						//
+						$key = $items[ 0 ];
+						
+						//
+						// Reconstitute value.
+						//
+						array_shift( $items );
+						$value = implode( substr( $tokens, 1, 1 ), $items );
+						
+						//
+						// Set element.
+						//
+						$result[ $key ] = $value;
+					
+					} // More than two elements.
+				
+				} // Was split.
+			
+			} // Split key/value.
+		
+		} // Iterating elements.
+		
+		//
+		// Check if empty.
+		//
+		if( ! count( $result ) )
+			return NULL;															// ==>
+		
+		//
+		// Cast to array.
+		//
+		$theValue = $result;
+		
+		return TRUE;																// ==>
+
+	} // CheckArrayValue.
+
+	 
+	/*===================================================================================
+	 *	CheckShapeValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate shape value
+	 *
+	 * This function will convert the provided string to a shape value, by default a shape
+	 * is provided as a string of the form <tt>type</tt>=geometry where the equal
+	 * (<tt>=</tt>) sign separates the shape type from the geometry, the semicolon
+	 * (<tt>;</tt>) separates longitude/latitude pairs, the comma (<tt>,</tt>) separates the
+	 * longitude from the latitude and the colon (<tt>:</tt>) separates the eventual linear
+	 * ring coordinate arrays.
+	 *
+	 * These are the valid shape types:
+	 *
+	 * <ul>
+	 *	<tt>Point</tt>: A point <tt>Point=lon,lat</tt>.
+	 *	<tt>Circle</tt>: A circle <tt>Circle=lon,lat,radius</tt>.
+	 *	<tt>MultiPoint</tt>: A collection of points <tt>MultiPoint=lon,lat;lon,lat...</tt>.
+	 *	<tt>LineString</tt>: A collection of lines <tt>LineString=lon,lat;lon,lat...</tt>,
+	 *		in this case there must be at least two pairs of coordinates.
+	 *	<tt>Polygon</tt>: A polygon <tt>Polygon=lon,lat;lon,lat:lon,lat;lon,lat...</tt>,
+	 *		where the colon (<tt>:</tt>) separates the linear ring coordinate arrays: the
+	 *		first coordinate array represents the exterior ring, the other eventual elements
+	 *		the interior rings or holes.
+	 * </ul>
+	 *
+	 * This function will return the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>TRUE</tt>: The shape is correct and was set.
+	 *	<li><tt>NULL</tt>: The value is empty, value untouched.
+	 *	<li><tt>kTYPE_ERROR_CODE_NO_SHAPE_TYPE</tt>: Missing shape type.
+	 *	<li><tt>kTYPE_ERROR_CODE_BAD_SHAPE_TYPE</tt>: Invalid or unsupported shape type.
+	 *	<li><tt>kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY</tt>: Invalid shape geometry.
+	 * </ul>
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 *
+	 * @return mixed				<tt>TRUE</tt> set value.
+	 */
+	function CheckShapeValue( &$theValue )
+	{
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $theValue ) )
+			return NULL;															// ==>
+		
+		//
+		// Get type.
+		//
+		$items = explode( '=', $theValue );
+		if( count( $items ) == 2 )
+		{
+			//
+			// Save by type.
+			//
+			$type = trim( $items[ 0 ] );
+			
+			//
+			// Handle point.
+			//
+			if( $type == 'Point' )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Check ring.
+					//
+					if( count( $geometry ) == 1 )
+					{
+						//
+						// Check points.
+						//
+						if( count( $geometry[ 0 ] ) == 1 )
+						{
+							//
+							// Check coordinates.
+							//
+							if( count( $geometry[ 0 ][ 0 ] ) == 2 )
+							{
+								//
+								// Set shape.
+								//
+								$theValue
+									= array( kTAG_TYPE => $type,
+											 kTAG_GEOMETRY => $geometry[ 0 ][ 0 ] );
+								
+								return TRUE;										// ==>
+							
+							} // Two coordinates.
+						
+						} // One point.
+					
+					} // One ring.
+				
+				} // Correct geometry.
+			
+			} // Point.
+			
+			//
+			// Handle circle.
+			//
+			elseif( $type == 'Circle' )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Check ring.
+					//
+					if( count( $geometry ) == 1 )
+					{
+						//
+						// Check points.
+						//
+						if( count( $geometry[ 0 ] ) == 1 )
+						{
+							//
+							// Check coordinates.
+							//
+							if( count( $geometry[ 0 ][ 0 ] ) == 3 )
+							{
+								//
+								// Set shape.
+								//
+								$theValue
+									= array( kTAG_TYPE => $type,
+											 kTAG_RADIUS => $geometry[ 0 ][ 0 ][ 2 ],
+											 kTAG_GEOMETRY
+											 	=> array( $geometry[ 0 ][ 0 ][ 0 ],
+											 			  $geometry[ 0 ][ 0 ][ 1 ] ) );
+								
+								return TRUE;										// ==>
+							
+							} // Two coordinates.
+						
+						} // One point.
+					
+					} // One ring.
+				
+				} // Correct geometry.
+			
+			} // Circle.
+			
+			//
+			// Handle multipoint.
+			//
+			elseif( ($type == 'MultiPoint')
+				 || ($type == 'LineString') )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Check ring.
+					//
+					if( count( $geometry ) == 1 )
+					{
+						//
+						// Check points.
+						//
+						if( count( $geometry[ 0 ] ) > 1 )
+						{
+							//
+							// Set shape.
+							//
+							$theValue
+								= array( kTAG_TYPE => $type,
+										 kTAG_GEOMETRY => $geometry[ 0 ] );
+							
+							return TRUE;											// ==>
+						
+						} // One point.
+					
+					} // One ring.
+				
+				} // Correct geometry.
+			
+			} // MultiPoint or LineString.
+			
+			//
+			// Handle polygon.
+			//
+			elseif( $type == 'Polygon' )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Set shape.
+					//
+					$theValue
+						= array( kTAG_TYPE => $type,
+								 kTAG_GEOMETRY => $geometry );
+					
+					return TRUE;													// ==>
+				
+				} // Correct geometry.
+			
+			} // Polygon.
+			
+			return kTYPE_ERROR_CODE_BAD_SHAPE_TYPE;									// ==>
+		
+		} // Has type.
+		
+		//
+		// Handle missing type.
+		//
+		else
+			return kTYPE_ERROR_CODE_NO_SHAPE_TYPE;									// ==>
+		
+		return kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY;									// ==>
+
+	} // CheckShapeValue.
+
+	 
+	/*===================================================================================
+	 *	CheckDateValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate shape value
+	 *
+	 * This function will convert the provided string to a date value, the method will
+	 * return the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>TRUE</tt>: The date is correct and was set.
+	 *	<li><tt>NULL</tt>: The date is empty, value untouched.
+	 *	<li><tt>kTYPE_ERROR_CODE_BAD_DATE_FORMAT</tt>: Bad date format.
+	 *	<li><tt>kTYPE_ERROR_CODE_BAD_DATE</tt>: Bad date value.
+	 *	<li><tt>kTYPE_ERROR_CODE_DUBIOUS_YEAR</tt>: Dubious year.
+	 * </ul>
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 *
+	 * @return mixed				<tt>TRUE</tt> set value.
+	 */
+	function CheckDateValue( &$theValue )
+	{
+		//
+		// Cast date.
+		//
+		$date = $theValue = (string) $theValue;
+		
+		//
+		// Handle non-standard format.
+		//
+		if( ! ctype_digit( $theValue ) )
+		{
+			//
+			// Check - separator.
+			//
+			if( strpos( '-', $date ) === FALSE )
+			{
+				//
+				// Check / separator.
+				//
+				if( strpos( '/', $date ) === FALSE )
+				{
+					//
+					// Check space separator.
+					//
+					if( strpos( ' ', $date ) === FALSE )
+						return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;					// ==>
+					else
+						$items = explode( ' ', $date );
+				
+				} // No slash separator.
+				
+				else
+					$items = explode( '/', $date );
+			
+			} // No dash separator.
+			
+			else
+				$items = explode( '-', $date );
+			
+			//
+			// Normalise elements.
+			//
+			$elements = Array();
+			foreach( $items as $item )
+			{
+				if( strlen( $item = trim( $item ) ) )
+					$elements[] = $item;
+			}
+			
+			//
+			// Check format.
+			//
+			if( (! count( $elements ))										// No elements,
+			 || (count( $elements ) != 3)									// or not ok,
+			 || ( (strlen( $elements[ 0 ] ) != 4)							// or no start y
+			   && (strlen( $elements[ count( $elements ) - 1 ] ) != 4) ) )	// and no end y.
+			
+			//
+			// Init date.
+			//
+			$date = '';
+			
+			//
+			// Check YYYYMMDD.
+			//
+			if( strlen( $elements[ 0 ] ) == 4 )
+			{
+				foreach( $elements as $element )
+					$date .= $element;
+			}
+			
+			//
+			// Check DDMMYYYY.
+			//
+			else
+			{
+				for( $i = count( $elements ) - 1; $i >= 0; $i-- )
+					$date .= $elements[ $i ];
+			}
+		
+		} // Non-standard format.
+		
+		//
+		// Check date content.
+		//
+		if( ! ctype_digit( $date ) )
+			return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;								// ==>
+		
+		//
+		// Check full date.
+		//
+		if( strlen( $date ) == 8 )
+		{
+			$y = (int) substr( $date, 0, 4 );
+			$m = (int) substr( $date, 4, 2 );
+			$d = (int) substr( $date, 6, 2 );
+		}
+	
+		//
+		// Month.
+		//
+		elseif( strlen( $date ) == 6 )
+		{
+			$y = (int) substr( $date, 0, 4 );
+			$m = (int) substr( $date, 4, 2 );
+			$d = 1;
+		}
+	
+		//
+		// Year.
+		//
+		elseif( strlen( $date ) == 4 )
+		{
+			$y = (int) substr( $date, 0, 4 );
+			$m = 1;
+			$d = 1;
+		}
+		
+		//
+		// Bad format.
+		//
+		else
+			return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;								// ==>
+		
+		//
+		// Check date.
+		//
+		if( ! checkdate( $m, $d, $y ) )
+		
+		//
+		// Check year.
+		//
+		if( ($y < 1900)
+		 || ($y > (int) date( "Y" )) )
+			return kTYPE_ERROR_CODE_DUBIOUS_YEAR;									// ==>
+		
+		//
+		// Set date.
+		//
+		$theValue = $date;
+		
+		return TRUE;																// ==>
+
+	} // CheckDateValue.
+
 
 ?>
