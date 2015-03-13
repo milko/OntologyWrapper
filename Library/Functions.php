@@ -743,12 +743,22 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		//
 		if( preg_match( '/^(\d+)\°([\d\.]*)[\']{0,1}([\d\.]*)[\"]{0,1}([nNsSeEwW])/',
 						$theCoordinate,
-						$elements ) )
+						$items ) )
 		{
 			//
 			// Set degrees.
 			//
-			$result[ 'D' ] = (int) $elements[ 1 ];
+			$result[ 'D' ] = (int) $items[ 1 ];
+			
+			//
+			// Normalise elements.
+			//
+			$elements = Array();
+			foreach( $items as $item )
+			{
+				if( strlen( $item = trim( $item ) ) )
+					$elements[] = $item;
+			}
 			
 			//
 			// Parse by size.
@@ -756,33 +766,33 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 			switch( count( $elements ) )
 			{
 				case 3:
-					$result[ 'H' ] = $elements[ 2 ];
+					$result[ 'H' ] = strtoupper( $elements[ 2 ] );
 					break;
 				
 				case 4:
 					if( is_numeric( $elements[ 2 ] ) )
-						$result[ 'M' ] = ( strpos( '.', $elements[ 2 ] ) !== FALSE )
+						$result[ 'M' ] = ( strpos( $elements[ 2 ], '.' ) !== FALSE )
 									   ? (double) $elements[ 2 ]
 									   : (int) $elements[ 2 ];
 					else
 						return Array();												// ==>
-					$result[ 'H' ] = $elements[ 3 ];
+					$result[ 'H' ] = strtoupper( $elements[ 3 ] );
 					break;
 				
 				case 5:
 					if( is_numeric( $elements[ 2 ] ) )
-						$result[ 'M' ] = ( strpos( '.', $elements[ 2 ] ) !== FALSE )
+						$result[ 'M' ] = ( strpos( $elements[ 2 ], '.' ) !== FALSE )
 									   ? (double) $elements[ 2 ]
 									   : (int) $elements[ 2 ];
 					else
 						return Array();												// ==>
 					if( is_numeric( $elements[ 3 ] ) )
-						$result[ 'M' ] = ( strpos( '.', $elements[ 3 ] ) !== FALSE )
+						$result[ 'S' ] = ( strpos( $elements[ 3 ], '.' ) !== FALSE )
 									   ? (double) $elements[ 3 ]
 									   : (int) $elements[ 3 ];
 					else
 						return Array();												// ==>
-					$result[ 'H' ] = $elements[ 4 ];
+					$result[ 'H' ] = strtoupper( $elements[ 4 ] );
 					break;
 				
 				default:
@@ -1328,7 +1338,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 					//
 					// Set key.
 					//
-					if( count( $element ) == 2 )
+					elseif( count( $element ) == 2 )
 						$result[ $element[ 0 ] ] = $element[ 1 ];
 					
 					//
@@ -1339,13 +1349,13 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 						//
 						// Set key.
 						//
-						$key = $items[ 0 ];
+						$key = $element[ 0 ];
 						
 						//
 						// Reconstitute value.
 						//
-						array_shift( $items );
-						$value = implode( substr( $tokens, 1, 1 ), $items );
+						array_shift( $element );
+						$value = implode( substr( $theTokens, 1, 1 ), $element );
 						
 						//
 						// Set element.
@@ -1646,17 +1656,17 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 			//
 			// Check - separator.
 			//
-			if( strpos( '-', $date ) === FALSE )
+			if( strpos( $date, '-' ) === FALSE )
 			{
 				//
 				// Check / separator.
 				//
-				if( strpos( '/', $date ) === FALSE )
+				if( strpos( $date, '/' ) === FALSE )
 				{
 					//
 					// Check space separator.
 					//
-					if( strpos( ' ', $date ) === FALSE )
+					if( strpos( $date, ' ' ) === FALSE )
 						return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;					// ==>
 					else
 						$items = explode( ' ', $date );
@@ -1685,9 +1695,9 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 			// Check format.
 			//
 			if( (! count( $elements ))										// No elements,
-			 || (count( $elements ) != 3)									// or not ok,
 			 || ( (strlen( $elements[ 0 ] ) != 4)							// or no start y
 			   && (strlen( $elements[ count( $elements ) - 1 ] ) != 4) ) )	// and no end y.
+				return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;							// ==>
 			
 			//
 			// Init date.
@@ -1760,6 +1770,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		// Check date.
 		//
 		if( ! checkdate( $m, $d, $y ) )
+			return kTYPE_ERROR_CODE_BAD_DATE;										// ==>
 		
 		//
 		// Check year.
@@ -1776,6 +1787,112 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		return TRUE;																// ==>
 
 	} // CheckDateValue.
+
+	 
+	/*===================================================================================
+	 *	checkStringCombinations															*
+	 *==================================================================================*/
+
+	/**
+	 * Check string combinations
+	 *
+	 * This function will return all combinations of the provided prefix, string and suffix.
+	 *
+	 * If there are no combinations, the function will return <tt>NULL</tt>.
+	 *
+	 * @param string				$theString			String.
+	 * @param array					$thePrefix			String prefixes.
+	 * @param array					$theSuffix			String suffixes.
+	 *
+	 * @return array				Combinations.
+	 */
+	function checkStringCombinations( $theString, $thePrefix = NULL, $theSuffix = NULL )
+	{
+		//
+		// Normalise string.
+		//
+		$theString = trim( $theString );
+		
+		//
+		// Handle no prefix or suffix.
+		//
+		if( ($thePrefix === NULL)
+		 && ($theSuffix === NULL) )
+		{
+			//
+			// Handle no combinations.
+			//
+			if( ! strlen( $theString ) )
+				return Array();														// ==>
+			
+			return array( $theString );												// ==>
+		
+		} // Has no prefix nor suffix.
+		
+		//
+		// Cast prefix and suffix.
+		//
+		if( ($thePrefix !== NULL)
+		 && (! is_array( $thePrefix )) )
+			$thePrefix = array( (string) $thePrefix );
+		if( ($theSuffix !== NULL)
+		 && (! is_array( $theSuffix )) )
+			$theSuffix = array( (string) $theSuffix );
+		
+		//
+		// Init local storage.
+		//
+		$combinations = Array();
+		
+		//
+		// Iterate prefixes.
+		//
+		if( is_array( $thePrefix ) )
+		{
+			//
+			// Iterate prefixes.
+			//
+			foreach( $thePrefix as $prefix )
+			{
+				//
+				// Handle suffixes.
+				//
+				if( is_array( $theSuffix ) )
+				{
+					//
+					// Iterate suffixes.
+					//
+					foreach( $theSuffix as $suffix )
+						$combinations[] = $prefix.$theString.$suffix;
+				
+				} // Has suffixes.
+				
+				//
+				// Handle no suffixes.
+				//
+				else
+					$combinations[] = $prefix.$theString;
+			
+			} // Iterating prefixes.
+		
+		} // Has prefixes.
+		
+		//
+		// Iterate suffixes.
+		//
+		else
+		{
+			//
+			// Iterate suffixes.
+			//
+			foreach( $theSuffix as $suffix )
+				$combinations[] = $theString.$suffix;
+		
+		} // Has suffixes.
+		
+		return $combinations;														// ==>
+
+	} // checkStringCombinations.
 
 
 ?>

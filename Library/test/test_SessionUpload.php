@@ -159,6 +159,39 @@ try
 	$workflow = new OntologyWrapper\SessionUpload( $session, $file );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Perform test.
+	//
+	echo( '<h4>Perform test</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$workflow->test();' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$workflow->test();
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+exit;
+	
+	//
+	// Instantiate new upload.
+	//
+	echo( '<h4>Instantiate new upload</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$workflow = new OntologyWrapper\\SessionUpload( $session, $file );' );
+	$workflow = new OntologyWrapper\SessionUpload( $session, $file );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$ok = $workflow->execute();' );
@@ -172,7 +205,6 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-exit;
 		
 	//
 	// Delete session.

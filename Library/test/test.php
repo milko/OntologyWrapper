@@ -1151,6 +1151,16 @@ echo( '<hr>' );
 /******************************************************************************/
 
 //
+// Test ParseCoordinate().
+//
+var_dump( ParseCoordinate( '132°12.1234\'15.3214"N' ) );
+var_dump( ParseCoordinate( '132°12.1234\'s' ) );
+var_dump( ParseCoordinate( '132°n' ) );
+var_dump( ParseCoordinate( '132°' ) );
+echo( '<hr>' );
+echo( '<hr>' );
+
+//
 // Test check geometry.
 //
 echo( 'Point' );
