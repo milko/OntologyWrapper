@@ -324,6 +324,81 @@ abstract class DatabaseObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *									PUBLIC TYPE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getObjectId																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get object identifier
+	 *
+	 * This method should return a native object identifier, given a string.
+	 *
+	 * @param string				$theIdentifier		String version of the identifier.
+	 *
+	 * @access public
+	 * @return mixed				Native cobject identifier.
+	 */
+	abstract public function getObjectId( $theIdentifier );
+
+	 
+	/*===================================================================================
+	 *	setObjectId																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set object identifier
+	 *
+	 * This method should return an object identifier string, given a native type.
+	 *
+	 * @param mixed					$theIdentifier		Native version of the identifier.
+	 *
+	 * @access public
+	 * @return string				Object identifier as a string.
+	 */
+	abstract public function setObjectId( $theIdentifier );
+
+	 
+	/*===================================================================================
+	 *	getTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get time-stamp
+	 *
+	 * This method should return the current time-stamp in the native database format.
+	 *
+	 * @access public
+	 * @return mixed				Native current time-stamp.
+	 */
+	abstract public function getTimeStamp();
+
+	 
+	/*===================================================================================
+	 *	parseTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get time-stamp
+	 *
+	 * This method should return a formatted time stamp string.
+	 *
+	 * @param mixed					$theStamp			Time-stamp.
+	 *
+	 * @access public
+	 * @return string				Human readable time-stamp.
+	 */
+	abstract public function parseTimeStamp( $theStamp );
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/

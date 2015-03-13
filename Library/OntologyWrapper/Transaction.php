@@ -392,14 +392,18 @@ class Transaction extends SessionObject
 					//
 					// Normalise identifier.
 					//
-					$theValue = $collection->getObjectId( $theValue );
+					$tmp = $collection->getObjectId( $theValue );
+					if( $tmp === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid transaction identifier [$theValue]." );	// !@! ==>
 					//
 					// Update.
 					//
 					$collection
 						->replaceOffsets(
 							$this->offsetGet( kTAG_NID ),
-							array( $theOffset => $theValue ) );
+							array( $theOffset => $tmp ) );
 				}
 				
 				//

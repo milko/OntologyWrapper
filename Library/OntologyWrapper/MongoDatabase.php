@@ -300,6 +300,136 @@ class MongoDatabase extends DatabaseObject
 
 /*=======================================================================================
  *																						*
+ *									PUBLIC TYPE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getObjectId																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get object identifier
+	 *
+	 * In this class we return a MongoId; if the provided value is invalid, we return
+	 * <tt>NULL</tt>.
+	 *
+	 * @param string				$theIdentifier		String version of the identifier.
+	 *
+	 * @access public
+	 * @return MongoId				Native cobject identifier or <tt>NULL</tt>.
+	 */
+	public function getObjectId( $theIdentifier )
+	{
+		//
+		// Normalise identifier.
+		//
+		if( ! ($theIdentifier instanceof \MongoId) )
+		{
+			//
+			// Convert to string.
+			//
+			$theIdentifier = (string) $theIdentifier;
+
+			//
+			// Handle valid identifier.
+			//
+			if( \MongoId::isValid( $theIdentifier ) )
+				$theIdentifier = new \MongoId( $theIdentifier );
+
+			//
+			// Invalid identifier.
+			//
+			else
+				return NULL;														// ==>
+		
+		} // Not a native identifier.
+		
+		return $theIdentifier;														// ==>
+	
+	} // getObjectId.
+
+	 
+	/*===================================================================================
+	 *	setObjectId																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set object identifier
+	 *
+	 * In this class we expect a MongoId.
+	 *
+	 * @param MongoId				$theIdentifier		Native version of the identifier.
+	 *
+	 * @access public
+	 * @return string				Object identifier as a string.
+	 */
+	public function setObjectId( $theIdentifier )
+	{
+		//
+		// Check identifier.
+		//
+		if( $theIdentifier instanceof \MongoId )
+			return (string) $theIdentifier;											// ==>
+		
+		$type = ( is_object( $theIdentifier ) )
+			  ? get_class( $theIdentifier )
+			  : gettype( $theIdentifier );
+			
+		throw new \Exception(
+			"Unable to convert identifier: "
+		   ."invalid identifier data type [$type]" );							// !@! ==>
+	
+	} // getObjectId.
+
+	 
+	/*===================================================================================
+	 *	getTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get time-stamp
+	 *
+	 * In this class we return a MongoDate value.
+	 *
+	 * @access public
+	 * @return mixed				Native current time-stamp.
+	 */
+	public function getTimeStamp()							{	return new \MongoDate();	}
+
+	 
+	/*===================================================================================
+	 *	parseTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get time-stamp
+	 *
+	 * In this class we convert the time-stamp 
+	 *
+	 * @param mixed					$theStamp			Time-stamp.
+	 *
+	 * @access public
+	 * @return string				Human readable time-stamp.
+	 */
+	public function parseTimeStamp( $theStamp )
+	{
+		//
+		// Check type.
+		//
+		if( $theStamp instanceof \MongoDate )
+			return date( "r", $theStamp->sec );										// ==>
+		
+		return (string) $theStamp;													// ==>
+	
+	} // parseTimeStamp.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED CONNECTION INTERFACE							*
  *																						*
  *======================================================================================*/

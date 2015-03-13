@@ -140,10 +140,17 @@ abstract class SessionObject extends PersistentObject
 				//
 				if( ($theIdentifier !== NULL)
 				 && (! is_array( $theIdentifier )) )
-					$theIdentifier
-						= static::ResolveCollection(
+				{
+					$tmp =
+						static::ResolveCollection(
 							static::ResolveDatabase( $theContainer, TRUE ) )
 							->getObjectId( $theIdentifier );
+					if( $tmp === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid object identifier [$theIdentifier]." );	// !@! ==>
+					$theIdentifier = $tmp;
+				}
 		
 				//
 				// Call parent method.
@@ -858,7 +865,12 @@ abstract class SessionObject extends PersistentObject
 					//
 					if( $theValue instanceof Session )
 						$theValue = $theValue->offsetGet( kTAG_NID );
-					$theValue = $collection->getObjectId( $theValue );
+					$tmp = $collection->getObjectId( $theValue );
+					if( $tmp === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid session identifier [$theValue]." );		// !@! ==>
+					$theValue = $tmp;
 					$collection
 						->replaceOffsets(
 							$this->offsetGet( kTAG_NID ),
@@ -871,7 +883,12 @@ abstract class SessionObject extends PersistentObject
 					//
 					if( $theValue instanceof FileObject )
 						$theValue = $theValue->offsetGet( kTAG_NID );
-					$theValue = $collection->getObjectId( $theValue );
+					$tmp = $collection->getObjectId( $theValue );
+					if( $tmp === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid file object identifier [$theValue]." );	// !@! ==>
+					$theValue = $tmp;
 					$collection
 						->replaceOffsets(
 							$this->offsetGet( kTAG_NID ),
@@ -1147,9 +1164,12 @@ abstract class SessionObject extends PersistentObject
 		//
 		// Perform deletion.
 		//
-		$theIdentifier
-			= parent::Delete( $theWrapper,
-							  $collection->getObjectId( $theIdentifier ) );
+		$tmp = $collection->getObjectId( $theIdentifier );
+		if( $tmp === NULL )
+			throw new \Exception(
+				"Cannot use identifier: "
+			   ."invalid object identifier [$theIdentifier]." );				// !@! ==>
+		$theIdentifier = parent::Delete( $theWrapper, $tmp );
 		
 		return ( $theIdentifier === NULL )
 			 ? NULL																	// ==>

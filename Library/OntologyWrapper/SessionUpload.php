@@ -1788,6 +1788,77 @@ class SessionUpload
 						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
+				case kTYPE_REF_TERM:
+					$this->validateReference(
+						$theTransaction, $theRecord, Term::kSEQ_NAME,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
+				case kTYPE_REF_NODE:
+					$this->validateReference(
+						$theTransaction, $theRecord, Node::kSEQ_NAME,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
+				case kTYPE_REF_EDGE:
+					$this->validateReference(
+						$theTransaction, $theRecord, Edge::kSEQ_NAME,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
+				case kTYPE_REF_UNIT:
+					$this->validateReference(
+						$theTransaction, $theRecord, UnitObject::kSEQ_NAME,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
+				case kTYPE_REF_USER:
+					$this->validateReference(
+						$theTransaction, $theRecord, User::kSEQ_NAME,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
+				case kTYPE_REF_SESSION:
+					$this->validateReference(
+						$theTransaction, $theRecord, Session::kSEQ_NAME,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
+				case kTYPE_REF_TRANSACTION:
+					$this->validateReference(
+						$theTransaction, $theRecord, Transaction::kSEQ_NAME,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
+				case kTYPE_REF_FILE:
+					$this->validateReference(
+						$theTransaction, $theRecord, FileObject::kSEQ_NAME,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
+				case kTYPE_REF_SELF:
+					$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
+					$this->validateReference(
+						$theTransaction, $theRecord, $class::kSEQ_NAME,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
+				case kTYPE_OBJECT_ID:
+					$this->validateObjectId(
+						$theTransaction, $theRecord,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
 			} // Parsing by type.
 		
 		} // Tag field.
@@ -4988,7 +5059,7 @@ class SessionUpload
 		$prefix = $theFieldNode->offsetGet( kTAG_PREFIX );
 		$suffix = $theFieldNode->offsetGet( kTAG_SUFFIX );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
-		$theCollection = $this->wrapper()->resolveCollection( $theCollection );
+		$collection = $this->wrapper()->resolveCollection( $theCollection );
 		
 		//
 		// Handle list.
@@ -5049,9 +5120,7 @@ class SessionUpload
 			//
 			// Split elements.
 			//
-			$elements = ( strlen( $tokens ) )
-					  ? explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] )
-					  : array( $theRecord[ $symbol ] );
+			$elements = explode( substr( $tokens, 0, 1 ), $theRecord[ $symbol ] );
 			
 			//
 			// Compile results.
@@ -5066,15 +5135,50 @@ class SessionUpload
 				foreach( $combinations as $combination )
 				{
 					//
-					// Match enumeration.
+					// Parse by collection.
 					//
-					$criteria = array( kTAG_NID => $combination );
-					if( $theCollection->matchOne( $criteria, kQUERY_COUNT ) )
+					switch( $theCollection )
+					{
+						case Node::kSEQ_NAME:
+							if( ctype_digit( $combination ) )
+							{
+								$criteria = array( kTAG_NID => (int) $combination );
+								$ok = $collection->matchOne( $criteria, kQUERY_NID );
+							}
+							else
+								$ok
+									= Node::GetPidNode(
+										$this->wrapper(), $combination, kQUERY_NID );
+							break;
+						
+						case Session::kSEQ_NAME:
+						case Transaction::kSEQ_NAME:
+						case FileObject::kSEQ_NAME:
+							$combination = $collection->getObjectId( $combination );
+							if( $combination === NULL )
+							{
+								$errors[] = $combination;
+								continue;											// ==>
+							}
+							$criteria = array( kTAG_NID => $combination );
+							if( $ok = $collection->matchOne( $criteria, kQUERY_NID ) )
+								$ok = $collection->setObjectId( $ok );
+						
+						default:
+							$criteria = array( kTAG_NID => $combination );
+							$ok = $collection->matchOne( $criteria, kQUERY_NID );
+							break;
+					}
+					
+					//
+					// Handle matched.
+					//
+					if( $ok )
 					{
 						//
 						// Save matched.
 						//
-						$results[] = $combination;
+						$results[] = $ok;
 						
 						$matched = TRUE;
 						break;												// =>
@@ -5134,18 +5238,50 @@ class SessionUpload
 			foreach( $combinations as $combination )
 			{
 				//
-				// Match enumeration.
+				// Parse by collection.
 				//
-				$criteria = array( kTAG_NID => $combination );
-				if( $theCollection->matchOne( $criteria, kQUERY_COUNT ) )
+				switch( $theCollection )
+				{
+					case Node::kSEQ_NAME:
+						if( ctype_digit( $combination ) )
+						{
+							$criteria = array( kTAG_NID => (int) $combination );
+							$ok = $collection->matchOne( $criteria, kQUERY_NID );
+						}
+						else
+							$ok
+								= Node::GetPidNode(
+									$this->wrapper(), $combination, kQUERY_NID );
+						break;
+					
+					case Session::kSEQ_NAME:
+					case Transaction::kSEQ_NAME:
+					case FileObject::kSEQ_NAME:
+						$combination = $collection->getObjectId( $combination );
+						if( $combination === NULL )
+							continue;										// =>
+						$criteria = array( kTAG_NID => $combination );
+						if( $ok = $collection->matchOne( $criteria, kQUERY_NID ) )
+							$ok = $collection->setObjectId( $ok );
+					
+					default:
+						$criteria = array( kTAG_NID => $combination );
+						$ok = $collection->matchOne( $criteria, kQUERY_NID );
+						break;
+				}
+				
+				//
+				// Handle matched.
+				//
+				if( $ok )
 				{
 					//
 					// Save matched.
 					//
-					$theRecord[ $symbol ] = $combination;
+					$theRecord[ $symbol ] = $ok;
 					
 					$matched = TRUE;
-					break;												// =>
+					break;													// =>
 				
 				} // Matched.
 			
@@ -5184,6 +5320,216 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // validateReference.
+
+	 
+	/*===================================================================================
+	 *	validateObjectId																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate object identifier
+	 *
+	 * This method will validate the provided object identifier property and cast it to the
+	 * native database type, we use here the current object's sessions collection.
+	 *
+	 * If the identifier is invalid, the method will issue an error.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Data record.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
+	 */
+	protected function validateObjectId( &$theTransaction,
+										 &$theRecord,
+										  $theWorksheet,
+										  $theRow,
+										  $theFieldData,
+										  $theFieldNode,
+										  $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$error = FALSE;
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$collection = $this->wrapper()->resolveCollection( Session::kSEQ_NAME );
+		
+		//
+		// Handle list.
+		//
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
+		{
+			//
+			// Init local storage.
+			//
+			$result = Array();
+			$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		
+			//
+			// Handle missing tokens.
+			//
+			if( ! count( $tokens ) )
+				return
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_WARNING,						// Transaction status.
+						'Missing separator tokens in template.',	// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						NULL,										// Value.
+						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+						kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+						NULL										// Error resource.
+					);																// ==>
+		
+			//
+			// Handle too many tokens.
+			//
+			if( count( $tokens ) > 1 )
+				return
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_WARNING,						// Transaction status.
+						'Too many tokens in template definition.',	// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$tokens,									// Value.
+						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+						kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+						NULL										// Error resource.
+					);																// ==>
+		
+			//
+			// Split elements.
+			//
+			$elements = explode( $tokens, $theRecord[ $symbol ] );
+			
+			//
+			// Compile results.
+			//
+			foreach( $elements as $element )
+			{
+				//
+				// Trim value.
+				//
+				$element = trim( $element );
+				if( strlen( $element ) )
+				{
+					//
+					// Check identifier.
+					//
+					$id = $collection->getObjectId( $element );
+					if( $id === NULL )
+					{
+						$error = TRUE;
+						break;												// =>
+					}
+		
+					//
+					// Add value.
+					//
+					$result[] = $id;
+				
+				} // Not empty.
+		
+			} // Iterating elements.
+			
+			//
+			// Handle no errors.
+			//
+			if( ! $error )
+			{
+				//
+				// Remove if empty.
+				//
+				if( count( $result ) )
+					$theRecord[ $symbol ] = $result;
+			
+				//
+				// Set value.
+				//
+				else
+					unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			
+			} // No errors.
+		
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Trim value.
+			//
+			$theRecord[ $symbol ] = trim( $theRecord[ $symbol ] );
+			if( strlen( $theRecord[ $symbol ] ) )
+			{
+				//
+				// Check identifier.
+				//
+				$id = $collection->getObjectId( $theRecord[ $symbol ] );
+				if( $id === NULL )
+					$error = TRUE;
+				else
+					$theRecord[ $symbol ] = $id;
+			
+			} // Not empty.
+			
+			//
+			// Remove if empty.
+			//
+			else
+				unset( $theRecord[ $symbol ] );
+		
+		} // Scalar value.
+		
+		//
+		// Handle errors.
+		//
+		if( $error )
+			return
+				$this->failTransactionLog(
+					$theTransaction,								// Transaction.
+					$this->transaction(),							// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,					// Transaction type.
+					kTYPE_STATUS_WARNING,							// Transaction status.
+					'Invalid object identifier.',					// Transaction message.
+					$theWorksheet,									// Worksheet.
+					$theRow,										// Row.
+					$theFieldData[ 'column_name' ],					// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+					$theRecord[ $symbol ],							// Value.
+					kTYPE_ERROR_INVALID_VALUE,						// Error type.
+					kTYPE_ERROR_CODE_INVALID_OBJECT_ID,				// Error code.
+					NULL											// Error resource.
+				);																	// ==>
+		
+		return TRUE;																// ==>
+
+	} // validateObjectId.
 
 	
 
@@ -6539,6 +6885,556 @@ class SessionUpload
 		//
 		var_dump( $record );
 		$ok = $this->validateEnumSet(
+				$transaction,
+				$record,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+
+		//
+		// Create record.
+		//
+		$record = array( 'SYMBOL' => ':taxon:crop:category' );
+		$node[ kTAG_PREFIX ] = NULL;
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_TAG;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateReference.
+		//
+		echo( '<b>validateReference() [tag]</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Tag::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => ':crop' );
+		$node[ kTAG_PREFIX ] = array( ':taxon' );
+		$node[ kTAG_SUFFIX ] = array( ':category' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Tag::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => ':category,:group' );
+		$node[ kTAG_PREFIX ] = array( ':taxon:crop' );
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
+		$node[ kTAG_TOKEN ] = ',';
+		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Tag::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+
+		//
+		// Create record.
+		//
+		$record = array( 'SYMBOL' => ':taxon:crop:category' );
+		$node[ kTAG_PREFIX ] = NULL;
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_TERM;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateReference.
+		//
+		echo( '<b>validateReference() [term]</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Term::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => ':crop' );
+		$node[ kTAG_PREFIX ] = array( ':taxon' );
+		$node[ kTAG_SUFFIX ] = array( ':category' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Term::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => ':category,:group' );
+		$node[ kTAG_PREFIX ] = array( ':taxon:crop' );
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
+		$node[ kTAG_TOKEN ] = ',';
+		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Term::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+
+		//
+		// Create record.
+		//
+		$record = array( 'SYMBOL' => '152' );
+		$node[ kTAG_PREFIX ] = NULL;
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_NODE;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateReference.
+		//
+		echo( '<b>validateReference() [node]</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Node::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => 'form::domain:accession' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Node::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => '152, form::domain:accession' );
+		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
+		$node[ kTAG_TOKEN ] = ',';
+		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Node::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+
+		//
+		// Create record.
+		//
+		$record = array( 'SYMBOL' => '1/:predicate:PROPERTY-OF/364' );
+		$node[ kTAG_PREFIX ] = NULL;
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_EDGE;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateReference.
+		//
+		echo( '<b>validateReference() [edge]</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Edge::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => ':predicate:PROPERTY-OF' );
+		$node[ kTAG_PREFIX ] = array( '1/' );
+		$node[ kTAG_SUFFIX ] = array( '/364' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Edge::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => ':predicate:ENUM-OF/381, :predicate:SUBSET-OF/10591' );
+		$node[ kTAG_PREFIX ] = array( '10007/' );
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
+		$node[ kTAG_TOKEN ] = ',';
+		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Edge::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+
+		//
+		// Create record.
+		//
+		$record = array( 'SYMBOL' => ':domain:inventory://CYP/Aegilops triuncialis:CYP;' );
+		$node[ kTAG_PREFIX ] = NULL;
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_UNIT;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateReference.
+		//
+		echo( '<b>validateReference() [unit]</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				UnitObject::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => '://CYP/' );
+		$node[ kTAG_PREFIX ] = array( ':domain:inventory' );
+		$node[ kTAG_SUFFIX ] = array( 'Aegilops triuncialis:CYP;' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				UnitObject::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => 'Aegilops triuncialis, Allium amethystinum, Elymus elongatus haifensis' );
+		$node[ kTAG_PREFIX ] = array( ':domain:inventory://CYP/' );
+		$node[ kTAG_SUFFIX ] = array( ':CYP;' );
+		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
+		$node[ kTAG_TOKEN ] = ',';
+		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				UnitObject::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+
+		//
+		// Create record.
+		//
+		$record = array( 'SYMBOL' => ':domain:individual://ITA406/pgrdiversity.bioversityinternational.org:7C4D3533C21C608B39E8EAB256B4AFB771FA534A;' );
+		$node[ kTAG_PREFIX ] = NULL;
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_USER;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateReference.
+		//
+		echo( '<b>validateReference() [user]</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				User::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A' );
+		$node[ kTAG_PREFIX ] = array( ':domain:individual://ITA406/pgrdiversity.bioversityinternational.org:' );
+		$node[ kTAG_SUFFIX ] = array( ';' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				User::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A, E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2' );
+		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
+		$node[ kTAG_TOKEN ] = ',';
+		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
+		//
+		// Test validateReference.
+		//
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				User::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+
+		//
+		// Create record.
+		//
+		$record = array( 'SYMBOL' => (string) $this->session() );
+		$node[ kTAG_PREFIX ] = NULL;
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_SESSION;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateReference.
+		//
+		echo( '<b>validateReference() [session]</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				Session::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+	
+	/*
+		//
+		// Create record.
+		//
+		$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
+		$record = array( 'SYMBOL' => ':domain:inventory://CYP/Aegilops triuncialis:CYP;' );
+		$node[ kTAG_PREFIX ] = NULL;
+		$node[ kTAG_SUFFIX ] = NULL;
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_SELF;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateReference.
+		//
+		echo( '<b>validateReference() [self]</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateReference(
+				$transaction,
+				$record,
+				$class::kSEQ_NAME,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+	*/
+
+		//
+		// Create record.
+		//
+		$record = array( 'SYMBOL' => '55032ad9b0a1db8b110041c7' );
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_USER;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateObjectId.
+		//
+		echo( '<b>validateObjectId()</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateObjectId(
+				$transaction,
+				$record,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => '55032ad9b0a1db8b110041c7, 55032ad2b0a1dbfb110041c7' );
+		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
+		$node[ kTAG_TOKEN ] = ',';
+		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
+		//
+		// Test validateObjectId.
+		//
+		var_dump( $record );
+		$ok = $this->validateObjectId(
 				$transaction,
 				$record,
 				'WORKSHEET',

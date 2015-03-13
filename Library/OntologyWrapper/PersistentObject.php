@@ -6148,7 +6148,12 @@ MILKO - Need to check.
 			case kTYPE_REF_SESSION:
 			case kTYPE_REF_TRANSACTION:
 			case kTYPE_REF_FILE:
-				$theProperty = $collection->getObjectId( $theProperty );
+				$tmp = $collection->getObjectId( $theProperty );
+				if( $tmp === NULL )
+					throw new \Exception(
+						"Cannot use identifier: "
+					   ."invalid identifier [$theProperty]." );					// !@! ==>
+				$theProperty = $collection->getObjectId( $tmp );
 				break;
 				
 			case kTYPE_REF_NODE:
@@ -6176,7 +6181,12 @@ MILKO - Need to check.
 					case kTYPE_REF_SESSION:
 					case kTYPE_REF_TRANSACTION:
 					case kTYPE_REF_FILE:
-						$theProperty = $collection->getObjectId( $theProperty );
+						$tmp = $collection->getObjectId( $theProperty );
+						if( $tmp === NULL )
+							throw new \Exception(
+								"Cannot use identifier: "
+							   ."invalid identifier [$theProperty]." );			// !@! ==>
+						$theProperty = $collection->getObjectId( $tmp );
 						break;
 				}
 				break;
@@ -6288,53 +6298,120 @@ MILKO - Need to check.
 				break;
 			
 			//
-			// Handle native database object references.
+			// Handle session object references.
 			//
 			case kTYPE_REF_SESSION:
-			case kTYPE_REF_TRANSACTION:
 				//
 				// Handle array.
 				//
+				$collection
+					= Session::ResolveCollection(
+						Session::ResolveDatabase( $this->mDictionary, TRUE ),
+						TRUE );
 				if( is_array( $theProperty ) )
 				{
 					$keys = array_keys( $theProperty );
 					foreach( $keys as $key )
-						$theProperty[ $key ]
-							= static::ResolveCollection(
-								static::ResolveDatabase( $this->mDictionary ) )
-									->getObjectId( $theProperty[ $key ] );
+					{
+						$tmp = $collection->getObjectId( $theProperty[ $key ] );
+						if( $tmp === NULL )
+							throw new \Exception(
+								"Cannot use identifier: "
+							   ."invalid session identifier ["
+							   .$theProperty[ $key ]
+							   ."]." );											// !@! ==>
+						$theProperty[ $key ] = $tmp;
+					}
 				}
 				//
 				// Handle scalar.
 				//
 				else
-					$theProperty
-						= static::ResolveCollection(
-							static::ResolveDatabase( $this->mDictionary ) )
-								->getObjectId( $theProperty );
+				{
+					$tmp = $collection->getObjectId( $theProperty );
+					if( $tmp === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid session identifier [$theProperty]." );		// !@! ==>
+					$theProperty = $tmp;
+				}
+				break;
+			
+			//
+			// Handle transaction object references.
+			//
+			case kTYPE_REF_TRANSACTION:
+				//
+				// Handle array.
+				//
+				$collection
+					= Transaction::ResolveCollection(
+						Transaction::ResolveDatabase( $this->mDictionary, TRUE ),
+						TRUE );
+				if( is_array( $theProperty ) )
+				{
+					$keys = array_keys( $theProperty );
+					foreach( $keys as $key )
+					{
+						$tmp = $collection->getObjectId( $theProperty[ $key ] );
+						if( $tmp === NULL )
+							throw new \Exception(
+								"Cannot use identifier: "
+							   ."invalid transaction identifier ["
+							   .$theProperty[ $key ]
+							   ."]." );											// !@! ==>
+						$theProperty[ $key ] = $tmp;
+					}
+				}
+				//
+				// Handle scalar.
+				//
+				else
+				{
+					$tmp = $collection->getObjectId( $theProperty );
+					if( $tmp === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid transaction identifier [$theProperty]." );	// !@! ==>
+					$theProperty = $tmp;
+				}
 				break;
 	
 			case kTYPE_REF_FILE:
 				//
 				// Handle array.
 				//
+				$collection
+					= FileObject::ResolveCollection(
+						FileObject::ResolveDatabase( $this->mDictionary, TRUE ),
+						TRUE );
 				if( is_array( $theProperty ) )
 				{
 					$keys = array_keys( $theProperty );
 					foreach( $keys as $key )
-						$theProperty[ $key ]
-							= FileObject::ResolveCollection(
-								FileObject::ResolveDatabase( $this->mDictionary ) )
-									->getObjectId( $theProperty[ $key ] );
+					{
+						$tmp = $collection->getObjectId( $theProperty[ $key ] );
+						if( $tmp === NULL )
+							throw new \Exception(
+								"Cannot use identifier: "
+							   ."invalid file object identifier ["
+							   .$theProperty[ $key ]
+							   ."]." );											// !@! ==>
+						$theProperty[ $key ] = $tmp;
+					}
 				}
 				//
 				// Handle scalar.
 				//
 				else
-					$theProperty
-						= FileObject::ResolveCollection(
-							FileObject::ResolveDatabase( $this->mDictionary ) )
-								->getObjectId( $theProperty );
+				{
+					$tmp = $collection->getObjectId( $theProperty );
+					if( $tmp === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid file object identifier [$theProperty]." );	// !@! ==>
+					$theProperty = $tmp;
+				}
 				break;
 	
 			//

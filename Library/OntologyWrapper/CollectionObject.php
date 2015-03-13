@@ -962,7 +962,11 @@ abstract class CollectionObject extends ConnectionObject
 	 * @access public
 	 * @return mixed				Native cobject identifier.
 	 */
-	abstract public function getObjectId( $theIdentifier );
+	public function getObjectId( $theIdentifier )
+	{
+		return $this->mParent->getObjectId( $theIdentifier );						// ==>
+	
+	} // getObjectId.
 
 	 
 	/*===================================================================================
@@ -979,7 +983,11 @@ abstract class CollectionObject extends ConnectionObject
 	 * @access public
 	 * @return string				Object identifier as a string.
 	 */
-	abstract public function setObjectId( $theIdentifier );
+	public function setObjectId( $theIdentifier )
+	{
+		return $this->mParent->setObjectId( $theIdentifier );						// ==>
+	
+	} // setObjectId.
 
 	 
 	/*===================================================================================
@@ -994,7 +1002,11 @@ abstract class CollectionObject extends ConnectionObject
 	 * @access public
 	 * @return mixed				Native current time-stamp.
 	 */
-	abstract public function getTimeStamp();
+	public function getTimeStamp()
+	{
+		return $this->mParent->getTimeStamp();										// ==>
+	
+	} // getTimeStamp.
 
 	 
 	/*===================================================================================
@@ -1011,7 +1023,11 @@ abstract class CollectionObject extends ConnectionObject
 	 * @access public
 	 * @return string				Human readable time-stamp.
 	 */
-	abstract public function parseTimeStamp( $theStamp );
+	public function parseTimeStamp( $theStamp )
+	{
+		return $this->mParent->parseTimeStamp( $theStamp );							// ==>
+	
+	} // parseTimeStamp.
 
 		
 

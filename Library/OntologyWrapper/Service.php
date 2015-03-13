@@ -10023,7 +10023,11 @@ $rs_units = & $rs_units[ 'result' ];
 			= Session::ResolveCollection(
 				Session::ResolveDatabase( $this->mWrapper, TRUE ),
 				TRUE );
-		$id = $collection->getObjectId( $this->offsetGet( kAPI_PARAM_ID ) );
+		$id = $collection->getObjectId( $session );
+		if( $id === NULL )
+			throw new \Exception(
+				"Cannot use identifier: "
+			   ."invalid session identifier [$session]." );						// !@! ==>
 		
 		//
 		// Get session.
@@ -10102,10 +10106,15 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Get transaction iterator.
 		//
+		$tmp = $collection->getObjectId( $theSession );
+		if( $tmp === NULL )
+			throw new \Exception(
+				"Cannot use identifier: "
+			   ."invalid session identifier [$theSession]." );					// !@! ==>
 		$iterator
 			= $collection
 				->matchAll(
-					array( kTAG_SESSION => $collection->getObjectId( $theSession ) ),
+					array( kTAG_SESSION => $tmp ),
 					kQUERY_OBJECT );
 		
 		//
@@ -10171,11 +10180,15 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Get transaction iterator.
 		//
+		$tmp = $collection->getObjectId( $theTransaction );
+		if( $tmp === NULL )
+			throw new \Exception(
+				"Cannot use identifier: "
+			   ."invalid transaction identifier [$theTransaction]." );			// !@! ==>
 		$iterator
 			= $collection
 				->matchAll(
-					array( kTAG_TRANSACTION
-								=> $collection->getObjectId( $theTransaction ) ),
+					array( kTAG_TRANSACTION => $tmp ),
 					kQUERY_OBJECT );
 		
 		//

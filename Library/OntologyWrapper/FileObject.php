@@ -181,10 +181,12 @@ abstract class FileObject extends PersistentObject
 				//
 				// Set file object.
 				//
-				$this->mObject
-					= $collection->matchID(
-						$collection->getObjectId( $theIdentifier ),
-						TRUE );
+				$tmp = $collection->getObjectId( $theIdentifier );
+				if( $tmp === NULL )
+					throw new \Exception(
+						"Cannot use identifier: "
+					   ."invalid identifier [$theIdentifier]." );				// !@! ==>
+				$this->mObject = $collection->matchID( $tmp, TRUE );
 			
 				//
 				// Call parent constructor.
@@ -623,9 +625,12 @@ abstract class FileObject extends PersistentObject
 		//
 		// Perform deletion.
 		//
-		$theIdentifier
-			= parent::Delete( $theWrapper,
-							  $collection->getObjectId( $theIdentifier ) );
+		$tmp = $collection->getObjectId( $theIdentifier );
+		if( $tmp === NULL )
+			throw new \Exception(
+				"Cannot use identifier: "
+			   ."invalid identifier [$theIdentifier]." );						// !@! ==>
+		$theIdentifier = parent::Delete( $theWrapper, $tmp );
 		
 		return ( $theIdentifier === NULL )
 			 ? NULL																	// ==>

@@ -1230,5 +1230,12 @@ define( "kTYPE_ERROR_CODE_DUBIOUS_YEAR",		-18 );
  */
 define( "kTYPE_ERROR_CODE_INVALID_ENUM",		-19 );
 
+/**
+ * Bad ObjectId.
+ *
+ * Invalid object identifier.
+ */
+define( "kTYPE_ERROR_CODE_INVALID_OBJECT_ID",	-20 );
+
 
 ?>

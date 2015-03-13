@@ -190,7 +190,12 @@ class MongoFileCollection extends MongoCollection
 			//
 			// Match identifier.
 			//
-			$found = $this->connection()->get( $this->getObjectId( $theIdentifier ) );
+			$tmp = $this->getObjectId( $theIdentifier );
+			if( $tmp === NULL )
+				throw new \Exception(
+					"Cannot use identifier: "
+				   ."invalid identifier [$theIdentifier]." );					// !@! ==>
+			$found = $this->connection()->get( $tmp );
 			
 			//
 			// Handle not found.
@@ -668,7 +673,12 @@ class MongoFileCollection extends MongoCollection
 			//
 			// Normalise identifier.
 			//
-			$id = $this->getObjectId( $id );
+			$tmp = $this->getObjectId( $id );
+			if( $tmp === NULL )
+				throw new \Exception(
+					"Cannot use identifier: "
+				   ."invalid identifier [$id]." );								// !@! ==>
+			$id = $tmp;
 		
 			//
 			// Serialise object.
@@ -747,9 +757,12 @@ class MongoFileCollection extends MongoCollection
 		//
 		// Delete object.
 		//
-		$ok = $this->mConnection->remove(
-				array( kTAG_NID => $this->getObjectId( $theIdentifier ) ),
-				$theOptions );
+		$tmp = $this->getObjectId( $theIdentifier );
+		if( $tmp === NULL )
+			throw new \Exception(
+				"Cannot use identifier: "
+			   ."invalid identifier [$theIdentifier]." );						// !@! ==>
+		$ok = $this->mConnection->remove( array( kTAG_NID => $tmp ), $theOptions );
 		
 		return ( $ok[ 'n' ] > 0 )
 			 ? $theIdentifier														// ==>
