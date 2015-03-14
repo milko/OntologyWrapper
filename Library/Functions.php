@@ -601,6 +601,992 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 
 /*=======================================================================================
  *																						*
+ *								DATA VALIDATION UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	CheckIntegerValue																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate integer value
+	 *
+	 * This function will ensure that the provided value can be cast to an integer, If that
+	 * is the case, the function will cast the provided value and return <tt>TRUE</tt>.
+	 *
+	 * If the provided value is an empty string or <tt>NULL</tt>, the function will return
+	 * <tt>NULL</tt>.
+	 *
+	 * If the value cannot be cast to an integer, the function will do the following:
+	 *
+	 * <ul>
+	 *	<li>Set the <tt>$theErrorType</tt> reference to {@link kTYPE_ERROR_INVALID_VALUE}.
+	 *	<li>Set the <tt>$theErrorMessage</tt> reference to the error message.
+	 *	<li>Return {@link kTYPE_ERROR_CODE_BAD_NUMBER}.
+	 * </ul>
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 * @param mixed				   &$theErrorType		Receives error type.
+	 * @param mixed				   &$theErrorMessage	Receives error message.
+	 *
+	 * @return mixed				<tt>TRUE</tt>, <tt>NULL</tt> or error code.
+	 */
+	function CheckIntegerValue( &$theValue, &$theErrorType, &$theErrorMessage )
+	{
+		//
+		// Check integer.
+		//
+		if( is_int( $theValue ) )
+			return TRUE;															// ==>
+		
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $theValue ) )
+			return NULL;															// ==>
+		
+		//
+		// Check if numeric.
+		//
+		if( ! is_numeric( $value ) )
+		{
+			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+			$theErrorMessage = 'Invalid integer value.';
+			return kTYPE_ERROR_CODE_BAD_NUMBER;										// ==>
+		}
+		
+		//
+		// Cast value.
+		//
+		$theValue = (int) $value;
+		
+		return TRUE;																// ==>
+
+	} // CheckIntegerValue.
+
+	 
+	/*===================================================================================
+	 *	CheckFloatValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate float value
+	 *
+	 * This function will ensure that the provided value can be cast to a double, If that
+	 * is the case, the function will cast the provided value and return <tt>TRUE</tt>.
+	 *
+	 * If the provided value is an empty string or <tt>NULL</tt>, the function will return
+	 * <tt>NULL</tt>.
+	 *
+	 * If the value cannot be cast to a float, the function will do the following:
+	 *
+	 * <ul>
+	 *	<li>Set the <tt>$theErrorType</tt> reference to {@link kTYPE_ERROR_INVALID_VALUE}.
+	 *	<li>Set the <tt>$theErrorMessage</tt> reference to the error message.
+	 *	<li>Return {@link kTYPE_ERROR_CODE_BAD_NUMBER}.
+	 * </ul>
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 * @param mixed				   &$theErrorType		Receives error type.
+	 * @param mixed				   &$theErrorMessage	Receives error message.
+	 *
+	 * @return mixed				<tt>TRUE</tt>, <tt>NULL</tt> or error code.
+	 */
+	function CheckFloatValue( &$theValue, &$theErrorType, &$theErrorMessage )
+	{
+		//
+		// Check float.
+		//
+		if( is_float( $theValue )
+		 || is_double( $theValue ) )
+			return TRUE;															// ==>
+		
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $theValue ) )
+			return NULL;															// ==>
+		
+		//
+		// Check if numeric.
+		//
+		if( ! is_numeric( $value ) )
+		{
+			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+			$theErrorMessage = 'Invalid floating point value.';
+			return kTYPE_ERROR_CODE_BAD_NUMBER;										// ==>
+		}
+		
+		//
+		// Cast value.
+		//
+		$theValue = (double) $value;
+		
+		return TRUE;																// ==>
+
+	} // CheckFloatValue.
+
+	 
+	/*===================================================================================
+	 *	CheckBooleanValue																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate boolean value
+	 *
+	 * This function will ensure that the provided value can be interpreted as a boolean, if
+	 * that is the case, the function will cast the provided value and return <tt>TRUE</tt>.
+	 *
+	 * The value will be checked for the following types:
+	 *
+	 * <ul>
+	 *	<li><tt>y</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>n</tt>: <tt>FALSE</tt>.
+	 *	<li><tt>yes</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>no</tt>: <tt>FALSE</tt>.
+	 *	<li><tt>true</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>false</tt>: <tt>FALSE</tt>.
+	 *	<li><tt>1</tt>: <tt>TRUE</tt>.
+	 *	<li><tt>0</tt>: <tt>FALSE</tt>.
+	 * </ul>
+	 *
+	 * If the provided value is an empty string or <tt>NULL</tt>, the function will return
+	 * <tt>NULL</tt>.
+	 *
+	 * If the value is not among the above choices, the function will do the following:
+	 *
+	 * <ul>
+	 *	<li>Set the <tt>$theErrorType</tt> reference to {@link kTYPE_ERROR_INVALID_VALUE}.
+	 *	<li>Set the <tt>$theErrorMessage</tt> reference to the error message.
+	 *	<li>Return {@link kTYPE_ERROR_CODE_BAD_BOOLEAN}.
+	 * </ul>
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 * @param mixed				   &$theErrorType		Receives error type.
+	 * @param mixed				   &$theErrorMessage	Receives error message.
+	 *
+	 * @return mixed				<tt>TRUE</tt>, <tt>NULL</tt> or error code.
+	 */
+	function CheckBooleanValue( &$theValue, &$theErrorType, &$theErrorMessage )
+	{
+		//
+		// Check boolean.
+		//
+		if( is_bool( $theValue ) )
+			return TRUE;															// ==>
+		
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $value ) )
+			return NULL;															// ==>
+		
+		//
+		// Cast value.
+		//
+		switch( strtolower( $value ) )
+		{
+			case '1':
+			case 'y':
+			case 'yes':
+			case 'true':
+				$theValue = TRUE;
+				return TRUE;														// ==>
+		
+			case '0':
+			case 'n':
+			case 'no':
+			case 'false':
+				$theValue = FALSE;
+				return TRUE;														// ==>
+		
+		} // Parsing value.
+		
+		$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+		$theErrorMessage = 'Invalid boolean value.';
+		return kTYPE_ERROR_CODE_BAD_BOOLEAN;										// ==>
+
+	} // CheckBooleanValue.
+
+	 
+	/*===================================================================================
+	 *	CheckArrayValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate array value
+	 *
+	 * This function will convert the provided string to a {@link kTYPE_ARRAY} type value,
+	 * if the operation was successful, the function will return <tt>TRUE</tt>.
+	 *
+	 * {@link kTYPE_ARRAY} instances are a list of key/value pairs, the function expects
+	 * a parameter containing at most two tokens which will be used to parse the provided
+	 * string value and extract the array elements.
+	 *
+	 * If the provided value is an empty string or <tt>NULL</tt>, the function will return
+	 * <tt>NULL</tt>.
+	 *
+	 * The function will not return any error codes, it is assumed that the tokens are
+	 * either one or two: the first token will be used to split the array elements, the
+	 * second to split the elements into key/value pairs.
+	 *
+	 * @param string			   &$theValue			Value.
+	 * @param string				$theTokens			Separator tokens.
+	 *
+	 * @return mixed				<tt>TRUE</tt>, <tt>NULL</tt> or error code.
+	 */
+	function CheckArrayValue( &$theValue, $theTokens )
+	{
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $theValue ) )
+			return NULL;															// ==>
+		
+		//
+		// Split elements.
+		//
+		$result = Array();
+		$elements = explode( substr( $theTokens, 0, 1 ), $value );
+		foreach( $elements as $element )
+		{
+			//
+			// Slip empty elements.
+			//
+			if( ! strlen( $element = trim( $element ) ) )
+				continue;													// =>
+			
+			//
+			// Handle no key.
+			//
+			if( strlen( $theTokens ) == 1 )
+				$result[] = $element;
+			
+			//
+			// Split key/value.
+			//
+			else
+			{
+				//
+				// Split.
+				//
+				if( CheckArrayValue( $element, substr( $theTokens, 1, 1 ) ) )
+				{
+					//
+					// Set value.
+					//
+					if( count( $element ) == 1 )
+						$result[] = $element[ 0 ];
+					
+					//
+					// Set key.
+					//
+					elseif( count( $element ) == 2 )
+						$result[ $element[ 0 ] ] = $element[ 1 ];
+					
+					//
+					// Handle mess.
+					//
+					else
+					{
+						//
+						// Set key.
+						//
+						$key = $element[ 0 ];
+						
+						//
+						// Reconstitute value.
+						//
+						array_shift( $element );
+						$value = implode( substr( $theTokens, 1, 1 ), $element );
+						
+						//
+						// Set element.
+						//
+						$result[ $key ] = $value;
+					
+					} // More than two elements.
+				
+				} // Was split.
+			
+			} // Split key/value.
+		
+		} // Iterating elements.
+		
+		//
+		// Check if empty.
+		//
+		if( ! count( $result ) )
+			return NULL;															// ==>
+		
+		//
+		// Cast to array.
+		//
+		$theValue = $result;
+		
+		return TRUE;																// ==>
+
+	} // CheckArrayValue.
+
+	 
+	/*===================================================================================
+	 *	CheckShapeValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate shape value
+	 *
+	 * This function will convert the provided string to a shape value. By default a shape
+	 * is provided as a string of the form <tt>type</tt>=geometry where the equal
+	 * (<tt>=</tt>) sign separates the shape type from the geometry, the semicolon
+	 * (<tt>;</tt>) separates longitude/latitude pairs, the comma (<tt>,</tt>) separates the
+	 * longitude from the latitude and the colon (<tt>:</tt>) separates the eventual linear
+	 * ring coordinate arrays.
+	 *
+	 * These are the valid shape types:
+	 *
+	 * <ul>
+	 *	<tt>Point</tt>: A point <tt>Point=lon,lat</tt>.
+	 *	<tt>Circle</tt>: A circle <tt>Circle=lon,lat,radius</tt>.
+	 *	<tt>MultiPoint</tt>: A collection of points <tt>MultiPoint=lon,lat;lon,lat...</tt>.
+	 *	<tt>LineString</tt>: A collection of lines <tt>LineString=lon,lat;lon,lat...</tt>,
+	 *		in this case there must be at least two pairs of coordinates.
+	 *	<tt>Polygon</tt>: A polygon <tt>Polygon=lon,lat;lon,lat:lon,lat;lon,lat...</tt>,
+	 *		where the colon (<tt>:</tt>) separates the linear ring coordinate arrays: the
+	 *		first coordinate array represents the exterior ring, the other eventual elements
+	 *		the interior rings or holes.
+	 * </ul>
+	 *
+	 * If the provided value is an empty string or <tt>NULL</tt>, the function will return
+	 * <tt>NULL</tt>.
+	 *
+	 * If the value cannot be cast to a shape, the function will do the following:
+	 *
+	 * <ul>
+	 *	<li>Missing shape type:
+	 *	  <ul>
+	 *		<li>Set the <tt>$theErrorType</tt> reference to
+	 *			{@link kTYPE_ERROR_INVALID_VALUE}.
+	 *		<li>Set the <tt>$theErrorMessage</tt> reference to the error message.
+	 *		<li>Return {@link kTYPE_ERROR_CODE_NO_SHAPE_TYPE}.
+	 *	  </ul>
+	 *	<li>Invalid or unsupported shape type:
+	 *	  <ul>
+	 *		<li>Set the <tt>$theErrorType</tt> reference to
+	 *			{@link kTYPE_ERROR_INVALID_VALUE}.
+	 *		<li>Set the <tt>$theErrorMessage</tt> reference to the error message.
+	 *		<li>Return {@link kTYPE_ERROR_CODE_BAD_SHAPE_TYPE}.
+	 *	  </ul>
+	 *	<li>Invalid shape geometry:
+	 *	  <ul>
+	 *		<li>Set the <tt>$theErrorType</tt> reference to
+	 *			{@link kTYPE_ERROR_INVALID_VALUE}.
+	 *		<li>Set the <tt>$theErrorMessage</tt> reference to the error message.
+	 *		<li>Return {@link kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY}.
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 * @param mixed				   &$theErrorType		Receives error type.
+	 * @param mixed				   &$theErrorMessage	Receives error message.
+	 *
+	 * @return mixed				<tt>TRUE</tt>, <tt>NULL</tt> or error code.
+	 */
+	function CheckShapeValue( &$theValue, &$theErrorType, &$theErrorMessage )
+	{
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $theValue ) )
+			return NULL;															// ==>
+		
+		//
+		// Get type.
+		//
+		$items = explode( '=', $theValue );
+		if( count( $items ) == 2 )
+		{
+			//
+			// Save by type.
+			//
+			$type = trim( $items[ 0 ] );
+			
+			//
+			// Handle point.
+			//
+			if( $type == 'Point' )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Check ring.
+					//
+					if( count( $geometry ) == 1 )
+					{
+						//
+						// Check points.
+						//
+						if( count( $geometry[ 0 ] ) == 1 )
+						{
+							//
+							// Check coordinates.
+							//
+							if( count( $geometry[ 0 ][ 0 ] ) == 2 )
+							{
+								//
+								// Set shape.
+								//
+								$theValue
+									= array( kTAG_TYPE => $type,
+											 kTAG_GEOMETRY => $geometry[ 0 ][ 0 ] );
+								
+								return TRUE;										// ==>
+							
+							} // Two coordinates.
+						
+						} // One point.
+					
+					} // One ring.
+				
+				} // Correct geometry.
+			
+			} // Point.
+			
+			//
+			// Handle circle.
+			//
+			elseif( $type == 'Circle' )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Check ring.
+					//
+					if( count( $geometry ) == 1 )
+					{
+						//
+						// Check points.
+						//
+						if( count( $geometry[ 0 ] ) == 1 )
+						{
+							//
+							// Check coordinates.
+							//
+							if( count( $geometry[ 0 ][ 0 ] ) == 3 )
+							{
+								//
+								// Set shape.
+								//
+								$theValue
+									= array( kTAG_TYPE => $type,
+											 kTAG_RADIUS => $geometry[ 0 ][ 0 ][ 2 ],
+											 kTAG_GEOMETRY
+											 	=> array( $geometry[ 0 ][ 0 ][ 0 ],
+											 			  $geometry[ 0 ][ 0 ][ 1 ] ) );
+								
+								return TRUE;										// ==>
+							
+							} // Two coordinates.
+						
+						} // One point.
+					
+					} // One ring.
+				
+				} // Correct geometry.
+			
+			} // Circle.
+			
+			//
+			// Handle multipoint.
+			//
+			elseif( ($type == 'MultiPoint')
+				 || ($type == 'LineString') )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Check ring.
+					//
+					if( count( $geometry ) == 1 )
+					{
+						//
+						// Check points.
+						//
+						if( count( $geometry[ 0 ] ) > 1 )
+						{
+							//
+							// Set shape.
+							//
+							$theValue
+								= array( kTAG_TYPE => $type,
+										 kTAG_GEOMETRY => $geometry[ 0 ] );
+							
+							return TRUE;											// ==>
+						
+						} // One point.
+					
+					} // One ring.
+				
+				} // Correct geometry.
+			
+			} // MultiPoint or LineString.
+			
+			//
+			// Handle polygon.
+			//
+			elseif( $type == 'Polygon' )
+			{
+				//
+				// Parse geometry.
+				//
+				$geometry = ParseGeometry( $items[ 1 ] );
+				if( $geometry !== FALSE )
+				{
+					//
+					// Set shape.
+					//
+					$theValue
+						= array( kTAG_TYPE => $type,
+								 kTAG_GEOMETRY => $geometry );
+					
+					return TRUE;													// ==>
+				
+				} // Correct geometry.
+			
+			} // Polygon.
+			
+			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+			$theErrorMessage = 'Invalid or unsupported shape type.';
+			return kTYPE_ERROR_CODE_BAD_SHAPE_TYPE;									// ==>
+		
+		} // Has type.
+		
+		//
+		// Handle missing type.
+		//
+		else
+		{
+			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+			$theErrorMessage = 'Missing shape type.';
+			return kTYPE_ERROR_CODE_NO_SHAPE_TYPE;									// ==>
+		}
+		
+		$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+		$theErrorMessage = 'Invalid shape geometry.';
+		return kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY;									// ==>
+
+	} // CheckShapeValue.
+
+	 
+	/*===================================================================================
+	 *	CheckLinkValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate link value
+	 *
+	 * This function will ensure that the provided URL value is active, if that is the case,
+	 * the function will return <tt>TRUE</tt>.
+	 *
+	 * If the provided value is an empty string or <tt>NULL</tt>, the function will return
+	 * <tt>NULL</tt>.
+	 *
+	 * If the link cannot be reached, the function will do the following:
+	 *
+	 * <ul>
+	 *	<li>Set the <tt>$theErrorType</tt> reference to {@link kTYPE_ERROR_INVALID_VALUE}.
+	 *	<li>Set the <tt>$theErrorMessage</tt> reference to the error message.
+	 *	<li>Return {@link kTYPE_ERROR_CODE_BAD_LINK}.
+	 * </ul>
+	 *
+	 * @param mixed				   &$theValue			Value.
+	 * @param mixed				   &$theErrorType		Receives error type.
+	 * @param mixed				   &$theErrorMessage	Receives error message.
+	 *
+	 * @return mixed				<tt>TRUE</tt>, <tt>NULL</tt> or error code.
+	 */
+	function CheckLinkValue( &$theValue, &$theErrorType, &$theErrorMessage )
+	{
+		//
+		// Trim value.
+		//
+		$value = trim( $theValue );
+		if( ! strlen( $theValue ) )
+			return NULL;															// ==>
+		
+		//
+		// Check link.
+		//
+		if( @get_headers( $value ) === FALSE )
+		{
+			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+			$theErrorMessage = 'Invalid or inactive link.';
+			return kTYPE_ERROR_CODE_BAD_LINK;										// ==>
+		}
+		
+		return TRUE;																// ==>
+
+	} // CheckLinkValue.
+
+	 
+	/*===================================================================================
+	 *	CheckDateValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate shape value
+	 *
+	 * This function will convert the provided string to a date value, if that is the case,
+	 * the function will cast the provided value and return <tt>TRUE</tt>
+	 *
+	 * If the provided value is an empty string or <tt>NULL</tt>, the function will return
+	 * <tt>NULL</tt>.
+	 *
+	 * If the value cannot be converted to a date, the function will do the following:
+	 *
+	 * <ul>
+	 *	<li>Bad date format:
+	 *	  <ul>
+	 *		<li>Set the <tt>$theErrorType</tt> reference to
+	 *			{@link kTYPE_ERROR_INVALID_VALUE}.
+	 *		<li>Set the <tt>$theErrorMessage</tt> reference to the error message.
+	 *		<li>Return {@link kTYPE_ERROR_CODE_BAD_DATE_FORMAT}.
+	 *	  </ul>
+	 *	<li>Bad date value:
+	 *	  <ul>
+	 *		<li>Set the <tt>$theErrorType</tt> reference to
+	 *			{@link kTYPE_ERROR_INVALID_VALUE}.
+	 *		<li>Set the <tt>$theErrorMessage</tt> reference to the error message.
+	 *		<li>Return {@link kTYPE_ERROR_CODE_BAD_DATE}.
+	 *	  </ul>
+	 *	<li>Dubious year:
+	 *	  <ul>
+	 *		<li>Set the <tt>$theErrorType</tt> reference to
+	 *			{@link kTYPE_ERROR_DUBIOUS_VALUE}.
+	 *		<li>Set the <tt>$theErrorMessage</tt> reference to the warning message.
+	 *		<li>Return {@link kTYPE_ERROR_CODE_DUBIOUS_YEAR}.
+	 *	  </ul>
+	 * </ul>
+	 *
+	 * @param string			   &$theValue			Value.
+	 * @param mixed				   &$theErrorType		Receives error type.
+	 * @param mixed				   &$theErrorMessage	Receives error message.
+	 *
+	 * @return mixed				<tt>TRUE</tt>, <tt>NULL</tt> or error code.
+	 */
+	function CheckDateValue( &$theValue, &$theErrorType, &$theErrorMessage )
+	{
+		//
+		// Cast date.
+		//
+		$date = $theValue = (string) $theValue;
+		
+		//
+		// Handle non-standard format.
+		//
+		if( ! ctype_digit( $theValue ) )
+		{
+			//
+			// Check - separator.
+			//
+			if( strpos( $date, '-' ) === FALSE )
+			{
+				//
+				// Check / separator.
+				//
+				if( strpos( $date, '/' ) === FALSE )
+				{
+					//
+					// Check space separator.
+					//
+					if( strpos( $date, ' ' ) === FALSE )
+					{
+						$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+						$theErrorMessage = 'Invalid date format.';
+						return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;					// ==>
+					}
+					else
+						$items = explode( ' ', $date );
+				
+				} // No slash separator.
+				
+				else
+					$items = explode( '/', $date );
+			
+			} // No dash separator.
+			
+			else
+				$items = explode( '-', $date );
+			
+			//
+			// Normalise elements.
+			//
+			$elements = Array();
+			foreach( $items as $item )
+			{
+				if( strlen( $item = trim( $item ) ) )
+					$elements[] = $item;
+			}
+			
+			//
+			// Check format.
+			//
+			if( (! count( $elements ))										// No elements,
+			 || ( (strlen( $elements[ 0 ] ) != 4)							// or no start y
+			   && (strlen( $elements[ count( $elements ) - 1 ] ) != 4) ) )	// and no end y.
+			{
+				$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+				$theErrorMessage = 'Invalid date format.';
+				return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;							// ==>
+			}
+			
+			//
+			// Init date.
+			//
+			$date = '';
+			
+			//
+			// Check YYYYMMDD.
+			//
+			if( strlen( $elements[ 0 ] ) == 4 )
+			{
+				foreach( $elements as $element )
+					$date .= $element;
+			}
+			
+			//
+			// Check DDMMYYYY.
+			//
+			else
+			{
+				for( $i = count( $elements ) - 1; $i >= 0; $i-- )
+					$date .= $elements[ $i ];
+			}
+		
+		} // Non-standard format.
+		
+		//
+		// Check date content.
+		//
+		if( ! ctype_digit( $date ) )
+		{
+			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+			$theErrorMessage = 'Invalid date format.';
+			return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;								// ==>
+		}
+		
+		//
+		// Check full date.
+		//
+		if( strlen( $date ) == 8 )
+		{
+			$y = (int) substr( $date, 0, 4 );
+			$m = (int) substr( $date, 4, 2 );
+			$d = (int) substr( $date, 6, 2 );
+		}
+	
+		//
+		// Month.
+		//
+		elseif( strlen( $date ) == 6 )
+		{
+			$y = (int) substr( $date, 0, 4 );
+			$m = (int) substr( $date, 4, 2 );
+			$d = 1;
+		}
+	
+		//
+		// Year.
+		//
+		elseif( strlen( $date ) == 4 )
+		{
+			$y = (int) substr( $date, 0, 4 );
+			$m = 1;
+			$d = 1;
+		}
+		
+		//
+		// Bad format.
+		//
+		else
+		{
+			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+			$theErrorMessage = 'Invalid date format.';
+			return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;								// ==>
+		}
+		
+		//
+		// Check date.
+		//
+		if( ! checkdate( $m, $d, $y ) )
+		{
+			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
+			$theErrorMessage = 'Invalid date value.';
+			return kTYPE_ERROR_CODE_BAD_DATE;										// ==>
+		}
+		
+		//
+		// Check year.
+		//
+		if( ($y < 1900)
+		 || ($y > (int) date( "Y" )) )
+		{
+			$theErrorType = kTYPE_ERROR_DUBIOUS_VALUE;
+			$theErrorMessage = 'Double check if year is correct.';
+			return kTYPE_ERROR_CODE_DUBIOUS_YEAR;									// ==>
+		}
+		
+		//
+		// Set date.
+		//
+		$theValue = $date;
+		
+		return TRUE;																// ==>
+
+	} // CheckDateValue.
+
+	 
+	/*===================================================================================
+	 *	CheckStringCombinations															*
+	 *==================================================================================*/
+
+	/**
+	 * Check string combinations
+	 *
+	 * This function will return all combinations of the provided prefix, string and suffix.
+	 *
+	 * If there are no combinations, the function will return <tt>NULL</tt>.
+	 *
+	 * @param string				$theString			String.
+	 * @param array					$thePrefix			String prefixes.
+	 * @param array					$theSuffix			String suffixes.
+	 *
+	 * @return array				Combinations.
+	 */
+	function CheckStringCombinations( $theString, $thePrefix = NULL, $theSuffix = NULL )
+	{
+		//
+		// Normalise string.
+		//
+		$theString = trim( $theString );
+		
+		//
+		// Normalise prefix.
+		//
+		if( $thePrefix !== NULL )
+		{
+			if( ! is_array( $thePrefix ) )
+				$thePrefix = ( ! strlen( $thePrefix = trim( $thePrefix ) ) )
+						   ? NULL
+						   : array( $thePrefix );
+		}
+		
+		//
+		// Normalise suffix.
+		//
+		if( $theSuffix !== NULL )
+		{
+			if( ! is_array( $theSuffix ) )
+				$theSuffix = ( ! strlen( $theSuffix = trim( $theSuffix ) ) )
+						   ? NULL
+						   : array( $theSuffix );
+		}
+		
+		//
+		// Handle no prefix or suffix.
+		//
+		if( ($thePrefix === NULL)
+		 && ($theSuffix === NULL) )
+		{
+			//
+			// Handle no combinations.
+			//
+			if( ! strlen( $theString ) )
+				return Array();														// ==>
+			
+			return array( $theString );												// ==>
+		
+		} // Has no prefix nor suffix.
+		
+		//
+		// Init local storage.
+		//
+		$combinations = Array();
+		
+		//
+		// Iterate prefixes.
+		//
+		if( is_array( $thePrefix ) )
+		{
+			//
+			// Iterate prefixes.
+			//
+			foreach( $thePrefix as $prefix )
+			{
+				//
+				// Handle suffixes.
+				//
+				if( is_array( $theSuffix ) )
+				{
+					//
+					// Iterate suffixes.
+					//
+					foreach( $theSuffix as $suffix )
+						$combinations[] = $prefix.$theString.$suffix;
+				
+				} // Has suffixes.
+				
+				//
+				// Handle no suffixes.
+				//
+				else
+					$combinations[] = $prefix.$theString;
+			
+			} // Iterating prefixes.
+		
+		} // Has prefixes.
+		
+		//
+		// Iterate suffixes.
+		//
+		else
+		{
+			//
+			// Iterate suffixes.
+			//
+			foreach( $theSuffix as $suffix )
+				$combinations[] = $theString.$suffix;
+		
+		} // Has suffixes.
+		
+		return $combinations;														// ==>
+
+	} // CheckStringCombinations.
+
+
+
+/*=======================================================================================
+ *																						*
  *									GENERIC UTILITIES									*
  *																						*
  *======================================================================================*/
@@ -1054,845 +2040,471 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 
 	 
 	/*===================================================================================
-	 *	CheckIntegerValue																*
+	 *	SetLanguageString																*
 	 *==================================================================================*/
 
 	/**
-	 * Validate integer value
+	 * Set a language string entry
 	 *
-	 * This function will ensure that the provided value can be cast to an integer, it will
-	 * return the following values:
+	 * This function can be used to add an entry to a language string property, type
+	 * {@link kTYPE_LANGUAGE_STRING}, the function expects the destination container, the
+	 * language code and the string.
 	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: The value can be cast to an integer.
-	 *	<li><tt>FALSE</tt>: The value cannot be cast to an integer.
-	 *	<li><tt>NULL</tt>: The value is empty.
-	 * </ul>
-	 *
-	 * The value will be converted to a string and trimmed, if it is empty, the method will
-	 * return <tt>NULL</tt> without modifying the provided value.
-	 *
-	 * If the value is numeric, the method will cast the provided value to an integer and
-	 * return <tt>TRUE</tt>.
-	 *
-	 * If the value is not numeric, the method will return <tt>FALSE</tt> without modifying
-	 * the provided value.
-	 *
-	 * @param mixed				   &$theValue			Value.
-	 *
-	 * @return mixed				<tt>TRUE</tt> correct value.
-	 */
-	function CheckIntegerValue( &$theValue )
-	{
-		//
-		// Check integer.
-		//
-		if( is_int( $theValue ) )
-			return TRUE;															// ==>
-		
-		//
-		// Trim value.
-		//
-		$value = trim( $theValue );
-		if( ! strlen( $theValue ) )
-			return NULL;															// ==>
-		
-		//
-		// Check if numeric.
-		//
-		if( ! is_numeric( $value ) )
-			return FALSE;															// ==>
-		
-		//
-		// Cast value.
-		//
-		$theValue = (int) $value;
-		
-		return TRUE;																// ==>
-
-	} // CheckIntegerValue.
-
-	 
-	/*===================================================================================
-	 *	CheckFloatValue																	*
-	 *==================================================================================*/
-
-	/**
-	 * Validate float value
-	 *
-	 * This function will ensure that the provided value can be cast to an double, it will
-	 * return the following values:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: The value can be cast to an double.
-	 *	<li><tt>FALSE</tt>: The value cannot be cast to an double.
-	 *	<li><tt>NULL</tt>: The value is empty.
-	 * </ul>
-	 *
-	 * The value will be converted to a string and trimmed, if it is empty, the method will
-	 * return <tt>NULL</tt> without modifying the provided value.
-	 *
-	 * If the value is numeric, the method will cast the provided value to a double and
-	 * return <tt>TRUE</tt>.
-	 *
-	 * If the value is not numeric, the method will return <tt>FALSE</tt> without modifying
-	 * the provided value.
-	 *
-	 * @param mixed				   &$theValue			Value.
-	 *
-	 * @return mixed				<tt>TRUE</tt> correct value.
-	 */
-	function CheckFloatValue( &$theValue )
-	{
-		//
-		// Check double.
-		//
-		if( is_float( $theValue )
-		 || is_double( $theValue ) )
-			return TRUE;															// ==>
-		
-		//
-		// Trim value.
-		//
-		$value = trim( $theValue );
-		if( ! strlen( $theValue ) )
-			return NULL;															// ==>
-		
-		//
-		// Check if numeric.
-		//
-		if( ! is_numeric( $value ) )
-			return FALSE;															// ==>
-		
-		//
-		// Cast value.
-		//
-		$theValue = (double) $value;
-		
-		return TRUE;																// ==>
-
-	} // CheckFloatValue.
-
-	 
-	/*===================================================================================
-	 *	CheckBooleanValue																*
-	 *==================================================================================*/
-
-	/**
-	 * Validate boolean value
-	 *
-	 * This function will ensure that the provided value can be interpreted as a boolean, it
-	 * will return the following values:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: The value can be considered a boolean.
-	 *	<li><tt>FALSE</tt>: The value cannot be considered a boolean.
-	 *	<li><tt>NULL</tt>: The value is empty.
-	 * </ul>
-	 *
-	 * The value will be converted to a string and trimmed, if it is empty, the method will
-	 * return <tt>NULL</tt> without modifying the provided value.
-	 *
-	 * The value will be checked for the following types:
-	 *
-	 * <ul>
-	 *	<li><tt>y</tt>: <tt>TRUE</tt>.
-	 *	<li><tt>n</tt>: <tt>FALSE</tt>.
-	 *	<li><tt>yes</tt>: <tt>TRUE</tt>.
-	 *	<li><tt>no</tt>: <tt>FALSE</tt>.
-	 *	<li><tt>true</tt>: <tt>TRUE</tt>.
-	 *	<li><tt>false</tt>: <tt>FALSE</tt>.
-	 *	<li><tt>1</tt>: <tt>TRUE</tt>.
-	 *	<li><tt>0</tt>: <tt>FALSE</tt>.
-	 * </ul>
-	 *
-	 * If the value is not among the above choices, the method will return <tt>FALSE</tt>
-	 * without modifying the provided value.
-	 *
-	 * @param mixed				   &$theValue			Value.
-	 *
-	 * @return mixed				<tt>TRUE</tt> correct value.
-	 */
-	function CheckBooleanValue( &$theValue )
-	{
-		//
-		// Check boolean.
-		//
-		if( is_bool( $theValue ) )
-			return TRUE;															// ==>
-		
-		//
-		// Trim value.
-		//
-		$value = trim( $theValue );
-		if( ! strlen( $value ) )
-			return NULL;															// ==>
-		
-		//
-		// Cast value.
-		//
-		switch( strtolower( $value ) )
-		{
-			case '1':
-			case 'y':
-			case 'yes':
-			case 'true':
-				$theValue = TRUE;
-				return TRUE;														// ==>
-		
-			case '0':
-			case 'n':
-			case 'no':
-			case 'false':
-				$theValue = FALSE;
-				return TRUE;														// ==>
-			
-			default:
-				return FALSE;														// ==>
-		
-		} // Parsing value.
-
-	} // CheckBooleanValue.
-
-	 
-	/*===================================================================================
-	 *	CheckArrayValue																	*
-	 *==================================================================================*/
-
-	/**
-	 * Validate array value
-	 *
-	 * This function will convert the provided string to a {@link kTYPE_ARRAY} type value.
-	 *
-	 * Such values are key/value pairs, in order to split elements, the function expects a
-	 * parameter that represents the the separator tokens: the first token will separate
-	 * elements, the second token will separate the key from the value.
-	 *
-	 * If no token is provided, the function will return <tt>FALSE</tt> with the value
-	 * untouched.
-	 *
-	 * This function will return the following values:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: The value was split into an array.
-	 *	<li><tt>FALSE</tt>: Missing tokens, value untouched.
-	 *	<li><tt>NULL</tt>: The value is empty, value untouched.
-	 * </ul>
-	 *
-	 * @param mixed				   &$theValue			Value.
-	 * @param string				$theTokens			Tokens.
-	 *
-	 * @return mixed				<tt>TRUE</tt> split values.
-	 */
-	function CheckArrayValue( &$theValue, $theTokens = NULL )
-	{
-		//
-		// Trim value.
-		//
-		$value = trim( $theValue );
-		if( ! strlen( $theValue ) )
-			return NULL;															// ==>
-		
-		//
-		// Get tokens count.
-		//
-		$count = strlen( $theTokens );
-		if( ! $count )
-			return FALSE;															// ==>
-		
-		//
-		// Split elements.
-		//
-		$result = Array();
-		$elements = explode( substr( $theTokens, 0, 1 ), $value );
-		foreach( $elements as $element )
-		{
-			//
-			// Slip empty elements.
-			//
-			if( ! strlen( $element = trim( $element ) ) )
-				continue;													// =>
-			
-			//
-			// Handle no key.
-			//
-			if( $count == 1 )
-				$result[] = $element;
-			
-			//
-			// Split key/value.
-			//
-			else
-			{
-				//
-				// Split.
-				//
-				if( CheckArrayValue( $element, substr( $theTokens, 1, 1 ) ) )
-				{
-					//
-					// Set value.
-					//
-					if( count( $element ) == 1 )
-						$result[] = $element[ 0 ];
-					
-					//
-					// Set key.
-					//
-					elseif( count( $element ) == 2 )
-						$result[ $element[ 0 ] ] = $element[ 1 ];
-					
-					//
-					// Handle mess.
-					//
-					else
-					{
-						//
-						// Set key.
-						//
-						$key = $element[ 0 ];
-						
-						//
-						// Reconstitute value.
-						//
-						array_shift( $element );
-						$value = implode( substr( $theTokens, 1, 1 ), $element );
-						
-						//
-						// Set element.
-						//
-						$result[ $key ] = $value;
-					
-					} // More than two elements.
-				
-				} // Was split.
-			
-			} // Split key/value.
-		
-		} // Iterating elements.
-		
-		//
-		// Check if empty.
-		//
-		if( ! count( $result ) )
-			return NULL;															// ==>
-		
-		//
-		// Cast to array.
-		//
-		$theValue = $result;
-		
-		return TRUE;																// ==>
-
-	} // CheckArrayValue.
-
-	 
-	/*===================================================================================
-	 *	CheckShapeValue																	*
-	 *==================================================================================*/
-
-	/**
-	 * Validate shape value
-	 *
-	 * This function will convert the provided string to a shape value, by default a shape
-	 * is provided as a string of the form <tt>type</tt>=geometry where the equal
-	 * (<tt>=</tt>) sign separates the shape type from the geometry, the semicolon
-	 * (<tt>;</tt>) separates longitude/latitude pairs, the comma (<tt>,</tt>) separates the
-	 * longitude from the latitude and the colon (<tt>:</tt>) separates the eventual linear
-	 * ring coordinate arrays.
-	 *
-	 * These are the valid shape types:
-	 *
-	 * <ul>
-	 *	<tt>Point</tt>: A point <tt>Point=lon,lat</tt>.
-	 *	<tt>Circle</tt>: A circle <tt>Circle=lon,lat,radius</tt>.
-	 *	<tt>MultiPoint</tt>: A collection of points <tt>MultiPoint=lon,lat;lon,lat...</tt>.
-	 *	<tt>LineString</tt>: A collection of lines <tt>LineString=lon,lat;lon,lat...</tt>,
-	 *		in this case there must be at least two pairs of coordinates.
-	 *	<tt>Polygon</tt>: A polygon <tt>Polygon=lon,lat;lon,lat:lon,lat;lon,lat...</tt>,
-	 *		where the colon (<tt>:</tt>) separates the linear ring coordinate arrays: the
-	 *		first coordinate array represents the exterior ring, the other eventual elements
-	 *		the interior rings or holes.
-	 * </ul>
-	 *
-	 * This function will return the following values:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: The shape is correct and was set.
-	 *	<li><tt>NULL</tt>: The value is empty, value untouched.
-	 *	<li><tt>kTYPE_ERROR_CODE_NO_SHAPE_TYPE</tt>: Missing shape type.
-	 *	<li><tt>kTYPE_ERROR_CODE_BAD_SHAPE_TYPE</tt>: Invalid or unsupported shape type.
-	 *	<li><tt>kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY</tt>: Invalid shape geometry.
-	 * </ul>
-	 *
-	 * @param mixed				   &$theValue			Value.
-	 *
-	 * @return mixed				<tt>TRUE</tt> set value.
-	 */
-	function CheckShapeValue( &$theValue )
-	{
-		//
-		// Trim value.
-		//
-		$value = trim( $theValue );
-		if( ! strlen( $theValue ) )
-			return NULL;															// ==>
-		
-		//
-		// Get type.
-		//
-		$items = explode( '=', $theValue );
-		if( count( $items ) == 2 )
-		{
-			//
-			// Save by type.
-			//
-			$type = trim( $items[ 0 ] );
-			
-			//
-			// Handle point.
-			//
-			if( $type == 'Point' )
-			{
-				//
-				// Parse geometry.
-				//
-				$geometry = ParseGeometry( $items[ 1 ] );
-				if( $geometry !== FALSE )
-				{
-					//
-					// Check ring.
-					//
-					if( count( $geometry ) == 1 )
-					{
-						//
-						// Check points.
-						//
-						if( count( $geometry[ 0 ] ) == 1 )
-						{
-							//
-							// Check coordinates.
-							//
-							if( count( $geometry[ 0 ][ 0 ] ) == 2 )
-							{
-								//
-								// Set shape.
-								//
-								$theValue
-									= array( kTAG_TYPE => $type,
-											 kTAG_GEOMETRY => $geometry[ 0 ][ 0 ] );
-								
-								return TRUE;										// ==>
-							
-							} // Two coordinates.
-						
-						} // One point.
-					
-					} // One ring.
-				
-				} // Correct geometry.
-			
-			} // Point.
-			
-			//
-			// Handle circle.
-			//
-			elseif( $type == 'Circle' )
-			{
-				//
-				// Parse geometry.
-				//
-				$geometry = ParseGeometry( $items[ 1 ] );
-				if( $geometry !== FALSE )
-				{
-					//
-					// Check ring.
-					//
-					if( count( $geometry ) == 1 )
-					{
-						//
-						// Check points.
-						//
-						if( count( $geometry[ 0 ] ) == 1 )
-						{
-							//
-							// Check coordinates.
-							//
-							if( count( $geometry[ 0 ][ 0 ] ) == 3 )
-							{
-								//
-								// Set shape.
-								//
-								$theValue
-									= array( kTAG_TYPE => $type,
-											 kTAG_RADIUS => $geometry[ 0 ][ 0 ][ 2 ],
-											 kTAG_GEOMETRY
-											 	=> array( $geometry[ 0 ][ 0 ][ 0 ],
-											 			  $geometry[ 0 ][ 0 ][ 1 ] ) );
-								
-								return TRUE;										// ==>
-							
-							} // Two coordinates.
-						
-						} // One point.
-					
-					} // One ring.
-				
-				} // Correct geometry.
-			
-			} // Circle.
-			
-			//
-			// Handle multipoint.
-			//
-			elseif( ($type == 'MultiPoint')
-				 || ($type == 'LineString') )
-			{
-				//
-				// Parse geometry.
-				//
-				$geometry = ParseGeometry( $items[ 1 ] );
-				if( $geometry !== FALSE )
-				{
-					//
-					// Check ring.
-					//
-					if( count( $geometry ) == 1 )
-					{
-						//
-						// Check points.
-						//
-						if( count( $geometry[ 0 ] ) > 1 )
-						{
-							//
-							// Set shape.
-							//
-							$theValue
-								= array( kTAG_TYPE => $type,
-										 kTAG_GEOMETRY => $geometry[ 0 ] );
-							
-							return TRUE;											// ==>
-						
-						} // One point.
-					
-					} // One ring.
-				
-				} // Correct geometry.
-			
-			} // MultiPoint or LineString.
-			
-			//
-			// Handle polygon.
-			//
-			elseif( $type == 'Polygon' )
-			{
-				//
-				// Parse geometry.
-				//
-				$geometry = ParseGeometry( $items[ 1 ] );
-				if( $geometry !== FALSE )
-				{
-					//
-					// Set shape.
-					//
-					$theValue
-						= array( kTAG_TYPE => $type,
-								 kTAG_GEOMETRY => $geometry );
-					
-					return TRUE;													// ==>
-				
-				} // Correct geometry.
-			
-			} // Polygon.
-			
-			return kTYPE_ERROR_CODE_BAD_SHAPE_TYPE;									// ==>
-		
-		} // Has type.
-		
-		//
-		// Handle missing type.
-		//
-		else
-			return kTYPE_ERROR_CODE_NO_SHAPE_TYPE;									// ==>
-		
-		return kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY;									// ==>
-
-	} // CheckShapeValue.
-
-	 
-	/*===================================================================================
-	 *	CheckDateValue																	*
-	 *==================================================================================*/
-
-	/**
-	 * Validate shape value
-	 *
-	 * This function will convert the provided string to a date value, the method will
-	 * return the following values:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: The date is correct and was set.
-	 *	<li><tt>NULL</tt>: The date is empty, value untouched.
-	 *	<li><tt>kTYPE_ERROR_CODE_BAD_DATE_FORMAT</tt>: Bad date format.
-	 *	<li><tt>kTYPE_ERROR_CODE_BAD_DATE</tt>: Bad date value.
-	 *	<li><tt>kTYPE_ERROR_CODE_DUBIOUS_YEAR</tt>: Dubious year.
-	 * </ul>
-	 *
-	 * @param mixed				   &$theValue			Value.
-	 *
-	 * @return mixed				<tt>TRUE</tt> set value.
-	 */
-	function CheckDateValue( &$theValue )
-	{
-		//
-		// Cast date.
-		//
-		$date = $theValue = (string) $theValue;
-		
-		//
-		// Handle non-standard format.
-		//
-		if( ! ctype_digit( $theValue ) )
-		{
-			//
-			// Check - separator.
-			//
-			if( strpos( $date, '-' ) === FALSE )
-			{
-				//
-				// Check / separator.
-				//
-				if( strpos( $date, '/' ) === FALSE )
-				{
-					//
-					// Check space separator.
-					//
-					if( strpos( $date, ' ' ) === FALSE )
-						return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;					// ==>
-					else
-						$items = explode( ' ', $date );
-				
-				} // No slash separator.
-				
-				else
-					$items = explode( '/', $date );
-			
-			} // No dash separator.
-			
-			else
-				$items = explode( '-', $date );
-			
-			//
-			// Normalise elements.
-			//
-			$elements = Array();
-			foreach( $items as $item )
-			{
-				if( strlen( $item = trim( $item ) ) )
-					$elements[] = $item;
-			}
-			
-			//
-			// Check format.
-			//
-			if( (! count( $elements ))										// No elements,
-			 || ( (strlen( $elements[ 0 ] ) != 4)							// or no start y
-			   && (strlen( $elements[ count( $elements ) - 1 ] ) != 4) ) )	// and no end y.
-				return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;							// ==>
-			
-			//
-			// Init date.
-			//
-			$date = '';
-			
-			//
-			// Check YYYYMMDD.
-			//
-			if( strlen( $elements[ 0 ] ) == 4 )
-			{
-				foreach( $elements as $element )
-					$date .= $element;
-			}
-			
-			//
-			// Check DDMMYYYY.
-			//
-			else
-			{
-				for( $i = count( $elements ) - 1; $i >= 0; $i-- )
-					$date .= $elements[ $i ];
-			}
-		
-		} // Non-standard format.
-		
-		//
-		// Check date content.
-		//
-		if( ! ctype_digit( $date ) )
-			return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;								// ==>
-		
-		//
-		// Check full date.
-		//
-		if( strlen( $date ) == 8 )
-		{
-			$y = (int) substr( $date, 0, 4 );
-			$m = (int) substr( $date, 4, 2 );
-			$d = (int) substr( $date, 6, 2 );
-		}
-	
-		//
-		// Month.
-		//
-		elseif( strlen( $date ) == 6 )
-		{
-			$y = (int) substr( $date, 0, 4 );
-			$m = (int) substr( $date, 4, 2 );
-			$d = 1;
-		}
-	
-		//
-		// Year.
-		//
-		elseif( strlen( $date ) == 4 )
-		{
-			$y = (int) substr( $date, 0, 4 );
-			$m = 1;
-			$d = 1;
-		}
-		
-		//
-		// Bad format.
-		//
-		else
-			return kTYPE_ERROR_CODE_BAD_DATE_FORMAT;								// ==>
-		
-		//
-		// Check date.
-		//
-		if( ! checkdate( $m, $d, $y ) )
-			return kTYPE_ERROR_CODE_BAD_DATE;										// ==>
-		
-		//
-		// Check year.
-		//
-		if( ($y < 1900)
-		 || ($y > (int) date( "Y" )) )
-			return kTYPE_ERROR_CODE_DUBIOUS_YEAR;									// ==>
-		
-		//
-		// Set date.
-		//
-		$theValue = $date;
-		
-		return TRUE;																// ==>
-
-	} // CheckDateValue.
-
-	 
-	/*===================================================================================
-	 *	checkStringCombinations															*
-	 *==================================================================================*/
-
-	/**
-	 * Check string combinations
-	 *
-	 * This function will return all combinations of the provided prefix, string and suffix.
-	 *
-	 * If there are no combinations, the function will return <tt>NULL</tt>.
-	 *
+	 * @param array				   &$theContainer		Language string container.
+	 * @param string				$theLanguage		Language code.
 	 * @param string				$theString			String.
-	 * @param array					$thePrefix			String prefixes.
-	 * @param array					$theSuffix			String suffixes.
 	 *
-	 * @return array				Combinations.
+	 * @return boolean				<tt>TRUE</tt> added, <tt>FALSE</tt> updated.
 	 */
-	function checkStringCombinations( $theString, $thePrefix = NULL, $theSuffix = NULL )
+	function SetLanguageString( &$theContainer, $theLanguage, $theString )
 	{
 		//
-		// Normalise string.
+		// Init container
+		//
+		if( ! is_array( $theContainer ) )
+			$theContainer = Array();
+
+		//
+		// Trim parameters
 		//
 		$theString = trim( $theString );
+		$theLanguage = trim( $theLanguage );
 		
 		//
-		// Handle no prefix or suffix.
+		// Skip empty string.
 		//
-		if( ($thePrefix === NULL)
-		 && ($theSuffix === NULL) )
+		if( strlen( $theString ) )
 		{
 			//
-			// Handle no combinations.
+			// Handle language.
 			//
-			if( ! strlen( $theString ) )
-				return Array();														// ==>
-			
-			return array( $theString );												// ==>
-		
-		} // Has no prefix nor suffix.
-		
-		//
-		// Cast prefix and suffix.
-		//
-		if( ($thePrefix !== NULL)
-		 && (! is_array( $thePrefix )) )
-			$thePrefix = array( (string) $thePrefix );
-		if( ($theSuffix !== NULL)
-		 && (! is_array( $theSuffix )) )
-			$theSuffix = array( (string) $theSuffix );
-		
-		//
-		// Init local storage.
-		//
-		$combinations = Array();
-		
-		//
-		// Iterate prefixes.
-		//
-		if( is_array( $thePrefix ) )
-		{
-			//
-			// Iterate prefixes.
-			//
-			foreach( $thePrefix as $prefix )
+			if( strlen( $theLanguage ) )
 			{
 				//
-				// Handle suffixes.
+				// Locate language.
 				//
-				if( is_array( $theSuffix ) )
+				foreach( $theContainer as $key => $value )
 				{
-					//
-					// Iterate suffixes.
-					//
-					foreach( $theSuffix as $suffix )
-						$combinations[] = $prefix.$theString.$suffix;
-				
-				} // Has suffixes.
+					if( array_key_exists( kTAG_LANGUAGE, $value )
+					 && ($value[ kTAG_LANGUAGE ] == $theLanguage) )
+					{
+						$theContainer[ $key ][ kTAG_TEXT ] = $theString;
+
+						return FALSE;												// ==>
+					}
+				}
 				
 				//
-				// Handle no suffixes.
+				// Set element.
 				//
-				else
-					$combinations[] = $prefix.$theString;
+				$theContainer[] = array( kTAG_LANGUAGE => $theLanguage,
+										 kTAG_TEXT => $theString );
+				
+				return TRUE;														// ==>
 			
-			} // Iterating prefixes.
+			} // Has language.
+			
+			//
+			// Handle no language.
+			//
+			else
+			{
+				//
+				// Locate no language.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					if( ! array_key_exists( kTAG_LANGUAGE, $value ) )
+					{
+						$theContainer[ $key ][ kTAG_TEXT ] = $theString;
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( kTAG_TEXT => $theString );
+				
+				return TRUE;														// ==>
+			
+			} // No language.
 		
-		} // Has prefixes.
+		} // Not an empty string.
+
+	} // SetLanguageString.
+
+	 
+	/*===================================================================================
+	 *	SetLanguageStrings																*
+	 *==================================================================================*/
+
+	/**
+	 * Set a language strings entry
+	 *
+	 * This function can be used to add an entry to a language strings property, type
+	 * {@link kTYPE_LANGUAGE_STRINGS}, the function expects the destination container, the
+	 * language code and the strings.
+	 *
+	 * @param array				   &$theContainer		Language string container.
+	 * @param string				$theLanguage		Language code.
+	 * @param array					$theStrings			Strings.
+	 *
+	 * @return boolean				<tt>TRUE</tt> added, <tt>FALSE</tt> updated.
+	 */
+	function SetLanguageStrings( &$theContainer, $theLanguage, $theStrings )
+	{
+		//
+		// Init container
+		//
+		if( ! is_array( $theContainer ) )
+			$theContainer = Array();
+
+		//
+		// Trim parameters
+		//
+		$theLanguage = trim( $theLanguage );
 		
 		//
-		// Iterate suffixes.
+		// Skip empty strings.
+		//
+		if( count( $theStrings ) )
+		{
+			//
+			// Trim strings.
+			//
+			$strings = Array();
+			foreach( $theStrings as $string )
+			{
+				if( strlen( $tmp = trim( $string ) ) )
+					$strings[] = $tmp;
+			}
+			
+			//
+			// Normalise strings.
+			//
+			$theStrings = array_values( array_unique( $strings ) );
+			
+			//
+			// Handle language.
+			//
+			if( strlen( $theLanguage ) )
+			{
+				//
+				// Locate language.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					//
+					// Match language.
+					//
+					if( array_key_exists( kTAG_LANGUAGE, $value )
+					 && ($value[ kTAG_LANGUAGE ] == $theLanguage) )
+					{
+						//
+						// Iterate strings.
+						//
+						foreach( $theStrings as $string )
+						{
+							if( ! in_array( $string, $theContainer[ $key ][ kTAG_TEXT ] ) )
+								$theContainer[ $key ][ kTAG_TEXT ][]
+									= $string;
+						}
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( kTAG_LANGUAGE => $theLanguage,
+										 kTAG_TEXT => $theStrings );
+				
+				return TRUE;														// ==>
+			
+			} // Has language.
+			
+			//
+			// Handle no language.
+			//
+			else
+			{
+				//
+				// Locate no language.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					//
+					// Match no language.
+					//
+					if( ! array_key_exists( kTAG_LANGUAGE, $value ) )
+					{
+						//
+						// Iterate strings.
+						//
+						foreach( $theStrings as $string )
+						{
+							if( ! in_array( $string, $theContainer[ $key ][ kTAG_TEXT ] ) )
+								$theContainer[ $key ][ kTAG_TEXT ][]
+									= $string;
+						}
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( kTAG_TEXT => $theStrings );
+				
+				return TRUE;														// ==>
+			
+			} // No language.
+		
+		} // Not an empty string.
+
+	} // SetLanguageStrings.
+
+	 
+	/*===================================================================================
+	 *	SetTypedList																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set a typed list entry
+	 *
+	 * This function can be used to add an entry to a typed list property, type
+	 * {@link kTYPE_TYPED_LIST}, the function expects the destination container, the value
+	 * tag, the language code and the string.
+	 *
+	 * @param array				   &$theContainer		Language string container.
+	 * @param string				$theTag				Value tag.
+	 * @param string				$theType			Language code.
+	 * @param string				$theValue			String.
+	 *
+	 * @return boolean				<tt>TRUE</tt> added, <tt>FALSE</tt> updated.
+	 */
+	function SetTypedList( &$theContainer, $theTag, $theType, $theValue )
+	{
+		//
+		// Init container
+		//
+		if( ! is_array( $theContainer ) )
+			$theContainer = Array();
+
+		//
+		// Trim parameters
+		//
+		$theValue = trim( $theValue );
+		$theType = trim( $theType );
+		
+		//
+		// Skip empty value.
+		//
+		if( strlen( $theValue ) )
+		{
+			//
+			// Handle type.
+			//
+			if( strlen( $theType ) )
+			{
+				//
+				// Locate type.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					if( array_key_exists( kTAG_TYPE, $value )
+					 && ($value[ kTAG_TYPE ] == $theType) )
+					{
+						$theContainer[ $key ][ $theTag ] = $theValue;
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( kTAG_TYPE => $theType,
+										 $theTag => $theValue );
+				
+				return TRUE;														// ==>
+			
+			} // Has type.
+			
+			//
+			// Handle no type.
+			//
+			else
+			{
+				//
+				// Locate no type.
+				//
+				foreach( $theContainer as $key => $value )
+				{
+					if( ! array_key_exists( kTAG_TYPE, $value ) )
+					{
+						$theContainer[ $key ][ $theTag ] = $theValue;
+
+						return FALSE;												// ==>
+					}
+				}
+				
+				//
+				// Set element.
+				//
+				$theContainer[] = array( $theTag => $theValue );
+				
+				return TRUE;														// ==>
+			
+			} // No type.
+		
+		} // Not an empty value.
+
+	} // SetTypedList.
+
+	 
+	/*===================================================================================
+	 *	GetlocalTransformations															*
+	 *==================================================================================*/
+
+	/**
+	 * Retrieve local transformations
+	 *
+	 * This function expects a template node object and will return in the provided
+	 * reference parameters the eventualcollection name, prefix and suffix strings related
+	 * to the transformations of the node's current tag.
+	 *
+	 * @param OntologyWrapper\Node $theNode			Template node object.
+	 * @param string			   &$theCollection		Receives collection name.
+	 * @param string			   &$thePrefix			Receives prefix string.
+	 * @param string			   &$theSuffix			Receives suffix string.
+	 */
+	function GetlocalTransformations( OntologyWrapper\Node $theNode,
+														  &$theCollection,
+														  &$thePrefix,
+														  &$theSuffix )
+	{
+		//
+		// Init parameters.
+		//
+		$theCollection = $thePrefix = $theSuffix = NULL;
+		
+		//
+		// Handle transformations.
+		//
+		if( $theNode->offsetExists( kTAG_TRANSFORM ) )
+		{
+			//
+			// Iterate transformation records.
+			//
+			foreach( $theNode->offsetGet( kTAG_TRANSFORM ) as $record )
+			{
+				//
+				// Select the one without tag reference.
+				//
+				if( ! array_key_exists( kTAG_TAG, $record ) )
+				{
+					//
+					// Set collection name.
+					//
+					if( array_key_exists( kTAG_CONN_COLL, $record ) )
+						$theCollection = $record[ kTAG_CONN_COLL ];
+				
+					//
+					// Set prefix strings.
+					//
+					if( array_key_exists( kTAG_PREFIX, $record ) )
+						$thePrefix = $record[ kTAG_PREFIX ];
+				
+					//
+					// Set suffix strings.
+					//
+					if( array_key_exists( kTAG_SUFFIX, $record ) )
+						$theSuffix = $record[ kTAG_SUFFIX ];
+				
+				} // Matched local transformations
+			
+			} // Iterating transformations.
+		
+		} // Has transformations.
+
+	} // GetlocalTransformations.
+
+	 
+	/*===================================================================================
+	 *	SetlocalTransformations															*
+	 *==================================================================================*/
+
+	/**
+	 * Set current transformations
+	 *
+	 * This function will prefix the provided string with the provided prefix and append
+	 * the provided suffix to the provided string returning the transformed value.
+	 *
+	 * The transformation will only be applied if the provided prefix and the suffix have
+	 * a single element.
+	 *
+	 * The container may also be provided as an array, in which case the transformation
+	 * will be applied to each of its elements.
+	 *
+	 * @param string				$theContainer		Strings container.
+	 * @param array					$thePrefix			Prefix strings list.
+	 * @param array					$theSuffix			Suffix strings list.
+	 *
+	 * @return mixed				Transformed container.
+	 */
+	function SetlocalTransformations( $theContainer, $thePrefix, $theSuffix )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theContainer ) )
+		{
+			foreach( array_keys( $theContainer ) as $key )
+				$theContainer[ $key ]
+					= SetlocalTransformations(
+						$theContainer[ $key ], $thePrefix, $theSuffix );
+		}
+		
+		//
+		// Handle scalar.
 		//
 		else
 		{
 			//
-			// Iterate suffixes.
+			// Ensure prefix and/or suffix are scalars.
 			//
-			foreach( $theSuffix as $suffix )
-				$combinations[] = $theString.$suffix;
+			if( ( ($thePrefix !== NULL)
+			   && (count( $thePrefix ) == 1) )
+			 || ( ($theSuffix !== NULL)
+			   && (count( $theSuffix ) == 1) ) )
+			{
+				//
+				// Trim string.
+				//
+				$theContainer = triem( $theContainer );
+				
+				//
+				// Handle prefix.
+				//
+				if( $thePrefix !== NULL )
+					$theContainer = $thePrefix[ 0 ].$theContainer;
+			
+				//
+				// Handle suffix.
+				//
+				if( $theSuffix !== NULL )
+					$theContainer = $theContainer.$theSuffix[ 0 ];
+			}
+		}
 		
-		} // Has suffixes.
-		
-		return $combinations;														// ==>
+		return $theContainer;														// ==>
 
-	} // checkStringCombinations.
+	} // SetlocalTransformations.
 
 
 ?>

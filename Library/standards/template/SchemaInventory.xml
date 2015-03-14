@@ -150,7 +150,6 @@
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_terms</item>
 					<item const="kTAG_PREFIX">
 						<item>iso:3166:1:alpha-3:</item>
 						<item>iso:3166:2:</item>
@@ -185,7 +184,6 @@
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_units</item>
 					<item const="kTAG_PREFIX">
 						<item>:domain:organisation://http://fao.org/wiews:</item>
 					</item>

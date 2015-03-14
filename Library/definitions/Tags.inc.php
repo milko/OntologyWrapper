@@ -1740,26 +1740,31 @@ define( "kTAG_LINE_DATA",				'@66' );
  *	<li><em>Kind</em>: {@link kTYPE_LIST}
  * </ul>
  *
- * This tag indicates the list of structures providing value copy instructions, it is used
- * by templates to copy and transform a value to other tags. The structure elements will
- * typically hold the following items:
+ * This tag indicates the list of structures providing value transformation and  copy
+ * instructions, it is used by templates to transform and/or copy values to other tags.
+ * The structure elements will typically hold the following items:
  *
  * <ul>
- *	<li><tt>{@link kTAG_TAG}</tt>: The tag reference that will receive the value, if this is
- *		the only element, the value will be simply copied to that tag.
- *	<li><tt>{@link kTAG_PREFIX}</tt>: Before the value will be copied to the above tag, this
- *		string will be prefixed to the original value.
- *	<li><tt>{@link kTAG_SUFFIX}</tt>: Before the value will be copied to the above tag, this
- *		string will be appended to the original value.
- *	<li><tt>{@link kTAG_CONN_COLL}</tt>: If this tag is provided, it means that the value is
- *		an object reference and this tag holds the collection in which the related object
- *		resides.
+ *	<li><tt>{@link kTAG_TAG}</tt>: If the element has this tag, it means that the value
+ *		should be copied to that tag and that the rest of the elements represent the
+ *		transformations to be applied before copying; if this tag is not present, it means
+ *		that the other elements represent the transformations to be applied to the current
+ *		tag.
+ *	<li><tt>{@link kTAG_PREFIX}</tt>:The value will be prefixed to the original value, this
+ *		element should only be provided to match object references.
+ *	<li><tt>{@link kTAG_SUFFIX}</tt>: The value will be appended to the original value, this
+ *		element should only be provided to match object references.
+ *	<li><tt>{@link kTAG_CONN_COLL}</tt>: This represents a collection name, it means that
+ *		the transformed value is supposed to represent an object in that collection.
  * </ul>
  *
  * The prefix and suffix are lists, this means that the correct prefix or suffix will have
  * to be identified. For instance, when providing a country code, this may either be an ISO
  * 3166-1 or a legacy 3166-3 country: the first successful match will determine which prefix
  * will be used; if you provide both a prefix and a suffix, all combinations will be used.
+ *
+ * When setting the current tag, invalid references are to be considered errore, when
+ * copying the value to other tags, invalid references should just be ignored and skipped.
  */
 define( "kTAG_TRANSFORM",				'@67' );
 

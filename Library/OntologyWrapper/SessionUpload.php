@@ -2177,13 +2177,19 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Cast value.
 		//
-		$theRecord[ $symbol ] = (string) $theRecord[ $symbol ];
+		$theRecord[ $symbol ] = trim( $theRecord[ $symbol ] );
+		if( ! strlen( $theRecord[ $symbol ] ) )
+		{
+			unset( $theRecord[ $symbol ] );
+			return TRUE;															// ==>
+		}
 		
 		//
 		// Handle list.
@@ -2217,9 +2223,19 @@ class SessionUpload
 			// Remove if empty.
 			//
 			if( ! count( $theRecord[ $symbol ] ) )
+			{
 				unset( $theRecord[ $symbol ] );
+				return TRUE;														// ==>
+			}
 		
 		} // List.
+		
+		//
+		// Apply transformations.
+		//
+		$theRecord[ $symbol ]
+			= SetlocalTransformations(
+				$theRecord[ $symbol ], $prefix, $suffix );
 		
 		return TRUE;																// ==>
 
@@ -2260,8 +2276,9 @@ class SessionUpload
 		// Init local storage.
 		//
 		$error = FALSE;
-		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -2290,18 +2307,19 @@ class SessionUpload
 				//
 				// Check value.
 				//
-				$ok = CheckIntegerValue( $element );
+				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$ok = CheckIntegerValue( $element, $error_type, $error_message );
 				
 				//
 				// Correct value.
 				//
-				if( $ok )
+				if( $ok === TRUE )
 					$result[] = $element;
 				
 				//
 				// Invalid value.
 				//
-				elseif( $ok === FALSE )
+				elseif( $ok !== NULL )
 				{
 					$error = TRUE;
 					break;													// =>
@@ -2340,7 +2358,10 @@ class SessionUpload
 			//
 			// Check value.
 			//
-			$ok = CheckIntegerValue( $theRecord[ $symbol ] );
+			$theRecord[ $symbol ]
+				= SetlocalTransformations(
+					$theRecord[ $symbol ], $prefix, $suffix );
+			$ok = CheckIntegerValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
 			//
 			// Remove if empty.
@@ -2351,7 +2372,7 @@ class SessionUpload
 			//
 			// Invalid value.
 			//
-			elseif( $ok === FALSE )
+			elseif( $ok !== TRUE )
 				$error = TRUE;
 		
 		} // Scalar value.
@@ -2366,15 +2387,15 @@ class SessionUpload
 					$this->transaction(),						// Parent transaction.
 					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
 					kTYPE_STATUS_ERROR,							// Transaction status.
-					'Invalid integer number.',					// Transaction message.
+					$error_message,								// Transaction message.
 					$theWorksheet,								// Worksheet.
 					$theRow,									// Row.
 					$theFieldData[ 'column_name' ],				// Column.
 					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
 					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
 					$theRecord[ $symbol ],						// Value.
-					kTYPE_ERROR_INVALID_VALUE,					// Error type.
-					kTYPE_ERROR_CODE_BAD_NUMBER,				// Error code.
+					$error_type,								// Error type.
+					$ok,										// Error code.
 					NULL										// Error resource.
 				);																	// ==>
 		
@@ -2417,8 +2438,9 @@ class SessionUpload
 		// Init local storage.
 		//
 		$error = FALSE;
-		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -2447,18 +2469,19 @@ class SessionUpload
 				//
 				// Check value.
 				//
-				$ok = CheckFloatValue( $element );
+				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$ok = CheckFloatValue( $element, $error_type, $error_message );
 				
 				//
 				// Correct value.
 				//
-				if( $ok )
+				if( $ok === TRUE )
 					$result[] = $element;
 				
 				//
 				// Invalid value.
 				//
-				elseif( $ok === FALSE )
+				elseif( $ok !== NULL )
 				{
 					$error = TRUE;
 					break;													// =>
@@ -2497,7 +2520,10 @@ class SessionUpload
 			//
 			// Check value.
 			//
-			$ok = CheckFloatValue( $theRecord[ $symbol ] );
+			$theRecord[ $symbol ]
+				= SetlocalTransformations(
+					$theRecord[ $symbol ], $prefix, $suffix );
+			$ok = CheckFloatValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
 			//
 			// Remove if empty.
@@ -2508,7 +2534,7 @@ class SessionUpload
 			//
 			// Invalid value.
 			//
-			elseif( $ok === FALSE )
+			elseif( $ok !== TRUE )
 				$error = TRUE;
 		
 		} // Scalar value.
@@ -2523,15 +2549,15 @@ class SessionUpload
 					$this->transaction(),						// Parent transaction.
 					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
 					kTYPE_STATUS_ERROR,							// Transaction status.
-					'Invalid floating point number.',			// Transaction message.
+					$error_message,								// Transaction message.
 					$theWorksheet,								// Worksheet.
 					$theRow,									// Row.
 					$theFieldData[ 'column_name' ],				// Column.
 					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
 					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
 					$theRecord[ $symbol ],						// Value.
-					kTYPE_ERROR_INVALID_VALUE,					// Error type.
-					kTYPE_ERROR_CODE_BAD_NUMBER,				// Error code.
+					$error_type,								// Error type.
+					$ok,										// Error code.
 					NULL										// Error resource.
 				);																	// ==>
 		
@@ -2585,8 +2611,9 @@ class SessionUpload
 		// Init local storage.
 		//
 		$error = FALSE;
-		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -2615,18 +2642,19 @@ class SessionUpload
 				//
 				// Check value.
 				//
-				$ok = CheckBooleanValue( $element );
+				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$ok = CheckBooleanValue( $element, $error_type, $error_message );
 				
 				//
 				// Correct value.
 				//
-				if( $ok )
+				if( $ok === TRUE )
 					$result[] = $element;
 				
 				//
 				// Invalid value.
 				//
-				elseif( $ok === FALSE )
+				elseif( $ok !== NULL )
 				{
 					$error = TRUE;
 					break;													// =>
@@ -2665,7 +2693,10 @@ class SessionUpload
 			//
 			// Check value.
 			//
-			$ok = CheckBooleanValue( $theRecord[ $symbol ] );
+			$theRecord[ $symbol ]
+				= SetlocalTransformations(
+					$theRecord[ $symbol ], $prefix, $suffix );
+			$ok = CheckBooleanValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
 			//
 			// Remove if empty.
@@ -2676,7 +2707,7 @@ class SessionUpload
 			//
 			// Invalid value.
 			//
-			elseif( $ok === FALSE )
+			elseif( $ok !== TRUE )
 				$error = TRUE;
 		
 		} // Scalar value.
@@ -2691,15 +2722,15 @@ class SessionUpload
 					$this->transaction(),						// Parent transaction.
 					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
 					kTYPE_STATUS_ERROR,							// Transaction status.
-					'Invalid boolean value.',					// Transaction message.
+					$error_message,								// Transaction message.
 					$theWorksheet,								// Worksheet.
 					$theRow,									// Row.
 					$theFieldData[ 'column_name' ],				// Column.
 					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
 					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
 					$theRecord[ $symbol ],						// Value.
-					kTYPE_ERROR_INVALID_VALUE,					// Error type.
-					kTYPE_ERROR_CODE_BAD_BOOLEAN,				// Error code.
+					$error_type,								// Error type.
+					$ok,										// Error code.
 					NULL										// Error resource.
 				);																	// ==>
 		
@@ -2797,9 +2828,11 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
+		$error = FALSE;
+		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
-		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$count = strlen( $tokens );
 		
 		//
@@ -2856,10 +2889,7 @@ class SessionUpload
 			// Split list.
 			//
 			$tmp = $theRecord[ $symbol ];
-			$ok = ( $count == 1 )
-				? CheckArrayValue( $tmp, $tokens )
-				: CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) );
-			if( ! $ok )
+			if( ! CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) ) )
 			{
 				unset( $theRecord[ $symbol ] );
 				
@@ -2872,10 +2902,19 @@ class SessionUpload
 			$theRecord[ $symbol ] = Array();
 			foreach( $tmp as $element )
 			{
+				//
+				// Only list separator.
+				//
 				if( $count == 1 )
-					$theRecord[ $symbol ][] = array( $element );
-				elseif( CheckArrayValue( $element, substr( $tokens, 1 ) ) )
-					$theRecord[ $symbol ][] = $element;
+					$theRecord[ $symbol ][]
+						= array( SetlocalTransformations( $element, $prefix, $suffix ) );
+				
+				//
+				// Liat and element separator.
+				//
+				elseif( CheckArrayValue( $element,substr( $tokens, 1 ) ) )
+					$theRecord[ $symbol ][]
+						= SetlocalTransformations( $element, $prefix, $suffix );
 			}
 			
 			//
@@ -2902,6 +2941,13 @@ class SessionUpload
 			//
 			if( ! CheckArrayValue( $theRecord[ $symbol ], $tokens ) )
 				unset( $theRecord[ $symbol ] );
+			
+			//
+			// Apply transformations.
+			//
+			else
+				$theRecord[ $symbol ]
+					= SetlocalTransformations( $theRecord[ $symbol ], $prefix, $suffix );
 		
 		} // Scalar.
 		
@@ -2958,9 +3004,10 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$count = strlen( $tokens );
 		
 		//
@@ -3042,7 +3089,10 @@ class SessionUpload
 				// No string separator token.
 				//
 				if( $count == 1 )
-					$this->setLanguageString( $list_reference, NULL, $list );
+					SetLanguageString(
+						$list_reference,
+						NULL,
+						SetlocalTransformations( $list, $prefix, $suffix ) );
 				
 				//
 				// Has string separator token.
@@ -3063,8 +3113,10 @@ class SessionUpload
 							// Has not language separator token.
 							//
 							if( $count == 2 )
-								$this->setLanguageString(
-									$list_reference, NULL, $element );
+								SetLanguageString(
+									$list_reference,
+									NULL,
+									SetlocalTransformations( $element, $prefix, $suffix ) );
 							
 							//
 							// Has language separator token.
@@ -3072,31 +3124,40 @@ class SessionUpload
 							elseif( CheckArrayValue( $element, substr( $tokens, 2, 1 ) ) )
 							{
 								//
-								// No language.
+								// Handle mess.
 								//
-								if( count( $element ) == 1 )
-									$this->setLanguageString(
-										$list_reference, NULL, $element[ 0 ] );
-								
-								//
-								// Has language.
-								//
-								if( count( $element ) == 2 )
-									$this->setLanguageString(
-										$list_reference, $element[ 0 ], $element[ 1 ] );
-								
-								//
-								// Is a mess.
-								//
-								else
+								if( count( $element ) > 2 )
 								{
 									$lang = $element[ 0 ];
 									array_shift( $element );
 									$text = implode( substr( $tokens, 2, 1 ), $element );
-									$this->setLanguageString(
-										$list_reference, $lang, $text );
+								}
 								
-								} // String is split.
+								//
+								// No language.
+								//
+								elseif( count( $element ) == 1 )
+								{
+									$lang = NULL;
+									$text = $element[ 0 ];
+								}
+								
+								//
+								// Has language.
+								//
+								else
+								{
+									$lang = $element[ 0 ];
+									$text = $element[ 1 ];
+								}
+								
+								//
+								// Set value.
+								//
+								SetLanguageString(
+									$list_reference,
+									$lang,
+									SetlocalTransformations( $text, $prefix, $suffix ) );
 							
 							} //Has language separator token.
 						
@@ -3137,8 +3198,10 @@ class SessionUpload
 				// No language.
 				//
 				if( $count == 1 )
-					$this->setLanguageString(
-						$theRecord[ $symbol ], NULL, $element );
+					SetLanguageString(
+						$theRecord[ $symbol ],
+						NULL,
+						SetlocalTransformations( $element, $prefix, $suffix ) );
 				
 				//
 				// Has language.
@@ -3158,7 +3221,6 @@ class SessionUpload
 							$lang = $element[ 0 ];
 							array_shift( $element );
 							$text = implode( substr( $tokens, 1, 1 ), $element );
-							$element = array( $lang, $text );
 						
 						} // String is split.
 						
@@ -3166,15 +3228,27 @@ class SessionUpload
 						// Missing language.
 						//
 						if( count( $element ) == 1 )
-							$this->setLanguageString(
-								$theRecord[ $symbol ], NULL, $element[ 0 ] );
+						{
+							$lang = NULL;
+							$text = $element[ 0 ];
+						}
 						
 						//
 						// Has language.
 						//
 						else
-							$this->setLanguageString(
-								$theRecord[ $symbol ], $element[ 0 ], $element[ 1 ] );
+						{
+							$lang = $element[ 0 ];
+							$text = $element[ 1 ];
+						}
+						
+						//
+						// Set value.
+						//
+						SetLanguageString(
+							$theRecord[ $symbol ],
+							$lang,
+							SetlocalTransformations( $text, $prefix, $suffix ) );
 					
 					} // Not empty.
 				
@@ -3248,9 +3322,10 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$count = strlen( $tokens );
 		
 		//
@@ -3332,7 +3407,10 @@ class SessionUpload
 				// No string separator token.
 				//
 				if( $count == 1 )
-					$this->setLanguageStrings( $list_reference, NULL, array( $list ) );
+					SetLanguageStrings(
+						$list_reference,
+						NULL,
+						SetlocalTransformations( array( $list ), $prefix, $suffix ) );
 				
 				//
 				// Has string separator token.
@@ -3353,8 +3431,11 @@ class SessionUpload
 							// Has not language separator token.
 							//
 							if( $count == 2 )
-								$this->setLanguageStrings(
-									$list_reference, NULL, array( $element ) );
+								SetLanguageStrings(
+									$list_reference,
+									NULL,
+									SetlocalTransformations(
+										array( $element ), $prefix, $suffix ) );
 							
 							//
 							// Has language separator token.
@@ -3365,8 +3446,11 @@ class SessionUpload
 								// No language.
 								//
 								if( count( $element ) == 1 )
-									$this->setLanguageStrings(
-										$list_reference, NULL, array( $element[ 0 ] ) );
+									SetLanguageStrings(
+										$list_reference,
+										NULL,
+										SetlocalTransformations(
+											array( $element[ 0 ] ), $prefix, $suffix ) );
 								
 								//
 								// Has language.
@@ -3390,10 +3474,13 @@ class SessionUpload
 									// Has no strings list separator.
 									//
 									if( $count == 3 )
-										$this->setLanguageStrings(
+										SetLanguageStrings(
 											$list_reference,
 											$element[ 0 ],
-											array( $element[ 1 ] ) );
+											SetlocalTransformations(
+												array( $element[ 1 ] ),
+												$prefix,
+												$suffix ) );
 									
 									//
 									// Has strings list separator.
@@ -3405,10 +3492,13 @@ class SessionUpload
 										//
 										if( CheckArrayValue( $element[ 1 ],
 															 substr( $tokens, 3, 1 ) ) )
-											$this->setLanguageStrings(
+											SetLanguageStrings(
 												$list_reference,
 												$element[ 0 ],
-												$element[ 1 ] );
+												SetlocalTransformations(
+													$element[ 1 ],
+													$prefix,
+													$suffix ) );
 									
 									} // Has strings list separator.
 								
@@ -3453,8 +3543,10 @@ class SessionUpload
 				// No language separator.
 				//
 				if( $count == 1 )
-					$this->setLanguageStrings(
-						$theRecord[ $symbol ], NULL, array( $element ) );
+					SetLanguageStrings(
+						$theRecord[ $symbol ],
+						NULL,
+						SetlocalTransformations( array( $element ), $prefix, $suffix ) );
 				
 				//
 				// Has language.
@@ -3496,8 +3588,11 @@ class SessionUpload
 						// Has no strings list separator.
 						//
 						if( $count == 2 )
-							$this->setLanguageStrings(
-								$theRecord[ $symbol ], $lang, array( $text ) );
+							SetLanguageStrings(
+								$theRecord[ $symbol ],
+								$lang,
+								SetlocalTransformations(
+									array( $text ), $prefix, $suffix ) );
 						
 						//
 						// Has strings list separator.
@@ -3508,8 +3603,10 @@ class SessionUpload
 							// Split strings list.
 							//
 							if( CheckArrayValue( $text, substr( $tokens, 2, 1 ) ) )
-								$this->setLanguageStrings(
-									$theRecord[ $symbol ], $lang, $text );
+								SetLanguageStrings(
+									$theRecord[ $symbol ],
+									$lang,
+									SetlocalTransformations( $text, $prefix, $suffix ) );
 						
 						} // Has strings list separator.
 					
@@ -3581,9 +3678,10 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$count = strlen( $tokens );
 		
 		//
@@ -3665,7 +3763,12 @@ class SessionUpload
 				// No string separator token.
 				//
 				if( $count == 1 )
-					$this->setTypedList( $list_reference, kTAG_TEXT, NULL, $list );
+					SetTypedList(
+						$list_reference,
+						kTAG_TEXT,
+						NULL,
+						SetlocalTransformations(
+							$list, $prefix, $suffix ) );
 				
 				//
 				// Has string separator token.
@@ -3686,8 +3789,12 @@ class SessionUpload
 							// Has not type separator token.
 							//
 							if( $count == 2 )
-								$this->setTypedList(
-									$list_reference, kTAG_TEXT, NULL, $element );
+								SetTypedList(
+									$list_reference,
+									kTAG_TEXT,
+									NULL,
+									SetlocalTransformations(
+										$element, $prefix, $suffix ) );
 							
 							//
 							// Has type separator token.
@@ -3698,18 +3805,23 @@ class SessionUpload
 								// No type.
 								//
 								if( count( $element ) == 1 )
-									$this->setTypedList(
-										$list_reference, kTAG_TEXT, NULL, $element[ 0 ] );
+									SetTypedList(
+										$list_reference,
+										kTAG_TEXT,
+										NULL,
+										SetlocalTransformations(
+											$element[ 0 ], $prefix, $suffix ) );
 								
 								//
 								// Has type.
 								//
 								if( count( $element ) == 2 )
-									$this->setTypedList(
+									SetTypedList(
 										$list_reference,
 										kTAG_TEXT,
 										$element[ 0 ],
-										$element[ 1 ] );
+										SetlocalTransformations(
+											$element[ 1 ], $prefix, $suffix ) );
 								
 								//
 								// Is a mess.
@@ -3719,11 +3831,12 @@ class SessionUpload
 									$type = $element[ 0 ];
 									array_shift( $element );
 									$value = implode( substr( $tokens, 2, 1 ), $element );
-									$this->setTypedList(
+									SetTypedList(
 										$list_reference,
 										kTAG_TEXT,
 										$type,
-										$value );
+										SetlocalTransformations(
+											$value, $prefix, $suffix ) );
 								
 								} // String is split.
 							
@@ -3766,11 +3879,12 @@ class SessionUpload
 				// No type.
 				//
 				if( $count == 1 )
-					$this->setTypedList(
+					SetTypedList(
 						$theRecord[ $symbol ],
 						kTAG_TEXT,
 						NULL,
-						$element );
+						SetlocalTransformations(
+							$element, $prefix, $suffix ) );
 				
 				//
 				// Has type.
@@ -3798,21 +3912,23 @@ class SessionUpload
 						// Missing type.
 						//
 						if( count( $element ) == 1 )
-							$this->setTypedList(
+							SetTypedList(
 								$theRecord[ $symbol ],
 								kTAG_TEXT,
 								NULL,
-								$element[ 0 ] );
+								SetlocalTransformations(
+									$element[ 0 ], $prefix, $suffix ) );
 						
 						//
 						// Has type.
 						//
 						else
-							$this->setTypedList(
+							SetTypedList(
 								$theRecord[ $symbol ],
 								kTAG_TEXT,
 								$element[ 0 ],
-								$element[ 1 ] );
+								SetlocalTransformations(
+									$element[ 1 ], $prefix, $suffix ) );
 					
 					} // Not empty.
 				
@@ -3913,7 +4029,7 @@ class SessionUpload
 				//
 				// Check value.
 				//
-				$ok = CheckShapeValue( $element );
+				$ok = CheckShapeValue( $element, $error_type, $error_message );
 				
 				//
 				// Correct value.
@@ -3925,32 +4041,13 @@ class SessionUpload
 				// Invalid value.
 				//
 				elseif( $ok !== NULL )
-				{
-					switch( $ok )
-					{
-						case kTYPE_ERROR_CODE_NO_SHAPE_TYPE:
-							$message = 'Missing shape type.';
-							$error_type = kTYPE_ERROR_INVALID_VALUE;
-							break;
-						
-						case kTYPE_ERROR_CODE_BAD_SHAPE_TYPE:
-							$message = 'Invalid or unsupported shape type.';
-							$error_type = kTYPE_ERROR_INVALID_VALUE;
-							break;
-						
-						case kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY:
-							$message = 'Invalid shape geometry.';
-							$error_type = kTYPE_ERROR_INVALID_VALUE;
-							break;
-					}
-					
 					return
 						$this->failTransactionLog(
 							$theTransaction,							// Transaction.
 							$this->transaction(),						// Parent.
 							kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
 							kTYPE_STATUS_ERROR,							// Status.
-							$message,									// Message.
+							$error_message,								// Message.
 							$theWorksheet,								// Worksheet.
 							$theRow,									// Row.
 							$theFieldData[ 'column_name' ],				// Column.
@@ -3961,8 +4058,6 @@ class SessionUpload
 							$ok,										// Error code.
 							NULL										// Error resource.
 						);															// ==>
-				
-				} // Error.
 			
 			} // Iterating elements.
 			
@@ -3985,7 +4080,7 @@ class SessionUpload
 		//
 		// Check value.
 		//
-		$ok = CheckShapeValue( $theRecord[ $symbol ] );
+		$ok = CheckShapeValue( $theRecord[ $symbol ], $error_type, $error_message );
 	
 		//
 		// Empty value.
@@ -3997,32 +4092,13 @@ class SessionUpload
 		// Invalid value.
 		//
 		elseif( $ok !== TRUE )
-		{
-			switch( $ok )
-			{
-				case kTYPE_ERROR_CODE_NO_SHAPE_TYPE:
-					$message = 'Missing shape type.';
-					$error_type = kTYPE_ERROR_INVALID_VALUE;
-					break;
-			
-				case kTYPE_ERROR_CODE_BAD_SHAPE_TYPE:
-					$message = 'Invalid or unsupported shape type.';
-					$error_type = kTYPE_ERROR_INVALID_VALUE;
-					break;
-			
-				case kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY:
-					$message = 'Invalid shape geometry.';
-					$error_type = kTYPE_ERROR_INVALID_VALUE;
-					break;
-			}
-		
 			return
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
 					$this->transaction(),						// Parent.
 					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
 					kTYPE_STATUS_ERROR,							// Status.
-					$message,									// Message.
+					$error_message,								// Message.
 					$theWorksheet,								// Worksheet.
 					$theRow,									// Row.
 					$theFieldData[ 'column_name' ],				// Column.
@@ -4033,8 +4109,6 @@ class SessionUpload
 					$ok,										// Error code.
 					NULL										// Error resource.
 				);																	// ==>
-	
-		} // Error.
 		
 		return TRUE;																// ==>
 
@@ -4075,8 +4149,9 @@ class SessionUpload
 		// Init local storage.
 		//
 		$error = FALSE;
-		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -4145,26 +4220,25 @@ class SessionUpload
 			foreach( $elements as $element )
 			{
 				//
-				// Trim value.
+				// Check link.
 				//
-				$element = trim( $element );
-				if( strlen( $element ) )
-				{
-					//
-					// Check link.
-					//
-					if( @get_headers( $element ) === FALSE )
-					{
-						$error = TRUE;
-						break;												// =>
-					}
-		
-					//
-					// Add value.
-					//
+				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$ok = CheckLinkValue( $element, $error_type, $error_message );
+				
+				//
+				// Handle valid.
+				//
+				if( $ok === TRUE )
 					$result[] = $element;
 				
-				} // Not empty.
+				//
+				// Handle error.
+				//
+				elseif( $ok !== NULL )
+				{
+					$error = TRUE;
+					break;													// =>
+				}
 		
 			} // Iterating elements.
 			
@@ -4197,24 +4271,23 @@ class SessionUpload
 		else
 		{
 			//
-			// Trim value.
+			// Check link.
 			//
-			$theRecord[ $symbol ] = trim( $theRecord[ $symbol ] );
-			if( strlen( $theRecord[ $symbol ] ) )
-			{
-				//
-				// Check link.
-				//
-				if( @get_headers( $theRecord[ $symbol ] ) === FALSE )
-					$error = TRUE;
-			
-			} // Not empty.
+			$theRecord[ $symbol ]
+				= SetlocalTransformations( $theRecord[ $symbol ], $prefix, $suffix );
+			$ok = CheckLinkValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
 			//
 			// Remove if empty.
 			//
-			else
+			if( $ok === NULL )
 				unset( $theRecord[ $symbol ] );
+			
+			//
+			// Handle error.
+			//
+			elseif( $ok !== TRUE )
+				$error = TRUE;
 		
 		} // Scalar value.
 		
@@ -4228,15 +4301,15 @@ class SessionUpload
 					$this->transaction(),							// Parent transaction.
 					kTYPE_TRANS_TMPL_WORKSHEET_ROW,					// Transaction type.
 					kTYPE_STATUS_WARNING,							// Transaction status.
-					'Invalid or inactive link.',					// Transaction message.
+					$error_message,									// Transaction message.
 					$theWorksheet,									// Worksheet.
 					$theRow,										// Row.
 					$theFieldData[ 'column_name' ],					// Column.
 					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
 					$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
 					$theRecord[ $symbol ],							// Value.
-					kTYPE_ERROR_INVALID_VALUE,						// Error type.
-					kTYPE_ERROR_CODE_BAD_LINK,						// Error code.
+					$error_type,									// Error type.
+					$ok,											// Error code.
 					NULL											// Error resource.
 				);																	// ==>
 		
@@ -4279,8 +4352,9 @@ class SessionUpload
 		// Init local storage.
 		//
 		$error = FALSE;
-		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -4309,7 +4383,8 @@ class SessionUpload
 				//
 				// Check value.
 				//
-				$ok = CheckDateValue( $element );
+				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$ok = CheckDateValue( $element, $error_type, $error_message );
 				
 				//
 				// Correct value.
@@ -4323,23 +4398,7 @@ class SessionUpload
 				elseif( $ok !== NULL )
 				{
 					$error = TRUE;
-					switch( $ok )
-					{
-						case kTYPE_ERROR_CODE_BAD_DATE_FORMAT:
-							$message = 'Invalid date format.';
-							$error_type = kTYPE_ERROR_INVALID_VALUE;
-							break;
-				
-						case kTYPE_ERROR_CODE_BAD_DATE:
-							$message = 'Invalid date value.';
-							$error_type = kTYPE_ERROR_INVALID_VALUE;
-							break;
-				
-						case kTYPE_ERROR_CODE_DUBIOUS_YEAR:
-							$message = 'Double check if year is correct.';
-							$error_type = kTYPE_ERROR_DUBIOUS_VALUE;
-							break;
-					}
+					
 					break;													// =>
 				}
 			
@@ -4376,7 +4435,9 @@ class SessionUpload
 			//
 			// Check value.
 			//
-			$ok = CheckDateValue( $theRecord[ $symbol ] );
+			$theRecord[ $symbol ]
+				= SetlocalTransformations( $theRecord[ $symbol ], $prefix, $suffix );
+			$ok = CheckDateValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
 			//
 			// Remove if empty.
@@ -4388,26 +4449,7 @@ class SessionUpload
 			// Invalid value.
 			//
 			elseif( $ok !== TRUE )
-			{
 				$error = TRUE;
-				switch( $ok )
-				{
-					case kTYPE_ERROR_CODE_BAD_DATE_FORMAT:
-						$message = 'Invalid date format.';
-						$error_type = kTYPE_ERROR_INVALID_VALUE;
-						break;
-			
-					case kTYPE_ERROR_CODE_BAD_DATE:
-						$message = 'Invalid date value.';
-						$error_type = kTYPE_ERROR_INVALID_VALUE;
-						break;
-			
-					case kTYPE_ERROR_CODE_DUBIOUS_YEAR:
-						$message = 'Double check if year is correct.';
-						$error_type = kTYPE_ERROR_DUBIOUS_VALUE;
-						break;
-				}
-			}
 		
 		} // Scalar value.
 		
@@ -4420,8 +4462,8 @@ class SessionUpload
 					$theTransaction,							// Transaction.
 					$this->transaction(),						// Parent.
 					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
-					kTYPE_STATUS_ERROR,							// Status.
-					$message,									// Message.
+					$status,									// Status.
+					$error_message,								// Message.
 					$theWorksheet,								// Worksheet.
 					$theRow,									// Row.
 					$theFieldData[ 'column_name' ],				// Column.
@@ -4472,13 +4514,10 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-var_dump( $theFieldNode->getArrayCopy() );
-exit;
 		$error_value = NULL;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		$prefix = $theFieldNode->offsetGet( kTAG_PREFIX );
-		$suffix = $theFieldNode->offsetGet( kTAG_SUFFIX );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection
 			= Term::ResolveCollection(
 				Term::ResolveDatabase( $this->wrapper(), TRUE ),
@@ -4556,7 +4595,7 @@ exit;
 				// Get combinations.
 				//
 				$matched = FALSE;
-				$combinations = checkStringCombinations( $element, $prefix, $suffix );
+				$combinations = CheckStringCombinations( $element, $prefix, $suffix );
 				foreach( $combinations as $combination )
 				{
 					//
@@ -4622,7 +4661,7 @@ exit;
 			// Get combinations.
 			//
 			$matched = FALSE;
-			$combinations = checkStringCombinations( $theRecord[ $symbol ],
+			$combinations = CheckStringCombinations( $theRecord[ $symbol ],
 													 $prefix,
 													 $suffix );
 			foreach( $combinations as $combination )
@@ -4722,6 +4761,7 @@ exit;
 		$suffix = $theFieldNode->offsetGet( kTAG_SUFFIX );
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$count = strlen( $tokens );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection
 			= Term::ResolveCollection(
 				Term::ResolveDatabase( $this->wrapper(), TRUE ),
@@ -4847,7 +4887,7 @@ exit;
 					//
 					// Check combinations.
 					//
-					$combinations = checkStringCombinations( $element, $prefix, $suffix );
+					$combinations = CheckStringCombinations( $element, $prefix, $suffix );
 					if( count( $combinations ) )
 					{
 						//
@@ -4949,7 +4989,7 @@ exit;
 				//
 				// Get combinations.
 				//
-				$combinations = checkStringCombinations( $element, $prefix, $suffix );
+				$combinations = CheckStringCombinations( $element, $prefix, $suffix );
 				if( count( $combinations ) )
 				{
 					//
@@ -5068,6 +5108,7 @@ exit;
 		$prefix = $theFieldNode->offsetGet( kTAG_PREFIX );
 		$suffix = $theFieldNode->offsetGet( kTAG_SUFFIX );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection = $this->wrapper()->resolveCollection( $theCollection );
 		
 		//
@@ -5140,7 +5181,7 @@ exit;
 				// Get combinations.
 				//
 				$matched = FALSE;
-				$combinations = checkStringCombinations( $element, $prefix, $suffix );
+				$combinations = CheckStringCombinations( $element, $prefix, $suffix );
 				foreach( $combinations as $combination )
 				{
 					//
@@ -5241,7 +5282,7 @@ exit;
 			// Get combinations.
 			//
 			$matched = FALSE;
-			$combinations = checkStringCombinations( $theRecord[ $symbol ],
+			$combinations = CheckStringCombinations( $theRecord[ $symbol ],
 													 $prefix,
 													 $suffix );
 			foreach( $combinations as $combination )
@@ -5368,6 +5409,7 @@ exit;
 		$error = FALSE;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection = $this->wrapper()->resolveCollection( Session::kSEQ_NAME );
 		
 		//
@@ -5445,7 +5487,10 @@ exit;
 					//
 					// Check identifier.
 					//
-					$id = $collection->getObjectId( $element );
+					$id
+						= $collection
+							->getObjectId(
+								SetlocalTransformations( $element, $prefix, $suffix ) );
 					if( $id === NULL )
 					{
 						$error = TRUE;
@@ -5498,7 +5543,11 @@ exit;
 				//
 				// Check identifier.
 				//
-				$id = $collection->getObjectId( $theRecord[ $symbol ] );
+				$id
+					= $collection
+						->getObjectId(
+							SetlocalTransformations(
+								$theRecord[ $symbol ], $prefix, $suffix ) );
 				if( $id === NULL )
 					$error = TRUE;
 				else
@@ -5582,6 +5631,7 @@ exit;
 		$error = FALSE;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection = $this->wrapper()->resolveCollection( Session::kSEQ_NAME );
 		
 		//
@@ -5659,7 +5709,10 @@ exit;
 					//
 					// Check timestamp.
 					//
-					$time = $collection->getTimeStamp( $element );
+					$time
+						= $collection
+							->getTimeStamp(
+								SetlocalTransformations( $element, $prefix, $suffix ) );
 					if( $time === FALSE )
 					{
 						$error = TRUE;
@@ -5712,7 +5765,11 @@ exit;
 				//
 				// Check stamp.
 				//
-				$time = $collection->getTimeStamp( $theRecord[ $symbol ] );
+				$time
+					= $collection
+						->getTimeStamp(
+							SetlocalTransformations(
+								$theRecord[ $symbol ], $prefix, $suffix ) );
 				if( $time === FALSE )
 					$error = TRUE;
 				else
@@ -5791,337 +5848,6 @@ exit;
 		return $user->offsetGet( kTAG_ID_SEQUENCE )."_$theSuffix";					// ==>
 
 	} // getCollectionName.
-
-	 
-	/*===================================================================================
-	 *	setLanguageString																*
-	 *==================================================================================*/
-
-	/**
-	 * Set a language string entry
-	 *
-	 * This method can be used to add an entry to a language string property, type
-	 * {@link kTYPE_LANGUAGE_STRING}, the method expects the destination container, the
-	 * language code and the string.
-	 *
-	 * @param array				   &$theContainer		Language string container.
-	 * @param string				$theLanguage		Language code.
-	 * @param string				$theString			String.
-	 *
-	 * @access public
-	 * @return boolean				<tt>TRUE</tt> added, <tt>FALSE</tt> updated.
-	 */
-	public function setLanguageString( &$theContainer, $theLanguage, $theString )
-	{
-		//
-		// Init container
-		//
-		if( ! is_array( $theContainer ) )
-			$theContainer = Array();
-
-		//
-		// Trim parameters
-		//
-		$theString = trim( $theString );
-		$theLanguage = trim( $theLanguage );
-		
-		//
-		// Skip empty string.
-		//
-		if( strlen( $theString ) )
-		{
-			//
-			// Handle language.
-			//
-			if( strlen( $theLanguage ) )
-			{
-				//
-				// Locate language.
-				//
-				foreach( $theContainer as $key => $value )
-				{
-					if( array_key_exists( kTAG_LANGUAGE, $value )
-					 && ($value[ kTAG_LANGUAGE ] == $theLanguage) )
-					{
-						$theContainer[ $key ][ kTAG_TEXT ] = $theString;
-
-						return FALSE;												// ==>
-					}
-				}
-				
-				//
-				// Set element.
-				//
-				$theContainer[] = array( kTAG_LANGUAGE => $theLanguage,
-										 kTAG_TEXT => $theString );
-				
-				return TRUE;														// ==>
-			
-			} // Has language.
-			
-			//
-			// Handle no language.
-			//
-			else
-			{
-				//
-				// Locate no language.
-				//
-				foreach( $theContainer as $key => $value )
-				{
-					if( ! array_key_exists( kTAG_LANGUAGE, $value ) )
-					{
-						$theContainer[ $key ][ kTAG_TEXT ] = $theString;
-
-						return FALSE;												// ==>
-					}
-				}
-				
-				//
-				// Set element.
-				//
-				$theContainer[] = array( kTAG_TEXT => $theString );
-				
-				return TRUE;														// ==>
-			
-			} // No language.
-		
-		} // Not an empty string.
-
-	} // setLanguageString.
-
-	 
-	/*===================================================================================
-	 *	setLanguageStrings																*
-	 *==================================================================================*/
-
-	/**
-	 * Set a language strings entry
-	 *
-	 * This method can be used to add an entry to a language strings property, type
-	 * {@link kTYPE_LANGUAGE_STRINGS}, the method expects the destination container, the
-	 * language code and the strings.
-	 *
-	 * @param array				   &$theContainer		Language string container.
-	 * @param string				$theLanguage		Language code.
-	 * @param array					$theStrings			Strings.
-	 *
-	 * @access public
-	 * @return boolean				<tt>TRUE</tt> added, <tt>FALSE</tt> updated.
-	 */
-	public function setLanguageStrings( &$theContainer, $theLanguage, $theStrings )
-	{
-		//
-		// Init container
-		//
-		if( ! is_array( $theContainer ) )
-			$theContainer = Array();
-
-		//
-		// Trim parameters
-		//
-		$theLanguage = trim( $theLanguage );
-		
-		//
-		// Skip empty strings.
-		//
-		if( count( $theStrings ) )
-		{
-			//
-			// Trim strings.
-			//
-			$strings = Array();
-			foreach( $theStrings as $string )
-			{
-				if( strlen( $tmp = trim( $string ) ) )
-					$strings[] = $tmp;
-			}
-			
-			//
-			// Normalise strings.
-			//
-			$theStrings = array_values( array_unique( $strings ) );
-			
-			//
-			// Handle language.
-			//
-			if( strlen( $theLanguage ) )
-			{
-				//
-				// Locate language.
-				//
-				foreach( $theContainer as $key => $value )
-				{
-					//
-					// Match language.
-					//
-					if( array_key_exists( kTAG_LANGUAGE, $value )
-					 && ($value[ kTAG_LANGUAGE ] == $theLanguage) )
-					{
-						//
-						// Iterate strings.
-						//
-						foreach( $theStrings as $string )
-						{
-							if( ! in_array( $string, $theContainer[ $key ][ kTAG_TEXT ] ) )
-								$theContainer[ $key ][ kTAG_TEXT ][]
-									= $string;
-						}
-
-						return FALSE;												// ==>
-					}
-				}
-				
-				//
-				// Set element.
-				//
-				$theContainer[] = array( kTAG_LANGUAGE => $theLanguage,
-										 kTAG_TEXT => $theStrings );
-				
-				return TRUE;														// ==>
-			
-			} // Has language.
-			
-			//
-			// Handle no language.
-			//
-			else
-			{
-				//
-				// Locate no language.
-				//
-				foreach( $theContainer as $key => $value )
-				{
-					//
-					// Match no language.
-					//
-					if( ! array_key_exists( kTAG_LANGUAGE, $value ) )
-					{
-						//
-						// Iterate strings.
-						//
-						foreach( $theStrings as $string )
-						{
-							if( ! in_array( $string, $theContainer[ $key ][ kTAG_TEXT ] ) )
-								$theContainer[ $key ][ kTAG_TEXT ][]
-									= $string;
-						}
-
-						return FALSE;												// ==>
-					}
-				}
-				
-				//
-				// Set element.
-				//
-				$theContainer[] = array( kTAG_TEXT => $theStrings );
-				
-				return TRUE;														// ==>
-			
-			} // No language.
-		
-		} // Not an empty string.
-
-	} // setLanguageStrings.
-
-	 
-	/*===================================================================================
-	 *	setTypedList																	*
-	 *==================================================================================*/
-
-	/**
-	 * Set a typed list entry
-	 *
-	 * This method can be used to add an entry to a typed list property, type
-	 * {@link kTYPE_TYPED_LIST}, the method expects the destination container, the value
-	 * tag, the language code and the string.
-	 *
-	 * @param array				   &$theContainer		Language string container.
-	 * @param string				$theTag				Value tag.
-	 * @param string				$theType			Language code.
-	 * @param string				$theValue			String.
-	 *
-	 * @access public
-	 * @return boolean				<tt>TRUE</tt> added, <tt>FALSE</tt> updated.
-	 */
-	public function setTypedList( &$theContainer, $theTag, $theType, $theValue )
-	{
-		//
-		// Init container
-		//
-		if( ! is_array( $theContainer ) )
-			$theContainer = Array();
-
-		//
-		// Trim parameters
-		//
-		$theValue = trim( $theValue );
-		$theType = trim( $theType );
-		
-		//
-		// Skip empty value.
-		//
-		if( strlen( $theValue ) )
-		{
-			//
-			// Handle type.
-			//
-			if( strlen( $theType ) )
-			{
-				//
-				// Locate type.
-				//
-				foreach( $theContainer as $key => $value )
-				{
-					if( array_key_exists( kTAG_TYPE, $value )
-					 && ($value[ kTAG_TYPE ] == $theType) )
-					{
-						$theContainer[ $key ][ $theTag ] = $theValue;
-
-						return FALSE;												// ==>
-					}
-				}
-				
-				//
-				// Set element.
-				//
-				$theContainer[] = array( kTAG_TYPE => $theType,
-										 $theTag => $theValue );
-				
-				return TRUE;														// ==>
-			
-			} // Has type.
-			
-			//
-			// Handle no type.
-			//
-			else
-			{
-				//
-				// Locate no type.
-				//
-				foreach( $theContainer as $key => $value )
-				{
-					if( ! array_key_exists( kTAG_TYPE, $value ) )
-					{
-						$theContainer[ $key ][ $theTag ] = $theValue;
-
-						return FALSE;												// ==>
-					}
-				}
-				
-				//
-				// Set element.
-				//
-				$theContainer[] = array( $theTag => $theValue );
-				
-				return TRUE;														// ==>
-			
-			} // No type.
-		
-		} // Not an empty value.
-
-	} // setTypedList.
 
 	
 

@@ -61,7 +61,6 @@
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_terms</item>
 					<item const="kTAG_PREFIX">
 						<item>:taxon:threat:assessment:</item>
 					</item>
@@ -135,7 +134,6 @@ LR/lc: Lower risk: least concern]]></item>
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_terms</item>
 					<item const="kTAG_PREFIX">
 						<item>iucn:category:</item>
 					</item>
@@ -177,7 +175,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_terms</item>
 					<item const="kTAG_PREFIX">
 						<item>iucn:criteria:</item>
 					</item>
@@ -264,7 +261,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_terms</item>
 					<item const="kTAG_PREFIX">
 						<item>iucn:threat:</item>
 					</item>
@@ -304,7 +300,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_terms</item>
 					<item const="kTAG_PREFIX">
 						<item>:taxon:threat:period:</item>
 					</item>
@@ -423,7 +418,6 @@ G5: Apparently secure and globally secure]]></item>
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_terms</item>
 					<item const="kTAG_PREFIX">
 						<item>natserve:threat:</item>
 					</item>
@@ -599,7 +593,6 @@ G5: Apparently secure and globally secure]]></item>
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_terms</item>
 					<item const="kTAG_PREFIX">
 						<item>:taxon:occurrence-status:</item>
 					</item>

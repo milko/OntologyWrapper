@@ -709,7 +709,6 @@
 			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
-					<item const="kTAG_CONN_COLL">_terms</item>
 					<item const="kTAG_PREFIX">
 						<item>:taxon:rel-crop:</item>
 					</item>
