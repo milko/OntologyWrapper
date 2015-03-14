@@ -373,10 +373,20 @@ abstract class DatabaseObject extends ConnectionObject
 	 *
 	 * This method should return the current time-stamp in the native database format.
 	 *
+	 * If the provided parameter is numeric or an integer, the method will assume it is the
+	 * number of seconds since the epoch (Jan 1970 00:00:00.000 UTC); if not, it will use
+	 * the strtotime() function, if the function was not able to convert the time, the
+	 * method will return <tt>FALSE</tt>:
+	 *
+	 * If you omit the parameter, or pass <tt>now</tt>, the method will return the current
+	 * time stamp.
+	 *
+	 * @param mixed					$theStamp			Unix timestamp or string.
+	 *
 	 * @access public
-	 * @return mixed				Native current time-stamp.
+	 * @return mixed				Native current time-stamp or <tt>FALSE</tt>.
 	 */
-	abstract public function getTimeStamp();
+	abstract public function getTimeStamp( $theStamp = NULL );
 
 	 
 	/*===================================================================================

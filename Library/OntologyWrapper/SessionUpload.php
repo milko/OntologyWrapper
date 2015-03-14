@@ -1859,6 +1859,13 @@ class SessionUpload
 						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
+				case kTYPE_TIME_STAMP:
+					$this->validateTimeStamp(
+						$theTransaction, $theRecord,
+						$theWorksheet, $theRow,
+						$field_data[ $theSymbol ], $field_node, $field_tag );
+					break;
+			
 			} // Parsing by type.
 		
 		} // Tag field.
@@ -4465,6 +4472,8 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
+var_dump( $theFieldNode->getArrayCopy() );
+exit;
 		$error_value = NULL;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$prefix = $theFieldNode->offsetGet( kTAG_PREFIX );
@@ -4614,8 +4623,8 @@ class SessionUpload
 			//
 			$matched = FALSE;
 			$combinations = checkStringCombinations( $theRecord[ $symbol ],
-													  $prefix,
-													  $suffix );
+													 $prefix,
+													 $suffix );
 			foreach( $combinations as $combination )
 			{
 				//
@@ -5530,6 +5539,220 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // validateObjectId.
+
+	 
+	/*===================================================================================
+	 *	validateTimeStamp																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate time stamp
+	 *
+	 * This method will validate the provided time stamp property and cast it to the
+	 * native database type, we use here the current object's sessions collection.
+	 *
+	 * If the provided property is numeric, it will be interpreted as an integer
+	 * representing the number of seconds since the epoch (Jan 1970 00:00:00.000 UTC); if
+	 * not, the method will use the strtotime() function to interpret the string.
+	 *
+	 * If the time stamp is invalid, the method will issue an error.
+	 *
+	 * @param Transaction		   &$theTransaction		Transaction reference.
+	 * @param array				   &$theRecord			Data record.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param array					$theFieldData		Field data.
+	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
+	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> correct value.
+	 */
+	protected function validateTimeStamp( &$theTransaction,
+										 &$theRecord,
+										  $theWorksheet,
+										  $theRow,
+										  $theFieldData,
+										  $theFieldNode,
+										  $theFieldTag )
+	{
+		//
+		// Init local storage.
+		//
+		$error = FALSE;
+		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
+		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
+		$collection = $this->wrapper()->resolveCollection( Session::kSEQ_NAME );
+		
+		//
+		// Handle list.
+		//
+		if( is_array( $kind )
+		 && in_array( kTYPE_LIST, $kind ) )
+		{
+			//
+			// Init local storage.
+			//
+			$result = Array();
+			$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
+		
+			//
+			// Handle missing tokens.
+			//
+			if( ! count( $tokens ) )
+				return
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_WARNING,						// Transaction status.
+						'Missing separator tokens in template.',	// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						NULL,										// Value.
+						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+						kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+						NULL										// Error resource.
+					);																// ==>
+		
+			//
+			// Handle too many tokens.
+			//
+			if( count( $tokens ) > 1 )
+				return
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_WARNING,						// Transaction status.
+						'Too many tokens in template definition.',	// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$tokens,									// Value.
+						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+						kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+						NULL										// Error resource.
+					);																// ==>
+		
+			//
+			// Split elements.
+			//
+			$elements = explode( $tokens, $theRecord[ $symbol ] );
+			
+			//
+			// Compile results.
+			//
+			foreach( $elements as $element )
+			{
+				//
+				// Trim value.
+				//
+				$element = trim( $element );
+				if( strlen( $element ) )
+				{
+					//
+					// Check timestamp.
+					//
+					$time = $collection->getTimeStamp( $element );
+					if( $time === FALSE )
+					{
+						$error = TRUE;
+						break;												// =>
+					}
+		
+					//
+					// Add value.
+					//
+					$result[] = $time;
+				
+				} // Not empty.
+		
+			} // Iterating elements.
+			
+			//
+			// Handle no errors.
+			//
+			if( ! $error )
+			{
+				//
+				// Remove if empty.
+				//
+				if( count( $result ) )
+					$theRecord[ $symbol ] = $result;
+			
+				//
+				// Set value.
+				//
+				else
+					unset( $theRecord[ $symbol ] );
+				
+				return TRUE;														// ==>
+			
+			} // No errors.
+		
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Trim value.
+			//
+			$theRecord[ $symbol ] = trim( $theRecord[ $symbol ] );
+			if( strlen( $theRecord[ $symbol ] ) )
+			{
+				//
+				// Check stamp.
+				//
+				$time = $collection->getTimeStamp( $theRecord[ $symbol ] );
+				if( $time === FALSE )
+					$error = TRUE;
+				else
+					$theRecord[ $symbol ] = $time;
+			
+			} // Not empty.
+			
+			//
+			// Remove if empty.
+			//
+			else
+				unset( $theRecord[ $symbol ] );
+		
+		} // Scalar value.
+		
+		//
+		// Handle errors.
+		//
+		if( $error )
+			return
+				$this->failTransactionLog(
+					$theTransaction,								// Transaction.
+					$this->transaction(),							// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,					// Transaction type.
+					kTYPE_STATUS_WARNING,							// Transaction status.
+					'Invalid time-stamp.',							// Transaction message.
+					$theWorksheet,									// Worksheet.
+					$theRow,										// Row.
+					$theFieldData[ 'column_name' ],					// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+					$theRecord[ $symbol ],							// Value.
+					kTYPE_ERROR_INVALID_VALUE,						// Error type.
+					kTYPE_ERROR_CODE_INVALID_TIME_STAMP,			// Error code.
+					NULL											// Error resource.
+				);																	// ==>
+		
+		return TRUE;																// ==>
+
+	} // validateTimeStamp.
 
 	
 
@@ -7435,6 +7658,53 @@ class SessionUpload
 		//
 		var_dump( $record );
 		$ok = $this->validateObjectId(
+				$transaction,
+				$record,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		echo( '<hr />' );
+
+		//
+		// Create record.
+		//
+		$record = array( 'SYMBOL' => '2013-09-22T10:41:44.451999' );
+		$tag[ kTAG_DATA_TYPE ] = kTYPE_TIME_STAMP;
+		$tag[ kTAG_DATA_KIND ] = NULL;
+
+		//
+		// Test validateTimeStamp.
+		//
+		echo( '<b>validateTimeStamp()</b><br />' );
+		var_dump( $record );
+		$ok = $this->validateTimeStamp(
+				$transaction,
+				$record,
+				'WORKSHEET',
+				12,
+				$fields[ 'SYMBOL' ],
+				$node,
+				$tag );
+		var_dump( $ok );
+		var_dump( $record );
+		echo( '<hr />' );
+		//
+		// Update data.
+		//
+		$record = array( 'SYMBOL' => 'now, 1426288982' );
+		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
+		$node[ kTAG_TOKEN ] = ',';
+		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
+		//
+		// Test validateTimeStamp.
+		//
+		var_dump( $record );
+		$ok = $this->validateTimeStamp(
 				$transaction,
 				$record,
 				'WORKSHEET',

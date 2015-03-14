@@ -147,6 +147,8 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+
+/*
 	
 	//
 	// Instantiate new upload.
@@ -179,8 +181,8 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-exit;
-	
+*/
+		
 	//
 	// Instantiate new upload.
 	//
@@ -205,6 +207,7 @@ exit;
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+exit;
 		
 	//
 	// Delete session.

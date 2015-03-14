@@ -1237,5 +1237,12 @@ define( "kTYPE_ERROR_CODE_INVALID_ENUM",		-19 );
  */
 define( "kTYPE_ERROR_CODE_INVALID_OBJECT_ID",	-20 );
 
+/**
+ * Bad time stamp.
+ *
+ * Invalid time stamp.
+ */
+define( "kTYPE_ERROR_CODE_INVALID_TIME_STAMP",	-21 );
+
 
 ?>

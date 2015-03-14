@@ -186,7 +186,7 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	
-	sleep( 3 );
+	sleep( 10 );
 	
 	//
 	// Get session progress.

@@ -999,12 +999,14 @@ abstract class CollectionObject extends ConnectionObject
 	 *
 	 * This method should return the current time-stamp in the native database format.
 	 *
+	 * @param mixed					$theStamp			Unix timestamp or string.
+	 *
 	 * @access public
-	 * @return mixed				Native current time-stamp.
+	 * @return mixed				Native current time-stamp or <tt>FALSE</tt>.
 	 */
-	public function getTimeStamp()
+	public function getTimeStamp( $theStamp = NULL )
 	{
-		return $this->mParent->getTimeStamp();										// ==>
+		return $this->mParent->getTimeStamp( $theStamp );							// ==>
 	
 	} // getTimeStamp.
 
