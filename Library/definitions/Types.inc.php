@@ -591,11 +591,11 @@ define( "kTYPE_TRANS_TMPL_WORKSHEET",			':type:transaction:150' );
 define( "kTYPE_TRANS_TMPL_RELATIONSHIPS",		':type:transaction:160' );
 
 /**
- * Identify existing objects.
+ * Compile objects.
  *
- * Identify which records exist already in the database.
+ * Compile objects from worksheet data.
  */
-define( "kTYPE_TRANS_TMPL_DUPLICATES",			':type:transaction:170' );
+define( "kTYPE_TRANS_TMPL_OBJECTS",				':type:transaction:170' );
 
 /**
  * Cleanup resources.
@@ -693,6 +693,13 @@ define( "kTYPE_TRANS_TMPL_RELATIONSHIPS_ROW",	':type:transaction:161' );
  * The record will be replaced in the database.
  */
 define( "kTYPE_TRANS_TMPL_DUPLICATES_ROW",		':type:transaction:171' );
+
+/**
+ * Object error.
+ *
+ * The object could not be compiled.
+ */
+define( "kTYPE_TRANS_TMPL_BAD_OBJECT_ROW",		':type:transaction:172' );
 
 /*=======================================================================================
  *	DEFAULT UPDATE TRANSACTION TYPES													*
@@ -1073,6 +1080,13 @@ define( "kTYPE_ERROR_INVALID_VALUE",			'Invalid value' );
 define( "kTYPE_ERROR_INVALID_CODE",				'Invalid code' );
 
 /**
+ * Unmatched relationship.
+ *
+ * The related object could not be matched.
+ */
+define( "kTYPE_ERROR_RELATED_NO_MATCH",			'Unmatched relation' );
+
+/**
  * Dubious value.
  *
  * The value may be incorrect.
@@ -1243,6 +1257,13 @@ define( "kTYPE_ERROR_CODE_INVALID_OBJECT_ID",	-20 );
  * Invalid time stamp.
  */
 define( "kTYPE_ERROR_CODE_INVALID_TIME_STAMP",	-21 );
+
+/**
+ * Bad relationship.
+ *
+ * Unmatched relationship.
+ */
+define( "kTYPE_ERROR_CODE_BAD_RELATIONSHIP",	-22 );
 
 
 ?>

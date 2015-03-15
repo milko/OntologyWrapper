@@ -7,8 +7,7 @@
 #
 # Run command.
 #
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
+mongodump --db 'BIOVERSITY' \
 		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 
 exit

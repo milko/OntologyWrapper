@@ -484,6 +484,17 @@ class SessionUpload
 			//
 			$this->session()->progress( 10 );
 			
+			//
+			// Transaction relationships.
+			//
+			if( ! $this->sessionRelationships() )
+				return $this->failSession();										// ==>
+			
+			//
+			// Progress.
+			//
+			$this->session()->progress( 10 );
+			
 			return $this->succeedSession();											// ==>
 		}
 		
@@ -831,6 +842,97 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // sessionValidation.
+
+	 
+	/*===================================================================================
+	 *	sessionRelationships															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate worksheet relationships
+	 *
+	 * This method will validate the relationships between worksheets, if a worksheet row
+	 * points to a non existant other worksheet row, a warning will be issued: that is
+	 * because it is not a formal error.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses session()
+	 * @uses transaction()
+	 * @uses saveTemplateFile()
+	 */
+	protected function sessionRelationships()
+	{
+		//
+		// Get related fields.
+		//
+		$worksheets = $fields = Array();
+		$tmp = $this->mParser->getWorksheets();
+		foreach( $this->mParser->getFields() as $worksheet => $field )
+		{
+			foreach( $field as $key => $value )
+			{
+				if( array_key_exists( 'field', $value )
+				 && array_key_exists( 'worksheet', $value ) )
+				{
+					if( ! array_key_exists( $worksheet, $fields ) )
+					{
+						$worksheets[ $worksheet ] = $tmp[ $worksheet ];
+						$fields[ $worksheet ] = Array();
+					
+					} $fields[ $worksheet ][ $key ] = $value;
+				}
+			}
+		}
+		
+		//
+		// Iterate worksheets.
+		//
+		foreach( $worksheets as $wname => $worksheet )
+		{
+			//
+			// Init loop storage.
+			//
+			$records
+				= $this->mCollections[ $this->getCollectionName( $wname ) ]
+					->matchAll( Array(), kQUERY_COUNT );
+		
+			//
+			// Instantiate transaction.
+			//
+			$transaction
+				= $this->transaction(
+					$this->session()
+						->newTransaction( kTYPE_TRANS_TMPL_RELATIONSHIPS,
+										  kTYPE_STATUS_EXECUTING,
+										  $wname ) );
+			
+			//
+			// Set records count.
+			//
+			$transaction->offsetSet( kTAG_COUNTER_RECORDS, $records );
+			
+			//
+			// Check worksheet relationships.
+			//
+			if( ! $this->checkWorksheetRelationships( $wname, $fields, $records ) )
+				return FALSE;														// ==>
+	
+			//
+			// Close transaction.
+			//
+			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+			if( $transaction->offsetGet( kTAG_TRANSACTION_STATUS )
+					== kTYPE_STATUS_EXECUTING )
+				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		} // Iterating worksheets.
+		
+		return TRUE;																// ==>
+
+	} // sessionRelationships.
 
 	
 
@@ -1508,6 +1610,151 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // loadWorksheetData.
+
+	 
+	/*===================================================================================
+	 *	checkWorksheetRelationships														*
+	 *==================================================================================*/
+
+	/**
+	 * Load worksheet data
+	 *
+	 * This method will scan all related worksheet records and flag with a warning any
+	 * record that does not have a valid relationship.
+	 *
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param array					$theFields			Field data.
+	 * @param int					$theRecords			Records count.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses session()
+	 */
+	protected function checkWorksheetRelationships( $theWorksheet, $theFields, $theRecords )
+	{
+		//
+		// Init local storage.
+		//
+		$collection = $this->mCollections[ $this->getCollectionName( $theWorksheet ) ];
+		$worksheet_data = $this->mParser->getWorksheets()[ $theWorksheet ];
+		$fields_data = $theFields[ $theWorksheet ];
+		$transaction = NULL;
+		
+		//
+		// Iterate worksheet data.
+		//
+		$rs = $collection->matchAll( Array(), kQUERY_ARRAY );
+		foreach( $rs as $record )
+		{
+			//
+			// Iterate related fields.
+			//
+			$matched = $rejected = 0;
+			foreach( $fields_data as $field => $data )
+			{
+				//
+				// Init local storage.
+				//
+				$tag = $this->mParser->getNode( $data[ 'node' ] )->offsetGet( kTAG_TAG );
+				
+				//
+				// Check if field is there.
+				//
+				if( array_key_exists( $field, $record ) )
+				{
+					//
+					// Init local storage.
+					//
+					$matched++;
+					$collection_rel
+						= $this->mCollections
+							[ $this->getCollectionName( $data[ 'worksheet' ] ) ];
+			
+					//
+					// Check if field is related.
+					//
+					$criteria = array( $data[ 'field' ] => $record[ $field ] );
+					if( ! $collection_rel->matchOne( $criteria, kQUERY_COUNT ) )
+					{
+						//
+						// Create transaction.
+						//
+						$this->failTransactionLog(
+							$transaction,							// Transaction.
+							$this->transaction(),					// Parent transaction.
+							kTYPE_TRANS_TMPL_RELATIONSHIPS_ROW,		// Transaction type.
+							kTYPE_STATUS_WARNING,					// Transaction status.
+							'Related record not found.',			// Transaction message.
+							$theWorksheet,							// Worksheet.
+							$record[ kTAG_NID ],					// Row.
+							$data[ 'column_name' ],					// Column.
+							$field,									// Alias.
+							$tag,									// Tag.
+							$record[ $field ],						// Value.
+							kTYPE_ERROR_RELATED_NO_MATCH,			// Error type.
+							kTYPE_ERROR_CODE_BAD_RELATIONSHIP,		// Error code.
+							NULL );									// Error resource.
+						
+						//
+						// Add rejected.
+						//
+						$rejected++;
+					
+					} // Not matched.
+				
+				} // Has field.
+			
+			} // Iterating related fields.
+			
+			//
+			// Update parent progress.
+			//
+			$this->transaction()->processed( 1, $theRecords );
+			
+			//
+			// Handle skiped.
+			//
+			if( ! $matched )
+				$this->transaction()->skipped( 1 );
+			
+			//
+			// Handle rejected.
+			//
+			elseif( $rejected )
+			{
+				//
+				// Increment rejected.
+				//
+				$this->transaction()->rejected( 1 );
+				
+				//
+				// Delete entry.
+				//
+				$collection->delete( $record[ kTAG_NID ] );
+			}
+			
+			//
+			// Handle validated.
+			//
+			else
+				$this->transaction()->validated( 1 );
+			
+			//
+			// Close current transaction.
+			//
+			if( $transaction !== NULL )
+			{
+				$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+				$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+			}
+		
+		} // Iterating worksheet data.
+		
+		return TRUE;																// ==>
+
+	} // checkWorksheetRelationships.
 
 	
 

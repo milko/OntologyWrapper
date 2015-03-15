@@ -452,19 +452,19 @@
 		</EDGE>
 	</META>
 	
-	<!-- kTYPE_TRANS_TMPL_DUPLICATES -->
+	<!-- kTYPE_TRANS_TMPL_OBJECTS -->
 	<META>
 		<TERM ns=":type:transaction" lid="170">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Identify existing objects</item>
+					<item const="kTAG_TEXT">Compile objects</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Identify which records exist already in the database.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Compile worksheet data and generate objects.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -495,6 +495,32 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[The record will be replaced in the database.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction:170</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_TRANS_TMPL_BAD_OBJECT_ROW -->
+	<META>
+		<TERM ns=":type:transaction" lid="172">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unexpected error</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An error occurred while compiling the object from worksheet data, the error was not previously identified.]]></item>
 				</item>
 			</item>
 		</TERM>

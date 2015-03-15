@@ -3,15 +3,48 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Update token tag description -->
+	<!-- kTYPE_TRANS_TMPL_OBJECTS -->
 	<META>
-		<TAG set=":token">
-			<item const="kTAG_DESCRIPTION">
+		<TERM set=":type:transaction:170">
+			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a single character or a list of characters which indicate a separation pattern: the first token separates the array elements, the other tokens are applied to the elements and represent sub-element items.]]></item>
+					<item const="kTAG_TEXT">Compile objects</item>
 				</item>
 			</item>
-		</TAG>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Compile worksheet data and generate objects.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- kTYPE_TRANS_TMPL_BAD_OBJECT_ROW -->
+	<META>
+		<TERM ns=":type:transaction" lid="172">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unexpected error</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An error occurred while compiling the object from worksheet data, the error was not previously identified.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction:170</item>
+		</EDGE>
 	</META>
 </METADATA>
