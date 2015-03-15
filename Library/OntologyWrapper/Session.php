@@ -144,15 +144,15 @@ class Session extends SessionObject
 	/**
 	 * Check if an offset exists
 	 *
-	 * We overload this method to intercept the following offsets:
+	 * We overload this method to intercept extern properties, these are prompted from the
+	 * database rather than from the object when the latter is committed: these are the
+	 * extern offsets:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session reference.
 	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
 	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Working collections.
 	 * </ul>
-	 *
-	 * Note that this method will consider the offset extern, only if provided as an offset,
-	 * if provided as a tag native identifier it will function in the default manner.
 	 *
 	 * @param mixed					$theOffset			Offset.
 	 *
@@ -169,19 +169,27 @@ class Session extends SessionObject
 		if( $this->committed() )
 		{
 			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+		
+			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
+				case kTAG_SESSION:
 				case kTAG_SESSION_END:
 				case kTAG_CONN_COLLS:
+				
 					return
-						in_array( $theOffset,
-								  $this->resolvePersistent( TRUE )
-								  	->arrayKeys() );								// ==>
-			}
+						in_array(
+							$theOffset,
+							$this->resolvePersistent( TRUE )->arrayKeys() );		// ==>
+					
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		return parent::offsetExists( $theOffset );									// ==>
 	
@@ -200,13 +208,11 @@ class Session extends SessionObject
 	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Status.
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session reference.
+	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Working collections.
+	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Session end.
 	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
-	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Fields count.
 	 * </ul>
-	 *
-	 * Note that this method will consider the offset extern, only if provided as an offset,
-	 * if provided as a tag native identifier it will function in the default manner.
 	 *
 	 * @param mixed					$theOffset			Offset.
 	 *
@@ -223,20 +229,32 @@ class Session extends SessionObject
 		if( $this->committed() )
 		{
 			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+		
+			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
-				case kTAG_SESSION_STATUS:
-				case kTAG_SESSION_END:
+				case kTAG_SESSION:
 				case kTAG_CONN_COLLS:
-					$data = $this->resolvePersistent( TRUE )->getArrayCopy();
-					return ( array_key_exists( $theOffset, $data ) )
-						 ? $data[ $theOffset ]										// ==>
+				case kTAG_SESSION_END:
+				case kTAG_SESSION_STATUS:
+				
+					//
+					// Get persistent object.
+					//
+					$persistent = $this->resolvePersistent( TRUE )->getArrayCopy();
+			
+					return ( array_key_exists( $theOffset, $persistent ) )
+						 ? $persistent[ $theOffset ]								// ==>
 						 : NULL;													// ==>
-			}
+					
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		return parent::offsetGet( $theOffset );										// ==>
 	
@@ -255,16 +273,11 @@ class Session extends SessionObject
 	 * offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Status, we also check the value.
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Session reference.
 	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Working collections.
-	 *	<li><tt>{@link kTAG_SESSION_START}</tt>: Session start, we also intercept
-	 *		<tt>TRUE</tt> for setting the current time stamp.
-	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end, we also intercept <tt>TRUE</tt>
-	 *		for setting the current time stamp.
+	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Session end.
+	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
 	 * </ul>
-	 *
-	 * Note that this method will consider the offset extern, only if provided as an offset,
-	 * if provided as a tag native identifier it will function in the default manner.
 	 *
 	 * @param string				$theOffset			Offset.
 	 * @param mixed					$theValue			Value to set at offset.
@@ -276,82 +289,43 @@ class Session extends SessionObject
 	public function offsetSet( $theOffset, $theValue )
 	{
 		//
-		// Parse by offset.
+		// Handle committed objects.
 		//
-		switch( $theOffset )
+		if( $this->committed() )
 		{
-			case kTAG_SESSION_STATUS:
-				//
-				// Check value.
-				//
-				switch( $theValue )
-				{
-					case kTYPE_STATUS_OK:
-					case kTYPE_STATUS_FAILED:
-					case kTYPE_STATUS_EXECUTING:
-						break;
+			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+	
+			//
+			// Handle extern properties.
+			//
+			switch( $theOffset )
+			{
+				case kTAG_CONN_COLLS:
+				case kTAG_SESSION_END:
+				case kTAG_SESSION_STATUS:
+		
+					//
+					// Set in persistent object.
+					//
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => $theValue ) );
+				
+					break;
 					
-					default:
-						throw new \Exception(
-							"Cannot set session status: "
-						   ."invalid status type [$theValue]." );				// !@! ==>
-				
-				} // Parsed status.
-				
-				//
-				// Handle committed.
-				//
-				if( $this->committed() )
-					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
-							->replaceOffsets(
-								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => $theValue ) );
-				
-				//
-				// Handle uncommitted.
-				//
-				else
-					parent::offsetSet( $theOffset, $theValue );
-				
-				break;
-			
-			case kTAG_SESSION_END:
-			case kTAG_SESSION_START:
-				//
-				// Set current stamp.
-				//
-				if( $theValue === TRUE )
-					$theValue
-						= self::ResolveCollection(
-							self::ResolveDatabase( $this->mDictionary, TRUE ) )
-								->getTimeStamp();
-			
-			case kTAG_CONN_COLLS:
-				
-				//
-				// Handle committed.
-				//
-				if( $this->committed() )
-					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
-							->replaceOffsets(
-								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => $theValue ) );
-				
-				//
-				// Handle uncommitted.
-				//
-				else
-					parent::offsetSet( $theOffset, $theValue );
-				
-				break;
-			
-			default:
-				parent::offsetSet( $theOffset, $theValue );
-				
-				break;
-		}
+			} // Extern offset.
+		
+		} // Is committed.
+		
+		//
+		// Call parent method.
+		//
+		parent::offsetSet( $theOffset, $theValue );
 	
 	} // offsetSet.
 
@@ -363,14 +337,12 @@ class Session extends SessionObject
 	/**
 	 * Reset a value at a given offset
 	 *
-	 * We overload this method to intercept extern properties:
+	 * We overload this method to intercept extern properties, these are unset in the
+	 * database rather than from the object when the latter is committed: these are the
+	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
-	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Status, we also check the value.
 	 *	<li><tt>{@link kTAG_CONN_COLLS}</tt>: Working collections.
-	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end, we also intercept <tt>TRUE</tt>
-	 *		for setting the current time stamp.
 	 * </ul>
 	 *
 	 * Note that this method will consider the offset extern, only if provided as an offset,
@@ -390,32 +362,36 @@ class Session extends SessionObject
 		if( $this->committed() )
 		{
 			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+	
+			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
-				case kTAG_SESSION_STATUS:
 				case kTAG_CONN_COLLS:
-				case kTAG_SESSION_END:
+					
+					//
+					// Unset in persistent object.
+					//
 					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ) )
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
 							->replaceOffsets(
 								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => NULL ) );
-					break;
+									array( $theOffset => NULL ) );
 				
-				default:
-					parent::offsetUnset( $theOffset );
 					break;
-			}
+					
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		//
-		// Handle uncommitted objects.
+		// Call parent method.
 		//
-		else
-			parent::offsetUnset( $theOffset );
+		parent::offsetUnset( $theOffset );
 	
 	} // offsetUnset.
 
@@ -643,6 +619,79 @@ class Session extends SessionObject
  *																						*
  *======================================================================================*/
 
+		
+
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * We overload this method to normalise:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Session status.
+	 *	<li><tt>{@link kTAG_SESSION_START}</tt>: Session start.
+	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
+	 * </ul>
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses isConnected()
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Check value.
+		//
+		switch( $this->resolveOffset( $theOffset ) )
+		{
+			case kTAG_SESSION_STATUS:
+			
+				//
+				// Check value.
+				//
+				switch( $theValue )
+				{
+					case kTYPE_STATUS_OK:
+					case kTYPE_STATUS_FAILED:
+					case kTYPE_STATUS_EXECUTING:
+						break;
+					
+					default:
+						throw new \Exception(
+							"Cannot set session status: "
+						   ."invalid status type [$theValue]." );				// !@! ==>
+				
+				} // Parsed status.
+				
+				break;
+				
+			case kTAG_SESSION_END:
+			case kTAG_SESSION_START:
+			
+				//
+				// Set current stamp.
+				//
+				if( $theValue === TRUE )
+					$theValue
+						= static::ResolveCollection(
+							static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+								->getTimeStamp();
+				
+				break;
+		}
+		
+		return parent::preOffsetSet( $theOffset, $theValue );						// ==>
+	
+	} // preOffsetSet.
 
 	 
 	/*===================================================================================

@@ -229,16 +229,14 @@ class Transaction extends SessionObject
 	/**
 	 * Check if an offset exists
 	 *
-	 * We overload this method to intercept the following offsets:
+	 * We overload this method to intercept extern properties, these are prompted from the
+	 * database rather than from the object when the latter is committed: these are the
+	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Referencing transaction.
 	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end.
 	 *	<li><tt>{@link kTAG_TRANSACTION_LOG}</tt>: Transaction log.
 	 * </ul>
-	 *
-	 * Note that this method will consider the offset extern, only if provided as an offset,
-	 * if provided as a tag native identifier it will function in the default manner.
 	 *
 	 * @param mixed					$theOffset			Offset.
 	 *
@@ -255,20 +253,26 @@ class Transaction extends SessionObject
 		if( $this->committed() )
 		{
 			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+		
+			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
-				case kTAG_TRANSACTION:
 				case kTAG_TRANSACTION_END:
 				case kTAG_TRANSACTION_LOG:
+				
 					return
-						in_array( $theOffset,
-								  $this->resolvePersistent( TRUE )
-								  	->arrayKeys() );								// ==>
-			}
+						in_array(
+							$theOffset,
+							$this->resolvePersistent( TRUE )->arrayKeys() );		// ==>
+					
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		return parent::offsetExists( $theOffset );									// ==>
 	
@@ -287,14 +291,10 @@ class Transaction extends SessionObject
 	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Referencing transaction.
 	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Status.
 	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end.
 	 *	<li><tt>{@link kTAG_TRANSACTION_LOG}</tt>: Transaction log.
 	 * </ul>
-	 *
-	 * Note that this method will consider the offset extern, only if provided as an offset,
-	 * if provided as a tag native identifier it will function in the default manner.
 	 *
 	 * @param mixed					$theOffset			Offset.
 	 *
@@ -311,21 +311,31 @@ class Transaction extends SessionObject
 		if( $this->committed() )
 		{
 			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+		
+			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
-				case kTAG_TRANSACTION:
 				case kTAG_TRANSACTION_STATUS:
 				case kTAG_TRANSACTION_END:
 				case kTAG_TRANSACTION_LOG:
-					$data = $this->resolvePersistent( TRUE )->getArrayCopy();
-					return ( array_key_exists( $theOffset, $data ) )
-						 ? $data[ $theOffset ]										// ==>
+				
+					//
+					// Get persistent object.
+					//
+					$persistent = $this->resolvePersistent( TRUE )->getArrayCopy();
+			
+					return ( array_key_exists( $theOffset, $persistent ) )
+						 ? $persistent[ $theOffset ]								// ==>
 						 : NULL;													// ==>
-			}
+					
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		return parent::offsetGet( $theOffset );										// ==>
 	
@@ -344,13 +354,9 @@ class Transaction extends SessionObject
 	 * offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Referencing transaction.
-	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Status.
 	 *	<li><tt>{@link kTAG_TRANSACTION_LOG}</tt>: Transaction log.
-	 *	<li><tt>{@link kTAG_TRANSACTION_START}</tt>: Transaction start, we also intercept
-	 *		<tt>TRUE</tt> for setting the current time stamp.
-	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end, we also intercept
-	 *		<tt>TRUE</tt> for setting the current time stamp.
+	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end.
+	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Status.
 	 * </ul>
 	 *
 	 * Note that this method will consider the offset extern, only if provided as an offset,
@@ -366,131 +372,43 @@ class Transaction extends SessionObject
 	public function offsetSet( $theOffset, $theValue )
 	{
 		//
-		// Parse by offset.
+		// Handle committed objects.
 		//
-		switch( $theOffset )
+		if( $this->committed() )
 		{
-			case kTAG_TRANSACTION:
-				//
-				// Normalise value.
-				//
-				if( $theValue instanceof Transaction )
-					$theValue = $theValue->offsetGet( kTAG_NID );
+			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+	
+			//
+			// Handle extern properties.
+			//
+			switch( $theOffset )
+			{
+				case kTAG_TRANSACTION_LOG:
+				case kTAG_TRANSACTION_END:
+				case kTAG_TRANSACTION_STATUS:
+		
+					//
+					// Set in persistent object.
+					//
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => $theValue ) );
 				
-				//
-				// Handle committed.
-				//
-				if( $this->committed() )
-				{
-					//
-					// Get collection.
-					//
-					$collection
-						= static::ResolveCollection(
-							static::ResolveDatabase( $this->mDictionary, TRUE ),
-							TRUE );
-					//
-					// Normalise identifier.
-					//
-					$tmp = $collection->getObjectId( $theValue );
-					if( $tmp === NULL )
-						throw new \Exception(
-							"Cannot use identifier: "
-						   ."invalid transaction identifier [$theValue]." );	// !@! ==>
-					//
-					// Update.
-					//
-					$collection
-						->replaceOffsets(
-							$this->offsetGet( kTAG_NID ),
-							array( $theOffset => $tmp ) );
-				}
-				
-				//
-				// Handle uncommitted.
-				//
-				else
-					parent::offsetSet( $theOffset, $theValue );
-				
-				break;
-			
-			case kTAG_TRANSACTION_STATUS:
-				//
-				// Check value.
-				//
-				switch( $theValue )
-				{
-					case kTYPE_STATUS_OK:
-					case kTYPE_STATUS_EXECUTING:
-					case kTYPE_STATUS_MESSAGE:
-					case kTYPE_STATUS_WARNING:
-					case kTYPE_STATUS_ERROR:
-					case kTYPE_STATUS_FAILED:
-					case kTYPE_STATUS_FATAL:
-					case kTYPE_STATUS_EXCEPTION:
-						break;
+					break;
 					
-					default:
-						throw new \Exception(
-							"Cannot set transaction status: "
-						   ."invalid status type [$theValue]." );				// !@! ==>
-				
-				} // Parsed status.
-				
-				//
-				// Handle committed.
-				//
-				if( $this->committed() )
-					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
-							->replaceOffsets(
-								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => $theValue ) );
-				
-				//
-				// Handle uncommitted.
-				//
-				else
-					parent::offsetSet( $theOffset, $theValue );
-				
-				break;
-			
-			case kTAG_TRANSACTION_END:
-			case kTAG_TRANSACTION_START:
-				//
-				// Set current stamp.
-				//
-				if( $theValue === TRUE )
-					$theValue
-						= self::ResolveCollection(
-							self::ResolveDatabase( $this->mDictionary, TRUE ) )
-								->getTimeStamp();
-			
-			case kTAG_TRANSACTION_LOG:
-				
-				//
-				// Handle committed.
-				//
-				if( $this->committed() )
-					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
-							->replaceOffsets(
-								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => $theValue ) );
-				
-				//
-				// Handle uncommitted.
-				//
-				else
-					parent::offsetSet( $theOffset, $theValue );
-				
-				break;
-			
-			default:
-				parent::offsetSet( $theOffset, $theValue );
-				
-				break;
-		}
+			} // Extern offset.
+		
+		} // Is committed.
+		
+		//
+		// Call parent method.
+		//
+		parent::offsetSet( $theOffset, $theValue );
 	
 	} // offsetSet.
 
@@ -502,18 +420,13 @@ class Transaction extends SessionObject
 	/**
 	 * Reset a value at a given offset
 	 *
-	 * We overload this method to intercept extern properties:
+	 * We overload this method to intercept extern properties, these are unset in the
+	 * database rather than from the object when the latter is committed: these are the
+	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_TRANSACTION}</tt>: Referencing transaction.
-	 *	<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Status.
 	 *	<li><tt>{@link kTAG_TRANSACTION_LOG}</tt>: Transaction log.
-	 *	<li><tt>{@link kTAG_TRANSACTION_END}</tt>: Transaction end, we also intercept
-	 *		<tt>TRUE</tt> for setting the current time stamp.
 	 * </ul>
-	 *
-	 * Note that this method will consider the offset extern, only if provided as an offset,
-	 * if provided as a tag native identifier it will function in the default manner.
 	 *
 	 * @param string				$theOffset			Offset.
 	 *
@@ -529,33 +442,36 @@ class Transaction extends SessionObject
 		if( $this->committed() )
 		{
 			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+	
+			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
-				case kTAG_TRANSACTION:
-				case kTAG_TRANSACTION_STATUS:
 				case kTAG_TRANSACTION_LOG:
-				case kTAG_TRANSACTION_END:
+					
+					//
+					// Unset in persistent object.
+					//
 					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ) )
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
 							->replaceOffsets(
 								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => NULL ) );
-					break;
+									array( $theOffset => NULL ) );
 				
-				default:
-					parent::offsetUnset( $theOffset );
 					break;
-			}
+					
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		//
-		// Handle uncommitted objects.
+		// Call parent method.
 		//
-		else
-			parent::offsetUnset( $theOffset );
+		parent::offsetUnset( $theOffset );
 	
 	} // offsetUnset.
 
@@ -610,6 +526,7 @@ class Transaction extends SessionObject
 			// Init local storage.
 			//
 			$record = Array();
+			$status_current = $this->offsetGet( kTAG_TRANSACTION_STATUS );
 			$status = array( kTYPE_STATUS_EXECUTING => 0,
 							 kTYPE_STATUS_OK => 1, kTYPE_STATUS_MESSAGE => 2,
 							 kTYPE_STATUS_WARNING => 3, kTYPE_STATUS_ERROR => 4,
@@ -623,8 +540,7 @@ class Transaction extends SessionObject
 				//
 				// Update status.
 				//
-				if( $status[ $theStatus ]
-					> $status[ $this->offsetGet( kTAG_TRANSACTION_STATUS ) ] )
+				if( $status[ $theStatus ] > $status[ $status_current ] )
 					$this->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
 				
 				//
@@ -652,13 +568,13 @@ class Transaction extends SessionObject
 				if( $theErrorCode !== NULL )
 					$record[ kTAG_ERROR_CODE ] = (int) $theErrorCode;
 				if( $theErrorResource !== NULL )
-					$record[ kTAG_ERROR_RESOURCE ] = (int) $theErrorResource;
+					$record[ kTAG_ERROR_RESOURCE ] = $theErrorResource;
 				
 				//
 				// Update persistent object.
 				//
 				static::ResolveCollection(
-					static::ResolveDatabase( $this->mDictionary, TRUE ) )
+					static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
 						->updateStructList(
 							$this->offsetGet( kTAG_NID ),
 							array( kTAG_TRANSACTION_LOG => $record ),
@@ -922,6 +838,106 @@ class Transaction extends SessionObject
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * We overload this method to normalise:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_SESSION_STATUS}</tt>: Session status.
+	 *	<li><tt>{@link kTAG_SESSION_START}</tt>: Session start.
+	 *	<li><tt>{@link kTAG_SESSION_END}</tt>: Session end.
+	 * </ul>
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses isConnected()
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Check value.
+		//
+		switch( $this->resolveOffset( $theOffset ) )
+		{
+			case kTAG_TRANSACTION_STATUS:
+			
+				//
+				// Check value.
+				//
+				switch( $theValue )
+				{
+					case kTYPE_STATUS_OK:
+					case kTYPE_STATUS_EXECUTING:
+					case kTYPE_STATUS_MESSAGE:
+					case kTYPE_STATUS_WARNING:
+					case kTYPE_STATUS_ERROR:
+					case kTYPE_STATUS_FAILED:
+					case kTYPE_STATUS_FATAL:
+					case kTYPE_STATUS_EXCEPTION:
+						break;
+					
+					default:
+						throw new \Exception(
+							"Cannot set session status: "
+						   ."invalid status type [$theValue]." );				// !@! ==>
+				
+				} // Parsed status.
+				
+				break;
+				
+			case kTAG_TRANSACTION:
+				
+				//
+				// Normalise identifier.
+				//
+				if( $theValue instanceof Transaction )
+					$theValue = $theValue->offsetGet( kTAG_NID );
+				else
+				{
+					$id
+						= Transaction::ResolveCollection(
+							Transaction::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+								->getObjectId( $theValue );
+					if( $id === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid transaction identifier [$theValue]." );	// !@! ==>
+					$theValue = $id;
+				}
+				
+				break;
+				
+			case kTAG_TRANSACTION_END:
+			case kTAG_TRANSACTION_START:
+			
+				//
+				// Set current stamp.
+				//
+				if( $theValue === TRUE )
+					$theValue
+						= static::ResolveCollection(
+							static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+								->getTimeStamp();
+				
+				break;
+		}
+		
+		return parent::preOffsetSet( $theOffset, $theValue );						// ==>
+	
+	} // preOffsetSet.
 
 	 
 	/*===================================================================================

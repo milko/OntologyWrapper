@@ -144,7 +144,7 @@ abstract class SessionObject extends PersistentObject
 					$tmp =
 						static::ResolveCollection(
 							static::ResolveDatabase( $theContainer, TRUE ) )
-							->getObjectId( $theIdentifier );
+								->getObjectId( $theIdentifier );
 					if( $tmp === NULL )
 						throw new \Exception(
 							"Cannot use identifier: "
@@ -671,7 +671,7 @@ abstract class SessionObject extends PersistentObject
 	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
+	 *	<li><tt>{@link kTAG_FILE}</tt>: File reference.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
@@ -681,9 +681,6 @@ abstract class SessionObject extends PersistentObject
 	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped elements.
 	 *	<li><tt>{@link kTAG_COUNTER_PROGRESS}</tt>: Progress.
 	 * </ul>
-	 *
-	 * Note that this method will consider the offset extern, only if provided as an offset,
-	 * if provided as a tag native identifier it will function in the default manner.
 	 *
 	 * @param mixed					$theOffset			Offset.
 	 *
@@ -697,16 +694,21 @@ abstract class SessionObject extends PersistentObject
 	public function offsetExists( $theOffset )
 	{
 		//
-		// Handle committed objects.
+		// Handle committed object.
 		//
 		if( $this->committed() )
 		{
+			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+	
 			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
-				case kTAG_SESSION:
+				case kTAG_FILE:
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:
@@ -715,13 +717,15 @@ abstract class SessionObject extends PersistentObject
 				case kTAG_COUNTER_REJECTED:
 				case kTAG_COUNTER_SKIPPED:
 				case kTAG_COUNTER_PROGRESS:
+				
 					return
-						in_array( $theOffset,
-								  $this->resolvePersistent( TRUE )
-								  	->arrayKeys() );								// ==>
-			}
+						in_array(
+							$theOffset,
+							$this->resolvePersistent( TRUE )->arrayKeys() );		// ==>
+			
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		return parent::offsetExists( $theOffset );									// ==>
 	
@@ -740,7 +744,7 @@ abstract class SessionObject extends PersistentObject
 	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
+	 *	<li><tt>{@link kTAG_FILE}</tt>: File reference.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
@@ -766,16 +770,21 @@ abstract class SessionObject extends PersistentObject
 	public function offsetGet( $theOffset )
 	{
 		//
-		// Handle committed objects.
+		// Handle committed object.
 		//
 		if( $this->committed() )
 		{
+			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+	
 			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
-				case kTAG_SESSION:
+				case kTAG_FILE:
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:
@@ -784,13 +793,19 @@ abstract class SessionObject extends PersistentObject
 				case kTAG_COUNTER_REJECTED:
 				case kTAG_COUNTER_SKIPPED:
 				case kTAG_COUNTER_PROGRESS:
-					$data = $this->resolvePersistent( TRUE )->getArrayCopy();
-					return ( array_key_exists( $theOffset, $data ) )
-						 ? $data[ $theOffset ]										// ==>
+			
+					//
+					// Get persistent object.
+					//
+					$persistent = $this->resolvePersistent( TRUE )->getArrayCopy();
+			
+					return ( array_key_exists( $theOffset, $persistent ) )
+						 ? $persistent[ $theOffset ]								// ==>
 						 : NULL;													// ==>
-			}
+					
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		return parent::offsetGet( $theOffset );										// ==>
 	
@@ -809,25 +824,16 @@ abstract class SessionObject extends PersistentObject
 	 * offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
 	 *	<li><tt>{@link kTAG_FILE}</tt>: File reference.
-	 *	<li><tt>{@link kTAG_ERROR_TYPE}</tt>: Error type.
-	 *	<li><tt>{@link kTAG_ERROR_CODE}</tt>: Error code.
-	 *	<li><tt>{@link kTAG_ERROR_RESOURCE}</tt>: Error resource.
-	 *	<li><tt>{@link kTAG_TRANSACTION_MESSAGE}</tt>: Error message.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
+	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Validated elements.
+	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Rejected elements.
+	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped elements.
 	 *	<li><tt>{@link kTAG_COUNTER_PROGRESS}</tt>: Progress.
-	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed.
-	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Validated.
-	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Rejected.
-	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped.
 	 * </ul>
-	 *
-	 * The other extern properties cannot be set, since these are counters which can either
-	 * be incremented or decremented and for which a specific interface exists: for this
-	 * reason setting those offsets will raise an exception.
 	 *
 	 * Note that this method will consider the offset extern, only if provided as an offset,
 	 * if provided as a tag native identifier it will function in the default manner.
@@ -847,89 +853,44 @@ abstract class SessionObject extends PersistentObject
 		if( $this->committed() )
 		{
 			//
-			// Resolve collection.
+			// Resolve offset.
 			//
-			$collection
-				= static::ResolveCollection(
-					static::ResolveDatabase( $this->mDictionary, TRUE ),
-					TRUE );
-			
+			$theOffset = $this->resolveOffset( $theOffset );
+	
 			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
-				case kTAG_SESSION:
-					//
-					// Normalise value.
-					//
-					if( $theValue instanceof Session )
-						$theValue = $theValue->offsetGet( kTAG_NID );
-					$tmp = $collection->getObjectId( $theValue );
-					if( $tmp === NULL )
-						throw new \Exception(
-							"Cannot use identifier: "
-						   ."invalid session identifier [$theValue]." );		// !@! ==>
-					$theValue = $tmp;
-					$collection
-						->replaceOffsets(
-							$this->offsetGet( kTAG_NID ),
-							array( $theOffset => $theValue ) );
-					break;
-				
 				case kTAG_FILE:
-					//
-					// Normalise value.
-					//
-					if( $theValue instanceof FileObject )
-						$theValue = $theValue->offsetGet( kTAG_NID );
-					$tmp = $collection->getObjectId( $theValue );
-					if( $tmp === NULL )
-						throw new \Exception(
-							"Cannot use identifier: "
-						   ."invalid file object identifier [$theValue]." );	// !@! ==>
-					$theValue = $tmp;
-					$collection
-						->replaceOffsets(
-							$this->offsetGet( kTAG_NID ),
-							array( $theOffset => $theValue ) );
-					break;
-				
-				case kTAG_ERROR_TYPE:
-				case kTAG_ERROR_CODE:
-				case kTAG_ERROR_RESOURCE:
-				case kTAG_TRANSACTION_MESSAGE:
-				
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:
-				case kTAG_COUNTER_PROGRESS:
-					$collection
-						->replaceOffsets(
-							$this->offsetGet( kTAG_NID ),
-							array( $theOffset => $theValue ) );
-					break;
-				
 				case kTAG_COUNTER_PROCESSED:
 				case kTAG_COUNTER_VALIDATED:
 				case kTAG_COUNTER_REJECTED:
 				case kTAG_COUNTER_SKIPPED:
-					throw new \Exception(
-						"Unable to set property [$theOffset]: "
-					   ."use specific interface." );							// !@! ==>
+				case kTAG_COUNTER_PROGRESS:
+		
+					//
+					// Set in persistent object.
+					//
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+							->replaceOffsets(
+								$this->offsetGet( kTAG_NID ),
+								array( $theOffset => $theValue ) );
 				
-				default:
-					parent::offsetSet( $theOffset, $theValue );
 					break;
-			}
+					
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		//
-		// Handle uncommitted objects.
+		// Call parent method.
 		//
-		else
-			parent::offsetSet( $theOffset, $theValue );
+		parent::offsetSet( $theOffset, $theValue );
 	
 	} // offsetSet.
 
@@ -946,24 +907,16 @@ abstract class SessionObject extends PersistentObject
 	 * extern offsets:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_SESSION}</tt>: Referencing session.
 	 *	<li><tt>{@link kTAG_FILE}</tt>: File reference.
-	 *	<li><tt>{@link kTAG_ERROR_TYPE}</tt>: Error type.
-	 *	<li><tt>{@link kTAG_ERROR_CODE}</tt>: Error code.
-	 *	<li><tt>{@link kTAG_ERROR_RESOURCE}</tt>: Error resource.
-	 *	<li><tt>{@link kTAG_TRANSACTION_MESSAGE}</tt>: Error message.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
+	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed elements.
+	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Validated elements.
+	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Rejected elements.
+	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped elements.
 	 *	<li><tt>{@link kTAG_COUNTER_PROGRESS}</tt>: Progress.
-	 *	<li><tt>{@link kTAG_COUNTER_PROCESSED}</tt>: Processed.
-	 *	<li><tt>{@link kTAG_COUNTER_VALIDATED}</tt>: Validated.
-	 *	<li><tt>{@link kTAG_COUNTER_REJECTED}</tt>: Rejected.
-	 *	<li><tt>{@link kTAG_COUNTER_SKIPPED}</tt>: Skipped.
 	 * </ul>
-	 *
-	 * Note that this method will consider the offset extern, only if provided as an offset,
-	 * if provided as a tag native identifier it will function in the default manner.
 	 *
 	 * @param string				$theOffset			Offset.
 	 *
@@ -979,46 +932,44 @@ abstract class SessionObject extends PersistentObject
 		if( $this->committed() )
 		{
 			//
+			// Resolve offset.
+			//
+			$theOffset = $this->resolveOffset( $theOffset );
+	
+			//
 			// Handle extern properties.
 			//
 			switch( $theOffset )
 			{
-				case kTAG_SESSION:
 				case kTAG_FILE:
-				
-				case kTAG_ERROR_TYPE:
-				case kTAG_ERROR_CODE:
-				case kTAG_ERROR_RESOURCE:
-				case kTAG_TRANSACTION_MESSAGE:
-				
 				case kTAG_COUNTER_COLLECTIONS:
 				case kTAG_COUNTER_RECORDS:
 				case kTAG_COUNTER_FIELDS:
-				
 				case kTAG_COUNTER_PROCESSED:
 				case kTAG_COUNTER_VALIDATED:
 				case kTAG_COUNTER_REJECTED:
 				case kTAG_COUNTER_SKIPPED:
 				case kTAG_COUNTER_PROGRESS:
+		
+					//
+					// Unset in persistent object.
+					//
 					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ) )
+						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
 							->replaceOffsets(
 								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => NULL ) );
-					break;
+									array( $theOffset => NULL ) );
 				
-				default:
-					parent::offsetUnset( $theOffset );
 					break;
-			}
+					
+			} // Extern offset.
 		
-		} // Committed.
+		} // Is committed.
 		
 		//
-		// Handle uncommitted objects.
+		// Call parent method.
 		//
-		else
-			parent::offsetUnset( $theOffset );
+		parent::offsetUnset( $theOffset );
 	
 	} // offsetUnset.
 
@@ -1045,6 +996,7 @@ abstract class SessionObject extends PersistentObject
 	 * If the current object is not committed, the method will raise an exception.
 	 *
 	 * @param string				$theType			Transaction type.
+	 * @param string				$theStatus			Transaction status.
 	 * @param string				$theCollection		Transaction collection.
 	 * @param int					$theRecord			Transaction record.
 	 *
@@ -1055,7 +1007,9 @@ abstract class SessionObject extends PersistentObject
 	 *
 	 * @uses committed()
 	 */
-	public function newTransaction( $theType, $theCollection = NULL, $theRecord = NULL )
+	public function newTransaction( $theType, $theStatus = NULL,
+											  $theCollection = NULL,
+											  $theRecord = NULL )
 	{
 		//
 		// Check if committed.
@@ -1063,32 +1017,36 @@ abstract class SessionObject extends PersistentObject
 		if( $this->committed() )
 		{
 			//
+			// Init local storage.
+			//
+			$id = $this->offsetGet( kTAG_NID );
+			
+			//
 			// Instantiate object.
 			//
 			$transaction = new Transaction( $this->mDictionary );
+			
+			//
+			// Set status.
+			//
+			if( $theStatus !== NULL )
+				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
 			
 			//
 			// Handle session.
 			//
 			if( $this instanceof Session )
 			{
-				//
-				// Set user.
-				//
+				$transaction->offsetSet( kTAG_SESSION, $id );
 				$transaction->offsetSet( kTAG_USER, $this->offsetGet( kTAG_USER ) );
-			
-				//
-				// Set session.
-				//
-				$transaction->offsetSet( kTAG_SESSION, $this->offsetGet( kTAG_NID ) );
 			
 			} // Session.
 			
 			//
 			// Handle transaction.
 			//
-			else
-				$transaction->offsetSet( kTAG_TRANSACTION, $this->offsetGet( kTAG_NID ) );
+			elseif( $this instanceof Transaction )
+				$transaction->offsetSet( kTAG_TRANSACTION, $id );
 		
 			//
 			// Set type.
@@ -1229,6 +1187,8 @@ abstract class SessionObject extends PersistentObject
 	 * In this class we exclude all extern offsets, this includes:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link kTAG_FILE}</tt>: File reference.
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Session reference.
 	 *	<li><tt>{@link kTAG_COUNTER_COLLECTIONS}</tt>: Collections count.
 	 *	<li><tt>{@link kTAG_COUNTER_RECORDS}</tt>: Records count.
 	 *	<li><tt>{@link kTAG_COUNTER_FIELDS}</tt>: Fields count.
@@ -1251,12 +1211,103 @@ abstract class SessionObject extends PersistentObject
 	{
 		return array_merge(
 			parent::UnmanagedOffsets(),
-			array( kTAG_COUNTER_COLLECTIONS, kTAG_COUNTER_RECORDS, kTAG_COUNTER_FIELDS,
+			array( kTAG_FILE, kTAG_SESSION,
+				   kTAG_COUNTER_COLLECTIONS, kTAG_COUNTER_RECORDS, kTAG_COUNTER_FIELDS,
 				   kTAG_COUNTER_PROCESSED, kTAG_COUNTER_VALIDATED,
 				   kTAG_COUNTER_REJECTED, kTAG_COUNTER_SKIPPED,
 				   kTAG_COUNTER_PROGRESS ) );										// ==>
 	
 	} // UnmanagedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * We overload this method to normalise:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_FILE}</tt>: File reference.
+	 *	<li><tt>{@link kTAG_SESSION}</tt>: Session reference.
+	 * </ul>
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses isConnected()
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Normalise value.
+		//
+		switch( $this->resolveOffset( $theOffset ) )
+		{
+			case kTAG_FILE:
+			
+				//
+				// Normalise identifier.
+				//
+				if( $theValue instanceof FileObject )
+					$theValue = $theValue->offsetGet( kTAG_NID );
+				else
+				{
+					$id
+						= FileObject::ResolveCollection(
+							FileObject::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+								->getObjectId( $theValue );
+					if( $id === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid file identifier [$theValue]." );			// !@! ==>
+					$theValue = $id;
+				}
+				
+				break;
+				
+			case kTAG_SESSION:
+				
+				//
+				// Normalise identifier.
+				//
+				if( $theValue instanceof Session )
+					$theValue = $theValue->offsetGet( kTAG_NID );
+				else
+				{
+					$id
+						= Session::ResolveCollection(
+							Session::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+								->getObjectId( $theValue );
+					if( $id === NULL )
+						throw new \Exception(
+							"Cannot use identifier: "
+						   ."invalid session identifier [$theValue]." );		// !@! ==>
+					$theValue = $id;
+				}
+				
+				break;
+		}
+		
+		return parent::preOffsetSet( $theOffset, $theValue );						// ==>
+	
+	} // preOffsetSet.
 
 	
 
@@ -1384,14 +1435,6 @@ abstract class SessionObject extends PersistentObject
 	 */
 	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{
-		//
-		// Initialise counters.
-		//
-		$this->offsetSet( kTAG_COUNTER_SKIPPED, 0 );
-		$this->offsetSet( kTAG_COUNTER_REJECTED, 0 );
-		$this->offsetSet( kTAG_COUNTER_VALIDATED, 0 );
-		$this->offsetSet( kTAG_COUNTER_PROCESSED, 0 );
-		
 		//
 		// Initialise session progress.
 		//

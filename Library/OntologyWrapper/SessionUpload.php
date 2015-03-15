@@ -532,7 +532,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction(
 				$this->session()->newTransaction( kTYPE_TRANS_TMPL_PREPARE ) );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Delete pending sessions.
@@ -582,7 +581,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction(
 				$this->session()->newTransaction( kTYPE_TRANS_TMPL_LOAD ) );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Check file.
@@ -644,7 +642,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction(
 				$this->session()->newTransaction( kTYPE_TRANS_TMPL_STORE ) );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Save file.
@@ -692,7 +689,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction(
 				$this->session()->newTransaction( kTYPE_TRANS_TMPL_STRUCT ) );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Check required worksheets.
@@ -743,7 +739,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction(
 				$this->session()->newTransaction( kTYPE_TRANS_TMPL_SETUP ) );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Create collections.
@@ -805,12 +800,9 @@ class SessionUpload
 			$transaction
 				= $this->transaction(
 					$this->session()
-						->newTransaction( kTYPE_TRANS_TMPL_WORKSHEET, $wname ) );
-			
-			//
-			// Init progress.
-			//
-			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+						->newTransaction( kTYPE_TRANS_TMPL_WORKSHEET,
+										  kTYPE_STATUS_EXECUTING,
+										  $wname ) );
 			
 			//
 			// Set records count.
@@ -829,7 +821,9 @@ class SessionUpload
 			// Close transaction.
 			//
 			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+			if( $transaction->offsetGet( kTAG_TRANSACTION_STATUS )
+					== kTYPE_STATUS_EXECUTING )
+				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
 		} // Iterating worksheets.
@@ -953,7 +947,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction()
 				->newTransaction( kTYPE_TRANS_TMPL_LOAD_FILE );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Check file.
@@ -1041,7 +1034,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction()
 				->newTransaction( kTYPE_TRANS_TMPL_LOAD_TYPE );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Check file extension.
@@ -1106,7 +1098,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction()
 				->newTransaction( kTYPE_TRANS_TMPL_LOAD_DDICT );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Instantiate parser.
@@ -1148,7 +1139,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction()
 				->newTransaction( kTYPE_TRANS_TMPL_LOAD_ITEMS );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Load structure.
@@ -1238,7 +1228,6 @@ class SessionUpload
 		$transaction
 			= $this->transaction()
 				->newTransaction( kTYPE_TRANS_TMPL_STRUCT_WORKSHEETS );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Load structure.
@@ -1444,7 +1433,7 @@ class SessionUpload
 				//
 				foreach( array_keys( $record ) as $symbol )
 					$errors
-						+= $this->validateProperty(
+						+= $this->checkCellValue(
 								$transaction,					// Row transaction.
 								$record,						// Row record.
 								$theWorksheet,					// Worksheet name.
@@ -1493,7 +1482,6 @@ class SessionUpload
 				if( $transaction !== NULL )
 				{
 					$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-					$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 					$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 				}
 				
@@ -1620,7 +1608,7 @@ class SessionUpload
 
 	 
 	/*===================================================================================
-	 *	validateProperty																*
+	 *	checkCellValue																	*
 	 *==================================================================================*/
 
 	/**
@@ -1636,7 +1624,7 @@ class SessionUpload
 	 * @param string				$theSymbol			Field symbol.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 * @return int					Number of errors.
 	 *
 	 * @uses validateString()
 	 * @uses validateInteger()
@@ -1646,15 +1634,16 @@ class SessionUpload
 	 * @uses validateArray()
 	 * @uses validateArray()
 	 */
-	protected function validateProperty( &$theTransaction,
-										 &$theRecord,
-										  $theWorksheet,
-										  $theRow,
-										  $theSymbol )
+	protected function checkCellValue( &$theTransaction,
+									   &$theRecord,
+										$theWorksheet,
+										$theRow,
+										$theSymbol )
 	{
 		//
 		// Init local storage.
 		//
+		$errors = 0;
 		$field_data = $this->mParser->getFields()[ $theWorksheet ];
 		$field_node = $this->mParser->getNode( $field_data[ $theSymbol ][ 'node' ] );
 		$field_tag = ( $field_node->offsetExists( kTAG_TAG ) )
@@ -1683,25 +1672,28 @@ class SessionUpload
 			
 				case kTYPE_STRING:
 				case kTYPE_TEXT:
-					$this->validateString(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateString(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_INT:
 				case kTYPE_YEAR:
-					$this->validateInteger(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateInteger(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_FLOAT:
-					$this->validateFloat(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateFloat(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_BOOLEAN:
@@ -1712,165 +1704,189 @@ class SessionUpload
 					break;
 			
 				case kTYPE_STRUCT:
-					$this->validateStruct(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateStruct(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_ARRAY:
-					$this->validateArray(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateArray(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_LANGUAGE_STRING:
-					$this->validateLanguageString(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateLanguageString(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_LANGUAGE_STRINGS:
-					$this->validateLanguageStrings(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateLanguageStrings(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_TYPED_LIST:
-					$this->validateTypedList(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateTypedList(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_SHAPE:
-					$this->validateShape(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateShape(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_URL:
-					$this->validateLink(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateLink(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_DATE:
-					$this->validateDate(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateDate(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_ENUM:
-					$this->validateEnum(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateEnum(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_SET:
-					$this->validateEnumSet(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateEnumSet(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_TAG:
-					$this->validateReference(
-						$theTransaction, $theRecord, Tag::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, Tag::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_TERM:
-					$this->validateReference(
-						$theTransaction, $theRecord, Term::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, Term::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_NODE:
-					$this->validateReference(
-						$theTransaction, $theRecord, Node::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, Node::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_EDGE:
-					$this->validateReference(
-						$theTransaction, $theRecord, Edge::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, Edge::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_UNIT:
-					$this->validateReference(
-						$theTransaction, $theRecord, UnitObject::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, UnitObject::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_USER:
-					$this->validateReference(
-						$theTransaction, $theRecord, User::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, User::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_SESSION:
-					$this->validateReference(
-						$theTransaction, $theRecord, Session::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, Session::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_TRANSACTION:
-					$this->validateReference(
-						$theTransaction, $theRecord, Transaction::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, Transaction::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_FILE:
-					$this->validateReference(
-						$theTransaction, $theRecord, FileObject::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, FileObject::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_REF_SELF:
 					$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
-					$this->validateReference(
-						$theTransaction, $theRecord, $class::kSEQ_NAME,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateReference(
+							$theTransaction, $theRecord, $class::kSEQ_NAME,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_OBJECT_ID:
-					$this->validateObjectId(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateObjectId(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_TIME_STAMP:
-					$this->validateTimeStamp(
-						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
-						$field_data[ $theSymbol ], $field_node, $field_tag );
+					$errors +=
+						$this->validateTimeStamp(
+							$theTransaction, $theRecord,
+							$theWorksheet, $theRow,
+							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 			} // Parsing by type.
 		
 		} // Tag field.
+		
+		return $errors;																// ==>
 
-	} // validateProperty.
+	} // checkCellValue.
 
 	
 
@@ -2044,14 +2060,6 @@ class SessionUpload
 											$theErrorResource )
 	{
 		//
-		// Init local storage.
-		//
-		$status = array( kTYPE_STATUS_EXECUTING => 0,
-						 kTYPE_STATUS_OK => 1, kTYPE_STATUS_MESSAGE => 2,
-						 kTYPE_STATUS_WARNING => 3, kTYPE_STATUS_ERROR => 4,
-						 kTYPE_STATUS_FATAL => 5, kTYPE_STATUS_EXCEPTION => 6 );
-		
-		//
 		// New transaction.
 		//
 		if( $theTransaction === NULL )
@@ -2061,21 +2069,10 @@ class SessionUpload
 			//
 			$theTransaction
 				= $theParent
-					->newTransaction( $theType, $theFieldWorksheet, $theFieldRow );
-	
-			//
-			// Set transaction status.
-			//
-			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
+					->newTransaction(
+						$theType, $theStatus, $theFieldWorksheet, $theFieldRow );
 	
 		} // New transaction.
-	
-		//
-		// Update transaction status.
-		//
-		elseif( $status[ $theStatus ]
-				> $status[ $theTransaction->offsetGet( kTAG_TRANSACTION_STATUS ) ] )
-			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
 	
 		//
 		// Set log.
@@ -2164,7 +2161,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors (0).
 	 */
 	protected function validateString( &$theTransaction,
 									   &$theRecord,
@@ -2188,7 +2185,7 @@ class SessionUpload
 		if( ! strlen( $theRecord[ $symbol ] ) )
 		{
 			unset( $theRecord[ $symbol ] );
-			return TRUE;															// ==>
+			return 0;																// ==>
 		}
 		
 		//
@@ -2225,7 +2222,7 @@ class SessionUpload
 			if( ! count( $theRecord[ $symbol ] ) )
 			{
 				unset( $theRecord[ $symbol ] );
-				return TRUE;														// ==>
+				return 0;															// ==>
 			}
 		
 		} // List.
@@ -2237,7 +2234,7 @@ class SessionUpload
 			= SetlocalTransformations(
 				$theRecord[ $symbol ], $prefix, $suffix );
 		
-		return TRUE;																// ==>
+		return 0;																	// ==>
 
 	} // validateString.
 
@@ -2262,7 +2259,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateInteger( &$theTransaction,
 										&$theRecord,
@@ -2275,7 +2272,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$error = FALSE;
+		$error = 0;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
@@ -2321,8 +2318,23 @@ class SessionUpload
 				//
 				elseif( $ok !== NULL )
 				{
-					$error = TRUE;
-					break;													// =>
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_ERROR,							// Transaction status.
+						$error_message,								// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$element,									// Value.
+						$error_type,								// Error type.
+						$ok,										// Error code.
+						NULL										// Error resource.
+					);
 				}
 			
 			} // Iterating elements.
@@ -2343,8 +2355,6 @@ class SessionUpload
 				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
 		
@@ -2373,15 +2383,8 @@ class SessionUpload
 			// Invalid value.
 			//
 			elseif( $ok !== TRUE )
-				$error = TRUE;
-		
-		} // Scalar value.
-		
-		//
-		// Handle errors.
-		//
-		if( $error )
-			return
+			{
+				$error++;
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
 					$this->transaction(),						// Parent transaction.
@@ -2397,9 +2400,12 @@ class SessionUpload
 					$error_type,								// Error type.
 					$ok,										// Error code.
 					NULL										// Error resource.
-				);																	// ==>
+				);
+			}
 		
-		return TRUE;																// ==>
+		} // Scalar value.
+		
+		return $error;																// ==>
 
 	} // validateInteger.
 
@@ -2424,7 +2430,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateFloat( &$theTransaction,
 									  &$theRecord,
@@ -2437,7 +2443,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$error = FALSE;
+		$error = 0;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
@@ -2483,8 +2489,23 @@ class SessionUpload
 				//
 				elseif( $ok !== NULL )
 				{
-					$error = TRUE;
-					break;													// =>
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_ERROR,							// Transaction status.
+						$error_message,								// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$element,									// Value.
+						$error_type,								// Error type.
+						$ok,										// Error code.
+						NULL										// Error resource.
+					);
 				}
 			
 			} // Iterating elements.
@@ -2505,8 +2526,6 @@ class SessionUpload
 				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
 		
@@ -2535,15 +2554,8 @@ class SessionUpload
 			// Invalid value.
 			//
 			elseif( $ok !== TRUE )
-				$error = TRUE;
-		
-		} // Scalar value.
-		
-		//
-		// Handle errors.
-		//
-		if( $error )
-			return
+			{
+				$error++;
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
 					$this->transaction(),						// Parent transaction.
@@ -2559,9 +2571,12 @@ class SessionUpload
 					$error_type,								// Error type.
 					$ok,										// Error code.
 					NULL										// Error resource.
-				);																	// ==>
+				);
+			}
 		
-		return TRUE;																// ==>
+		} // Scalar value.
+		
+		return $error;																// ==>
 
 	} // validateFloat.
 
@@ -2597,7 +2612,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateBoolean( &$theTransaction,
 										&$theRecord,
@@ -2610,7 +2625,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$error = FALSE;
+		$error = 0;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
@@ -2656,8 +2671,23 @@ class SessionUpload
 				//
 				elseif( $ok !== NULL )
 				{
-					$error = TRUE;
-					break;													// =>
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_ERROR,							// Transaction status.
+						$error_message,								// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$element,									// Value.
+						$error_type,								// Error type.
+						$ok,										// Error code.
+						NULL										// Error resource.
+					);
 				}
 			
 			} // Iterating elements.
@@ -2678,8 +2708,6 @@ class SessionUpload
 				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
 		
@@ -2708,15 +2736,8 @@ class SessionUpload
 			// Invalid value.
 			//
 			elseif( $ok !== TRUE )
-				$error = TRUE;
-		
-		} // Scalar value.
-		
-		//
-		// Handle errors.
-		//
-		if( $error )
-			return
+			{
+				$error++;
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
 					$this->transaction(),						// Parent transaction.
@@ -2732,9 +2753,12 @@ class SessionUpload
 					$error_type,								// Error type.
 					$ok,										// Error code.
 					NULL										// Error resource.
-				);																	// ==>
+				);
+			}
 		
-		return TRUE;																// ==>
+		} // Scalar value.
+		
+		return $error;																// ==>
 
 	} // validateBoolean.
 
@@ -2815,7 +2839,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateArray( &$theTransaction,
 									  &$theRecord,
@@ -2828,7 +2852,6 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$error = FALSE;
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
@@ -2839,45 +2862,51 @@ class SessionUpload
 		// Handle missing tokens.
 		//
 		if( ! $count )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Missing separator tokens in template.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					NULL,										// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Missing separator tokens in template.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				NULL,										// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+				NULL										// Error resource.
+			);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle too many tokens.
 		//
 		if( $count > 3 )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Too many tokens in template definition.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					$tokens,									// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Too many tokens in template definition.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				$tokens,									// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+				NULL										// Error resource.
+			);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle list.
@@ -2893,7 +2922,7 @@ class SessionUpload
 			{
 				unset( $theRecord[ $symbol ] );
 				
-				return TRUE;														// ==>
+				return 0;															// ==>
 			}
 			
 			//
@@ -2951,7 +2980,7 @@ class SessionUpload
 		
 		} // Scalar.
 		
-		return TRUE;																// ==>
+		return 0;																	// ==>
 
 	} // validateArray.
 
@@ -2991,7 +3020,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateLanguageString( &$theTransaction,
 											   &$theRecord,
@@ -3014,45 +3043,51 @@ class SessionUpload
 		// Handle missing tokens.
 		//
 		if( ! $count )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Missing separator tokens in template.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					NULL,										// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Missing separator tokens in template.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				NULL,										// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+				NULL										// Error resource.
+			);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle too many tokens.
 		//
 		if( $count > 3 )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Too many tokens in template definition.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					$tokens,									// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Too many tokens in template definition.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				$tokens,									// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+				NULL										// Error resource.
+			);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle list.
@@ -3068,7 +3103,7 @@ class SessionUpload
 			{
 				unset( $theRecord[ $symbol ] );
 				
-				return TRUE;														// ==>
+				return 0;															// ==>
 			}
 			
 			//
@@ -3264,7 +3299,7 @@ class SessionUpload
 		if( ! count( $theRecord[ $symbol ] ) )
 			unset( $theRecord[ $symbol ] );
 		
-		return TRUE;																// ==>
+		return 0;																	// ==>
 
 	} // validateLanguageString.
 
@@ -3309,7 +3344,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateLanguageStrings( &$theTransaction,
 												&$theRecord,
@@ -3332,45 +3367,51 @@ class SessionUpload
 		// Handle missing tokens.
 		//
 		if( ! $count )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Missing separator tokens in template.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					NULL,										// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Missing separator tokens in template.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				NULL,										// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+				NULL										// Error resource.
+			);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle too many tokens.
 		//
 		if( $count > 4 )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Too many tokens in template definition.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					$tokens,									// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Too many tokens in template definition.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				$tokens,									// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+				NULL										// Error resource.
+				);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle list.
@@ -3386,7 +3427,7 @@ class SessionUpload
 			{
 				unset( $theRecord[ $symbol ] );
 				
-				return TRUE;														// ==>
+				return 0;															// ==>
 			}
 			
 			//
@@ -3624,7 +3665,7 @@ class SessionUpload
 		if( ! count( $theRecord[ $symbol ] ) )
 			unset( $theRecord[ $symbol ] );
 		
-		return TRUE;																// ==>
+		return 0;																	// ==>
 
 	} // validateLanguageStrings.
 
@@ -3665,7 +3706,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateTypedList( &$theTransaction,
 										  &$theRecord,
@@ -3688,45 +3729,51 @@ class SessionUpload
 		// Handle missing tokens.
 		//
 		if( ! $count )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Missing separator tokens in template.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					NULL,										// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Missing separator tokens in template.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				NULL,										// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+				NULL										// Error resource.
+			);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle too many tokens.
 		//
 		if( $count > 3 )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Too many tokens in template definition.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					$tokens,									// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Too many tokens in template definition.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				$tokens,									// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+				NULL										// Error resource.
+			);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle list.
@@ -3742,7 +3789,7 @@ class SessionUpload
 			{
 				unset( $theRecord[ $symbol ] );
 				
-				return TRUE;														// ==>
+				return 0;															// ==>
 			}
 			
 			//
@@ -3944,7 +3991,7 @@ class SessionUpload
 		if( ! count( $theRecord[ $symbol ] ) )
 			unset( $theRecord[ $symbol ] );
 		
-		return TRUE;																// ==>
+		return 0;																	// ==>
 
 	} // validateTypedList.
 
@@ -3986,7 +4033,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateShape( &$theTransaction,
 									  &$theRecord,
@@ -3999,6 +4046,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
+		$error = 0;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		
@@ -4041,64 +4089,77 @@ class SessionUpload
 				// Invalid value.
 				//
 				elseif( $ok !== NULL )
-					return
-						$this->failTransactionLog(
-							$theTransaction,							// Transaction.
-							$this->transaction(),						// Parent.
-							kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
-							kTYPE_STATUS_ERROR,							// Status.
-							$error_message,								// Message.
-							$theWorksheet,								// Worksheet.
-							$theRow,									// Row.
-							$theFieldData[ 'column_name' ],				// Column.
-							$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-							$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-							$theRecord[ $symbol ],						// Value.
-							$error_type,								// Error type.
-							$ok,										// Error code.
-							NULL										// Error resource.
-						);															// ==>
+				{
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_ERROR,							// Transaction status.
+						$error_message,								// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$element,									// Value.
+						$error_type,								// Error type.
+						$ok,										// Error code.
+						NULL										// Error resource.
+					);
+				}
 			
 			} // Iterating elements.
 			
 			//
-			// Remove if empty.
+			// Handle no errors.
 			//
-			if( count( $result ) )
-				$theRecord[ $symbol ] = $result;
-		
-			//
-			// Set value.
-			//
-			else
-				unset( $theRecord[ $symbol ] );
+			if( ! $error )
+			{
+				//
+				// Remove if empty.
+				//
+				if( count( $result ) )
+					$theRecord[ $symbol ] = $result;
 			
-			return TRUE;															// ==>
+				//
+				// Set value.
+				//
+				else
+					unset( $theRecord[ $symbol ] );
+			
+			} // No errors.
 		
 		} // List.
 		
 		//
-		// Check value.
+		// Handle scalar.
 		//
-		$ok = CheckShapeValue( $theRecord[ $symbol ], $error_type, $error_message );
-	
-		//
-		// Empty value.
-		//
-		if( $ok === NULL )
-			unset( $theRecord[ $symbol ] );
-	
-		//
-		// Invalid value.
-		//
-		elseif( $ok !== TRUE )
-			return
+		else
+		{
+			//
+			// Check value.
+			//
+			$ok = CheckShapeValue( $theRecord[ $symbol ], $error_type, $error_message );
+			
+			//
+			// Remove if empty.
+			//
+			if( $ok === NULL )
+				unset( $theRecord[ $symbol ] );
+			
+			//
+			// Invalid value.
+			//
+			elseif( $ok !== TRUE )
+			{
+				$error++;
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
-					kTYPE_STATUS_ERROR,							// Status.
-					$error_message,								// Message.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_ERROR,							// Transaction status.
+					$error_message,								// Transaction message.
 					$theWorksheet,								// Worksheet.
 					$theRow,									// Row.
 					$theFieldData[ 'column_name' ],				// Column.
@@ -4108,9 +4169,12 @@ class SessionUpload
 					$error_type,								// Error type.
 					$ok,										// Error code.
 					NULL										// Error resource.
-				);																	// ==>
+				);
+			}
 		
-		return TRUE;																// ==>
+		} // Scalar value.
+		
+		return $error;																// ==>
 
 	} // validateShape.
 
@@ -4135,7 +4199,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateLink( &$theTransaction,
 									 &$theRecord,
@@ -4148,7 +4212,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$error = FALSE;
+		$error = 0;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
@@ -4169,45 +4233,51 @@ class SessionUpload
 			// Handle missing tokens.
 			//
 			if( ! count( $tokens ) )
-				return
-					$this->failTransactionLog(
-						$theTransaction,							// Transaction.
-						$this->transaction(),						// Parent transaction.
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_WARNING,						// Transaction status.
-						'Missing separator tokens in template.',	// Transaction message.
-						$theWorksheet,								// Worksheet.
-						$theRow,									// Row.
-						$theFieldData[ 'column_name' ],				// Column.
-						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-						NULL,										// Value.
-						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-						kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
-						NULL										// Error resource.
-					);																// ==>
+			{
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Missing separator tokens in template.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					NULL,										// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+					NULL										// Error resource.
+				);
+				
+				return 1;															// ==>
+			}
 		
 			//
 			// Handle too many tokens.
 			//
 			if( count( $tokens ) > 1 )
-				return
-					$this->failTransactionLog(
-						$theTransaction,							// Transaction.
-						$this->transaction(),						// Parent transaction.
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_WARNING,						// Transaction status.
-						'Too many tokens in template definition.',	// Transaction message.
-						$theWorksheet,								// Worksheet.
-						$theRow,									// Row.
-						$theFieldData[ 'column_name' ],				// Column.
-						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-						$tokens,									// Value.
-						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-						kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-						NULL										// Error resource.
-					);																// ==>
+			{
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Too many tokens in template definition.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$tokens,									// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+					NULL										// Error resource.
+				);
+				
+				return 1;															// ==>
+			}
 		
 			//
 			// Split elements.
@@ -4236,8 +4306,23 @@ class SessionUpload
 				//
 				elseif( $ok !== NULL )
 				{
-					$error = TRUE;
-					break;													// =>
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_ERROR,							// Transaction status.
+						$error_message,								// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$element,									// Value.
+						$error_type,								// Error type.
+						$ok,										// Error code.
+						NULL										// Error resource.
+					);
 				}
 		
 			} // Iterating elements.
@@ -4258,8 +4343,6 @@ class SessionUpload
 				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
 		
@@ -4287,33 +4370,29 @@ class SessionUpload
 			// Handle error.
 			//
 			elseif( $ok !== TRUE )
-				$error = TRUE;
+			{
+				$error++;
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_ERROR,							// Transaction status.
+					$error_message,								// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$theRecord[ $symbol ],						// Value.
+					$error_type,								// Error type.
+					$ok,										// Error code.
+					NULL										// Error resource.
+				);
+			}
 		
 		} // Scalar value.
 		
-		//
-		// Handle errors.
-		//
-		if( $error )
-			return
-				$this->failTransactionLog(
-					$theTransaction,								// Transaction.
-					$this->transaction(),							// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,					// Transaction type.
-					kTYPE_STATUS_WARNING,							// Transaction status.
-					$error_message,									// Transaction message.
-					$theWorksheet,									// Worksheet.
-					$theRow,										// Row.
-					$theFieldData[ 'column_name' ],					// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-					$theRecord[ $symbol ],							// Value.
-					$error_type,									// Error type.
-					$ok,											// Error code.
-					NULL											// Error resource.
-				);																	// ==>
-		
-		return TRUE;																// ==>
+		return $error;																// ==>
 
 	} // validateLink.
 
@@ -4338,7 +4417,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateDate( &$theTransaction,
 									 &$theRecord,
@@ -4351,6 +4430,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
+		$error = 0;
 		$error = FALSE;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
@@ -4397,9 +4477,23 @@ class SessionUpload
 				//
 				elseif( $ok !== NULL )
 				{
-					$error = TRUE;
-					
-					break;													// =>
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_ERROR,							// Transaction status.
+						$error_message,								// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$element,									// Value.
+						$error_type,								// Error type.
+						$ok,										// Error code.
+						NULL										// Error resource.
+					);
 				}
 			
 			} // Iterating elements.
@@ -4420,8 +4514,6 @@ class SessionUpload
 				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
 		
@@ -4449,21 +4541,14 @@ class SessionUpload
 			// Invalid value.
 			//
 			elseif( $ok !== TRUE )
-				$error = TRUE;
-		
-		} // Scalar value.
-		
-		//
-		// Handle errors.
-		//
-		if( $error )
-			return
+			{
+				$error++;
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
-					$status,									// Status.
-					$error_message,								// Message.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_ERROR,							// Transaction status.
+					$error_message,								// Transaction message.
 					$theWorksheet,								// Worksheet.
 					$theRow,									// Row.
 					$theFieldData[ 'column_name' ],				// Column.
@@ -4473,9 +4558,12 @@ class SessionUpload
 					$error_type,								// Error type.
 					$ok,										// Error code.
 					NULL										// Error resource.
-				);																	// ==>
+				);
+			}
 		
-		return TRUE;																// ==>
+		} // Scalar value.
+		
+		return $error;																// ==>
 
 	} // validateDate.
 
@@ -4501,7 +4589,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateEnum( &$theTransaction,
 									 &$theRecord,
@@ -4514,7 +4602,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$error_value = NULL;
+		$error = 0;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
@@ -4539,45 +4627,51 @@ class SessionUpload
 			// Handle missing tokens.
 			//
 			if( ! count( $tokens ) )
-				return
-					$this->failTransactionLog(
-						$theTransaction,							// Transaction.
-						$this->transaction(),						// Parent transaction.
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_WARNING,						// Transaction status.
-						'Missing separator tokens in template.',	// Transaction message.
-						$theWorksheet,								// Worksheet.
-						$theRow,									// Row.
-						$theFieldData[ 'column_name' ],				// Column.
-						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-						NULL,										// Value.
-						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-						kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
-						NULL										// Error resource.
-					);																// ==>
+			{
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Missing separator tokens in template.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					NULL,										// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+					NULL										// Error resource.
+				);
+				
+				return 1;															// ==>
+			}
 		
 			//
 			// Handle too many tokens.
 			//
 			if( count( $tokens ) > 1 )
-				return
-					$this->failTransactionLog(
-						$theTransaction,							// Transaction.
-						$this->transaction(),						// Parent transaction.
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_WARNING,						// Transaction status.
-						'Too many tokens in template definition.',	// Transaction message.
-						$theWorksheet,								// Worksheet.
-						$theRow,									// Row.
-						$theFieldData[ 'column_name' ],				// Column.
-						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-						$tokens,									// Value.
-						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-						kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-						NULL										// Error resource.
-					);																// ==>
+			{
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Too many tokens in template definition.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$tokens,									// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+					NULL										// Error resource.
+				);
+				
+				return 1;															// ==>
+			}
 		
 			//
 			// Split elements.
@@ -4620,35 +4714,46 @@ class SessionUpload
 				// Handle errors.
 				//
 				if( ! $matched )
-					$errors[] = $element;
+				{
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+						kTYPE_STATUS_ERROR,							// Status.
+						'Invalid code.',							// Message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$element,									// Value.
+						kTYPE_ERROR_INVALID_CODE,					// Error type.
+						kTYPE_ERROR_CODE_INVALID_ENUM,				// Error code.
+						NULL										// Error res.
+					);
+				}
 			
 			} // Iterating elements.
 			
 			//
 			// Handle no errors.
 			//
-			if( ! count( $errors ) )
+			if( ! $error )
 			{
-				//
-				// Set value.
-				//
-				if( count( $results ) )
-					$theRecord[ $symbol ] = $results;
-			
 				//
 				// Remove if empty.
 				//
+				if( count( $result ) )
+					$theRecord[ $symbol ] = $result;
+			
+				//
+				// Set value.
+				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
-			
-			//
-			// Set error value.
-			//
-			$error_value = implode( ',', $errors );
 		
 		} // List.
 		
@@ -4678,7 +4783,7 @@ class SessionUpload
 					$theRecord[ $symbol ] = $combination;
 					
 					$matched = TRUE;
-					break;												// =>
+					break;													// =>
 				
 				} // Matched.
 			
@@ -4688,33 +4793,29 @@ class SessionUpload
 			// Handle errors.
 			//
 			if( ! $matched )
-				$error_value = $theRecord[ $symbol ];
-		
-		} // Scalar value.
-		
-		//
-		// Handle errors.
-		//
-		if( $error_value !== NULL )
-			return
+			{
+				$error++;
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
-					kTYPE_STATUS_ERROR,							// Status.
-					'Invalid code.',							// Message.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_ERROR,							// Transaction status.
+					'Invalid code.',							// Transaction message.
 					$theWorksheet,								// Worksheet.
 					$theRow,									// Row.
 					$theFieldData[ 'column_name' ],				// Column.
 					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
 					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					$error_value,								// Value.
+					$theRecord[ $symbol ],						// Value.
 					kTYPE_ERROR_INVALID_CODE,					// Error type.
 					kTYPE_ERROR_CODE_INVALID_ENUM,				// Error code.
 					NULL										// Error res.
-				);																	// ==>
+				);
+			}
 		
-		return TRUE;																// ==>
+		} // Scalar value.
+		
+		return $error;																// ==>
 
 	} // validateEnum.
 
@@ -4740,7 +4841,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateEnumSet( &$theTransaction,
 										&$theRecord,
@@ -4753,7 +4854,8 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$results = $errors = Array();
+		$error = 0;
+		$results = Array();
 		$error_value = NULL;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
@@ -4771,45 +4873,51 @@ class SessionUpload
 		// Handle missing tokens.
 		//
 		if( ! $count )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Missing separator tokens in template.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					NULL,										// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Missing separator tokens in template.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				NULL,										// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+				NULL										// Error resource.
+			);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle too many tokens.
 		//
 		if( $count > 2 )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-					kTYPE_STATUS_WARNING,						// Transaction status.
-					'Too many tokens in template definition.',	// Transaction message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					$tokens,									// Value.
-					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-					NULL										// Error resource.
-				);																	// ==>
+		{
+			$this->failTransactionLog(
+				$theTransaction,							// Transaction.
+				$this->transaction(),						// Parent transaction.
+				kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+				kTYPE_STATUS_WARNING,						// Transaction status.
+				'Too many tokens in template definition.',	// Transaction message.
+				$theWorksheet,								// Worksheet.
+				$theRow,									// Row.
+				$theFieldData[ 'column_name' ],				// Column.
+				$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+				$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+				$tokens,									// Value.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+				kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+				NULL										// Error resource.
+			);
+			
+			return 1;																// ==>
+		}
 		
 		//
 		// Handle list.
@@ -4822,23 +4930,26 @@ class SessionUpload
 			// Handle invalid token count.
 			//
 			if( $count != 2 )
-				return
-					$this->failTransactionLog(
-						$theTransaction,							// Transaction.
-						$this->transaction(),						// Parent transaction.
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_WARNING,						// Transaction status.
-						'Template definition should have 2 tokens.',// Transaction message.
-						$theWorksheet,								// Worksheet.
-						$theRow,									// Row.
-						$theFieldData[ 'column_name' ],				// Column.
-						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-						$tokens,									// Value.
-						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-						kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-						NULL										// Error resource.
-					);																// ==>
+			{
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Template definition should have 2 tokens.',// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$tokens,									// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+					NULL										// Error resource.
+				);
+				
+				return 1;															// ==>
+			}
 		
 			//
 			// Split list.
@@ -4847,7 +4958,7 @@ class SessionUpload
 			{
 				unset( $theRecord[ $symbol ] );
 				
-				return TRUE;														// ==>
+				return 0;															// ==>
 			}
 			
 			//
@@ -4918,7 +5029,25 @@ class SessionUpload
 						// Handle errors.
 						//
 						if( ! $matched )
-							$errors[] = $element;
+						{
+							$error++;
+							$this->failTransactionLog(
+								$theTransaction,							// Transaction.
+								$this->transaction(),						// Parent.
+								kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+								kTYPE_STATUS_ERROR,							// Status.
+								'Invalid code.',							// Message.
+								$theWorksheet,								// Worksheet.
+								$theRow,									// Row.
+								$theFieldData[ 'column_name' ],				// Column.
+								$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+								$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+								$element,									// Value.
+								kTYPE_ERROR_INVALID_CODE,					// Error type.
+								kTYPE_ERROR_CODE_INVALID_ENUM,				// Error code.
+								NULL										// Error res.
+							);
+						}
 				
 					} // Has combinations.
 				
@@ -4948,15 +5077,8 @@ class SessionUpload
 				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
-			
-			//
-			// Set error value.
-			//
-			$error_value = implode( ',', $errors );
 		
 		} // List.
 		
@@ -4978,7 +5100,7 @@ class SessionUpload
 			{
 				unset( $theRecord[ $symbol ] );
 				
-				return TRUE;														// ==>
+				return 0;															// ==>
 			}
 			
 			//
@@ -5020,49 +5142,39 @@ class SessionUpload
 					// Handle errors.
 					//
 					if( ! $matched )
-						$errors[] = $element;
+					{
+						$error++;
+						$this->failTransactionLog(
+							$theTransaction,							// Transaction.
+							$this->transaction(),						// Parent.
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+							kTYPE_STATUS_ERROR,							// Status.
+							'Invalid code.',							// Message.
+							$theWorksheet,								// Worksheet.
+							$theRow,									// Row.
+							$theFieldData[ 'column_name' ],				// Column.
+							$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+							$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+							$element,									// Value.
+							kTYPE_ERROR_INVALID_CODE,					// Error type.
+							kTYPE_ERROR_CODE_INVALID_ENUM,				// Error code.
+							NULL										// Error res.
+						);
+					}
 			
 				} // Has combinations.
 			
 			} // Iterating set.
 			
 			//
-			// Handle errors.
-			//
-			if( count( $errors ) )
-				$error_value = implode( ',', $errors );
-			
-			//
 			// Set value.
 			//
-			else
+			if( ! $error )
 				$theRecord[ $symbol ] = $results;
 		
 		} // Scalar value.
 		
-		//
-		// Handle errors.
-		//
-		if( $error_value !== NULL )
-			return
-				$this->failTransactionLog(
-					$theTransaction,							// Transaction.
-					$this->transaction(),						// Parent.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
-					kTYPE_STATUS_ERROR,							// Status.
-					'Invalid code.',							// Message.
-					$theWorksheet,								// Worksheet.
-					$theRow,									// Row.
-					$theFieldData[ 'column_name' ],				// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					$error_value,								// Value.
-					kTYPE_ERROR_INVALID_CODE,					// Error type.
-					kTYPE_ERROR_CODE_INVALID_ENUM,				// Error code.
-					NULL										// Error res.
-				);																	// ==>
-		
-		return TRUE;																// ==>
+		return $error;																// ==>
 
 	} // validateEnumSet.
 
@@ -5089,7 +5201,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateReference( &$theTransaction,
 										  &$theRecord,
@@ -5103,7 +5215,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$error_value = NULL;
+		$error = 0;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$prefix = $theFieldNode->offsetGet( kTAG_PREFIX );
 		$suffix = $theFieldNode->offsetGet( kTAG_SUFFIX );
@@ -5120,52 +5232,58 @@ class SessionUpload
 			//
 			// Init local storage.
 			//
-			$results = $errors = Array();
+			$results = Array();
 			$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		
 			//
 			// Handle missing tokens.
 			//
 			if( ! count( $tokens ) )
-				return
-					$this->failTransactionLog(
-						$theTransaction,							// Transaction.
-						$this->transaction(),						// Parent transaction.
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_WARNING,						// Transaction status.
-						'Missing separator tokens in template.',	// Transaction message.
-						$theWorksheet,								// Worksheet.
-						$theRow,									// Row.
-						$theFieldData[ 'column_name' ],				// Column.
-						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-						NULL,										// Value.
-						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-						kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
-						NULL										// Error resource.
-					);																// ==>
+			{
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Missing separator tokens in template.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					NULL,										// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+					NULL										// Error resource.
+				);
+				
+				return 1;															// ==>
+			}
 		
 			//
 			// Handle too many tokens.
 			//
 			if( count( $tokens ) > 1 )
-				return
-					$this->failTransactionLog(
-						$theTransaction,							// Transaction.
-						$this->transaction(),						// Parent transaction.
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_WARNING,						// Transaction status.
-						'Too many tokens in template definition.',	// Transaction message.
-						$theWorksheet,								// Worksheet.
-						$theRow,									// Row.
-						$theFieldData[ 'column_name' ],				// Column.
-						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-						$tokens,									// Value.
-						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-						kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-						NULL										// Error resource.
-					);																// ==>
+			{
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Too many tokens in template definition.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$tokens,									// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+					NULL										// Error resource.
+				);
+				
+				return 1;															// ==>
+			}
 		
 			//
 			// Split elements.
@@ -5241,14 +5359,32 @@ class SessionUpload
 				// Handle errors.
 				//
 				if( ! $matched )
-					$errors[] = $element;
+				{
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+						kTYPE_STATUS_ERROR,							// Status.
+						'Invalid reference.',						// Message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$element,									// Value.
+						kTYPE_ERROR_INVALID_CODE,					// Error type.
+						kTYPE_ERROR_CODE_INVALID_ENUM,				// Error code.
+						NULL										// Error res.
+					);
+				}
 			
 			} // Iterating elements.
 			
 			//
 			// Handle no errors.
 			//
-			if( ! count( $errors ) )
+			if( ! $error )
 			{
 				//
 				// Set value.
@@ -5261,15 +5397,8 @@ class SessionUpload
 				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
-			
-			//
-			// Set error value.
-			//
-			$error_value = implode( ',', $errors );
 		
 		} // List.
 		
@@ -5341,15 +5470,8 @@ class SessionUpload
 			// Handle errors.
 			//
 			if( ! $matched )
-				$error_value = $theRecord[ $symbol ];
-		
-		} // Scalar value.
-		
-		//
-		// Handle errors.
-		//
-		if( $error_value !== NULL )
-			return
+			{
+				$error++;
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
 					$this->transaction(),						// Parent.
@@ -5361,13 +5483,16 @@ class SessionUpload
 					$theFieldData[ 'column_name' ],				// Column.
 					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
 					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-					$error_value,								// Value.
+					$theRecord[ $symbol ],						// Value.
 					kTYPE_ERROR_INVALID_CODE,					// Error type.
 					kTYPE_ERROR_CODE_INVALID_ENUM,				// Error code.
 					NULL										// Error res.
-				);																	// ==>
+				);
+			}
 		
-		return TRUE;																// ==>
+		} // Scalar value.
+		
+		return $error;																// ==>
 
 	} // validateReference.
 
@@ -5393,7 +5518,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateObjectId( &$theTransaction,
 										 &$theRecord,
@@ -5406,7 +5531,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$error = FALSE;
+		$error = 0;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
@@ -5428,45 +5553,51 @@ class SessionUpload
 			// Handle missing tokens.
 			//
 			if( ! count( $tokens ) )
-				return
-					$this->failTransactionLog(
-						$theTransaction,							// Transaction.
-						$this->transaction(),						// Parent transaction.
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_WARNING,						// Transaction status.
-						'Missing separator tokens in template.',	// Transaction message.
-						$theWorksheet,								// Worksheet.
-						$theRow,									// Row.
-						$theFieldData[ 'column_name' ],				// Column.
-						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-						NULL,										// Value.
-						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-						kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
-						NULL										// Error resource.
-					);																// ==>
+			{
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Missing separator tokens in template.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					NULL,										// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_NO_TOKEN,					// Error code.
+					NULL										// Error resource.
+				);
+				
+				return 1;															// ==>
+			}
 		
 			//
 			// Handle too many tokens.
 			//
 			if( count( $tokens ) > 1 )
-				return
-					$this->failTransactionLog(
-						$theTransaction,							// Transaction.
-						$this->transaction(),						// Parent transaction.
-						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_WARNING,						// Transaction status.
-						'Too many tokens in template definition.',	// Transaction message.
-						$theWorksheet,								// Worksheet.
-						$theRow,									// Row.
-						$theFieldData[ 'column_name' ],				// Column.
-						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
-						$tokens,									// Value.
-						kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
-						kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
-						NULL										// Error resource.
-					);																// ==>
+			{
+				$this->failTransactionLog(
+					$theTransaction,							// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_WARNING,						// Transaction status.
+					'Too many tokens in template definition.',	// Transaction message.
+					$theWorksheet,								// Worksheet.
+					$theRow,									// Row.
+					$theFieldData[ 'column_name' ],				// Column.
+					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+					$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+					$tokens,									// Value.
+					kTYPE_ERROR_BAD_TMPL_STRUCT,				// Error type.
+					kTYPE_ERROR_CODE_BAD_TOKENS,				// Error code.
+					NULL										// Error resource.
+				);
+				
+				return 1;															// ==>
+			}
 		
 			//
 			// Split elements.
@@ -5491,16 +5622,36 @@ class SessionUpload
 						= $collection
 							->getObjectId(
 								SetlocalTransformations( $element, $prefix, $suffix ) );
+					
+					//
+					// Handle error.
+					//
 					if( $id === NULL )
 					{
-						$error = TRUE;
-						break;												// =>
+						$error++;
+						$this->failTransactionLog(
+							$theTransaction,							// Transaction.
+							$this->transaction(),						// Parent.
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+							kTYPE_STATUS_ERROR,							// Status.
+							'Invalid object identifier.',				// Message.
+							$theWorksheet,								// Worksheet.
+							$theRow,									// Row.
+							$theFieldData[ 'column_name' ],				// Column.
+							$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+							$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+							$element,									// Value.
+							kTYPE_ERROR_INVALID_VALUE,					// Error type.
+							kTYPE_ERROR_CODE_INVALID_OBJECT_ID,			// Error code.
+							NULL										// Error resource.
+						);
 					}
 		
 					//
 					// Add value.
 					//
-					$result[] = $id;
+					else
+						$result[] = $id;
 				
 				} // Not empty.
 		
@@ -5522,8 +5673,6 @@ class SessionUpload
 				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
 		
@@ -5548,8 +5697,34 @@ class SessionUpload
 						->getObjectId(
 							SetlocalTransformations(
 								$theRecord[ $symbol ], $prefix, $suffix ) );
+				
+				//
+				// Handle error.
+				//
 				if( $id === NULL )
-					$error = TRUE;
+				{
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Type.
+						kTYPE_STATUS_ERROR,							// Status.
+						'Invalid object identifier.',				// Message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$theRecord[ $symbol ],						// Value.
+						kTYPE_ERROR_INVALID_VALUE,					// Error type.
+						kTYPE_ERROR_CODE_INVALID_OBJECT_ID,			// Error code.
+						NULL										// Error resource.
+					);
+				}
+	
+				//
+				// Set value.
+				//
 				else
 					$theRecord[ $symbol ] = $id;
 			
@@ -5563,29 +5738,7 @@ class SessionUpload
 		
 		} // Scalar value.
 		
-		//
-		// Handle errors.
-		//
-		if( $error )
-			return
-				$this->failTransactionLog(
-					$theTransaction,								// Transaction.
-					$this->transaction(),							// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,					// Transaction type.
-					kTYPE_STATUS_WARNING,							// Transaction status.
-					'Invalid object identifier.',					// Transaction message.
-					$theWorksheet,									// Worksheet.
-					$theRow,										// Row.
-					$theFieldData[ 'column_name' ],					// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-					$theRecord[ $symbol ],							// Value.
-					kTYPE_ERROR_INVALID_VALUE,						// Error type.
-					kTYPE_ERROR_CODE_INVALID_OBJECT_ID,				// Error code.
-					NULL											// Error resource.
-				);																	// ==>
-		
-		return TRUE;																// ==>
+		return $error;																// ==>
 
 	} // validateObjectId.
 
@@ -5615,7 +5768,7 @@ class SessionUpload
 	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> correct value.
+	 * @return int					Number of errors.
 	 */
 	protected function validateTimeStamp( &$theTransaction,
 										 &$theRecord,
@@ -5628,7 +5781,7 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$error = FALSE;
+		$error = 0;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
@@ -5713,16 +5866,36 @@ class SessionUpload
 						= $collection
 							->getTimeStamp(
 								SetlocalTransformations( $element, $prefix, $suffix ) );
+					
+					//
+					// Handle errors.
+					//
 					if( $time === FALSE )
 					{
-						$error = TRUE;
-						break;												// =>
+						$error++;
+						$this->failTransactionLog(
+							$theTransaction,								// Transaction.
+							$this->transaction(),							// Parent transaction.
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW,					// Transaction type.
+							kTYPE_STATUS_WARNING,							// Transaction status.
+							'Invalid time-stamp.',							// Transaction message.
+							$theWorksheet,									// Worksheet.
+							$theRow,										// Row.
+							$theFieldData[ 'column_name' ],					// Column.
+							$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
+							$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
+							$element,										// Value.
+							kTYPE_ERROR_INVALID_VALUE,						// Error type.
+							kTYPE_ERROR_CODE_INVALID_TIME_STAMP,			// Error code.
+							NULL											// Error resource.
+						);
 					}
 		
 					//
 					// Add value.
 					//
-					$result[] = $time;
+					else
+						$result[] = $time;
 				
 				} // Not empty.
 		
@@ -5744,8 +5917,6 @@ class SessionUpload
 				//
 				else
 					unset( $theRecord[ $symbol ] );
-				
-				return TRUE;														// ==>
 			
 			} // No errors.
 		
@@ -5770,8 +5941,34 @@ class SessionUpload
 						->getTimeStamp(
 							SetlocalTransformations(
 								$theRecord[ $symbol ], $prefix, $suffix ) );
+				
+				//
+				// Handle errors.
+				//
 				if( $time === FALSE )
-					$error = TRUE;
+				{
+					$error++;
+					$this->failTransactionLog(
+						$theTransaction,							// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_WARNING,						// Transaction status.
+						'Invalid time-stamp.',						// Transaction message.
+						$theWorksheet,								// Worksheet.
+						$theRow,									// Row.
+						$theFieldData[ 'column_name' ],				// Column.
+						$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
+						$theFieldNode->offsetGet( kTAG_TAG ),		// Tag.
+						$theRecord[ $symbol ],						// Value.
+						kTYPE_ERROR_INVALID_VALUE,					// Error type.
+						kTYPE_ERROR_CODE_INVALID_TIME_STAMP,		// Error code.
+						NULL										// Error resource.
+					);
+				}
+	
+				//
+				// Set value.
+				//
 				else
 					$theRecord[ $symbol ] = $time;
 			
@@ -5785,29 +5982,7 @@ class SessionUpload
 		
 		} // Scalar value.
 		
-		//
-		// Handle errors.
-		//
-		if( $error )
-			return
-				$this->failTransactionLog(
-					$theTransaction,								// Transaction.
-					$this->transaction(),							// Parent transaction.
-					kTYPE_TRANS_TMPL_WORKSHEET_ROW,					// Transaction type.
-					kTYPE_STATUS_WARNING,							// Transaction status.
-					'Invalid time-stamp.',							// Transaction message.
-					$theWorksheet,									// Worksheet.
-					$theRow,										// Row.
-					$theFieldData[ 'column_name' ],					// Column.
-					$theFieldNode->offsetGet( kTAG_ID_SYMBOL ),		// Alias.
-					$theFieldNode->offsetGet( kTAG_TAG ),			// Tag.
-					$theRecord[ $symbol ],							// Value.
-					kTYPE_ERROR_INVALID_VALUE,						// Error type.
-					kTYPE_ERROR_CODE_INVALID_TIME_STAMP,			// Error code.
-					NULL											// Error resource.
-				);																	// ==>
-		
-		return TRUE;																// ==>
+		return $error;																// ==>
 
 	} // validateTimeStamp.
 
@@ -5888,8 +6063,6 @@ class SessionUpload
 			$this->session()
 				->newTransaction(
 					kTYPE_TRANS_TMPL_WORKSHEET ) );
-		$this->transaction()
-			->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		
 		//
 		// Create tag.

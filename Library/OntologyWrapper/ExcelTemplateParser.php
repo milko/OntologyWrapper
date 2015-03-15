@@ -379,8 +379,9 @@ class ExcelTemplateParser
 			//
 			$transaction
 				= $theTransaction
-					->newTransaction( kTYPE_TRANS_TMPL_STRUCT_COLUMNS, $name );
-			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+					->newTransaction( kTYPE_TRANS_TMPL_STRUCT_COLUMNS,
+									  kTYPE_STATUS_EXECUTING,
+									  $name );
 			
 			//
 			// Iterate worksheet fields.
@@ -721,7 +722,7 @@ class ExcelTemplateParser
 		//
 		// Init local storage.
 		//
-		$this->mWorksheets = $dictionary = Array();
+		$this->mWorksheets = $dictionary = $temp = Array();
 		
 		//
 		// Collect worksheet nodes and symbols.
@@ -741,20 +742,60 @@ class ExcelTemplateParser
 			//
 			if( array_key_exists( $worksheet[ 'title' ], $dictionary ) )
 			{
-				$this->mWorksheets[ $worksheet[ 'title' ] ] = $worksheet;
-				$this->mWorksheets[ $worksheet[ 'title' ] ][ 'symbol_row' ]
+				$temp[ $worksheet[ 'title' ] ] = $worksheet;
+				$temp[ $worksheet[ 'title' ] ][ 'symbol_row' ]
 					= (int) $this->mTemplate
 						->getNode( $dictionary[ $worksheet[ 'title' ] ] )
 							->offsetGet( kTAG_LINE_SYMBOL );
-				$this->mWorksheets[ $worksheet[ 'title' ] ][ 'data_row' ]
+				$temp[ $worksheet[ 'title' ] ][ 'data_row' ]
 					= (int) $this->mTemplate
 						->getNode( $dictionary[ $worksheet[ 'title' ] ] )
 							->offsetGet( kTAG_LINE_DATA );
-				$this->mWorksheets[ $worksheet[ 'title' ] ][ 'node' ]
+				$temp[ $worksheet[ 'title' ] ][ 'node' ]
 					= $dictionary[ $worksheet[ 'title' ] ];
 			}
 		
 		} // Iterating template worksheets.
+		
+		//
+		// Get unit worksheets.
+		//
+		$this->mWorksheets = Array();
+		$w_u = $this->mTemplate->getUnitWorksheets();
+		$w_r = $this->mTemplate->getRequiredWorksheets();
+		$w_i = $this->mTemplate->getWorksheetIndexReferences();
+		if( is_array( $w_u ) )
+		{
+			foreach( $w_u as $n )
+			{
+				$sym = $this->mTemplate->matchNodeSymbol( $n );
+				if( ! array_key_exists( $sym, $this->mWorksheets ) )
+					$this->mWorksheets[ $sym ] = $temp[ $sym ];
+			}
+		}
+		if( is_array( $w_i ) )
+		{
+			foreach( array_keys( $w_i ) as $n )
+			{
+				$sym = $this->mTemplate->matchNodeSymbol( $n );
+				if( ! array_key_exists( $sym, $this->mWorksheets ) )
+					$this->mWorksheets[ $sym ] = $temp[ $sym ];
+			}
+		}
+		if( is_array( $w_r ) )
+		{
+			foreach( $w_r as $n )
+			{
+				$sym = $this->mTemplate->matchNodeSymbol( $n );
+				if( ! array_key_exists( $sym, $this->mWorksheets ) )
+					$this->mWorksheets[ $sym ] = $temp[ $sym ];
+			}
+		}
+		foreach( $temp as $key => $value )
+		{
+			if( ! array_key_exists( $key, $this->mWorksheets ) )
+				$this->mWorksheets[ $key ] = $value;
+		}
 	
 	} // setWorksheets.
 

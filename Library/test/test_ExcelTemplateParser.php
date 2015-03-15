@@ -127,8 +127,8 @@ try
 	$session[ kTAG_USER ] = $user;
 	echo( '$session_id = $session->commit();<br />' );
 	$session_id = $session->commit();
-	echo( '$transaction = $session->newTransaction( kTYPE_TRANS_TMPL_PREPARE, "Collection", 9 );<br />' );
-	$transaction = $session->newTransaction( kTYPE_TRANS_TMPL_PREPARE, "Collection", 9 );
+	echo( '$transaction = $session->newTransaction( kTYPE_TRANS_TMPL_PREPARE, kTYPE_STATUS_EXECUTING, "Collection", 9 );<br />' );
+	$transaction = $session->newTransaction( kTYPE_TRANS_TMPL_PREPARE, kTYPE_STATUS_EXECUTING, "Collection", 9 );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

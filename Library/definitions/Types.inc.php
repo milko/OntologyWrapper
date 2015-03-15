@@ -971,6 +971,13 @@ define( "kTYPE_LIST_INSTITUTE",					'Institute' );
  *======================================================================================*/
 
 /**
+ * Executing.
+ *
+ * This status indicates an idle state.
+ */
+define( "kTYPE_STATUS_EXECUTING",				':type:status:executing' );
+
+/**
  * Completed.
  *
  * This status indicates a successful completion.
@@ -983,13 +990,6 @@ define( "kTYPE_STATUS_OK",						':type:status:ok' );
  * This status indicates a failed operation.
  */
 define( "kTYPE_STATUS_FAILED",					':type:status:failed' );
-
-/**
- * Executing.
- *
- * This status indicates an idle state.
- */
-define( "kTYPE_STATUS_EXECUTING",				':type:status:executing' );
 
 /**
  * Reports.

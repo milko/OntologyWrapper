@@ -5935,15 +5935,24 @@ class Service extends ContainerObject
 		// Init local storage.
 		//
 		$encoder = new Encoder();
+		$user_id = $this->offsetGet( kAPI_REQUEST_USER )->offsetGet( kTAG_NID );
 		
 		//
 		// Instantiate session.
 		//
 		$session = new Session( $this->mWrapper );
 		$session->offsetSet( kTAG_SESSION_TYPE, kTYPE_SESSION_UPLOAD );
-		$session->offsetSet( kTAG_USER, $this->offsetGet( kAPI_REQUEST_USER )
-											->offsetGet( kTAG_NID ) );
+		$session->offsetSet( kTAG_USER, $user_id );
 		$id = $session->commit();
+		
+		//
+		// Copy session in persistent user object.
+		//
+		User::ResolveCollection(
+			User::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
+				->replaceOffsets(
+					$user_id,
+					array( kTAG_SESSION => $session->offsetGet( kTAG_NID ) ) );
 		
 		//
 		// Launch batch.

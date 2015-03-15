@@ -213,8 +213,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_PREPARE, "Collection", 9 );<br />' );
-	$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_PREPARE, "Collection", 9 );
+	echo( '$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_PREPARE, kTYPE_STATUS_EXECUTING, "Collection", 9 );<br />' );
+	$transaction = $upload->newTransaction( kTYPE_TRANS_TMPL_PREPARE, kTYPE_STATUS_EXECUTING, "Collection", 9 );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
