@@ -512,6 +512,46 @@ class ExcelTemplateParser
 
 	 
 	/*===================================================================================
+	 *	getUnitWorksheet																*
+	 *==================================================================================*/
+
+	/**
+	 * Get unit worksheet
+	 *
+	 * This method will return the symbol or name of the unit worksheet.
+	 *
+	 * @access public
+	 * @return string				The unit worksheet name.
+	 */
+	public function getUnitWorksheet()
+	{
+		//
+		// Check worksheets.
+		//
+		if( count( $this->mWorksheets ) )
+		{
+			//
+			// Intersect unit worksheets and index references.
+			//
+			$unit = array_intersect(
+						$this->mTemplate->getUnitWorksheets(),
+						array_keys( $this->mTemplate->getWorksheetIndexReferences() ) );
+			
+			//
+			// Get first.
+			//
+			$unit = array_shift( $unit );
+			if( $unit !== NULL )
+				return $this->mTemplate->matchNodeSymbol( $unit );					// ==>
+		
+		} // Has worksheets.
+		
+		return NULL;																// ==>
+	
+	} // getUnitWorksheet.
+
+	 
+	/*===================================================================================
 	 *	getFields																		*
 	 *==================================================================================*/
 

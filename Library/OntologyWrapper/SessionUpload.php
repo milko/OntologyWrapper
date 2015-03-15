@@ -495,6 +495,17 @@ class SessionUpload
 			//
 			$this->session()->progress( 10 );
 			
+			//
+			// Transaction objects.
+			//
+			if( ! $this->sessionObjects() )
+				return $this->failSession();										// ==>
+			
+			//
+			// Progress.
+			//
+			$this->session()->progress( 10 );
+			
 			return $this->succeedSession();											// ==>
 		}
 		
@@ -933,6 +944,67 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // sessionRelationships.
+
+	 
+	/*===================================================================================
+	 *	sessionObjects																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create objects
+	 *
+	 * This method will create the object from the worksheet stored data, in the process it
+	 * will set a warning for all records that will be replaced.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 */
+	protected function sessionObjects()
+	{
+		//
+		// Init local storage.
+		//
+		$fields = $this->mParser->getFields();
+		$worksheets = $this->mParser->getWorksheets();
+		$worksheet = $this->mParser->getUnitWorksheet();
+		$records
+			= $this->mCollections
+				[ $this->getCollectionName( $worksheet ) ]
+					->matchAll( Array(), kQUERY_COUNT );
+		
+		//
+		// Instantiate transaction.
+		//
+		$transaction
+			= $this->transaction(
+				$this->session()
+					->newTransaction( kTYPE_TRANS_TMPL_OBJECTS,
+									  kTYPE_STATUS_EXECUTING,
+									  NULL ) );
+		
+		//
+		// Set records count.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_RECORDS, $records );
+		
+		//
+		// Check worksheet relationships.
+		//
+		if( ! $this->createObjects( $worksheet, $worksheets, $fields, $records ) )
+			return FALSE;															// ==>
+
+		//
+		// Close transaction.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		if( $transaction->offsetGet( kTAG_TRANSACTION_STATUS )
+				== kTYPE_STATUS_EXECUTING )
+			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // sessionObjects.
 
 	
 
@@ -1463,7 +1535,7 @@ class SessionUpload
 	 * This method will validate and load worksheet data.
 	 *
 	 * @param string				$theWorksheet		Worksheet name.
-	 * @param float					$theRecords			Session records total.
+	 * @param int					$theRecords			Session records total.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
@@ -1755,6 +1827,45 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // checkWorksheetRelationships.
+
+	 
+	/*===================================================================================
+	 *	createObjects																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create objects from worksheets
+	 *
+	 * This method will create objects from the worksheet data.
+	 *
+	 * @param string				$theUnitWorksheet	Unit worksheet name.
+	 * @param array					$theWorksheets		Worksheets data.
+	 * @param array					$theFields			Fields data.
+	 * @param int					$theRecords			Unit worksheet records total.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses file()
+	 * @uses session()
+	 */
+	protected function createObjects( $theUnitWorksheet,
+									  $theWorksheets, $theFields,
+									  $theRecords )
+	{
+		//
+		// Init local storage.
+		//
+		$collection_in
+			= $this->mCollections
+				[ $this->getCollectionName( $theUnitWorksheet ) ];
+		$collection_out
+			= $this->mCollections
+				[ $this->getCollectionName( UnitObject::kSEQ_NAME ) ];
+		
+		return TRUE;																// ==>
+
+	} // createObjects.
 
 	
 
