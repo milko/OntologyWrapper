@@ -1529,26 +1529,9 @@ abstract class SessionObject extends PersistentObject
 		// Handle progress.
 		//
 		if( $theTotal !== NULL )
-		{
-			//
-			// Get current counters.
-			//
-			$counters = $this->counters();
-			
-			//
-			// Calculate progress.
-			//
-			$progress = ( array_key_exists( $theTotal, $counters )
-					   && array_key_exists( $theCounter, $counters ) )
-					  ? ( $counters[ $theCounter ] * 100 ) / $counters[ $theTotal ]
-					  : 0;
-			
-			//
-			// Update progress in persistent object.
-			//
-			$this->offsetSet( kTAG_COUNTER_PROGRESS, $progress );
-		
-		} // Provided total.
+			$this->offsetSet(
+				kTAG_COUNTER_PROGRESS,
+				( $this->offsetGet( $theCounter ) / $theTotal ) * 100 );
 	
 	} // updateCount.
 

@@ -10121,7 +10121,8 @@ $rs_units = & $rs_units[ 'result' ];
 		$iterator
 			= $collection
 				->matchAll(
-					array( kTAG_SESSION => $tmp ),
+					array( kTAG_SESSION => $tmp,
+						   kTAG_TRANSACTION => array( '$exists' => FALSE ) ),
 					kQUERY_OBJECT );
 		
 		//

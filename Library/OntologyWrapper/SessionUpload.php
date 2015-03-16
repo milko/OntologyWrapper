@@ -713,6 +713,11 @@ class SessionUpload
 				$this->session()->newTransaction( kTYPE_TRANS_TMPL_STRUCT ) );
 		
 		//
+		// Init progress.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		
+		//
 		// Check required worksheets.
 		//
 		if( ! $this->checkRequiredWorksheets() )
@@ -1112,6 +1117,7 @@ class SessionUpload
 		// Init local storage.
 		//
 		$file = $this->file();
+		$name = $file->getFilename();
 		
 		//
 		// Create transaction.
@@ -1125,19 +1131,35 @@ class SessionUpload
 		//
 		if( $file->getType() != 'file' )
 		{
-			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
-			$transaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_FILE );
-			$transaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_FILE_BAD );
-			$transaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
-									 'The file is either a directory or is invalid ['
-									.$file->getRealPath()
-									.'].' );
-			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
-			
 			//
-			// Remove reference to prevent deleting.
+			// Remove reference to prevent errors when deleting.
 			//
 			$this->mFile = NULL;
+			
+			//
+			// Set transaction.
+			//
+			$message = 'The file is either a directory or is invalid [$path].';
+			$this->failTransactionLog(
+				$transaction,							// Transaction.
+				$this->transaction(),					// Parent transaction.
+				kTYPE_TRANS_TMPL_LOAD_FILE,				// Transaction type.
+				kTYPE_STATUS_FATAL,						// Transaction status.
+				$message,								// Transaction message.
+				NULL,									// Worksheet.
+				NULL,									// Row.
+				NULL,									// Column.
+				NULL,									// Alias.
+				NULL,									// Tag.
+				$name,									// Value.
+				kTYPE_ERROR_BAD_TMPL_FILE,				// Error type.
+				kTYPE_ERROR_CODE_FILE_BAD,				// Error code.
+				NULL );									// Error resource.
+	
+			//
+			// Close transaction.
+			//
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 			
 			return $this->failTransaction( kTYPE_STATUS_FATAL );					// ==>
 		
@@ -1148,28 +1170,43 @@ class SessionUpload
 		//
 		if( ! $file->isReadable() )
 		{
-			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
-			$transaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_FILE );
-			$transaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_FILE_UNRWAD );
-			$transaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
-									 'The file cannot be read ['
-									.$file->getRealPath()
-									.'].' );
-			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
-			
 			//
-			// Remove reference to prevent deleting.
+			// Remove reference to prevent errors when deleting.
 			//
 			$this->mFile = NULL;
+			
+			//
+			// Set transaction.
+			//
+			$message = 'The file cannot be read [$path].';
+			$this->failTransactionLog(
+				$transaction,							// Transaction.
+				$this->transaction(),					// Parent transaction.
+				kTYPE_TRANS_TMPL_LOAD_FILE,				// Transaction type.
+				kTYPE_STATUS_FATAL,						// Transaction status.
+				$message,								// Transaction message.
+				NULL,									// Worksheet.
+				NULL,									// Row.
+				NULL,									// Column.
+				NULL,									// Alias.
+				NULL,									// Tag.
+				$name,									// Value.
+				kTYPE_ERROR_BAD_TMPL_FILE,				// Error type.
+				kTYPE_ERROR_CODE_FILE_UNRWAD,			// Error code.
+				NULL );									// Error resource.
+	
+			//
+			// Close transaction.
+			//
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 			
 			return $this->failTransaction( kTYPE_STATUS_FATAL );					// ==>
 		
 		} // Unreadable.
-	
+
 		//
 		// Close transaction.
 		//
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
@@ -1199,6 +1236,7 @@ class SessionUpload
 		// Init local storage.
 		//
 		$file = $this->file();
+		$name = $file->getFilename();
 		
 		//
 		// Create transaction.
@@ -1210,7 +1248,7 @@ class SessionUpload
 		//
 		// Check file extension.
 		//
-		switch( $tmp = $file->getExtension() )
+		switch( $ext = $file->getExtension() )
 		{
 			case 'xlsx':	//	Excel (OfficeOpenXML) Spreadsheet
 			case 'xlsm':	//	Excel (OfficeOpenXML) Macro Spreadsheet
@@ -1222,23 +1260,38 @@ class SessionUpload
 				break;
 			
 			default:
-				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
-				$transaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_FILE );
-				$transaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_FILE_UNSUP );
-				$transaction->offsetSet( kTAG_ERROR_RESOURCE,
-										 "http://filext.com/file-extension/$tmp" );
-				$transaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
-										 'The file type is not supported, please submit '
-										."an Excel file." );
+				//
+				// Set transaction.
+				//
+				$message = 'The file type is not supported, please submit an Excel file.';
+				$this->failTransactionLog(
+					$transaction,							// Transaction.
+					$this->transaction(),					// Parent transaction.
+					kTYPE_TRANS_TMPL_LOAD_TYPE,				// Transaction type.
+					kTYPE_STATUS_FATAL,						// Transaction status.
+					$message,								// Transaction message.
+					NULL,									// Worksheet.
+					NULL,									// Row.
+					NULL,									// Column.
+					NULL,									// Alias.
+					NULL,									// Tag.
+					$name,									// Value.
+					kTYPE_ERROR_BAD_TMPL_FILE,				// Error type.
+					kTYPE_ERROR_CODE_FILE_UNSUP,			// Error code.
+					"http://filext.com/file-extension/$ext"	// Error resource.
+				);
+	
+				//
+				// Close transaction.
+				//
 				$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
-				
+		
 				return $this->failTransaction( kTYPE_STATUS_FATAL );				// ==>
 		}
 	
 		//
 		// Close transaction.
 		//
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
@@ -1279,7 +1332,6 @@ class SessionUpload
 		//
 		// Close transaction.
 		//
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
@@ -1321,7 +1373,6 @@ class SessionUpload
 		//
 		// Close transaction.
 		//
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
@@ -1354,10 +1405,7 @@ class SessionUpload
 		//
 		$file = $this->file();
 		$session = $this->session();
-		
-		//
-		// Get file path.
-		//
+		$name = $file->getFilename();
 		$path = $file->getRealPath();
 		
 		//
@@ -1437,12 +1485,55 @@ class SessionUpload
 	protected function checkRequiredFields()
 	{
 		//
-		// Load structure.
+		// Init local storage.
 		//
-		if( ! $this->mParser->checkRequiredColumns( $this->transaction() ) )
-			return $this->failTransaction();										// ==>
+		$ok = TRUE;
+		$worksheets = array_keys( $this->mParser->getWorksheets() );
+		$increment = 100 / count( $worksheets );
 		
-		return TRUE;																// ==>
+		//
+		// Iterate worksheets.
+		//
+		foreach( $worksheets as $worksheet )
+		{
+			//
+			// Create transaction.
+			//
+			$transaction
+				= $this->transaction()
+					->newTransaction( kTYPE_TRANS_TMPL_STRUCT_COLUMNS,
+									  kTYPE_STATUS_EXECUTING,
+									  $worksheet );
+		
+			//
+			// Check required columns.
+			//
+			if( ! $this->mParser->checkRequiredColumns( $this->transaction(), $worksheet ) )
+				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+			
+			//
+			// Handle errors.
+			//
+			else
+			{
+				$ok = FALSE;
+				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
+			}
+			
+			//
+			// Close transaction.
+			//
+			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+			
+			//
+			// Update progress.
+			//
+			$this->transaction()->progress( $increment );
+		
+		} // Iterating worksheets.
+		
+		return $ok;																	// ==>
 
 	} // checkRequiredFields.
 
@@ -1852,10 +1943,8 @@ class SessionUpload
 		//
 		$fields = $this->mParser->getFields();
 		$worksheets = $this->mParser->getWorksheets();
-		$collection_in
-			= $this->mCollections
-				[ $this->getCollectionName( $theUnitWorksheet ) ];
-		$collection_out
+		$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
+		$collection_units
 			= $this->mCollections
 				[ $this->getCollectionName( UnitObject::kSEQ_NAME ) ];
 		
@@ -1863,7 +1952,23 @@ class SessionUpload
 		// Remove unit worksheet.
 		//
 		$worksheets_list = array_keys( $worksheets );
-		unset( $worksheets_list[ array_search( $theWorksheet, $worksheets_list ) ] );
+		unset( $worksheets_list[ array_search( $theUnitWorksheet, $worksheets_list ) ] );
+		
+		//
+		// Iterate unit worksheet records.
+		//
+		$rs
+			= $this->mCollections
+				[ $this->getCollectionName( $theUnitWorksheet ) ]
+					->matchAll( Array(), kQUERY_ARRAY );
+		foreach( $rs as $unit_record )
+		{
+			//
+			// Set progress.
+			//
+			$this->transaction()->processed( 1, $theRecords );
+		
+		} // Iterating unit worksheet records.
 		
 		return TRUE;																// ==>
 

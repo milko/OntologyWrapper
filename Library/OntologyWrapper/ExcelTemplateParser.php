@@ -236,17 +236,34 @@ class ExcelTemplateParser
 				return TRUE;														// ==>
 			
 			} // Matched root.
+			
+			//
+			// Set message.
+			//
+			$message = 'The template type is incorrect or unsupported.';
 		
 			//
-			// Update transaction.
+			// Update transaction status.
 			//
-			$theTransaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_STRUCT );
-			$theTransaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_BAD_PID );
 			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
-			$theTransaction->offsetSet( kTAG_TRANSACTION_VALUE, $pid );
-			$theTransaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
-										'The template type is either '
-									   .'incorrect or unsupported.' );
+		
+			//
+			// Set transaction log.
+			//
+			$theTransaction->setLog(
+				kTYPE_STATUS_FATAL,					// Transaction status.
+				NULL,								// Alias.
+				NULL,								// Row.
+				NULL,								// Value.
+				$message,							// Transaction message.
+				NULL,								// Tag.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,		// Error type.
+				kTYPE_ERROR_CODE_BAD_PID,			// Error code.
+				NULL );								// Error resource.
+	
+			//
+			// Close transaction.
+			//
 			$theTransaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
 			return FALSE;															// ==>
@@ -254,18 +271,36 @@ class ExcelTemplateParser
 		} // Has PID.
 		
 		//
-		// Update transaction.
+		// Set message.
 		//
-		$theTransaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_STRUCT );
-		$theTransaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_NO_PID );
+		$message = 'The template file is missing its "PID" custom property: '
+				  .'unable to determine the kind of template.';
+	
+		//
+		// Update transaction status.
+		//
 		$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
-		$theTransaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
-									'The template file is missing its "PID" '
-								   .'custom property: unable to determine '
-								   .'the kind of template.' );
+	
+		//
+		// Set transaction log.
+		//
+		$theTransaction->setLog(
+			kTYPE_STATUS_FATAL,					// Transaction status.
+			NULL,								// Alias.
+			NULL,								// Row.
+			NULL,								// Value.
+			$message,							// Transaction message.
+			NULL,								// Tag.
+			kTYPE_ERROR_BAD_TMPL_STRUCT,		// Error type.
+			kTYPE_ERROR_CODE_NO_PID,			// Error code.
+			NULL );								// Error resource.
+
+		//
+		// Close transaction.
+		//
 		$theTransaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
-		
-		return FALSE;																// ==>
+	
+		return FALSE;															// ==>
 	
 	} // loadStructure.
 
@@ -314,16 +349,43 @@ class ExcelTemplateParser
 		//
 		if( count( $result ) )
 		{
-			$theTransaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_STRUCT );
-			$theTransaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_REQ_WKSHEET );
+			//
+			// Init local storage.
+			//
+			$result = implode( ',', $result );
+			
+			//
+			// Set message.
+			//
+			$message = 'The template is missing required worksheets.';
+		
+			//
+			// Update transaction status.
+			//
 			$theTransaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
-			$theTransaction->offsetSet( kTAG_TRANSACTION_VALUE, $result );
-			$theTransaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
-										'The template is missing required worksheets.' );
+		
+			//
+			// Set transaction log.
+			//
+			$theTransaction->setLog(
+				kTYPE_STATUS_FATAL,					// Transaction status.
+				NULL,								// Alias.
+				NULL,								// Field.
+				$result,							// Value.
+				$message,							// Transaction message.
+				NULL,								// Tag.
+				kTYPE_ERROR_BAD_TMPL_STRUCT,		// Error type.
+				kTYPE_ERROR_CODE_REQ_WKSHEET,		// Error code.
+				NULL );								// Error resource.
+	
+			//
+			// Close transaction.
+			//
 			$theTransaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
 			return FALSE;															// ==>
-		}
+		
+		} // Is missing required worksheets.
 		
 		return TRUE;																// ==>
 	
@@ -335,137 +397,81 @@ class ExcelTemplateParser
 	 *==================================================================================*/
 
 	/**
-	 * Check required worksheets
+	 * Check required columns
 	 *
-	 * This method will check whether all required columns are included in the template.
+	 * This method will check whether all required columns of the provided worksheet are
+	 * included in the template.
 	 *
 	 * If the operation was successful, the method will return <tt>TRUE</tt>, if not, it
 	 * will update the provided transaction and return <tt>FALSE</tt>.
-	 *
-	 * This method will create a sub-transaction for each parsed worksheet, any missing
-	 * required field will be logged in the transaction.
 	 *
 	 * It is assumed that the {@link loadStructure()} and {@link checkRequiredWorksheets}
 	 * methods have been called beforehand.
 	 *
 	 * @param Transaction			$theTransaction		Current transaction.
+	 * @param string				$theWorksheet		Worksheet name.
 	 *
 	 * @access public
-	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 * @return int					Number of errors.
 	 */
-	public function checkRequiredColumns( Transaction $theTransaction )
+	public function checkRequiredColumns( Transaction $theTransaction, $theWorksheet )
 	{
 		//
 		// Init local storage.
 		//
-		$ok = TRUE;
+		$errors = 0;
 		$fields = $this->getFields();
-		$symbols = $this->mTemplate->getNodeSymbols();
-		$worksheets = $this->mTemplate->getWorksheets();
-		$increment = 100 / count( array_keys( $worksheets ) );
+		$wnode = $this->mTemplate->matchSymbolNodes( $theWorksheet )[ 0 ];
 		
 		//
-		// Iterate worksheets.
+		// Iterate worksheet fields.
 		//
-		foreach( $worksheets as $worksheet => $wfields )
+		foreach( $this->mTemplate->getWorksheets()[ $wnode ] as $fnode )
 		{
 			//
-			// Init local storage.
+			// Check if worksheet is there.
+			// Note that we already checked if the worksheet was required.
 			//
-			$name = $symbols[ $worksheet ];
-			
-			//
-			// Create transaction.
-			//
-			$transaction
-				= $theTransaction
-					->newTransaction( kTYPE_TRANS_TMPL_STRUCT_COLUMNS,
-									  kTYPE_STATUS_EXECUTING,
-									  $name );
-			
-			//
-			// Iterate worksheet fields.
-			//
-			$errors = 0;
-			foreach( $wfields as $field )
+			if( array_key_exists( $theWorksheet, $fields ) )
 			{
 				//
-				// Init local storage.
+				// Save field information.
 				//
-				$node = $this->mTemplate->getNode( $field );
+				$node = $this->mTemplate->getNode( $fnode );
 				$kind = $node->offsetGet( kTAG_DATA_KIND );
+				$symbol = $node->offsetGet( kTAG_ID_SYMBOL );
 				
 				//
-				// Check if required.
+				// Check if field was provided.
 				//
-				if( ($kind !== NULL)
-				 && in_array( kTYPE_MANDATORY, $kind ) )
+				if( ! array_key_exists( $symbol, $fields[ $theWorksheet ] ) )
 				{
 					//
-					// Locate field.
+					// Set transaction log.
 					//
-					if( (! array_key_exists( $name, $fields ))
-					 || (! array_key_exists( $node->offsetGet( kTAG_ID_SYMBOL ),
-					 						 $fields[ $name ] )) )
-					{
-						//
-						// Add to transaction log.
-						//
-						$transaction->setLog(
-							kTYPE_STATUS_FATAL,					// Status,
-							$node->offsetGet( kTAG_ID_SYMBOL ),	// Alias.
-							NULL,								// Field.
-							NULL,								// Value.
-							'Missing required column.',			// Message.
-							$node->offsetGet( kTAG_TAG ),		// Tag.
-							kTYPE_ERROR_BAD_TMPL_STRUCT,		// Error type.
-							kTYPE_ERROR_CODE_REQ_COLUMN,		// Error code.
-							NULL );								// Error resource.
-						
-						//
-						// Increment errors count.
-						//
-						$ok = FALSE;
-						$errors++;
+					$theTransaction->setLog(
+						kTYPE_STATUS_FATAL,					// Status.
+						$symbol,							// Alias.
+						NULL,								// Field.
+						NULL,								// Value.
+						'Missing required column.',			// Message.
+						$node->offsetGet( kTAG_TAG ),		// Tag.
+						kTYPE_ERROR_BAD_TMPL_STRUCT,		// Error type.
+						kTYPE_ERROR_CODE_REQ_COLUMN,		// Error code.
+						NULL );								// Error resource.
 					
-					} // Missing.
+					//
+					// Increment errors count.
+					//
+					$errors++;
 				
-				} // Is mandatory field.
+				} // Missing required field.
 			
-			} // Iterating worksheet fields.
-			
-			//
-			// Update progress.
-			//
-			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-			$theTransaction->progress( $increment );
-			
-			//
-			// Handle errors.
-			//
-			if( $errors )
-			{
-				$transaction->offsetSet( kTAG_ERROR_TYPE, kTYPE_ERROR_BAD_TMPL_STRUCT );
-				$transaction->offsetSet( kTAG_ERROR_CODE, kTYPE_ERROR_CODE_REQ_COLUMN );
-				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_FATAL );
-				$transaction->offsetSet( kTAG_TRANSACTION_MESSAGE,
-											'The template is missing required columns.' );
-			}
-			
-			//
-			// Handle successfull.
-			//
-			else
-				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
-			
-			//
-			// Close transaction.
-			//
-			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+			} // Has worksheet.
 		
-		} // Iterating worksheets.
+		} // Iterating worksheet fields.
 		
-		return $ok;																	// ==>
+		return $errors;																// ==>
 	
 	} // checkRequiredColumns.
 
@@ -616,6 +622,21 @@ class ExcelTemplateParser
 
 
 	 
+	/*===================================================================================
+	 *	getRoot																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get root node
+	 *
+	 * This method will return the root node object.
+	 *
+	 * @access public
+	 * @return Node					Root node object.
+	 */
+	public function getRoot()						{	return $this->mTemplate->getRoot();	}
+
+	
 	/*===================================================================================
 	 *	getCellValue																	*
 	 *==================================================================================*/
