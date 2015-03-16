@@ -1033,7 +1033,7 @@ abstract class SessionObject extends PersistentObject
 				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
 			
 			//
-			// Handle session.
+			// Handle session and user.
 			//
 			if( $this instanceof Session )
 			{
@@ -1043,10 +1043,13 @@ abstract class SessionObject extends PersistentObject
 			} // Session.
 			
 			//
-			// Handle transaction.
+			// Handle transaction and session.
 			//
 			elseif( $this instanceof Transaction )
+			{
 				$transaction->offsetSet( kTAG_TRANSACTION, $id );
+				$transaction->offsetSet( kTAG_SESSION, $this->offsetGet( kTAG_SESSION ) );
+			}
 		
 			//
 			// Set type.

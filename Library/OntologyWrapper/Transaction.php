@@ -1089,48 +1089,33 @@ class Transaction extends SessionObject
 		 && ($theOptions & kFLAG_OPT_REL_ONE) )	// and many to one relationships.
 		{
 			//
-			// Get transactions collection.
+			// Init local storage.
 			//
-			$collection
-				= Transaction::ResolveCollection(
-					Transaction::ResolveDatabase( $this->mDictionary, TRUE ) );
+			$id = $this->offsetGet( kTAG_NID );
+			$session = $this->offsetGet( kTAG_SESSION );
 			
 			//
-			// Set criteria.
+			// Set transactions selection criteria.
 			//
-			$criteria = array( '$or' => Array() );
-			$criteria[ '$or' ][]
-				= array( kTAG_TRANSACTION => $this->offsetGet( kTAG_NID ) );
-			$criteria[ '$or' ][]
-				= array( kTAG_TRANSACTIONS => $this->offsetGet( kTAG_NID ) );
+			$criteria = array( kTAG_TRANSACTION => $id );
 		
 			//
-			// Delete related.
+			// Delete related transactions.
 			//
-			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			$list
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary, TRUE ) )
+						->matchAll( $criteria, kQUERY_OBJECT );
 			foreach( $list as $element )
 				$element->deleteObject();
 		
 			//
-			// Get files collection.
+			// Delete related files.
 			//
-			$collection
+			$list
 				= FileObject::ResolveCollection(
-					FileObject::ResolveDatabase( $this->mDictionary, TRUE ) );
-			
-			//
-			// Set criteria.
-			//
-			$criteria = array( '$or' => Array() );
-			$criteria[ '$or' ][]
-				= array( kTAG_TRANSACTION => $this->offsetGet( kTAG_NID ) );
-			$criteria[ '$or' ][]
-				= array( kTAG_TRANSACTIONS => $this->offsetGet( kTAG_NID ) );
-		
-			//
-			// Delete related.
-			//
-			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+					FileObject::ResolveDatabase( $this->mDictionary, TRUE ) )
+						->matchAll( $criteria, kQUERY_OBJECT );
 			foreach( $list as $element )
 				$element->deleteObject();
 		

@@ -6003,13 +6003,7 @@ class Service extends ContainerObject
 		//
 		$this->loadSessionProgress( $result );
 		if( count( $result ) )
-		{
-			//
-			// Load upload transactions.
-			//
 			$this->loadTransactionProgress( $result, $session );
-		
-		} // Found session.
 		
 		//
 		// Encrypt result.
