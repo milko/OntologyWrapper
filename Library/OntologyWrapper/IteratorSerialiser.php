@@ -2242,14 +2242,14 @@ class IteratorSerialiser
 			switch( $theTag[ kTAG_DATA_TYPE ] )
 			{
 				case kTYPE_INT:
-					$theValue = number_format( $theValue, 0 );
+					$theValue = number_format( (int) $theValue, 0 );
 					break;
 					
 				case kTYPE_FLOAT:
 					$theValue
 						= ( array_key_exists( kTAG_DECIMALS, $theTag ) )
-						? number_format( $theValue, $theTag[ kTAG_DECIMALS ] )
-						: number_format( $theValue, 2 );
+						? number_format( (double) $theValue, $theTag[ kTAG_DECIMALS ] )
+						: number_format( (double) $theValue, 2 );
 					break;
 					
 				case kTYPE_BOOLEAN:

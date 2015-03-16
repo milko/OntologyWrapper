@@ -122,6 +122,7 @@ class Session extends SessionObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_USER ) &&
+						 \ArrayObject::offsetExists( kTAG_ENTITY_PGP_FINGERPRINT ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_STATUS ) );
 
@@ -722,6 +723,7 @@ class Session extends SessionObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_USER ) &&
+						 \ArrayObject::offsetExists( kTAG_ENTITY_PGP_FINGERPRINT ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_STATUS ) );
 	
@@ -755,6 +757,7 @@ class Session extends SessionObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_USER ) &&
+						 \ArrayObject::offsetExists( kTAG_ENTITY_PGP_FINGERPRINT ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_SESSION_STATUS ) );
 	
@@ -969,6 +972,19 @@ class Session extends SessionObject
 	protected function copySelfReference( PersistentObject $theObject )
 	{
 		//
+		// Call parent method.
+		//
+		parent::copySelfReference( $theObject );
+		
+		//
+		// Set user fingerprint reference.
+		//
+		if( $this->offsetExists( kTAG_ENTITY_PGP_FINGERPRINT ) )
+			$theObject->offsetSet(
+				kTAG_ENTITY_PGP_FINGERPRINT,
+				$this->offsetGet( kTAG_ENTITY_PGP_FINGERPRINT ) );
+		
+		//
 		// Set user reference.
 		//
 		if( $this->offsetExists( kTAG_USER ) )
@@ -983,11 +999,6 @@ class Session extends SessionObject
 			$theObject->offsetSet(
 				kTAG_USERS,
 				$this->offsetGet( kTAG_USERS ) );
-		
-		//
-		// Call parent method.
-		//
-		parent::copySelfReference( $theObject );
 		
 	} // copySelfReference.
 

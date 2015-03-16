@@ -799,44 +799,27 @@ class User extends Individual
 		 && ($theOptions & kFLAG_OPT_REL_ONE) )	// and many to one relationships.
 		{
 			//
-			// Get sessions collection.
+			// Set session selection criteria.
 			//
-			$collection
-				= Session::ResolveCollection(
-					Session::ResolveDatabase( $this->mDictionary, TRUE ) );
-			
-			//
-			// Set criteria.
-			//
-			$criteria = array( '$or' => Array() );
-			$criteria[ '$or' ][] = array( kTAG_USER => $this->offsetGet( kTAG_NID ) );
-			$criteria[ '$or' ][] = array( kTAG_USERS => $this->offsetGet( kTAG_NID ) );
+			$criteria = array( kTAG_USER => $this->offsetGet( kTAG_NID ) );
 		
 			//
-			// Delete related.
+			// Delete related sessions.
 			//
-			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			$list
+				= Session::ResolveCollection(
+					Session::ResolveDatabase( $this->mDictionary, TRUE ) )
+						->matchAll( $criteria, kQUERY_OBJECT );
 			foreach( $list as $element )
 				$element->deleteObject();
 		
 			//
-			// Get files collection.
+			// Delete related files.
 			//
-			$collection
+			$list
 				= FileObject::ResolveCollection(
-					FileObject::ResolveDatabase( $this->mDictionary, TRUE ) );
-			
-			//
-			// Set criteria.
-			//
-			$criteria = array( '$or' => Array() );
-			$criteria[ '$or' ][] = array( kTAG_USER => $this->offsetGet( kTAG_NID ) );
-			$criteria[ '$or' ][] = array( kTAG_USERS => $this->offsetGet( kTAG_NID ) );
-		
-			//
-			// Delete related.
-			//
-			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+					FileObject::ResolveDatabase( $this->mDictionary, TRUE ) )
+						->matchAll( $criteria, kQUERY_OBJECT );
 			foreach( $list as $element )
 				$element->deleteObject();
 		
@@ -849,6 +832,47 @@ class User extends Individual
 			parent::updateManyToOne( $theOptions );
 	
 	} // updateManyToOne.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED REFERENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	copySelfReference																*
+	 *==================================================================================*/
+
+	/**
+	 * Copy self reference
+	 *
+	 * In this class, besides setting a reference to the native identifier, we also set a
+	 * reference to the PGP fingerprint.
+	 *
+	 * @param PersistentObject		$theObject			Target object.
+	 *
+	 * @access protected
+	 */
+	protected function copySelfReference( PersistentObject $theObject )
+	{
+		//
+		// Call parent method.
+		//
+		parent::copySelfReference( $theObject );
+		
+		//
+		// Set user fingerprint reference.
+		//
+		if( $this->offsetExists( kTAG_ENTITY_PGP_FINGERPRINT ) )
+			$theObject->offsetSet(
+				kTAG_ENTITY_PGP_FINGERPRINT,
+				$this->offsetGet( kTAG_ENTITY_PGP_FINGERPRINT ) );
+		
+	} // copySelfReference.
 
 		
 

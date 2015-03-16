@@ -800,31 +800,19 @@ abstract class FileObject extends PersistentObject
 		 && ($theOptions & kFLAG_OPT_REL_ONE) )	// and many to one relationships.
 		{
 			//
-			// Get collection.
-			//
-			$collection
-				= static::ResolveCollection(
-					static::ResolveDatabase( $this->mDictionary, TRUE ) );
-			
-			//
-			// Init criteria.
+			// Set criteria.
 			//
 			$criteria = array( '$or' => Array() );
-		
-			//
-			// Remove file.
-			//
 			$criteria[ '$or' ][] = array( kTAG_FILE => $this->offsetGet( kTAG_NID ) );
-		
-			//
-			// Remove files.
-			//
 			$criteria[ '$or' ][] = array( kTAG_FILES => $this->offsetGet( kTAG_NID ) );
 		
 			//
 			// Get related.
 			//
-			$list = $collection->matchAll( $criteria, kQUERY_OBJECT );
+			$list
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary, TRUE ) )
+						->matchAll( $criteria, kQUERY_OBJECT );
 		
 			//
 			// Delete related.

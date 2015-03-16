@@ -3,7 +3,8 @@ SESSION
 
 * kTAG_FILE
 * kTAG_SESSION
-  kTAG_USER
+  kTAG_USER						User native identifier
+  kTAG_ENTITY_PGP_FINGERPRINT	User fingerprint
   kTAG_SESSION_TYPE				Upload, Validate, Update, etc.
   kTAG_SESSION_START
 * kTAG_SESSION_END

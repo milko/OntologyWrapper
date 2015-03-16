@@ -5935,7 +5935,9 @@ class Service extends ContainerObject
 		// Init local storage.
 		//
 		$encoder = new Encoder();
-		$user_id = $this->offsetGet( kAPI_REQUEST_USER )->offsetGet( kTAG_NID );
+		$user = $this->offsetGet( kAPI_REQUEST_USER );
+		$user_id = $user->offsetGet( kTAG_NID );
+		$user_fingerprint = $user->offsetGet( kTAG_ENTITY_PGP_FINGERPRINT );
 		
 		//
 		// Instantiate session.
@@ -5943,7 +5945,8 @@ class Service extends ContainerObject
 		$session = new Session( $this->mWrapper );
 		$session->offsetSet( kTAG_SESSION_TYPE, kTYPE_SESSION_UPLOAD );
 		$session->offsetSet( kTAG_USER, $user_id );
-		$id = $session->commit();
+		$session->offsetSet( kTAG_ENTITY_PGP_FINGERPRINT, $user_fingerprint );
+		$session_id = $session->commit();
 		
 		//
 		// Copy session in persistent user object.
@@ -5960,14 +5963,14 @@ class Service extends ContainerObject
 		$php = kPHP_BINARY;
 		$script = kPATH_BATCHES_ROOT.'/Batch_LoadTemplate.php';
 		$path = $this->offsetGet( kAPI_PARAM_FILE_PATH );
-		exec( "$php -f $script '$id' '$path' > /dev/null &" );
+		exec( "$php -f $script '$session_id' '$path' > /dev/null &" );
 		
 		//
 		// Encrypt result.
 		//
-		$id = JsonEncode( $id );
+		$session_id = JsonEncode( $session_id );
 		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
-			= $encoder->encodeData( $id );
+			= $encoder->encodeData( $session_id );
 
 		//
 		// Set encrypted state.

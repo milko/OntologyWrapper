@@ -993,7 +993,7 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_TRANSACTION_FIELD => array
 		(
 			kTAG_NID	=> ':transaction:field',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_TYPE	=> kTYPE_INT,
 			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
 		kTAG_TRANSACTION_ALIAS => array
@@ -6921,7 +6921,7 @@ MILKO - Need to check.
 
 /*=======================================================================================
  *																						*
- *								PROTECTED REFERENCE UTILITIES							*
+ *							PROTECTED REFERENCE UTILITIES								*
  *																						*
  *======================================================================================*/
 

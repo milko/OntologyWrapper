@@ -1156,6 +1156,19 @@ class Transaction extends SessionObject
 	protected function copySelfReference( PersistentObject $theObject )
 	{
 		//
+		// Call parent method.
+		//
+		parent::copySelfReference( $theObject );
+		
+		//
+		// Set user fingerprint reference.
+		//
+		if( $this->offsetExists( kTAG_ENTITY_PGP_FINGERPRINT ) )
+			$theObject->offsetSet(
+				kTAG_ENTITY_PGP_FINGERPRINT,
+				$this->offsetGet( kTAG_ENTITY_PGP_FINGERPRINT ) );
+		
+		//
 		// Set user reference.
 		//
 		if( $this->offsetExists( kTAG_USER ) )
@@ -1186,11 +1199,6 @@ class Transaction extends SessionObject
 			$theObject->offsetSet(
 				kTAG_SESSIONS,
 				$this->offsetGet( kTAG_SESSIONS ) );
-		
-		//
-		// Call parent method.
-		//
-		parent::copySelfReference( $theObject );
 		
 	} // copySelfReference.
 
