@@ -964,8 +964,6 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$fields = $this->mParser->getFields();
-		$worksheets = $this->mParser->getWorksheets();
 		$worksheet = $this->mParser->getUnitWorksheet();
 		$records
 			= $this->mCollections
@@ -990,7 +988,7 @@ class SessionUpload
 		//
 		// Check worksheet relationships.
 		//
-		if( ! $this->createObjects( $worksheet, $worksheets, $fields, $records ) )
+		if( ! $this->createObjects( $worksheet, $records ) )
 			return FALSE;															// ==>
 
 		//
@@ -1839,8 +1837,6 @@ class SessionUpload
 	 * This method will create objects from the worksheet data.
 	 *
 	 * @param string				$theUnitWorksheet	Unit worksheet name.
-	 * @param array					$theWorksheets		Worksheets data.
-	 * @param array					$theFields			Fields data.
 	 * @param int					$theRecords			Unit worksheet records total.
 	 *
 	 * @access protected
@@ -1849,19 +1845,25 @@ class SessionUpload
 	 * @uses file()
 	 * @uses session()
 	 */
-	protected function createObjects( $theUnitWorksheet,
-									  $theWorksheets, $theFields,
-									  $theRecords )
+	protected function createObjects( $theUnitWorksheet, $theRecords )
 	{
 		//
 		// Init local storage.
 		//
+		$fields = $this->mParser->getFields();
+		$worksheets = $this->mParser->getWorksheets();
 		$collection_in
 			= $this->mCollections
 				[ $this->getCollectionName( $theUnitWorksheet ) ];
 		$collection_out
 			= $this->mCollections
 				[ $this->getCollectionName( UnitObject::kSEQ_NAME ) ];
+		
+		//
+		// Remove unit worksheet.
+		//
+		$worksheets_list = array_keys( $worksheets );
+		unset( $worksheets_list[ array_search( $theWorksheet, $worksheets_list ) ] );
 		
 		return TRUE;																// ==>
 

@@ -10061,6 +10061,7 @@ $rs_units = & $rs_units[ 'result' ];
 					NULL,											// Shape.
 					kFLAG_FORMAT_OPT_DYNAMIC |						// Options.
 					kFLAG_FORMAT_OPT_PRIVATE |
+					kFLAG_FORMAT_OPT_VALUES  |
 					kFLAG_FORMAT_OPT_TYPE_KIND );
 	
 		//
@@ -10140,6 +10141,7 @@ $rs_units = & $rs_units[ 'result' ];
 					NULL,											// Shape.
 					kFLAG_FORMAT_OPT_DYNAMIC |						// Options.
 					kFLAG_FORMAT_OPT_PRIVATE |
+					kFLAG_FORMAT_OPT_VALUES  |
 					kFLAG_FORMAT_OPT_TYPE_KIND );
 	
 		//

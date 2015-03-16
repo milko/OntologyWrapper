@@ -73,6 +73,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 // Init local storage.
 //
 $user = ":domain:individual://ITA406/pgrdiversity.bioversityinternational.org:E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2;";
+$fingerprint = "E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2";
 $file = "/Library/WebServer/Library/OntologyWrapper/Library/test/CWR_Checklist_Template.test.xlsx";
 	
 //
@@ -120,6 +121,8 @@ try
 	$upload[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPLOAD;
 	echo( '$upload[ kTAG_USER ] = $user;<br />' );
 	$upload[ kTAG_USER ] = $user;
+	echo( '$upload[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;<br />' );
+	$upload[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;
 	echo( '$upload_id = $upload->commit();' );
 	$upload_id = $upload->commit();
 	echo( kSTYLE_HEAD_POS );
@@ -367,6 +370,8 @@ try
 	$update[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPDATE;
 	echo( '$update[ kTAG_USER ] = $user;<br />' );
 	$update[ kTAG_USER ] = $user;
+	echo( '$update[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;<br />' );
+	$update[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;
 	echo( '$update_id = $update->commit();' );
 	$update_id = $update->commit();
 	echo( kSTYLE_HEAD_POS );
