@@ -25,9 +25,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/settings/ResetUsers.ph
 # Backup and archive.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.test.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \

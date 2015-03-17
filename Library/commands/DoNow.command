@@ -13,42 +13,6 @@
 SOCKET="socket=/tmp/mysql.sock"
 
 ########################################################################################
-#   Initialise institutes                                                              #
-########################################################################################
-
-#
-# Init institutes.
-#
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/4-Init_Institutes.php
-
-########################################################################################
-#   Initialise users                                                                   #
-########################################################################################
-
-#
-# Init users.
-#
-php -f /Library/WebServer/Library/OntologyWrapper/Library/settings/ResetUsers.php \
-	"mongodb://localhost:27017/BIOVERSITY"
-
-########################################################################################
-#   Backup                                                                             #
-########################################################################################
-
-#
-# Backup and archive main dictionary.
-#
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
-rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.inst.zip"
-ditto -c -k --sequesterRsrc --keepParent \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
-	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.inst.zip"
-rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-
-########################################################################################
 #   Handle checklists                                                                  #
 ########################################################################################
 
@@ -116,9 +80,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchi
 # Backup and archive.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.insitu.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \

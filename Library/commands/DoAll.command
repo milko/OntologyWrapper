@@ -25,9 +25,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/1-Init_Base.php
 # Backup and archive base dictionary.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.1.base.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
@@ -47,9 +48,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/2-Init_Dict.php
 # Backup and archive main dictionary.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.2.dict.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
@@ -69,9 +71,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/3-Init_Data.php
 # Backup and archive main dictionary.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.3.data.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
@@ -105,9 +108,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/settings/ResetUsers.ph
 # Backup and archive main dictionary.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.4.inst.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
@@ -279,9 +283,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchi
 # Backup and archive.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.5.insitu.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
@@ -368,9 +373,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchi
 # Backup and archive.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.6.miss.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
@@ -401,9 +407,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/UpdateCollecting
 # Backup and archive.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.7.miss.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
@@ -478,9 +485,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchi
 # Backup and archive.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.8.singer.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
@@ -507,9 +515,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchi
 # Backup and archive.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.9.grin.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \
@@ -536,9 +545,10 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadFromSQLArchi
 # Backup and archive.
 #
 rm -R "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY"
-mongodump --directoryperdb \
-		  --db 'BIOVERSITY' \
-		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
+mongodump --host=localhost \
+		  --port=27017 \
+		  --db=BIOVERSITY \
+		  --out='/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 rm "/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY.10.eurisco.zip"
 ditto -c -k --sequesterRsrc --keepParent \
 	"/Library/WebServer/Library/OntologyWrapper/Library/backup/data/BIOVERSITY" \

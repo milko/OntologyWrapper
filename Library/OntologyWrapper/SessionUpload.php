@@ -1944,9 +1944,6 @@ class SessionUpload
 		$fields = $this->mParser->getFields();
 		$worksheets = $this->mParser->getWorksheets();
 		$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
-		$collection_units
-			= $this->mCollections
-				[ $this->getCollectionName( UnitObject::kSEQ_NAME ) ];
 		
 		//
 		// Remove unit worksheet.
@@ -1978,117 +1975,38 @@ class SessionUpload
 			foreach( $unit_record as $key => $value )
 			{
 				//
-				// Skip row number.
+				// Skip identifier.
 				//
-				if( $key == kTAG_NID )
-					continue;												// =>
-				
-				//
-				// Init local storage.
-				//
-				$fdata = $fields[ $theUnitWorksheet ][ $key ];
-				$node = $this->mParser->getNode( $fdata[ 'node' ] );
-				
-				//
-				// Skip tagless properties.
-				//
-				if( ! $node->offsetExists( kTAG_TAG ) )
-					continue;												// =>
-				
-				//
-				// Init local storage.
-				//
-				$tag = $this->mParser->getTag( $node->offsetGet( kTAG_TAG ) );
-				$transformations = GetExternalTransformations( $node );
-				
-				//
-				// Set property.
-				//
-				$object->offsetSet( $tag->offsetGet( kTAG_ID_HASH ), $value );
-				foreach( $transformations as $transformation )
+				if( $key != kTAG_NID )
 				{
-					//
-					// Get transformation arguments.
-					//
-					$val = $value;
-					$collection = $prefix = $suffix = NULL;
-					$tag = $this->mParser->getTag( $transformation[ kTAG_TAG ] );
-					$offset = $tag->offsetGet( kTAG_ID_HASH );
-					if( array_key_exists( kTAG_CONN_COLL, $transformation ) )
-						$collection = $transformation[ kTAG_CONN_COLL ];
-					if( array_key_exists( kTAG_PREFIX, $transformation ) )
-						$prefix = $transformation[ kTAG_PREFIX ];
-					if( array_key_exists( kTAG_SUFFIX, $transformation ) )
-						$suffix = $transformation[ kTAG_SUFFIX ];
-					
-					//
-					// Handle reference.
-					//
-					if( $collection !== NULL )
-					{
-						//
-						// Check combinations.
-						//
-						$collection = $this->wrapper()->resolveCollection( $collection );
-						$combinations = CheckStringCombinations( $val, $prefix, $suffix );
-						foreach( $combinations as $combination )
-						{
-							//
-							// Match.
-							//
-							if( $collection->matchOne( array( kTAG_NID => $combination ),
-													   kQUERY_COUNT ) )
-							{
-								$object->offsetSet( $offset, $combination );
-								break;										// =>
-							}
-						
-						} // Testing combinations.
-					
-					} // Located reference.
-					
-					//
-					// Handle value.
-					//
-					else
-					{
-						//
-						// Transform value.
-						//
-						if( count( $prefix ) + count( $suffix ) )
-						{
-							//
-							// Transform value.
-							//
-							if( $prefix )
-								$val = $prefix[ 0 ].$val;
-							if( $suffix )
-								$val = $val.$suffix[ 0 ];
-					
-						} // Has transformations.
-						
-						//
-						// Set property.
-						//
-						$object->offsetSet( $offset, $val );
-					
-					} // Not a reference.
-					
-				} // Iterating transformations.
-			
-			} // Iterating unit record fields.
-			
-			//
-			// Validate object.
-			//
-			$object->validate( TRUE, TRUE, FALSE );
-			
-			//
-			// Set progress.
-			//
-			$this->transaction()->processed( 1, $theRecords );
+					$fdata = $fields[ $theUnitWorksheet ][ $key ];
+					$this->setObjectProperty(
+								$object,
+								$this->mParser->getNode( $fdata[ 'node' ] ),
+								$key,
+								$value );
+				}
+			}
 		
 		} // Iterating unit worksheet records.
+		
+		//
+		// Iterate other worksheets.
+		//
+		foreach( $worksheets_list as $worksheet )
+		{
+		
+		} // Iterating other worksheets.
+		
+		//
+		// Validate object.
+		//
+		$object->validate( TRUE, TRUE, FALSE );
+		
+		//
+		// Set progress.
+		//
+		$this->transaction()->processed( 1, $theRecords );
 		
 		return TRUE;																// ==>
 
@@ -6608,6 +6526,154 @@ class SessionUpload
 		return $user->offsetGet( kTAG_ID_SEQUENCE )."_$theSuffix";					// ==>
 
 	} // getCollectionName.
+
+	 
+	/*===================================================================================
+	 *	setObjectProperty																*
+	 *==================================================================================*/
+
+	/**
+	 * Set object property from worksheets
+	 *
+	 * This method will set the provided property in the provided object.
+	 *
+	 * @param PersistentObject		$theObject			Receiving object.
+	 * @param Node					$theNode			Node identifier.
+	 * @param string				$theKey				Property key.
+	 * @param string				$theValue			Property value.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> set, <tt>FALSE</tt> skipped.
+	 */
+	protected function setObjectProperty( PersistentObject $theObject,
+										  Node			   $theNode,
+														   $theKey,
+														   $theValue )
+	{
+		//
+		// Skip row number.
+		//
+		if( $theKey == kTAG_NID )
+			return FALSE;															// ==>
+		
+		//
+		// Skip tagless properties.
+		//
+		if( ! $theNode->offsetExists( kTAG_TAG ) )
+			return FALSE;															// ==>
+		
+		//
+		// Get tag.
+		//
+		$tag_object = $this->mParser->getTag( $theNode->offsetGet( kTAG_TAG ) );
+		
+		//
+		// Set structured property.
+		//
+		if( $theNode->offsetExists( kTAG_TAGS ) )
+		{
+			//
+			// Build structured offset.
+			//
+			$offset = Array();
+			foreach( $theNode->offsetGet( kTAG_TAGS ) as $tag )
+				$offset[]
+					= $this->mParser->getTag( $tag )
+						->offsetGet( kTAG_ID_HASH );
+			$offset[] = $tag_object->offsetGet( kTAG_ID_HASH );
+			$offset = implode( '.', $offset );
+		
+		} // Structured offset.
+		
+		//
+		// Set scalar offset.
+		//
+		else
+			$offset = $tag_object->offsetGet( kTAG_ID_HASH );
+		
+		//
+		// Set property.
+		//
+		$theObject->offsetSet( $offset, $theValue );
+		
+		//
+		// Apply transformations.
+		//
+		$transformations = GetExternalTransformations( $theNode );
+		foreach( $transformations as $transformation )
+		{
+			//
+			// Get transformation arguments.
+			//
+			$val = $theValue;
+			$collection = $prefix = $suffix = NULL;
+			$tag = $this->mParser->getTag( $transformation[ kTAG_TAG ] );
+			$offset = $tag->offsetGet( kTAG_ID_HASH );
+			if( array_key_exists( kTAG_CONN_COLL, $transformation ) )
+				$collection = $transformation[ kTAG_CONN_COLL ];
+			if( array_key_exists( kTAG_PREFIX, $transformation ) )
+				$prefix = $transformation[ kTAG_PREFIX ];
+			if( array_key_exists( kTAG_SUFFIX, $transformation ) )
+				$suffix = $transformation[ kTAG_SUFFIX ];
+			
+			//
+			// Handle reference.
+			//
+			if( $collection !== NULL )
+			{
+				//
+				// Check combinations.
+				//
+				$collection = $this->wrapper()->resolveCollection( $collection );
+				$combinations = CheckStringCombinations( $val, $prefix, $suffix );
+				foreach( $combinations as $combination )
+				{
+					//
+					// Match.
+					//
+					if( $collection->matchOne( array( kTAG_NID => $combination ),
+											   kQUERY_COUNT ) )
+					{
+						$theObject->offsetSet( $offset, $combination );
+						break;												// =>
+					}
+				
+				} // Testing combinations.
+			
+			} // Located reference.
+			
+			//
+			// Handle value.
+			//
+			else
+			{
+				//
+				// Transform value.
+				//
+				if( count( $prefix ) + count( $suffix ) )
+				{
+					//
+					// Transform value.
+					//
+					if( $prefix )
+						$val = $prefix[ 0 ].$val;
+					if( $suffix )
+						$val = $val.$suffix[ 0 ];
+			
+				} // Has transformations.
+				
+				//
+				// Set property.
+				//
+				$theObject->offsetSet( $offset, $val );
+			
+			} // Not a reference.
+			
+		} // Iterating transformations.
+		
+		return TRUE;																// ==>
+
+	} // setObjectProperty.
 
 	
 

@@ -343,7 +343,10 @@ class Checklist extends UnitObject
 			if( $this->offsetExists( 'cwr:ck:TYPE' ) )
 				$tmp[] = $this->offsetGet( 'cwr:ck:TYPE' );
 			if( count( $tmp ) )
+			{
+				$tmp = implode( '-', $tmp );
 				$this->offsetSet( kTAG_IDENTIFIER, $tmp );
+			}
 		}
 		
 		//
