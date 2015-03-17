@@ -43,9 +43,6 @@
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -82,9 +79,6 @@
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -106,9 +100,6 @@
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -155,9 +146,6 @@ LR/lc: Lower risk: least concern]]></item>
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -196,9 +184,6 @@ E: Quantitative analysis of extinction risk]]></item>
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -221,9 +206,6 @@ E: Quantitative analysis of extinction risk]]></item>
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -245,9 +227,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -281,9 +260,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -321,9 +297,6 @@ E: Quantitative analysis of extinction risk]]></item>
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -345,9 +318,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -372,9 +342,6 @@ E: Quantitative analysis of extinction risk]]></item>
 				<item>:kind:property-node</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -396,9 +363,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -439,9 +403,6 @@ G5: Apparently secure and globally secure]]></item>
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -463,9 +424,6 @@ G5: Apparently secure and globally secure]]></item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -489,9 +447,6 @@ G5: Apparently secure and globally secure]]></item>
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -514,9 +469,6 @@ G5: Apparently secure and globally secure]]></item>
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
-			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -538,9 +490,6 @@ G5: Apparently secure and globally secure]]></item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -566,9 +515,6 @@ G5: Apparently secure and globally secure]]></item>
 			</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:mandatory</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -613,9 +559,6 @@ G5: Apparently secure and globally secure]]></item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:threat</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>

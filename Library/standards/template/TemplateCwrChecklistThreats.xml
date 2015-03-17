@@ -28,6 +28,7 @@
 		<NODE term=":template:checklist:cwr:threat"
 			  pid="template::checklist:cwr:threat">
 			<item const="kTAG_ID_SYMBOL">CK_Threats</item>
+			<item const="kTAG_TAG">:taxon:threat</item>
 			<item const="kTAG_LINE_NAME">4</item>
 			<item const="kTAG_LINE_INFO">5</item>
 			<item const="kTAG_LINE_EXAMPLES">6</item>

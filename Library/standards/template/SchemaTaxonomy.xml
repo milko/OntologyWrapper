@@ -9,7 +9,7 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- † -->
+	<!-- schema::template:taxonomy -->
 	<META>
 		<TERM ns=":template" lid="schema:taxonomy">
 			<item const="kTAG_LABEL">

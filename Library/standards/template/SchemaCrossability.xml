@@ -43,9 +43,6 @@
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:cross</item>
-			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -68,9 +65,6 @@
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:cross</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
@@ -95,9 +89,6 @@
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:cross</item>
-			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -121,9 +112,6 @@
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:cross</item>
-			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -146,9 +134,6 @@
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
-			</item>
-			<item const="kTAG_TAGS">
-				<item>:taxon:cross</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
 			<item const="kTAG_DESCRIPTION">
