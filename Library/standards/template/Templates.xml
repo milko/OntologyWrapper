@@ -12,7 +12,7 @@
 		<NODE term=":domain:inventory:checklist:cwr"
 			  pid="template::checklist:cwr">
 			<item const="kTAG_DOMAIN">:domain:inventory:checklist:cwr</item>
-			<item const="kTAG_CLASS_NAME">Checklist</item>
+			<item const="kTAG_CLASS_NAME">OntologyWrapper\\Checklist</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:template</item>

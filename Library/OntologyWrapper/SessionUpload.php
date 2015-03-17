@@ -1955,14 +1955,134 @@ class SessionUpload
 		unset( $worksheets_list[ array_search( $theUnitWorksheet, $worksheets_list ) ] );
 		
 		//
-		// Iterate unit worksheet records.
+		// Select unit worksheet records.
 		//
 		$rs
 			= $this->mCollections
 				[ $this->getCollectionName( $theUnitWorksheet ) ]
 					->matchAll( Array(), kQUERY_ARRAY );
+		
+		//
+		// Iterate unit worksheet records.
+		//
 		foreach( $rs as $unit_record )
 		{
+			//
+			// Instantiate object.
+			//
+			$object = new $class( $this->wrapper() );
+			
+			//
+			// Iterate record fields.
+			//
+			foreach( $unit_record as $key => $value )
+			{
+				//
+				// Skip row number.
+				//
+				if( $key == kTAG_NID )
+					continue;												// =>
+				
+				//
+				// Init local storage.
+				//
+				$fdata = $fields[ $theUnitWorksheet ][ $key ];
+				$node = $this->mParser->getNode( $fdata[ 'node' ] );
+				
+				//
+				// Skip tagless properties.
+				//
+				if( ! $node->offsetExists( kTAG_TAG ) )
+					continue;												// =>
+				
+				//
+				// Init local storage.
+				//
+				$tag = $this->mParser->getTag( $node->offsetGet( kTAG_TAG ) );
+				$transformations = GetExternalTransformations( $node );
+				
+				//
+				// Set property.
+				//
+				$object->offsetSet( $tag->offsetGet( kTAG_ID_HASH ), $value );
+				foreach( $transformations as $transformation )
+				{
+					//
+					// Get transformation arguments.
+					//
+					$val = $value;
+					$collection = $prefix = $suffix = NULL;
+					$tag = $this->mParser->getTag( $transformation[ kTAG_TAG ] );
+					$offset = $tag->offsetGet( kTAG_ID_HASH );
+					if( array_key_exists( kTAG_CONN_COLL, $transformation ) )
+						$collection = $transformation[ kTAG_CONN_COLL ];
+					if( array_key_exists( kTAG_PREFIX, $transformation ) )
+						$prefix = $transformation[ kTAG_PREFIX ];
+					if( array_key_exists( kTAG_SUFFIX, $transformation ) )
+						$suffix = $transformation[ kTAG_SUFFIX ];
+					
+					//
+					// Handle reference.
+					//
+					if( $collection !== NULL )
+					{
+						//
+						// Check combinations.
+						//
+						$collection = $this->wrapper()->resolveCollection( $collection );
+						$combinations = CheckStringCombinations( $val, $prefix, $suffix );
+						foreach( $combinations as $combination )
+						{
+							//
+							// Match.
+							//
+							if( $collection->matchOne( array( kTAG_NID => $combination ),
+													   kQUERY_COUNT ) )
+							{
+								$object->offsetSet( $offset, $combination );
+								break;										// =>
+							}
+						
+						} // Testing combinations.
+					
+					} // Located reference.
+					
+					//
+					// Handle value.
+					//
+					else
+					{
+						//
+						// Transform value.
+						//
+						if( count( $prefix ) + count( $suffix ) )
+						{
+							//
+							// Transform value.
+							//
+							if( $prefix )
+								$val = $prefix[ 0 ].$val;
+							if( $suffix )
+								$val = $val.$suffix[ 0 ];
+					
+						} // Has transformations.
+						
+						//
+						// Set property.
+						//
+						$object->offsetSet( $offset, $val );
+					
+					} // Not a reference.
+					
+				} // Iterating transformations.
+			
+			} // Iterating unit record fields.
+			
+			//
+			// Validate object.
+			//
+			$object->validate( TRUE, TRUE, FALSE );
+			
 			//
 			// Set progress.
 			//
@@ -2641,7 +2761,7 @@ class SessionUpload
 		//
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Cast value.
@@ -2696,7 +2816,7 @@ class SessionUpload
 		// Apply transformations.
 		//
 		$theRecord[ $symbol ]
-			= SetlocalTransformations(
+			= SetLocalTransformations(
 				$theRecord[ $symbol ], $prefix, $suffix );
 		
 		return 0;																	// ==>
@@ -2740,7 +2860,7 @@ class SessionUpload
 		$error = 0;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -2769,7 +2889,7 @@ class SessionUpload
 				//
 				// Check value.
 				//
-				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$element = SetLocalTransformations( $element, $prefix, $suffix );
 				$ok = CheckIntegerValue( $element, $error_type, $error_message );
 				
 				//
@@ -2834,7 +2954,7 @@ class SessionUpload
 			// Check value.
 			//
 			$theRecord[ $symbol ]
-				= SetlocalTransformations(
+				= SetLocalTransformations(
 					$theRecord[ $symbol ], $prefix, $suffix );
 			$ok = CheckIntegerValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
@@ -2911,7 +3031,7 @@ class SessionUpload
 		$error = 0;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -2940,7 +3060,7 @@ class SessionUpload
 				//
 				// Check value.
 				//
-				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$element = SetLocalTransformations( $element, $prefix, $suffix );
 				$ok = CheckFloatValue( $element, $error_type, $error_message );
 				
 				//
@@ -3005,7 +3125,7 @@ class SessionUpload
 			// Check value.
 			//
 			$theRecord[ $symbol ]
-				= SetlocalTransformations(
+				= SetLocalTransformations(
 					$theRecord[ $symbol ], $prefix, $suffix );
 			$ok = CheckFloatValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
@@ -3093,7 +3213,7 @@ class SessionUpload
 		$error = 0;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -3122,7 +3242,7 @@ class SessionUpload
 				//
 				// Check value.
 				//
-				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$element = SetLocalTransformations( $element, $prefix, $suffix );
 				$ok = CheckBooleanValue( $element, $error_type, $error_message );
 				
 				//
@@ -3187,7 +3307,7 @@ class SessionUpload
 			// Check value.
 			//
 			$theRecord[ $symbol ]
-				= SetlocalTransformations(
+				= SetLocalTransformations(
 					$theRecord[ $symbol ], $prefix, $suffix );
 			$ok = CheckBooleanValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
@@ -3320,7 +3440,7 @@ class SessionUpload
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$count = strlen( $tokens );
 		
 		//
@@ -3401,14 +3521,14 @@ class SessionUpload
 				//
 				if( $count == 1 )
 					$theRecord[ $symbol ][]
-						= array( SetlocalTransformations( $element, $prefix, $suffix ) );
+						= array( SetLocalTransformations( $element, $prefix, $suffix ) );
 				
 				//
 				// Liat and element separator.
 				//
 				elseif( CheckArrayValue( $element,substr( $tokens, 1 ) ) )
 					$theRecord[ $symbol ][]
-						= SetlocalTransformations( $element, $prefix, $suffix );
+						= SetLocalTransformations( $element, $prefix, $suffix );
 			}
 			
 			//
@@ -3441,7 +3561,7 @@ class SessionUpload
 			//
 			else
 				$theRecord[ $symbol ]
-					= SetlocalTransformations( $theRecord[ $symbol ], $prefix, $suffix );
+					= SetLocalTransformations( $theRecord[ $symbol ], $prefix, $suffix );
 		
 		} // Scalar.
 		
@@ -3501,7 +3621,7 @@ class SessionUpload
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$count = strlen( $tokens );
 		
 		//
@@ -3592,7 +3712,7 @@ class SessionUpload
 					SetLanguageString(
 						$list_reference,
 						NULL,
-						SetlocalTransformations( $list, $prefix, $suffix ) );
+						SetLocalTransformations( $list, $prefix, $suffix ) );
 				
 				//
 				// Has string separator token.
@@ -3616,7 +3736,7 @@ class SessionUpload
 								SetLanguageString(
 									$list_reference,
 									NULL,
-									SetlocalTransformations( $element, $prefix, $suffix ) );
+									SetLocalTransformations( $element, $prefix, $suffix ) );
 							
 							//
 							// Has language separator token.
@@ -3657,7 +3777,7 @@ class SessionUpload
 								SetLanguageString(
 									$list_reference,
 									$lang,
-									SetlocalTransformations( $text, $prefix, $suffix ) );
+									SetLocalTransformations( $text, $prefix, $suffix ) );
 							
 							} //Has language separator token.
 						
@@ -3701,7 +3821,7 @@ class SessionUpload
 					SetLanguageString(
 						$theRecord[ $symbol ],
 						NULL,
-						SetlocalTransformations( $element, $prefix, $suffix ) );
+						SetLocalTransformations( $element, $prefix, $suffix ) );
 				
 				//
 				// Has language.
@@ -3748,7 +3868,7 @@ class SessionUpload
 						SetLanguageString(
 							$theRecord[ $symbol ],
 							$lang,
-							SetlocalTransformations( $text, $prefix, $suffix ) );
+							SetLocalTransformations( $text, $prefix, $suffix ) );
 					
 					} // Not empty.
 				
@@ -3825,7 +3945,7 @@ class SessionUpload
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$count = strlen( $tokens );
 		
 		//
@@ -3916,7 +4036,7 @@ class SessionUpload
 					SetLanguageStrings(
 						$list_reference,
 						NULL,
-						SetlocalTransformations( array( $list ), $prefix, $suffix ) );
+						SetLocalTransformations( array( $list ), $prefix, $suffix ) );
 				
 				//
 				// Has string separator token.
@@ -3940,7 +4060,7 @@ class SessionUpload
 								SetLanguageStrings(
 									$list_reference,
 									NULL,
-									SetlocalTransformations(
+									SetLocalTransformations(
 										array( $element ), $prefix, $suffix ) );
 							
 							//
@@ -3955,7 +4075,7 @@ class SessionUpload
 									SetLanguageStrings(
 										$list_reference,
 										NULL,
-										SetlocalTransformations(
+										SetLocalTransformations(
 											array( $element[ 0 ] ), $prefix, $suffix ) );
 								
 								//
@@ -3983,7 +4103,7 @@ class SessionUpload
 										SetLanguageStrings(
 											$list_reference,
 											$element[ 0 ],
-											SetlocalTransformations(
+											SetLocalTransformations(
 												array( $element[ 1 ] ),
 												$prefix,
 												$suffix ) );
@@ -4001,7 +4121,7 @@ class SessionUpload
 											SetLanguageStrings(
 												$list_reference,
 												$element[ 0 ],
-												SetlocalTransformations(
+												SetLocalTransformations(
 													$element[ 1 ],
 													$prefix,
 													$suffix ) );
@@ -4052,7 +4172,7 @@ class SessionUpload
 					SetLanguageStrings(
 						$theRecord[ $symbol ],
 						NULL,
-						SetlocalTransformations( array( $element ), $prefix, $suffix ) );
+						SetLocalTransformations( array( $element ), $prefix, $suffix ) );
 				
 				//
 				// Has language.
@@ -4097,7 +4217,7 @@ class SessionUpload
 							SetLanguageStrings(
 								$theRecord[ $symbol ],
 								$lang,
-								SetlocalTransformations(
+								SetLocalTransformations(
 									array( $text ), $prefix, $suffix ) );
 						
 						//
@@ -4112,7 +4232,7 @@ class SessionUpload
 								SetLanguageStrings(
 									$theRecord[ $symbol ],
 									$lang,
-									SetlocalTransformations( $text, $prefix, $suffix ) );
+									SetLocalTransformations( $text, $prefix, $suffix ) );
 						
 						} // Has strings list separator.
 					
@@ -4187,7 +4307,7 @@ class SessionUpload
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$count = strlen( $tokens );
 		
 		//
@@ -4279,7 +4399,7 @@ class SessionUpload
 						$list_reference,
 						kTAG_TEXT,
 						NULL,
-						SetlocalTransformations(
+						SetLocalTransformations(
 							$list, $prefix, $suffix ) );
 				
 				//
@@ -4305,7 +4425,7 @@ class SessionUpload
 									$list_reference,
 									kTAG_TEXT,
 									NULL,
-									SetlocalTransformations(
+									SetLocalTransformations(
 										$element, $prefix, $suffix ) );
 							
 							//
@@ -4321,7 +4441,7 @@ class SessionUpload
 										$list_reference,
 										kTAG_TEXT,
 										NULL,
-										SetlocalTransformations(
+										SetLocalTransformations(
 											$element[ 0 ], $prefix, $suffix ) );
 								
 								//
@@ -4332,7 +4452,7 @@ class SessionUpload
 										$list_reference,
 										kTAG_TEXT,
 										$element[ 0 ],
-										SetlocalTransformations(
+										SetLocalTransformations(
 											$element[ 1 ], $prefix, $suffix ) );
 								
 								//
@@ -4347,7 +4467,7 @@ class SessionUpload
 										$list_reference,
 										kTAG_TEXT,
 										$type,
-										SetlocalTransformations(
+										SetLocalTransformations(
 											$value, $prefix, $suffix ) );
 								
 								} // String is split.
@@ -4395,7 +4515,7 @@ class SessionUpload
 						$theRecord[ $symbol ],
 						kTAG_TEXT,
 						NULL,
-						SetlocalTransformations(
+						SetLocalTransformations(
 							$element, $prefix, $suffix ) );
 				
 				//
@@ -4428,7 +4548,7 @@ class SessionUpload
 								$theRecord[ $symbol ],
 								kTAG_TEXT,
 								NULL,
-								SetlocalTransformations(
+								SetLocalTransformations(
 									$element[ 0 ], $prefix, $suffix ) );
 						
 						//
@@ -4439,7 +4559,7 @@ class SessionUpload
 								$theRecord[ $symbol ],
 								kTAG_TEXT,
 								$element[ 0 ],
-								SetlocalTransformations(
+								SetLocalTransformations(
 									$element[ 1 ], $prefix, $suffix ) );
 					
 					} // Not empty.
@@ -4680,7 +4800,7 @@ class SessionUpload
 		$error = 0;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -4757,7 +4877,7 @@ class SessionUpload
 				//
 				// Check link.
 				//
-				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$element = SetLocalTransformations( $element, $prefix, $suffix );
 				$ok = CheckLinkValue( $element, $error_type, $error_message );
 				
 				//
@@ -4822,7 +4942,7 @@ class SessionUpload
 			// Check link.
 			//
 			$theRecord[ $symbol ]
-				= SetlocalTransformations( $theRecord[ $symbol ], $prefix, $suffix );
+				= SetLocalTransformations( $theRecord[ $symbol ], $prefix, $suffix );
 			$ok = CheckLinkValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
 			//
@@ -4899,7 +5019,7 @@ class SessionUpload
 		$error = FALSE;
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		
 		//
 		// Handle list.
@@ -4928,7 +5048,7 @@ class SessionUpload
 				//
 				// Check value.
 				//
-				$element = SetlocalTransformations( $element, $prefix, $suffix );
+				$element = SetLocalTransformations( $element, $prefix, $suffix );
 				$ok = CheckDateValue( $element, $error_type, $error_message );
 				
 				//
@@ -4993,7 +5113,7 @@ class SessionUpload
 			// Check value.
 			//
 			$theRecord[ $symbol ]
-				= SetlocalTransformations( $theRecord[ $symbol ], $prefix, $suffix );
+				= SetLocalTransformations( $theRecord[ $symbol ], $prefix, $suffix );
 			$ok = CheckDateValue( $theRecord[ $symbol ], $error_type, $error_message );
 			
 			//
@@ -5070,7 +5190,7 @@ class SessionUpload
 		$error = 0;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection
 			= Term::ResolveCollection(
 				Term::ResolveDatabase( $this->wrapper(), TRUE ),
@@ -5328,7 +5448,7 @@ class SessionUpload
 		$suffix = $theFieldNode->offsetGet( kTAG_SUFFIX );
 		$tokens = $theFieldNode->offsetGet( kTAG_TOKEN );
 		$count = strlen( $tokens );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection
 			= Term::ResolveCollection(
 				Term::ResolveDatabase( $this->wrapper(), TRUE ),
@@ -5685,7 +5805,7 @@ class SessionUpload
 		$prefix = $theFieldNode->offsetGet( kTAG_PREFIX );
 		$suffix = $theFieldNode->offsetGet( kTAG_SUFFIX );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection = $this->wrapper()->resolveCollection( $theCollection );
 		
 		//
@@ -5999,7 +6119,7 @@ class SessionUpload
 		$error = 0;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection = $this->wrapper()->resolveCollection( Session::kSEQ_NAME );
 		
 		//
@@ -6086,7 +6206,7 @@ class SessionUpload
 					$id
 						= $collection
 							->getObjectId(
-								SetlocalTransformations( $element, $prefix, $suffix ) );
+								SetLocalTransformations( $element, $prefix, $suffix ) );
 					
 					//
 					// Handle error.
@@ -6160,7 +6280,7 @@ class SessionUpload
 				$id
 					= $collection
 						->getObjectId(
-							SetlocalTransformations(
+							SetLocalTransformations(
 								$theRecord[ $symbol ], $prefix, $suffix ) );
 				
 				//
@@ -6249,7 +6369,7 @@ class SessionUpload
 		$error = 0;
 		$symbol = $theFieldNode->offsetGet( kTAG_ID_SYMBOL );
 		$kind = $theFieldTag->offsetGet( kTAG_DATA_KIND );
-		GetlocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
+		GetLocalTransformations( $theFieldNode, $collection, $prefix, $suffix );
 		$collection = $this->wrapper()->resolveCollection( Session::kSEQ_NAME );
 		
 		//
@@ -6330,7 +6450,7 @@ class SessionUpload
 					$time
 						= $collection
 							->getTimeStamp(
-								SetlocalTransformations( $element, $prefix, $suffix ) );
+								SetLocalTransformations( $element, $prefix, $suffix ) );
 					
 					//
 					// Handle errors.
@@ -6404,7 +6524,7 @@ class SessionUpload
 				$time
 					= $collection
 						->getTimeStamp(
-							SetlocalTransformations(
+							SetLocalTransformations(
 								$theRecord[ $symbol ], $prefix, $suffix ) );
 				
 				//

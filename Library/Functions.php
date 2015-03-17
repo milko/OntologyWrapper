@@ -2368,14 +2368,14 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 
 	 
 	/*===================================================================================
-	 *	GetlocalTransformations															*
+	 *	GetLocalTransformations															*
 	 *==================================================================================*/
 
 	/**
 	 * Retrieve local transformations
 	 *
 	 * This function expects a template node object and will return in the provided
-	 * reference parameters the eventualcollection name, prefix and suffix strings related
+	 * reference parameters the eventual collection name, prefix and suffix strings related
 	 * to the transformations of the node's current tag.
 	 *
 	 * @param OntologyWrapper\Node $theNode			Template node object.
@@ -2383,7 +2383,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 	 * @param string			   &$thePrefix			Receives prefix string.
 	 * @param string			   &$theSuffix			Receives suffix string.
 	 */
-	function GetlocalTransformations( OntologyWrapper\Node $theNode,
+	function GetLocalTransformations( OntologyWrapper\Node $theNode,
 														  &$theCollection,
 														  &$thePrefix,
 														  &$theSuffix )
@@ -2432,11 +2432,57 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		
 		} // Has transformations.
 
-	} // GetlocalTransformations.
+	} // GetLocalTransformations.
 
 	 
 	/*===================================================================================
-	 *	SetlocalTransformations															*
+	 *	GetExternalTransformations														*
+	 *==================================================================================*/
+
+	/**
+	 * Retrieve external transformations
+	 *
+	 * This function expects a template node object and will return the list of
+	 * transformations to be applied to external tags.
+	 *
+	 * @param OntologyWrapper\Node $theNode			Template node object.
+	 *
+	 * @return array				List of external transformations.
+	 */
+	function GetExternalTransformations( OntologyWrapper\Node $theNode )
+	{
+		//
+		// Init local storage.
+		//
+		$trans = Array();
+		
+		//
+		// Handle transformations.
+		//
+		if( $theNode->offsetExists( kTAG_TRANSFORM ) )
+		{
+			//
+			// Iterate transformation records.
+			//
+			foreach( $theNode->offsetGet( kTAG_TRANSFORM ) as $record )
+			{
+				//
+				// Select the one with tag reference.
+				//
+				if( array_key_exists( kTAG_TAG, $record ) )
+					$trans[] = $record;
+			
+			} // Iterating transformations.
+		
+		} // Has transformations.
+		
+		return $trans;																// ==>
+
+	} // GetExternalTransformations.
+
+	 
+	/*===================================================================================
+	 *	SetLocalTransformations															*
 	 *==================================================================================*/
 
 	/**
@@ -2457,7 +2503,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 	 *
 	 * @return mixed				Transformed container.
 	 */
-	function SetlocalTransformations( $theContainer, $thePrefix, $theSuffix )
+	function SetLocalTransformations( $theContainer, $thePrefix, $theSuffix )
 	{
 		//
 		// Handle array.
@@ -2466,7 +2512,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		{
 			foreach( array_keys( $theContainer ) as $key )
 				$theContainer[ $key ]
-					= SetlocalTransformations(
+					= SetLocalTransformations(
 						$theContainer[ $key ], $thePrefix, $theSuffix );
 		}
 		
@@ -2504,7 +2550,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		
 		return $theContainer;														// ==>
 
-	} // SetlocalTransformations.
+	} // SetLocalTransformations.
 
 
 ?>

@@ -1920,11 +1920,13 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * If any error occurs, the method will raise an exception.
 	 *
+	 * @param boolean				$doPrepare			<tt>TRUE</tt> Prepare object.
+	 * @param boolean				$doIdentifier		<tt>TRUE</tt> compute native Id.
 	 * @param boolean				$doText				<tt>TRUE</tt> load full text tags.
 	 *
 	 * @access public
 	 */
-	public function validate( $doText = FALSE )
+	public function validate( $doPrepare = FALSE, $doIdentifier = FALSE, $doText = FALSE )
 	{
 		//
 		// Init local storage.
@@ -1932,9 +1934,21 @@ abstract class PersistentObject extends OntologyObject
 		$tags = $refs = Array();
 		
 		//
+		// Prepare.
+		//
+		if( $doPrepare )
+			$this->preCommitPrepare( $tags, $refs );
+		
+		//
 		// Validate.
 		//
 		$this->parseObject( $tags, $refs, TRUE, $doText );
+	
+		//
+		// Compute object identifiers.
+		//
+		if( $doIdentifier )
+			$this->preCommitObjectIdentifiers();
 	
 	} // validate.
 
