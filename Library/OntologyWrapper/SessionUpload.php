@@ -17,7 +17,7 @@ use OntologyWrapper\Session;
  *======================================================================================*/
 
 /**
- * Domains.
+ * Excel parser.
  *
  * This file contains the default Excel library definitions.
  */
@@ -1965,6 +1965,11 @@ class SessionUpload
 		foreach( $rs as $unit_record )
 		{
 			//
+			// Init schema.
+			//
+			$schema = array( $theUnitWorksheet => Array() );
+			
+			//
 			// Instantiate object.
 			//
 			$object = new $class( $this->wrapper() );
@@ -1975,38 +1980,81 @@ class SessionUpload
 			foreach( $unit_record as $key => $value )
 			{
 				//
-				// Skip identifier.
+				// Handle row number.
 				//
-				if( $key != kTAG_NID )
+				if( $key == kTAG_NID )
+					$schema[ $theUnitWorksheet ][ 'row' ] = $value;
+				
+				//
+				// Handle row data.
+				//
+				else
 				{
+					//
+					// Init local storage.
+					//
 					$fdata = $fields[ $theUnitWorksheet ][ $key ];
-					$this->setObjectProperty(
-								$object,
-								$this->mParser->getNode( $fdata[ 'node' ] ),
-								$key,
-								$value );
-				}
-			}
+					$node = $this->mParser->getNode( $fdata[ 'node' ] );
+				
+					//
+					// Handle row index.
+					// Should only have one.
+					//
+					if( ! $node->offsetExists( kTAG_TAG ) )
+						$schema[ $theUnitWorksheet ][ 'index' ] = $value;
+				
+					//
+					// Handle tag value.
+					//
+					else
+						$this->setObjectProperty( $object, $node, $key, $value );
+				
+				} // Row data.
+			
+			} // Iterating record fields.
+		
+			//
+			// Iterate other worksheets.
+			//
+			foreach( $worksheets_list as $worksheet )
+			{
+				//
+				// Init structure.
+				//
+				$wnode = $this->mParser->getNode( $worksheets[ $worksheet ][ 'node' ] );
+				if( $wnode->offsetExists( kTAG_TAG ) )
+				{
+					//
+					// Get structure tag.
+					//
+					$stag = $this->mParser->getTag( $wnode->offsetGet( kTAG_TAG ) );
+					$property = Array();
+					$ref = & $property;
+			
+				} // Has structure tag.
+			
+				//
+				// Reference object.
+				//
+				else
+					$ref = & $object;
+			
+				//
+				// Select key 
+		
+			} // Iterating other worksheets.
+		
+			//
+			// Validate object.
+			//
+			$object->validate( TRUE, TRUE, FALSE );
+		
+			//
+			// Set progress.
+			//
+			$this->transaction()->processed( 1, $theRecords );
 		
 		} // Iterating unit worksheet records.
-		
-		//
-		// Iterate other worksheets.
-		//
-		foreach( $worksheets_list as $worksheet )
-		{
-		
-		} // Iterating other worksheets.
-		
-		//
-		// Validate object.
-		//
-		$object->validate( TRUE, TRUE, FALSE );
-		
-		//
-		// Set progress.
-		//
-		$this->transaction()->processed( 1, $theRecords );
 		
 		return TRUE;																// ==>
 
@@ -6537,7 +6585,7 @@ class SessionUpload
 	 *
 	 * This method will set the provided property in the provided object.
 	 *
-	 * @param PersistentObject		$theObject			Receiving object.
+	 * @param mixed				   &$theObject			Receiving object or array.
 	 * @param Node					$theNode			Node identifier.
 	 * @param string				$theKey				Property key.
 	 * @param string				$theValue			Property value.
@@ -6545,23 +6593,8 @@ class SessionUpload
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> set, <tt>FALSE</tt> skipped.
 	 */
-	protected function setObjectProperty( PersistentObject $theObject,
-										  Node			   $theNode,
-														   $theKey,
-														   $theValue )
+	protected function setObjectProperty( &$theObject, $theNode, $theKey, $theValue )
 	{
-		//
-		// Skip row number.
-		//
-		if( $theKey == kTAG_NID )
-			return FALSE;															// ==>
-		
-		//
-		// Skip tagless properties.
-		//
-		if( ! $theNode->offsetExists( kTAG_TAG ) )
-			return FALSE;															// ==>
-		
 		//
 		// Get tag.
 		//
@@ -6594,7 +6627,7 @@ class SessionUpload
 		//
 		// Set property.
 		//
-		$theObject->offsetSet( $offset, $theValue );
+		$theObject[ $offset ] = $theValue;
 		
 		//
 		// Apply transformations.
@@ -6634,7 +6667,7 @@ class SessionUpload
 					if( $collection->matchOne( array( kTAG_NID => $combination ),
 											   kQUERY_COUNT ) )
 					{
-						$theObject->offsetSet( $offset, $combination );
+						$theObject[ $offset ] = $combination;
 						break;												// =>
 					}
 				
@@ -6665,13 +6698,11 @@ class SessionUpload
 				//
 				// Set property.
 				//
-				$theObject->offsetSet( $offset, $val );
+				$theObject[ $offset ] = $val;
 			
 			} // Not a reference.
 			
 		} // Iterating transformations.
-		
-		return TRUE;																// ==>
 
 	} // setObjectProperty.
 
