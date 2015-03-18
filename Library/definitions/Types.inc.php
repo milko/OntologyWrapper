@@ -611,6 +611,13 @@ define( "kTYPE_TRANS_TMPL_CLEAN",				':type:transaction:180' );
  */
 define( "kTYPE_TRANS_TMPL_CLOSE",				':type:transaction:190' );
 
+/**
+ * Load worksheet data.
+ *
+ * Copy worksheet data in the working database.
+ */
+define( "kTYPE_TRANS_TMPL_LOAD_DATA",			':type:transaction:1A0' );
+
 /*=======================================================================================
  *	TEMPLATE LOAD TRANSACTIONS															*
  *======================================================================================*/

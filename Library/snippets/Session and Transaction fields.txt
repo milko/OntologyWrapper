@@ -46,3 +46,26 @@ TRANSACTION
 	kTAG_TAG
 	kTAG_TRANSACTION_STATUS		Error, Warning, Notice, Action.
 	kTAG_TRANSACTION_MESSAGE
+
+
+100 kTYPE_TRANS_TMPL_PREPARE				Delete pending sessions
+120 kTYPE_TRANS_TMPL_LOAD					Load template file and definitions
+121		kTYPE_TRANS_TMPL_LOAD_FILE			Check template file
+122		kTYPE_TRANS_TMPL_LOAD_TYPE			Check template file type
+123		kTYPE_TRANS_TMPL_LOAD_DDICT			Load template parser
+124		kTYPE_TRANS_TMPL_LOAD_ITEMS			Load template definitions
+110 kTYPE_TRANS_TMPL_STORE					Save template file
+130 kTYPE_TRANS_TMPL_STRUCT					Check template structure
+131		kTYPE_TRANS_TMPL_STRUCT_WORKSHEETS	Check required worksheets
+132		kTYPE_TRANS_TMPL_STRUCT_COLUMNS		Check required worksheet columns
+140 kTYPE_TRANS_TMPL_SETUP					Setup database resources
+1A0	kTYPE_TRANS_TMPL_LOAD_DATA				Load worksheet data
+160 kTYPE_TRANS_TMPL_RELATIONSHIPS			Check worksheet relationships
+161		kTYPE_TRANS_TMPL_RELATIONSHIPS_ROW	Check worksheet row relationship
+150 kTYPE_TRANS_TMPL_WORKSHEET				Validate worksheet data
+151		kTYPE_TRANS_TMPL_WORKSHEET_ROW		Validate worksheet row data
+170 kTYPE_TRANS_TMPL_OBJECTS				Compile objects
+171		kTYPE_TRANS_TMPL_DUPLICATES_ROW		Check existing objects
+172		kTYPE_TRANS_TMPL_BAD_OBJECT_ROW		Validate object
+180 kTYPE_TRANS_TMPL_CLEAN					Cleanup resources
+190 kTYPE_TRANS_TMPL_CLOSE					Close session

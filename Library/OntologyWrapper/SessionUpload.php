@@ -156,6 +156,15 @@ class SessionUpload
 	public function __destruct()
 	{
 		//
+		// Close open session.
+		//
+		if( $this->session()->offsetGet( kTAG_SESSION_STATUS ) == kTYPE_STATUS_EXECUTING )
+		{
+			$this->session()->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_EXCEPTION );
+			$this->session()->offsetSet( kTAG_SESSION_END, TRUE );
+		}
+		
+		//
 		// Delete template file.
 		//
 		$file = $this->file();

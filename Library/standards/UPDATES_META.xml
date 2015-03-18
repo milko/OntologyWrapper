@@ -3,8 +3,228 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- kTYPE_TRANS_TMPL_OBJECTS -->
 	<META>
+		<!-- kTYPE_TRANS_TMPL_PREPARE -->
+		<TERM set=":type:transaction:100">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Delete pending sessions</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remove any previous upload session that was not finalised by an update.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_TMPL_STORE -->
+		<TERM set=":type:transaction:110">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Save template file</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_TMPL_LOAD -->
+		<TERM set=":type:transaction:120">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Load template file and definitions</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Check template file type, load parser and definitions.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<!-- kTYPE_TRANS_TMPL_LOAD_FILE -->
+		<TERM set=":type:transaction:121">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Check template file</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Verify if is a file and it is readable.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<!-- kTYPE_TRANS_TMPL_LOAD_TYPE -->
+		<TERM set=":type:transaction:122">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Check template file type</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Verify if the file type is compatible with the supported templates.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<!-- kTYPE_TRANS_TMPL_LOAD_DDICT -->
+		<TERM set=":type:transaction:123">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Load template parser</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Load the template parser and verify if the template is supported.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<!-- kTYPE_TRANS_TMPL_LOAD_ITEMS -->
+		<TERM set=":type:transaction:124">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Load template definitions</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Load the template definitions stored in the data dictionary.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_TMPL_STRUCT -->
+		<TERM set=":type:transaction:130">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Check template structure</item>
+				</item>
+			</item>
+		</TERM>
+		<!-- kTYPE_TRANS_TMPL_STRUCT_WORKSHEETS -->
+		<TERM set=":type:transaction:131">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Check required worksheets</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Identify required worksheets and check whether they were included in the template.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<!-- kTYPE_TRANS_TMPL_STRUCT_COLUMNS -->
+		<TERM set=":type:transaction:132">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Check required worksheet columns</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Identify required columns and check whether these were included in the template worksheet.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_TMPL_SETUP -->
+		<TERM set=":type:transaction:140">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Setup database resources</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Create working data repositories.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_TMPL_RELATIONSHIPS -->
+		<TERM set=":type:transaction:160">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Check worksheet relationships</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Verify that all worksheets are correctly related.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<!-- kTYPE_TRANS_TMPL_RELATIONSHIPS_ROW -->
+		<TERM set=":type:transaction:161">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Check worksheet row relationship</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Verify that the current worksheet row references an existing row in the related worksheet.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_TMPL_WORKSHEET -->
+		<TERM set=":type:transaction:150">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Validate worksheet data</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Validate all worksheet fields.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<!-- kTYPE_TRANS_TMPL_WORKSHEET_ROW -->
+		<TERM set=":type:transaction:151">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Validate worksheet row data</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Validate the worksheet row fields.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_TMPL_OBJECTS -->
 		<TERM set=":type:transaction:170">
 			<item const="kTAG_LABEL">
 				<item>
@@ -15,36 +235,102 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Compile worksheet data and generate objects.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Select all worksheet rows pertaining to a single unit and create the combined object.]]></item>
 				</item>
 			</item>
 		</TERM>
-	</META>
-	
-	<!-- kTYPE_TRANS_TMPL_BAD_OBJECT_ROW -->
-	<META>
-		<TERM ns=":type:transaction" lid="172">
+		<!-- kTYPE_TRANS_TMPL_DUPLICATES_ROW -->
+		<TERM set=":type:transaction:171">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Unexpected error</item>
+					<item const="kTAG_TEXT">Check existing objects</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An error occurred while compiling the object from worksheet data, the error was not previously identified.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Signal which objects will be replaced, rather than inserted, in the database.]]></item>
 				</item>
 			</item>
 		</TERM>
-		<NODE>
+		<!-- kTYPE_TRANS_TMPL_BAD_OBJECT_ROW -->
+		<TERM set=":type:transaction:172">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Validate object</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Perform final object validation to cover eventual errors not catched in the previous steps.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_TMPL_CLEAN -->
+		<TERM set=":type:transaction:180">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Cleanup resources</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Release any temporary resources used for the data validation and compilation.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_TMPL_CLOSE -->
+		<TERM set=":type:transaction:190">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Close session</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Close running session and terminate the procedure.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- kTYPE_TRANS_TMPL_LOAD_DATA -->
+	<META>
+		<TERM ns=":type:transaction" lid="1A0">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Load worksheets data</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Transfer the template worksheet data to the database.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE pid="enum::type:transaction:1A0">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction:170</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:session:100</item>
 		</EDGE>
 	</META>
 </METADATA>
