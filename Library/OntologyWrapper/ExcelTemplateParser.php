@@ -304,6 +304,15 @@ class ExcelTemplateParser
 	
 	} // loadStructure.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC VALIDATION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
 	 
 	/*===================================================================================
 	 *	checkRequiredWorksheets															*
@@ -479,6 +488,53 @@ class ExcelTemplateParser
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC TEMPLATE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getRoot																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get root node
+	 *
+	 * This method will return the root node object.
+	 *
+	 * @access public
+	 * @return Node					Root node object.
+	 */
+	public function getRoot()						{	return $this->mTemplate->getRoot();	}
+
+	
+	/*===================================================================================
+	 *	getCellValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get cell data
+	 *
+	 * This method will return the cell data corresponding to the provided coordinates.
+	 *
+	 * @param mixed					$theWorksheet		Worksheet name.
+	 * @param int					$theRow				Row number.
+	 * @param mixed					$theCols			Column name, index or range.
+	 *
+	 * @access public
+	 * @return mixed				Cell value.
+	 */
+	public function getCellValue( $theWorksheet, $theRow, $theCols = NULL )
+	{
+		return $this->mFile->getCols( $theWorksheet, $theRow, $theCols );			// ==>
+	
+	} // getCellValue.
+
+	
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC PARSING INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -534,27 +590,88 @@ class ExcelTemplateParser
 		//
 		// Check worksheets.
 		//
-		if( count( $this->mWorksheets ) )
-		{
-			//
-			// Intersect unit worksheets and index references.
-			//
-			$unit = array_intersect(
-						$this->mTemplate->getUnitWorksheets(),
-						array_keys( $this->mTemplate->getWorksheetIndexReferences() ) );
-			
-			//
-			// Get first.
-			//
-			$unit = array_shift( $unit );
-			if( $unit !== NULL )
-				return $this->mTemplate->matchNodeSymbol( $unit );					// ==>
-		
-		} // Has worksheets.
+		$worksheets = $this->mTemplate->getUnitWorksheets();
+		if( count( $worksheets ) )
+			return $this->mTemplate->matchNodeSymbol( $worksheets[ 0 ] );			// ==>
 		
 		return NULL;																// ==>
 	
 	} // getUnitWorksheet.
+
+	 
+	/*===================================================================================
+	 *	getFieldWorksheet																*
+	 *==================================================================================*/
+
+	/**
+	 * Get field worksheet node
+	 *
+	 * This method will return the worksheet node identifier of the provided field node
+	 * identifier.
+	 *
+	 * @param int					$theNode			Field node reference or object.
+	 *
+	 * @access public
+	 * @return int					Worksheet node identifier.
+	 */
+	public function getFieldWorksheet( $theNode )
+	{
+		return $this->mTemplate->matchFieldWorksheet( $theNode );					// ==>
+	
+	} // getFieldWorksheet.
+
+	 
+	/*===================================================================================
+	 *	getWorksheetIndexes																*
+	 *==================================================================================*/
+
+	/**
+	 * Get worksheet indexes
+	 *
+	 * This method will return the list of worksheet field indexes as an array structured
+	 * as follows:
+	 *
+	 * <ul>
+	 *	<li><em>index</em>: The worksheet node identifier.
+	 *	<li><em>value</em>: The the index field node identifier.
+	 * </ul>
+	 *
+	 * @access public
+	 * @return string				The worksheet indexes.
+	 */
+	public function getWorksheetIndexes()
+	{
+		return $this->mTemplate->getWorksheetIndexes();								// ==>
+	
+	} // getWorksheetIndexes.
+
+	 
+	/*===================================================================================
+	 *	getWorksheetRelationships														*
+	 *==================================================================================*/
+
+	/**
+	 * Get worksheet relationships
+	 *
+	 * This method will return an array containing the list of fields referencing a
+	 * template, the array is structured as follows:
+	 *
+	 * <ul>
+	 *	<li><em>index</em>: The worksheet node identifier.
+	 *	<li><em>value</em>: The list of field node identifiers that reference the worksheet
+	 *		of the array index.
+	 * </ul>
+	 *
+	 * It is assumed that the {@link loadStructure()} method has been called beforehand.
+	 *
+	 * @access public
+	 * @return array				The worksheet relationships list.
+	 */
+	public function getWorksheetRelationships()
+	{
+		return $this->mTemplate->getWorksheetIndexReferences();						// ==>
+	
+	} // getWorksheetRelationships.
 
 	 
 	/*===================================================================================
@@ -612,52 +729,61 @@ class ExcelTemplateParser
 	 */
 	public function getRequiredFields()					{	return $this->mRequiredFields;	}
 
-	
+		
 
 /*=======================================================================================
  *																						*
- *								PUBLIC TEMPLATE INTERFACE								*
+ *							PUBLIC STRUCTURE ACCESSOR INTERFACE							*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	getRoot																			*
+	 *	matchSymbolNodes																*
 	 *==================================================================================*/
 
 	/**
-	 * Get root node
+	 * Get symbol nodes
 	 *
-	 * This method will return the root node object.
+	 * This method will return the list of nodes associated with the provided symbol as an
+	 * array, if the symbol is not matched, the method will return an empty array.
 	 *
-	 * @access public
-	 * @return Node					Root node object.
-	 */
-	public function getRoot()						{	return $this->mTemplate->getRoot();	}
-
-	
-	/*===================================================================================
-	 *	getCellValue																	*
-	 *==================================================================================*/
-
-	/**
-	 * Get cell data
-	 *
-	 * This method will return the cell data corresponding to the provided coordinates.
-	 *
-	 * @param mixed					$theWorksheet		Worksheet name.
-	 * @param int					$theRow				Row number.
-	 * @param mixed					$theCols			Column name, index or range.
+	 * @param string				$theSymbol			Symbol.
 	 *
 	 * @access public
-	 * @return mixed				Cell value.
+	 * @return array				Symbol nodes.
 	 */
-	public function getCellValue( $theWorksheet, $theRow, $theCols = NULL )
+	public function matchSymbolNodes( $theSymbol )
 	{
-		return $this->mFile->getCols( $theWorksheet, $theRow, $theCols );			// ==>
+		return $this->mTemplate->matchSymbolNodes( $theSymbol );					// ==>
 	
-	} // getCellValue.
+	} // matchSymbolNodes.
+
+	 
+	/*===================================================================================
+	 *	matchNodeSymbol																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get node symbol
+	 *
+	 * This method will return the symbol associated with the provided node, if the node is
+	 * not matched, the method will return <tt>NULL</tt>.
+	 *
+	 * This mmethod can also be used to extract the symbol from the provided node object,
+	 * in this case the local array member will not be checked.
+	 *
+	 * @param int					$theNode			Node reference or object.
+	 *
+	 * @access public
+	 * @return string				Node symbol.
+	 */
+	public function matchNodeSymbol( $theNode )
+	{
+		return $this->mTemplate->matchNodeSymbol( $theNode );						// ==>
+	
+	} // matchNodeSymbol.
 
 	
 

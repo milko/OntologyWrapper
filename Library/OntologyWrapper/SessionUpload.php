@@ -79,6 +79,15 @@ class SessionUpload
 	protected $mParser = NULL;
 
 	/**
+	 * Template worksheets iterator.
+	 *
+	 * This data member holds the template worksheets iterator.
+	 *
+	 * @var TemplateWorksheetsIterator
+	 */
+	protected $mIterator = NULL;
+
+	/**
 	 * Working collections.
 	 *
 	 * This data member holds the list of working collections as an array indexed by
@@ -1369,6 +1378,11 @@ class SessionUpload
 		//
 		if( ! $this->mParser->loadStructure( $transaction ) )
 			return $this->failTransaction();										// ==>
+		
+		//
+		// Instantiate iterator.
+		//
+		$this->mIterator = new TemplateWorksheetsIterator( $this->mParser );
 	
 		//
 		// Close transaction.

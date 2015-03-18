@@ -1,9 +1,9 @@
 <?php
 
 /**
- * TemplateIterator.php
+ * TemplateWorksheetsIterator.php
  *
- * This file contains the definition of the {@link TemplateIterator} class.
+ * This file contains the definition of the {@link TemplateWorksheetsIterator} class.
  */
 
 namespace OntologyWrapper;
@@ -12,14 +12,14 @@ use OntologyWrapper\ExcelTemplateParser;
 
 /*=======================================================================================
  *																						*
- *									TemplateIterator.php								*
+ *							TemplateWorksheetsIterator.php								*
  *																						*
  *======================================================================================*/
 
 /**
  * Worksheet iterator
  *
- * This class represents an iterator that can traverse a template structure.
+ * This class represents an iterator that can iterate a template set of worksheets.
  *
  * Data templates are represented by a collection of interconnected tables or worksheets,
  * each structured as a flat table and related to other tables or worksheets through a
@@ -68,8 +68,8 @@ use OntologyWrapper\ExcelTemplateParser;
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 17/03/2015
  */
-class TemplateIterator implements \Iterator,
-								  \Countable
+class TemplateWorksheetsIterator implements \Iterator,
+											\Countable
 {
 	/**
 	 * Parser.
@@ -245,20 +245,43 @@ class TemplateIterator implements \Iterator,
 		{
 			$key = $this->key();
 			if( $key !== NULL )
-			{
-				$current = array( 'W' => $this->mList[ $key ][ 'W' ],
-								  'F' => $this->mList[ $key ][ 'W' ] );
-				$container = current( $this->mCursor[ count( $this->mCursor ) - 1 ] );
-				if( array_key_exists( 'P', $container ) )
-					$current[ 'P' ] = $container[ 'P' ];
-				
-				return $current;													// ==>
-			}
+				return array( 'W' => $this->mList[ $key ][ 'W' ],
+							  'F' => $this->mList[ $key ][ 'F' ] );					// ==>
 		}
 		
 		return NULL;																// ==>
 	
 	} // current.
+
+	 
+	/*===================================================================================
+	 *	parent																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return the current element value.
+	 *
+	 * @access public
+	 * @return array				<tt>W</tt> Worksheet, <tt>F</tt> Field.
+	 */
+	public function parent()
+	{
+		if( is_array( $this->mCursor ) )
+		{
+			$key = $this->key();
+			if( $key !== NULL )
+			{
+				$container = current( $this->mCursor[ count( $this->mCursor ) - 1 ] );
+				if( array_key_exists( 'P', $container ) )
+					return array(
+							'W' => $this->mList[ $container[ 'P' ] ][ 'W' ],
+							'F' => $this->mList[ $container[ 'P' ] ][ 'F' ] );		// ==>
+			}
+		}
+		
+		return NULL;																// ==>
+	
+	} // parent.
 
 	 
 	/*===================================================================================
@@ -393,7 +416,7 @@ class TemplateIterator implements \Iterator,
 
 /*=======================================================================================
  *																						*
- *									PROTECTED INTERFACE									*
+ *							PROTECTED INITIALISATION INTERFACE							*
  *																						*
  *======================================================================================*/
 
@@ -412,33 +435,158 @@ class TemplateIterator implements \Iterator,
 	 */
 	protected function loadStructure()
 	{
-		$this->mList[ 0 ] = array( 'W' => 'MAIN', 'F' => 'Field' );
-		$this->mStruct[ 'N' ] = 0;
-		$this->mStruct[ 'C' ] = Array();
-		$ref = & $this->mStruct[ 'C' ];
+		//
+		// Init local storage.
+		//
+		$this->mList = $this->mStruct = Array();
+		$indexes = $this->mParser->getWorksheetIndexes();
 		
-		$this->mList[ 1 ] = array( 'W' => 'SECOND', 'F' => 'Field' );
-		$index = count( $ref );
-		$ref[ $index ] = array( 'N' => 1, 'P' => 0 );
+		//
+		// Get field node identifiers.
+		//
+		$relationships = Array();
+		foreach( $this->mParser->getWorksheetRelationships() as $worksheet => $fields )
+		{
+			//
+			// Set list element.
+			//
+			$this->mList[ $indexes[ $worksheet ] ]
+				= array( 'W' => $this->mParser->matchNodeSymbol( $worksheet ),
+						 'F' => $this->mParser->matchNodeSymbol( $indexes[ $worksheet ] ) );
+			
+			//
+			// Set worksheet relationships.
+			//
+			$relationships[ $indexes[ $worksheet ] ] = Array();
+			foreach( $fields as $field )
+			{
+				//
+				// Set list element.
+				//
+				$this->mList[ $field ]
+					= array( 'W' => $this->mParser
+										->matchNodeSymbol(
+											$this->mParser->getFieldWorksheet( $field ) ),
+							 'F' => $this->mParser
+							 			->matchNodeSymbol(
+							 				$field ) );
+				
+				//
+				// Set Worksheet relationship.
+				//
+				$relationships[ $indexes[ $worksheet ] ][ $field ] = $field;
+			}
+		}
 		
-		$this->mList[ 2 ] = array( 'W' => 'THIRD', 'F' => 'Field' );
-		$index = count( $ref );
-		$ref[ $index ] = array( 'N' => 2, 'P' => 0, 'C' => Array() );
-		$ref = & $ref[ $index ][ 'C' ];
+		//
+		// Build structure.
+		//
+		$wkeys = array_keys( $relationships );
+		foreach( $wkeys as $wkey )
+		{
+			if( array_key_exists( $wkey, $relationships ) )
+			{
+				$fkeys = array_keys( $relationships[ $wkey ] );
+				foreach( $fkeys as $fkey )
+				{
+					if( array_key_exists( $fkey, $relationships ) )
+					{
+						$relationships[ $wkey ][ $fkey ] = $relationships[ $fkey ];
+						unset( $relationships[ $fkey ] );
+					}
+				}
+			}
+		}
 		
-		$this->mList[ 3 ] = array( 'W' => 'FOURTH', 'F' => 'Field' );
-		$index = count( $ref );
-		$ref[ $index ] = array( 'N' => 3, 'P' => 1 );
-		
-		$this->mList[ 4 ] = array( 'W' => 'FIFTH', 'F' => 'Field' );
-		$index = count( $ref );
-		$ref[ $index ] = array( 'N' => 4, 'P' => 1 );
+		//
+		// Load structure.
+		//
+		reset( $relationships );
+		foreach( $relationships as $worksheet => $fields )
+			$this->loadWorksheetRelationship( $this->mStruct, $worksheet, $fields );
 	
 	} // loadStructure.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *									PROTECTED UTILITIES									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	loadWorksheetRelationship														*
+	 *==================================================================================*/
+
+	/**
+	 * Load worksheet relationship
+	 *
+	 * This method will add to the provided container the provided worksheet, fields and
+	 * parent.
+	 *
+	 * @param array				   &$theContainer		Structure container.
+	 * @param int					$theWorksheet		Worksheet node identifier.
+	 * @param array					$theFields			Related fields.
+	 * @param int					$theParent			Parent field node identifier.
+	 *
+	 * @access protected
+	 */
+	protected function loadWorksheetRelationship( &$theContainer,
+												   $theWorksheet,
+												   $theFields,
+												   $theParent = NULL )
+	{
+		//
+		// Set worksheet reference.
+		//
+		$theContainer[ 'N' ] = $theWorksheet;
+		if( $theParent !== NULL )
+			$theContainer[ 'P' ] = $theParent;
+		
+		//
+		// Handle related fields.
+		//
+		if( is_array( $theFields ) )
+		{
+			//
+			// Allocate related fields container.
+			//
+			if( ! array_key_exists( 'C', $theContainer ) )
+				$theContainer[ 'C' ] = Array();
+			
+			//
+			// Iterate related fields.
+			//
+			$reference = & $theContainer[ 'C' ];
+			foreach( $theFields as $field => $children )
+			{
+				//
+				// Allocate related field container.
+				//
+				$index = count( $reference );
+				$reference[ $index ] = Array();
+				
+				//
+				// Recurse.
+				//
+				$this->loadWorksheetRelationship(
+					$reference[ $index ],
+					$field,
+					$children,
+					$theContainer[ 'N' ] );
+			
+			} // Iterating related fields.
+		
+		} // Has related fields.
+	
+	} // loadWorksheetRelationship.
+
 	 
 
-} // class TemplateIterator.
+} // class TemplateWorksheetsIterator.
 
 
 ?>

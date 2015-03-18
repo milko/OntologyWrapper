@@ -225,7 +225,8 @@ class TemplateStructure extends CachedStructure
 	/**
 	 * Get unit worksheets
 	 *
-	 * This method will return the unit worksheets.
+	 * This method will return the unit worksheets; although the result is an array, it is
+	 * assumed that there should be only one worksheet of this kind.
 	 *
 	 * @access public
 	 * @return array				Unit worksheets.
@@ -394,7 +395,44 @@ class TemplateStructure extends CachedStructure
 		
 		return NULL;																// ==>
 	
-	} // matchSymbolNodes.
+	} // matchNodeSymbol.
+
+	 
+	/*===================================================================================
+	 *	matchFieldWorksheet																*
+	 *==================================================================================*/
+
+	/**
+	 * Get field worksheet node
+	 *
+	 * This method will return the worksheet node identifier of the provided field node
+	 * identifier.
+	 *
+	 * @param int					$theNode			Field node reference or object.
+	 *
+	 * @access public
+	 * @return int					Worksheet node identifier.
+	 */
+	public function matchFieldWorksheet( $theNode )
+	{
+		//
+		// Normalise node.
+		//
+		if( $theNode instanceof Node )
+			$theNode = $theNode->offsetGet( kTAG_NID );
+		
+		//
+		// Locate worksheet.
+		//
+		foreach( $this->getWorksheets() as $worksheet => $fields )
+		{
+			if( in_array( $theNode, $fields ) )
+				return $worksheet;													// ==>
+		}
+		
+		return NULL;																// ==>
+	
+	} // matchFieldWorksheet.
 
 		
 
