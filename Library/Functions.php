@@ -2554,23 +2554,23 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 
 	 
 	/*===================================================================================
-	 *	UpdateTransactionProcessed														*
+	 *	UpdateProcessedCount															*
 	 *==================================================================================*/
 
 	/**
-	 * Update transaction processed count
+	 * Update session or transaction processed count
 	 *
-	 * This function can be used to update the processed count of the provided transaction,
-	 * it will check whether the delay interval is longer than the
-	 * {@link kSTANDARDS_PROGRESS_TIME} value and if the provided increment is greater than
-	 * zero, in that case the function will update the transaction.
+	 * This function can be used to update the processed count of the provided
+	 * {@link SessionObject} instance, it will check whether the delay interval is longer
+	 * than the {@link kSTANDARDS_PROGRESS_TIME} value and if the provided increment is
+	 * greater than zero, in that case the function will update the object.
 	 *
 	 * The function expects the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theTimestamp</b>: This parameter will hold the start time stamp.
 	 *	<li><b>$theIncrement</b>: This parameter will hold the increment.
-	 *	<li><b>$theTransaction</b>: This parameter holds the transaction object.
+	 *	<li><b>$theObject</b>: This parameter holds the object.
 	 *	<li><b>$theTotal</b>: This parameter holds the total count, will be used for the
 	 *		progress.
 	 * </ul>
@@ -2581,44 +2581,64 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 	 *	<li>Call the function with the two first parameters, it is not important what value
 	 *		they hold, the function will initialise them.
 	 *	<li>As you perform operations, step increment the counter outside of this function.
-	 *	<li>When you reach the point in which you intend to update the transaction, call
-	 *		this function with the timestamp, increment and transaction, if you know the
+	 *	<li>When you reach the point in which you intend to update the object, call
+	 *		this function with the timestamp, increment and object, if you know the
 	 *		total number of processed items pass it in the last parameter, this will ensure
-	 *		that the progress will automatically be updated in the transaction.
+	 *		that the progress will automatically be updated in the object.
 	 *	<li>Remember to call this function a last time out of the process loop, this will
 	 *		ensure that the processed count be correct.
 	 * </ul>
 	 *
+	 * If the counter was updated, the method will return <tt>TRUE</tt>; if you provide an
+	 * object that is not derived from {@link SessionObject} the function will do nothing
+	 * and return <tt>FALSE</tt>; if the function did not update the counter, the method
+	 * will return <tt>NULL</tt>.
+	 *
 	 * @param float				   &$theTimestamp		Start timestamp.
 	 * @param int				   &$theIncrement		Number of processed items.
-	 * @param Transaction			$theTransaction		Transaction object.
+	 * @param Transaction			$theObject			Session or transaction object.
 	 * @param int					$theTotal			Total number of items to process.
+	 *
+	 * @return mixed				<tt>TRUE</tt>, <tt>FALSE</tt> or <tt>NULL</tt>.
 	 */
-	function UpdateTransactionProcessed( &$theTimestamp, &$theIncrement,
-										  $theTransaction = NULL,
-										  $theTotal = NULL )
+	function UpdateProcessedCount( &$theTimestamp, &$theIncrement,
+									$theObject = NULL,
+									$theTotal = NULL )
 	{
 		//
-		// Initialise counters.
+		// Check object.
 		//
-		if( $theTransaction === NULL )
+		if( $theObject instanceof OntologyWrapper\SessionObject )
 		{
-			$theTimestamp = microtime( TRUE );
-			$theIncrement = 0;
-		}
+			//
+			// Initialise counters.
+			//
+			if( $theObject === NULL )
+			{
+				$theTimestamp = microtime( TRUE );
+				$theIncrement = 0;
+				
+				return NULL;														// ==>
+			}
 		
-		//
-		// Update transaction.
-		//
-		elseif( ((microtime( TRUE ) - $theTimestamp) > kSTANDARDS_PROGRESS_TIME)
+			//
+			// Update object.
+			//
+			if( ((microtime( TRUE ) - $theTimestamp) > kSTANDARDS_PROGRESS_TIME)
 			 && ($theIncrement > 0) )
-		{
-			$theTransaction->processed( $theIncrement, $theTotal );
-			$theTimestamp = microtime( TRUE );
-			$theIncrement = 0;
-		}
-
-	} // UpdateTransactionProcessed.
+			{
+				$theObject->processed( $theIncrement, $theTotal );
+				$theTimestamp = microtime( TRUE );
+				$theIncrement = 0;
+			}
+			
+			return TRUE;															// ==>
+		
+		} // Provided the correct object.
+		
+		return FALSE;																// ==>
+		
+	} // UpdateProcessedCount.
 
 
 ?>

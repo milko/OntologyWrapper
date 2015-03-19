@@ -455,9 +455,10 @@ class SessionUpload
 			$max_exec_time = ini_set( 'max_execution_time', 0 );
 			
 			//
-			// Initialise workflow.
+			// Initialise progress.
 			//
 			$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+			UpdateProcessedCount( $start, $increment );
 
 			//
 			// Write to log file.
@@ -477,7 +478,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->processed( 1, $transactions );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -497,7 +499,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->processed( 1, $transactions );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -517,7 +520,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->processed( 1, $transactions );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -537,7 +541,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->processed( 1, $transactions );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -557,7 +562,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->processed( 1, $transactions );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -577,7 +583,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->processed( 1, $transactions );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
 	/*
 			//
 			// Write to log file.
@@ -597,7 +604,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->processed( 1, $transactions );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
 			
 			//
 			// Write to log file.
@@ -617,7 +625,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->processed( 1, $transactions );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
 			
 			//
 			// Write to log file.
@@ -637,7 +646,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->processed( 1, $transactions );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
 	*/
 			
 			//
@@ -746,11 +756,22 @@ class SessionUpload
 	protected function sessionLoad()
 	{
 		//
+		// Init local storage.
+		//
+		$count = 4;
+		
+		//
 		// Create transaction.
 		//
 		$transaction
 			= $this->transaction(
 				$this->session()->newTransaction( kTYPE_TRANS_TMPL_LOAD ) );
+		
+		//
+		// Initialise progress.
+		//
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		UpdateProcessedCount( $start, $increment );
 		
 		//
 		// Check file.
@@ -759,22 +780,46 @@ class SessionUpload
 			return FALSE;															// ==>
 	
 		//
+		// Update progress.
+		//
+		$increment++;
+		UpdateProcessedCount( $start, $increment, $transaction, $count );
+	
+		//
 		// Check file type.
 		//
 		if( ! $this->checkFileType() )
 			return FALSE;															// ==>
 	
 		//
+		// Update progress.
+		//
+		$increment++;
+		UpdateProcessedCount( $start, $increment, $transaction, $count );
+	
+		//
 		// Load template.
 		//
 		if( ! $this->loadTemplate() )
 			return FALSE;															// ==>
+	
+		//
+		// Update progress.
+		//
+		$increment++;
+		UpdateProcessedCount( $start, $increment, $transaction, $count );
 		
 		//
 		// Load template structure.
 		//
 		if( ! $this->loadTemplateStructure() )
 			return FALSE;															// ==>
+	
+		//
+		// Update progress.
+		//
+		$increment++;
+		UpdateProcessedCount( $start, $increment, $transaction, $count );
 	
 		//
 		// Close transaction.
@@ -825,7 +870,6 @@ class SessionUpload
 		//
 		// Close transaction.
 		//
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
@@ -857,6 +901,11 @@ class SessionUpload
 	protected function sessionStructure()
 	{
 		//
+		// Init local storage.
+		//
+		$count = 2;
+		
+		//
 		// Create transaction.
 		//
 		$transaction
@@ -864,21 +913,34 @@ class SessionUpload
 				$this->session()->newTransaction( kTYPE_TRANS_TMPL_STRUCT ) );
 		
 		//
-		// Init progress.
+		// Initialise progress.
 		//
 		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		UpdateProcessedCount( $start, $increment );
 		
 		//
 		// Check required worksheets.
 		//
 		if( ! $this->checkRequiredWorksheets() )
 			return FALSE;															// ==>
+	
+		//
+		// Update progress.
+		//
+		$increment++;
+		UpdateProcessedCount( $start, $increment, $transaction, $count );
 		
 		//
 		// Check required worksheet fields.
 		//
 		if( ! $this->checkRequiredFields() )
 			return FALSE;															// ==>
+	
+		//
+		// Update progress.
+		//
+		$increment++;
+		UpdateProcessedCount( $start, $increment, $transaction, $count );
 	
 		//
 		// Close transaction.
@@ -1248,9 +1310,10 @@ class SessionUpload
 			$this->transaction()->offsetSet( kTAG_COUNTER_COLLECTIONS, $count );
 			
 			//
-			// Save increment.
+			// Initialise progress.
 			//
-			$increment = 100 / $count;
+			$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+			UpdateProcessedCount( $start, $increment );
 			
 			//
 			// Delete sessions.
@@ -1265,7 +1328,8 @@ class SessionUpload
 				//
 				// Update progress.
 				//
-				$this->transaction()->processed( 1, $count );
+				$increment++;
+				UpdateProcessedCount( $start, $increment, $this->transaction(), $count );
 			}
 		}
 		
@@ -1628,7 +1692,13 @@ class SessionUpload
 		//
 		$ok = TRUE;
 		$worksheets = array_keys( $this->mParser->getWorksheets() );
-		$increment = 100 / count( $worksheets );
+		$count = count( $worksheets );
+		
+		//
+		// Initialise progress.
+		//
+		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		UpdateProcessedCount( $start, $increment );
 		
 		//
 		// Iterate worksheets.
@@ -1668,7 +1738,8 @@ class SessionUpload
 			//
 			// Update progress.
 			//
-			$this->transaction()->progress( $increment );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->transaction(), $count );
 		
 		} // Iterating worksheets.
 		
@@ -1703,11 +1774,19 @@ class SessionUpload
 		//
 		$this->mCollections = Array();
 		$fields = $this->mParser->getFields();
+		$worksheets = $this->mParser->getWorksheets();
+		$count = count( $worksheets ) + 1;
+		
+		//
+		// Initialise progress.
+		//
+		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		UpdateProcessedCount( $start, $increment );
 		
 		//
 		// Iterate worksheets.
 		//
-		foreach( array_keys( $this->mParser->getWorksheets() ) as $worksheet )
+		foreach( array_keys( $worksheets ) as $worksheet )
 		{
 			//
 			// Create collection.
@@ -1733,6 +1812,12 @@ class SessionUpload
 							->createIndex( array( $field_name => 1 ) );
 				}
 			}
+		
+			//
+			// Update progress.
+			//
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->transaction(), $count );
 		}
 		
 		//
@@ -1742,6 +1827,12 @@ class SessionUpload
 		$this->mCollections[ $name ]
 			= Session::ResolveDatabase( $this->wrapper(), TRUE )
 				->collection( $name, TRUE );
+	
+		//
+		// Update progress.
+		//
+		$increment++;
+		UpdateProcessedCount( $start, $increment, $this->transaction(), $count );
 		
 		//
 		// Add to session.
@@ -1828,9 +1919,14 @@ class SessionUpload
 								  $theWorksheet ) );
 	
 		//
+		// Initialise progress.
+		//
+		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		UpdateProcessedCount( $start, $increment );
+		
+		//
 		// Iterate rows.
 		//
-		UpdateTransactionProcessed( $time, $count );
 		for( $row = $worksheet_data[ 'data_row' ];
 				$row <= $worksheet_data[ 'last_row' ];
 					$row++ )
@@ -1908,7 +2004,7 @@ class SessionUpload
 								$fields_data[ $theField ][ 'column_name' ],	// Column.
 								$theField,									// Alias.
 								NULL,										// Tag.
-								$theRecord[ $theField ],					// Value.
+								$record[ $theField ],						// Value.
 								kTYPE_ERROR_DUPLICATE_KEY,					// Err type.
 								kTYPE_ERROR_CODE_DIPLICATE_KEY,				// Err code.
 								NULL										// Err resource.
@@ -1948,7 +2044,7 @@ class SessionUpload
 								$fields_data[ $theField ][ 'column_name' ],	// Column.
 								$theField,									// Alias.
 								NULL,										// Tag.
-								$theRecord[ $theField ],					// Value.
+								$record[ $theField ],						// Value.
 								kTYPE_ERROR_RELATED_NO_MATCH,				// Err type.
 								kTYPE_ERROR_CODE_BAD_RELATIONSHIP,			// Err code.
 								NULL										// Err resource.
@@ -2023,15 +2119,15 @@ class SessionUpload
 			//
 			// Update progress.
 			//
-			$count++;
-			UpdateTransactionProcessed( $time, $count, $this->transaction(), $records );
+			$increment++;
+			UpdateProcessedCount( $start, $increment, $this->transaction(), $records );
 		
 		} // Iterating worksheet rows.
 		
 		//
 		// Update progress.
 		//
-		UpdateTransactionProcessed( $time, $count, $this->transaction() );
+		UpdateProcessedCount( $start, $increment, $this->transaction(), $records );
 		
 		//
 		// Update progress.

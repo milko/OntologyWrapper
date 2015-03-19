@@ -1412,49 +1412,6 @@ abstract class SessionObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED PRE-COMMIT INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	preCommitPrepare																*
-	 *==================================================================================*/
-
-	/**
-	 * Prepare object before commit
-	 *
-	 * In this class we initialise the operation counters.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 *
-	 * @see kTAG_COUNTER_PROCESSED kTAG_COUNTER_VALIDATED kTAG_COUNTER_REJECTED kTAG_COUNTER_SKIPPED
-	 *
-	 * @uses start()
-	 */
-	protected function preCommitPrepare( &$theTags, &$theRefs )
-	{
-		//
-		// Initialise session progress.
-		//
-		if( ! $this->offsetExists( kTAG_COUNTER_PROGRESS ) )
-			$this->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-		
-		//
-		// Call parent method.
-		//
-		parent::preCommitPrepare( $theTags, $theRefs );
-		
-	} // preCommitPrepare.
-
-		
-
-/*=======================================================================================
- *																						*
  *						PROTECTED EXTERN MEMBER MANAGEMENT INTERFACE					*
  *																						*
  *======================================================================================*/
