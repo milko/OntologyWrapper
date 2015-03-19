@@ -55,14 +55,21 @@ define( "kPATH_DEFINITIONS_ROOT",	kPATH_LIBRARY_ROOT."/definitions" );
  *
  * This value defines the <b><i>absolute</i></b> path to the library standards directory.
  */
-define( "kPATH_STANDARDS_ROOT",	kPATH_LIBRARY_ROOT."/standards" );
+define( "kPATH_STANDARDS_ROOT",		kPATH_LIBRARY_ROOT."/standards" );
 
 /**
  * Local classes library root.
  *
  * This value defines the <b><i>absolute</i></b> path to the local classes directory.
  */
-define( "kPATH_CLASSES_ROOT",	kPATH_LIBRARY_ROOT."/classes" );
+define( "kPATH_CLASSES_ROOT",		kPATH_LIBRARY_ROOT."/classes" );
+
+/**
+ * Batch library root.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the batches directory.
+ */
+define( "kPATH_BATCHES_ROOT",		"/Library/WebServer/Batch/gateway" );
 
 /*=======================================================================================
  *	EXTERNAL LIBRARY PATHS																*
@@ -74,6 +81,13 @@ define( "kPATH_CLASSES_ROOT",	kPATH_LIBRARY_ROOT."/classes" );
  * This value defines the <b><i>absolute</i></b> path to the Neo4j library directory.
  */
 define( "kPATH_LIBRARY_NEO4J",	"/Library/WebServer/Library/Neo4jphp" );
+
+/**
+ * PHPExcel library root.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the PHPExcel library directory.
+ */
+define( "kPATH_LIBRARY_EXCEL",	"/Library/WebServer/Library/PHPExcel/Classes" );
 
 /*=======================================================================================
  *	DEFAULT LINKS																		*
@@ -162,5 +176,29 @@ function Neo4jAutoload( $theClassName )
 		require_once( $_path );
 
 } spl_autoload_register( 'Neo4jAutoload' );
+
+/*=======================================================================================
+ *	PHPEXCEL AUTOLOADER																	*
+ *======================================================================================*/
+
+/**
+ * This section allows automatic inclusion of the PHPExcel library classes.
+ */
+function PHPExcelAutoload( $theClassName )
+{
+	//
+	// Build path.
+	//
+	$_path = kPATH_LIBRARY_EXCEL
+			.str_replace( '_', DIRECTORY_SEPARATOR, $theClassName )
+			.'.php';
+	
+	//
+	// Check file.
+	//
+	if( file_exists( $_path ) )
+		require_once( $_path );
+
+} spl_autoload_register( 'PHPExcelAutoload' );
 
 ?>

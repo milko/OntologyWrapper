@@ -72,7 +72,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 //
 // Init local storage.
 //
-$file = "/Library/WebServer/Library/OntologyWrapper/Library/test/CWR_Checklist_Template.test.small.xlsx";
+$file = "/Library/WebServer/Library/OntologyWrapper/Library/test/CWR_Checklist_Template.test.large.xlsx";
 $user = ":domain:individual://ITA406/pgrdiversity.bioversityinternational.org:E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2;";
 $fingerprint = "E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2";
 	

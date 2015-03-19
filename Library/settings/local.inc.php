@@ -176,6 +176,17 @@ define( "kSTANDARDS_UNITS_DB",			'mongodb://localhost:27017/BIOVERSITY?connect=1
 define( "kSTANDARDS_GRAPH_DB",			'neo4j://localhost:7474' );
 
 /*=======================================================================================
+ *	STANDARD PORTAL COLLECTION NAME														*
+ *======================================================================================*/
+
+/**
+ * Default portal collection name.
+ *
+ * This tag indicates the default portal collection name.
+ */
+define( "kSTANDARDS_PORTAL_COLLECTION",	'_portal' );
+
+/*=======================================================================================
  *	DEFAULT VALUES																		*
  *======================================================================================*/
 
@@ -220,6 +231,14 @@ define( "kSTANDARDS_UNITS_MAX",			1000 );
  * This tag indicates the maximum markers limit.
  */
 define( "kSTANDARDS_MARKERS_MAX",		10000 );
+
+/**
+ * Progress interval.
+ *
+ * This tag indicates the time interval after which progress counters should be updated in
+ * sessions and transactions.
+ */
+define( "kSTANDARDS_PROGRESS_TIME",		0.25 );
 
 /*=======================================================================================
  *	CLIMATIC LIMITS																		*

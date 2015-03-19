@@ -113,6 +113,11 @@ $session = new OntologyWrapper\Session( $wrapper, $session_id );
 if( $session->committed() )
 {
 	//
+	// Reset maximum execution time.
+	//
+	$max_exe = ini_set( 'max_execution_time', 0 );
+
+	//
 	// Instantiate upload.
 	//
 	$upload = new OntologyWrapper\SessionUpload( $session, $template_path );
@@ -121,6 +126,11 @@ if( $session->committed() )
 	// Execute upload.
 	//
 	$upload->execute();
+
+	//
+	// Re-set maximum execution time.
+	//
+	ini_set( 'max_execution_time', $max_exe );
 
 } // Found session.
 

@@ -69,7 +69,7 @@ define( "kPATH_CLASSES_ROOT",		kPATH_LIBRARY_ROOT."/classes" );
  *
  * This value defines the <b><i>absolute</i></b> path to the batches directory.
  */
-define( "kPATH_BATCHES_ROOT",		kPATH_LIBRARY_ROOT."/batch" );
+define( "kPATH_BATCHES_ROOT",		"/Library/WebServer/Batch/gateway" );
 
 /*=======================================================================================
  *	EXTERNAL LIBRARY PATHS																*

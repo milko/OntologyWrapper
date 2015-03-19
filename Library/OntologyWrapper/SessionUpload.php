@@ -427,10 +427,20 @@ class SessionUpload
 	public function execute()
 	{
 		//
+		// Init local storage.
+		//
+		$transactions = 11;
+		
+		//
 		// TRY BLOCK.
 		//
 		try
 		{
+			//
+			// Set maximum execution time.
+			//
+			$max_exec_time = ini_set( 'max_execution_time', 0 );
+			
 			//
 			// Initialise workflow.
 			//
@@ -445,7 +455,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->progress( 10 );
+			$this->session()->processed( 1, $transactions );
 	
 			//
 			// Transaction load.
@@ -456,7 +466,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->progress( 10 );
+			$this->session()->processed( 1, $transactions );
 	
 			//
 			// Transaction store.
@@ -467,7 +477,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->progress( 10 );
+			$this->session()->processed( 1, $transactions );
 	
 			//
 			// Transaction structure.
@@ -478,7 +488,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->progress( 10 );
+			$this->session()->processed( 1, $transactions );
 	
 			//
 			// Transaction setup.
@@ -489,8 +499,19 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->progress( 10 );
+			$this->session()->processed( 1, $transactions );
 	
+			//
+			// Transaction copy.
+			//
+			if( ! $this->sessionCopy() )
+				return $this->failSession();										// ==>
+			
+			//
+			// Progress.
+			//
+			$this->session()->processed( 1, $transactions );
+	/*
 			//
 			// Transaction validation.
 			//
@@ -500,7 +521,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->progress( 10 );
+			$this->session()->processed( 1, $transactions );
 			
 			//
 			// Transaction relationships.
@@ -511,7 +532,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->progress( 10 );
+			$this->session()->processed( 1, $transactions );
 			
 			//
 			// Transaction objects.
@@ -522,7 +543,13 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$this->session()->progress( 10 );
+			$this->session()->processed( 1, $transactions );
+	*/
+			
+			//
+			// Reset maximum execution time.
+			//
+			ini_set( 'max_execution_time', $max_exec_time );
 			
 			return $this->succeedSession();											// ==>
 		}
@@ -672,7 +699,6 @@ class SessionUpload
 	 *
 	 * @uses session()
 	 * @uses transaction()
-	 * @uses saveTemplateFile()
 	 */
 	protected function sessionStore()
 	{
@@ -686,8 +712,12 @@ class SessionUpload
 		//
 		// Save file.
 		//
-		if( ! $this->saveTemplateFile() )
-			return FALSE;															// ==>
+		$this->session()
+			->saveFile( $this->file()->getRealPath(),
+						array( kTAG_SESSION_TYPE
+								=> $this->session()
+									->offsetGet( kTAG_SESSION_TYPE ) ) );
+		
 	
 		//
 		// Close transaction.
@@ -774,7 +804,6 @@ class SessionUpload
 	 *
 	 * @uses session()
 	 * @uses transaction()
-	 * @uses saveTemplateFile()
 	 */
 	protected function sessionSetup()
 	{
@@ -804,6 +833,40 @@ class SessionUpload
 
 	 
 	/*===================================================================================
+	 *	sessionCopy																		*
+	 *==================================================================================*/
+
+	/**
+	 * Copy template data to database
+	 *
+	 * This method will copy the template data to the working collections.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 *
+	 * @uses session()
+	 * @uses transaction()
+	 */
+	protected function sessionCopy()
+	{
+		//
+		// Copy root worksheet data.
+		//
+		if( ! $this->copyWorksheetData( $this->mIterator->getRoot()[ 'W' ] ) )
+			return FALSE;															// ==>
+		
+		//
+		// Copy other worksheets data.
+		//
+		if( ! $this->copyWorksheetData() )
+			return FALSE;															// ==>
+		
+		return TRUE;																// ==>
+
+	} // sessionCopy.
+
+	 
+	/*===================================================================================
 	 *	sessionValidation																*
 	 *==================================================================================*/
 
@@ -817,7 +880,6 @@ class SessionUpload
 	 *
 	 * @uses session()
 	 * @uses transaction()
-	 * @uses saveTemplateFile()
 	 */
 	protected function sessionValidation()
 	{
@@ -894,7 +956,6 @@ class SessionUpload
 	 *
 	 * @uses session()
 	 * @uses transaction()
-	 * @uses saveTemplateFile()
 	 */
 	protected function sessionRelationships()
 	{
@@ -1058,11 +1119,6 @@ class SessionUpload
 	protected function deletePendingSessions()
 	{
 		//
-		// Init local storage.
-		//
-		$transaction = $this->transaction();
-		
-		//
 		// Load pending sessions.
 		//
 		$sessions
@@ -1084,7 +1140,7 @@ class SessionUpload
 			//
 			// Set count.
 			//
-			$transaction->offsetSet( kTAG_COUNTER_COLLECTIONS, $count );
+			$this->transaction()->offsetSet( kTAG_COUNTER_COLLECTIONS, $count );
 			
 			//
 			// Save increment.
@@ -1104,8 +1160,7 @@ class SessionUpload
 				//
 				// Update progress.
 				//
-				$transaction->processed( 1 );
-				$transaction->progress( $increment );
+				$this->transaction()->processed( 1, $count );
 			}
 		}
 		
@@ -1405,50 +1460,6 @@ class SessionUpload
 
 	 
 	/*===================================================================================
-	 *	saveTemplateFile																*
-	 *==================================================================================*/
-
-	/**
-	 * Check file reference
-	 *
-	 * This method will check whether the file reference points to a valid file and if the
-	 * file is readable; it will also check if the file type is compatible with Excel
-	 * files.
-	 *
-	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
-	 *
-	 * @uses file()
-	 * @uses session()
-	 */
-	protected function saveTemplateFile()
-	{
-		//
-		// Init local storage.
-		//
-		$file = $this->file();
-		$session = $this->session();
-		$name = $file->getFilename();
-		$path = $file->getRealPath();
-		
-		//
-		// Set metadata.
-		//
-		$metadata
-			= array( kTAG_SESSION_TYPE
-				  => $session->offsetGet( kTAG_SESSION_TYPE ) );
-		
-		//
-		// Save file.
-		//
-		$session->saveFile( $path, $metadata );
-		
-		return TRUE;																// ==>
-
-	} // saveTemplateFile.
-
-	 
-	/*===================================================================================
 	 *	checkRequiredWorksheets															*
 	 *==================================================================================*/
 
@@ -1635,6 +1646,145 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // createWorkingCollections.
+
+	 
+	/*===================================================================================
+	 *	copyWorksheetData																*
+	 *==================================================================================*/
+
+	/**
+	 * Copy worksheet data to database
+	 *
+	 * This method will copy the worksheet data from the template to the database.
+	 *
+	 * The method expects a parameter that represents the worksheet to process, if the
+	 * parameter is not provided, the method will iterate all worksheets, except the root
+	 * worksheet.
+	 *
+	 * @param string				$theWorksheet		Worksheet name.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 */
+	protected function copyWorksheetData( $theWorksheet = NULL )
+	{
+		//
+		// Handle all worksheets.
+		//
+		if( $theWorksheet === NULL )
+		{
+			//
+			// Iterate worksheets.
+			//
+			foreach( $this->mIterator as $worksheet )
+			{
+				//
+				// Recurse.
+				//
+				if( ! $this->copyWorksheetData( $worksheet[ 'W' ] ) )
+					return FALSE;													// ==>
+			
+			} // Iterating worksheet.
+			
+			return TRUE;															// ==>
+		
+		} // Worksheet not provided.
+		
+		//
+		// Init local storage.
+		//
+		$collection = $this->mCollections[ $this->getCollectionName( $theWorksheet ) ];
+		$worksheet_data = $this->mParser->getWorksheets()[ $theWorksheet ];
+		$fields_data = $this->mParser->getFields()[ $theWorksheet ];
+		$records = $worksheet_data[ 'last_row' ] - $worksheet_data[ 'data_row' ] + 1;
+		
+		//
+		// Create transaction.
+		//
+		$transaction
+			= $this->transaction(
+				$this->session()
+					->newTransaction( kTYPE_TRANS_TMPL_LOAD_DATA,
+									  kTYPE_STATUS_EXECUTING,
+									  $theWorksheet ) );
+	
+		//
+		// Iterate rows.
+		//
+		$count = 0;
+		$time = microtime( TRUE );
+		for( $row = $worksheet_data[ 'data_row' ];
+				$row <= $worksheet_data[ 'last_row' ];
+					$row++ )
+		{
+			//
+			// Load row data.
+			//
+			$record = Array();
+			foreach( $fields_data as $symbol => $field_data )
+			{
+				//
+				// Get value.
+				//
+				$value
+					= $this->mParser->getCellValue(
+						$theWorksheet, $row, $field_data[ 'column_name' ] );
+				
+				//
+				// Set value.
+				//
+				if( strlen( $value = trim( $value ) ) )
+					$record[ $symbol ] = $value;
+			
+			} // Loading row data.
+			
+			//
+			// Handle record.
+			//
+			if( count( $record ) )
+			{
+				//
+				// Set identifier.
+				//
+				$record[ kTAG_NID ] = $row;
+				
+				//
+				// Commit record.
+				//
+				$collection->commit( $record );
+			
+			} // Has data.
+			
+			//
+			// Handle skipped.
+			//
+			else
+				$transaction->skipped( 1 );
+			
+			//
+			// Update progress.
+			//
+			if( $count++
+			 && ((microtime( TRUE ) - $time) > 0.25) )
+			{
+				$transaction->processed( $count, $records );
+				$time = microtime( TRUE );
+				$count = 0;
+			
+			} // Do progress.
+		
+		} // Iterating worksheet rows.
+		
+		//
+		// Update progress.
+		//
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		
+		return TRUE;																// ==>
+
+	} // copyWorksheetData.
 
 	 
 	/*===================================================================================
@@ -2497,9 +2647,9 @@ class SessionUpload
 		//
 		// Close session.
 		//
+		$session->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_OK );
 		$session->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 		$session->offsetSet( kTAG_SESSION_END, TRUE );
-		$session->offsetSet( kTAG_SESSION_STATUS, kTYPE_STATUS_OK );
 		
 		return TRUE;																// ==>
 

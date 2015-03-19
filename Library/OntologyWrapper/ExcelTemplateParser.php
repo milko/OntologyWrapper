@@ -439,7 +439,7 @@ class ExcelTemplateParser
 		{
 			//
 			// Check if worksheet is there.
-			// Note that we already checked if the worksheet was required.
+			// We already checked that the worksheet is there.
 			//
 			if( array_key_exists( $theWorksheet, $fields ) )
 			{
