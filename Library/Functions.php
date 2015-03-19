@@ -2554,22 +2554,23 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 
 	 
 	/*===================================================================================
-	 *	UpdateProcessedCount															*
+	 *	UpdateProcessCounter															*
 	 *==================================================================================*/
 
 	/**
-	 * Update session or transaction processed count
+	 * Update session or transaction counter
 	 *
-	 * This function can be used to update the processed count of the provided
-	 * {@link SessionObject} instance, it will check whether the delay interval is longer
-	 * than the {@link kSTANDARDS_PROGRESS_TIME} value and if the provided increment is
-	 * greater than zero, in that case the function will update the object.
+	 * This function can be used to update the counter of the provided {@link SessionObject}
+	 * instance, it will check whether the delay interval is longer than the
+	 * {@link kSTANDARDS_PROGRESS_TIME} value and if the provided increment is greater than
+	 * zero, in that case the function will update the object.
 	 *
 	 * The function expects the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theTimestamp</b>: This parameter will hold the start time stamp.
 	 *	<li><b>$theIncrement</b>: This parameter will hold the increment.
+	 *	<li><b>$theCounter</b>: This parameter holds the counter offset.
 	 *	<li><b>$theObject</b>: This parameter holds the object.
 	 *	<li><b>$theTotal</b>: This parameter holds the total count, will be used for the
 	 *		progress.
@@ -2578,32 +2579,37 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 	 * This is the workflow:
 	 *
 	 * <ul>
-	 *	<li>Call the function with the two first parameters, it is not important what value
-	 *		they hold, the function will initialise them.
+	 *	<li>Call the function with the three first parameters, it is not important what
+	 *		value they hold, the function will initialise them.
 	 *	<li>As you perform operations, step increment the counter outside of this function.
 	 *	<li>When you reach the point in which you intend to update the object, call
 	 *		this function with the timestamp, increment and object, if you know the
 	 *		total number of processed items pass it in the last parameter, this will ensure
 	 *		that the progress will automatically be updated in the object.
-	 *	<li>Remember to call this function a last time out of the process loop, this will
-	 *		ensure that the processed count be correct.
+	 *	<li>After the end of the loop call this function with all its parameters, excluding
+	 *		the total, if not required for progress, and add to the list of parameters
+	 *		<tt>TRUE</tt>, to flush residual counts and ensure that the counter is correct.
 	 * </ul>
 	 *
 	 * If the counter was updated, the method will return <tt>TRUE</tt>; if you provide an
 	 * object that is not derived from {@link SessionObject} the function will do nothing
-	 * and return <tt>FALSE</tt>; if the function did not update the counter, the method
-	 * will return <tt>NULL</tt>.
+	 * and return <tt>FALSE</tt>; if you provide a counter that is not supported, the
+	 * function will do nothing and return <tt>FALSE</tt>; if the function did not update
+	 * the counter, the method will return <tt>NULL</tt>.
 	 *
 	 * @param float				   &$theTimestamp		Start timestamp.
 	 * @param int				   &$theIncrement		Number of processed items.
+	 * @param string				$theCounter			Counter offset.
 	 * @param Transaction			$theObject			Session or transaction object.
 	 * @param int					$theTotal			Total number of items to process.
+	 * @param boolean				$doUpdate			<tt>TRUE</tt> to force update..
 	 *
 	 * @return mixed				<tt>TRUE</tt>, <tt>FALSE</tt> or <tt>NULL</tt>.
 	 */
-	function UpdateProcessedCount( &$theTimestamp, &$theIncrement,
+	function UpdateProcessCounter( &$theTimestamp, &$theIncrement, $theCounter,
 									$theObject = NULL,
-									$theTotal = NULL )
+									$theTotal = NULL,
+									$doUpdate = FALSE )
 	{
 		//
 		// Check object.
@@ -2624,12 +2630,43 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 			//
 			// Update object.
 			//
-			if( ((microtime( TRUE ) - $theTimestamp) > kSTANDARDS_PROGRESS_TIME)
-			 && ($theIncrement > 0) )
+			if( $doUpdate
+			 || ( ((microtime( TRUE ) - $theTimestamp) > kSTANDARDS_PROGRESS_TIME)
+			   && ($theIncrement > 0) ) )
 			{
-				$theObject->processed( $theIncrement, $theTotal );
-				$theTimestamp = microtime( TRUE );
-				$theIncrement = 0;
+				//
+				// Parse counter.
+				//
+				switch( $theCounter )
+				{
+					case kTAG_COUNTER_PROCESSED:
+						$theObject->processed( $theIncrement, $theTotal );
+						break;
+						
+					case kTAG_COUNTER_VALIDATED:
+						$theObject->validated( $theIncrement, $theTotal );
+						break;
+						
+					case kTAG_COUNTER_REJECTED:
+						$theObject->rejected( $theIncrement, $theTotal );
+						break;
+						
+					case kTAG_COUNTER_SKIPPED:
+						$theObject->skipped( $theIncrement, $theTotal );
+						break;
+								
+					default:
+						return FALSE;												// ==>
+				}
+				
+				//
+				// Reset timer and increment.
+				//
+				if( ! $doUpdate )
+				{
+					$theTimestamp = microtime( TRUE );
+					$theIncrement = 0;
+				}
 			}
 			
 			return TRUE;															// ==>
@@ -2638,7 +2675,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		
 		return FALSE;																// ==>
 		
-	} // UpdateProcessedCount.
+	} // UpdateProcessCounter.
 
 
 ?>

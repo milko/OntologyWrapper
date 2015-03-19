@@ -458,7 +458,7 @@ class SessionUpload
 			// Initialise progress.
 			//
 			$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-			UpdateProcessedCount( $start, $increment );
+			UpdateProcessCounter( $start, $increment, kTAG_COUNTER_PROCESSED );
 
 			//
 			// Write to log file.
@@ -479,7 +479,10 @@ class SessionUpload
 			// Progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -500,7 +503,10 @@ class SessionUpload
 			// Progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -521,7 +527,10 @@ class SessionUpload
 			// Progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -542,7 +551,10 @@ class SessionUpload
 			// Progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -563,7 +575,10 @@ class SessionUpload
 			// Progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->session(), $transactions );
 
 			//
 			// Write to log file.
@@ -584,8 +599,11 @@ class SessionUpload
 			// Progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
-	/*
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->session(), $transactions );
+	
 			//
 			// Write to log file.
 			//
@@ -605,7 +623,10 @@ class SessionUpload
 			// Progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->session(), $transactions );
 			
 			//
 			// Write to log file.
@@ -615,7 +636,7 @@ class SessionUpload
 					$log,
 					"  • sessionRelationships()".date( "r" )."\n",
 					FILE_APPEND );
-	
+	/*
 			//
 			// Transaction relationships.
 			//
@@ -626,7 +647,10 @@ class SessionUpload
 			// Progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->session(), $transactions );
 			
 			//
 			// Write to log file.
@@ -647,8 +671,16 @@ class SessionUpload
 			// Progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->session(), $transactions );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->session(), $transactions );
 	*/
+			
+			//
+			// Finalise progress.
+			//
+			$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 			
 			//
 			// Reset maximum execution time.
@@ -771,7 +803,7 @@ class SessionUpload
 		// Initialise progress.
 		//
 		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-		UpdateProcessedCount( $start, $increment );
+		UpdateProcessCounter( $start, $increment, kTAG_COUNTER_PROCESSED );
 		
 		//
 		// Check file.
@@ -783,7 +815,10 @@ class SessionUpload
 		// Update progress.
 		//
 		$increment++;
-		UpdateProcessedCount( $start, $increment, $transaction, $count );
+		UpdateProcessCounter(
+			$start, $increment,
+			kTAG_COUNTER_PROCESSED,
+			$transaction, $count );
 	
 		//
 		// Check file type.
@@ -795,7 +830,10 @@ class SessionUpload
 		// Update progress.
 		//
 		$increment++;
-		UpdateProcessedCount( $start, $increment, $transaction, $count );
+		UpdateProcessCounter(
+			$start, $increment,
+			kTAG_COUNTER_PROCESSED,
+			$transaction, $count );
 	
 		//
 		// Load template.
@@ -807,7 +845,10 @@ class SessionUpload
 		// Update progress.
 		//
 		$increment++;
-		UpdateProcessedCount( $start, $increment, $transaction, $count );
+		UpdateProcessCounter(
+			$start, $increment,
+			kTAG_COUNTER_PROCESSED,
+			$transaction, $count );
 		
 		//
 		// Load template structure.
@@ -819,7 +860,10 @@ class SessionUpload
 		// Update progress.
 		//
 		$increment++;
-		UpdateProcessedCount( $start, $increment, $transaction, $count );
+		UpdateProcessCounter(
+			$start, $increment,
+			kTAG_COUNTER_PROCESSED,
+			$transaction, $count );
 	
 		//
 		// Close transaction.
@@ -916,7 +960,7 @@ class SessionUpload
 		// Initialise progress.
 		//
 		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-		UpdateProcessedCount( $start, $increment );
+		UpdateProcessCounter( $start, $increment, kTAG_COUNTER_PROCESSED );
 		
 		//
 		// Check required worksheets.
@@ -928,7 +972,10 @@ class SessionUpload
 		// Update progress.
 		//
 		$increment++;
-		UpdateProcessedCount( $start, $increment, $transaction, $count );
+		UpdateProcessCounter(
+			$start, $increment,
+			kTAG_COUNTER_PROCESSED,
+			$transaction, $count );
 		
 		//
 		// Check required worksheet fields.
@@ -940,7 +987,10 @@ class SessionUpload
 		// Update progress.
 		//
 		$increment++;
-		UpdateProcessedCount( $start, $increment, $transaction, $count );
+		UpdateProcessCounter(
+			$start, $increment,
+			kTAG_COUNTER_PROCESSED,
+			$transaction, $count );
 	
 		//
 		// Close transaction.
@@ -1050,23 +1100,45 @@ class SessionUpload
 	protected function sessionValidation()
 	{
 		//
-		// Init local storage.
+		// Reset session records counters.
 		//
-		$worksheets = $this->mParser->getWorksheets();
+		$this->session()->offsetSet( kTAG_COUNTER_PROCESSED, 0 );
+		$this->session()->offsetSet( kTAG_COUNTER_VALIDATED, 0 );
+		$this->session()->offsetSet( kTAG_COUNTER_REJECTED, 0 );
 		
 		//
-		// Set session records.
+		// Get root worksheet.
 		//
-		$records = 0;
-		foreach( $worksheets as $worksheet )
-			$records += ($worksheet[ 'last_row' ] - $worksheet[ 'data_row' ] + 1);
-		$this->session()->offsetSet( kTAG_COUNTER_RECORDS, $records );
+		$worksheet = $this->mParser->getUnitWorksheet();
 		
 		//
-		// Iterate worksheets.
+		// Instantiate root transaction.
 		//
-		foreach( $worksheets as $wname => $worksheet )
+		$transaction
+			= $this->transaction(
+				$this->session()
+					->newTransaction( kTYPE_TRANS_TMPL_WORKSHEET,
+									  kTYPE_STATUS_EXECUTING,
+									  $worksheet ) );
+		
+		//
+		// Validate root worksheet data.
+		//
+		if( ! $this->validateWorksheetData( $worksheet ) )
+			return FALSE;															// ==>
+		
+		//
+		// Validate related worksheets.
+		//
+		foreach( $this->mIterator as $worksheet )
 		{
+			//
+			// Get record count.
+			//
+			$records
+				= $this->mCollections[ $this->getCollectionName( $worksheet[ 'W' ] ) ]
+					->matchAll( Array(), kQUERY_COUNT );
+			
 			//
 			// Instantiate transaction.
 			//
@@ -1075,33 +1147,17 @@ class SessionUpload
 					$this->session()
 						->newTransaction( kTYPE_TRANS_TMPL_WORKSHEET,
 										  kTYPE_STATUS_EXECUTING,
-										  $wname ) );
+										  $worksheet[ 'W' ] ) );
 			
 			//
-			// Set records count.
+			// Validate related worksheet data.
 			//
-			$transaction->offsetSet(
-				kTAG_COUNTER_RECORDS,
-				$worksheet[ 'last_row' ] - $worksheet[ 'data_row' ] + 1 );
-			
-			//
-			// Load worksheet data.
-			//
-			if( ! $this->loadWorksheetData( $wname, $records ) )
+			if( ! $this->validateWorksheetData( $worksheet[ 'W' ] ) )
 				return FALSE;														// ==>
-	
-			//
-			// Close transaction.
-			//
-			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-			if( $transaction->offsetGet( kTAG_TRANSACTION_STATUS )
-					== kTYPE_STATUS_EXECUTING )
-				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
-			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
-		} // Iterating worksheets.
+		} // Iterating worksheet.
 		
-		return TRUE;																// ==>
+		return TRUE;															// ==>
 
 	} // sessionValidation.
 
@@ -1313,7 +1369,7 @@ class SessionUpload
 			// Initialise progress.
 			//
 			$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-			UpdateProcessedCount( $start, $increment );
+			UpdateProcessCounter( $start, $increment, kTAG_COUNTER_PROCESSED );
 			
 			//
 			// Delete sessions.
@@ -1329,7 +1385,10 @@ class SessionUpload
 				// Update progress.
 				//
 				$increment++;
-				UpdateProcessedCount( $start, $increment, $this->transaction(), $count );
+				UpdateProcessCounter(
+					$start, $increment,
+					kTAG_COUNTER_PROCESSED,
+					$this->transaction(), $count );
 			}
 		}
 		
@@ -1698,7 +1757,7 @@ class SessionUpload
 		// Initialise progress.
 		//
 		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-		UpdateProcessedCount( $start, $increment );
+		UpdateProcessCounter( $start, $increment, kTAG_COUNTER_PROCESSED );
 		
 		//
 		// Iterate worksheets.
@@ -1739,7 +1798,10 @@ class SessionUpload
 			// Update progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->transaction(), $count );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->transaction(), $count );
 		
 		} // Iterating worksheets.
 		
@@ -1781,7 +1843,7 @@ class SessionUpload
 		// Initialise progress.
 		//
 		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-		UpdateProcessedCount( $start, $increment );
+		UpdateProcessCounter( $start, $increment, kTAG_COUNTER_PROCESSED );
 		
 		//
 		// Iterate worksheets.
@@ -1797,7 +1859,7 @@ class SessionUpload
 					->collection( $name, TRUE );
 			
 			//
-			// Add indexes.
+			// Add reference indexes.
 			//
 			foreach( $fields[ $worksheet ] as $field_name => $field )
 			{
@@ -1812,12 +1874,20 @@ class SessionUpload
 							->createIndex( array( $field_name => 1 ) );
 				}
 			}
+			
+			//
+			// Add status index.
+			//
+			$this->mCollections[ $name ]->createIndex( array( '_status' => 1 ) );
 		
 			//
 			// Update progress.
 			//
 			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->transaction(), $count );
+			UpdateProcessCounter(
+				$start, $increment,
+				kTAG_COUNTER_PROCESSED,
+				$this->transaction(), $count );
 		}
 		
 		//
@@ -1832,7 +1902,10 @@ class SessionUpload
 		// Update progress.
 		//
 		$increment++;
-		UpdateProcessedCount( $start, $increment, $this->transaction(), $count );
+		UpdateProcessCounter(
+			$start, $increment,
+			kTAG_COUNTER_PROCESSED,
+			$this->transaction(), $count );
 		
 		//
 		// Add to session.
@@ -1919,10 +1992,17 @@ class SessionUpload
 								  $theWorksheet ) );
 	
 		//
-		// Initialise progress.
+		// Initialise counters.
 		//
 		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-		UpdateProcessedCount( $start, $increment );
+		UpdateProcessCounter( $start_processed, $increment_processed,
+							  kTAG_COUNTER_PROCESSED );
+		UpdateProcessCounter( $start_validated, $increment_validated,
+							  kTAG_COUNTER_VALIDATED );
+		UpdateProcessCounter( $start_rejected, $increment_rejected,
+							  kTAG_COUNTER_REJECTED );
+		UpdateProcessCounter( $start_skipped, $increment_skipped,
+							  kTAG_COUNTER_SKIPPED );
 		
 		//
 		// Iterate rows.
@@ -2099,6 +2179,15 @@ class SessionUpload
 					// Commit record.
 					//
 					$collection->commit( $record );
+					
+					//
+					// Update validated.
+					//
+					$increment_validated++;
+					UpdateProcessCounter(
+						$start_validated, $increment_validated,
+						kTAG_COUNTER_VALIDATED,
+						$this->transaction() );
 				
 				} // Valid record.
 	
@@ -2106,7 +2195,16 @@ class SessionUpload
 				// Handle rejected.
 				//
 				else
-					$this->transaction()->rejected( 1 );
+				{
+					//
+					// Update rejected.
+					//
+					$increment_rejected++;
+					UpdateProcessCounter(
+						$start_rejected, $increment_rejected,
+						kTAG_COUNTER_REJECTED,
+						$this->transaction() );
+				}
 			
 			} // Has data.
 			
@@ -2114,20 +2212,59 @@ class SessionUpload
 			// Handle skipped.
 			//
 			else
-				$this->transaction()->skipped( 1 );
+			{
+				//
+				// Update skipped.
+				//
+				$increment_skipped++;
+				UpdateProcessCounter(
+					$start_skipped, $increment_skipped,
+					kTAG_COUNTER_SKIPPED,
+					$this->transaction() );
+			}
 			
 			//
-			// Update progress.
+			// Update processed.
 			//
-			$increment++;
-			UpdateProcessedCount( $start, $increment, $this->transaction(), $records );
+			$increment_processed++;
+			UpdateProcessCounter(
+				$start_processed, $increment_processed,
+				kTAG_COUNTER_PROCESSED,
+				$this->transaction(), $records );
 		
 		} // Iterating worksheet rows.
 		
 		//
-		// Update progress.
+		// Update processed.
 		//
-		UpdateProcessedCount( $start, $increment, $this->transaction(), $records );
+		UpdateProcessCounter(
+			$start_processed, $increment_processed,
+			kTAG_COUNTER_PROCESSED,
+			$this->transaction(), $records, TRUE );
+		
+		//
+		// Update validated.
+		//
+		UpdateProcessCounter(
+			$start_validated, $increment_validated,
+			kTAG_COUNTER_VALIDATED,
+			$this->transaction(), NULL, TRUE );
+		
+		//
+		// Update rejected.
+		//
+		UpdateProcessCounter(
+			$start_rejected, $increment_rejected,
+			kTAG_COUNTER_REJECTED,
+			$this->transaction(), NULL, TRUE );
+		
+		//
+		// Update skipped.
+		//
+		UpdateProcessCounter(
+			$start_skipped, $increment_skipped,
+			kTAG_COUNTER_SKIPPED,
+			$this->transaction(), NULL, TRUE );
 		
 		//
 		// Update progress.
@@ -2142,7 +2279,7 @@ class SessionUpload
 
 	 
 	/*===================================================================================
-	 *	loadWorksheetData																*
+	 *	validateWorksheetData																*
 	 *==================================================================================*/
 
 	/**
@@ -2151,7 +2288,6 @@ class SessionUpload
 	 * This method will validate and load worksheet data.
 	 *
 	 * @param string				$theWorksheet		Worksheet name.
-	 * @param int					$theRecords			Session records total.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
@@ -2159,145 +2295,153 @@ class SessionUpload
 	 * @uses file()
 	 * @uses session()
 	 */
-	protected function loadWorksheetData( $theWorksheet, $theRecords )
+	protected function validateWorksheetData( $theWorksheet )
 	{
 		//
 		// Init local storage.
 		//
 		$collection = $this->mCollections[ $this->getCollectionName( $theWorksheet ) ];
-		$worksheet_data = $this->mParser->getWorksheets()[ $theWorksheet ];
 		$fields_data = $this->mParser->getFields()[ $theWorksheet ];
-		$records = $worksheet_data[ 'last_row' ] - $worksheet_data[ 'data_row' ] + 1;
 		
 		//
-		// Iterate rows.
+		// Select rows.
 		//
-		for( $row = $worksheet_data[ 'data_row' ];
-				$row <= $worksheet_data[ 'last_row' ];
-					$row++ )
+		$rs = $collection->matchAll( Array(), kQUERY_ARRAY );
+		$records = $rs->count();
+		
+		//
+		// Initialise counters.
+		//
+		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		UpdateProcessCounter( $start_processed, $increment_processed,
+							  kTAG_COUNTER_PROCESSED );
+		UpdateProcessCounter( $start_validated, $increment_validated,
+							  kTAG_COUNTER_VALIDATED );
+		UpdateProcessCounter( $start_rejected, $increment_rejected,
+							  kTAG_COUNTER_REJECTED );
+		
+		//
+		// Select rows.
+		//
+		foreach( $rs as $record )
 		{
 			//
-			// Load row data.
+			// Init local storage.
 			//
-			$record = Array();
-			foreach( $fields_data as $symbol => $field_data )
-			{
-				//
-				// Get value.
-				//
-				$value
-					= $this->mParser->getCellValue(
-						$theWorksheet, $row, $field_data[ 'column_name' ] );
-				
-				//
-				// Set value.
-				//
-				if( strlen( $value = trim( $value ) ) )
-					$record[ $symbol ] = $value;
-			
-			} // Loading row data.
+			$errors = 0;
+			$transaction = NULL;
 			
 			//
-			// Handle record.
+			// Check required fields.
 			//
-			if( count( $record ) )
-			{
-				//
-				// Init local storage.
-				//
-				$errors = 0;
-				$transaction = NULL;
-				
-				//
-				// Check required fields.
-				//
+			$errors
+				+= $this->checkRowRequiredFields(
+						$transaction,						// Row transaction.
+						$record,							// Row record.
+						$theWorksheet );					// Worksheet name.
+		
+			//
+			// Validate row.
+			//
+			foreach( array_keys( $record ) as $symbol )
 				$errors
-					+= $this->checkRowRequiredFields(
-							$transaction,						// Row transaction.
-							$record,							// Row record.
-							$theWorksheet,						// Worksheet name.
-							$row );								// Row number.
-			
-				//
-				// Validate row.
-				//
-				foreach( array_keys( $record ) as $symbol )
-					$errors
-						+= $this->checkCellValue(
-								$transaction,					// Row transaction.
-								$record,						// Row record.
-								$theWorksheet,					// Worksheet name.
-								$row,							// Row number.
-								$symbol );						// Field symbol.
-				
-				//
-				// Handle errors.
-				//
-				if( $errors )
-				{
-					//
-					// Handle rejected.
-					//
-					$this->session()->rejected( 1 );
-					$this->transaction()->rejected( 1 );
-				
-				} // Has errors.
-				
-				//
-				// Handle valid row.
-				//
-				else
-				{
-					//
-					// Set row number.
-					//
-					$record[ kTAG_NID ] = (int) $row;
-					
-					//
-					// Write record.
-					//
-					$collection->commit( $record );
-					
-					//
-					// Handle validated.
-					//
-					$this->session()->validated( 1 );
-					$this->transaction()->validated( 1 );
-				
-				} // Valid row.
-								
-				//
-				// Close transaction.
-				//
-				if( $transaction !== NULL )
-				{
-					$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-					$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
-				}
-				
-			} // Record has data.
+					+= $this->checkColumnValue(
+							$transaction,					// Row transaction.
+							$record,						// Row record.
+							$theWorksheet,					// Worksheet name.
+							$symbol );						// Field symbol.
 			
 			//
-			// Handle skipped.
+			// Handle errors.
+			//
+			if( $errors )
+			{
+				//
+				// Update rejected.
+				//
+				$increment_rejected++;
+				UpdateProcessCounter(
+					$start_rejected, $increment_rejected,
+					kTAG_COUNTER_REJECTED,
+					$this->transaction() );
+			
+			} // Has errors.
+			
+			//
+			// Handle valid row.
 			//
 			else
 			{
-				$this->session()->skipped( 1 );
-				$this->transaction()->skipped( 1 );
+				//
+				// Write record.
+				//
+				$collection->commit( $record );
+				
+				//
+				// Update validated.
+				//
+				$increment_validated++;
+				UpdateProcessCounter(
+					$start_validated, $increment_validated,
+					kTAG_COUNTER_VALIDATED,
+					$this->transaction() );
 			
-			} // Empty record.
+			} // Valid row.
+							
+			//
+			// Close transaction.
+			//
+			if( $transaction !== NULL )
+			{
+				$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+				$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+			}
 			
 			//
-			// Update progress.
+			// Update processed.
 			//
-			$this->session()->processed( 1, $theRecords );
-			$this->transaction()->processed( 1, $records );
+			$increment_processed++;
+			UpdateProcessCounter(
+				$start_processed, $increment_processed,
+				kTAG_COUNTER_PROCESSED,
+				$this->transaction(), $records );
 		
-		} // Iterating worksheet row.
+		} // Iterating worksheet rows.
+		
+		//
+		// Update processed.
+		//
+		UpdateProcessCounter(
+			$start_processed, $increment_processed,
+			kTAG_COUNTER_PROCESSED,
+			$this->transaction(), $records, TRUE );
+		
+		//
+		// Update validated.
+		//
+		UpdateProcessCounter(
+			$start_validated, $increment_validated,
+			kTAG_COUNTER_VALIDATED,
+			$this->transaction(), NULL, TRUE );
+		
+		//
+		// Update rejected.
+		//
+		UpdateProcessCounter(
+			$start_rejected, $increment_rejected,
+			kTAG_COUNTER_REJECTED,
+			$this->transaction(), NULL, TRUE );
+	
+		//
+		// Close parent transaction.
+		//
+		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$this->transaction()->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$this->transaction()->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
 		return TRUE;																// ==>
 
-	} // loadWorksheetData.
+	} // validateWorksheetData.
 
 	 
 	/*===================================================================================
@@ -2611,7 +2755,6 @@ class SessionUpload
 	 * @param Transaction		   &$theTransaction		Transaction reference.
 	 * @param array					$theRecord			Row data.
 	 * @param string				$theWorksheet		Worksheet name.
-	 * @param int					$theRow				Row number.
 	 *
 	 * @access protected
 	 * @return int					Number of missing fields.
@@ -2621,8 +2764,7 @@ class SessionUpload
 	 */
 	protected function checkRowRequiredFields( &$theTransaction,
 												$theRecord,
-												$theWorksheet,
-												$theRow )
+												$theWorksheet )
 	{
 		//
 		// Get missing required fields.
@@ -2666,7 +2808,7 @@ class SessionUpload
 					kTYPE_STATUS_ERROR,						// Transaction status.
 					'Missing required field.',				// Transaction message.
 					$theWorksheet,							// Worksheet.
-					$theRow,								// Row.
+					$theRecord[ kTAG_NID ],					// Row.
 					$field[ 'column_name' ],				// Column.
 					$symbol,								// Alias.
 					$tag,									// Tag.
@@ -2686,7 +2828,7 @@ class SessionUpload
 
 	 
 	/*===================================================================================
-	 *	checkCellValue																	*
+	 *	checkColumnValue																*
 	 *==================================================================================*/
 
 	/**
@@ -2698,30 +2840,30 @@ class SessionUpload
 	 * @param Transaction		   &$theTransaction		Transaction reference.
 	 * @param array				   &$theRecord			Row data.
 	 * @param string				$theWorksheet		Worksheet name.
-	 * @param int					$theRow				Row number.
 	 * @param string				$theSymbol			Field symbol.
 	 *
 	 * @access protected
 	 * @return int					Number of errors.
-	 *
-	 * @uses validateString()
-	 * @uses validateInteger()
-	 * @uses validateFloat()
-	 * @uses validateBoolean()
-	 * @uses validateStruct()
-	 * @uses validateArray()
-	 * @uses validateArray()
 	 */
-	protected function checkCellValue( &$theTransaction,
-									   &$theRecord,
-										$theWorksheet,
-										$theRow,
-										$theSymbol )
+	protected function checkColumnValue( &$theTransaction,
+										 &$theRecord,
+										  $theWorksheet,
+										  $theSymbol )
 	{
 		//
 		// Init local storage.
 		//
 		$errors = 0;
+		
+		//
+		// Skip native identifier.
+		//
+		if( $theSymbol == kTAG_NID )
+			return $errors;															// ==>
+		
+		//
+		// Load column info.
+		//
 		$field_data = $this->mParser->getFields()[ $theWorksheet ];
 		$field_node = $this->mParser->getNode( $field_data[ $theSymbol ][ 'node' ] );
 		$field_tag = ( $field_node->offsetExists( kTAG_TAG ) )
@@ -2753,7 +2895,7 @@ class SessionUpload
 					$errors +=
 						$this->validateString(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2762,7 +2904,7 @@ class SessionUpload
 					$errors +=
 						$this->validateInteger(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2770,14 +2912,14 @@ class SessionUpload
 					$errors +=
 						$this->validateFloat(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
 				case kTYPE_BOOLEAN:
 					$this->validateBoolean(
 						$theTransaction, $theRecord,
-						$theWorksheet, $theRow,
+						$theWorksheet, $theRecord[ kTAG_NID ],
 						$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2785,7 +2927,7 @@ class SessionUpload
 					$errors +=
 						$this->validateStruct(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2793,7 +2935,7 @@ class SessionUpload
 					$errors +=
 						$this->validateArray(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2801,7 +2943,7 @@ class SessionUpload
 					$errors +=
 						$this->validateLanguageString(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2809,7 +2951,7 @@ class SessionUpload
 					$errors +=
 						$this->validateLanguageStrings(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2817,7 +2959,7 @@ class SessionUpload
 					$errors +=
 						$this->validateTypedList(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2825,7 +2967,7 @@ class SessionUpload
 					$errors +=
 						$this->validateShape(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2833,7 +2975,7 @@ class SessionUpload
 					$errors +=
 						$this->validateLink(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2841,7 +2983,7 @@ class SessionUpload
 					$errors +=
 						$this->validateDate(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2849,7 +2991,7 @@ class SessionUpload
 					$errors +=
 						$this->validateEnum(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2857,7 +2999,7 @@ class SessionUpload
 					$errors +=
 						$this->validateEnumSet(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2865,7 +3007,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, Tag::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2873,7 +3015,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, Term::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2881,7 +3023,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, Node::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2889,7 +3031,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, Edge::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2897,7 +3039,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, UnitObject::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2905,7 +3047,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, User::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2913,7 +3055,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, Session::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2921,7 +3063,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, Transaction::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2929,7 +3071,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, FileObject::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2938,7 +3080,7 @@ class SessionUpload
 					$errors +=
 						$this->validateReference(
 							$theTransaction, $theRecord, $class::kSEQ_NAME,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2946,7 +3088,7 @@ class SessionUpload
 					$errors +=
 						$this->validateObjectId(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2954,7 +3096,7 @@ class SessionUpload
 					$errors +=
 						$this->validateTimeStamp(
 							$theTransaction, $theRecord,
-							$theWorksheet, $theRow,
+							$theWorksheet, $theRecord[ kTAG_NID ],
 							$field_data[ $theSymbol ], $field_node, $field_tag );
 					break;
 			
@@ -2964,7 +3106,7 @@ class SessionUpload
 		
 		return $errors;																// ==>
 
-	} // checkCellValue.
+	} // checkColumnValue.
 
 	
 
