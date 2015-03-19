@@ -68,7 +68,7 @@ define( "kPORTAL_HOST",					'pgrdiversity.bioversityinternational.org' );
  *
  * This tag indicates the default portal prefix.
  */
-define( "kPORTAL_PREFIX",				'pgrdg' );
+define( "kPORTAL_PREFIX",				'gateway' );
 
 /**
  * Portal authority.
@@ -79,6 +79,24 @@ define( "kPORTAL_PREFIX",				'pgrdg' );
  * This value will be set in the {@link kTAG_AUTHORITY} property of the portal users.
  */
 define( "kPORTAL_AUTHORITY",			'ITA406' );
+
+/*=======================================================================================
+ *	PORTAL BATCH BASE PATH																*
+ *======================================================================================*/
+
+/**
+ * Portal batch base path.
+ *
+ * This tag indicates the base path of the portal batches directory.
+ */
+define( "kPATH_BATCHES_BASE",			"/Library/WebServer/Batch" );
+
+/**
+ * Batch library root.
+ *
+ * This value defines the absolute path to the batches directory.
+ */
+define( "kPATH_BATCHES_ROOT",			kPATH_BATCHES_BASE."/gateway" );
 
 /*=======================================================================================
  *	PORTAL MAILER INFORMATION															*

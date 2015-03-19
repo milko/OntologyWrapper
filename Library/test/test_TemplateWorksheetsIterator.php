@@ -214,7 +214,6 @@ try
 	$iter->rewind();
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
-	
 	while( $iter->valid() )
 	{
 		echo( kSTYLE_ROW_PRE );
@@ -252,6 +251,53 @@ try
 		echo( '$iter->next();' );
 		$iter->next();
 		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// For each.
+	//
+	echo( '<h4>For each</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$iter->rewind();' );
+	$iter->rewind();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	foreach( $iter as $key => $value )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( '$iter->key();' );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $key );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( '$iter->current();' );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( '$iter->parent();' );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $iter->parent() );
+		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 	}
 	echo( kSTYLE_TABLE_POS );

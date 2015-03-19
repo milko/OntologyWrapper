@@ -2552,5 +2552,73 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 
 	} // SetLocalTransformations.
 
+	 
+	/*===================================================================================
+	 *	UpdateTransactionProcessed														*
+	 *==================================================================================*/
+
+	/**
+	 * Update transaction processed count
+	 *
+	 * This function can be used to update the processed count of the provided transaction,
+	 * it will check whether the delay interval is longer than the
+	 * {@link kSTANDARDS_PROGRESS_TIME} value and if the provided increment is greater than
+	 * zero, in that case the function will update the transaction.
+	 *
+	 * The function expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theTimestamp</b>: This parameter will hold the start time stamp.
+	 *	<li><b>$theIncrement</b>: This parameter will hold the increment.
+	 *	<li><b>$theTransaction</b>: This parameter holds the transaction object.
+	 *	<li><b>$theTotal</b>: This parameter holds the total count, will be used for the
+	 *		progress.
+	 * </ul>
+	 *
+	 * This is the workflow:
+	 *
+	 * <ul>
+	 *	<li>Call the function with the two first parameters, it is not important what value
+	 *		they hold, the function will initialise them.
+	 *	<li>As you perform operations, step increment the counter outside of this function.
+	 *	<li>When you reach the point in which you intend to update the transaction, call
+	 *		this function with the timestamp, increment and transaction, if you know the
+	 *		total number of processed items pass it in the last parameter, this will ensure
+	 *		that the progress will automatically be updated in the transaction.
+	 *	<li>Remember to call this function a last time out of the process loop, this will
+	 *		ensure that the processed count be correct.
+	 * </ul>
+	 *
+	 * @param float				   &$theTimestamp		Start timestamp.
+	 * @param int				   &$theIncrement		Number of processed items.
+	 * @param Transaction			$theTransaction		Transaction object.
+	 * @param int					$theTotal			Total number of items to process.
+	 */
+	function UpdateTransactionProcessed( &$theTimestamp, &$theIncrement,
+										  $theTransaction = NULL,
+										  $theTotal = NULL )
+	{
+		//
+		// Initialise counters.
+		//
+		if( $theTransaction === NULL )
+		{
+			$theTimestamp = microtime( TRUE );
+			$theIncrement = 0;
+		}
+		
+		//
+		// Update transaction.
+		//
+		elseif( ((microtime( TRUE ) - $theTimestamp) > kSTANDARDS_PROGRESS_TIME)
+			 && ($theIncrement > 0) )
+		{
+			$theTransaction->processed( $theIncrement, $theTotal );
+			$theTimestamp = microtime( TRUE );
+			$theIncrement = 0;
+		}
+
+	} // UpdateTransactionProcessed.
+
 
 ?>

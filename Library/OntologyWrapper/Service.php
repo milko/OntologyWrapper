@@ -5949,6 +5949,14 @@ class Service extends ContainerObject
 		$session_id = $session->commit();
 		
 		//
+		// Create log file.
+		//
+		if( kDEBUG_FLAG )
+			file_put_contents(
+				kPATH_BATCHES_ROOT."/log/$session_id.log",
+				"Service start: ".date( "r" )."\n" );
+		
+		//
 		// Copy session in persistent user object.
 		//
 		User::ResolveCollection(
@@ -5963,14 +5971,40 @@ class Service extends ContainerObject
 		$php = kPHP_BINARY;
 		$script = kPATH_BATCHES_ROOT.'/Batch_LoadTemplate.php';
 		$path = $this->offsetGet( kAPI_PARAM_FILE_PATH );
-		exec( "$php -f $script '$session_id' '$path' > /dev/null &" );
+		
+		//
+		// Handle debug log.
+		//
+		if( kDEBUG_FLAG )
+			$log = "'".kPATH_BATCHES_ROOT."/log/$session_id.batch'";
+		else
+			$log = '/dev/null';
+		
+		//
+		// Write to log file.
+		//
+		if( kDEBUG_FLAG )
+			file_put_contents(
+				kPATH_BATCHES_ROOT."/log/$session_id.log",
+				"Lanching batch: ".date( "r" )."\n" );
+		
+		//
+		// Launch batch.
+		//
+		$process_id = exec( "$php -f $script '$session_id' '$path' > '$log' &" );
+		
+		//
+		// Build result.
+		//
+		$result = array( kAPI_SESSION_ID => $session_id,
+						 kAPI_PROCESS_ID => $process_id );
 		
 		//
 		// Encrypt result.
 		//
-		$session_id = JsonEncode( $session_id );
+		$result = JsonEncode( $result );
 		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
-			= $encoder->encodeData( $session_id );
+			= $encoder->encodeData( $result );
 
 		//
 		// Set encrypted state.

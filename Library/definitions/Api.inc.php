@@ -1645,7 +1645,8 @@ define( "kAPI_OP_CHECK_USER_CODE",				'checkUserCode' );
  *		holds the template file path.
  * </ul>
  *
- * The service will return the identifier of the template upload session.
+ * The service will return the identifier of the template upload session and the process
+ * identifier.
  */
 define( "kAPI_OP_UPLOAD_TEMPLATE",				'uploadTemplate' );
 
@@ -2807,6 +2808,21 @@ define( "kAPI_QUERY_OFFSETS",					'query-offsets' );
  * the related invitation removed.
  */
 define( "kAPI_REFERRER",						'referrer' );
+
+/**
+ * Session (string).
+ *
+ * This parameter holds the session identifier string.
+ */
+define( "kAPI_SESSION_ID",						'session-id' );
+
+/**
+ * Process (string).
+ *
+ * This parameter is set when a batch script is launched, it contains the process identifier
+ * of the batch script.
+ */
+define( "kAPI_PROCESS_ID",						'process-id' );
 
 
 ?>

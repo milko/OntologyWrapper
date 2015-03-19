@@ -430,6 +430,19 @@ class SessionUpload
 		// Init local storage.
 		//
 		$transactions = 11;
+		$log = kPATH_BATCHES_ROOT
+			  ."/log/"
+			  .(string) $this->session()->offsetGet( kTAG_NID )
+			  .".log";
+
+		//
+		// Write to log file.
+		//
+		if( kDEBUG_FLAG )
+			file_put_contents(
+				$log,
+				"Batch execution start: ".date( "r" )."\n",
+				FILE_APPEND );
 		
 		//
 		// TRY BLOCK.
@@ -445,6 +458,15 @@ class SessionUpload
 			// Initialise workflow.
 			//
 			$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"  • sessionPrepare()".date( "r" )."\n",
+					FILE_APPEND );
 	
 			//
 			// Transaction prepare.
@@ -456,6 +478,15 @@ class SessionUpload
 			// Progress.
 			//
 			$this->session()->processed( 1, $transactions );
+
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"  • sessionLoad()".date( "r" )."\n",
+					FILE_APPEND );
 	
 			//
 			// Transaction load.
@@ -467,6 +498,15 @@ class SessionUpload
 			// Progress.
 			//
 			$this->session()->processed( 1, $transactions );
+
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"  • sessionStore()".date( "r" )."\n",
+					FILE_APPEND );
 	
 			//
 			// Transaction store.
@@ -478,6 +518,15 @@ class SessionUpload
 			// Progress.
 			//
 			$this->session()->processed( 1, $transactions );
+
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"  • sessionStructure()".date( "r" )."\n",
+					FILE_APPEND );
 	
 			//
 			// Transaction structure.
@@ -489,6 +538,15 @@ class SessionUpload
 			// Progress.
 			//
 			$this->session()->processed( 1, $transactions );
+
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"  • sessionSetup()".date( "r" )."\n",
+					FILE_APPEND );
 	
 			//
 			// Transaction setup.
@@ -500,6 +558,15 @@ class SessionUpload
 			// Progress.
 			//
 			$this->session()->processed( 1, $transactions );
+
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"  • sessionCopy()".date( "r" )."\n",
+					FILE_APPEND );
 	
 			//
 			// Transaction copy.
@@ -513,6 +580,15 @@ class SessionUpload
 			$this->session()->processed( 1, $transactions );
 	/*
 			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"  • sessionValidation()".date( "r" )."\n",
+					FILE_APPEND );
+	
+			//
 			// Transaction validation.
 			//
 			if( ! $this->sessionValidation() )
@@ -524,6 +600,15 @@ class SessionUpload
 			$this->session()->processed( 1, $transactions );
 			
 			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"  • sessionRelationships()".date( "r" )."\n",
+					FILE_APPEND );
+	
+			//
 			// Transaction relationships.
 			//
 			if( ! $this->sessionRelationships() )
@@ -534,6 +619,15 @@ class SessionUpload
 			//
 			$this->session()->processed( 1, $transactions );
 			
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"  • sessionObjects()".date( "r" )."\n",
+					FILE_APPEND );
+	
 			//
 			// Transaction objects.
 			//
@@ -551,6 +645,15 @@ class SessionUpload
 			//
 			ini_set( 'max_execution_time', $max_exec_time );
 			
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					$log,
+					"Batch execution end: ".date( "r" )."\n",
+					FILE_APPEND );
+	
 			return $this->succeedSession();											// ==>
 		}
 		
@@ -852,7 +955,8 @@ class SessionUpload
 		//
 		// Copy root worksheet data.
 		//
-		if( ! $this->copyWorksheetData( $this->mIterator->getRoot()[ 'W' ] ) )
+		$root = $this->mIterator->getRoot();
+		if( ! $this->copyWorksheetData( $root[ 'W' ], $root[ 'F' ] ) )
 			return FALSE;															// ==>
 		
 		//
@@ -1129,6 +1233,7 @@ class SessionUpload
 								=> array( '$ne'
 									=> $this->session()->offsetGet( kTAG_NID ) ),
 							   kTAG_SESSION_TYPE => kTYPE_SESSION_UPLOAD,
+							   kTAG_USER => $this->session()->offsetGet( kTAG_USER ),
 							   kTAG_SESSION => array( '$exists' => FALSE ) ),
 						kQUERY_NID );
 		
@@ -1661,12 +1766,23 @@ class SessionUpload
 	 * parameter is not provided, the method will iterate all worksheets, except the root
 	 * worksheet.
 	 *
+	 * The last optional parameter is provided as an array structured as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>W</tt>: Worksheet name.
+	 *	<li><tt>F</tt>: Worksheet key field name.
+	 * </ul>
+	 *
 	 * @param string				$theWorksheet		Worksheet name.
+	 * @param string				$theField			Worksheet index field name.
+	 * @param array					$theParent			Parent worksheet and field.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 */
-	protected function copyWorksheetData( $theWorksheet = NULL )
+	protected function copyWorksheetData( $theWorksheet = NULL,
+										  $theField = NULL,
+										  $theParent = NULL )
 	{
 		//
 		// Handle all worksheets.
@@ -1681,7 +1797,9 @@ class SessionUpload
 				//
 				// Recurse.
 				//
-				if( ! $this->copyWorksheetData( $worksheet[ 'W' ] ) )
+				if( ! $this->copyWorksheetData( $worksheet[ 'W' ],
+												$worksheet[ 'F' ],
+												$this->mIterator->parent() ) )
 					return FALSE;													// ==>
 			
 			} // Iterating worksheet.
@@ -1697,26 +1815,31 @@ class SessionUpload
 		$worksheet_data = $this->mParser->getWorksheets()[ $theWorksheet ];
 		$fields_data = $this->mParser->getFields()[ $theWorksheet ];
 		$records = $worksheet_data[ 'last_row' ] - $worksheet_data[ 'data_row' ] + 1;
+		$unique = ( array_key_exists( 'unique', $fields_data[ $theField ] ) &&
+					$fields_data[ $theField ] );
 		
 		//
 		// Create transaction.
 		//
-		$transaction
-			= $this->transaction(
-				$this->session()
-					->newTransaction( kTYPE_TRANS_TMPL_LOAD_DATA,
-									  kTYPE_STATUS_EXECUTING,
-									  $theWorksheet ) );
+		$this->transaction(
+			$this->session()
+				->newTransaction( kTYPE_TRANS_TMPL_LOAD_DATA,
+								  kTYPE_STATUS_EXECUTING,
+								  $theWorksheet ) );
 	
 		//
 		// Iterate rows.
 		//
-		$count = 0;
-		$time = microtime( TRUE );
+		UpdateTransactionProcessed( $time, $count );
 		for( $row = $worksheet_data[ 'data_row' ];
 				$row <= $worksheet_data[ 'last_row' ];
 					$row++ )
 		{
+			//
+			// Init local storage.
+			//
+			$transaction = NULL;
+			
 			//
 			// Load row data.
 			//
@@ -1744,14 +1867,150 @@ class SessionUpload
 			if( count( $record ) )
 			{
 				//
-				// Set identifier.
+				// Init local storage.
 				//
-				$record[ kTAG_NID ] = $row;
+				$ok = TRUE;
+				
+				//
+				// Check if index field exists.
+				//
+				if( array_key_exists( $theField, $record ) )
+				{
+					//
+					// Check duplicates.
+					//
+					if( $unique )
+					{
+						//
+						// Locate object.
+						//
+						$object
+							= $collection->matchOne(
+								array( $theField => $record[ $theField ] ),
+								kQUERY_OBJECT );
+					
+						//
+						// Handle duplicate.
+						//
+						if( $object !== NULL )
+						{
+							$message = "A record already exists with the same key in row ["
+									  .$object->offsetGet( kTAG_NID )
+									  ."].";
+							$this->failTransactionLog(
+								$transaction,								// Transaction.
+								$this->transaction(),						// Parent.
+								kTYPE_TRANS_TMPL_LOAD_DATA_ROW,				// Type.
+								kTYPE_STATUS_ERROR,							// Status.
+								$message,									// Message.
+								$theWorksheet,								// Worksheet.
+								$row,										// Row.
+								$fields_data[ $theField ][ 'column_name' ],	// Column.
+								$theField,									// Alias.
+								NULL,										// Tag.
+								$theRecord[ $theField ],					// Value.
+								kTYPE_ERROR_DUPLICATE_KEY,					// Err type.
+								kTYPE_ERROR_CODE_DIPLICATE_KEY,				// Err code.
+								NULL										// Err resource.
+							);
+						
+							$ok = FALSE;
+					
+						} // Set transaction.
+				
+					} // Has a unique key.
+				
+					//
+					// Handle relationships.
+					//
+					if( $theParent !== NULL )
+					{
+						//
+						// Handle not found.
+						//
+						if( ! $this->mCollections
+								[ $this->getCollectionName( $theParent[ 'W' ] ) ]
+								->matchOne(
+									array( $theParent[ 'F' ] => $record[ $theField ] ),
+									kQUERY_COUNT ) )
+						{
+							$message = "The related record in worksheet "
+									  .$theParent[ 'W' ]
+									  ." was not found.";
+							$this->failTransactionLog(
+								$transaction,								// Transaction.
+								$this->transaction(),						// Parent.
+								kTYPE_TRANS_TMPL_LOAD_DATA_ROW,				// Type.
+								kTYPE_STATUS_ERROR,							// Status.
+								$message,									// Message.
+								$theWorksheet,								// Worksheet.
+								$row,										// Row.
+								$fields_data[ $theField ][ 'column_name' ],	// Column.
+								$theField,									// Alias.
+								NULL,										// Tag.
+								$theRecord[ $theField ],					// Value.
+								kTYPE_ERROR_RELATED_NO_MATCH,				// Err type.
+								kTYPE_ERROR_CODE_BAD_RELATIONSHIP,			// Err code.
+								NULL										// Err resource.
+							);
+						
+							$ok = FALSE;
+					
+						} // Related not found.
+				
+					} // Has related workshet.
+				
+				} // Has index field.
+				
+				//
+				// Handle missing index field.
+				//
+				else
+				{
+					$message = "Missing index field.";
+					$this->failTransactionLog(
+						$transaction,								// Transaction.
+						$this->transaction(),						// Parent.
+						kTYPE_TRANS_TMPL_LOAD_DATA_ROW,				// Type.
+						kTYPE_STATUS_ERROR,							// Status.
+						$message,									// Message.
+						$theWorksheet,								// Worksheet.
+						$row,										// Row.
+						$fields_data[ $theField ][ 'column_name' ],	// Column.
+						$theField,									// Alias.
+						NULL,										// Tag.
+						NULL,										// Value.
+						kTYPE_ERROR_MISSING_REQUIRED,				// Err type.
+						kTYPE_ERROR_CODE_REQ_FIELD,					// Err code.
+						NULL										// Err resource.
+					);
+						
+					$ok = FALSE;
+				
+				} // Missing index field.
 				
 				//
 				// Commit record.
 				//
-				$collection->commit( $record );
+				if( $ok )
+				{
+					//
+					// Set identifier.
+					//
+					$record[ kTAG_NID ] = $row;
+					
+					//
+					// Commit record.
+					//
+					$collection->commit( $record );
+				
+				} // Valid record.
+	
+				//
+				// Handle rejected.
+				//
+				else
+					$this->transaction()->rejected( 1 );
 			
 			} // Has data.
 			
@@ -1759,28 +2018,27 @@ class SessionUpload
 			// Handle skipped.
 			//
 			else
-				$transaction->skipped( 1 );
+				$this->transaction()->skipped( 1 );
 			
 			//
 			// Update progress.
 			//
-			if( $count++
-			 && ((microtime( TRUE ) - $time) > 0.25) )
-			{
-				$transaction->processed( $count, $records );
-				$time = microtime( TRUE );
-				$count = 0;
-			
-			} // Do progress.
+			$count++;
+			UpdateTransactionProcessed( $time, $count, $this->transaction(), $records );
 		
 		} // Iterating worksheet rows.
 		
 		//
 		// Update progress.
 		//
-		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
+		UpdateTransactionProcessed( $time, $count, $this->transaction() );
+		
+		//
+		// Update progress.
+		//
+		$this->transaction()->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
+		$this->transaction()->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
 		return TRUE;																// ==>
 
@@ -2840,17 +3098,12 @@ class SessionUpload
 	public function exceptionSession( \Exception $theError )
 	{
 		//
-		// Init local storage.
-		//
-		$session = $this->session();
-		
-		//
 		// Set error info.
 		//
-		$session->offsetSet( kTAG_ERROR_TYPE, 'Exception' );
+		$this->session()->offsetSet( kTAG_ERROR_TYPE, 'Exception' );
 		if( $theError->getCode() )
-			$session->offsetSet( kTAG_ERROR_CODE, $theError->getCode() );
-		$session->offsetSet( kTAG_TRANSACTION_MESSAGE, $theError->getMessage() );
+			$this->session()->offsetSet( kTAG_ERROR_CODE, $theError->getCode() );
+		$this->session()->offsetSet( kTAG_TRANSACTION_MESSAGE, $theError->getMessage() );
 		
 		return $this->failSession();												// ==>
 

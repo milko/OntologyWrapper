@@ -107,6 +107,15 @@ if( ! $wrapper->dictionaryFilled() )
  *======================================================================================*/
  
 //
+// Write to log file.
+//
+if( kDEBUG_FLAG )
+	file_put_contents(
+		kPATH_BATCHES_ROOT."/log/$session_id.log",
+		"Batch start: ".date( "r" )."\n",
+		FILE_APPEND );
+
+//
 // Instantiate session.
 //
 $session = new OntologyWrapper\Session( $wrapper, $session_id );
@@ -133,6 +142,21 @@ if( $session->committed() )
 	ini_set( 'max_execution_time', $max_exe );
 
 } // Found session.
+
+elseif( kDEBUG_FLAG )
+ 	file_put_contents(
+		kPATH_BATCHES_ROOT."/log/$session_id.log",
+		"  ==> Session [$session_id] not found.\n",
+		FILE_APPEND );
+
+//
+// Write to log file.
+//
+if( kDEBUG_FLAG )
+	file_put_contents(
+		kPATH_BATCHES_ROOT."/log/$session_id.log",
+		"Batch end: ".date( "r" )."\n",
+		FILE_APPEND );
 
 
 ?>

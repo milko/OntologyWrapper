@@ -33,13 +33,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Prepare upload</item>
+					<item const="kTAG_TEXT">Delete pending sessions</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Delete all previous upload sessions.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Remove any previous upload session that was not finalised by an update.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -64,7 +64,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Store template file</item>
+					<item const="kTAG_TEXT">Save template file</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -95,13 +95,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Load template</item>
+					<item const="kTAG_TEXT">Load template file and definitions</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Parse, identify and load template data dictionary and template file elements.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Check template file type, load parser and definitions.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -125,13 +125,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Check file type</item>
+					<item const="kTAG_TEXT">Check template file</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Identify and assert file type.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Verify if is a file and it is readable.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -151,13 +151,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Check template type</item>
+					<item const="kTAG_TEXT">Check template file type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Identify and assert template type.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Verify if the file type is compatible with the supported templates.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -177,13 +177,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Load template data dictionary</item>
+					<item const="kTAG_TEXT">Load template parser</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Load and allocate template data dictionary.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Load the template parser and verify if the template is supported.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -203,13 +203,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Load template elements</item>
+					<item const="kTAG_TEXT">Load template definitions</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Load and allocate template elements.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Load the template definitions stored in the data dictionary.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -230,7 +230,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Validate template structure</item>
+					<item const="kTAG_TEXT">Check template structure</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -260,13 +260,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Check template worksheets</item>
+					<item const="kTAG_TEXT">Check required worksheets</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Identify relevant worksheets and assert required.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Identify required worksheets and check whether they were included in the template.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -286,13 +286,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Check template columns</item>
+					<item const="kTAG_TEXT">Check required worksheet columns</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Identify relevant columns and assert required.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Identify required columns and check whether these were included in the template worksheet.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -313,13 +313,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Allocate resources</item>
+					<item const="kTAG_TEXT">Setup database resources</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Create template validation data repository and working resources.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Create working data repositories.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -338,23 +338,23 @@
 		</EDGE>
 	</META>
 	
-	<!-- kTYPE_TRANS_TMPL_WORKSHEET -->
+	<!-- kTYPE_TRANS_TMPL_LOAD_DATA -->
 	<META>
-		<TERM ns=":type:transaction" lid="150">
+		<TERM ns=":type:transaction" lid="1A0">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Load worksheet</item>
+					<item const="kTAG_TEXT">Load worksheets data</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Validate and load worksheet data]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Transfer the template worksheet data to the database.]]></item>
 				</item>
 			</item>
 		</TERM>
-		<NODE pid="enum::type:transaction:150">
+		<NODE pid="enum::type:transaction:1A0">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
@@ -365,33 +365,37 @@
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:session:100</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction:100</item>
 		</EDGE>
 	</META>
-	<!-- kTYPE_TRANS_TMPL_WORKSHEET_ROW -->
+	<!-- kTYPE_TRANS_TMPL_LOAD_DATA_ROW -->
 	<META>
-		<TERM ns=":type:transaction" lid="151">
+		<TERM ns=":type:transaction" lid="1A1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Load worksheet row</item>
+					<item const="kTAG_TEXT">Load worksheet data row</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Validate and load worksheet row data.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Copy worksheet data row in the working database.]]></item>
 				</item>
 			</item>
 		</TERM>
-		<NODE>
+		<NODE pid="enum::type:transaction:1A1">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">enum::type:transaction:150</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction:1A0</item>
 		</EDGE>
 	</META>
 	
@@ -401,13 +405,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Validate worksheet relationships</item>
+					<item const="kTAG_TEXT">Check worksheet relationships</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Check if all workseet relationships are correct.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Verify that all worksheets are correctly related.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -431,13 +435,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Validate row relationships</item>
+					<item const="kTAG_TEXT">Check worksheet row relationship</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Check if all row relationships are correct.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Verify that the current worksheet row references an existing row in the related worksheet.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -449,6 +453,63 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::type:transaction:160</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_TRANS_TMPL_WORKSHEET -->
+	<META>
+		<TERM ns=":type:transaction" lid="150">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Validate worksheet data</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Validate all worksheet fields.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE pid="enum::type:transaction:150">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:session:100</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_TRANS_TMPL_WORKSHEET_ROW -->
+	<META>
+		<TERM ns=":type:transaction" lid="151">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Validate worksheet row data</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Validate the worksheet row fields.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:transaction:150</item>
 		</EDGE>
 	</META>
 	
@@ -464,7 +525,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Compile worksheet data and generate objects.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Select all worksheet rows pertaining to a single unit and create the combined object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -488,13 +549,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Replace record</item>
+					<item const="kTAG_TEXT">Check existing objects</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The record will be replaced in the database.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Signal which objects will be replaced, rather than inserted, in the database.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -514,13 +575,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Unexpected error</item>
+					<item const="kTAG_TEXT">Validate object</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An error occurred while compiling the object from worksheet data, the error was not previously identified.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Perform final object validation to cover eventual errors not catched in the previous steps.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -547,7 +608,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Remove all upload temporary working resources.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Release any temporary resources used for the data validation and compilation.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -578,7 +639,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Close template upload session.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Close running session and terminate the procedure.]]></item>
 				</item>
 			</item>
 		</TERM>

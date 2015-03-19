@@ -60,6 +60,7 @@ TRANSACTION
 132		kTYPE_TRANS_TMPL_STRUCT_COLUMNS		Check required worksheet columns
 140 kTYPE_TRANS_TMPL_SETUP					Setup database resources
 1A0	kTYPE_TRANS_TMPL_LOAD_DATA				Load worksheet data
+1A1		kTYPE_TRANS_TMPL_LOAD_DATA_ROW		Load worksheet data row
 160 kTYPE_TRANS_TMPL_RELATIONSHIPS			Check worksheet relationships
 161		kTYPE_TRANS_TMPL_RELATIONSHIPS_ROW	Check worksheet row relationship
 150 kTYPE_TRANS_TMPL_WORKSHEET				Validate worksheet data

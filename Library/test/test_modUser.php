@@ -80,13 +80,13 @@ $base_url = 'http://localhost/gateway/Service.php';
 //
 // Init local storage.
 //
-$pub_key_path = '/Library/WebServer/Private/pgrdg/pub.pem';
+$pub_key_path = '/Library/WebServer/Private/gateway/pub.pem';
 $pub_key = file_get_contents( $pub_key_path );
-$priv_key_path = '/Library/WebServer/Private/pgrdg/priv.pem';
+$priv_key_path = '/Library/WebServer/Private/gateway/priv.pem';
 $priv_key = file_get_contents( $priv_key_path );
-$ext_pub_key_path = '/Library/WebServer/Private/pgrdg/ext_pub.pem';
+$ext_pub_key_path = '/Library/WebServer/Private/gateway/ext_pub.pem';
 $ext_pub_key = file_get_contents( $ext_pub_key_path );
-$ext_priv_key_path = '/Library/WebServer/Private/pgrdg/ext_priv.pem';
+$ext_priv_key_path = '/Library/WebServer/Private/gateway/ext_priv.pem';
 $ext_priv_key = file_get_contents( $ext_priv_key_path );
 $encoder = new OntologyWrapper\Encoder();
 

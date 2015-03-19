@@ -266,16 +266,19 @@ class TemplateWorksheetsIterator implements \Iterator,
 	 */
 	public function parent()
 	{
-		if( is_array( $this->mCursor ) )
+		if( $this->valid() )
 		{
-			$key = $this->key();
-			if( $key !== NULL )
+			if( is_array( $this->mCursor ) )
 			{
-				$container = current( $this->mCursor[ count( $this->mCursor ) - 1 ] );
-				if( array_key_exists( 'P', $container ) )
-					return array(
-							'W' => $this->mList[ $container[ 'P' ] ][ 'W' ],
-							'F' => $this->mList[ $container[ 'P' ] ][ 'F' ] );		// ==>
+				$key = $this->key();
+				if( $key !== NULL )
+				{
+					$container = current( $this->mCursor[ count( $this->mCursor ) - 1 ] );
+					if( array_key_exists( 'P', $container ) )
+						return array(
+								'W' => $this->mList[ $container[ 'P' ] ][ 'W' ],
+								'F' => $this->mList[ $container[ 'P' ] ][ 'F' ] );	// ==>
+				}
 			}
 		}
 		

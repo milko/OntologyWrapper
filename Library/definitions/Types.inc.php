@@ -709,6 +709,17 @@ define( "kTYPE_TRANS_TMPL_DUPLICATES_ROW",		':type:transaction:171' );
 define( "kTYPE_TRANS_TMPL_BAD_OBJECT_ROW",		':type:transaction:172' );
 
 /*=======================================================================================
+ *	TEMPLATE WORKSHEET RECORD LOAD TRANSACTIONS											*
+ *======================================================================================*/
+
+/**
+ * Copy worksheet data row.
+ *
+ * Copy worksheet data row in the working database.
+ */
+define( "kTYPE_TRANS_TMPL_LOAD_DATA_ROW",		':type:transaction:1A1' );
+
+/*=======================================================================================
  *	DEFAULT UPDATE TRANSACTION TYPES													*
  *======================================================================================*/
 
@@ -1094,6 +1105,20 @@ define( "kTYPE_ERROR_INVALID_CODE",				'Invalid code' );
 define( "kTYPE_ERROR_RELATED_NO_MATCH",			'Unmatched relation' );
 
 /**
+ * Duplicate key.
+ *
+ * The record contains a duplicate key.
+ */
+define( "kTYPE_ERROR_DUPLICATE_KEY",			'Duplicate key' );
+
+/**
+ * Existing record.
+ *
+ * The record exists in the database.
+ */
+define( "kTYPE_ERROR_DUPLICATE_RECOD",			'Duplicate record' );
+
+/**
  * Dubious value.
  *
  * The value may be incorrect.
@@ -1271,6 +1296,13 @@ define( "kTYPE_ERROR_CODE_INVALID_TIME_STAMP",	-21 );
  * Unmatched relationship.
  */
 define( "kTYPE_ERROR_CODE_BAD_RELATIONSHIP",	-22 );
+
+/**
+ * Duplicate record key.
+ *
+ * A record exists with the same key.
+ */
+define( "kTYPE_ERROR_CODE_DIPLICATE_KEY",		-23 );
 
 
 ?>
