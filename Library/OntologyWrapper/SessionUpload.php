@@ -429,7 +429,8 @@ class SessionUpload
 		//
 		// Init local storage.
 		//
-		$transactions = 11;
+		$transactions = 8;
+		$increment = 100 / 8;
 		$log = kPATH_BATCHES_ROOT
 			  ."/log/"
 			  .(string) $this->session()->offsetGet( kTAG_NID )
@@ -458,7 +459,6 @@ class SessionUpload
 			// Initialise progress.
 			//
 			$this->session()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
-			UpdateProcessCounter( $start, $increment, kTAG_COUNTER_PROCESSED );
 
 			//
 			// Write to log file.
@@ -478,11 +478,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$increment++;
-			UpdateProcessCounter(
-				$start, $increment,
-				kTAG_COUNTER_PROCESSED,
-				$this->session(), $transactions );
+			$this->session()->progress( 0.71 );
 
 			//
 			// Write to log file.
@@ -502,11 +498,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$increment++;
-			UpdateProcessCounter(
-				$start, $increment,
-				kTAG_COUNTER_PROCESSED,
-				$this->session(), $transactions );
+			$this->session()->progress( 8.51 );
 
 			//
 			// Write to log file.
@@ -526,11 +518,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$increment++;
-			UpdateProcessCounter(
-				$start, $increment,
-				kTAG_COUNTER_PROCESSED,
-				$this->session(), $transactions );
+			$this->session()->progress( 0.71 );
 
 			//
 			// Write to log file.
@@ -550,11 +538,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$increment++;
-			UpdateProcessCounter(
-				$start, $increment,
-				kTAG_COUNTER_PROCESSED,
-				$this->session(), $transactions );
+			$this->session()->progress( 0.71 );
 
 			//
 			// Write to log file.
@@ -574,12 +558,16 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$increment++;
-			UpdateProcessCounter(
-				$start, $increment,
-				kTAG_COUNTER_PROCESSED,
-				$this->session(), $transactions );
+			$this->session()->progress( 0.71 );
 
+			//
+			// Reset session records counters.
+			//
+			$this->session()->offsetSet( kTAG_COUNTER_PROCESSED, 0 );
+			$this->session()->offsetSet( kTAG_COUNTER_VALIDATED, 0 );
+			$this->session()->offsetSet( kTAG_COUNTER_REJECTED, 0 );
+			$this->session()->offsetSet( kTAG_COUNTER_SKIPPED, 0 );
+		
 			//
 			// Write to log file.
 			//
@@ -598,11 +586,7 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$increment++;
-			UpdateProcessCounter(
-				$start, $increment,
-				kTAG_COUNTER_PROCESSED,
-				$this->session(), $transactions );
+			$this->session()->progress( 73.13 );
 	
 			//
 			// Write to log file.
@@ -622,36 +606,8 @@ class SessionUpload
 			//
 			// Progress.
 			//
-			$increment++;
-			UpdateProcessCounter(
-				$start, $increment,
-				kTAG_COUNTER_PROCESSED,
-				$this->session(), $transactions );
-			
-			//
-			// Write to log file.
-			//
-			if( kDEBUG_FLAG )
-				file_put_contents(
-					$log,
-					"  • sessionRelationships()".date( "r" )."\n",
-					FILE_APPEND );
+			$this->session()->progress( 14.91 );
 	/*
-			//
-			// Transaction relationships.
-			//
-			if( ! $this->sessionRelationships() )
-				return $this->failSession();										// ==>
-			
-			//
-			// Progress.
-			//
-			$increment++;
-			UpdateProcessCounter(
-				$start, $increment,
-				kTAG_COUNTER_PROCESSED,
-				$this->session(), $transactions );
-			
 			//
 			// Write to log file.
 			//
@@ -666,17 +622,7 @@ class SessionUpload
 			//
 			if( ! $this->sessionObjects() )
 				return $this->failSession();										// ==>
-			
-			//
-			// Progress.
-			//
-			$increment++;
-			UpdateProcessCounter(
-				$start, $increment,
-				kTAG_COUNTER_PROCESSED,
-				$this->session(), $transactions );
-	*/
-			
+	*/		
 			//
 			// Finalise progress.
 			//
@@ -1100,13 +1046,6 @@ class SessionUpload
 	protected function sessionValidation()
 	{
 		//
-		// Reset session records counters.
-		//
-		$this->session()->offsetSet( kTAG_COUNTER_PROCESSED, 0 );
-		$this->session()->offsetSet( kTAG_COUNTER_VALIDATED, 0 );
-		$this->session()->offsetSet( kTAG_COUNTER_REJECTED, 0 );
-		
-		//
 		// Get root worksheet.
 		//
 		$worksheet = $this->mParser->getUnitWorksheet();
@@ -1163,96 +1102,6 @@ class SessionUpload
 
 	 
 	/*===================================================================================
-	 *	sessionRelationships															*
-	 *==================================================================================*/
-
-	/**
-	 * Validate worksheet relationships
-	 *
-	 * This method will validate the relationships between worksheets, if a worksheet row
-	 * points to a non existant other worksheet row, a warning will be issued: that is
-	 * because it is not a formal error.
-	 *
-	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
-	 *
-	 * @uses session()
-	 * @uses transaction()
-	 */
-	protected function sessionRelationships()
-	{
-		//
-		// Get related fields.
-		//
-		$worksheets = $fields = Array();
-		$tmp = $this->mParser->getWorksheets();
-		foreach( $this->mParser->getFields() as $worksheet => $field )
-		{
-			foreach( $field as $key => $value )
-			{
-				if( array_key_exists( 'field', $value )
-				 && array_key_exists( 'worksheet', $value ) )
-				{
-					if( ! array_key_exists( $worksheet, $fields ) )
-					{
-						$worksheets[ $worksheet ] = $tmp[ $worksheet ];
-						$fields[ $worksheet ] = Array();
-					
-					} $fields[ $worksheet ][ $key ] = $value;
-				}
-			}
-		}
-		
-		//
-		// Iterate worksheets.
-		//
-		foreach( $worksheets as $wname => $worksheet )
-		{
-			//
-			// Init loop storage.
-			//
-			$records
-				= $this->mCollections[ $this->getCollectionName( $wname ) ]
-					->matchAll( Array(), kQUERY_COUNT );
-		
-			//
-			// Instantiate transaction.
-			//
-			$transaction
-				= $this->transaction(
-					$this->session()
-						->newTransaction( kTYPE_TRANS_TMPL_RELATIONSHIPS,
-										  kTYPE_STATUS_EXECUTING,
-										  $wname ) );
-			
-			//
-			// Set records count.
-			//
-			$transaction->offsetSet( kTAG_COUNTER_RECORDS, $records );
-			
-			//
-			// Check worksheet relationships.
-			//
-			if( ! $this->checkWorksheetRelationships( $wname, $fields, $records ) )
-				return FALSE;														// ==>
-	
-			//
-			// Close transaction.
-			//
-			$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-			if( $transaction->offsetGet( kTAG_TRANSACTION_STATUS )
-					== kTYPE_STATUS_EXECUTING )
-				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
-			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
-		
-		} // Iterating worksheets.
-		
-		return TRUE;																// ==>
-
-	} // sessionRelationships.
-
-	 
-	/*===================================================================================
 	 *	sessionObjects																	*
 	 *==================================================================================*/
 
@@ -1287,11 +1136,6 @@ class SessionUpload
 									  NULL ) );
 		
 		//
-		// Set records count.
-		//
-		$transaction->offsetSet( kTAG_COUNTER_RECORDS, $records );
-		
-		//
 		// Check worksheet relationships.
 		//
 		if( ! $this->createObjects( $worksheet, $records ) )
@@ -1300,10 +1144,10 @@ class SessionUpload
 		//
 		// Close transaction.
 		//
-		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 		if( $transaction->offsetGet( kTAG_TRANSACTION_STATUS )
 				== kTYPE_STATUS_EXECUTING )
 			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
 		return TRUE;																// ==>
@@ -1878,7 +1722,7 @@ class SessionUpload
 			//
 			// Add status index.
 			//
-			$this->mCollections[ $name ]->createIndex( array( '_status' => 1 ) );
+			$this->mCollections[ $name ]->createIndex( array( '@valid' => 1 ) );
 		
 			//
 			// Update progress.
@@ -1990,9 +1834,25 @@ class SessionUpload
 				->newTransaction( kTYPE_TRANS_TMPL_LOAD_DATA,
 								  kTYPE_STATUS_EXECUTING,
 								  $theWorksheet ) );
+		
+		//
+		// Set records count.
+		//
+		$this->transaction()->offsetSet( kTAG_COUNTER_RECORDS, $records );
+		
 	
 		//
-		// Initialise counters.
+		// Initialise session counters.
+		//
+		UpdateProcessCounter( $start_processed_session, $increment_processed_session,
+							  kTAG_COUNTER_PROCESSED );
+		UpdateProcessCounter( $start_rejected_session, $increment_rejected_session,
+							  kTAG_COUNTER_REJECTED );
+		UpdateProcessCounter( $start_skipped_session, $increment_skipped_session,
+							  kTAG_COUNTER_SKIPPED );
+	
+		//
+		// Initialise transaction counters.
 		//
 		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		UpdateProcessCounter( $start_processed, $increment_processed,
@@ -2063,7 +1923,7 @@ class SessionUpload
 						$object
 							= $collection->matchOne(
 								array( $theField => $record[ $theField ] ),
-								kQUERY_OBJECT );
+								kQUERY_ARRAY );
 					
 						//
 						// Handle duplicate.
@@ -2071,7 +1931,7 @@ class SessionUpload
 						if( $object !== NULL )
 						{
 							$message = "A record already exists with the same key in row ["
-									  .$object->offsetGet( kTAG_NID )
+									  .$object[ kTAG_NID ]
 									  ."].";
 							$this->failTransactionLog(
 								$transaction,								// Transaction.
@@ -2197,7 +2057,25 @@ class SessionUpload
 				else
 				{
 					//
-					// Update rejected.
+					// Update session processed.
+					//
+					$increment_processed_session++;
+					UpdateProcessCounter(
+						$start_processed_session, $increment_processed_session,
+						kTAG_COUNTER_PROCESSED,
+						$this->session() );
+					
+					//
+					// Update session rejected.
+					//
+					$increment_rejected_session++;
+					UpdateProcessCounter(
+						$start_rejected_session, $increment_rejected_session,
+						kTAG_COUNTER_REJECTED,
+						$this->session() );
+					
+					//
+					// Update transaction rejected.
 					//
 					$increment_rejected++;
 					UpdateProcessCounter(
@@ -2214,7 +2092,25 @@ class SessionUpload
 			else
 			{
 				//
-				// Update skipped.
+				// Update session processed.
+				//
+				$increment_processed_session++;
+				UpdateProcessCounter(
+					$start_processed_session, $increment_processed_session,
+					kTAG_COUNTER_PROCESSED,
+					$this->session() );
+				
+				//
+				// Update session skipped.
+				//
+				$increment_skipped_session++;
+				UpdateProcessCounter(
+					$start_skipped_session, $increment_skipped_session,
+					kTAG_COUNTER_SKIPPED,
+					$this->session() );
+				
+				//
+				// Update transaction skipped.
 				//
 				$increment_skipped++;
 				UpdateProcessCounter(
@@ -2235,7 +2131,16 @@ class SessionUpload
 		} // Iterating worksheet rows.
 		
 		//
-		// Update processed.
+		// Update session processed.
+		//
+		$increment_processed_session++;
+		UpdateProcessCounter(
+			$start_processed_session, $increment_processed_session,
+			kTAG_COUNTER_PROCESSED,
+			$this->session(), NULL, TRUE);
+		
+		//
+		// Update transaction processed.
 		//
 		UpdateProcessCounter(
 			$start_processed, $increment_processed,
@@ -2243,7 +2148,7 @@ class SessionUpload
 			$this->transaction(), $records, TRUE );
 		
 		//
-		// Update validated.
+		// Update transaction validated.
 		//
 		UpdateProcessCounter(
 			$start_validated, $increment_validated,
@@ -2251,7 +2156,16 @@ class SessionUpload
 			$this->transaction(), NULL, TRUE );
 		
 		//
-		// Update rejected.
+		// Update session rejected.
+		//
+		$increment_rejected_session++;
+		UpdateProcessCounter(
+			$start_rejected_session, $increment_rejected_session,
+			kTAG_COUNTER_REJECTED,
+			$this->session(), NULL, TRUE );
+		
+		//
+		// Update transaction rejected.
 		//
 		UpdateProcessCounter(
 			$start_rejected, $increment_rejected,
@@ -2259,7 +2173,16 @@ class SessionUpload
 			$this->transaction(), NULL, TRUE );
 		
 		//
-		// Update skipped.
+		// Update session skipped.
+		//
+		$increment_skipped_session++;
+		UpdateProcessCounter(
+			$start_skipped_session, $increment_skipped_session,
+			kTAG_COUNTER_SKIPPED,
+			$this->session(), NULL, TRUE );
+		
+		//
+		// Update transaction skipped.
 		//
 		UpdateProcessCounter(
 			$start_skipped, $increment_skipped,
@@ -2302,6 +2225,7 @@ class SessionUpload
 		//
 		$collection = $this->mCollections[ $this->getCollectionName( $theWorksheet ) ];
 		$fields_data = $this->mParser->getFields()[ $theWorksheet ];
+		$validated = Array();
 		
 		//
 		// Select rows.
@@ -2310,7 +2234,25 @@ class SessionUpload
 		$records = $rs->count();
 		
 		//
-		// Initialise counters.
+		// Set records count.
+		//
+		$this->transaction()->offsetSet( kTAG_COUNTER_RECORDS, $records );
+		
+	
+		//
+		// Initialise session counters.
+		//
+		UpdateProcessCounter( $start_processed_session, $increment_processed_session,
+							  kTAG_COUNTER_PROCESSED );
+		UpdateProcessCounter( $start_validated_session, $increment_validated_session,
+							  kTAG_COUNTER_VALIDATED );
+		UpdateProcessCounter( $start_rejected_session, $increment_rejected_session,
+							  kTAG_COUNTER_REJECTED );
+		UpdateProcessCounter( $start_skipped_session, $increment_skipped_session,
+							  kTAG_COUNTER_SKIPPED );
+	
+		//
+		// Initialise transaction counters.
 		//
 		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
 		UpdateProcessCounter( $start_processed, $increment_processed,
@@ -2357,7 +2299,16 @@ class SessionUpload
 			if( $errors )
 			{
 				//
-				// Update rejected.
+				// Update session rejected.
+				//
+				$increment_rejected_session++;
+				UpdateProcessCounter(
+					$start_rejected_session, $increment_rejected_session,
+					kTAG_COUNTER_REJECTED,
+					$this->session() );
+				
+				//
+				// Update transaction rejected.
 				//
 				$increment_rejected++;
 				UpdateProcessCounter(
@@ -2373,18 +2324,35 @@ class SessionUpload
 			else
 			{
 				//
-				// Write record.
+				// Update session validated.
 				//
-				$collection->commit( $record );
+				$increment_validated_session++;
+				UpdateProcessCounter(
+					$start_validated_session, $increment_validated_session,
+					kTAG_COUNTER_VALIDATED,
+					$this->session() );
 				
 				//
-				// Update validated.
+				// Update transaction validated.
 				//
 				$increment_validated++;
 				UpdateProcessCounter(
 					$start_validated, $increment_validated,
 					kTAG_COUNTER_VALIDATED,
 					$this->transaction() );
+				
+				//
+				// Add validated ID.
+				//
+				$validated[] = $record[ kTAG_NID ];
+				if( count( $validated ) >= 100 )
+				{
+					$collection->modify(
+						array( kTAG_NID => array( '$in' => $validated ) ),
+						array( '$set' => array( '_valid' => TRUE ) ),
+						array( 'upsert' => FALSE, 'multiple' => TRUE ) );
+					$validated = Array();
+				}
 			
 			} // Valid row.
 							
@@ -2398,7 +2366,16 @@ class SessionUpload
 			}
 			
 			//
-			// Update processed.
+			// Update session processed.
+			//
+			$increment_processed_session++;
+			UpdateProcessCounter(
+				$start_processed_session, $increment_processed_session,
+				kTAG_COUNTER_PROCESSED,
+				$this->session() );
+			
+			//
+			// Update transaction processed.
 			//
 			$increment_processed++;
 			UpdateProcessCounter(
@@ -2409,7 +2386,25 @@ class SessionUpload
 		} // Iterating worksheet rows.
 		
 		//
-		// Update processed.
+		// Add validated ID.
+		//
+		if( count( $validated ) )
+			$collection->modify(
+				array( kTAG_NID => array( '$in' => $validated ) ),
+				array( '$set' => array( '_valid' => TRUE ) ),
+				array( 'upsert' => FALSE, 'multiple' => TRUE ) );
+		
+		//
+		// Update session processed.
+		//
+		$increment_processed_session++;
+		UpdateProcessCounter(
+			$start_processed_session, $increment_processed_session,
+			kTAG_COUNTER_PROCESSED,
+			$this->session(), NULL, TRUE );
+		
+		//
+		// Update transaction processed.
 		//
 		UpdateProcessCounter(
 			$start_processed, $increment_processed,
@@ -2417,7 +2412,16 @@ class SessionUpload
 			$this->transaction(), $records, TRUE );
 		
 		//
-		// Update validated.
+		// Update session validated.
+		//
+		$increment_validated_session++;
+		UpdateProcessCounter(
+			$start_validated_session, $increment_validated_session,
+			kTAG_COUNTER_VALIDATED,
+			$this->session(), NULL, TRUE );
+		
+		//
+		// Update transaction validated.
 		//
 		UpdateProcessCounter(
 			$start_validated, $increment_validated,
@@ -2425,7 +2429,16 @@ class SessionUpload
 			$this->transaction(), NULL, TRUE );
 		
 		//
-		// Update rejected.
+		// Update session rejected.
+		//
+		$increment_rejected_session++;
+		UpdateProcessCounter(
+			$start_rejected_session, $increment_rejected_session,
+			kTAG_COUNTER_REJECTED,
+			$this->session(), NULL, TRUE );
+		
+		//
+		// Update transaction rejected.
 		//
 		UpdateProcessCounter(
 			$start_rejected, $increment_rejected,
@@ -2442,151 +2455,6 @@ class SessionUpload
 		return TRUE;																// ==>
 
 	} // validateWorksheetData.
-
-	 
-	/*===================================================================================
-	 *	checkWorksheetRelationships														*
-	 *==================================================================================*/
-
-	/**
-	 * Load worksheet data
-	 *
-	 * This method will scan all related worksheet records and flag with a warning any
-	 * record that does not have a valid relationship.
-	 *
-	 * @param string				$theWorksheet		Worksheet name.
-	 * @param array					$theFields			Field data.
-	 * @param int					$theRecords			Records count.
-	 *
-	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
-	 *
-	 * @uses file()
-	 * @uses session()
-	 */
-	protected function checkWorksheetRelationships( $theWorksheet, $theFields, $theRecords )
-	{
-		//
-		// Init local storage.
-		//
-		$collection = $this->mCollections[ $this->getCollectionName( $theWorksheet ) ];
-		$worksheet_data = $this->mParser->getWorksheets()[ $theWorksheet ];
-		$fields_data = $theFields[ $theWorksheet ];
-		$transaction = NULL;
-		
-		//
-		// Iterate worksheet data.
-		//
-		$rs = $collection->matchAll( Array(), kQUERY_ARRAY );
-		foreach( $rs as $record )
-		{
-			//
-			// Iterate related fields.
-			//
-			$matched = $rejected = 0;
-			foreach( $fields_data as $field => $data )
-			{
-				//
-				// Init local storage.
-				//
-				$tag = $this->mParser->getNode( $data[ 'node' ] )->offsetGet( kTAG_TAG );
-				
-				//
-				// Check if field is there.
-				//
-				if( array_key_exists( $field, $record ) )
-				{
-					//
-					// Init local storage.
-					//
-					$matched++;
-					$collection_rel
-						= $this->mCollections
-							[ $this->getCollectionName( $data[ 'worksheet' ] ) ];
-			
-					//
-					// Check if field is related.
-					//
-					$criteria = array( $data[ 'field' ] => $record[ $field ] );
-					if( ! $collection_rel->matchOne( $criteria, kQUERY_COUNT ) )
-					{
-						//
-						// Create transaction.
-						//
-						$this->failTransactionLog(
-							$transaction,							// Transaction.
-							$this->transaction(),					// Parent transaction.
-							kTYPE_TRANS_TMPL_RELATIONSHIPS_ROW,		// Transaction type.
-							kTYPE_STATUS_WARNING,					// Transaction status.
-							'Related record not found.',			// Transaction message.
-							$theWorksheet,							// Worksheet.
-							$record[ kTAG_NID ],					// Row.
-							$data[ 'column_name' ],					// Column.
-							$field,									// Alias.
-							$tag,									// Tag.
-							$record[ $field ],						// Value.
-							kTYPE_ERROR_RELATED_NO_MATCH,			// Error type.
-							kTYPE_ERROR_CODE_BAD_RELATIONSHIP,		// Error code.
-							NULL );									// Error resource.
-						
-						//
-						// Add rejected.
-						//
-						$rejected++;
-					
-					} // Not matched.
-				
-				} // Has field.
-			
-			} // Iterating related fields.
-			
-			//
-			// Update parent progress.
-			//
-			$this->transaction()->processed( 1, $theRecords );
-			
-			//
-			// Handle skiped.
-			//
-			if( ! $matched )
-				$this->transaction()->skipped( 1 );
-			
-			//
-			// Handle rejected.
-			//
-			elseif( $rejected )
-			{
-				//
-				// Increment rejected.
-				//
-				$this->transaction()->rejected( 1 );
-				
-				//
-				// Delete entry.
-				//
-				$collection->delete( $record[ kTAG_NID ] );
-			}
-			
-			//
-			// Handle validated.
-			//
-			else
-				$this->transaction()->validated( 1 );
-			
-			//
-			// Close current transaction.
-			//
-			if( $transaction !== NULL )
-			{
-				$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
-				$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
-			}
-		
-		} // Iterating worksheet data.
-		
-		return TRUE;																// ==>
-
-	} // checkWorksheetRelationships.
 
 	 
 	/*===================================================================================
