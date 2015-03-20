@@ -699,9 +699,11 @@ abstract class SessionObject extends PersistentObject
 		if( $this->committed() )
 		{
 			//
-			// Resolve offset.
+			// Call preflight.
 			//
-			$theOffset = $this->resolveOffset( $theOffset );
+			$value = $this->preOffsetExists( $theOffset );
+			if( $value !== NULL )
+				return $value;														// ==>
 	
 			//
 			// Handle extern properties.
@@ -775,10 +777,12 @@ abstract class SessionObject extends PersistentObject
 		if( $this->committed() )
 		{
 			//
-			// Resolve offset.
+			// Call preflight.
 			//
-			$theOffset = $this->resolveOffset( $theOffset );
-	
+			$value = $this->preOffsetGet( $theOffset );
+			if( $value !== NULL )
+				return $value;														// ==>
+		
 			//
 			// Handle extern properties.
 			//
@@ -853,38 +857,65 @@ abstract class SessionObject extends PersistentObject
 		if( $this->committed() )
 		{
 			//
-			// Resolve offset.
+			// Skip deletions.
 			//
-			$theOffset = $this->resolveOffset( $theOffset );
-	
-			//
-			// Handle extern properties.
-			//
-			switch( $theOffset )
+			if( $theValue !== NULL )
 			{
-				case kTAG_FILE:
-				case kTAG_COUNTER_COLLECTIONS:
-				case kTAG_COUNTER_RECORDS:
-				case kTAG_COUNTER_FIELDS:
-				case kTAG_COUNTER_PROCESSED:
-				case kTAG_COUNTER_VALIDATED:
-				case kTAG_COUNTER_REJECTED:
-				case kTAG_COUNTER_SKIPPED:
-				case kTAG_COUNTER_PROGRESS:
+				//
+				// Call preflight.
+				//
+				if( $this->preOffsetSet( $theOffset, $theValue ) === NULL )
+				{
+					//
+					// Handle extern properties.
+					//
+					switch( $theOffset )
+					{
+						case kTAG_FILE:
+						case kTAG_COUNTER_COLLECTIONS:
+						case kTAG_COUNTER_RECORDS:
+						case kTAG_COUNTER_FIELDS:
+						case kTAG_COUNTER_PROCESSED:
+						case kTAG_COUNTER_VALIDATED:
+						case kTAG_COUNTER_REJECTED:
+						case kTAG_COUNTER_SKIPPED:
+						case kTAG_COUNTER_PROGRESS:
 		
-					//
-					// Set in persistent object.
-					//
-					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
-							->replaceOffsets(
-								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => $theValue ) );
-				
-					break;
+							//
+							// Set in persistent object.
+							//
+							static::ResolveCollection(
+								static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+									->replaceOffsets(
+										parent::offsetGet( kTAG_NID ),
+										array( $theOffset => $theValue ) );
+						
+						default:
 					
-			} // Extern offset.
+							//
+							// Set value.
+							//
+							\ArrayObject::offsetSet( $theOffset, $theValue );
+				
+							//
+							// Call postflight.
+							//
+							$this->postOffsetSet( $theOffset, $theValue );
+				
+							break;
+					
+					} // Extern offset.
+			
+				} // Preflight passed.
 		
+			} // Not deleting.
+		
+			//
+			// Handle delete.
+			//
+			else
+				$this->offsetUnset( $theOffset );
+	
 		} // Is committed.
 		
 		//

@@ -1117,13 +1117,15 @@ class SessionUpload
 	protected function sessionObjects()
 	{
 		//
-		// Init local storage.
+		// Get root worksheet.
 		//
-		$worksheet = $this->mParser->getUnitWorksheet();
-		$records
-			= $this->mCollections
-				[ $this->getCollectionName( $worksheet ) ]
-					->matchAll( Array(), kQUERY_COUNT );
+		$worksheet = $this->mIterator->getRoot()[ 'W' ];
+		
+		//
+		// Select root worksheet records.
+		//
+		$rs = $this->mCollections[ $this->getCollectionName( $worksheet ) ]
+				->matchAll( array( '_valid' => TRUE ), kQUERY_ARRAY );
 		
 		//
 		// Instantiate transaction.
@@ -1136,17 +1138,27 @@ class SessionUpload
 									  NULL ) );
 		
 		//
-		// Check worksheet relationships.
+		// Set records count.
 		//
-		if( ! $this->createObjects( $worksheet, $records ) )
-			return FALSE;															// ==>
-
+		$this->transaction()->offsetSet( kTAG_COUNTER_RECORDS, $rs->count() );
+		
+		//
+		// Iterate records.
+		//
+		foreach( $rs as $record )
+		{
+			//
+			// Check worksheet relationships.
+			//
+			if( ! $this->createObjects( $record, $records ) )
+				return FALSE;														// ==>
+		
+		} // Iterating records.
+		
 		//
 		// Close transaction.
 		//
-		if( $transaction->offsetGet( kTAG_TRANSACTION_STATUS )
-				== kTYPE_STATUS_EXECUTING )
-			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
+		$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 		$transaction->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
 		$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
@@ -1839,7 +1851,6 @@ class SessionUpload
 		// Set records count.
 		//
 		$this->transaction()->offsetSet( kTAG_COUNTER_RECORDS, $records );
-		
 	
 		//
 		// Initialise session counters.
@@ -2190,7 +2201,7 @@ class SessionUpload
 			$this->transaction(), NULL, TRUE );
 		
 		//
-		// Update progress.
+		// Close transaction.
 		//
 		$this->transaction()->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 100 );
@@ -3087,8 +3098,8 @@ class SessionUpload
 			//
 			// Close session.
 			//
-			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 			$transaction->offsetSet( kTAG_TRANSACTION_STATUS, $theStatus );
+			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 			
 			//
 			// Get parent.

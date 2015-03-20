@@ -295,32 +295,59 @@ class Session extends SessionObject
 		if( $this->committed() )
 		{
 			//
-			// Resolve offset.
+			// Skip deletions.
 			//
-			$theOffset = $this->resolveOffset( $theOffset );
-	
-			//
-			// Handle extern properties.
-			//
-			switch( $theOffset )
+			if( $theValue !== NULL )
 			{
-				case kTAG_CONN_COLLS:
-				case kTAG_SESSION_END:
-				case kTAG_SESSION_STATUS:
+				//
+				// Call preflight.
+				//
+				if( $this->preOffsetSet( $theOffset, $theValue ) === NULL )
+				{
+					//
+					// Handle extern properties.
+					//
+					switch( $theOffset )
+					{
+						case kTAG_CONN_COLLS:
+						case kTAG_SESSION_END:
+						case kTAG_SESSION_STATUS:
 		
-					//
-					// Set in persistent object.
-					//
-					static::ResolveCollection(
-						static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
-							->replaceOffsets(
-								$this->offsetGet( kTAG_NID ),
-								array( $theOffset => $theValue ) );
-				
-					break;
+							//
+							// Set in persistent object.
+							//
+							static::ResolveCollection(
+								static::ResolveDatabase( $this->mDictionary, TRUE ), TRUE )
+									->replaceOffsets(
+										parent::offsetGet( kTAG_NID ),
+										array( $theOffset => $theValue ) );
+						
+						default:
 					
-			} // Extern offset.
+							//
+							// Set value.
+							//
+							\ArrayObject::offsetSet( $theOffset, $theValue );
+				
+							//
+							// Call postflight.
+							//
+							$this->postOffsetSet( $theOffset, $theValue );
+				
+							break;
+					
+					} // Extern offset.
+			
+				} // Preflight passed.
 		
+			} // Not deleting.
+		
+			//
+			// Handle delete.
+			//
+			else
+				$this->offsetUnset( $theOffset );
+	
 		} // Is committed.
 		
 		//
