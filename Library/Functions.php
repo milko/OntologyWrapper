@@ -1282,7 +1282,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 	 *	<li>Dubious year:
 	 *	  <ul>
 	 *		<li>Set the <tt>$theErrorType</tt> reference to
-	 *			{@link kTYPE_ERROR_DUBIOUS_VALUE}.
+	 *			{@link kTYPE_WARNING_DUBIOUS_VALUE}.
 	 *		<li>Set the <tt>$theErrorMessage</tt> reference to the warning message.
 	 *		<li>Return {@link kTYPE_ERROR_CODE_DUBIOUS_YEAR}.
 	 *	  </ul>
@@ -1451,7 +1451,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		if( ($y < 1900)
 		 || ($y > (int) date( "Y" )) )
 		{
-			$theErrorType = kTYPE_ERROR_DUBIOUS_VALUE;
+			$theErrorType = kTYPE_WARNING_DUBIOUS_VALUE;
 			$theErrorMessage = 'Double check if year is correct.';
 			return kTYPE_ERROR_CODE_DUBIOUS_YEAR;									// ==>
 		}

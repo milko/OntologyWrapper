@@ -74,7 +74,7 @@ $base_url = 'http://localhost/gateway/Service.php';
 // Set template reference.
 //
 $template = "/Library/WebServer/Library/OntologyWrapper/Library/test/CWR_Checklist_Template.test.large.xlsx";
-//$template = "/Library/WebServer/Library/OntologyWrapper/Library/test/CWR_Checklist_Template.test.xlsx";
+$template = "/Library/WebServer/Library/OntologyWrapper/Library/test/test_checklist.small.xlsx";
 
 //
 // Init local storage.

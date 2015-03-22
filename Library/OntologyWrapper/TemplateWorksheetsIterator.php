@@ -42,7 +42,9 @@ use OntologyWrapper\ExcelTemplateParser;
  *		<li><em>value</em>: The value is an array containing the names of the elements:
  *		  <ul>
  *			<li><tt>W</tt>: This item contains the worksheet name.
- *			<li><tt>F</tt>: This item contains the field symbol.
+ *			<li><tt>K</tt>: This item contains the eventual worksheet key field name.
+ *			<li><tt>F</tt>: This item contains the eventual name of the field that points
+ *				to the parent worksheet.
  *		  </ul>
  *	  </ul>
  *	<li><tt>{@link mStruct}</tt>: This member is an array holding the tree structure that
@@ -243,10 +245,19 @@ class TemplateWorksheetsIterator implements \Iterator,
 	{
 		if( is_array( $this->mCursor ) )
 		{
+			$current = Array();
 			$key = $this->key();
 			if( $key !== NULL )
-				return array( 'W' => $this->mList[ $key ][ 'W' ],
-							  'F' => $this->mList[ $key ][ 'F' ] );					// ==>
+			{
+				$idxs = array( 'W', 'K', 'F' );
+				foreach( $idxs as $idx )
+				{
+					if( array_key_exists( $idx, $this->mList[ $key ] ) )
+						$current[ $idx ] = $this->mList[ $key ][ $idx ];
+				}
+				
+				return $current;													// ==>
+			}
 		}
 		
 		return NULL;																// ==>
@@ -275,9 +286,19 @@ class TemplateWorksheetsIterator implements \Iterator,
 				{
 					$container = current( $this->mCursor[ count( $this->mCursor ) - 1 ] );
 					if( array_key_exists( 'P', $container ) )
-						return array(
-								'W' => $this->mList[ $container[ 'P' ] ][ 'W' ],
-								'F' => $this->mList[ $container[ 'P' ] ][ 'F' ] );	// ==>
+					{
+						$current = Array();
+						$idxs = array( 'W', 'K', 'F' );
+						foreach( $idxs as $idx )
+						{
+							if( array_key_exists( $idx,
+												  $this->mList[ $container[ 'P' ] ] ) )
+								$current[ $idx ]
+									= $this->mList[ $container[ 'P' ] ][ $idx ];
+						}
+				
+						return $current;													// ==>
+					}
 				}
 			}
 		}
@@ -409,9 +430,15 @@ class TemplateWorksheetsIterator implements \Iterator,
 	 */
 	public function getRoot()
 	{
-		return array( 'W' => $this->mList[ $this->mStruct[ 'N' ] ][ 'W' ],
-					  'F' => $this->mList[ $this->mStruct[ 'N' ] ][ 'F' ],
-					  'N' => $this->mStruct[ 'N' ] );								// ==>
+		$current = Array();
+		$idxs = array( 'W', 'K', 'F' );
+		foreach( $idxs as $idx )
+		{
+			if( array_key_exists( $idx, $this->mList[ $this->mStruct[ 'N' ] ] ) )
+				$current[ $idx ] = $this->mList[ $this->mStruct[ 'N' ] ][ $idx ];
+		}
+
+		return $current;													// ==>
 	
 	} // getRoot.
 
@@ -455,7 +482,7 @@ class TemplateWorksheetsIterator implements \Iterator,
 			//
 			$this->mList[ $indexes[ $worksheet ] ]
 				= array( 'W' => $this->mParser->matchNodeSymbol( $worksheet ),
-						 'F' => $this->mParser->matchNodeSymbol( $indexes[ $worksheet ] ) );
+						 'K' => $this->mParser->matchNodeSymbol( $indexes[ $worksheet ] ) );
 			
 			//
 			// Set worksheet relationships.
@@ -547,7 +574,10 @@ class TemplateWorksheetsIterator implements \Iterator,
 		//
 		$theContainer[ 'N' ] = $theWorksheet;
 		if( $theParent !== NULL )
+		{
 			$theContainer[ 'P' ] = $theParent;
+			$this->mList[ $theWorksheet ][ 'P' ] = $theParent;
+		}
 		
 		//
 		// Handle related fields.

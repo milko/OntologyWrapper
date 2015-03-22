@@ -1013,8 +1013,9 @@ class SessionUpload
 		//
 		// Copy root worksheet data.
 		//
-		$root = $this->mIterator->getRoot();
-		if( ! $this->copyWorksheetData( $root[ 'W' ], $root[ 'F' ] ) )
+		if( ! $this->copyWorksheetData(
+				$this->mIterator->getRoot()[ 'W' ],
+				$this->mIterator->getRoot()[ 'K' ] ) )
 			return FALSE;															// ==>
 		
 		//
@@ -1117,14 +1118,11 @@ class SessionUpload
 	protected function sessionObjects()
 	{
 		//
-		// Get root worksheet.
-		//
-		$worksheet = $this->mIterator->getRoot()[ 'W' ];
-		
-		//
 		// Select root worksheet records.
 		//
-		$rs = $this->mCollections[ $this->getCollectionName( $worksheet ) ]
+		$worksheet = $this->mIterator->getRoot()[ 'W' ];
+		$records
+			= $this->mCollections[ $this->getCollectionName( $worksheet ) ]
 				->matchAll( array( '_valid' => TRUE ), kQUERY_ARRAY );
 		
 		//
@@ -1138,22 +1136,10 @@ class SessionUpload
 									  NULL ) );
 		
 		//
-		// Set records count.
+		// Create objects.
 		//
-		$this->transaction()->offsetSet( kTAG_COUNTER_RECORDS, $rs->count() );
-		
-		//
-		// Iterate records.
-		//
-		foreach( $rs as $record )
-		{
-			//
-			// Check worksheet relationships.
-			//
-			if( ! $this->createObjects( $record, $records ) )
-				return FALSE;														// ==>
-		
-		} // Iterating records.
+		if( ! $this->createObjects( $records ) )
+			return FALSE;															// ==>
 		
 		//
 		// Close transaction.
@@ -1790,18 +1776,20 @@ class SessionUpload
 	 *
 	 * <ul>
 	 *	<li><tt>W</tt>: Worksheet name.
-	 *	<li><tt>F</tt>: Worksheet key field name.
+	 *	<li><tt>K</tt>: Worksheet key field name.
 	 * </ul>
 	 *
 	 * @param string				$theWorksheet		Worksheet name.
-	 * @param string				$theField			Worksheet index field name.
+	 * @param string				$theFieldIdx		Worksheet index field name.
+	 * @param string				$theFieldRel		Relation field name.
 	 * @param array					$theParent			Parent worksheet and field.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 */
 	protected function copyWorksheetData( $theWorksheet = NULL,
-										  $theField = NULL,
+										  $theFieldIdx = NULL,
+										  $theFieldRel = NULL,
 										  $theParent = NULL )
 	{
 		//
@@ -1812,14 +1800,24 @@ class SessionUpload
 			//
 			// Iterate worksheets.
 			//
-			foreach( $this->mIterator as $worksheet )
+			foreach( $this->mIterator as $element )
 			{
+				//
+				// Init local storage.
+				//
+				$worksheet = $element[ 'W' ];
+				$index = ( array_key_exists( 'K', $element ) )
+					   ? $element[ 'K' ]
+					   : NULL;
+				$link = ( array_key_exists( 'F', $element ) )
+					   ? $element[ 'F' ]
+					   : NULL;
+				
 				//
 				// Recurse.
 				//
-				if( ! $this->copyWorksheetData( $worksheet[ 'W' ],
-												$worksheet[ 'F' ],
-												$this->mIterator->parent() ) )
+				if( ! $this->copyWorksheetData(
+						$worksheet, $index, $link, $this->mIterator->parent() ) )
 					return FALSE;													// ==>
 			
 			} // Iterating worksheet.
@@ -1835,8 +1833,6 @@ class SessionUpload
 		$worksheet_data = $this->mParser->getWorksheets()[ $theWorksheet ];
 		$fields_data = $this->mParser->getFields()[ $theWorksheet ];
 		$records = $worksheet_data[ 'last_row' ] - $worksheet_data[ 'data_row' ] + 1;
-		$unique = ( array_key_exists( 'unique', $fields_data[ $theField ] ) &&
-					$fields_data[ $theField ] );
 		
 		//
 		// Create transaction.
@@ -1919,122 +1915,160 @@ class SessionUpload
 				$ok = TRUE;
 				
 				//
-				// Check if index field exists.
+				// Handle index field.
 				//
-				if( array_key_exists( $theField, $record ) )
+				if( $theFieldIdx !== NULL )
 				{
 					//
-					// Check duplicates.
+					// Check if index field exists.
 					//
-					if( $unique )
+					if( array_key_exists( $theFieldIdx, $record ) )
 					{
 						//
-						// Locate object.
+						// Check unique field duplicates.
 						//
-						$object
-							= $collection->matchOne(
-								array( $theField => $record[ $theField ] ),
-								kQUERY_ARRAY );
-					
-						//
-						// Handle duplicate.
-						//
-						if( $object !== NULL )
+						if( array_key_exists( 'unique', $fields_data[ $theFieldIdx ] ) )
 						{
-							$message = "A record already exists with the same key in row ["
-									  .$object[ kTAG_NID ]
-									  ."].";
-							$this->failTransactionLog(
-								$transaction,								// Transaction.
-								$this->transaction(),						// Parent.
-								kTYPE_TRANS_TMPL_LOAD_DATA_ROW,				// Type.
-								kTYPE_STATUS_ERROR,							// Status.
-								$message,									// Message.
-								$theWorksheet,								// Worksheet.
-								$row,										// Row.
-								$fields_data[ $theField ][ 'column_name' ],	// Column.
-								$theField,									// Alias.
-								NULL,										// Tag.
-								$record[ $theField ],						// Value.
-								kTYPE_ERROR_DUPLICATE_KEY,					// Err type.
-								kTYPE_ERROR_CODE_DIPLICATE_KEY,				// Err code.
-								NULL										// Err resource.
-							);
-						
-							$ok = FALSE;
+							//
+							// Locate object.
+							//
+							$duplicate
+								= $collection->matchOne(
+									array( $theFieldIdx => $record[ $theFieldIdx ] ),
+									kQUERY_ARRAY );
 					
-						} // Set transaction.
+							//
+							// Handle duplicate.
+							//
+							if( $duplicate !== NULL )
+							{
+								$message = "A record already exists with the same key in "
+										  ."row [".$duplicate[ kTAG_NID ]."].";
+								$this->failTransactionLog(
+									$transaction,								// Trans.
+									$this->transaction(),						// Parent.
+									kTYPE_TRANS_TMPL_LOAD_DATA_ROW,				// Type.
+									kTYPE_STATUS_ERROR,							// Status.
+									$message,									// Message.
+									$theWorksheet,								// Wrksh.
+									$row,										// Row.
+									$fields_data[ $theFieldIdx ][ 'column_name' ],	// Column.
+									$theFieldIdx,									// Alias.
+									NULL,										// Tag.
+									$record[ $theFieldIdx ],						// Value.
+									kTYPE_ERROR_DUPLICATE_KEY,					// Err type.
+									kTYPE_ERROR_CODE_DUPLICATE_KEY,				// Err code.
+									NULL										// Err res.
+								);
+						
+								$ok = FALSE;
+					
+							} // Set transaction.
 				
-					} // Has a unique key.
-				
+						} // Unique index field.
+					
+					} // Provided index field in record.
+					
 					//
-					// Handle relationships.
+					// Handle missing index field.
 					//
-					if( $theParent !== NULL )
+					else
 					{
-						//
-						// Handle not found.
-						//
-						if( ! $this->mCollections
+						$message = "Missing index field.";
+						$this->failTransactionLog(
+							$transaction,									// Transaction.
+							$this->transaction(),							// Parent.
+							kTYPE_TRANS_TMPL_LOAD_DATA_ROW,					// Type.
+							kTYPE_STATUS_ERROR,								// Status.
+							$message,										// Message.
+							$theWorksheet,									// Worksheet.
+							$row,											// Row.
+							$fields_data[ $theFieldIdx ][ 'column_name' ],	// Column.
+							$theFieldIdx,									// Alias.
+							NULL,											// Tag.
+							NULL,											// Value.
+							kTYPE_ERROR_MISSING_REQUIRED,					// Err type.
+							kTYPE_ERROR_CODE_REQ_FIELD,						// Err code.
+							NULL											// Err resource.
+						);
+						
+						$ok = FALSE;
+					
+					} // Missing index field in record.
+				
+				} // Provided index field parameter.
+				
+				//
+				// Check for relationships.
+				//
+				if( $theFieldRel !== NULL )
+				{
+					//
+					// Check if relation field is missing from record.
+					//
+					if( ! array_key_exists( $theFieldRel, $record ) )
+					{
+						$message = "Missing field which references the "
+								  .$theParent[ 'W' ]." worksheet.";
+						$this->failTransactionLog(
+							$transaction,									// Transaction.
+							$this->transaction(),							// Parent.
+							kTYPE_TRANS_TMPL_LOAD_DATA_ROW,					// Type.
+							kTYPE_STATUS_ERROR,								// Status.
+							$message,										// Message.
+							$theWorksheet,									// Worksheet.
+							$row,											// Row.
+							$fields_data[ $theFieldRel ][ 'column_name' ],	// Column.
+							$theFieldRel,									// Alias.
+							NULL,											// Tag.
+							NULL,											// Value.
+							kTYPE_ERROR_MISSING_REQUIRED,					// Err type.
+							kTYPE_ERROR_CODE_REQ_FIELD,						// Err code.
+							NULL											// Err resource.
+						);
+					
+						$ok = FALSE;
+					
+					} // Missing related field.
+					
+					//
+					// Check related worksheet value.
+					//
+					elseif( ! $this->mCollections
 								[ $this->getCollectionName( $theParent[ 'W' ] ) ]
-								->matchOne(
-									array( $theParent[ 'F' ] => $record[ $theField ] ),
-									kQUERY_COUNT ) )
-						{
-							$message = "The related record in worksheet "
-									  .$theParent[ 'W' ]
-									  ." was not found.";
-							$this->failTransactionLog(
-								$transaction,								// Transaction.
-								$this->transaction(),						// Parent.
-								kTYPE_TRANS_TMPL_LOAD_DATA_ROW,				// Type.
-								kTYPE_STATUS_ERROR,							// Status.
-								$message,									// Message.
-								$theWorksheet,								// Worksheet.
-								$row,										// Row.
-								$fields_data[ $theField ][ 'column_name' ],	// Column.
-								$theField,									// Alias.
-								NULL,										// Tag.
-								$record[ $theField ],						// Value.
-								kTYPE_ERROR_RELATED_NO_MATCH,				// Err type.
-								kTYPE_ERROR_CODE_BAD_RELATIONSHIP,			// Err code.
-								NULL										// Err resource.
-							);
-						
-							$ok = FALSE;
+									->matchOne(
+										array( $theParent[ 'K' ]
+												=> $record[ $theFieldRel ] ),
+										kQUERY_COUNT ) )
+					{
+						$message = "The value of this field does not correspond to any "
+								  ."rows of worksheet ".$theParent[ 'W' ]." and column "
+								  .$this->mParser->getFields()[ $theParent[ 'W' ] ]
+								  							  [ $theParent[ 'K' ] ]
+								  							  [ 'column_name' ]
+								  ." with symbol ".$theParent[ 'K' ].".";
+						$this->failTransactionLog(
+							$transaction,									// Transaction.
+							$this->transaction(),							// Parent.
+							kTYPE_TRANS_TMPL_LOAD_DATA_ROW,					// Type.
+							kTYPE_STATUS_ERROR,								// Status.
+							$message,										// Message.
+							$theWorksheet,									// Worksheet.
+							$row,											// Row.
+							$fields_data[ $theFieldRel ][ 'column_name' ],	// Column.
+							$theFieldRel,									// Alias.
+							NULL,											// Tag.
+							$record[ $theFieldRel ],						// Value.
+							kTYPE_ERROR_RELATED_NO_MATCH,					// Err type.
+							kTYPE_ERROR_CODE_BAD_RELATIONSHIP,				// Err code.
+							NULL											// Err resource.
+						);
 					
-						} // Related not found.
+						$ok = FALSE;
+					
+					} // Missing related record.
 				
-					} // Has related workshet.
-				
-				} // Has index field.
-				
-				//
-				// Handle missing index field.
-				//
-				else
-				{
-					$message = "Missing index field.";
-					$this->failTransactionLog(
-						$transaction,								// Transaction.
-						$this->transaction(),						// Parent.
-						kTYPE_TRANS_TMPL_LOAD_DATA_ROW,				// Type.
-						kTYPE_STATUS_ERROR,							// Status.
-						$message,									// Message.
-						$theWorksheet,								// Worksheet.
-						$row,										// Row.
-						$fields_data[ $theField ][ 'column_name' ],	// Column.
-						$theField,									// Alias.
-						NULL,										// Tag.
-						NULL,										// Value.
-						kTYPE_ERROR_MISSING_REQUIRED,				// Err type.
-						kTYPE_ERROR_CODE_REQ_FIELD,					// Err code.
-						NULL										// Err resource.
-					);
-						
-					$ok = FALSE;
-				
-				} // Missing index field.
+				} // Has relationship field.
 				
 				//
 				// Commit record.
@@ -2094,6 +2128,12 @@ class SessionUpload
 						kTAG_COUNTER_REJECTED,
 						$this->transaction() );
 				}
+		
+				//
+				// Close transaction.
+				//
+				if( $transaction!== NULL )
+					$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 			
 			} // Has data.
 			
@@ -2473,138 +2513,332 @@ class SessionUpload
 	 *==================================================================================*/
 
 	/**
-	 * Create objects from worksheets
+	 * Load objects
 	 *
-	 * This method will create objects from the worksheet data.
+	 * This method will expects the root worksheet records and will create an object for
+	 * each record.
 	 *
-	 * @param string				$theUnitWorksheet	Unit worksheet name.
-	 * @param int					$theRecords			Unit worksheet records total.
+	 * @param ObjectIterator		$theRecords			Records iterator.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
-	 *
-	 * @uses file()
-	 * @uses session()
 	 */
-	protected function createObjects( $theUnitWorksheet, $theRecords )
+	protected function createObjects( ObjectIterator $theRecords )
 	{
 		//
 		// Init local storage.
 		//
-		$fields = $this->mParser->getFields();
-		$worksheets = $this->mParser->getWorksheets();
+		$count = $theRecords->count();
+		$root = $this->mIterator->getRoot();
+		$root_worksheet = $root[ 'W' ];
+		$root_field = ( array_key_exists( 'F', $root ) ) ? $root[ 'F' ] : NULL;
+		$collection_units
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase( $this->wrapper(), TRUE ),
+				TRUE );
+		$collection_objects
+			= $this->mCollections[
+				$this->getCollectionName( UnitObject::kSEQ_NAME )
+			];
+		
+		//
+		// Set records count.
+		//
+		$this->transaction()->offsetSet( kTAG_COUNTER_RECORDS, $count );
+	
+		//
+		// Initialise session counters.
+		//
+		UpdateProcessCounter( $start_processed_session, $increment_processed_session,
+							  kTAG_COUNTER_PROCESSED );
+		UpdateProcessCounter( $start_rejected_session, $increment_rejected_session,
+							  kTAG_COUNTER_REJECTED );
+		UpdateProcessCounter( $start_validated_session, $increment_validated_session,
+							  kTAG_COUNTER_VALIDATED );
+	
+		//
+		// Initialise transaction counters.
+		//
+		$this->transaction()->offsetSet( kTAG_COUNTER_PROGRESS, 0 );
+		UpdateProcessCounter( $start_processed, $increment_processed,
+							  kTAG_COUNTER_PROCESSED );
+		UpdateProcessCounter( $start_validated, $increment_validated,
+							  kTAG_COUNTER_VALIDATED );
+		UpdateProcessCounter( $start_rejected, $increment_rejected,
+							  kTAG_COUNTER_REJECTED );
+		
+		
+		//
+		// Instantiate object.
+		//
 		$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
+		$object = new $class( $this->wrapper() );
 		
 		//
-		// Remove unit worksheet.
+		// Iterate root worksheet records.
 		//
-		$worksheets_list = array_keys( $worksheets );
-		unset( $worksheets_list[ array_search( $theUnitWorksheet, $worksheets_list ) ] );
-		
-		//
-		// Select unit worksheet records.
-		//
-		$rs
-			= $this->mCollections
-				[ $this->getCollectionName( $theUnitWorksheet ) ]
-					->matchAll( Array(), kQUERY_ARRAY );
-		
-		//
-		// Iterate unit worksheet records.
-		//
-		foreach( $rs as $unit_record )
+		foreach( $theRecords as $record )
 		{
 			//
-			// Init schema.
+			// Init local storage.
 			//
-			$schema = array( $theUnitWorksheet => Array() );
+			$transaction = NULL;
 			
 			//
-			// Instantiate object.
+			// Set object properties.
 			//
-			$object = new $class( $this->wrapper() );
+			if( $this->setObjectProperties( $object, $root_worksheet, $record ) )
+				return FALSE;														// ==>
 			
 			//
-			// Iterate record fields.
+			// Handle related worksheets.
 			//
-			foreach( $unit_record as $key => $value )
+			$worksheets = $this->mIterator->getStruct();
+			if( array_key_exists( 'C', $worksheets ) )
 			{
 				//
-				// Handle row number.
+				// Traverse worksheet structure.
 				//
-				if( $key == kTAG_NID )
-					$schema[ $theUnitWorksheet ][ 'row' ] = $value;
+				if( ! $this->setWorksheetProperties(
+						$container,
+						$worksheets,
+						$$root_field ) )
+					return FALSE;													// ==>
+			
+			} // Has related worksheets.
+		
+			//
+			// Check finalised object.
+			//
+			try
+			{
+				//
+				// Validate object.
+				//
+				$object->validate( TRUE, TRUE, FALSE );
+			
+				//
+				// Check for duplicate record.
+				//
+				$id = $object->offsetGet( kTAG_NID );
+				if( $collection_objects->matchOne( array( kTAG_NID => $id ),
+												   kQUERY_COUNT ) )
+				{
+					//
+					// Post error.
+					//
+					$this->failTransactionLog(
+						$transaction,								// Transaction.
+						$this->transaction(),						// Parent transaction.
+						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+						kTYPE_STATUS_EXCEPTION,						// Transaction status.
+						$error->getMessage(),						// Transaction message.
+						$root_worksheet,										// Worksheet.
+						$record[ kTAG_NID ],						// Row.
+						NULL,										// Column.
+						NULL,										// Alias.
+						NULL,										// Tag.
+						$id,										// Value.
+						kTYPE_ERROR_DUPLICATE_RECOD,				// Error type.
+						kTYPE_ERROR_CODE_DUPLICATE_OBJECT,			// Error code.
+						NULL										// Error resource.
+					);
+				
+					//
+					// Update session rejected.
+					//
+					$increment_rejected_session++;
+					UpdateProcessCounter(
+						$start_rejected_session, $increment_rejected_session,
+						kTAG_COUNTER_REJECTED,
+						$this->session() );
+				
+					//
+					// Update transaction rejected.
+					//
+					$increment_rejected++;
+					UpdateProcessCounter(
+						$start_rejected, $increment_rejected,
+						kTAG_COUNTER_REJECTED,
+						$this->transaction() );
+				
+				} // Duplicate object.
 				
 				//
-				// Handle row data.
+				// Record is unique.
 				//
 				else
 				{
 					//
-					// Init local storage.
+					// Check if it will be replaced.
 					//
-					$fdata = $fields[ $theUnitWorksheet ][ $key ];
-					$node = $this->mParser->getNode( $fdata[ 'node' ] );
+					if( $collection_units->matchOne( array( kTAG_NID => $id ),
+													 kQUERY_COUNT ) )
+					{
+						//
+						// Post message.
+						//
+						$message = 'The object will be replaced in the database.';
+						$this->failTransactionLog(
+							$transaction,							// Transaction.
+							$this->transaction(),					// Parent transaction.
+							kTYPE_TRANS_TMPL_WORKSHEET_ROW,			// Transaction type.
+							kTYPE_STATUS_MESSAGE,					// Transaction status.
+							$message,								// Transaction message.
+							$root_worksheet,									// Worksheet.
+							$record[ kTAG_NID ],					// Row.
+							NULL,									// Column.
+							NULL,									// Alias.
+							NULL,									// Tag.
+							$id,									// Value.
+							kTYPE_MESSAGE_OBJECT_REPLACE,			// Error type.
+							kTYPE_MESSAGE_CODE_REPLACE_OBJECT,		// Error code.
+							NULL									// Error resource.
+						);
+					
+					} // Record exists.
+					
+					//
+					// Commit object.
+					//
+					$collection_objects->commit( $object );
+					
+					//
+					// Update session validated.
+					//
+					$increment_validated_session++;
+					UpdateProcessCounter(
+						$start_validated_session, $increment_validated_session,
+						kTAG_COUNTER_VALIDATED,
+						$this->session() );
+					
+					//
+					// Update transaction validated.
+					//
+					$increment_validated++;
+					UpdateProcessCounter(
+						$start_validated, $increment_validated,
+						kTAG_COUNTER_VALIDATED,
+						$this->transaction() );
 				
-					//
-					// Handle row index.
-					// Should only have one.
-					//
-					if( ! $node->offsetExists( kTAG_TAG ) )
-						$schema[ $theUnitWorksheet ][ 'index' ] = $value;
-				
-					//
-					// Handle tag value.
-					//
-					else
-						$this->setObjectProperty( $object, $node, $key, $value );
-				
-				} // Row data.
-			
-			} // Iterating record fields.
-		
-			//
-			// Iterate other worksheets.
-			//
-			foreach( $worksheets_list as $worksheet )
+				} // Unique object.
+			}
+			catch( Exception $error )
 			{
 				//
-				// Init structure.
+				// Post error.
 				//
-				$wnode = $this->mParser->getNode( $worksheets[ $worksheet ][ 'node' ] );
-				if( $wnode->offsetExists( kTAG_TAG ) )
-				{
-					//
-					// Get structure tag.
-					//
-					$stag = $this->mParser->getTag( $wnode->offsetGet( kTAG_TAG ) );
-					$property = Array();
-					$ref = & $property;
+				$this->failTransactionLog(
+					$transaction,								// Transaction.
+					$this->transaction(),						// Parent transaction.
+					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
+					kTYPE_STATUS_EXCEPTION,						// Transaction status.
+					$error->getMessage(),						// Transaction message.
+					$root_worksheet,										// Worksheet.
+					$record[ kTAG_NID ],						// Row.
+					NULL,										// Column.
+					NULL,										// Alias.
+					NULL,										// Tag.
+					NULL,										// Value.
+					kTYPE_ERROR_BUG,							// Error type.
+					kTYPE_ERROR_CODE_OBJECT_VALIDATION,			// Error code.
+					NULL										// Error resource.
+				);
+				
+				//
+				// Update session rejected.
+				//
+				$increment_rejected_session++;
+				UpdateProcessCounter(
+					$start_rejected_session, $increment_rejected_session,
+					kTAG_COUNTER_REJECTED,
+					$this->session() );
+				
+				//
+				// Update transaction rejected.
+				//
+				$increment_rejected++;
+				UpdateProcessCounter(
+					$start_rejected, $increment_rejected,
+					kTAG_COUNTER_REJECTED,
+					$this->transaction() );
+			}
+	
+			//
+			// Close transaction.
+			//
+			if( $transaction!== NULL )
+				$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 			
-				} // Has structure tag.
+			//
+			// Update session processed.
+			//
+			$increment_session++;
+			UpdateProcessCounter( $start_session, $increment_session,
+								  kTAG_COUNTER_PROCESSED,
+								  $this->session() );
 			
-				//
-				// Reference object.
-				//
-				else
-					$ref = & $object;
-			
-				//
-				// Select key 
-		
-			} // Iterating other worksheets.
-		
 			//
-			// Validate object.
+			// Update transaction processed.
 			//
-			$object->validate( TRUE, TRUE, FALSE );
+			$increment_transaction++;
+			UpdateProcessCounter( $start_processed, $increment_processed,
+								  kTAG_COUNTER_PROCESSED,
+								  $this->transaction(),
+								  $count );
 		
-			//
-			// Set progress.
-			//
-			$this->transaction()->processed( 1, $theRecords );
+		} // Iterating records.
 		
-		} // Iterating unit worksheet records.
+		//
+		// Update session processed.
+		//
+		$increment_processed_session++;
+		UpdateProcessCounter(
+			$start_processed_session, $increment_processed_session,
+			kTAG_COUNTER_PROCESSED,
+			$this->session(), NULL, TRUE);
+		
+		//
+		// Update transaction processed.
+		//
+		UpdateProcessCounter(
+			$start_processed, $increment_processed,
+			kTAG_COUNTER_PROCESSED,
+			$this->transaction(), $records, TRUE );
+		
+		//
+		// Update session validated.
+		//
+		$increment_validated_session++;
+		UpdateProcessCounter(
+			$start_VALIDATED_session, $increment_validated_session,
+			kTAG_COUNTER_VALIDATED,
+			$this->session(), NULL, TRUE);
+		
+		//
+		// Update transaction validated.
+		//
+		UpdateProcessCounter(
+			$start_validated, $increment_validated,
+			kTAG_COUNTER_VALIDATED,
+			$this->transaction(), NULL, TRUE );
+		
+		//
+		// Update session rejected.
+		//
+		$increment_rejected_session++;
+		UpdateProcessCounter(
+			$start_rejected_session, $increment_rejected_session,
+			kTAG_COUNTER_REJECTED,
+			$this->session(), NULL, TRUE );
+		
+		//
+		// Update transaction rejected.
+		//
+		UpdateProcessCounter(
+			$start_rejected, $increment_rejected,
+			kTAG_COUNTER_REJECTED,
+			$this->transaction(), NULL, TRUE );
 		
 		return TRUE;																// ==>
 
@@ -7117,6 +7351,51 @@ class SessionUpload
 		return $user->offsetGet( kTAG_ID_SEQUENCE )."_$theSuffix";					// ==>
 
 	} // getCollectionName.
+	
+	
+	/*===================================================================================
+	 *	setObjectProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * Set object properties
+	 *
+	 * This method will load the provided properties in the provided container.
+	 *
+	 * @param mixed					$theObject			Object or array.
+	 * @param string				$theWorksheet		Worksheet name.
+	 * @param array					$theRecord			Properties.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 */
+	protected function setObjectProperties( $theObject, $theWorksheet, $theRecords )
+	{
+		//
+		// Iterate properties.
+		//
+		foreach( $theRecord as $key => $value )
+		{
+			//
+			// Skip private properties.
+			//
+			if( substr( $key, 0, 1 ) != '_' )
+			{
+				//
+				// Handle tag value.
+				//
+				$field = $this->mParser->getFields()[ $theWorksheet ][ $key ];
+				$node = $this->mParser->getNode( $field[ 'node' ] );
+				if( $node->offsetExists( kTAG_TAG ) )
+					$this->setObjectProperty( $object, $node, $key, $value );
+			
+			} // Not a private property.
+		
+		} // Iterating properties.
+		
+		return TRUE;																// ==>
+
+	} // setObjectProperties.
 
 	 
 	/*===================================================================================

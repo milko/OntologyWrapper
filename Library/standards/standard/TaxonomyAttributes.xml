@@ -3066,7 +3066,7 @@
 			<item const="kTAG_TERMS">
 				<item>:taxon:reference</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:list</item>

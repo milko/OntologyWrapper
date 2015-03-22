@@ -166,6 +166,17 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
+	echo( '$data = $tmpl->getRoot();' );
+	$data = $tmpl->getRoot();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $data );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
 	echo( '$data = $tmpl->getWorksheets();' );
 	$data = $tmpl->getWorksheets();
 	echo( kSTYLE_HEAD_POS );

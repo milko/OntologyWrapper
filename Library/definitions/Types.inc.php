@@ -1112,18 +1112,33 @@ define( "kTYPE_ERROR_RELATED_NO_MATCH",			'Unmatched relation' );
 define( "kTYPE_ERROR_DUPLICATE_KEY",			'Duplicate key' );
 
 /**
- * Existing record.
+ * Duplicate record.
  *
  * The record exists in the database.
  */
 define( "kTYPE_ERROR_DUPLICATE_RECOD",			'Duplicate record' );
+
+/*=======================================================================================
+ *	WARNING TYPES																		*
+ *======================================================================================*/
 
 /**
  * Dubious value.
  *
  * The value may be incorrect.
  */
-define( "kTYPE_ERROR_DUBIOUS_VALUE",			'Dubious value' );
+define( "kTYPE_WARNING_DUBIOUS_VALUE",			'Dubious value' );
+
+/*=======================================================================================
+ *	MESSAGE TYPES																		*
+ *======================================================================================*/
+
+/**
+ * Existing record.
+ *
+ * The record will be replaced in the database.
+ */
+define( "kTYPE_MESSAGE_OBJECT_REPLACE",			'Replace object' );
 
 /*=======================================================================================
  *	ERROR CODES																			*
@@ -1302,7 +1317,28 @@ define( "kTYPE_ERROR_CODE_BAD_RELATIONSHIP",	-22 );
  *
  * A record exists with the same key.
  */
-define( "kTYPE_ERROR_CODE_DIPLICATE_KEY",		-23 );
+define( "kTYPE_ERROR_CODE_DUPLICATE_KEY",		-23 );
+
+/**
+ * Duplicate object.
+ *
+ * A record exists with the same key.
+ */
+define( "kTYPE_ERROR_CODE_DUPLICATE_OBJECT",	-24 );
+
+/**
+ * Object will be replaced.
+ *
+ * A record exists with the same identifier, the pbject will be replaced.
+ */
+define( "kTYPE_MESSAGE_CODE_REPLACE_OBJECT",	-25 );
+
+/**
+ * Unable to validate object.
+ *
+ * The object could not be validated due to an error that was not checked beforehand..
+ */
+define( "kTYPE_ERROR_CODE_OBJECT_VALIDATION",	-26 );
 
 
 ?>
