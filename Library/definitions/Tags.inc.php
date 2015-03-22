@@ -38,6 +38,14 @@
 define( "kTAG_NID",						'_id' );
 
 /**
+ * Row number (<code>_row</code>)
+ *
+ * This offset is the <em>row number</em> corresponding to the current object, this tag is
+ * only used when processing import templates and should not be part of the final object.
+ */
+define( "kTAG_ROW",						'_row' );
+
+/**
  * Class (<code>class</code>)
  *
  * This offset represents the <em>object class name</em>, this string is used to

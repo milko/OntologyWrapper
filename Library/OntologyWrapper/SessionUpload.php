@@ -607,7 +607,7 @@ class SessionUpload
 			// Progress.
 			//
 			$this->session()->progress( 14.91 );
-	/*
+	
 			//
 			// Write to log file.
 			//
@@ -622,7 +622,7 @@ class SessionUpload
 			//
 			if( ! $this->sessionObjects() )
 				return $this->failSession();										// ==>
-	*/		
+			
 			//
 			// Finalise progress.
 			//
@@ -648,7 +648,7 @@ class SessionUpload
 		//
 		// CATCH BLOCK.
 		//
-		catch( Exception $error )
+		catch( \Exception $error )
 		{
 			return $this->exceptionSession( $error );								// ==>
 		}
@@ -1120,9 +1120,9 @@ class SessionUpload
 		//
 		// Select root worksheet records.
 		//
-		$worksheet = $this->mIterator->getRoot()[ 'W' ];
 		$records
-			= $this->mCollections[ $this->getCollectionName( $worksheet ) ]
+			= $this->mCollections
+				[ $this->getCollectionName( $this->mIterator->getRoot()[ 'W' ] ) ]
 				->matchAll( array( '_valid' => TRUE ), kQUERY_ARRAY );
 		
 		//
@@ -1720,7 +1720,7 @@ class SessionUpload
 			//
 			// Add status index.
 			//
-			$this->mCollections[ $name ]->createIndex( array( '@valid' => 1 ) );
+			$this->mCollections[ $name ]->createIndex( array( '_valid' => 1 ) );
 		
 			//
 			// Update progress.
@@ -2276,7 +2276,7 @@ class SessionUpload
 		//
 		$collection = $this->mCollections[ $this->getCollectionName( $theWorksheet ) ];
 		$fields_data = $this->mParser->getFields()[ $theWorksheet ];
-		$validated = Array();
+		$validated = $rejected = Array();
 		
 		//
 		// Select rows.
@@ -2366,7 +2366,13 @@ class SessionUpload
 					$start_rejected, $increment_rejected,
 					kTAG_COUNTER_REJECTED,
 					$this->transaction() );
-			
+				
+				//
+				// Write record.
+				//
+				$record[ '_valid' ] = FALSE;
+				$collection->save( $record );
+				
 			} // Has errors.
 			
 			//
@@ -2393,17 +2399,10 @@ class SessionUpload
 					$this->transaction() );
 				
 				//
-				// Add validated ID.
+				// Write record.
 				//
-				$validated[] = $record[ kTAG_NID ];
-				if( count( $validated ) >= 100 )
-				{
-					$collection->modify(
-						array( kTAG_NID => array( '$in' => $validated ) ),
-						array( '$set' => array( '_valid' => TRUE ) ),
-						array( 'upsert' => FALSE, 'multiple' => TRUE ) );
-					$validated = Array();
-				}
+				$record[ '_valid' ] = TRUE;
+				$collection->save( $record );
 			
 			} // Valid row.
 							
@@ -2435,15 +2434,6 @@ class SessionUpload
 				$this->transaction(), $records );
 		
 		} // Iterating worksheet rows.
-		
-		//
-		// Add validated ID.
-		//
-		if( count( $validated ) )
-			$collection->modify(
-				array( kTAG_NID => array( '$in' => $validated ) ),
-				array( '$set' => array( '_valid' => TRUE ) ),
-				array( 'upsert' => FALSE, 'multiple' => TRUE ) );
 		
 		//
 		// Update session processed.
@@ -2530,8 +2520,6 @@ class SessionUpload
 		//
 		$count = $theRecords->count();
 		$root = $this->mIterator->getRoot();
-		$root_worksheet = $root[ 'W' ];
-		$root_field = ( array_key_exists( 'F', $root ) ) ? $root[ 'F' ] : NULL;
 		$collection_units
 			= UnitObject::ResolveCollection(
 				UnitObject::ResolveDatabase( $this->wrapper(), TRUE ),
@@ -2569,12 +2557,6 @@ class SessionUpload
 		
 		
 		//
-		// Instantiate object.
-		//
-		$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
-		$object = new $class( $this->wrapper() );
-		
-		//
 		// Iterate root worksheet records.
 		//
 		foreach( $theRecords as $record )
@@ -2585,30 +2567,35 @@ class SessionUpload
 			$transaction = NULL;
 			
 			//
+			// Instantiate object.
+			//
+			$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
+			$object = new $class( $this->wrapper() );
+		
+			//
 			// Set object properties.
 			//
-			if( $this->setObjectProperties( $object, $root_worksheet, $record ) )
+			if( ! $this->setObjectProperties( $object, $root[ 'W' ], $record ) )
 				return FALSE;														// ==>
 			
 			//
 			// Handle related worksheets.
 			//
-			$worksheets = $this->mIterator->getStruct();
-			if( array_key_exists( 'C', $worksheets ) )
+			if( array_key_exists( 'C', $this->mIterator->getStruct() ) )
 			{
 				//
 				// Traverse worksheet structure.
 				//
 				if( ! $this->setWorksheetProperties(
-						$container,
-						$worksheets,
-						$$root_field ) )
+						$object,
+						$this->mIterator->getStruct()[ 'C' ],
+						$record[ $root[ 'K' ] ] ) )
 					return FALSE;													// ==>
 			
 			} // Has related worksheets.
 		
 			//
-			// Check finalised object.
+			// Class validation TRY block..
 			//
 			try
 			{
@@ -2621,19 +2608,24 @@ class SessionUpload
 				// Check for duplicate record.
 				//
 				$id = $object->offsetGet( kTAG_NID );
-				if( $collection_objects->matchOne( array( kTAG_NID => $id ),
-												   kQUERY_COUNT ) )
+				$dup = $collection_objects->matchOne( array( kTAG_NID => $id ),
+													  kQUERY_ARRAY );
+				if( $dup !== NULL )
 				{
 					//
 					// Post error.
 					//
+					$message = "The object cannot be saved because there is another object with "
+							  ."the same unique identifier from row "
+							  .$dup[ kTAG_ROW ]
+							  .": check the significant properties of both rows.";
 					$this->failTransactionLog(
 						$transaction,								// Transaction.
 						$this->transaction(),						// Parent transaction.
 						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_EXCEPTION,						// Transaction status.
-						$error->getMessage(),						// Transaction message.
-						$root_worksheet,										// Worksheet.
+						kTYPE_STATUS_ERROR,							// Transaction status.
+						$message,									// Transaction message.
+						$root[ 'W' ],								// Worksheet.
 						$record[ kTAG_NID ],						// Row.
 						NULL,										// Column.
 						NULL,										// Alias.
@@ -2665,7 +2657,7 @@ class SessionUpload
 				} // Duplicate object.
 				
 				//
-				// Record is unique.
+				// Object is not duplicate.
 				//
 				else
 				{
@@ -2685,7 +2677,7 @@ class SessionUpload
 							kTYPE_TRANS_TMPL_WORKSHEET_ROW,			// Transaction type.
 							kTYPE_STATUS_MESSAGE,					// Transaction status.
 							$message,								// Transaction message.
-							$root_worksheet,									// Worksheet.
+							$root[ 'W' ],							// Worksheet.
 							$record[ kTAG_NID ],					// Row.
 							NULL,									// Column.
 							NULL,									// Alias.
@@ -2701,6 +2693,7 @@ class SessionUpload
 					//
 					// Commit object.
 					//
+					$object->offsetSet( kTAG_ROW, $record[ kTAG_NID ] );
 					$collection_objects->commit( $object );
 					
 					//
@@ -2722,8 +2715,13 @@ class SessionUpload
 						$this->transaction() );
 				
 				} // Unique object.
-			}
-			catch( Exception $error )
+			
+			} // Validation TRY block.
+			
+			//
+			// Catch class validation exceptions.
+			//
+			catch( \Exception $error )
 			{
 				//
 				// Post error.
@@ -2734,7 +2732,7 @@ class SessionUpload
 					kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
 					kTYPE_STATUS_EXCEPTION,						// Transaction status.
 					$error->getMessage(),						// Transaction message.
-					$root_worksheet,										// Worksheet.
+					$root[ 'W' ],								// Worksheet.
 					$record[ kTAG_NID ],						// Row.
 					NULL,										// Column.
 					NULL,										// Alias.
@@ -2773,15 +2771,15 @@ class SessionUpload
 			//
 			// Update session processed.
 			//
-			$increment_session++;
-			UpdateProcessCounter( $start_session, $increment_session,
+			$increment_processed_session++;
+			UpdateProcessCounter( $start_processed_session, $increment_processed_session,
 								  kTAG_COUNTER_PROCESSED,
 								  $this->session() );
 			
 			//
 			// Update transaction processed.
 			//
-			$increment_transaction++;
+			$increment_processed++;
 			UpdateProcessCounter( $start_processed, $increment_processed,
 								  kTAG_COUNTER_PROCESSED,
 								  $this->transaction(),
@@ -2804,7 +2802,7 @@ class SessionUpload
 		UpdateProcessCounter(
 			$start_processed, $increment_processed,
 			kTAG_COUNTER_PROCESSED,
-			$this->transaction(), $records, TRUE );
+			$this->transaction(), NULL, TRUE );
 		
 		//
 		// Update session validated.
@@ -6072,8 +6070,8 @@ class SessionUpload
 				//
 				// Remove if empty.
 				//
-				if( count( $result ) )
-					$theRecord[ $symbol ] = $result;
+				if( count( $results ) )
+					$theRecord[ $symbol ] = $results;
 			
 				//
 				// Set value.
@@ -6392,7 +6390,7 @@ class SessionUpload
 			//
 			// Handle no errors.
 			//
-			if( ! count( $errors ) )
+			if( ! count( $error ) )
 			{
 				//
 				// Set value.
@@ -7354,6 +7352,116 @@ class SessionUpload
 	
 	
 	/*===================================================================================
+	 *	setWorksheetProperties															*
+	 *==================================================================================*/
+
+	/**
+	 * Set worksheets properties
+	 *
+	 * This method will traverse the provided list of child worksheets loading the provided
+	 * object's properties.
+	 *
+	 * @param mixed				   &$theObject			Object or array.
+	 * @param array					$theWorksheets		List of child worksheets.
+	 * @param mixed					$theParentIndex		Parent index field value.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
+	 */
+	protected function setWorksheetProperties( &$theObject,
+												$theWorksheets,
+												$theParentIndex )
+	{
+		//
+		// Iterate worksheets.
+		//
+		foreach( $theWorksheets as $current )
+		{
+			//
+			// Init local storage.
+			//
+			$container = Array();
+			$current_info = $this->mIterator->getList()[ $current[ 'N' ] ];
+			$parent_info = $this->mIterator->getList()[ $current_info[ 'P' ] ];
+			$struct_tag
+				= $this->mParser->getTag(
+					$this->mParser->getNode(
+						$this->mParser->getWorksheets()[ $current_info[ 'W' ] ][ 'node' ] )
+							->offsetGet( kTAG_TAG ) );
+			$is_list = ( $struct_tag->offsetExists( kTAG_DATA_KIND )
+					  && in_array( kTYPE_LIST, $struct_tag->offsetGet( kTAG_DATA_KIND ) ) );
+			
+			//
+			// Select worksheet records.
+			//
+			$records
+				= $this->mCollections[ $this->getCollectionName( $current_info[ 'W' ] ) ]
+					->matchAll( array( $current_info[ 'F' ] => $theParentIndex,
+									   '_valid' => TRUE ),
+								kQUERY_ARRAY );
+			
+			//
+			// Load worksheet records.
+			//
+			if( $records->count() )
+			{
+				//
+				// Iterate records.
+				//
+				foreach( $records as $record )
+				{
+					//
+					// Set container reference.
+					//
+					if( $is_list )
+					{
+						$container[] = Array();
+						$reference = & $container[ count( $container ) - 1 ];
+					}
+					else
+						$reference = & $container;
+					
+					//
+					// Load properties.
+					//
+					$tmp = Array();
+					if( ! $this->setObjectProperties(
+						$reference, $current_info[ 'W' ], $record ) )
+						return FALSE;												// ==>
+					
+					//
+					// Handle related worksheets.
+					//
+					if( array_key_exists( 'C', $current ) )
+					{
+						//
+						// Traverse worksheet structure.
+						//
+						if( ! $this->setWorksheetProperties(
+								$reference,
+								$current[ 'C' ],
+								$record[ $current[ 'K' ] ] ) )
+							return FALSE;											// ==>
+			
+					} // Has related worksheets.
+		
+				} // Iterating records.
+	
+				//
+				// Update object.
+				//
+				$theObject[ $struct_tag->offsetGet( kTAG_ID_HASH ) ] = $container;
+			
+			} // Has records.
+		
+		} // Iterating worksheets.
+		
+		return TRUE;																// ==>
+
+	} // setWorksheetProperties.
+	
+	
+	/*===================================================================================
 	 *	setObjectProperties																*
 	 *==================================================================================*/
 
@@ -7362,14 +7470,14 @@ class SessionUpload
 	 *
 	 * This method will load the provided properties in the provided container.
 	 *
-	 * @param mixed					$theObject			Object or array.
+	 * @param mixed				   &$theObject			Object or array.
 	 * @param string				$theWorksheet		Worksheet name.
 	 * @param array					$theRecord			Properties.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
 	 */
-	protected function setObjectProperties( $theObject, $theWorksheet, $theRecords )
+	protected function setObjectProperties( &$theObject, $theWorksheet, $theRecord )
 	{
 		//
 		// Iterate properties.
@@ -7387,7 +7495,7 @@ class SessionUpload
 				$field = $this->mParser->getFields()[ $theWorksheet ][ $key ];
 				$node = $this->mParser->getNode( $field[ 'node' ] );
 				if( $node->offsetExists( kTAG_TAG ) )
-					$this->setObjectProperty( $object, $node, $key, $value );
+					$this->setObjectProperty( $theObject, $node, $key, $value );
 			
 			} // Not a private property.
 		
@@ -7418,7 +7526,7 @@ class SessionUpload
 	protected function setObjectProperty( &$theObject, $theNode, $theKey, $theValue )
 	{
 		//
-		// Get tag.
+		// Get property tag.
 		//
 		$tag_object = $this->mParser->getTag( $theNode->offsetGet( kTAG_TAG ) );
 		
@@ -7543,10 +7651,9 @@ class SessionUpload
 	 *==================================================================================*/
 
 	/**
-	 * Validate string
+	 * Test validations
 	 *
-	 * This method will validate the provided string property, it will simply cast the
-	 * value to a string.
+	 * This method will test validations.
 	 *
 	 * @param Transaction		   &$theTransaction		Transaction reference.
 	 * @param array				   &$theRecord			Data record.
@@ -7592,7 +7699,7 @@ class SessionUpload
 				'SYMBOL' => array(
 					'column_name' => 'A',
 					'column_number' => 1 ) );
-		
+
 		//
 		// Create record.
 		//
@@ -8403,8 +8510,7 @@ class SessionUpload
 		// Create record.
 		//
 		$record = array( 'SYMBOL' => 'iso:3166:1:alpha-3:ITA' );
-		$node[ kTAG_PREFIX ] = NULL;
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ] = NULL;
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_ENUM;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 
@@ -8429,8 +8535,10 @@ class SessionUpload
 		//
 		$record = array( 'SYMBOL' => 'ITA;YUG;IT-RM' );
 		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
-		$node[ kTAG_PREFIX ] = array( 'iso:3166:1:alpha-3:', 'iso:3166:3:alpha-3:', 'iso:3166:2:' );
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array(
+					 'iso:3166:1:alpha-3:', 'iso:3166:3:alpha-3:', 'iso:3166:2:' ) ) );
 		$node[ kTAG_TOKEN ] = ';';
 		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
 		//
@@ -8454,8 +8562,10 @@ class SessionUpload
 		// Create record.
 		//
 		$record = array( 'SYMBOL' => 'ITA,YUG,IT-RM' );
-		$node[ kTAG_PREFIX ] = array( 'iso:3166:1:alpha-3:', 'iso:3166:3:alpha-3:', 'iso:3166:2:' );
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array(
+					 'iso:3166:1:alpha-3:', 'iso:3166:3:alpha-3:', 'iso:3166:2:' ) ) );
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_SET;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 		$node[ kTAG_TOKEN ] = ',';
@@ -8527,8 +8637,7 @@ class SessionUpload
 		// Create record.
 		//
 		$record = array( 'SYMBOL' => ':taxon:crop:category' );
-		$node[ kTAG_PREFIX ] = NULL;
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ] = NULL;
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_TAG;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 
@@ -8553,8 +8662,10 @@ class SessionUpload
 		// Update data.
 		//
 		$record = array( 'SYMBOL' => ':crop' );
-		$node[ kTAG_PREFIX ] = array( ':taxon' );
-		$node[ kTAG_SUFFIX ] = array( ':category' );
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array( ':taxon' ),
+					   kTAG_SUFFIX => array( ':category' ) ) );
 		//
 		// Test validateReference.
 		//
@@ -8575,8 +8686,9 @@ class SessionUpload
 		// Update data.
 		//
 		$record = array( 'SYMBOL' => ':category,:group' );
-		$node[ kTAG_PREFIX ] = array( ':taxon:crop' );
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array( ':taxon:crop' ) ) );
 		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
 		$node[ kTAG_TOKEN ] = ',';
 		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
@@ -8602,8 +8714,7 @@ class SessionUpload
 		// Create record.
 		//
 		$record = array( 'SYMBOL' => ':taxon:crop:category' );
-		$node[ kTAG_PREFIX ] = NULL;
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ] = NULL;
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_TERM;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 
@@ -8628,8 +8739,10 @@ class SessionUpload
 		// Update data.
 		//
 		$record = array( 'SYMBOL' => ':crop' );
-		$node[ kTAG_PREFIX ] = array( ':taxon' );
-		$node[ kTAG_SUFFIX ] = array( ':category' );
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array( ':taxon' ),
+					   kTAG_SUFFIX => array( ':category' ) ) );
 		//
 		// Test validateReference.
 		//
@@ -8650,8 +8763,9 @@ class SessionUpload
 		// Update data.
 		//
 		$record = array( 'SYMBOL' => ':category,:group' );
-		$node[ kTAG_PREFIX ] = array( ':taxon:crop' );
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array( ':taxon:crop' ) ) );
 		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
 		$node[ kTAG_TOKEN ] = ',';
 		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
@@ -8677,8 +8791,7 @@ class SessionUpload
 		// Create record.
 		//
 		$record = array( 'SYMBOL' => '152' );
-		$node[ kTAG_PREFIX ] = NULL;
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ] = NULL;
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_NODE;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 
@@ -8747,9 +8860,8 @@ class SessionUpload
 		//
 		// Create record.
 		//
-		$record = array( 'SYMBOL' => '1/:predicate:PROPERTY-OF/364' );
-		$node[ kTAG_PREFIX ] = NULL;
-		$node[ kTAG_SUFFIX ] = NULL;
+		$record = array( 'SYMBOL' => '1/:predicate:PROPERTY-OF/365' );
+		$node[ kTAG_TRANSFORM ] = NULL;
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_EDGE;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 
@@ -8774,8 +8886,10 @@ class SessionUpload
 		// Update data.
 		//
 		$record = array( 'SYMBOL' => ':predicate:PROPERTY-OF' );
-		$node[ kTAG_PREFIX ] = array( '1/' );
-		$node[ kTAG_SUFFIX ] = array( '/364' );
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array( '1/' ),
+					   kTAG_SUFFIX => array( '/365' ) ) );
 		//
 		// Test validateReference.
 		//
@@ -8795,9 +8909,10 @@ class SessionUpload
 		//
 		// Update data.
 		//
-		$record = array( 'SYMBOL' => ':predicate:ENUM-OF/381, :predicate:SUBSET-OF/10591' );
-		$node[ kTAG_PREFIX ] = array( '10007/' );
-		$node[ kTAG_SUFFIX ] = NULL;
+		$record = array( 'SYMBOL' => ':predicate:ENUM-OF/381' );
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array( '1007/' ) ) );
 		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
 		$node[ kTAG_TOKEN ] = ',';
 		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
@@ -8823,8 +8938,7 @@ class SessionUpload
 		// Create record.
 		//
 		$record = array( 'SYMBOL' => ':domain:inventory://CYP/Aegilops triuncialis:CYP;' );
-		$node[ kTAG_PREFIX ] = NULL;
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ] = NULL;
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_UNIT;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 
@@ -8849,8 +8963,10 @@ class SessionUpload
 		// Update data.
 		//
 		$record = array( 'SYMBOL' => '://CYP/' );
-		$node[ kTAG_PREFIX ] = array( ':domain:inventory' );
-		$node[ kTAG_SUFFIX ] = array( 'Aegilops triuncialis:CYP;' );
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array( ':domain:inventory' ),
+					   kTAG_SUFFIX => array( 'Aegilops triuncialis:CYP;' ) ) );
 		//
 		// Test validateReference.
 		//
@@ -8871,8 +8987,10 @@ class SessionUpload
 		// Update data.
 		//
 		$record = array( 'SYMBOL' => 'Aegilops triuncialis, Allium amethystinum, Elymus elongatus haifensis' );
-		$node[ kTAG_PREFIX ] = array( ':domain:inventory://CYP/' );
-		$node[ kTAG_SUFFIX ] = array( ':CYP;' );
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array( ':domain:inventory://CYP/' ),
+					   kTAG_SUFFIX => array( ':CYP;' ) ) );
 		$tag[ kTAG_DATA_KIND ] = array( kTYPE_LIST );
 		$node[ kTAG_TOKEN ] = ',';
 		echo( "<em>Token</em>: ".$node[ kTAG_TOKEN ].'<br />' );
@@ -8898,8 +9016,7 @@ class SessionUpload
 		// Create record.
 		//
 		$record = array( 'SYMBOL' => ':domain:individual://ITA406/pgrdiversity.bioversityinternational.org:7C4D3533C21C608B39E8EAB256B4AFB771FA534A;' );
-		$node[ kTAG_PREFIX ] = NULL;
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ] = NULL;
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_USER;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 
@@ -8924,8 +9041,10 @@ class SessionUpload
 		// Update data.
 		//
 		$record = array( 'SYMBOL' => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A' );
-		$node[ kTAG_PREFIX ] = array( ':domain:individual://ITA406/pgrdiversity.bioversityinternational.org:' );
-		$node[ kTAG_SUFFIX ] = array( ';' );
+		$node[ kTAG_TRANSFORM ]
+			= array(
+				array( kTAG_PREFIX => array( ':domain:individual://ITA406/pgrdiversity.bioversityinternational.org:' ),
+					   kTAG_SUFFIX => array( ';' ) ) );
 		//
 		// Test validateReference.
 		//
@@ -8971,8 +9090,7 @@ class SessionUpload
 		// Create record.
 		//
 		$record = array( 'SYMBOL' => (string) $this->session() );
-		$node[ kTAG_PREFIX ] = NULL;
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ] = NULL;
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_SESSION;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 
@@ -9001,8 +9119,7 @@ class SessionUpload
 		//
 		$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
 		$record = array( 'SYMBOL' => ':domain:inventory://CYP/Aegilops triuncialis:CYP;' );
-		$node[ kTAG_PREFIX ] = NULL;
-		$node[ kTAG_SUFFIX ] = NULL;
+		$node[ kTAG_TRANSFORM ] = NULL;
 		$tag[ kTAG_DATA_TYPE ] = kTYPE_REF_SELF;
 		$tag[ kTAG_DATA_KIND ] = NULL;
 

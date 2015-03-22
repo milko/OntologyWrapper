@@ -71,7 +71,7 @@ try
 	//
 	// Set metadata.
 	//
-	echo( "  • Setting metadata.\n" );
+	echo( "  • Connecting metadata database.\n" );
 	$meta = $wrapper->metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
@@ -79,12 +79,13 @@ try
 	//
 	// Drop metadata.
 	//
+	echo( "  • Resetting metadata database.\n" );
 	$meta->drop();
 	
 	//
 	// Set units.
 	//
-	echo( "  • Setting units.\n" );
+	echo( "  • Connecting units database.\n" );
 	$units = $wrapper->units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
@@ -92,12 +93,13 @@ try
 	//
 	// Drop units.
 	//
+	echo( "  • Resetting units database.\n" );
 	$units->drop();
 	
 	//
 	// Set users.
 	//
-	echo( "  • Setting users.\n" );
+	echo( "  • Connecting users database.\n" );
 	$users = $wrapper->users(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
@@ -105,6 +107,7 @@ try
 	//
 	// Drop users.
 	//
+	echo( "  • Resetting users database.\n" );
 	$users->drop();
 	
 	//
@@ -115,7 +118,7 @@ try
 		//
 		// Set graph database.
 		//
-		echo( "  • Setting graph.\n" );
+		echo( "  • Connecting graph database.\n" );
 		$graph = $wrapper->graph(
 			new OntologyWrapper\Neo4jGraph(
 				"neo4j://localhost:7474" ) );
@@ -123,7 +126,7 @@ try
 		//
 		// Drop graph database.
 		//
-		echo( "  • Resetting graph.\n" );
+		echo( "  • Resetting graph database.\n" );
 		$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
 	
 	} // Use graph database.

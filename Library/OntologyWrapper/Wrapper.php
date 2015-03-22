@@ -632,7 +632,7 @@ class Wrapper extends Dictionary
 		// Inform.
 		//
 		if( $doLog )
-			echo( "\n==> Resetting ontology.\n" );
+			echo( "\n==> Initialising ontology.\n" );
 		
 		//
 		// Check if object is connected.
@@ -653,7 +653,7 @@ class Wrapper extends Dictionary
 		// Reset tags.
 		//
 		if( $doLog )
-			echo( "  • Resetting tags.\n" );
+			echo( "  • Initialising tags.\n" );
 		if( $doDrop )
 			$this->mMetadata->collection( Tag::kSEQ_NAME, TRUE )->drop();
 		Tag::CreateIndexes( $this->mMetadata );
@@ -662,7 +662,7 @@ class Wrapper extends Dictionary
 		// Reset terms.
 		//
 		if( $doLog )
-			echo( "  • Resetting terms.\n" );
+			echo( "  • Initialising terms.\n" );
 		if( $doDrop )
 			$this->mMetadata->collection( Term::kSEQ_NAME, TRUE )->drop();
 		Term::CreateIndexes( $this->mMetadata );
@@ -671,7 +671,7 @@ class Wrapper extends Dictionary
 		// Reset nodes.
 		//
 		if( $doLog )
-			echo( "  • Resetting nodes.\n" );
+			echo( "  • Initialising nodes.\n" );
 		if( $doDrop )
 			$this->mMetadata->collection( Node::kSEQ_NAME, TRUE )->drop();
 		Node::CreateIndexes( $this->mMetadata );
@@ -680,7 +680,7 @@ class Wrapper extends Dictionary
 		// Reset edges.
 		//
 		if( $doLog )
-			echo( "  • Resetting edges.\n" );
+			echo( "  • Initialising edges.\n" );
 		if( $doDrop )
 			$this->mMetadata->collection( Edge::kSEQ_NAME, TRUE )->drop();
 		Edge::CreateIndexes( $this->mMetadata );
@@ -893,7 +893,7 @@ class Wrapper extends Dictionary
 		// Inform.
 		//
 		if( $doLog )
-			echo( "\n==> Resetting units.\n" );
+			echo( "\n==> Initialising units.\n" );
 		
 		//
 		// Check if object is connected.
@@ -907,7 +907,7 @@ class Wrapper extends Dictionary
 		// Reset units collection.
 		//
 		if( $doLog )
-			echo( "  • Resetting collection.\n" );
+			echo( "  • Initialising collection.\n" );
 		if( $doDrop )
 			$this->mUnits->collection( User::kSEQ_NAME, TRUE )->drop();
 		
@@ -950,7 +950,7 @@ class Wrapper extends Dictionary
 		// Inform.
 		//
 		if( $doLog )
-			echo( "\n==> Resetting users.\n" );
+			echo( "\n==> Initialising users.\n" );
 		
 		//
 		// Check if object is connected.
@@ -964,7 +964,7 @@ class Wrapper extends Dictionary
 		// Reset users collection.
 		//
 		if( $doLog )
-			echo( "  • Resetting users collection.\n" );
+			echo( "  • Initialising users collection.\n" );
 		if( $doDrop )
 			$this->mUsers->collection( User::kSEQ_NAME, TRUE )->drop();
 		User::CreateIndexes( $this->mUsers );
@@ -973,7 +973,7 @@ class Wrapper extends Dictionary
 		// Reset sessions collection.
 		//
 		if( $doLog )
-			echo( "  • Resetting sessions collection.\n" );
+			echo( "  • Initialising sessions collection.\n" );
 		if( $doDrop )
 			$this->mUsers->collection( Session::kSEQ_NAME, TRUE )->drop();
 		Session::CreateIndexes( $this->mUsers );
@@ -982,7 +982,7 @@ class Wrapper extends Dictionary
 		// Reset users collection.
 		//
 		if( $doLog )
-			echo( "  • Resetting transactions collection.\n" );
+			echo( "  • Initialising transactions collection.\n" );
 		if( $doDrop )
 			$this->mUsers->collection( Transaction::kSEQ_NAME, TRUE )->drop();
 		Transaction::CreateIndexes( $this->mUsers );

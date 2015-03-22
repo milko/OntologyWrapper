@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<META>
+		<!-- template::checklist:cwr:identification:CK_CWRCODE -->
+		<NODE set="template::checklist:cwr:identification:CK_CWRCODE">
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_TAG">:inventory:code</item>
+				</item>
+				<item>
+					<item const="kTAG_TAG">:inventory:admin</item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>iso:3166:1:alpha-3:</item>
+						<item>iso:3166:2:</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+		
+		<!-- template::checklist:cwr:identification:CK_INSTCODE -->
+		<NODE set="template::checklist:cwr:identification:CK_INSTCODE">
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_TAG">:inventory:institute</item>
+					<item const="kTAG_CONN_COLL">_units</item>
+					<item const="kTAG_PREFIX">
+						<item>:domain:organisation://http://fao.org/wiews:</item>
+					</item>
+					<item const="kTAG_SUFFIX">
+						<item>;</item>
+					</item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

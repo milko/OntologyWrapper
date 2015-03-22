@@ -73,8 +73,8 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 // Init local storage.
 //
 $file = "/Library/WebServer/Library/OntologyWrapper/Library/test/test_checklist.small.xlsx";
-$user = ":domain:individual://ITA406/pgrdiversity.bioversityinternational.org:E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2;";
-$fingerprint = "E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2";
+$user = ":domain:individual://ITA406/pgrdiversity.bioversityinternational.org:7C4D3533C21C608B39E8EAB256B4AFB771FA534A;";
+$fingerprint = "7C4D3533C21C608B39E8EAB256B4AFB771FA534A";
 	
 //
 // Test class.
@@ -150,9 +150,49 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+		
+	//
+	// Instantiate new upload.
+	//
+	echo( '<h4>Instantiate new upload</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$workflow = new OntologyWrapper\\SessionUpload( $session, $file );' );
+	$workflow = new OntologyWrapper\SessionUpload( $session, $file );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$ok = $workflow->execute();' );
+	$ok = $workflow->execute();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+exit;
+		
+	//
+	// Delete session.
+	//
+	echo( '<h4>Delete session</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'OntologyWrapper\\Session::Delete( $wrapper, $session->offsetGet( kTAG_NID ) );<br />' );
+	OntologyWrapper\Session::Delete( $wrapper, $session->offsetGet( kTAG_NID ) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
 
-/*
-	
 	//
 	// Instantiate new upload.
 	//
@@ -184,48 +224,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-*/
-		
-	//
-	// Instantiate new upload.
-	//
-	echo( '<h4>Instantiate new upload</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$workflow = new OntologyWrapper\\SessionUpload( $session, $file );' );
-	$workflow = new OntologyWrapper\SessionUpload( $session, $file );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$ok = $workflow->execute();' );
-	$ok = $workflow->execute();
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $ok );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-exit;
-		
-	//
-	// Delete session.
-	//
-	echo( '<h4>Delete session</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'OntologyWrapper\\Session::Delete( $wrapper, $workflow->session()->offsetGet( kTAG_NID ) );<br />' );
-	OntologyWrapper\Session::Delete( $wrapper, $workflow->session()->offsetGet( kTAG_NID ) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
+
 
 }
 

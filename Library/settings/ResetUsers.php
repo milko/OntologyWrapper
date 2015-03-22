@@ -72,7 +72,7 @@ try
 	//
 	// Set databases.
 	//
-	echo( "  • Setting databases.\n" );
+	echo( "  • Connecting databases.\n" );
 	$wrapper->metadata(
 		new OntologyWrapper\MongoDatabase(
 			"$database?connect=1" ) );
