@@ -1651,6 +1651,26 @@ define( "kAPI_OP_CHECK_USER_CODE",				'checkUserCode' );
 define( "kAPI_OP_UPLOAD_TEMPLATE",				'uploadTemplate' );
 
 /**
+ * Get user session.
+ *
+ * This tag defines the get user session operation.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user requesting the service, or the user
+ *		code/password combination as an array. If the user is not allowed to submit
+ *		templates, the service will return an error.
+ * </ul>
+ *
+ * The service will return the session identifier in {@link kAPI_SESSION_ID} and the status
+ * in {@link kAPI_SESSION_RUNNING}, <tt>TRUE</tt> means the session is running; if the user
+ * has no sessions, the method will an empty result.
+ */
+define( "kAPI_OP_USER_SESSION",					'getUserSession' );
+
+/**
  * Check session progress.
  *
  * This tag defines the check session progress operation.
@@ -2823,6 +2843,13 @@ define( "kAPI_SESSION_ID",						'session-id' );
  * of the batch script.
  */
 define( "kAPI_PROCESS_ID",						'process-id' );
+
+/**
+ * Process (boolean).
+ *
+ * This parameter contains a boolean indicating whether the session is running or not.
+ */
+define( "kAPI_SESSION_RUNNING",					'session-running' );
 
 
 ?>

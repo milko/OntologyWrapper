@@ -283,6 +283,7 @@ class Service extends ContainerObject
 					case kAPI_OP_GET_MANAGED:
 					case kAPI_OP_CHECK_USER_CODE:
 					case kAPI_OP_UPLOAD_TEMPLATE:
+					case kAPI_OP_USER_SESSION:
 					case kAPI_OP_SESSION_PROGRESS:
 					case kAPI_OP_PUT_DATA:
 					case kAPI_OP_GET_DATA:
@@ -525,6 +526,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template.
+	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
 	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
@@ -574,6 +576,7 @@ class Service extends ContainerObject
 			case kAPI_OP_GET_MANAGED:
 			case kAPI_OP_CHECK_USER_CODE:
 			case kAPI_OP_UPLOAD_TEMPLATE:
+			case kAPI_OP_USER_SESSION:
 			case kAPI_OP_SESSION_PROGRESS:
 			case kAPI_OP_PUT_DATA:
 			case kAPI_OP_GET_DATA:
@@ -657,6 +660,7 @@ class Service extends ContainerObject
 				case kAPI_OP_MOD_USER:
 				case kAPI_OP_GET_MANAGED:
 				case kAPI_OP_UPLOAD_TEMPLATE:
+				case kAPI_OP_USER_SESSION:
 				case kAPI_OP_SESSION_PROGRESS:
 				case kAPI_OP_PUT_DATA:
 				case kAPI_OP_GET_DATA:
@@ -943,6 +947,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template.
+	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
 	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
@@ -1039,6 +1044,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_UPLOAD_TEMPLATE:
 				$this->validateSubmitTemplate();
+				break;
+				
+			case kAPI_OP_USER_SESSION:
+				$this->validateGetUserSession();
 				break;
 				
 			case kAPI_OP_SESSION_PROGRESS:
@@ -2568,6 +2577,57 @@ class Service extends ContainerObject
 				"Missing requestor." );											// !@! ==>
 		
 	} // validateSubmitTemplate.
+
+	 
+	/*===================================================================================
+	 *	validateGetUserSession															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate get user session service.
+	 *
+	 * This method will call the validation process for the get user session service, the
+	 * method will ensure all required data is provided and that the submitter user has the
+	 * required permissions.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateGetUserSession()
+	{
+		//
+		// Assert submitter.
+		//
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
+		{
+			//
+			// Check roles.
+			//
+			$user = $this->offsetGet( kAPI_REQUEST_USER );
+			$roles = $user->offsetGet( kTAG_ROLES );
+			if( $roles !== NULL )
+			{
+				//
+				// Check if he can submit templates.
+				//
+				if( ! in_array( kTYPE_ROLE_UPLOAD, $roles ) )
+					throw new \Exception(
+						"Requestor cannot upload." );							// !@! ==>
+		
+			} // User has roles.
+		
+			else
+				throw new \Exception(
+					"Requestor has no roles." );								// !@! ==>
+		
+		} // Provided submitter.
+		
+		else
+			throw new \Exception(
+				"Missing requestor." );											// !@! ==>
+		
+	} // validateGetUserSession.
 
 	 
 	/*===================================================================================
@@ -4107,6 +4167,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Upload template.
+	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
 	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
@@ -4220,6 +4281,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_UPLOAD_TEMPLATE:
 				$this->executeSubmitTemplate();
+				break;
+				
+			case kAPI_OP_USER_SESSION:
+				$this->executeGetUserSession();
 				break;
 				
 			case kAPI_OP_SESSION_PROGRESS:
@@ -6013,6 +6078,67 @@ class Service extends ContainerObject
 						[ kAPI_STATUS_CRYPTED ] = TRUE;
 		
 	} // executeSubmitTemplate.
+
+	 
+	/*===================================================================================
+	 *	executeGetUserSession															*
+	 *==================================================================================*/
+
+	/**
+	 * Get user session.
+	 *
+	 * The method will return the session identifier and its running status.
+	 *
+	 * @access protected
+	 */
+	protected function executeGetUserSession()
+	{
+		//
+		// Init local storage.
+		//
+		$result = NULL;
+		$encoder = new Encoder();
+		$user = $this->offsetGet( kAPI_REQUEST_USER );
+		
+		//
+		// Handle session.
+		//
+		if( $user->offsetExists( kTAG_SESSION ) )
+		{
+			//
+			// Set session.
+			//
+			$result = array( kAPI_SESSION_ID => (string) $user->offsetGet( kTAG_SESSION ) );
+			
+			//
+			// Check if running.
+			//
+			$result[ kAPI_SESSION_RUNNING ]
+				= file_exists(
+						SessionBatch::LockFilePath(
+							$user->offsetGet( kTAG_NID ) ) );
+			
+			//
+			// Set result.
+			//
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ] = $result;
+		
+		} // User has session.
+		
+		//
+		// Encrypt result.
+		//
+		$data = JsonEncode( $result );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $data );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+	} // executeGetUserSession.
 
 	 
 	/*===================================================================================

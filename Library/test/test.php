@@ -1150,6 +1150,7 @@ echo( '<hr>' );
 	
 /******************************************************************************/
 
+/*
 //
 // Test ParseCoordinate().
 //
@@ -1220,5 +1221,13 @@ var_dump( CheckShapeValue( $geometry ) );
 var_dump( $geometry );
 echo( '<hr>' );
 echo( '<hr>' );
+*/
+	
+/******************************************************************************/
+
+//
+// Test lock file path.
+//
+var_dump( OntologyWrapper\SessionBatch::LockFilePath( 'user' ) );
 
 ?>

@@ -9,6 +9,7 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\Session;
+use OntologyWrapper\SessionBatch;
 
 /*=======================================================================================
  *																						*
@@ -33,7 +34,7 @@ require_once( kPATH_LIBRARY_EXCEL."/PHPExcel.php" );
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 18/02/2015
  */
-class SessionUpload
+class SessionUpload extends SessionBatch
 {
 	/**
 	 * Property accessors trait.
@@ -136,7 +137,12 @@ class SessionUpload
 		// Set file reference.
 		//
 		$this->file( $theFile );
-
+		
+		//
+		// Call parent constructor.
+		//
+		parent::__construct( $theSession->offsetGet( kTAG_USER ) );
+		
 	} // Constructor.
 
 	 
@@ -173,6 +179,11 @@ class SessionUpload
 			if( $file->isWritable() )
 				unlink( $file->getRealPath() );
 		}
+		
+		//
+		// Call parent constructor.
+		//
+		parent::__destruct();
 
 	} // Destructor.
 
