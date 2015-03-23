@@ -2792,7 +2792,7 @@ class SessionUpload
 		//
 		$this->session()->offsetSet(
 			kTAG_COUNTER_RECORDS,
-			$collection_units->matckAll( Array(), kQUERY_COUNT ) );
+			$collection_objects->matchAll( Array(), kQUERY_COUNT ) );
 		
 		//
 		// Update session processed.
