@@ -2788,6 +2788,13 @@ class SessionUpload
 		} // Iterating records.
 		
 		//
+		// Set session records.
+		//
+		$this->session()->offsetSet(
+			kTAG_COUNTER_RECORDS,
+			$collection_units->matckAll( Array(), kQUERY_COUNT ) );
+		
+		//
 		// Update session processed.
 		//
 		$increment_processed_session++;
