@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *								test_SessionUpload.php									*
+ *								test_SessionUpdate.php									*
  *																						*
  *======================================================================================*/
 
@@ -120,16 +120,16 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$session = new OntologyWrapper\\Session( $wrapper )<br />;' );
-	$session = new OntologyWrapper\Session( $wrapper );
-	echo( '$session[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPLOAD;<br />' );
-	$session[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPLOAD;
-	echo( '$session[ kTAG_USER ] = $user;<br />' );
-	$session[ kTAG_USER ] = $user;
-	echo( '$session[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;<br />' );
-	$session[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;
-	echo( '$id = $session->commit();' );
-	$id = $session->commit();
+	echo( '$upload_session = new OntologyWrapper\\Session( $wrapper )<br />;' );
+	$upload_session = new OntologyWrapper\Session( $wrapper );
+	echo( '$upload_session[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPLOAD;<br />' );
+	$upload_session[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPLOAD;
+	echo( '$upload_session[ kTAG_USER ] = $user;<br />' );
+	$upload_session[ kTAG_USER ] = $user;
+	echo( '$upload_session[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;<br />' );
+	$upload_session[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;
+	echo( '$upload_id = $upload_session->commit();' );
+	$upload_id = $upload_session->commit();
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -139,13 +139,13 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $id );
+	var_dump( $upload_id );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = $session->getName( kSTANDARDS_LANGUAGE );' );
-	$data = $session->getName( kSTANDARDS_LANGUAGE );
+	echo( '$data = $upload_session->getName( kSTANDARDS_LANGUAGE );' );
+	$data = $upload_session->getName( kSTANDARDS_LANGUAGE );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -163,8 +163,79 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$workflow = new OntologyWrapper\\SessionUpload( $session, $file );' );
-	$workflow = new OntologyWrapper\SessionUpload( $session, $file );
+	echo( '$workflow = new OntologyWrapper\\SessionUpload( $upload_session, $file );' );
+	$workflow = new OntologyWrapper\SessionUpload( $upload_session, $file );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$ok = $workflow->execute();' );
+	$ok = $workflow->execute();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Instantiate update session.
+	//
+	echo( '<h4>Instantiate update session</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$update_session = new OntologyWrapper\\Session( $wrapper )<br />;' );
+	$update_session = new OntologyWrapper\Session( $wrapper );
+	echo( '$update_session[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPDATE;<br />' );
+	$update_session[ kTAG_SESSION_TYPE ] = kTYPE_SESSION_UPDATE;
+	echo( '$update_session[ kTAG_USER ] = $user;<br />' );
+	$update_session[ kTAG_USER ] = $user;
+	echo( '$update_session[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;<br />' );
+	$update_session[ kTAG_ENTITY_PGP_FINGERPRINT ] = $fingerprint;
+	echo( '$update_id = $update_session->commit();<br />' );
+	$update_id = $update_session->commit();
+	echo( '$update_session->offsetSet( kTAG_SESSION, $upload_id );' );
+	$update_session->offsetSet( kTAG_SESSION, $upload_id );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'ID' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $update_id );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$data = $update_session->getName( kSTANDARDS_LANGUAGE );' );
+	$data = $update_session->getName( kSTANDARDS_LANGUAGE );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $data );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+		
+	//
+	// Instantiate new update.
+	//
+	echo( '<h4>Instantiate new update</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$workflow = new OntologyWrapper\\SessionUpdate( $update_session );' );
+	$workflow = new OntologyWrapper\SessionUpdate( $update_session );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );

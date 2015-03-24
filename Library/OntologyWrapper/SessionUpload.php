@@ -129,6 +129,11 @@ class SessionUpload extends SessionBatch
 	public function __construct( Session $theSession, $theFile )
 	{
 		//
+		// Call parent constructor.
+		//
+		parent::__construct( $theSession->offsetGet( kTAG_USER ) );
+		
+		//
 		// Set session.
 		//
 		$this->session( $theSession );
@@ -137,11 +142,6 @@ class SessionUpload extends SessionBatch
 		// Set file reference.
 		//
 		$this->file( $theFile );
-		
-		//
-		// Call parent constructor.
-		//
-		parent::__construct( $theSession->offsetGet( kTAG_USER ) );
 		
 	} // Constructor.
 
@@ -812,6 +812,13 @@ class SessionUpload extends SessionBatch
 		//
 		if( ! $this->loadTemplateStructure() )
 			return FALSE;															// ==>
+		
+		//
+		// Set class name in session.
+		//
+		$this->session()->offsetSet(
+			kTAG_CLASS_NAME,
+			$this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME ) );
 	
 		//
 		// Update progress.
@@ -1180,9 +1187,7 @@ class SessionUpload extends SessionBatch
 	/**
 	 * Delete pending sessions
 	 *
-	 * This method will delete all pending sessions, that is, all user sessions of type
-	 * upload that do not have a referencing session and that do not correspond to the
-	 * current session.
+	 * This method will delete all pending sessions, that is, all user sessions.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> means OK, <tt>FALSE</tt> means fail.
@@ -1201,11 +1206,9 @@ class SessionUpload extends SessionBatch
 				Session::ResolveDatabase( $this->wrapper(), TRUE ), TRUE )
 					->matchAll(
 						array( kTAG_NID
-								=> array( '$ne'
-									=> $this->session()->offsetGet( kTAG_NID ) ),
-							   kTAG_SESSION_TYPE => kTYPE_SESSION_UPLOAD,
-							   kTAG_USER => $this->session()->offsetGet( kTAG_USER ),
-							   kTAG_SESSION => array( '$exists' => FALSE ) ),
+									=> array( '$ne'
+										=> $this->session()->offsetGet( kTAG_NID ) ),
+							   kTAG_USER => $this->session()->offsetGet( kTAG_USER ) ),
 						kQUERY_NID );
 		
 		//
@@ -1528,6 +1531,13 @@ class SessionUpload extends SessionBatch
 		// Instantiate iterator.
 		//
 		$this->mIterator = new TemplateWorksheetsIterator( $this->mParser );
+		
+		//
+		// Set class name in session.
+		//
+		$this->session()->offsetSet(
+			kTAG_CLASS_NAME,
+			$this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME ) );
 	
 		//
 		// Close transaction.
@@ -1710,6 +1720,11 @@ class SessionUpload extends SessionBatch
 			$this->mCollections[ $name ]
 				= Session::ResolveDatabase( $this->wrapper(), TRUE )
 					->collection( $name, TRUE );
+			
+			//
+			// Drop collection.
+			//
+			$this->mCollections[ $name ]->drop();
 			
 			//
 			// Add reference indexes.
@@ -2531,6 +2546,7 @@ class SessionUpload extends SessionBatch
 		//
 		$count = $theRecords->count();
 		$root = $this->mIterator->getRoot();
+		$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
 		$collection_units
 			= UnitObject::ResolveCollection(
 				UnitObject::ResolveDatabase( $this->wrapper(), TRUE ),
@@ -2580,7 +2596,6 @@ class SessionUpload extends SessionBatch
 			//
 			// Instantiate object.
 			//
-			$class = $this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME );
 			$object = new $class( $this->wrapper() );
 		
 			//
@@ -2606,7 +2621,7 @@ class SessionUpload extends SessionBatch
 			} // Has related worksheets.
 		
 			//
-			// Class validation TRY block..
+			// Class validation TRY block.
 			//
 			try
 			{
@@ -2771,7 +2786,8 @@ class SessionUpload extends SessionBatch
 					$start_rejected, $increment_rejected,
 					kTAG_COUNTER_REJECTED,
 					$this->transaction() );
-			}
+			
+			} // Validation CATCH block.
 	
 			//
 			// Close transaction.

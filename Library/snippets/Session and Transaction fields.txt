@@ -10,6 +10,7 @@ SESSION
 * kTAG_SESSION_END
 * kTAG_SESSION_STATUS			Completed, failed, crashed.
 * kTAG_CONN_COLLS				Working collections.
+* kTAG_CLASS_NAME				Template object class name.
 * kTAG_COUNTER_PROCESSED		Processed items.
 * kTAG_COUNTER_VALIDATED		Validated elements.
 * kTAG_COUNTER_REJECTED			Rejected elements.

@@ -724,11 +724,11 @@ define( "kTYPE_TRANS_TMPL_LOAD_DATA_ROW",		':type:transaction:1A1' );
  *======================================================================================*/
 
 /**
- * Allocate resources.
+ * Prepare update session.
  *
- * Identify template data repository and working resources.
+ * Load upload session information.
  */
-define( "kTYPE_TRANS_UPDT_SETUP",				':type:transaction:210' );
+define( "kTYPE_TRANS_UPDT_PREPARE",				':type:transaction:210' );
 
 /**
  * Identify existing objects.
@@ -1339,6 +1339,13 @@ define( "kTYPE_MESSAGE_CODE_REPLACE_OBJECT",	-25 );
  * The object could not be validated due to an error that was not checked beforehand..
  */
 define( "kTYPE_ERROR_CODE_OBJECT_VALIDATION",	-26 );
+
+/**
+ * Missing upload session.
+ *
+ * Unable to locate upload session.
+ */
+define( "kTYPE_ERROR_CODE_NO_UPLOAD",			-27 );
 
 
 ?>

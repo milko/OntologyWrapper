@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Template load batch.
+ * Commit upload batch.
  *
- * This file contains routines to validate a template.
+ * This file contains routines to commit a template.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Batch
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 09/03/2015
+ *	@version	1.00 23/03/2015
  */
 
 /*=======================================================================================
  *																						*
- *								Batch_LoadTemplate.php									*
+ *								Batch_CommitTemplate.php								*
  *																						*
  *======================================================================================*/
 
@@ -41,10 +41,9 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 //
 // Parse arguments.
 //
-if( $argc < 3 )
-	exit( "Usage: <script.php> <session ID> <template path>\n" );					// ==>
+if( $argc < 2 )
+	exit( "Usage: <script.php> <session ID>\n" );									// ==>
 $session_id = $argv[ 1 ];
-$template_path = $argv[ 2 ];
 
 
 /*=======================================================================================
@@ -112,7 +111,7 @@ if( ! $wrapper->dictionaryFilled() )
 if( kDEBUG_FLAG )
 	file_put_contents(
 		kPATH_BATCHES_ROOT."/log/$session_id.log",
-		"Upload batch start: ".date( "r" )."\n",
+		"Update batch start: ".date( "r" )."\n",
 		FILE_APPEND );
 
 //
@@ -127,14 +126,14 @@ if( $session->committed() )
 	$max_exe = ini_set( 'max_execution_time', 0 );
 
 	//
-	// Instantiate upload.
+	// Instantiate update.
 	//
-	$upload = new OntologyWrapper\SessionUpload( $session, $template_path );
+	$update = new OntologyWrapper\SessionUpdate( $session );
 	
 	//
 	// Execute upload.
 	//
-	$upload->execute();
+	$update->execute();
 
 	//
 	// Re-set maximum execution time.

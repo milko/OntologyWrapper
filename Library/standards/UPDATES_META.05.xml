@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<META>
+		<!-- kTYPE_TRANS_UPDT_SETUP -->
+		<TERM set=":type:transaction:210">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Prepare update session</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Load upload session information.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_TRANS_UPDT_DATA -->
+		<TERM set=":type:transaction:250">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Update database</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Update the public database with the template data.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

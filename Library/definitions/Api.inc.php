@@ -1646,9 +1646,36 @@ define( "kAPI_OP_CHECK_USER_CODE",				'checkUserCode' );
  * </ul>
  *
  * The service will return the identifier of the template upload session and the process
- * identifier.
+ * identifier; if a session is already running, the service will return the current user
+ * session identifier, but do nothing else.
  */
 define( "kAPI_OP_UPLOAD_TEMPLATE",				'uploadTemplate' );
+
+/**
+ * Update template.
+ *
+ * This tag defines the update template operation.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		the default language code.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user that uploaded the template, or the user
+ *		code/password combination as an array. If the user is not allowed to submit
+ *		templates, the service will return an error.
+ * </ul>
+ *
+ * The service will return the identifier of the update session and the process identifier;
+ * if a session is already running, the service will return the current user session
+ * identifier, but do nothing else.
+ *
+ * If the current user session is not an upload session, the service will return the current
+ * session and do nothing.
+ */
+define( "kAPI_OP_UPDATE_TEMPLATE",				'updateTemplate' );
 
 /**
  * Get user session.
@@ -1664,9 +1691,10 @@ define( "kAPI_OP_UPLOAD_TEMPLATE",				'uploadTemplate' );
  *		templates, the service will return an error.
  * </ul>
  *
- * The service will return the session identifier in {@link kAPI_SESSION_ID} and the status
- * in {@link kAPI_SESSION_RUNNING}, <tt>TRUE</tt> means the session is running; if the user
- * has no sessions, the method will an empty result.
+ * The service will return the session identifier in {@link kAPI_SESSION_ID}, the session
+ * type in {@link kAPI_SESSION_TYPE} and the statusin {@link kAPI_SESSION_RUNNING},
+ * <tt>TRUE</tt> means the session is running; if the user has no sessions, the method will
+ * an empty result.
  */
 define( "kAPI_OP_USER_SESSION",					'getUserSession' );
 
@@ -2837,12 +2865,11 @@ define( "kAPI_REFERRER",						'referrer' );
 define( "kAPI_SESSION_ID",						'session-id' );
 
 /**
- * Process (string).
+ * Session type (string).
  *
- * This parameter is set when a batch script is launched, it contains the process identifier
- * of the batch script.
+ * This parameter holds the session type string.
  */
-define( "kAPI_PROCESS_ID",						'process-id' );
+define( "kAPI_SESSION_TYPE",					'session-type' );
 
 /**
  * Process (boolean).
@@ -2850,6 +2877,14 @@ define( "kAPI_PROCESS_ID",						'process-id' );
  * This parameter contains a boolean indicating whether the session is running or not.
  */
 define( "kAPI_SESSION_RUNNING",					'session-running' );
+
+/**
+ * Process (string).
+ *
+ * This parameter is set when a batch script is launched, it contains the process identifier
+ * of the batch script.
+ */
+define( "kAPI_PROCESS_ID",						'process-id' );
 
 
 ?>

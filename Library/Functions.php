@@ -1237,12 +1237,14 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		//
 		// Check link.
 		//
+/* @@@ MILKO
 		if( @get_headers( $value ) === FALSE )
 		{
 			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
 			$theErrorMessage = 'Invalid or inactive link.';
 			return kTYPE_ERROR_CODE_BAD_LINK;										// ==>
 		}
+*/
 		
 		return TRUE;																// ==>
 
@@ -2606,27 +2608,28 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 	 *
 	 * @return mixed				<tt>TRUE</tt>, <tt>FALSE</tt> or <tt>NULL</tt>.
 	 */
-	function UpdateProcessCounter( &$theTimestamp, &$theIncrement, $theCounter,
+	function UpdateProcessCounter( &$theTimestamp, &$theIncrement,
+									$theCounter = NULL,
 									$theObject = NULL,
 									$theTotal = NULL,
 									$doUpdate = FALSE )
 	{
 		//
+		// Initialise counters.
+		//
+		if( $theObject === NULL )
+		{
+			$theTimestamp = microtime( TRUE );
+			$theIncrement = 0;
+			
+			return NULL;															// ==>
+		}
+	
+		//
 		// Check object.
 		//
 		if( $theObject instanceof OntologyWrapper\SessionObject )
 		{
-			//
-			// Initialise counters.
-			//
-			if( $theObject === NULL )
-			{
-				$theTimestamp = microtime( TRUE );
-				$theIncrement = 0;
-				
-				return NULL;														// ==>
-			}
-		
 			//
 			// Update object.
 			//

@@ -7,8 +7,7 @@
 #
 # Run command.
 #
-mongodump --directoryperdb \
-		  --db 'MAURICIO' \
+mongodump --db 'MAURICIO' \
 		  --out '/Library/WebServer/Library/OntologyWrapper/Library/backup/data'
 
 exit

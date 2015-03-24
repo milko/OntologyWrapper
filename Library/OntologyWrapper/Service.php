@@ -283,6 +283,7 @@ class Service extends ContainerObject
 					case kAPI_OP_GET_MANAGED:
 					case kAPI_OP_CHECK_USER_CODE:
 					case kAPI_OP_UPLOAD_TEMPLATE:
+					case kAPI_OP_UPDATE_TEMPLATE:
 					case kAPI_OP_USER_SESSION:
 					case kAPI_OP_SESSION_PROGRESS:
 					case kAPI_OP_PUT_DATA:
@@ -525,7 +526,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_MOD_USER}</tt>: Modify user.
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
-	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template.
+	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template upload.
+	 *	<li><tt>{@link kAPI_OP_UPDATE_TEMPLATE}</tt>: Submit data template update.
 	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
@@ -576,6 +578,7 @@ class Service extends ContainerObject
 			case kAPI_OP_GET_MANAGED:
 			case kAPI_OP_CHECK_USER_CODE:
 			case kAPI_OP_UPLOAD_TEMPLATE:
+			case kAPI_OP_UPDATE_TEMPLATE:
 			case kAPI_OP_USER_SESSION:
 			case kAPI_OP_SESSION_PROGRESS:
 			case kAPI_OP_PUT_DATA:
@@ -660,6 +663,7 @@ class Service extends ContainerObject
 				case kAPI_OP_MOD_USER:
 				case kAPI_OP_GET_MANAGED:
 				case kAPI_OP_UPLOAD_TEMPLATE:
+				case kAPI_OP_UPDATE_TEMPLATE:
 				case kAPI_OP_USER_SESSION:
 				case kAPI_OP_SESSION_PROGRESS:
 				case kAPI_OP_PUT_DATA:
@@ -946,7 +950,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_MOD_USER}</tt>: Modify user.
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
-	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template.
+	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Submit data template upload.
+	 *	<li><tt>{@link kAPI_OP_UPDATE_TEMPLATE}</tt>: Submit data template update.
 	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
@@ -1044,6 +1049,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_UPLOAD_TEMPLATE:
 				$this->validateSubmitTemplate();
+				break;
+				
+			case kAPI_OP_UPDATE_TEMPLATE:
+				$this->validateUpdateTemplate();
 				break;
 				
 			case kAPI_OP_USER_SESSION:
@@ -2511,7 +2520,7 @@ class Service extends ContainerObject
 	 *==================================================================================*/
 
 	/**
-	 * Validate invite user service.
+	 * Validate upload service.
 	 *
 	 * This method will call the validation process for the template submission service, the
 	 * method will ensure all required data is provided and that the submitter user has the
@@ -2577,6 +2586,91 @@ class Service extends ContainerObject
 				"Missing requestor." );											// !@! ==>
 		
 	} // validateSubmitTemplate.
+
+	 
+	/*===================================================================================
+	 *	validateUpdateTemplate															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate update service.
+	 *
+	 * This method will call the validation process for the template update service, the
+	 * method will ensure all required data is provided and that the submitter user has the
+	 * required permissions.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateUpdateTemplate()
+	{
+		//
+		// Assert submitter.
+		//
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
+		{
+			//
+			// Check roles.
+			//
+			$user = $this->offsetGet( kAPI_REQUEST_USER );
+			$roles = $user->offsetGet( kTAG_ROLES );
+			if( $roles !== NULL )
+			{
+				//
+				// Check if he can submit templates.
+				//
+				if( in_array( kTYPE_ROLE_UPLOAD, $roles ) )
+				{
+					//
+					// Check current session.
+					//
+					if( $user->offsetExists( kTAG_SESSION ) )
+					{
+						//
+						// Check session type.
+						//
+						$session = new Session( $this->mWrapper,
+												$user->offsetGet( kTAG_SESSION ) );
+						if( $session->offsetGet( kTAG_SESSION_TYPE )
+							== kTYPE_SESSION_UPLOAD )
+						{
+							//
+							// Save session.
+							//
+							$this->offsetSet( kAPI_PARAM_ID, $session );
+						
+						} // Is an upload session.
+		
+						else
+							throw new \Exception(
+								"There is no upload session." );							// !@! ==>
+					
+					} // Has session.
+		
+					else
+						throw new \Exception(
+							"These is no template to update." );							// !@! ==>
+				
+				} // User can upload.
+		
+				else
+					throw new \Exception(
+						"Requestor cannot upload." );							// !@! ==>
+		
+			} // User has roles.
+		
+			else
+				throw new \Exception(
+					"Requestor has no roles." );								// !@! ==>
+		
+		} // Provided submitter.
+		
+		else
+			throw new \Exception(
+				"Missing requestor." );											// !@! ==>
+		
+	} // validateUpdateTemplate.
 
 	 
 	/*===================================================================================
@@ -4167,6 +4261,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_MANAGED}</tt>: Get managed users.
 	 *	<li><tt>{@link kAPI_OP_CHECK_USER_CODE}</tt>: Check user code.
 	 *	<li><tt>{@link kAPI_OP_UPLOAD_TEMPLATE}</tt>: Upload template.
+	 *	<li><tt>{@link kAPI_OP_UPDATE_TEMPLATE}</tt>: Update template.
 	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
@@ -4281,6 +4376,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_UPLOAD_TEMPLATE:
 				$this->executeSubmitTemplate();
+				break;
+				
+			case kAPI_OP_UPDATE_TEMPLATE:
+				$this->executeUpdateTemplate();
 				break;
 				
 			case kAPI_OP_USER_SESSION:
@@ -6005,65 +6104,80 @@ class Service extends ContainerObject
 		$user_fingerprint = $user->offsetGet( kTAG_ENTITY_PGP_FINGERPRINT );
 		
 		//
-		// Instantiate session.
+		// Check if there is a running session.
 		//
-		$session = new Session( $this->mWrapper );
-		$session->offsetSet( kTAG_SESSION_TYPE, kTYPE_SESSION_UPLOAD );
-		$session->offsetSet( kTAG_USER, $user_id );
-		$session->offsetSet( kTAG_ENTITY_PGP_FINGERPRINT, $user_fingerprint );
-		$session_id = $session->commit();
+		if( ! file_exists(
+				SessionBatch::LockFilePath(
+					$user->offsetGet( kTAG_NID ) ) ) )
+		{
+			//
+			// Instantiate session.
+			//
+			$session = new Session( $this->mWrapper );
+			$session->offsetSet( kTAG_SESSION_TYPE, kTYPE_SESSION_UPLOAD );
+			$session->offsetSet( kTAG_USER, $user_id );
+			$session->offsetSet( kTAG_ENTITY_PGP_FINGERPRINT, $user_fingerprint );
+			$session_id = $session->commit();
+		
+			//
+			// Create log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					kPATH_BATCHES_ROOT."/log/$session_id.log",
+					"Service start: ".date( "r" )."\n" );
+		
+			//
+			// Copy session in persistent user object.
+			//
+			User::ResolveCollection(
+				User::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
+					->replaceOffsets(
+						$user_id,
+						array( kTAG_SESSION => $session->offsetGet( kTAG_NID ) ) );
+		
+			//
+			// Launch batch.
+			//
+			$php = kPHP_BINARY;
+			$script = kPATH_BATCHES_ROOT.'/Batch_LoadTemplate.php';
+			$path = $this->offsetGet( kAPI_PARAM_FILE_PATH );
+		
+			//
+			// Handle debug log.
+			//
+			if( kDEBUG_FLAG )
+				$log = "'".kPATH_BATCHES_ROOT."/log/$session_id.batch'";
+			else
+				$log = '/dev/null';
+		
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					kPATH_BATCHES_ROOT."/log/$session_id.log",
+					"Lanching batch: ".date( "r" )."\n" );
+		
+			//
+			// Launch batch.
+			//
+			$process_id = exec( "$php -f $script '$session_id' '$path' > '$log' &" );
+		
+			//
+			// Build result.
+			//
+			$result = array( kAPI_SESSION_ID => $session_id,
+							 kAPI_PROCESS_ID => $process_id );
+		
+		} // No running sessions.
 		
 		//
-		// Create log file.
+		// Handle running session.
 		//
-		if( kDEBUG_FLAG )
-			file_put_contents(
-				kPATH_BATCHES_ROOT."/log/$session_id.log",
-				"Service start: ".date( "r" )."\n" );
-		
-		//
-		// Copy session in persistent user object.
-		//
-		User::ResolveCollection(
-			User::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
-				->replaceOffsets(
-					$user_id,
-					array( kTAG_SESSION => $session->offsetGet( kTAG_NID ) ) );
-		
-		//
-		// Launch batch.
-		//
-		$php = kPHP_BINARY;
-		$script = kPATH_BATCHES_ROOT.'/Batch_LoadTemplate.php';
-		$path = $this->offsetGet( kAPI_PARAM_FILE_PATH );
-		
-		//
-		// Handle debug log.
-		//
-		if( kDEBUG_FLAG )
-			$log = "'".kPATH_BATCHES_ROOT."/log/$session_id.batch'";
 		else
-			$log = '/dev/null';
-		
-		//
-		// Write to log file.
-		//
-		if( kDEBUG_FLAG )
-			file_put_contents(
-				kPATH_BATCHES_ROOT."/log/$session_id.log",
-				"Lanching batch: ".date( "r" )."\n" );
-		
-		//
-		// Launch batch.
-		//
-		$process_id = exec( "$php -f $script '$session_id' '$path' > '$log' &" );
-		
-		//
-		// Build result.
-		//
-		$result = array( kAPI_SESSION_ID => $session_id,
-						 kAPI_PROCESS_ID => $process_id );
-		
+			$result = array( kAPI_SESSION_ID => (string) $user->offsetGet( kTAG_SESSION ) );
+
 		//
 		// Encrypt result.
 		//
@@ -6078,6 +6192,128 @@ class Service extends ContainerObject
 						[ kAPI_STATUS_CRYPTED ] = TRUE;
 		
 	} // executeSubmitTemplate.
+
+	 
+	/*===================================================================================
+	 *	executeUpdateTemplate															*
+	 *==================================================================================*/
+
+	/**
+	 * Update template.
+	 *
+	 * The method will instantiate the template update session, launch the session batch and
+	 * return the session identifier.
+	 *
+	 * @access protected
+	 */
+	protected function executeUpdateTemplate()
+	{
+		//
+		// Init local storage.
+		//
+		$encoder = new Encoder();
+		$user = $this->offsetGet( kAPI_REQUEST_USER );
+		$user_id = $user->offsetGet( kTAG_NID );
+		$user_fingerprint = $user->offsetGet( kTAG_ENTITY_PGP_FINGERPRINT );
+		$upload_session = $this->offsetGet( kAPI_PARAM_ID );
+		
+		//
+		// Check if there is a running session.
+		//
+		if( ! file_exists(
+				SessionBatch::LockFilePath(
+					$user->offsetGet( kTAG_NID ) ) ) )
+		{
+			//
+			// Instantiate session.
+			//
+			$session = new Session( $this->mWrapper );
+			$session->offsetSet( kTAG_SESSION_TYPE, kTYPE_SESSION_UPDATE );
+			$session->offsetSet( kTAG_USER, $user_id );
+			$session->offsetSet( kTAG_ENTITY_PGP_FINGERPRINT, $user_fingerprint );
+			$session_id = $session->commit();
+		
+			//
+			// Create log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					kPATH_BATCHES_ROOT."/log/$session_id.log",
+					"Service start: ".date( "r" )."\n" );
+		
+			//
+			// Copy session in persistent user object.
+			//
+			Session::ResolveCollection(
+				Session::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
+					->replaceOffsets(
+						$upload_session->offsetGet( kTAG_NID ),
+						array( kTAG_SESSION => $session->offsetGet( kTAG_NID ) ) );
+		
+			//
+			// Copy session in persistent user object.
+			//
+			User::ResolveCollection(
+				User::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
+					->replaceOffsets(
+						$user_id,
+						array( kTAG_SESSION => $session->offsetGet( kTAG_NID ) ) );
+		
+			//
+			// Launch batch.
+			//
+			$php = kPHP_BINARY;
+			$script = kPATH_BATCHES_ROOT.'/Batch_CommitTemplate.php';
+		
+			//
+			// Handle debug log.
+			//
+			if( kDEBUG_FLAG )
+				$log = "'".kPATH_BATCHES_ROOT."/log/$session_id.batch'";
+			else
+				$log = '/dev/null';
+		
+			//
+			// Write to log file.
+			//
+			if( kDEBUG_FLAG )
+				file_put_contents(
+					kPATH_BATCHES_ROOT."/log/$session_id.log",
+					"Lanching batch: ".date( "r" )."\n" );
+		
+			//
+			// Launch batch.
+			//
+			$process_id = exec( "$php -f $script '$session_id' > '$log' &" );
+		
+			//
+			// Build result.
+			//
+			$result = array( kAPI_SESSION_ID => $session_id,
+							 kAPI_PROCESS_ID => $process_id );
+		
+		} // No running sessions.
+		
+		//
+		// Handle running session.
+		//
+		else
+			$result = array( kAPI_SESSION_ID => (string) $user->offsetGet( kTAG_SESSION ) );
+
+		//
+		// Encrypt result.
+		//
+		$result = JsonEncode( $result );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $result );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+	} // executeUpdateTemplate.
 
 	 
 	/*===================================================================================
@@ -6106,9 +6342,15 @@ class Service extends ContainerObject
 		if( $user->offsetExists( kTAG_SESSION ) )
 		{
 			//
+			// Get session.
+			//
+			$session = new Session( $this->mWrapper, $user->offsetGet( kTAG_SESSION ) );
+			
+			//
 			// Set session.
 			//
-			$result = array( kAPI_SESSION_ID => (string) $user->offsetGet( kTAG_SESSION ) );
+			$result = array( kAPI_SESSION_ID => (string) $session->offsetGet( kTAG_NID ),
+							 kAPI_SESSION_TYPE => $session->offsetGet( kTAG_SESSION_TYPE ) );
 			
 			//
 			// Check if running.

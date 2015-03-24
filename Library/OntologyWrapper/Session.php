@@ -180,6 +180,7 @@ class Session extends SessionObject
 			switch( $theOffset )
 			{
 				case kTAG_SESSION:
+				case kTAG_CLASS_NAME:
 				case kTAG_SESSION_END:
 				case kTAG_CONN_COLLS:
 				
@@ -240,6 +241,7 @@ class Session extends SessionObject
 			switch( $theOffset )
 			{
 				case kTAG_SESSION:
+				case kTAG_CLASS_NAME:
 				case kTAG_CONN_COLLS:
 				case kTAG_SESSION_END:
 				case kTAG_SESSION_STATUS:
@@ -309,6 +311,8 @@ class Session extends SessionObject
 					//
 					switch( $theOffset )
 					{
+						case kTAG_SESSION:
+						case kTAG_CLASS_NAME:
 						case kTAG_CONN_COLLS:
 						case kTAG_SESSION_END:
 						case kTAG_SESSION_STATUS:
@@ -838,53 +842,6 @@ class Session extends SessionObject
 		parent::preCommitPrepare( $theTags, $theRefs );
 		
 	} // preCommitPrepare.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED PRE-DELETE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	preDeleteFinalise																*
-	 *==================================================================================*/
-
-	/**
-	 * Finalise object before delete
-	 *
-	 * We overload this method to drop any related collection.
-	 *
-	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> the object can be deleted.
-	 */
-	protected function preDeleteFinalise()
-	{	
-		//
-		// Handle working collections.
-		//
-		if( $this->offsetExists( kTAG_CONN_COLLS ) )
-		{
-			//
-			// Get sessions database.
-			//
-			$database = static::ResolveDatabase( $this->mDictionary, TRUE );
-			
-			//
-			// Iterate collections.
-			//
-			foreach( $this->offsetGet( kTAG_CONN_COLLS ) as $collection )
-				$database->collection( $collection, TRUE )
-					->drop();
-		
-		} // Has working collections.
-		
-		return TRUE;																// ==>
-	
-	} // preDeletePrepare.
 
 	
 
