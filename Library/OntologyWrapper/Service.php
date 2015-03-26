@@ -6629,9 +6629,9 @@ class Service extends ContainerObject
 		//
 		// Init local storage.
 		//
+		$last = NULL;
 		$result = Array();
 		$pipeline = Array();
-		$group = $last = NULL;
 		$encoder = new Encoder();
 		$user = $this->offsetGet( kAPI_REQUEST_USER );
 		
@@ -6649,65 +6649,9 @@ class Service extends ContainerObject
 						 	=> array( '$nin'
 						 		=> array( kTYPE_STATUS_EXECUTING, kTYPE_STATUS_OK ) ),
 						 kTAG_TRANSACTION_LOG => array( '$exists' => TRUE ) );
-			
-			//
-			// Update criteria.
-			//
-			foreach( $this->offsetGet( kAPI_PARAM_GROUP_TRANS ) as $offset => $value )
-			{
-				//
-				// Handle group element.
-				//
-				if( $value === NULL )
-					$last = $offset;
-				
-				//
-				// Normalise offset.
-				//
-				switch( $offset )
-				{
-					case kTAG_TAG:
-					case kTAG_TRANSACTION_ALIAS:
-					case kTAG_TRANSACTION_FIELD:
-					case kTAG_TRANSACTION_VALUE:
-					case kTAG_TRANSACTION_STATUS:
-					case kTAG_TRANSACTION_MESSAGE:
-					case kTAG_ERROR_TYPE:
-					case kTAG_ERROR_CODE:
-					case kTAG_ERROR_RESOURCE:
-						$offset = kTAG_TRANSACTION_LOG.'.'.$offset;
-						break;
-				}
-				
-				//
-				// Handle group element.
-				//
-				if( $value === NULL )
-					$group = $offset;
-				
-				//
-				// Handle criteria element.
-				//
-				else
-				{
-					//
-					// Build criteria.
-					//
-					if( strlen( $value ) )
-						$criteria[ $offset ] = $value;
-		
-					//
-					// Handle missing offsets.
-					//
-					else
-						$criteria[ $offset ] = array( '$exists' => FALSE );
-				
-				} // Criteria element.
-		
-			} // Iterating group elements.
 		
 			//
-			// Set criteria.
+			// Match session elements.
 			//
 			$pipeline[] = array( '$match' => $criteria );
 
@@ -6742,6 +6686,45 @@ class Service extends ContainerObject
 								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_ERROR_RESOURCE,
 							 'count-group' => array(
 							 	'$literal' => 1 ) ) );
+			
+			//
+			// Match criteria elements.
+			//
+			$criteria = Array();
+			foreach( $this->offsetGet( kAPI_PARAM_GROUP_TRANS ) as $offset => $value )
+			{
+				//
+				// Handle group element.
+				//
+				if( $value === NULL )
+					$last = $offset;
+				
+				//
+				// Handle criteria element.
+				//
+				else
+				{
+					//
+					// Build criteria.
+					//
+					if( strlen( $value ) )
+						$criteria[ $offset ] = $value;
+		
+					//
+					// Handle missing offsets.
+					//
+					else
+						$criteria[ $offset ] = array( '$exists' => FALSE );
+				
+				} // Criteria element.
+		
+			} // Iterating group elements.
+		
+			//
+			// Match group elements.
+			//
+			if( count( $criteria ) )
+				$pipeline[] = array( '$match' => $criteria );
 			
 			//
 			// Group records.
