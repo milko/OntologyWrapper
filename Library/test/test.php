@@ -1298,95 +1298,49 @@ $pipeline[]
 // Select fields.
 //
 $pipeline[]
-	= array(
-		'$project' => array(
-			kTAG_TRANSACTION_TYPE => TRUE,
-			kTAG_TRANSACTION_COLLECTION => TRUE,
-			kTAG_TRANSACTION_RECORD => TRUE,
-			kTAG_TRANSACTION_ALIAS
-				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_ALIAS,
-			kTAG_TRANSACTION_FIELD
-				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_FIELD,
-			kTAG_TRANSACTION_VALUE
-				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_VALUE,
-			kTAG_TRANSACTION_STATUS
-				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS,
-			kTAG_TRANSACTION_MESSAGE
-				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_MESSAGE,
-			'count-status' => array(
-				'$cond' => array(
-					'if' => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS,
-					'then' => 1,
-					'else' => 0 ) ),
-			'count-collection' => array(
-				'$cond' => array(
-					'if' => '$'.kTAG_TRANSACTION_COLLECTION,
-					'then' => 1,
-					'else' => 0 ) ),
-			'count-row' => array(
-				'$cond' => array(
-					'if' => '$'.kTAG_TRANSACTION_RECORD,
-					'then' => 1,
-					'else' => 0 ) ),
-			'count-col' => array(
-				'$cond' => array(
-					'if' => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_FIELD,
-					'then' => 1,
-					'else' => 0 ) ),
-			'count-value' => array(
-				'$cond' => array(
-					'if' => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_VALUE,
-					'then' => 1,
-					'else' => 0 ) ) ) );
-
-/*
-//
-// Skip fields.
-//
-$pipeline[]
-	= array(
-		'$skip' => 0 );
-
-//
-// Limit fields.
-//
-$pipeline[]
-	= array(
-		'$limit' => 10 );
-*/
+	= array( '$project'
+		=> array( kTAG_TRANSACTION_TYPE => TRUE,
+				  kTAG_TRANSACTION_COLLECTION => TRUE,
+				  kTAG_TRANSACTION_RECORD => TRUE,
+				  kTAG_TRANSACTION_ALIAS
+					  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_ALIAS,
+				  kTAG_TRANSACTION_FIELD
+					  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_FIELD,
+				  kTAG_TRANSACTION_VALUE
+					  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_VALUE,
+				  kTAG_TRANSACTION_STATUS
+					  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS,
+				  kTAG_TRANSACTION_MESSAGE
+					  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_MESSAGE,
+				  kTAG_ERROR_TYPE
+					  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_ERROR_TYPE,
+				  kTAG_ERROR_CODE
+					  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_ERROR_CODE,
+				  kTAG_ERROR_RESOURCE
+					  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_ERROR_RESOURCE,
+				 'count-group' => array(
+					'$literal' => 1 ) ) );
 
 //
 // Group fields.
 //
 $pipeline[]
-	= array(
-		'$group' => array(
-			kTAG_NID => '$'.kTAG_TRANSACTION_STATUS,
-			'count-status' => array(
-				'$sum' => '$count-status' ) ) );
+	= array( '$group'
+		=> array( kTAG_NID => '$'.kTAG_TRANSACTION_RECORD,
+				  'count' => array(
+					'$sum' => '$count-group' ) ) );
 
 //
 // Get results.
 //
-//$results = $collection->aggregateCursor( $pipeline, $options );
-$results = $collection->aggregate( $pipeline, $options );
+$results = $collection->aggregateCursor( $pipeline, $options );
+//$results = $collection->aggregate( $pipeline, $options );
 //$results = new MongoCommandCursor( $cl, 'BIOVERSITY._transactions', $pipeline );
-
-//
-// Show status.
-//
-echo( "Status: ".$results[ 'ok' ]."\n" );
-
-//
-// Show result.
-//
-print_r( $results[ 'result' ] );
-exit;
 
 //
 // Show results.
 //
-foreach( $results[ 'result' ] as $result )
+foreach( $results as $result )
 {
 	print_r( $result );
 }

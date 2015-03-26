@@ -6755,11 +6755,16 @@ class Service extends ContainerObject
 			//
 			// Get results.
 			//
+// 			$result
+// 				= Transaction::ResolveCollection(
+// 					Transaction::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
+// 						->aggregate( $pipeline )
+// 							[ 'result' ];
 			$result
 				= Transaction::ResolveCollection(
 					Transaction::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
-						->aggregate( $pipeline )
-							[ 'result' ];
+						->connection()
+							->aggregateCursor( $pipeline, array( 'allowDiskUse' => TRUE ) );
 		
 			//
 			// Format records.
