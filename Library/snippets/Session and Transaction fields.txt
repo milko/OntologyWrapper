@@ -47,7 +47,9 @@ TRANSACTION
 	kTAG_TAG
 	kTAG_TRANSACTION_STATUS		Error, Warning, Notice, Action.
 	kTAG_TRANSACTION_MESSAGE
-
+	kTAG_ERROR_TYPE				Error type
+	kTAG_ERROR_CODE				Error code
+	kTAG_ERROR_RESOURCE			Error resource
 
 100 kTYPE_TRANS_TMPL_PREPARE				Delete pending sessions
 120 kTYPE_TRANS_TMPL_LOAD					Load template file and definitions
@@ -61,7 +63,6 @@ TRANSACTION
 132		kTYPE_TRANS_TMPL_STRUCT_COLUMNS		Check required worksheet columns
 140 kTYPE_TRANS_TMPL_SETUP					Setup database resources
 1A0	kTYPE_TRANS_TMPL_LOAD_DATA				Load worksheet data
-1A1		kTYPE_TRANS_TMPL_LOAD_DATA_ROW		Load worksheet data row
 160 kTYPE_TRANS_TMPL_RELATIONSHIPS			Check worksheet relationships
 161		kTYPE_TRANS_TMPL_RELATIONSHIPS_ROW	Check worksheet row relationship
 150 kTYPE_TRANS_TMPL_WORKSHEET				Validate worksheet data

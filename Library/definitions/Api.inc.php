@@ -1717,9 +1717,63 @@ define( "kAPI_OP_USER_SESSION",					'getUserSession' );
  *		holds the session identifier we are probing.
  * </ul>
  *
- * The service will return the session and root level transactions information.
+ * The service will return the session and root level transactions information in the
+ * {@link kAPI_SESSION} response element and the session status in the
+ * {@link kAPI_SESSION_RUNNING} element.
  */
 define( "kAPI_OP_SESSION_PROGRESS",				'getSessionProgress' );
+
+/**
+ * Group transaction logs.
+ *
+ * This tag defines the froup transaction logs operation.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		the default language code.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user requesting the service, or the user
+ *		code/password combination as an array. If the user is not allowed to submit
+ *		templates, the service will return an error.
+ *	<li><tt>{@link kAPI_PARAM_GROUP_TRANS}</tt>: <em>Group results</em>. This parameter is
+ *		an array containing both the selection criteria and the group tag: the array index
+ *		is the property offset and the array value corresponds either to the selection match
+ *		value, or it must be <tt>NULL</tt>, in which case the key represents the grouping
+ *		property. To select a missing offset, provide an empty string in the value.
+ *		The order of the elements is significant: the first element represents the tree root
+ *		and the subsequent elements in order the tree branches; the leaf element, the last,
+ *		must be the element by which the service will group the selection, its value must be
+ *		<tt>NULL</tt>; there can only be one element with the <tt>NIULL</tt> value. These
+ *		are the allowed values:
+ *	  <ul>
+ *		<li><tt>{@link kTAG_TRANSACTION_TYPE}</tt>: Transaction type.
+ *		<li><tt>{@link kTAG_TRANSACTION_STATUS}</tt>: Transaction status.
+ *		<li><tt>{@link kTAG_TRANSACTION_COLLECTION}</tt>: Transaction collection.
+ *		<li><tt>{@link kTAG_TRANSACTION_RECORD}</tt>: Transaction record.
+ *		<li><tt>{@link kTAG_TRANSACTION_FIELD}</tt>: Transaction field.
+ *		<li><tt>{@link kTAG_TRANSACTION_ALIAS}</tt>: Transaction alias.
+ *		<li><tt>{@link kTAG_TRANSACTION_VALUE}</tt>: Transaction value.
+ *		<li><tt>{@link kTAG_TRANSACTION_MESSAGE}</tt>: Transaction message.
+ *		<li><tt>{@link kTAG_ERROR_TYPE}</tt>: Error type.
+ *		<li><tt>{@link kTAG_ERROR_CODE}</tt>: Error code.
+ *		<li><tt>{@link kTAG_ERROR_RESOURCE}</tt>: Error resource.
+ *	  <ul>
+ *	<li><tt>{@link kAPI_PAGING_SKIP}</tt>: <em>Skip</em>. This optional parameter indicates
+ *		the number of records to be skipped, it represents the start of the returned
+ *		selection; if omitted it will default to zero, the first record.
+ *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+ *		indicates the maximum number of elements to be returned. If omitted, it will be
+ *		set to the default constant {@link kSTANDARDS_UNITS_LIMIT}. The
+ *		{@link kAPI_PAGING_SKIP} parameter represents the start, this one represents the
+ *		records limit.
+ * </ul>
+ *
+ * The service will return the results in the {@link kAPI_RESPONSE_RESULTS} parameter.
+ */
+define( "kAPI_OP_GROUP_TRANSACTIONS",			'groupTransactions' );
 
 /**
  * Put data.
@@ -2124,6 +2178,18 @@ define( "kAPI_PARAM_STAT",						'stat' );
  * element to the last; only the leaf elements will hold the record count.
  */
 define( "kAPI_PARAM_GROUP",						'grouping' );
+
+/**
+ * Transaction grouping (array).
+ *
+ * This tag defines the transaction grouping.
+ *
+ * This parameter is used by services selecting transactions, it provides a list of property
+ * identifiers and their match value. The last element holds <tt>NULL</tt> as its value and
+ * represents the element on which to group results, the previous elements represent the
+ * selection criteria.
+ */
+define( "kAPI_PARAM_GROUP_TRANS",				'trans-grouping' );
 
 /**
  * Result summary (array).
@@ -2856,6 +2922,13 @@ define( "kAPI_QUERY_OFFSETS",					'query-offsets' );
  * the related invitation removed.
  */
 define( "kAPI_REFERRER",						'referrer' );
+
+/**
+ * Session (array).
+ *
+ * This parameter holds the session data array.
+ */
+define( "kAPI_SESSION",							'session' );
 
 /**
  * Session (string).

@@ -102,7 +102,7 @@ class SessionBatch
 		// Check file.
 		//
 		if( file_exists( $this->mLockFile ) )
-			unlink( $this->mLockFile );
+			@unlink( $this->mLockFile );
 		
 		//
 		// Reset member.

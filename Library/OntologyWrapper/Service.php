@@ -286,6 +286,7 @@ class Service extends ContainerObject
 					case kAPI_OP_UPDATE_TEMPLATE:
 					case kAPI_OP_USER_SESSION:
 					case kAPI_OP_SESSION_PROGRESS:
+					case kAPI_OP_GROUP_TRANSACTIONS:
 					case kAPI_OP_PUT_DATA:
 					case kAPI_OP_GET_DATA:
 					case kAPI_OP_DEL_DATA:
@@ -530,6 +531,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_UPDATE_TEMPLATE}</tt>: Submit data template update.
 	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
+	 *	<li><tt>{@link kAPI_OP_GROUP_TRANSACTIONS}</tt>: Get log by worksheet.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
 	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
 	 *	<li><tt>{@link kAPI_OP_DEL_DATA}</tt>: Delete data.
@@ -581,6 +583,7 @@ class Service extends ContainerObject
 			case kAPI_OP_UPDATE_TEMPLATE:
 			case kAPI_OP_USER_SESSION:
 			case kAPI_OP_SESSION_PROGRESS:
+			case kAPI_OP_GROUP_TRANSACTIONS:
 			case kAPI_OP_PUT_DATA:
 			case kAPI_OP_GET_DATA:
 			case kAPI_OP_DEL_DATA:
@@ -666,6 +669,7 @@ class Service extends ContainerObject
 				case kAPI_OP_UPDATE_TEMPLATE:
 				case kAPI_OP_USER_SESSION:
 				case kAPI_OP_SESSION_PROGRESS:
+				case kAPI_OP_GROUP_TRANSACTIONS:
 				case kAPI_OP_PUT_DATA:
 				case kAPI_OP_GET_DATA:
 				case kAPI_OP_DEL_DATA:
@@ -778,6 +782,12 @@ class Service extends ContainerObject
 				   && ($theValue[ 0 ] == kTAG_DOMAIN) )
 				 || ($theValue == kTAG_DOMAIN) )
 					$theValue = Array();
+				$this->offsetSet( $theKey, $theValue );
+				break;
+			
+			case kAPI_PARAM_GROUP_TRANS:
+				if( ! is_array( $theValue ) )
+					$theValue = array( $theValue => NULL );
 				$this->offsetSet( $theKey, $theValue );
 				break;
 
@@ -954,6 +964,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_UPDATE_TEMPLATE}</tt>: Submit data template update.
 	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
+	 *	<li><tt>{@link kAPI_OP_GROUP_TRANSACTIONS}</tt>: Get log by worksheet.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
 	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
 	 *	<li><tt>{@link kAPI_OP_DEL_DATA}</tt>: Delete data.
@@ -1061,6 +1072,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_SESSION_PROGRESS:
 				$this->validateSessionProgress();
+				break;
+				
+			case kAPI_OP_GROUP_TRANSACTIONS:
+				$this->validateGroupTransactions();
 				break;
 				
 			case kAPI_OP_PUT_DATA:
@@ -2787,6 +2802,143 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	validateGroupTransactions															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate group transactions service.
+	 *
+	 * This method will call the validation process for the group transactions service, the
+	 * method will ensure all required data is provided and that the submitter user has the
+	 * required permissions.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateGroupTransactions()
+	{
+		//
+		// Assert submitter.
+		//
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
+		{
+			//
+			// Check roles.
+			//
+			$user = $this->offsetGet( kAPI_REQUEST_USER );
+			$roles = $user->offsetGet( kTAG_ROLES );
+			if( $roles !== NULL )
+			{
+				//
+				// Check if he can submit templates.
+				//
+				if( in_array( kTYPE_ROLE_UPLOAD, $roles ) )
+				{
+					//
+					// Check if groups are provided.
+					//
+					if( $this->offsetExists( kAPI_PARAM_GROUP_TRANS ) )
+					{
+						//
+						// Check group.
+						//
+						if( is_array( $group = $this->offsetGet( kAPI_PARAM_GROUP_TRANS ) ) )
+						{
+							//
+							// Check group composition.
+							//
+							$nulls = 0;
+							$validated = Array();
+							foreach( $group as $key => $value )
+							{
+								//
+								// Check offset.
+								//
+								$key = $this->mWrapper->getSerial( $key, TRUE );
+								
+								//
+								// Check NULL value.
+								//
+								if( $value === NULL )
+									$nulls++;
+								
+								//
+								// Save element.
+								//
+								$validated[ $key ] = $value;
+							
+							} // Iterating group.
+							
+							//
+							// Validate group item.
+							//
+							if( $nulls == 1 )
+							{
+								//
+								// Validate group item position.
+								//
+								if( array_pop( $group ) === NULL )
+								{
+									//
+									// Init skip.
+									//
+									if( ! $this->offsetExists( kAPI_PAGING_SKIP ) )
+										$this->offsetSet( kAPI_PAGING_SKIP, 0 );
+								
+									//
+									// Init limit.
+									//
+									if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
+										$this->offsetSet( kAPI_PAGING_LIMIT,
+														  kSTANDARDS_UNITS_LIMIT );
+									
+								} // NULL is last.
+				
+								else
+									throw new \Exception(
+										"The group element must be last." );	// !@! ==>
+							
+							} // Has one group item.
+				
+							else
+								throw new \Exception(
+									"Only one element may be grouped." );		// !@! ==>
+						
+						} // Provided group
+				
+						else
+							throw new \Exception(
+								"Invald group parameter type." );				// !@! ==>
+					
+					} // Provided criteria and group.
+				
+					else
+						throw new \Exception(
+							"Missing group parameter." );						// !@! ==>
+				
+				} // Can submit data.
+				
+				else
+					throw new \Exception(
+						"Requestor is not a data provider." );					// !@! ==>
+		
+			} // User has roles.
+		
+			else
+				throw new \Exception(
+					"Requestor has no roles." );								// !@! ==>
+		
+		} // Provided submitter.
+		
+		else
+			throw new \Exception(
+				"Missing requestor." );											// !@! ==>
+		
+	} // validateGroupTransactions.
+
+	 
+	/*===================================================================================
 	 *	validatePutData																	*
 	 *==================================================================================*/
 
@@ -4264,6 +4416,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_UPDATE_TEMPLATE}</tt>: Update template.
 	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
+	 *	<li><tt>{@link kAPI_OP_GROUP_TRANSACTIONS}</tt>: Get log by worksheet.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
 	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
 	 *	<li><tt>{@link kAPI_OP_DEL_DATA}</tt>: Delete data.
@@ -4388,6 +4541,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_SESSION_PROGRESS:
 				$this->executeSessionProgress();
+				break;
+				
+			case kAPI_OP_GROUP_TRANSACTIONS:
+				$this->executeGroupTransactions();
 				break;
 				
 			case kAPI_OP_PUT_DATA:
@@ -4549,6 +4706,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_DATA" ] = kAPI_PARAM_DATA;
 		$ref[ "kAPI_PARAM_STAT" ] = kAPI_PARAM_STAT;
 		$ref[ "kAPI_PARAM_GROUP" ] = kAPI_PARAM_GROUP;
+		$ref[ "kAPI_PARAM_GROUP_TRANS" ] = kAPI_PARAM_GROUP_TRANS;
 		$ref[ "kAPI_PARAM_SUMMARY" ] = kAPI_PARAM_SUMMARY;
 		$ref[ "kAPI_PARAM_SHAPE" ] = kAPI_PARAM_SHAPE;
 		$ref[ "kAPI_PARAM_SHAPE_OFFSET" ] = kAPI_PARAM_SHAPE_OFFSET;
@@ -6140,7 +6298,7 @@ class Service extends ContainerObject
 			// Launch batch.
 			//
 			$php = kPHP_BINARY;
-			$script = kPATH_BATCHES_ROOT.'/Batch_LoadTemplate.php';
+			$script = kPATH_BATCHES_ROOT.'/Batch_Upload.php';
 			$path = $this->offsetGet( kAPI_PARAM_FILE_PATH );
 		
 			//
@@ -6162,7 +6320,8 @@ class Service extends ContainerObject
 			//
 			// Launch batch.
 			//
-			$process_id = exec( "$php -f $script '$session_id' '$path' > '$log' &" );
+			$process_id
+				= exec( "$php -f $script '$user_id' '$session_id' '$path' > '$log' &" );
 		
 			//
 			// Build result.
@@ -6263,7 +6422,7 @@ class Service extends ContainerObject
 			// Launch batch.
 			//
 			$php = kPHP_BINARY;
-			$script = kPATH_BATCHES_ROOT.'/Batch_CommitTemplate.php';
+			$script = kPATH_BATCHES_ROOT.'/Batch_Update.php';
 		
 			//
 			// Handle debug log.
@@ -6284,7 +6443,7 @@ class Service extends ContainerObject
 			//
 			// Launch batch.
 			//
-			$process_id = exec( "$php -f $script '$session_id' > '$log' &" );
+			$process_id = exec( "$php -f $script '$user_id' '$session_id' > '$log' &" );
 		
 			//
 			// Build result.
@@ -6406,9 +6565,18 @@ class Service extends ContainerObject
 		//
 		// Serialise session.
 		//
-		$this->loadSessionProgress( $result );
-		if( count( $result ) )
-			$this->loadTransactionProgress( $result, $session );
+		$this->loadSessionProgress( $result[ kAPI_SESSION ] );
+		if( count( $result[ kAPI_SESSION ] ) )
+			$this->loadTransactionProgress( $result[ kAPI_SESSION ], $session );
+		
+		//
+		// Get status.
+		//
+		$result[ kAPI_SESSION_RUNNING ]
+			= file_exists(
+					SessionBatch::LockFilePath(
+						$this->offsetGet( kAPI_REQUEST_USER )
+							->offsetGet( kTAG_NID ) ) );
 		
 		//
 		// Encrypt result.
@@ -6424,6 +6592,194 @@ class Service extends ContainerObject
 						[ kAPI_STATUS_CRYPTED ] = TRUE;
 		
 	} // executeSessionProgress.
+
+	 
+	/*===================================================================================
+	 *	executeGroupTransactions														*
+	 *==================================================================================*/
+
+	/**
+	 * Group transactions.
+	 *
+	 * The method will return the transactions selected by the first elements of
+	 * {@link kAPI_PARAM_GROUP_TRANS} grouped by the last element.
+	 *
+	 * @access protected
+	 */
+	protected function executeGroupTransactions()
+	{
+		//
+		// Init local storage.
+		//
+		$result = Array();
+		$pipeline = Array();
+		$group = $last = NULL;
+		$encoder = new Encoder();
+		$user = $this->offsetGet( kAPI_REQUEST_USER );
+		
+		//
+		// Get user session.
+		//
+		if( $user->offsetExists( kTAG_SESSION ) )
+		{
+			//
+			// Init criteria.
+			//
+			$criteria
+				= array( kTAG_SESSION => $user->offsetGet( kTAG_SESSION ),
+						 kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS
+						 	=> array( '$nin'
+						 		=> array( kTYPE_STATUS_EXECUTING, kTYPE_STATUS_OK ) ),
+						 kTAG_TRANSACTION_LOG => array( '$exists' => TRUE ) );
+			
+			//
+			// Update criteria.
+			//
+			foreach( $this->offsetGet( kAPI_PARAM_GROUP_TRANS ) as $offset => $value )
+			{
+				//
+				// Handle group element.
+				//
+				if( $value === NULL )
+					$last = $offset;
+				
+				//
+				// Normalise offset.
+				//
+				switch( $offset )
+				{
+					case kTAG_TAG:
+					case kTAG_TRANSACTION_ALIAS:
+					case kTAG_TRANSACTION_FIELD:
+					case kTAG_TRANSACTION_VALUE:
+					case kTAG_TRANSACTION_STATUS:
+					case kTAG_TRANSACTION_MESSAGE:
+					case kTAG_ERROR_TYPE:
+					case kTAG_ERROR_CODE:
+					case kTAG_ERROR_RESOURCE:
+						$offset = kTAG_TRANSACTION_LOG.'.'.$offset;
+						break;
+				}
+				
+				//
+				// Handle group element.
+				//
+				if( $value === NULL )
+					$group = $offset;
+				
+				//
+				// Handle criteria element.
+				//
+				else
+				{
+					//
+					// Build criteria.
+					//
+					if( strlen( $value ) )
+						$criteria[ $offset ] = $value;
+		
+					//
+					// Handle missing offsets.
+					//
+					else
+						$criteria[ $offset ] = array( '$exists' => FALSE );
+				
+				} // Criteria element.
+		
+			} // Iterating group elements.
+		
+			//
+			// Set criteria.
+			//
+			$pipeline[] = array( '$match' => $criteria );
+
+			//
+			// Unwind log alias.
+			//
+			$pipeline[] = array( '$unwind' => '$'.kTAG_TRANSACTION_LOG );
+			
+			//
+			// Select fields.
+			//
+			$pipeline[]
+				= array( '$project'
+					=> array( kTAG_TRANSACTION_TYPE => TRUE,
+							  kTAG_TRANSACTION_COLLECTION => TRUE,
+							  kTAG_TRANSACTION_RECORD => TRUE,
+							  kTAG_TRANSACTION_ALIAS
+								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_ALIAS,
+							  kTAG_TRANSACTION_FIELD
+								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_FIELD,
+							  kTAG_TRANSACTION_VALUE
+								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_VALUE,
+							  kTAG_TRANSACTION_STATUS
+								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS,
+							  kTAG_TRANSACTION_MESSAGE
+								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_MESSAGE,
+							  kTAG_ERROR_TYPE
+								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_ERROR_TYPE,
+							  kTAG_ERROR_CODE
+								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_ERROR_CODE,
+							  kTAG_ERROR_RESOURCE
+								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_ERROR_RESOURCE,
+							 'count-group' => array(
+							 	'$literal' => 1 ) ) );
+			
+			//
+			// Group records.
+			//
+			$pipeline[]
+				= array( '$group'
+					=> array( kTAG_NID => '$'.$last,
+							  'count' => array(
+							  	'$sum' => '$count-group' ) ) );
+
+			//
+			// Sort selection.
+			//
+			$pipeline[] = array( '$sort' => array( kTAG_NID => 1 ) );
+			
+			//
+			// Skip records.
+			//
+			if( $tmp = $this->offsetGet( kAPI_PAGING_SKIP ) )
+				$pipeline[] = array( '$skip' => $tmp );
+			
+			//
+			// Limit records.
+			//
+			if( $tmp = $this->offsetGet( kAPI_PAGING_LIMIT ) )
+				$pipeline[] = array( '$limit' => $tmp );
+			
+			//
+			// Get results.
+			//
+			$result
+				= Transaction::ResolveCollection(
+					Transaction::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
+						->aggregate( $pipeline )
+							[ 'result' ];
+		
+		} // Has session.
+		
+		//
+		// Format records.
+		//
+		
+		//
+		// Encrypt result.
+		//
+		$data = JsonEncode( $result );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $data );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+	} // executeGroupTransactions.
 
 	 
 	/*===================================================================================

@@ -706,7 +706,7 @@ class SessionUpload extends SessionBatch
 		// Delete pending sessions.
 		//
 		if( ! $this->deletePendingSessions() )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 	
 		//
 		// Close transaction.
@@ -766,7 +766,7 @@ class SessionUpload extends SessionBatch
 		// Check file.
 		//
 		if( ! $this->checkFile() )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 	
 		//
 		// Update progress.
@@ -781,7 +781,7 @@ class SessionUpload extends SessionBatch
 		// Check file type.
 		//
 		if( ! $this->checkFileType() )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 	
 		//
 		// Update progress.
@@ -796,7 +796,7 @@ class SessionUpload extends SessionBatch
 		// Load template.
 		//
 		if( ! $this->loadTemplate() )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 	
 		//
 		// Update progress.
@@ -811,7 +811,7 @@ class SessionUpload extends SessionBatch
 		// Load template structure.
 		//
 		if( ! $this->loadTemplateStructure() )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 		
 		//
 		// Set class name in session.
@@ -930,7 +930,7 @@ class SessionUpload extends SessionBatch
 		// Check required worksheets.
 		//
 		if( ! $this->checkRequiredWorksheets() )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 	
 		//
 		// Update progress.
@@ -945,7 +945,7 @@ class SessionUpload extends SessionBatch
 		// Check required worksheet fields.
 		//
 		if( ! $this->checkRequiredFields() )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 	
 		//
 		// Update progress.
@@ -997,7 +997,7 @@ class SessionUpload extends SessionBatch
 		// Create collections.
 		//
 		if( ! $this->createWorkingCollections() )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 	
 		//
 		// Close transaction.
@@ -1034,13 +1034,13 @@ class SessionUpload extends SessionBatch
 		if( ! $this->copyWorksheetData(
 				$this->mIterator->getRoot()[ 'W' ],
 				$this->mIterator->getRoot()[ 'K' ] ) )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 		
 		//
 		// Copy other worksheets data.
 		//
 		if( ! $this->copyWorksheetData() )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 		
 		return TRUE;																// ==>
 
@@ -1083,7 +1083,7 @@ class SessionUpload extends SessionBatch
 		// Validate root worksheet data.
 		//
 		if( ! $this->validateWorksheetData( $worksheet ) )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 		
 		//
 		// Validate related worksheets.
@@ -1111,7 +1111,7 @@ class SessionUpload extends SessionBatch
 			// Validate related worksheet data.
 			//
 			if( ! $this->validateWorksheetData( $worksheet[ 'W' ] ) )
-				return FALSE;														// ==>
+				return $this->failTransaction();									//  ==>
 		
 		} // Iterating worksheet.
 		
@@ -1157,7 +1157,7 @@ class SessionUpload extends SessionBatch
 		// Create objects.
 		//
 		if( ! $this->createObjects( $records ) )
-			return FALSE;															// ==>
+			return $this->failTransaction();										//  ==>
 		
 		//
 		// Close transaction.
@@ -1286,7 +1286,7 @@ class SessionUpload extends SessionBatch
 		//
 		// Check file.
 		//
-		if( $file->getType() != 'file' )
+		if( ! $file->isFile() )
 		{
 			//
 			// Remove reference to prevent errors when deleting.
@@ -1296,7 +1296,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Set transaction.
 			//
-			$message = 'The file is either a directory or is invalid [$path].';
+			$message = "The file is either a directory or is invalid.";
 			$this->failTransactionLog(
 				$transaction,							// Transaction.
 				$this->transaction(),					// Parent transaction.
@@ -1318,7 +1318,7 @@ class SessionUpload extends SessionBatch
 			//
 			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 			
-			return $this->failTransaction( kTYPE_STATUS_FATAL );					// ==>
+			return FALSE;															// ==>
 		
 		} // Bad file.
 		
@@ -1335,7 +1335,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Set transaction.
 			//
-			$message = 'The file cannot be read [$path].';
+			$message = 'The file cannot be read.';
 			$this->failTransactionLog(
 				$transaction,							// Transaction.
 				$this->transaction(),					// Parent transaction.
@@ -1357,7 +1357,7 @@ class SessionUpload extends SessionBatch
 			//
 			$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 			
-			return $this->failTransaction( kTYPE_STATUS_FATAL );					// ==>
+			return FALSE;															// ==>
 		
 		} // Unreadable.
 
@@ -1443,7 +1443,7 @@ class SessionUpload extends SessionBatch
 				//
 				$transaction->offsetSet( kTAG_TRANSACTION_END, TRUE );
 		
-				return $this->failTransaction( kTYPE_STATUS_FATAL );				// ==>
+				return FALSE;														// ==>
 		}
 	
 		//
@@ -1525,7 +1525,7 @@ class SessionUpload extends SessionBatch
 		// Load structure.
 		//
 		if( ! $this->mParser->loadStructure( $transaction ) )
-			return $this->failTransaction();										// ==>
+			return FALSE;															// ==>
 		
 		//
 		// Instantiate iterator.
@@ -1578,7 +1578,7 @@ class SessionUpload extends SessionBatch
 		// Load structure.
 		//
 		if( ! $this->mParser->checkRequiredWorksheets( $transaction ) )
-			return $this->failTransaction();										// ==>
+			return FALSE;															// ==>
 	
 		//
 		// Close transaction.
@@ -1765,6 +1765,11 @@ class SessionUpload extends SessionBatch
 		$this->mCollections[ $name ]
 			= Session::ResolveDatabase( $this->wrapper(), TRUE )
 				->collection( $name, TRUE );
+		
+		//
+		// Drop collection.
+		//
+		$this->mCollections[ $name ]->drop();
 	
 		//
 		// Update progress.
@@ -2394,10 +2399,9 @@ class SessionUpload extends SessionBatch
 					$this->transaction() );
 				
 				//
-				// Write record.
+				// Set validation flag.
 				//
 				$record[ '_valid' ] = FALSE;
-				$collection->save( $record );
 				
 			} // Has errors.
 			
@@ -2425,12 +2429,16 @@ class SessionUpload extends SessionBatch
 					$this->transaction() );
 				
 				//
-				// Write record.
+				// Set validation flag.
 				//
 				$record[ '_valid' ] = TRUE;
-				$collection->save( $record );
 			
 			} // Valid row.
+			
+			//
+			// Write record.
+			//
+			$collection->save( $record );
 							
 			//
 			// Close transaction.
@@ -5611,7 +5619,7 @@ class SessionUpload extends SessionBatch
 					NULL										// Error resource.
 				);
 				
-				return 1;															// ==>
+				return 0;															// ==>
 			}
 		
 			//
@@ -5636,7 +5644,7 @@ class SessionUpload extends SessionBatch
 					NULL										// Error resource.
 				);
 				
-				return 1;															// ==>
+				return 0;															// ==>
 			}
 		
 			//
@@ -5656,22 +5664,21 @@ class SessionUpload extends SessionBatch
 				$ok = CheckLinkValue( $element, $error_type, $error_message );
 				
 				//
-				// Handle valid.
+				// Skip empty.
 				//
-				if( $ok === TRUE )
+				if( $ok !== NULL )
 					$result[] = $element;
 				
 				//
 				// Handle error.
 				//
-				elseif( $ok !== NULL )
+				elseif( $ok !== TRUE )
 				{
-					$error++;
 					$this->failTransactionLog(
 						$theTransaction,							// Transaction.
 						$this->transaction(),						// Parent transaction.
 						kTYPE_TRANS_TMPL_WORKSHEET_ROW,				// Transaction type.
-						kTYPE_STATUS_ERROR,							// Transaction status.
+						kTYPE_STATUS_WARNING,						// Transaction status.
 						$error_message,								// Transaction message.
 						$theWorksheet,								// Worksheet.
 						$theRow,									// Row.
@@ -5731,7 +5738,6 @@ class SessionUpload extends SessionBatch
 			//
 			elseif( $ok !== TRUE )
 			{
-				$error++;
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
 					$this->transaction(),						// Parent transaction.
@@ -7461,7 +7467,7 @@ class SessionUpload extends SessionBatch
 					$tmp = Array();
 					if( ! $this->setObjectProperties(
 						$reference, $current_info[ 'W' ], $record ) )
-						return FALSE;												// ==>
+						return FALSE;												//  ==>
 					
 					//
 					// Handle related worksheets.
@@ -7475,7 +7481,7 @@ class SessionUpload extends SessionBatch
 								$reference,
 								$current[ 'C' ],
 								$record[ $current[ 'K' ] ] ) )
-							return FALSE;											// ==>
+							return FALSE;											//  ==>
 			
 					} // Has related worksheets.
 		

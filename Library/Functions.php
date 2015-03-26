@@ -1237,14 +1237,12 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 		//
 		// Check link.
 		//
-/* @@@ MILKO
 		if( @get_headers( $value ) === FALSE )
 		{
 			$theErrorType = kTYPE_ERROR_INVALID_VALUE;
 			$theErrorMessage = 'Invalid or inactive link.';
 			return kTYPE_ERROR_CODE_BAD_LINK;										// ==>
 		}
-*/
 		
 		return TRUE;																// ==>
 

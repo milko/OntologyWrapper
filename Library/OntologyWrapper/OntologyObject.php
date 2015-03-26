@@ -1554,8 +1554,7 @@ abstract class OntologyObject extends ContainerObject
 									&$theCurrentOffset, &$theCurrentValue )
 	{
 		//
-		// Handle root offset.
-		// Note that we know the offset to have at least two levels.
+		// Handle root offset, note that the offset has at least two levels.
 		//
 		if( $theCurrentValue === NULL)
 		{
@@ -1695,8 +1694,7 @@ abstract class OntologyObject extends ContainerObject
 	public function nestedOffsetUnset( $theOffset, &$theRootOffset, &$theCurrentValue )
 	{
 		//
-		// Handle root offset.
-		// Note that we know the offset to have at least two levels.
+		// Handle root offset, note that the offset has at least two levels.
 		//
 		if( $theCurrentValue === NULL)
 		{

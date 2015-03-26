@@ -1225,9 +1225,170 @@ echo( '<hr>' );
 	
 /******************************************************************************/
 
+/*
 //
 // Test lock file path.
 //
 var_dump( OntologyWrapper\SessionBatch::LockFilePath( 'user' ) );
+*/
+	
+/******************************************************************************/
+
+//
+// Test aggregation framework.
+//
+
+//
+// Connect to database.
+//
+$cl = new MongoClient( 'mongodb://localhost:27017' );
+$db = $cl->selectDB( 'BIOVERSITY' );
+$collection = $db->selectCollection( '_transactions' );
+
+//
+// Init local storage.
+//
+$pipeline = Array();
+$options = array( 'allowDiskUse' => TRUE );
+
+//
+// Set criteria.
+//
+$pipeline[]
+	= array(
+		'$match' => array(
+			kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS => array(
+				'$in' => array(
+					kTYPE_STATUS_FAILED, kTYPE_STATUS_MESSAGE, kTYPE_STATUS_WARNING,
+					kTYPE_STATUS_ERROR, kTYPE_STATUS_FATAL, kTYPE_STATUS_EXCEPTION ) ),
+			kTAG_TRANSACTION_LOG => array(
+				'$exists' => TRUE ) ) );
+
+//
+// Unwind log alias.
+//
+$pipeline[]
+	= array(
+		'$unwind' => '$'.kTAG_TRANSACTION_LOG );
+
+//
+// Remove unwanted entries.
+//
+$pipeline[]
+	= array(
+		'$match' => array(
+			kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS => array(
+				'$in' => array(
+					kTYPE_STATUS_FAILED, kTYPE_STATUS_MESSAGE, kTYPE_STATUS_WARNING,
+					kTYPE_STATUS_ERROR, kTYPE_STATUS_FATAL, kTYPE_STATUS_EXCEPTION ) ),
+			kTAG_TRANSACTION_LOG => array(
+				'$exists' => TRUE ) ) );
+
+//
+// Sort fields.
+//
+$pipeline[]
+	= array(
+		'$sort' => array(
+			kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS => 1,
+			kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_COLLECTION => 1,
+			kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_ALIAS => 1 ) );
+
+//
+// Select fields.
+//
+$pipeline[]
+	= array(
+		'$project' => array(
+			kTAG_TRANSACTION_TYPE => TRUE,
+			kTAG_TRANSACTION_COLLECTION => TRUE,
+			kTAG_TRANSACTION_RECORD => TRUE,
+			kTAG_TRANSACTION_ALIAS
+				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_ALIAS,
+			kTAG_TRANSACTION_FIELD
+				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_FIELD,
+			kTAG_TRANSACTION_VALUE
+				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_VALUE,
+			kTAG_TRANSACTION_STATUS
+				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS,
+			kTAG_TRANSACTION_MESSAGE
+				=> '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_MESSAGE,
+			'count-status' => array(
+				'$cond' => array(
+					'if' => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS,
+					'then' => 1,
+					'else' => 0 ) ),
+			'count-collection' => array(
+				'$cond' => array(
+					'if' => '$'.kTAG_TRANSACTION_COLLECTION,
+					'then' => 1,
+					'else' => 0 ) ),
+			'count-row' => array(
+				'$cond' => array(
+					'if' => '$'.kTAG_TRANSACTION_RECORD,
+					'then' => 1,
+					'else' => 0 ) ),
+			'count-col' => array(
+				'$cond' => array(
+					'if' => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_FIELD,
+					'then' => 1,
+					'else' => 0 ) ),
+			'count-value' => array(
+				'$cond' => array(
+					'if' => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_VALUE,
+					'then' => 1,
+					'else' => 0 ) ) ) );
+
+/*
+//
+// Skip fields.
+//
+$pipeline[]
+	= array(
+		'$skip' => 0 );
+
+//
+// Limit fields.
+//
+$pipeline[]
+	= array(
+		'$limit' => 10 );
+*/
+
+//
+// Group fields.
+//
+$pipeline[]
+	= array(
+		'$group' => array(
+			kTAG_NID => '$'.kTAG_TRANSACTION_STATUS,
+			'count-status' => array(
+				'$sum' => '$count-status' ) ) );
+
+//
+// Get results.
+//
+//$results = $collection->aggregateCursor( $pipeline, $options );
+$results = $collection->aggregate( $pipeline, $options );
+//$results = new MongoCommandCursor( $cl, 'BIOVERSITY._transactions', $pipeline );
+
+//
+// Show status.
+//
+echo( "Status: ".$results[ 'ok' ]."\n" );
+
+//
+// Show result.
+//
+print_r( $results[ 'result' ] );
+exit;
+
+//
+// Show results.
+//
+foreach( $results[ 'result' ] as $result )
+{
+	print_r( $result );
+}
 
 ?>
