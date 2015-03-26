@@ -95,9 +95,9 @@ $encoder = new OntologyWrapper\Encoder();
 try
 {
 	//
-	// Group by status.
+	// Show status list.
 	//
-	echo( '<h4>Group by status</h4>' );
+	echo( '<h4>Show status list</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -124,7 +124,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	var_dump( $param[ kAPI_PARAM_GROUP_TRANS ] );
+	var_dump( $param );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -144,11 +144,66 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+	echo( '<hr>' );
 	
 	//
-	// Group by status and collection.
+	// Show messages by error type.
 	//
-	echo( '<h4>Group by status and collection</h4>' );
+	echo( '<h4>Show messages by error type</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+	//	kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
+		kAPI_PARAM_GROUP_TRANS
+			=> array( kTAG_TRANSACTION_STATUS => kTYPE_STATUS_MESSAGE,
+					  kTAG_TRANSACTION_MESSAGE => NULL ),
+		kAPI_PAGING_SKIP => 0,
+		kAPI_PAGING_LIMIT => 100
+	);
+	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
+	$request = "$base_url?op=".kAPI_OP_GROUP_TRANSACTIONS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	var_dump( $param );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
+	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
+	{
+		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
+		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
+		$decoded = json_decode( $decoded, TRUE );
+		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
+	}
+	var_dump( $result );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Show errors by worksheet.
+	//
+	echo( '<h4>Show errors by worksheet</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -177,7 +232,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	var_dump( $param[ kAPI_PARAM_GROUP_TRANS ] );
+	var_dump( $param );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -199,9 +254,9 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Group by status, collection and alias.
+	// Show "CK_Threats" worksheet errors by property.
 	//
-	echo( '<h4>Group by status, collection and alias</h4>' );
+	echo( '<h4>Show "CK_Threats" worksheet errors by property</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -217,7 +272,7 @@ try
 		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
 		kAPI_PARAM_GROUP_TRANS
 			=> array( kTAG_TRANSACTION_STATUS => kTYPE_STATUS_ERROR,
-					  kTAG_TRANSACTION_COLLECTION => 'CK_Identification',
+					  kTAG_TRANSACTION_COLLECTION => 'CK_Threats',
 					  kTAG_TRANSACTION_ALIAS => NULL ),
 		kAPI_PAGING_SKIP => 0,
 		kAPI_PAGING_LIMIT => 100
@@ -231,7 +286,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	var_dump( $param[ kAPI_PARAM_GROUP_TRANS ] );
+	var_dump( $param );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -253,9 +308,9 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Group by status, collection, alias and error type.
+	// Show "CK_Threats" worksheet errors by column.
 	//
-	echo( '<h4>Group by status, collection, alias and error type</h4>' );
+	echo( '<h4>Show "CK_Threats" worksheet errors by column</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -271,9 +326,8 @@ try
 		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
 		kAPI_PARAM_GROUP_TRANS
 			=> array( kTAG_TRANSACTION_STATUS => kTYPE_STATUS_ERROR,
-					  kTAG_TRANSACTION_COLLECTION => 'CK_Identification',
-					  kTAG_TRANSACTION_ALIAS => '',
-					  kTAG_ERROR_TYPE => NULL ),
+					  kTAG_TRANSACTION_COLLECTION => 'CK_Threats',
+					  kTAG_TRANSACTION_FIELD => NULL ),
 		kAPI_PAGING_SKIP => 0,
 		kAPI_PAGING_LIMIT => 100
 	);
@@ -286,7 +340,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	var_dump( $param[ kAPI_PARAM_GROUP_TRANS ] );
+	var_dump( $param );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -308,9 +362,9 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Group by status, collection, alias and error type.
+	// Show "CK_Threats" worksheet errors by "ASSESSMENT_LEVEL" property and value.
 	//
-	echo( '<h4>Group by status, collection, alias and error type</h4>' );
+	echo( '<h4>Show "CK_Threats" worksheet errors by "ASSESSMENT_LEVEL" property and value</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -326,119 +380,8 @@ try
 		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
 		kAPI_PARAM_GROUP_TRANS
 			=> array( kTAG_TRANSACTION_STATUS => kTYPE_STATUS_ERROR,
-					  kTAG_TRANSACTION_COLLECTION => 'CK_Identification',
-					  kTAG_TRANSACTION_ALIAS => 'CK_UNID',
-					  kTAG_ERROR_TYPE => NULL ),
-		kAPI_PAGING_SKIP => 0,
-		kAPI_PAGING_LIMIT => 100
-	);
-	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
-	$request = "$base_url?op=".kAPI_OP_GROUP_TRANSACTIONS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	var_dump( $param[ kAPI_PARAM_GROUP_TRANS ] );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
-	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
-	{
-		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
-		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
-		$decoded = json_decode( $decoded, TRUE );
-		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
-	}
-	var_dump( $result );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Group by status, collection, alias and error type.
-	//
-	echo( '<h4>Group by status, collection, alias and error type</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-	//	kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
-		kAPI_PARAM_GROUP_TRANS
-			=> array( kTAG_TRANSACTION_STATUS => kTYPE_STATUS_ERROR,
-					  kTAG_TRANSACTION_COLLECTION => 'CK_Identification',
-					  kTAG_TRANSACTION_ALIAS => 'CK_TYPE',
-					  kTAG_ERROR_TYPE => NULL ),
-		kAPI_PAGING_SKIP => 0,
-		kAPI_PAGING_LIMIT => 100
-	);
-	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
-	$request = "$base_url?op=".kAPI_OP_GROUP_TRANSACTIONS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	var_dump( $param[ kAPI_PARAM_GROUP_TRANS ] );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
-	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
-	{
-		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
-		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
-		$decoded = json_decode( $decoded, TRUE );
-		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
-	}
-	var_dump( $result );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Group by status, collection, alias, error type and value.
-	//
-	echo( '<h4>Group by status, collection, alias, error type and value</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-	//	kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
-		kAPI_PARAM_GROUP_TRANS
-			=> array( kTAG_TRANSACTION_STATUS => kTYPE_STATUS_ERROR,
-					  kTAG_TRANSACTION_COLLECTION => 'CK_Identification',
-					  kTAG_TRANSACTION_ALIAS => 'CK_TYPE',
-					  kTAG_ERROR_TYPE => 'Invalid code',
+					  kTAG_TRANSACTION_COLLECTION => 'CK_Threats',
+					  kTAG_TRANSACTION_ALIAS => 'ASSESSMENT_LEVEL',
 					  kTAG_TRANSACTION_VALUE => NULL ),
 		kAPI_PAGING_SKIP => 0,
 		kAPI_PAGING_LIMIT => 100
@@ -452,7 +395,120 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	var_dump( $param[ kAPI_PARAM_GROUP_TRANS ] );
+	var_dump( $param );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
+	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
+	{
+		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
+		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
+		$decoded = json_decode( $decoded, TRUE );
+		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
+	}
+	var_dump( $result );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Show "CK_Threats" worksheet errors by "ASSESSMENT_LEVEL" property, "4" value and error message.
+	//
+	echo( '<h4>Show "CK_Threats" worksheet errors by "ASSESSMENT_LEVEL" property, "4" value and error message</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+	//	kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
+		kAPI_PARAM_GROUP_TRANS
+			=> array( kTAG_TRANSACTION_STATUS => kTYPE_STATUS_ERROR,
+					  kTAG_TRANSACTION_COLLECTION => 'CK_Threats',
+					  kTAG_TRANSACTION_ALIAS => 'ASSESSMENT_LEVEL',
+					  kTAG_TRANSACTION_VALUE => '4',
+					  kTAG_TRANSACTION_MESSAGE => NULL ),
+		kAPI_PAGING_SKIP => 0,
+		kAPI_PAGING_LIMIT => 100
+	);
+	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
+	$request = "$base_url?op=".kAPI_OP_GROUP_TRANSACTIONS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	var_dump( $param );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
+	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
+	{
+		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
+		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
+		$decoded = json_decode( $decoded, TRUE );
+		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
+	}
+	var_dump( $result );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Show "CK_Threats" worksheet errors by "ASSESSMENT_LEVEL" property, "4" value, "Invalid code." error message and row.
+	//
+	echo( '<h4>Show "CK_Threats" worksheet errors by "ASSESSMENT_LEVEL" property, "4" value, "Invalid code." error message and row</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+	//	kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
+		kAPI_PARAM_GROUP_TRANS
+			=> array( kTAG_TRANSACTION_STATUS => kTYPE_STATUS_ERROR,
+					  kTAG_TRANSACTION_COLLECTION => 'CK_Threats',
+					  kTAG_TRANSACTION_ALIAS => 'ASSESSMENT_LEVEL',
+					  kTAG_TRANSACTION_VALUE => '4',
+					  kTAG_TRANSACTION_MESSAGE => 'Invalid code.',
+					  kTAG_TRANSACTION_RECORD => NULL ),
+		kAPI_PAGING_SKIP => 0,
+		kAPI_PAGING_LIMIT => 100
+	);
+	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
+	$request = "$base_url?op=".kAPI_OP_GROUP_TRANSACTIONS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	var_dump( $param );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );

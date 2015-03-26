@@ -6761,11 +6761,12 @@ class Service extends ContainerObject
 						->aggregate( $pipeline )
 							[ 'result' ];
 		
-		} // Has session.
+			//
+			// Format records.
+			//
+			$result = $this->serialiseTransactionLog( $result, $last );
 		
-		//
-		// Format records.
-		//
+		} // Has session.
 		
 		//
 		// Encrypt result.
@@ -11250,6 +11251,386 @@ $rs_units = & $rs_units[ 'result' ];
 		} // Iterating transactions.
 		
 	} // serialiseTransaction.
+	
+	
+	/*===================================================================================
+	 *	serialiseTransactionLog															*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise transaction.
+	 *
+	 * This method will serialise the provided transaction into the provided array
+	 * parameter.
+	 *
+	 * If the last parameter is <tt>TRUE</tt>, only the transaction properties relevant to
+	 * progress will be serialised.
+	 *
+	 * @param array					$theContainer		Group operation result.
+	 * @param string				$theGroupOffset		Group offset.
+	 *
+	 * @access protected
+	 * @return array				The serialised result.
+	 */
+	protected function serialiseTransactionLog( $theContainer, $theGroupOffset )
+	{
+		//
+		// Init local storage.
+		//
+		$result = Array();
+		$errors
+			= array(
+				kTYPE_ERROR_CODE_NO_TOKEN => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Missing array separator tokens.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "Missing separator tokens in template definition." ),
+				kTYPE_ERROR_CODE_BAD_TOKENS => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Too many tokens.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "Invalid number of tokens in template definition." ),
+				kTYPE_ERROR_CODE_FILE_BAD => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Invalid file.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The template file is invalid." ),
+				kTYPE_ERROR_CODE_FILE_UNRWAD => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Unreadable file.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The template file is unreadable." ),
+				kTYPE_ERROR_CODE_FILE_UNSUP => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Unsupported file type.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The template file is not supported." ),
+				kTYPE_ERROR_CODE_NO_PID => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Missing PID.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The template file is missing its PID custom property." ),
+				kTYPE_ERROR_CODE_BAD_PID => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Unknown PID.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The template file PID is unknown or unsupported." ),
+				kTYPE_ERROR_CODE_REQ_WKSHEET => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Missing required worksheet.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The template is missing required worksheets." ),
+				kTYPE_ERROR_CODE_REQ_COLUMN => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Missing required column.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The template is missing required columns." ),
+				kTYPE_ERROR_CODE_REQ_FIELD => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Missing required field.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The template is missing required fields." ),
+				kTYPE_ERROR_CODE_BUG_WRKSHEET_NODE => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Invalid template worksheet node reference.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The worksheet record contains an invalid node reference." ),
+				kTYPE_ERROR_CODE_BAD_NUMBER => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Invalid number.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The value is not a number." ),
+				kTYPE_ERROR_CODE_BAD_BOOLEAN => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Invalid boolean.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The value is not a boolean." ),
+				kTYPE_ERROR_CODE_NO_SHAPE_TYPE => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Missing shape type.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The shape is missing its type." ),
+				kTYPE_ERROR_CODE_BAD_SHAPE_TYPE => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Bad shape type.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The shape type is invalid or unsupported." ),
+				kTYPE_ERROR_CODE_BAD_SHAPE_GEOMETRY => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Bad shape geometry.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The shape geometry is invalid or unsupported." ),
+				kTYPE_ERROR_CODE_BAD_LINK => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Bad link.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The link is invalid or not active." ),
+				kTYPE_ERROR_CODE_BAD_DATE_FORMAT => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Bad date format.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "Invalid date format." ),
+				kTYPE_ERROR_CODE_BAD_DATE => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Bad date.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "Invalid date." ),
+				kTYPE_ERROR_CODE_DUBIOUS_YEAR => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Dubious year.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The year may be incorrect." ),
+				kTYPE_ERROR_CODE_INVALID_ENUM => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Invalid enumeration.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "Enumeration not found." ),
+				kTYPE_ERROR_CODE_INVALID_OBJECT_ID => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Bad ObjectId.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "Invalid object identifier." ),
+				kTYPE_ERROR_CODE_INVALID_TIME_STAMP => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Bad time stamp.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "Invalid time stamp." ),
+				kTYPE_ERROR_CODE_BAD_RELATIONSHIP => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Bad relationship.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "Unmatched relationship." ),
+				kTYPE_ERROR_CODE_DUPLICATE_KEY => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Duplicate record key.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "A record exists with the same key." ),
+				kTYPE_ERROR_CODE_DUPLICATE_OBJECT => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Duplicate object.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "A record exists with the same key." ),
+				kTYPE_MESSAGE_CODE_REPLACE_OBJECT => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Object will be replaced.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "A record exists with the same identifier, the pbject will be replaced." ),
+				kTYPE_ERROR_CODE_OBJECT_VALIDATION => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Unable to validate object.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "The object could not be validated due to an error that was not checked beforehand.." ),
+				kTYPE_ERROR_CODE_NO_UPLOAD => array(
+					kAPI_PARAM_RESPONSE_FRMT_NAME
+						=> "Missing upload session.",
+					kAPI_PARAM_RESPONSE_FRMT_INFO
+						=> "Unable to locate upload session." ) );
+		
+		//
+		// Set group label and description.
+		//
+		switch( $theGroupOffset )
+		{
+			case kTAG_TRANSACTION_TYPE:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Operation type";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The type of specific function of the current operation";
+				break;
+			
+			case kTAG_TRANSACTION_COLLECTION:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Worksheet";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The name of the worksheet";
+				break;
+				
+			case kTAG_TRANSACTION_RECORD:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Row";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The worksheet's row number";
+				break;
+				
+			case kTAG_TRANSACTION_ALIAS:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Property";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The symbol or variable name found in the column";
+				break;
+				
+			case kTAG_TRANSACTION_FIELD:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Column";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The worksheet row's column name";
+				break;
+				
+			case kTAG_TRANSACTION_VALUE:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Value";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The value provided";
+				break;
+				
+			case kTAG_TRANSACTION_STATUS:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Status";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The validation status";
+				break;
+				
+			case kTAG_ERROR_TYPE:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Status type";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The validation outcome type";
+				break;
+				
+			case kTAG_ERROR_CODE:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Status";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The specific status of the current operation";
+				break;
+			
+			case kTAG_TRANSACTION_MESSAGE:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Message";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "The status message";
+				break;
+				
+			case kTAG_ERROR_RESOURCE:
+				$result[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= "Resource";
+				$result[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= "A link or reference that might help you correct the error or warning";
+				break;
+		
+		} // Parsed by group offset.
+		
+		//
+		// Allocate group container.
+		//
+		$result[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
+		$base = & $result[ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
+		
+		//
+		// Iterate provided array.
+		//
+		foreach( $theContainer as $element )
+		{
+			//
+			// Allocate result element.
+			//
+			$index = count( $base );
+			$base[ $index ] = Array();
+			$ref = & $base[ $index ];
+			
+			//
+			// Parse by group offset.
+			//
+			switch( $theGroupOffset )
+			{
+				case kTAG_TRANSACTION_TYPE:
+					$term = new Term( $this->mWrapper, $element[ kTAG_NID ] );
+					if( $term->offsetExists( kTAG_DEFINITION ) )
+					{
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+							= Term::SelectLanguageString(
+								$term->offsetGet( kTAG_LABEL ), kSTANDARDS_LANGUAGE );
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+							= Term::SelectLanguageString(
+								$term->offsetGet( kTAG_DEFINITION ), kSTANDARDS_LANGUAGE );
+					}
+					else
+					{
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							= Term::SelectLanguageString(
+								$term->offsetGet( kTAG_LABEL ), kSTANDARDS_LANGUAGE );
+					}
+					break;
+					
+				case kTAG_TRANSACTION_STATUS:
+					$term = new Term( $this->mWrapper, $element[ kTAG_NID ] );
+					if( $term->offsetExists( kTAG_DEFINITION ) )
+					{
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+							= Term::SelectLanguageString(
+								$term->offsetGet( kTAG_LABEL ), kSTANDARDS_LANGUAGE );
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+							= Term::SelectLanguageString(
+								$term->offsetGet( kTAG_DEFINITION ), kSTANDARDS_LANGUAGE );
+					}
+					else
+					{
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							= Term::SelectLanguageString(
+								$term->offsetGet( kTAG_LABEL ), kSTANDARDS_LANGUAGE );
+					}
+					break;
+					
+				case kTAG_ERROR_CODE:
+					if( $element[ kTAG_NID ] !== NULL )
+					{
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+							= $errors[ $element[ kTAG_NID ] ]
+									 [ kAPI_PARAM_RESPONSE_FRMT_NAME ];
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+							= $errors[ $element[ kTAG_NID ] ]
+									 [ kAPI_PARAM_RESPONSE_FRMT_INFO ];
+					}
+					else
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							= NULL;
+					break;
+			
+				case kTAG_TRANSACTION_COLLECTION:
+				case kTAG_TRANSACTION_RECORD:
+				case kTAG_TRANSACTION_ALIAS:
+				case kTAG_TRANSACTION_FIELD:
+				case kTAG_TRANSACTION_VALUE:
+				case kTAG_TRANSACTION_MESSAGE:
+				case kTAG_ERROR_TYPE:
+				case kTAG_ERROR_RESOURCE:
+				
+				default:
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= ( strlen( $element[ kTAG_NID ] ) )
+						? (string) $element[ kTAG_NID ]
+						: '(N/A)';
+					break;
+					
+			} // Parsed by group offset.
+			
+			//
+			// Set value.
+			//
+			$ref[ kAPI_PARAM_RESPONSE_FRMT_VALUE ]
+				= ( strlen( $element[ kTAG_NID ] ) )
+				? $element[ kTAG_NID ]
+				: '';
+			
+			//
+			// Set count.
+			//
+			$ref[ kAPI_PARAM_RESPONSE_COUNT ] = $element[ 'count' ];
+		
+		} // Iterating group.
+		
+		return $result;																// ==>
+		
+	} // serialiseTransactionLog.
 
 		
 
