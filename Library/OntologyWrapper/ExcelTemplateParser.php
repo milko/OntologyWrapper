@@ -1125,13 +1125,17 @@ class ExcelTemplateParser
 				//
 				foreach( $structure as $source_worksheet_node => $match_field_nodes )
 				{
-					if( in_array( $source_field_node, $match_field_nodes ) )
+					$windex = $dictionary[ $source_worksheet_node ];
+					$findex = $dictionary[ $source_field_node ];
+					if( in_array( $source_field_node, $match_field_nodes )
+					 && array_key_exists( $windex, $this->mFields )
+					 && array_key_exists( $findex,$this->mFields[ $windex ] ) )
 					{
-						$this->mFields[ $dictionary[ $source_worksheet_node ] ]
-									  [ $dictionary[ $source_field_node ] ]
+						$this->mFields[ $windex ]
+									  [ $findex ]
 									  [ 'worksheet' ] = $target_worksheet;
-						$this->mFields[ $dictionary[ $source_worksheet_node ] ]
-									  [ $dictionary[ $source_field_node ] ]
+						$this->mFields[ $windex ]
+									  [ $findex ]
 									  [ 'field' ] = $target_field;
 					}
 				}

@@ -74,7 +74,7 @@
 		</TERM>
 		<NODE term=":template:checklist:cwr:identification:index"
 			  pid="template::checklist:cwr:identification:index">
-			<item const="kTAG_ID_SYMBOL">CK_UNID</item>
+			<item const="kTAG_ID_SYMBOL">UNID</item>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>

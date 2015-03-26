@@ -6421,19 +6421,19 @@ class Service extends ContainerObject
 			//
 			// Copy session in persistent user object.
 			//
-			Session::ResolveCollection(
-				Session::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
-					->replaceOffsets(
-						$upload_session->offsetGet( kTAG_NID ),
-						array( kTAG_SESSION => $session->offsetGet( kTAG_NID ) ) );
-		
-			//
-			// Copy session in persistent user object.
-			//
 			User::ResolveCollection(
 				User::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
 					->replaceOffsets(
 						$user_id,
+						array( kTAG_SESSION => $session->offsetGet( kTAG_NID ) ) );
+		
+			//
+			// Copy update session in upload session.
+			//
+			Session::ResolveCollection(
+				Session::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
+					->replaceOffsets(
+						$upload_session->offsetGet( kTAG_NID ),
 						array( kTAG_SESSION => $session->offsetGet( kTAG_NID ) ) );
 		
 			//

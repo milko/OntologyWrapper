@@ -40,6 +40,11 @@ require_once( 'styles.inc.php' );
 require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
 
 //
+// type definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
+
+//
 // Domain definitions.
 //
 require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
@@ -237,76 +242,41 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Launch update session.
+	// Check if session completed.
 	//
-	echo( '<h4>Launch update session</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-	//	kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A'
-	);
-	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
-	$request = "$base_url?op=".kAPI_OP_UPDATE_TEMPLATE;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
-	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
-	{
-		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
-		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
-		$decoded = json_decode( $decoded, TRUE );
-		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
-	}
-	var_dump( $result );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Save session ID.
-	//
-	$id = $result[ 'results' ][ kAPI_SESSION_ID ];
-	
-	//
-	// Wait until session termionates.
-	//
-	$done = FALSE;
-	do
+	if( $result[ kAPI_RESPONSE_RESULTS ]
+			   [ kAPI_SESSION ]
+			   [ kTAG_SESSION_STATUS ]
+			   [ kAPI_PARAM_RESPONSE_FRMT_VALUE ]
+			== kTYPE_STATUS_OK )
 	{
 		//
-		// Wait a second.
+		// Launch update session.
 		//
-		sleep( 5 );
-		
-		//
-		// Call service.
-		//
+		echo( '<h4>Launch update session</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( 'Request:' );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
 		$param = array
 		(
+		//	kAPI_PARAM_LOG_REQUEST => TRUE,
 			kAPI_PARAM_LOG_TRACE => TRUE,
 			kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A'
 		);
 		$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
-		$request = "$base_url?op=".kAPI_OP_USER_SESSION;
+		$request = "$base_url?op=".kAPI_OP_UPDATE_TEMPLATE;
 		$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 		$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
+		echo( htmlspecialchars($request) );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
 		$response = file_get_contents( $request );
 		$result = json_decode( $response, TRUE );
 		if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
@@ -317,66 +287,118 @@ try
 			$decoded = json_decode( $decoded, TRUE );
 			$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
 		}
-		
-		//
-		// Display status.
-		//
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
 		var_dump( $result );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
-	
-	} while( $result[ kAPI_RESPONSE_RESULTS ][ kAPI_SESSION_RUNNING ] );
-	echo( '<hr>' );
-	echo( '<hr>' );
-	
-	//
-	// Get session progress.
-	//
-	echo( '<h4>Get session progress</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-	//	kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
-		kAPI_PARAM_ID => $id
-	);
-	$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
-	$request = "$base_url?op=".kAPI_OP_SESSION_PROGRESS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
-	 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
-	{
-		$encoded = $result[ kAPI_RESPONSE_RESULTS ];
-		$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
-		$decoded = json_decode( $decoded, TRUE );
-		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
-	}
-	var_dump( $result );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
+		echo( '<hr>' );
 
+		//
+		// Save session ID.
+		//
+		$id = $result[ 'results' ][ kAPI_SESSION_ID ];
+	
+		//
+		// Wait until session termionates.
+		//
+		$done = FALSE;
+		do
+		{
+			//
+			// Wait a second.
+			//
+			sleep( 5 );
+		
+			//
+			// Call service.
+			//
+			$param = array
+			(
+				kAPI_PARAM_LOG_TRACE => TRUE,
+				kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A'
+			);
+			$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
+			$request = "$base_url?op=".kAPI_OP_USER_SESSION;
+			$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+			$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
+			$response = file_get_contents( $request );
+			$result = json_decode( $response, TRUE );
+			if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
+			 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
+			{
+				$encoded = $result[ kAPI_RESPONSE_RESULTS ];
+				$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
+				$decoded = json_decode( $decoded, TRUE );
+				$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
+			}
+		
+			//
+			// Display status.
+			//
+			echo( kSTYLE_TABLE_PRE );
+			echo( kSTYLE_ROW_PRE );
+			echo( kSTYLE_DATA_PRE );
+			var_dump( $result );
+			echo( kSTYLE_DATA_POS );
+			echo( kSTYLE_ROW_POS );
+			echo( kSTYLE_TABLE_POS );
+	
+		} while( $result[ kAPI_RESPONSE_RESULTS ][ kAPI_SESSION_RUNNING ] );
+		echo( '<hr>' );
+		echo( '<hr>' );
+	
+		//
+		// Get session progress.
+		//
+		echo( '<h4>Get session progress</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( 'Request:' );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		$param = array
+		(
+		//	kAPI_PARAM_LOG_REQUEST => TRUE,
+			kAPI_PARAM_LOG_TRACE => TRUE,
+			kAPI_REQUEST_USER => '7C4D3533C21C608B39E8EAB256B4AFB771FA534A',
+			kAPI_PARAM_ID => $id
+		);
+		$encoded = $encoder->publicEncode( json_encode( $param ), $pub_key );
+		$request = "$base_url?op=".kAPI_OP_SESSION_PROGRESS;
+		$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+		$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( $encoded ));
+		echo( htmlspecialchars($request) );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		$response = file_get_contents( $request );
+		$result = json_decode( $response, TRUE );
+		if( array_key_exists( kAPI_STATUS_CRYPTED, $result[ kAPI_RESPONSE_STATUS ] )
+		 && $result[ kAPI_RESPONSE_STATUS ][ kAPI_STATUS_CRYPTED ] )
+		{
+			$encoded = $result[ kAPI_RESPONSE_RESULTS ];
+			$decoded = $encoder->privateDecode( $encoded, $ext_priv_key );
+			$decoded = json_decode( $decoded, TRUE );
+			$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
+		}
+		var_dump( $result );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+	
+	} // Upload successful.
+	
+	//
+	// Signal upload failed.
+	//
+	else
+		echo( '<h4>Upload failed!</h4>' );
+	
 }
 
 //

@@ -842,6 +842,18 @@ class SessionUpdate extends SessionBatch
 					$object[ $key ] = $value;
 			
 				} // Iterating record properties.
+				
+				//
+				// Set user and session references.
+				//
+				$object->offsetSet(
+					kTAG_USER,
+					$this->session()
+						->offsetGet( kTAG_USER ) );
+				$object->offsetSet(
+					kTAG_SESSION_START,
+					$this->session()
+						->offsetGet( kTAG_SESSION_START ) );
 			
 				//
 				// Commit object.
