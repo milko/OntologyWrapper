@@ -9545,6 +9545,44 @@
 		</EDGE>
 	</META>
 	
+	<!-- :taxon:conservation:admin -->
+	<META>
+		<TERM ns=":taxon:conservation" lid="admin">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Conservation region administrative unit</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:conservation:admin</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-06</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Administrative unit of the region in which the conservation activities are carried out.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:conservation:admin">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:location</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
 	<!-- :taxon:conservation:legislation -->
 	<META>
 		<TERM ns=":taxon:conservation" lid="legislation">

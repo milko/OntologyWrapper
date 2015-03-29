@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE INVENTORY SAFETY DUPLICATES WORKSHEET
+	TemplateCwrInventorySafetyDuplicate.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Inventory safety duplicates worksheet -->
+	
+	<!-- template::inventory:cwr:safety-duplicates -->
+	<META>
+		<TERM ns=":template" lid="inventory:cwr:safety-duplicates">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Threats</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Species threats status information.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:inventory:cwr:safety-duplicates"
+			  pid="template::inventory:cwr:safety-duplicates">
+			<item const="kTAG_ID_SYMBOL">IN_Safety_Duplicates</item>
+			<item const="kTAG_TAG">:germplasm:safety</item>
+			<item const="kTAG_LINE_NAME">4</item>
+			<item const="kTAG_LINE_INFO">5</item>
+			<item const="kTAG_LINE_EXAMPLES">6</item>
+			<item const="kTAG_LINE_SYMBOL">8</item>
+			<item const="kTAG_LINE_DATA">9</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This worksheet contains information regarding safety accession duplicates of the in-situ population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:COLLECTION-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:population</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:safety-duplicates:index -->
+	<META>
+		<NODE tag="cwr:population:NUMB"
+			  pid="template::inventory:cwr:safety-duplicates:index">
+			<item const="kTAG_ID_SYMBOL">POPULATION_NUMBER</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unique progressive number which identifies the population in the Inventory, the value must reference a POPULATION_NUMBER value in the IN_Population worksheet.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:safety-duplicates</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:INDEX</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:population</item>
+		</EDGE>
+	</META>
+	
+	<!-- schema::template:safety-duplicates -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::template:safety-duplicates</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:safety-duplicates</item>
+		</EDGE>
+	</META>
+</METADATA>

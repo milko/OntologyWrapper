@@ -31,6 +31,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :taxon:conservation:admin -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:conservation:admin</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- iucn:conservation -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">iucn:conservation</item>

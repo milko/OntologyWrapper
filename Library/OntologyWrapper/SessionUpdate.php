@@ -807,42 +807,61 @@ class SessionUpdate extends SessionBatch
 			$transaction = NULL;
 		
 			//
-			// Instantiate object.
-			//
-			$object = new $class( $this->wrapper() );
-			
-			//
 			// Object commit TRY block..
 			//
 			try
 			{
 				//
-				// Load properties.
+				// Replace object.
 				//
-				$row = NULL;
-				foreach( $record as $key => $value )
+				if( UnitObject::ResolveCollection(
+						UnitObject::ResolveDatabase( $this->wrapper(), TRUE ), TRUE )
+							->matchOne( array( kTAG_NID => $record[ kTAG_NID ] ),
+										kQUERY_COUNT ) )
 				{
 					//
-					// Intercept row number.
+					// Remove row indicator.
 					//
-					if( $key == kTAG_ROW )
+					if( array_key_exists( kTAG_ROW, $record ) )
+						unset( $record[ kTAG_ROW ] );
+					
+					//
+					// Instantiate object.
+					//
+					$object = new $class( $this->wrapper(), $record );
+				
+				} // Replace object.
+				
+				//
+				// Insert object.
+				//
+				else
+				{
+					//
+					// Instantiate object.
+					//
+					$object = new $class( $this->wrapper() );
+			
+					//
+					// Load properties.
+					//
+					foreach( $record as $key => $value )
 					{
 						//
-						// Save row.
+						// Intercept row number.
 						//
-						$row = $value;
-					
-						continue;											// =>
+						if( $key == kTAG_ROW )
+							continue;											// =>
 				
-					} // Row tag.
-				
-					//
-					// Set object property.
-					//
-					$object[ $key ] = $value;
+						//
+						// Set object property.
+						//
+						$object[ $key ] = $value;
 			
-				} // Iterating record properties.
+					} // Iterating record properties.
 				
+				} // Insert object.
+			
 				//
 				// Set user and session references.
 				//
@@ -854,7 +873,7 @@ class SessionUpdate extends SessionBatch
 					kTAG_SESSION_START,
 					$this->session()
 						->offsetGet( kTAG_SESSION_START ) );
-			
+				
 				//
 				// Commit object.
 				//

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	SAFETY DUPLICATES TEMPLATE SCHEMA
+	SchemaSafetyDuplicate.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema::template:safety-duplicates -->
+	<META>
+		<TERM ns=":template" lid="schema:safety-duplicates">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Safety duplicates template schema</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:schema:safety-duplicates"
+			  pid="schema::template:safety-duplicates">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all template properties related to germplasm safety duplication in genebanks.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- template::safety-duplicates:DUPLSITE -->
+	<META>
+		<NODE tag="mcpd:DUPLSITE"
+			  pid="template::safety-duplicates:DUPLSITE">
+			<item const="kTAG_ID_SYMBOL">DUPLSITE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:domain:organisation://http://fao.org/wiews:</item>
+					</item>
+					<item const="kTAG_SUFFIX">
+						<item>;</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Safety duplicate holder institute code]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[FAO WIEWS code of the institute where the accession is maintained. The codes consist of the 3-letter ISO 3166 country code of the country where the institute is located plus a number (e.g. COL001). The current set of institute codes is available from http://apps3.fao.org/wiews/wiews.jsp.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>ESP003</item>
+				<item>GBR003</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:safety-duplicates</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::safety-duplicates:ACCENUMB -->
+	<META>
+		<NODE tag="mcpd:ACCENUMB"
+			  pid="template::safety-duplicates:ACCENUMB">
+			<item const="kTAG_ID_SYMBOL">ACCENUMB</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Savety duplicate accession number]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The unique identifier of the accession assigned when the sample entered into the genebank collection.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>PI 113869</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:safety-duplicates</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::safety-duplicates:DUPLDESCR -->
+	<META>
+		<NODE tag="cwr:population:INSTNAMEDESCR"
+			  pid="template::safety-duplicates:DUPLDESCR">
+			<item const="kTAG_ID_SYMBOL">DUPLDESCR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Safety duplicate accession number]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Name of the institute responsible at the national level for the production of the National CWR National Inventory. This descriptor should be used only if DUPLSITE cannot be filled because the FAO WIEWS code for this institute is not available.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:safety-duplicates</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::safety-duplicates:DUPLADDR -->
+	<META>
+		<NODE tag="cwr:population:INSTADDRESSDESCR"
+			  pid="template::safety-duplicates:DUPLADDR">
+			<item const="kTAG_ID_SYMBOL">DUPLADDR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Safety duplicate holder institute address]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Address of the institute responsible at the national level for the production of the National CWR National Inventory. This descriptor should be used only if DUPLSITE cannot be filled since the FAO WIEWS code for this institute is not available.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:safety-duplicates</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::safety-duplicates:ACCEURL -->
+	<META>
+		<NODE tag="mcpd:ACCEURL"
+			  pid="template::safety-duplicates:ACCEURL">
+			<item const="kTAG_ID_SYMBOL">ACCEURL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession link]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[URL linking to additional data about the accession either in the holding genebank or from another source.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>http://www.cgn.wageningen-ur.nl/pgr/collections/passdeta.asp?accenumb=CGN04848</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:safety-duplicates</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::safety-duplicates:MLSSTAT -->
+	<META>
+		<NODE tag="mcpd:MLSSTAT"
+			  pid="template::safety-duplicates:MLSSTAT">
+			<item const="kTAG_ID_SYMBOL">MLSSTAT</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>mcpd:MLSSTAT:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Multilateral system status]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The coded status of an accession with regards to the Multilateral System (MLS) of the International Treaty on Plant Genetic Resources for Food and Agriculture. 
+Provides the information, whether the accession is included in the MLS. 
+
+0  not part of the MLS 
+1  part of the MLS.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:safety-duplicates</item>
+		</EDGE>
+	</META>
+</METADATA>

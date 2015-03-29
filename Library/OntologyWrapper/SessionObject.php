@@ -154,7 +154,6 @@ abstract class SessionObject extends PersistentObject
 		
 				//
 				// Call parent method.
-				// Note that we assert the object's existance.
 				//
 				parent::__construct( $theContainer, $theIdentifier, TRUE );
 			

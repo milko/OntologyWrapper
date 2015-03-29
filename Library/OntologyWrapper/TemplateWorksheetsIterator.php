@@ -468,72 +468,67 @@ class TemplateWorksheetsIterator implements \Iterator,
 		//
 		// Init local storage.
 		//
-		$this->mList = $this->mStruct = Array();
 		$indexes = $this->mParser->getWorksheetIndexes();
 		
 		//
-		// Get field node identifiers.
+		// Create elements list member.
 		//
-		$relationships = Array();
-		foreach( $this->mParser->getWorksheetRelationships() as $worksheet => $fields )
+		$this->mList = Array();
+		foreach( $this->mParser->getWorksheetRelationships()
+					as $parent_worksheet_node => $related_field_nodes )
 		{
 			//
-			// Set list element.
+			// Save parent information.
 			//
-			$this->mList[ $indexes[ $worksheet ] ]
-				= array( 'W' => $this->mParser->matchNodeSymbol( $worksheet ),
-						 'K' => $this->mParser->matchNodeSymbol( $indexes[ $worksheet ] ) );
-			
+			$parent_key_node = $indexes[ $parent_worksheet_node ];
+			$parent_worksheet_name
+				= $this->mParser->matchNodeSymbol( $parent_worksheet_node );
+	
 			//
-			// Set worksheet relationships.
+			// Allocate parent worksheet element.
 			//
-			$relationships[ $indexes[ $worksheet ] ] = Array();
-			foreach( $fields as $field )
+			if( ! array_key_exists( $parent_worksheet_node, $this->mList ) )
+				$this->mList[ $parent_worksheet_node ]
+					= array( 'W' => $parent_worksheet_name );
+	
+			//
+			// Set key field reference.
+			//
+			$this->mList[ $parent_worksheet_node ][ 'K' ]
+				= $this->mParser->matchNodeSymbol( $parent_key_node );
+	
+			//
+			// Iterate related fields.
+			//
+			foreach( $related_field_nodes as $related_field_node )
 			{
 				//
-				// Set list element.
+				// Save related field and worksheet nodes and names.
 				//
-				$this->mList[ $field ]
-					= array( 'W' => $this->mParser
-										->matchNodeSymbol(
-											$this->mParser->getFieldWorksheet( $field ) ),
-							 'F' => $this->mParser
-							 			->matchNodeSymbol(
-							 				$field ) );
-				
+				$related_field_worksheet
+					= $this->mParser->getFieldWorksheet( $related_field_node );
+				$related_field_worksheet_name
+					= $this->mParser->matchNodeSymbol( $related_field_worksheet );
+				$related_field_name
+					= $this->mParser->matchNodeSymbol( $related_field_node );
+		
 				//
-				// Set Worksheet relationship.
+				// Create worksheet element.
 				//
-				$relationships[ $indexes[ $worksheet ] ][ $field ] = $field;
-			}
-		}
+				if( ! array_key_exists( $related_field_worksheet, $this->mList ) )
+					$this->mList[ $related_field_worksheet ]
+						= array( 'W' => $related_field_worksheet_name,
+								 'F' => $related_field_name,
+								 'P' => $parent_worksheet_node );
+		
+			} // Iterating related field nodes.
+	
+		} // Iterating worksheet relationships.
 		
 		//
 		// Build structure.
 		//
-		$wkeys = array_keys( $relationships );
-		foreach( $wkeys as $wkey )
-		{
-			if( array_key_exists( $wkey, $relationships ) )
-			{
-				$fkeys = array_keys( $relationships[ $wkey ] );
-				foreach( $fkeys as $fkey )
-				{
-					if( array_key_exists( $fkey, $relationships ) )
-					{
-						$relationships[ $wkey ][ $fkey ] = $relationships[ $fkey ];
-						unset( $relationships[ $fkey ] );
-					}
-				}
-			}
-		}
-		
-		//
-		// Load structure.
-		//
-		reset( $relationships );
-		foreach( $relationships as $worksheet => $fields )
-			$this->loadWorksheetRelationship( $this->mStruct, $worksheet, $fields );
+		$this->buildStructure();
 	
 	} // loadStructure.
 
@@ -548,74 +543,112 @@ class TemplateWorksheetsIterator implements \Iterator,
 
 	 
 	/*===================================================================================
-	 *	loadWorksheetRelationship														*
+	 *	buildStructure																	*
 	 *==================================================================================*/
 
 	/**
-	 * Load worksheet relationship
+	 * Build structure
 	 *
-	 * This method will add to the provided container the provided worksheet, fields and
-	 * parent.
-	 *
-	 * @param array				   &$theContainer		Structure container.
-	 * @param int					$theWorksheet		Worksheet node identifier.
-	 * @param array					$theFields			Related fields.
-	 * @param int					$theParent			Parent field node identifier.
+	 * This method will build the structure data member.
 	 *
 	 * @access protected
 	 */
-	protected function loadWorksheetRelationship( &$theContainer,
-												   $theWorksheet,
-												   $theFields,
-												   $theParent = NULL )
+	protected function buildStructure()
 	{
 		//
-		// Set worksheet reference.
+		// Init local storage.
 		//
-		$theContainer[ 'N' ] = $theWorksheet;
-		if( $theParent !== NULL )
+		$this->mStruct = Array();
+		$list = $this->mList;
+		
+		//
+		// Set root worksheet.
+		//
+		foreach( $list as $key => $value )
 		{
-			$theContainer[ 'P' ] = $theParent;
-			$this->mList[ $theWorksheet ][ 'P' ] = $theParent;
+			//
+			// Only root has no parent.
+			//
+			if( ! array_key_exists( 'P', $value ) )
+			{
+				//
+				// Set root element.
+				//
+				$this->mStruct[ 'N' ] = $key;
+				unset( $list[ $key ] );
+				
+				break;														// =>
+			
+			} // Has no parent.
+		
+		} // Looking for root.
+		
+		//
+		// Hanlde root children.
+		//
+		if( count( $list ) )
+		{
+			//
+			// Load children.
+			//
+			$this->mStruct[ 'C' ] = Array();
+			$this->setStructure( $this->mStruct[ 'C' ], $list, $key );
+		
+		} // Root has children.
+	
+	} // buildStructure.
+
+	 
+	/*===================================================================================
+	 *	setStructure																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set structure
+	 *
+	 * This method will set the structure data member.
+	 *
+	 * @param array				   &$theContainer		Structure container.
+	 * @param array					$theList			Elements list.
+	 * @param int					$theParent			Parent index.
+	 *
+	 * @access protected
+	 */
+	protected function setStructure( &$theContainer, $theList, $theParent )
+	{
+		//
+		// Set child elements.
+		//
+		$parents = Array();
+		$keys = array_keys( $theList );
+		foreach( $keys as $key )
+		{
+			if( $theList[ $key ][ 'P' ] == $theParent )
+			{
+				$index = count( $theContainer );
+				$theContainer[ $index ] = array( 'N' => $key, 'P' => $theParent );
+				$parents[ $key ] = & $theContainer[ $index ];
+				unset( $theList[ $key ] );
+			}
 		}
 		
 		//
-		// Handle related fields.
+		// Choose new branch.
 		//
-		if( is_array( $theFields ) )
+		if( count( $theList ) )
 		{
-			//
-			// Allocate related fields container.
-			//
-			if( ! array_key_exists( 'C', $theContainer ) )
-				$theContainer[ 'C' ] = Array();
-			
-			//
-			// Iterate related fields.
-			//
-			$reference = & $theContainer[ 'C' ];
-			foreach( $theFields as $field => $children )
+			foreach( $theList as $key => $value )
 			{
-				//
-				// Allocate related field container.
-				//
-				$index = count( $reference );
-				$reference[ $index ] = Array();
-				
-				//
-				// Recurse.
-				//
-				$this->loadWorksheetRelationship(
-					$reference[ $index ],
-					$field,
-					$children,
-					$theContainer[ 'N' ] );
-			
-			} // Iterating related fields.
-		
-		} // Has related fields.
+				if( array_key_exists( $value[ 'P' ], $parents ) )
+				{
+					$ref = & $parents[ $value[ 'P' ] ];
+					$ref[ 'C' ] = Array();
+					$this->setStructure( $ref[ 'C' ], $theList, $value[ 'P' ] );
+				}
+			}
+		}
 	
-	} // loadWorksheetRelationship.
+	} // setStructure.
 
 	 
 

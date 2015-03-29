@@ -453,7 +453,9 @@ class ExcelTemplateParser
 				//
 				// Check if field was provided.
 				//
-				if( ! array_key_exists( $symbol, $fields[ $theWorksheet ] ) )
+				if( is_array( $kind )
+				 && in_array( kTYPE_MANDATORY, $kind )
+				 && (! array_key_exists( $symbol, $fields[ $theWorksheet ] )) )
 				{
 					//
 					// Set transaction log.

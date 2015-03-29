@@ -28,4 +28,26 @@
 			</item>
 		</NODE>
 	</META>
+	
+	<!-- template::inventory:cwr -->
+	<META>
+		<NODE term=":domain:inventory"
+			  pid="template::inventory:cwr">
+			<item const="kTAG_DOMAIN">:domain:inventory</item>
+			<item const="kTAG_CLASS_NAME">OntologyWrapper\Inventory</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_TRANSACTION_COLLECTION">Read this</item>
+			<item const="kTAG_TRANSACTION_RECORD">1</item>
+			<item const="kTAG_TRANSACTION_FIELD">1</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This template contains all worksheets needed to load crop wild relative inventory data.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
 </METADATA>

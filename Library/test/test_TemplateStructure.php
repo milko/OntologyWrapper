@@ -131,6 +131,7 @@ try
 	// Instantiate class.
 	//
 	$root_ref = "template::checklist:cwr";
+	$root_ref = "template::inventory:cwr";
 	$structure = new MyClass( $wrapper, $root_ref );
 	
 	//

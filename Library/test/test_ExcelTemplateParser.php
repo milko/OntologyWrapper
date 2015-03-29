@@ -78,6 +78,7 @@ define( 'kDEBUG_PARENT', FALSE );
 // Init local storage.
 //
 $file = '/Library/WebServer/Library/OntologyWrapper/Library/test/test_checklist.large.xlsx';
+$file = '/Library/WebServer/Library/OntologyWrapper/Library/test/CWR_Inventory_Template.xlsx';
 $user = ":domain:individual://ITA406/pgrdiversity.bioversityinternational.org:E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2;";
 $fingerprint = "E3EC37CC5D36ED5AABAC7BB46CB0CC8794693FC2";
  

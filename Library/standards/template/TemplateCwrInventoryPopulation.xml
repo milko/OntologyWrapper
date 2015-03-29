@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE INVENTORY THREATS WORKSHEET
+	TemplateCwrInventoryPopulation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Inventory population worksheet -->
+	
+	<!-- template::inventory:cwr:population -->
+	<META>
+		<TERM ns=":template" lid="inventory:cwr:population">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Populations</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In-situ populations information.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:inventory:cwr:population"
+			  pid="template::inventory:cwr:population">
+			<item const="kTAG_ID_SYMBOL">IN_Population</item>
+			<item const="kTAG_TAG">cwr:occurrence</item>
+			<item const="kTAG_LINE_NAME">4</item>
+			<item const="kTAG_LINE_INFO">5</item>
+			<item const="kTAG_LINE_EXAMPLES">6</item>
+			<item const="kTAG_LINE_SYMBOL">8</item>
+			<item const="kTAG_LINE_DATA">9</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This worksheet contains the species populations data.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:COLLECTION-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:population:index -->
+	<META>
+		<NODE term=":template:inventory:cwr:identification:index"
+			  pid="template::inventory:cwr:population:index">
+			<item const="kTAG_ID_SYMBOL">UNID</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Field specific for uniquely identifying your cwr Inventory. The value you provide must reference the UNID column in the IN_Identification worksheet whose row corresponds to the Inventory featuring this population record.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:population</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:INDEX</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:POPULATION_NUMBER -->
+	<META>
+		<NODE tag="cwr:population:NUMB"
+			  pid="template::population:POPULATION_NUMBER">
+			<item const="kTAG_ID_SYMBOL">POPULATION_NUMBER</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Population number]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unique progressive number which identifies the population in the Inventory, not to be duplicated (i.e. reassigned) for otherpopulations in the current Inventory. To be assigned by the institute which is responsible at the national level for the production of the National CWR in situ Inventory.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:population</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">template::inventory:cwr:population</item>
+			<item const="kTAG_PREDICATE">:predicate:INDEX</item>
+		</EDGE>
+	</META>
+	
+	<!-- schema::template:population -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::template:population</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:population</item>
+		</EDGE>
+	</META>
+</METADATA>

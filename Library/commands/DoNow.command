@@ -13,6 +13,14 @@
 SOCKET="socket=/tmp/mysql.sock"
 
 ########################################################################################
+#   Set modifications                                                                  #
+########################################################################################
+
+php -f	/Library/WebServer/Library/OntologyWrapper/Library/batch/LoadXMLFile.php \
+		"/Library/WebServer/Library/OntologyWrapper/Library/standards/UPDATES_META.05.xml" \
+		"mongodb://localhost:27017/BIOVERSITY"
+
+########################################################################################
 #   Handle households                                                                  #
 ########################################################################################
 

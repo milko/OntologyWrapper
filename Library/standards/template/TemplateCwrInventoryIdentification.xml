@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE INVENTORY IDENTIFICATION WORKSHEET
+	TemplateCwrInventoryIdentification.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Inventory identification worksheet -->
+	
+	<!-- template::inventory:cwr:identification -->
+	<META>
+		<TERM ns=":template" lid="inventory:cwr:identification">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Inventory identification</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Inventory identification and root data.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:inventory:cwr:identification"
+			  pid="template::inventory:cwr:identification">
+			<item const="kTAG_ID_SYMBOL">IN_Identification</item>
+			<item const="kTAG_LINE_NAME">4</item>
+			<item const="kTAG_LINE_INFO">5</item>
+			<item const="kTAG_LINE_EXAMPLES">6</item>
+			<item const="kTAG_LINE_SYMBOL">8</item>
+			<item const="kTAG_LINE_DATA">9</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This worksheet contains the inventory identification and root data.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:COLLECTION-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">template::inventory:cwr</item>
+			<item const="kTAG_PREDICATE">:predicate:UNIT</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:identification:index -->
+	<META>
+		<TERM ns=":template:inventory:cwr:identification" lid="index">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Inventory identifier</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Inventory unique identifier.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:inventory:cwr:identification:index"
+			  pid="template::inventory:cwr:identification:index">
+			<item const="kTAG_ID_SYMBOL">UNID</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Field specific for uniquely identifying your Inventory. The combination you provide must be unique for each row on the first column of the excel worksheet.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">template::inventory:cwr:identification</item>
+			<item const="kTAG_PREDICATE">:predicate:INDEX</item>
+		</EDGE>
+	</META>
+	
+	<!-- schema::template:inventory -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::template:inventory</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:identification:version -->
+	<META>
+		<NODE tag=":unit:version"
+			  pid="template::inventory:cwr:identification:version">
+			<item const="kTAG_ID_SYMBOL">VERSION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:recommended</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Data version or date.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:identification:IN_CWRCODE -->
+	<META>
+		<NODE tag="cwr:in:CWRCODE"
+			  pid="template::inventory:cwr:identification:IN_CWRCODE">
+			<item const="kTAG_ID_SYMBOL">IN_CWRCODE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_TAG">:inventory:code</item>
+				</item>
+				<item>
+					<item const="kTAG_TAG">:inventory:admin</item>
+					<item const="kTAG_CONN_COLL">_terms</item>
+					<item const="kTAG_PREFIX">
+						<item>iso:3166:1:alpha-3:</item>
+						<item>iso:3166:2:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Country or region code identifying the Inventory, or the code of the country preparing the Inventory. For country codes use the three-letter ISO 3166-1 (see: http://unstats.un.org/unsd/methods/m49/m49alpha.htm); for region codes use the ISO 3166-2 standard (see http://en.wikipedia.org/wiki/Category:ISO_3166 in section 2).]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>ESP for Spain</item>
+				<item>GBR for United Kingdom</item>
+				<item>ES-AN for the autonomous community of Andalucía</item>
+				<item>GB-SCT for Scotland</item>
+				<item>GB-WLS for Wales</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:identification:IN_NUMB -->
+	<META>
+		<NODE tag="cwr:in:NIENUMB"
+			  pid="template::inventory:cwr:identification:IN_NUMB">
+			<item const="kTAG_ID_SYMBOL">IN_NUMB</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the edition of the National Inventory made up of the edition number and the year of publication.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: the first edition that is compiled in 2012 will be coded as 001/2012</item>
+				<item>Example: the second edition that is compiled in 2014 will be coded 002/2014</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:identification:IN_INSTCODE -->
+	<META>
+		<NODE tag="cwr:INSTCODE"
+			  pid="template::inventory:cwr:identification:IN_INSTCODE">
+			<item const="kTAG_ID_SYMBOL">IN_INSTCODE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_TAG">:inventory:institute</item>
+					<item const="kTAG_CONN_COLL">_units</item>
+					<item const="kTAG_PREFIX">
+						<item>:domain:organisation://http://fao.org/wiews:</item>
+					</item>
+					<item const="kTAG_SUFFIX">
+						<item>;</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[FAO WIEWS code of the institute that is responsible at the national level for the production of the Inventory.  The codes consist of the 3 letter ISO 3166 country code of the country where the institute is located plus a number. The current set of institute codes is available from http://apps3.fao.org/wiews/wiews.jsp]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>ESP003</item>
+				<item>GBR003</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:identification:IN_PRIORITY_CRITERIA -->
+	<META>
+		<NODE tag="cwr:in:CRITPRIORI"
+			  pid="template::inventory:cwr:identification:IN_PRIORITY_CRITERIA">
+			<item const="kTAG_ID_SYMBOL">IN_PRIORITY_CRITERIA</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:mandatory</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>cwr:in:CRITPRIORI:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Classes and subclasses for economic plant data (modified from Cook 1995 and from WEP).]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>2</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:identification:IN_PRIORITY_CRITERIA_METHOD -->
+	<META>
+		<NODE tag="cwr:in:METHCRITPRIORI"
+			  pid="template::inventory:cwr:identification:IN_PRIORITY_CRITERIA_METHOD">
+			<item const="kTAG_ID_SYMBOL">IN_PRIORITY_CRITERIA_METHOD</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Describe the method applied to the NI prioritization, based on the criteria used.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- schema::template:taxonomy -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::template:taxonomy</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+	
+	<!-- template::inventory:cwr:identification:REMARKS -->
+	<META>
+		<NODE tag="cwr:REMARKS"
+			  pid="template::inventory:cwr:identification:REMARKS">
+			<item const="kTAG_ID_SYMBOL">REMARKS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The remarks field is used to add notes or to elaborate on descriptors. Prefix remarks with the field name they refer to and follow by a colon (:). Distinct remarks referring to different fields are separated by semicolons (;) without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">template::inventory:cwr:identification</item>
+		</EDGE>
+	</META>
+</METADATA>

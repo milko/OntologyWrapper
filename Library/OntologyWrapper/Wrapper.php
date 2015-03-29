@@ -3322,6 +3322,18 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
+		$file = kPATH_STANDARDS_ROOT.'/template/SchemaPopulation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/SchemaTaxonConservation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/SchemaSafetyDuplicate.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		//
 		// Load XML crop wild relative checklist worksheet files.
 		//
@@ -3337,6 +3349,36 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 		
 		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrChecklistThreats.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML crop wild relative inventory worksheet files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML crop wild relative inventory worksheet files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrInventoryIdentification.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrInventoryCrossability.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrInventoryConservation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrInventoryThreats.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrInventoryPopulation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/template/TemplateCwrInventorySafetyDuplicate.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	

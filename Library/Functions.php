@@ -1163,6 +1163,22 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 				if( $geometry !== FALSE )
 				{
 					//
+					// Close rings.
+					//
+					$keys = array_keys( $geometry );
+					foreach( $keys as $key )
+					{
+						$last = count( $geometry[ $key ] ) - 1;
+						if( ($geometry[ $key ][ 0 ][ 0 ]
+								!= $geometry[ $key ][ $last][ 0 ])
+						 || ($geometry[ $key ][ 0 ][ 1 ]
+						 		!= $geometry[ $key ][ $last][ 1 ]) )
+							$geometry[ $key ][]
+								= array( $geometry[ $key ][ 0 ][ 0 ],
+										 $geometry[ $key][ 0 ][ 1 ] );
+					}
+					
+					//
 					// Set shape.
 					//
 					$theValue
@@ -2532,7 +2548,7 @@ require_once( kPATH_CLASSES_ROOT."/quickhull/convex_hull.php" );
 				//
 				// Trim string.
 				//
-				$theContainer = triem( $theContainer );
+				$theContainer = trim( $theContainer );
 				
 				//
 				// Handle prefix.

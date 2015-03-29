@@ -2204,6 +2204,41 @@
 		</EDGE>
 	</META>
 		
+	<!-- :location:site:moisture:depth -->
+	<META>
+		<TERM ns=":location:site:moisture" lid="depth">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Moisture measurement depth]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:site:moisture:depth</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>MEASUREDEPTH</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Depth in centimetres at which soil moisture condition was recorded.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:site:moisture:depth">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+		
 	<!-- :location:site:ph -->
 	<META>
 		<TERM ns=":location:site" lid="ph">
@@ -2704,7 +2739,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Datum</item>
+					<item const="kTAG_TEXT">Geodetic datum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -2727,7 +2762,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Datum of the projection used to obtain the coordinates.  If not provided ‘WGS 1984’ will be used. A horizontal geodetic datum based on an ellipsoid that has its origin at the earth's center of mass. Examples are the World Geodetic System of 1984, the North American Datum of 1983, and the Geodetic Datum of Australia of 1994. The first uses the WGS84 ellipsoid; the latter two use the GRS80 ellipsoid.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Datum of the projection used to obtain the coordinates. If not provided ‘WGS 1984’ will be used. A horizontal geodetic datum based on an ellipsoid that has its origin at the earth's center of mass. Examples are the World Geodetic System of 1984, the North American Datum of 1983, and the Geodetic Datum of Australia of 1994. The first uses the WGS84 ellipsoid; the latter two use the GRS80 ellipsoid.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -2740,6 +2775,45 @@
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
 				<item>:kind:enumerated-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :location:site:datum:name -->
+	<META>
+		<TERM ns=":location:site:datum" lid="name">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Geodetic datum name</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Coordinates geodetic datum name.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:site:datum:name</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-06</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Datum name of the projection used to obtain the coordinates.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:site:datum:name">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	</META>

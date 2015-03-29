@@ -2484,7 +2484,7 @@ class SessionUpload extends SessionBatch
 		UpdateProcessCounter(
 			$start_processed, $increment_processed,
 			kTAG_COUNTER_PROCESSED,
-			$this->transaction(), $records, TRUE );
+			$this->transaction(), NULL, TRUE );
 		
 		//
 		// Update session validated.
@@ -4589,7 +4589,10 @@ class SessionUpload extends SessionBatch
 			// Split strings.
 			//
 			if( ! CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) ) )
+			{
 				unset( $theRecord[ $symbol ] );
+				return 0;															// ==>
+			}
 			
 			//
 			// Iterate strings.
@@ -4940,7 +4943,10 @@ class SessionUpload extends SessionBatch
 			// Split strings.
 			//
 			if( ! CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) ) )
+			{
 				unset( $theRecord[ $symbol ] );
+				return 0;															// ==>
+			}
 			
 			//
 			// Iterate strings.
@@ -5282,7 +5288,10 @@ class SessionUpload extends SessionBatch
 			// Split strings.
 			//
 			if( ! CheckArrayValue( $tmp, substr( $tokens, 0, 1 ) ) )
+			{
 				unset( $theRecord[ $symbol ] );
+				return 0;															// ==>
+			}
 			
 			//
 			// Iterate strings.
@@ -5600,7 +5609,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle missing tokens.
 			//
-			if( ! count( $tokens ) )
+			if( ! strlen( $tokens ) )
 			{
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
@@ -5625,7 +5634,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle too many tokens.
 			//
-			if( count( $tokens ) > 1 )
+			if( strlen( $tokens ) > 1 )
 			{
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
@@ -5992,7 +6001,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle missing tokens.
 			//
-			if( ! count( $tokens ) )
+			if( ! strlen( $tokens ) )
 			{
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
@@ -6017,7 +6026,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle too many tokens.
 			//
-			if( count( $tokens ) > 1 )
+			if( strlen( $tokens ) > 1 )
 			{
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
@@ -6604,7 +6613,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle missing tokens.
 			//
-			if( ! count( $tokens ) )
+			if( ! strlen( $tokens ) )
 			{
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
@@ -6629,7 +6638,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle too many tokens.
 			//
-			if( count( $tokens ) > 1 )
+			if( strlen( $tokens ) > 1 )
 			{
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
@@ -6918,7 +6927,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle missing tokens.
 			//
-			if( ! count( $tokens ) )
+			if( ! strlen( $tokens ) )
 			{
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
@@ -6943,7 +6952,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle too many tokens.
 			//
-			if( count( $tokens ) > 1 )
+			if( strlen( $tokens ) > 1 )
 			{
 				$this->failTransactionLog(
 					$theTransaction,							// Transaction.
@@ -7168,7 +7177,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle missing tokens.
 			//
-			if( ! count( $tokens ) )
+			if( ! strlen( $tokens ) )
 				return
 					$this->failTransactionLog(
 						$theTransaction,							// Transaction.
@@ -7190,7 +7199,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Handle too many tokens.
 			//
-			if( count( $tokens ) > 1 )
+			if( strlen( $tokens ) > 1 )
 				return
 					$this->failTransactionLog(
 						$theTransaction,							// Transaction.
@@ -7434,6 +7443,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Select worksheet records.
 			//
+			$criteria = array( $current_info[ 'F' ] => $theParentIndex );
 			$records
 				= $this->mCollections[ $this->getCollectionName( $current_info[ 'W' ] ) ]
 					->matchAll( array( $current_info[ 'F' ] => $theParentIndex,
@@ -7480,7 +7490,7 @@ class SessionUpload extends SessionBatch
 						if( ! $this->setWorksheetProperties(
 								$reference,
 								$current[ 'C' ],
-								$record[ $current[ 'K' ] ] ) )
+								$record[ $current_info[ 'K' ] ] ) )
 							return FALSE;											//  ==>
 			
 					} // Has related worksheets.
@@ -7694,14 +7704,6 @@ class SessionUpload extends SessionBatch
 	 * Test validations
 	 *
 	 * This method will test validations.
-	 *
-	 * @param Transaction		   &$theTransaction		Transaction reference.
-	 * @param array				   &$theRecord			Data record.
-	 * @param string				$theWorksheet		Worksheet name.
-	 * @param int					$theRow				Row number.
-	 * @param array					$theFieldData		Field data.
-	 * @param Node					$theFieldNode		Field node or <tt>NULL</tt>.
-	 * @param Tag					$theFieldTag		Field tag or <tt>NULL</tt>.
 	 *
 	 * @access public
 	 */
@@ -8412,7 +8414,7 @@ class SessionUpload extends SessionBatch
 		//
 		// Update data.
 		//
-		$record = array( 'SYMBOL' => 'Polygon=12.8199,42.8422;12.8207,42.8158;12.8699,42.8166;12.8678,42.8398;12.8199,42.8422:12.8344,42.8347;12.8348,42.8225;12.857,42.8223;12.8566,42.8332;12.8344,42.8347' );
+		$record = array( 'SYMBOL' => 'Polygon=12.8199,42.8422;12.8207,42.8158;12.8699,42.8166;12.8678,42.8398:12.8344,42.8347;12.8348,42.8225;12.857,42.8223;12.8566,42.8332' );
 		//
 		// Test validateShape.
 		//

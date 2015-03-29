@@ -1,0 +1,2236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	POPULATION TEMPLATE SCHEMA
+	SchemaPopulation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- schema::template:population -->
+	<META>
+		<TERM ns=":template" lid="schema:population">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Population template schema</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":template:schema:population"
+			  pid="schema::template:population">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+				<item>:type:node:template</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all template properties of in-situ populations.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- template::population:POPULATION_RECDATE -->
+	<META>
+		<NODE tag="cwr:population:RECDATE"
+			  pid="template::population:POPULATION_RECDATE">
+			<item const="kTAG_ID_SYMBOL">POPULATION_RECDATE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Population recording date]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date on which the population was recorded in the current in situ Inventory, as YYYYMMDD. Missing data (MM or DD) should be omitted. Leading zeros are required and at least the year should be provided.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:POPULATION_MONITORED -->
+	<META>
+		<NODE tag="cwr:population:MONIT"
+			  pid="template::population:POPULATION_MONITORED">
+			<item const="kTAG_ID_SYMBOL">POPULATION_MONITORED</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>cwr:population:MONIT:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Population monitoring]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Whether any monitoring of the population is foreseen across years.
+
+0. No
+1. Yes]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:POPULATION_MONITOR -->
+	<META>
+		<NODE tag="cwr:population:MONITRESP"
+			  pid="template::population:POPULATION_MONITOR">
+			<item const="kTAG_ID_SYMBOL">POPULATION_MONITOR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Monitoring author or compiler]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To be compiled if POPULATION_MONITORED is ‘Yes’. Indicate who is in charge of monitoring. Free text.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:POPULATION_MONITORING_INTERVAL -->
+	<META>
+		<NODE tag="cwr:population:MONINT"
+			  pid="template::population:POPULATION_MONITORING_INTERVAL">
+			<item const="kTAG_ID_SYMBOL">POPULATION_MONITORING_INTERVAL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Monitoring interval in years]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To be compiled if POPULATION_MONITORED is ‘Yes’. Indicate the monitoring interval in years.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:TAXONNAMES -->
+	<META>
+		<NODE tag=":taxon:names"
+			  pid="template::population:TAXONNAMES">
+			<item const="kTAG_ID_SYMBOL">TAXONNAMES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;@,</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Common taxon names]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the names of the taxon in colloquial language. Each element is comprised by the language in which the name(s) are expressed and the list of names. The language should be expressed as an ISO 639-2 code. Each element is separated by a semicolon (;) without space. The language is separated by the list of names by the (@) character and each name should be separated by a comma. If you do not know the language of the names, you can omit the language code along with the (@) character.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:POPULATION_AREA -->
+	<META>
+		<NODE tag="cwr:population:AREA"
+			  pid="template::population:POPULATION_AREA">
+			<item const="kTAG_ID_SYMBOL">POPULATION_AREA</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Population area]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Approximate area occupied by the population in square Km. [km2].]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:TOTAL_INDIVIDUALS -->
+	<META>
+		<NODE tag="cwr:population:INDIVNUMB"
+			  pid="template::population:TOTAL_INDIVIDUALS">
+			<item const="kTAG_ID_SYMBOL">TOTAL_INDIVIDUALS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Number of individuals]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Total number of individuals in the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:TOTAL_MATURE -->
+	<META>
+		<NODE tag="cwr:population:MATURENUMB"
+			  pid="template::population:TOTAL_MATURE">
+			<item const="kTAG_ID_SYMBOL">TOTAL_MATURE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Number of mature individuals]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Total number of individuals known, estimated or inferred to be capable of reproduction.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:TOTAL_JUVENILE -->
+	<META>
+		<NODE tag="cwr:population:JUVENNUMB"
+			  pid="template::population:TOTAL_JUVENILE">
+			<item const="kTAG_ID_SYMBOL">TOTAL_JUVENILE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Number of juvenile individuals]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Total number of individuals known, estimated or inferred not yet capable of reproduction.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SEEDLINGS -->
+	<META>
+		<NODE tag="cwr:population:SEEDLINGSTATUS"
+			  pid="template::population:SEEDLINGS">
+			<item const="kTAG_ID_SYMBOL">SEEDLINGS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>cwr:population:SEEDLINGSTATUS:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxon seedlings in population]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Presence or absence of seedlings of the taxon in the population.
+
+0. Absent
+1. Rare
+2. Occasional
+3. Frequent
+4. Common
+5. Abundant"]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:POPULATION_DENSITY -->
+	<META>
+		<NODE tag="cwr:population:POPDENSI"
+			  pid="template::population:POPULATION_DENSITY">
+			<item const="kTAG_ID_SYMBOL">POPULATION_DENSITY</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Population density]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Estimation of the number of individuals per unit area.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:FOLIAGE_COVER_RANK -->
+	<META>
+		<NODE tag="cwr:population:RANKFOLCOVER"
+			  pid="template::population:FOLIAGE_COVER_RANK">
+			<item const="kTAG_ID_SYMBOL">FOLIAGE_COVER_RANK</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Foliage cover]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Estimation of the proportion of ground occupied by the perpendicular projection on the ground of the aerial parts of the population, provide proportion [%] or ranking of foliage cover.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:FOLIAGE_COVER_SCALE -->
+	<META>
+		<NODE tag="cwr:population:RAKSCALE"
+			  pid="template::population:FOLIAGE_COVER_SCALE">
+			<item const="kTAG_ID_SYMBOL">FOLIAGE_COVER_SCALE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Foliage cover ranking scale]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Name of the foliage ranking scale, if any, used to estimate the foliage cover.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Domin</item>
+				<item>Brown-Blanquet</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+		
+	<!-- template::population:IUCN_THREAT -->
+	<META>
+		<NODE tag="iucn:threat"
+			  pid="template::population:IUCN_THREAT">
+			<item const="kTAG_ID_SYMBOL">IUCN_THREAT</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iucn:threat:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the IUCN Red List Threat Category (IUCN Threats Classification Scheme: http://www.iucnredlist.org/technical-documents/classification-schemes/threats-classification-scheme).]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: 2.1.1 = Shifting agriculture</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:THREAT_PERIOD -->
+	<META>
+		<NODE tag=":taxon:threat:period"
+			  pid="template::population:THREAT_PERIOD">
+			<item const="kTAG_ID_SYMBOL">THREAT_PERIOD</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:threat:period:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the threat period of occurrence:
+1: Past
+2: Present
+3: Future]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: 2;3</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SAFETY_DUPLICATES -->
+	<META>
+		<NODE tag="cwr:population:EXSECURE"
+			  pid="template::population:SAFETY_DUPLICATES">
+			<item const="kTAG_ID_SYMBOL">SAFETY_DUPLICATES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>cwr:population:EXSECURE:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Safety duplication ex-situ]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[State if a sample was collected for safety duplication in genebank.
+
+0. No
+1. Yes]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:region -->
+	<META>
+		<NODE tag=":location:region"
+			  pid="template::population:region">
+			<item const="kTAG_ID_SYMBOL">REGION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site region]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the name of the site region if the administrative unit is not available.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SITE_COUNTRY -->
+	<META>
+		<NODE tag=":location:country"
+			  pid="template::population:SITE_COUNTRY">
+			<item const="kTAG_ID_SYMBOL">SITE_COUNTRY</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iso:3166:1:alpha-3:</item>
+						<item>iso:3166:3:alpha-3:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site country]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the ISO code of the site country, use the three-letter ISO code (Standard ISO 3166-1).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SITE_ADMIN_UNIT -->
+	<META>
+		<NODE tag=":location:admin"
+			  pid="template::population:SITE_ADMIN_UNIT">
+			<item const="kTAG_ID_SYMBOL">SITE_ADMIN_UNIT</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iso:3166:1:alpha-3:</item>
+						<item>iso:3166:3:alpha-3:</item>
+						<item>iso:3166:2:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site administrative unit]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the geographical administrative unit related to the population site this may be a country or a country subdivision. For country codes use the three-letter ISO 3166-1 Alpha-3 code; for region codes use the ISO 3166-2 codes (see: http://en.wikipedia.org/wiki/ISO_3166-1).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:ADMIN_1 -->
+	<META>
+		<NODE tag=":location:admin-1"
+			  pid="template::population:ADMIN_1">
+			<item const="kTAG_ID_SYMBOL">ADMIN_1</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site primary administrative unit]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Name of the primary administrative subdivision of the location's country.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:ADMIN_2 -->
+	<META>
+		<NODE tag=":location:admin-2"
+			  pid="template::population:ADMIN_2">
+			<item const="kTAG_ID_SYMBOL">ADMIN_2</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site secondary administrative unit]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Name of the secondary administrative subdivision of the location's primary administrative unit.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:ADMIN_3 -->
+	<META>
+		<NODE tag=":location:admin-3"
+			  pid="template::population:ADMIN_3">
+			<item const="kTAG_ID_SYMBOL">ADMIN_3</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site tertiary administrative unit]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Name of the lowest administrative subdivision of the location, or its local name.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LOCALITY -->
+	<META>
+		<NODE tag=":location:locality"
+			  pid="template::population:LOCALITY">
+			<item const="kTAG_ID_SYMBOL">LOCALITY</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site locality]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Description or name of the locality.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:NEAR_PLACE -->
+	<META>
+		<NODE tag=":location:near-place"
+			  pid="template::population:NEAR_PLACE">
+			<item const="kTAG_ID_SYMBOL">NEAR_PLACE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site nearest named place]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Name of nearest place to site. This also refers to places that may not have proper names (i.e. road junctions).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:NEAR_DISTANCE -->
+	<META>
+		<NODE tag=":location:near-dist"
+			  pid="template::population:NEAR_DISTANCE">
+			<item const="kTAG_ID_SYMBOL">NEAR_DISTANCE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Distance from nearest named place]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Distance from nearest named place to site in meters.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:NEAR_DIRECTION -->
+	<META>
+		<NODE tag=":location:near-dir"
+			  pid="template::population:NEAR_DIRECTION">
+			<item const="kTAG_ID_SYMBOL">NEAR_DIRECTION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Direction from nearest named place]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Direction of site from nearest named place in degrees relative to North.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SITE_MONITORED -->
+	<META>
+		<NODE tag=":location:site:monitored"
+			  pid="template::population:SITE_MONITORED">
+			<item const="kTAG_ID_SYMBOL">SITE_MONITORED</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:monitored:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site monitoring]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Whether any monitoring of the in situ CWR is foreseen across years.
+
+0. Site not monitored
+1. Site monitored]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SITE_MONITOR -->
+	<META>
+		<NODE tag=":location:site:monitor"
+			  pid="template::population:SITE_MONITOR">
+			<item const="kTAG_ID_SYMBOL">SITE_MONITOR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site monitor or compiler]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Name of person or entity in charge of the monitoring.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SITE_MONITORING_INTERVAL -->
+	<META>
+		<NODE tag=":location:site:monitor:interval"
+			  pid="template::population:SITE_MONITORING_INTERVAL">
+			<item const="kTAG_ID_SYMBOL">SITE_MONITORING_INTERVAL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site monitoring interval]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the monitoring interval in years.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:ELEVATION_MIN -->
+	<META>
+		<NODE tag=":location:site:elevation:min"
+			  pid="template::population:ELEVATION_MIN">
+			<item const="kTAG_ID_SYMBOL">ELEVATION_MIN</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site minimum elevation]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the site minimum elevation in meters above sea level.
+
+If you have only the mean elevation, set it in both as minimum and maximum.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:ELEVATION_MAX -->
+	<META>
+		<NODE tag=":location:site:elevation:max"
+			  pid="template::population:ELEVATION_MAX">
+			<item const="kTAG_ID_SYMBOL">ELEVATION_MAX</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site maximum elevation]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the site maximum elevation in meters above sea level.
+
+If you have only the mean elevation, set it in both as minimum and maximum.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LON_DEGREES -->
+	<META>
+		<NODE tag=":location:site:longitude:deg"
+			  pid="template::population:LON_DEGREES">
+			<item const="kTAG_ID_SYMBOL">LON_DEGREES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site location longitude degrees (DMS)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the site longitude degrees part of the longitude degrees, minutes and seconds coordinate (not decimal degrees).
+
+Provide a number ranging from 0 to 180.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LON_MINUTES -->
+	<META>
+		<NODE tag=":location:site:longitude:min"
+			  pid="template::population:LON_MINUTES">
+			<item const="kTAG_ID_SYMBOL">LON_MINUTES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site location longitude minutes (DMS)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the site longitude minutes part of the longitude degrees, minutes and seconds coordinate (not decimal minutes.
+
+Provide a number from 0 to 60.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LON_SECONDS -->
+	<META>
+		<NODE tag=":location:site:longitude:sec"
+			  pid="template::population:LON_SECONDS">
+			<item const="kTAG_ID_SYMBOL">LON_SECONDS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site location longitude seconds (DMS)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the site longitude seconds part of the longitude degrees, minutes and seconds coordinate, a decimal number is also accepted.
+
+Provide a number from 0 to 60.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LON_HEMISPHERE -->
+	<META>
+		<NODE tag=":location:site:longitude:hem"
+			  pid="template::population:LON_HEMISPHERE">
+			<item const="kTAG_ID_SYMBOL">LON_HEMISPHERE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site location longitude hemisphere (DMS)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the longitude hemisphere (E/W).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LAT_DEGREES -->
+	<META>
+		<NODE tag=":location:site:latitude:deg"
+			  pid="template::population:LAT_DEGREES">
+			<item const="kTAG_ID_SYMBOL">LAT_DEGREES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site location latitude degrees (DMS)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the site latitude degrees part of the latitude degrees, minutes and seconds coordinate (not decimal degrees).
+
+Provide a number ranging from 0 to 90.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LAT_MINUTES -->
+	<META>
+		<NODE tag=":location:site:latitude:min"
+			  pid="template::population:LAT_MINUTES">
+			<item const="kTAG_ID_SYMBOL">LAT_MINUTES</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site location latitude minutes (DMS)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the site latitude minutes part of the latitude degrees, minutes and seconds coordinate (not decimal minutes.
+
+Provide a number from 0 to 60.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LAT_SECONDS -->
+	<META>
+		<NODE tag=":location:site:latitude:sec"
+			  pid="template::population:LAT_SECONDS">
+			<item const="kTAG_ID_SYMBOL">LAT_SECONDS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site location latitude seconds (DMS)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the site latitude seconds part of the latitude degrees, minutes and seconds coordinate, a decimal number is also accepted.
+
+Provide a number from 0 to 60.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LAT_HEMISPHERE -->
+	<META>
+		<NODE tag=":location:site:latitude:hem"
+			  pid="template::population:LAT_HEMISPHERE">
+			<item const="kTAG_ID_SYMBOL">LAT_HEMISPHERE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site location latitude hemisphere (DMS)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the latitude hemisphere (N/S).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:DATUM -->
+	<META>
+		<NODE tag=":location:site:datum:name"
+			  pid="template::population:DATUM">
+			<item const="kTAG_ID_SYMBOL">DATUM</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site datum]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the geodetic datum used to determine the coordinates of the site.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:GEOMETRY -->
+	<META>
+		<NODE tag=":shape"
+			  pid="template::population:GEOMETRY">
+			<item const="kTAG_ID_SYMBOL">GEOMETRY</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site geometry]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the site shape geometry, the following formats and geometries are supported:
+
+Point:
+A point is provided in the following format:
+Point=lon,lat
+Where lon stands for the decimal longitude and lat for the decimal latitude.
+
+Polygon:
+You may also provide the site polygon in the fllowing format:
+Polygon=lon,lat;lon,lat;...lon,lat
+Where lon stands for the decimal longitude and lat for the decimal latitude. Coordinates are separated by a comma, as for the point, and points are separated by a semicolon.
+If you want to provide also rings or holes in the shape, you can provide additional sets of points separated by a colon, the first set of points represents the outer ring, the other set of points the holes.
+Polygon=lon,lat;lon,lat;lon,lat;lon,lat:lon,lat;lon,lat;lon,lat]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:GEOREFERENCING_METHOD -->
+	<META>
+		<NODE tag=":location:site:georeference-method"
+			  pid="template::population:GEOREFERENCING_METHOD">
+			<item const="kTAG_ID_SYMBOL">GEOREFERENCING_METHOD</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:georeference-method:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site georeference method]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Method used to obtain coordinates:
+
+10. GPS device
+20. Map
+30. Digital gazetteer
+40. Georeferencing tool
+99. Other]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:GEOREFERENCING_ERROR -->
+	<META>
+		<NODE tag=":location:site:error"
+			  pid="template::population:GEOREFERENCING_ERROR">
+			<item const="kTAG_ID_SYMBOL">GEOREFERENCING_ERROR</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site maximum error distance]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The upper limit of the distance (in meters) from the given latitude and longitude describing a circle within which the whole of the described locality must lie (Radius). This is relevant only if you provided a point in the SITE_GEOMETRY field which was not obtained with a GPS.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LAND_USE_FAO -->
+	<META>
+		<NODE tag="fao:landuse"
+			  pid="template::population:LAND_USE_FAO">
+			<item const="kTAG_ID_SYMBOL">LAND_USE_FAO</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>fao:landuse:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site land use (FAO)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information about the usage of the land, FAO standard. Multiples values are allowed separated by a semicolon.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LAND_USE_CORINE -->
+	<META>
+		<NODE tag="eec:CORINE"
+			  pid="template::population:LAND_USE_CORINE">
+			<item const="kTAG_ID_SYMBOL">LAND_USE_CORINE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>eec:CORINE:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site land use (EEC)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information about the usage of the land, EEC CORINE standard. Multiples values are allowed separated by a semicolon.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:HABITAT_TYPE_EUNIS -->
+	<META>
+		<NODE tag="eec:EUNIS"
+			  pid="template::population:HABITAT_TYPE_EUNIS">
+			<item const="kTAG_ID_SYMBOL">HABITAT_TYPE_EUNIS</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>eec:EUNIS:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site habitat type (EUNIS)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[EUNIS Habitat types classification is a pan-European of criteria for habitat identification. The EUNIS classification is limited to level 3 in its hierarchy (level 4 for Marine habitat types), here is only presented the first level.  From the below source you have access to the other details of the classification. (Source:http://eunis.eea.europa.eu/habitats-code-browser.jsp?expand=A,B,C,D,E,F,G,H,I,J,X#level_X ) follows, EUNIS habitat classification 200711.
+
+A : Marine habitats
+B : Coastal habitats
+C : Inland surface waters
+D : Mires, bogs and fens
+E : Grasslands and lands dominated by forbs, mosses or lichens
+F : Heathland, scrub and tundra
+G : Woodland, forest and other wooded land
+H : Inland unvegetated or sparsely vegetated habitats
+I : Regularly or recently cultivated agricultural, horticultural and domestic habitats
+J : Constructed, industrial and other artificial habitats
+X : Habitat complexes]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:HABITAT_TYPE_IUCN -->
+	<META>
+		<NODE tag="iucn:habitat"
+			  pid="template::population:HABITAT_TYPE_IUCN">
+			<item const="kTAG_ID_SYMBOL">HABITAT_TYPE_IUCN</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iucn:habitat:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site habitat type (IUCN)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Only the main categories for the population habitat type are listed here. It is recommended to provide the appropriate sub-categories from the IUCN habitat type full list provided at http://intranet.iucn.org/webfiles/doc/SSC/RedList/AuthorityF/habitats.rtf. Multiple values are allowed. If more than one category is applicable to a particular area, binary scale (Yes/No) can be assigned to each descriptor state. IUCN numbering is used.
+
+1 Forest
+2 Savanna
+3 Shrubland
+4 Grassland
+5 Wetlands (inland)
+6 Rocky areas [e.g. inland cliffs, mountain peaks]
+7 Caves and Subterranean Habitats (non-aquatic)
+8 Desert
+9 Sea
+10 Coastline
+11 Artificial – Terrestrial
+12 Artificial – Aquatic
+13 Introduced Vegetation
+14 Other (specify in the ""Remarks"" field)
+15 Unknown]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:HABITAT_SCORE_IUCN -->
+	<META>
+		<NODE tag="iucn:habitat-score"
+			  pid="template::population:HABITAT_SCORE_IUCN">
+			<item const="kTAG_ID_SYMBOL">HABITAT_SCORE_IUCN</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iucn:habitat-score:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site habitat scoring (IUCN)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the appropriate score for the selected IUCN habitat type.
+
+1 Suitable  (main or preferred habitat/s, habitat/s containing major subpopulations, habitat/s with high population densities)
+2  Moderately suitable  (secondary habitat/s, habitat/s containing minor subpopulations, habitat/s with low population densities)
+3 Unsuitable   (unsuitability expressly known or easily inferred from the ecology of the taxon)
+9 Undefined   (data deficient, possibly suitable or moderately suitable as inferred from ecology of the taxon).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:NATIONAL_HABITAT_CODE -->
+	<META>
+		<NODE tag=":location:site:unit-code"
+			  pid="template::population:NATIONAL_HABITAT_CODE">
+			<item const="kTAG_ID_SYMBOL">NATIONAL_HABITAT_CODE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site national habitat unit code]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National unit code.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:NATIONAL_HABITAT_DESCRIPTION -->
+	<META>
+		<NODE tag=":location:site:unit-descr"
+			  pid="template::population:NATIONAL_HABITAT_DESCRIPTION">
+			<item const="kTAG_ID_SYMBOL">NATIONAL_HABITAT_DESCRIPTION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site national habitat unit description]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Description of unit.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Permanent mesotrophic pastures and aftermath-grazed meadows</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:NATIONAL_HABITAT_FILE -->
+	<META>
+		<NODE tag=":location:site:unit-file"
+			  pid="template::population:NATIONAL_HABITAT_FILE">
+			<item const="kTAG_ID_SYMBOL">NATIONAL_HABITAT_FILE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site national habitat authority file]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Authority file to which the habitat refers.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:NATIONAL_HABITAT_FILE_VERSION -->
+	<META>
+		<NODE tag=":location:site:unit-file-vers"
+			  pid="template::population:NATIONAL_HABITAT_FILE_VERSION">
+			<item const="kTAG_ID_SYMBOL">NATIONAL_HABITAT_FILE_VERSION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site national habitat authority file version]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Version of authority file used.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SITE_PROTECTED -->
+	<META>
+		<NODE tag=":location:site:protected"
+			  pid="template::population:SITE_PROTECTED">
+			<item const="kTAG_ID_SYMBOL">SITE_PROTECTED</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:protected:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site protection]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[0. Not protected, no conservation measures
+1. Protected area
+99. Other conserved area, not protected by legislation]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:WDPA_CODE -->
+	<META>
+		<NODE tag=":location:site:WDPA"
+			  pid="template::population:WDPA_CODE">
+			<item const="kTAG_ID_SYMBOL">WDPA_CODE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site code for protected area]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the WDPA unique site code. Site code is available from the World database of protected areas (WDPA) (http://www.wdpa.org/).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LEGISLATION_TYPE -->
+	<META>
+		<NODE tag=":location:site:legislation"
+			  pid="template::population:LEGISLATION_TYPE">
+			<item const="kTAG_ID_SYMBOL">LEGISLATION_TYPE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:legislation:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site legislation]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the level of site protection:
+
+1. International
+2. National]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:OWNERSHIP -->
+	<META>
+		<NODE tag=":location:site:ownership"
+			  pid="template::population:OWNERSHIP">
+			<item const="kTAG_ID_SYMBOL">OWNERSHIP</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:ownership:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site ownership]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[1 Private
+2 Public
+3 Government
+99. Other]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LAND_ELEMENT -->
+	<META>
+		<NODE tag=":location:site:position"
+			  pid="template::population:LAND_ELEMENT">
+			<item const="kTAG_ID_SYMBOL">LAND_ELEMENT</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:position:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site land element and position]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Description of the geomorphology of the immediate surroundings of the collecting site (adapted from FAO, 1990). 
+1 Plain level 16 Longitudinal dune
+2 Escarpment 17 Interdunal depression
+3 Interfluve  18 Mangrove
+4 Valley  19 Upper slope
+5 Valley floor 20 Midslope
+6 Channel  21 Lower slope
+7 Levee  22 Ridge
+8 Terrace 23 Beach
+9 Floodplain 24 Beachridge
+10 Lagoon 25 Rounded summit
+11 Pan 26 Summit
+12 Caldera 27 Coral atoll
+13 Open depression 28 Drainage line (bottom position in flat or almost-flat terrain)
+14 Closed depression 29 Coral reef 
+15 Dune 99 Other (specify in appropriate section’s Remarks)]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:LAND_SLOPE -->
+	<META>
+		<NODE tag=":location:site:slope"
+			  pid="template::population:LAND_SLOPE">
+			<item const="kTAG_ID_SYMBOL">LAND_SLOPE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site slope]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Estimated slope of the site in degrees.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SLOPE_ASPECT -->
+	<META>
+		<NODE tag=":location:site:slope:aspect"
+			  pid="template::population:SLOPE_ASPECT">
+			<item const="kTAG_ID_SYMBOL">SLOPE_ASPECT</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site slope aspect]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The direction that the slope faces. Describe the direction with symbols N, S, E, W (e.g. a slope that faces a south-western direction has an aspect of SW).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SOIL_TEXTURE -->
+	<META>
+		<NODE tag=":location:site:texture"
+			  pid="template::population:SOIL_TEXTURE">
+			<item const="kTAG_ID_SYMBOL">SOIL_TEXTURE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:texture:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site soil texture class]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[For convenience in determining the texture classes of the following list, particle size classes are given for each of the fine earth fraction listed below. (Adapted from FAO 1990):
+
+1 Clay 12 Coarse sandy loam
+2 Loam 13 Loamy sand
+3 Clay loam 14 Loamy very fine sand
+4 Silt 15 Loamy fine sand
+5 Silty clay 16 Loamy coarse sand
+6 Silty clay loam 17 Very fine sand
+7 Silt loam 18 Fine sand
+8 Sandy clay 19 Medium sand
+9 Sandy clay loam 20 Coarse sand
+10 Sandy loam 21 Sand, unsorted
+11 Fine sandy loam 22 Sand, unspecified]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SOIL_MOISTURE -->
+	<META>
+		<NODE tag=":location:site:moisture"
+			  pid="template::population:SOIL_MOISTURE">
+			<item const="kTAG_ID_SYMBOL">SOIL_MOISTURE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:moisture:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site soil moisture]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Moisture conditions prevailing in the soil should be given together with the depth. Attention should be paid to unusual moisture conditions caused by unseasonable weather, prolonged exposure of the profile, flooding, etc. (From FAO 1990):
+
+1 Dry
+5 Slightly moist
+7 Moist
+9 Wet]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SOIL_MOISTURE_DEPTH -->
+	<META>
+		<NODE tag=":location:site:moisture:depth"
+			  pid="template::population:SOIL_MOISTURE_DEPTH">
+			<item const="kTAG_ID_SYMBOL">SOIL_MOISTURE_DEPTH</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site soil moisture measurement depth]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Depth in centimetres at which soil moisture condition was recorded.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SOIL_PH -->
+	<META>
+		<NODE tag=":location:site:ph"
+			  pid="template::population:SOIL_PH">
+			<item const="kTAG_ID_SYMBOL">SOIL_PH</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:ph:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site soil acidity]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[1 Acid (<7)
+2 Neutral (7)
+3 Alkaline (>7)]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SOIL_PH_VALUE -->
+	<META>
+		<NODE tag=":location:site:ph:value"
+			  pid="template::population:SOIL_PH_VALUE">
+			<item const="kTAG_ID_SYMBOL">SOIL_PH_VALUE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site soil acidity value]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Actual measurement of soil acidity at related depth.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SOIL_PH_DEPTH -->
+	<META>
+		<NODE tag=":location:site:ph:depth"
+			  pid="template::population:SOIL_PH_DEPTH">
+			<item const="kTAG_ID_SYMBOL">SOIL_PH_DEPTH</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site soil acidity measurement depth]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Depth in centimetres at which soil acidity condition was recorded.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SOIL_SALINITY -->
+	<META>
+		<NODE tag=":location:site:salt"
+			  pid="template::population:SOIL_SALINITY">
+			<item const="kTAG_ID_SYMBOL">SOIL_SALINITY</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:location:site:salt:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site soil salinity]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[3. Low
+5. Intermediate
+7. High]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SOIL_SALINITY_VALUE -->
+	<META>
+		<NODE tag=":location:site:salt:value"
+			  pid="template::population:SOIL_SALINITY_VALUE">
+			<item const="kTAG_ID_SYMBOL">SOIL_SALINITY_VALUE</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site soil salinity value]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Actual measurement of soil salinity at related depth.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::population:SOIL_SALINITY_DEPTH -->
+	<META>
+		<NODE tag=":location:site:salt:depth"
+			  pid="template::population:SOIL_SALINITY_DEPTH">
+			<item const="kTAG_ID_SYMBOL">SOIL_SALINITY_DEPTH</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site soil salinity measurement depth]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Depth in centimetres at which soil salinity condition was recorded.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:population</item>
+		</EDGE>
+	</META>
+</METADATA>

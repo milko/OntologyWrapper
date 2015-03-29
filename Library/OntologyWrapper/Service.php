@@ -6323,7 +6323,7 @@ class Service extends ContainerObject
 			// Handle debug log.
 			//
 			if( kDEBUG_FLAG )
-				$log = "'".kPATH_BATCHES_ROOT."/log/$session_id.batch'";
+				$log = "'".kPATH_BATCHES_ROOT."/log/$session_id.txt'";
 			else
 				$log = '/dev/null';
 		
@@ -6446,7 +6446,7 @@ class Service extends ContainerObject
 			// Handle debug log.
 			//
 			if( kDEBUG_FLAG )
-				$log = "'".kPATH_BATCHES_ROOT."/log/$session_id.batch'";
+				$log = "'".kPATH_BATCHES_ROOT."/log/$session_id.txt'";
 			else
 				$log = '/dev/null';
 		

@@ -183,7 +183,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Safety duplicats]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Safety duplicates]]></item>
 				</item>
 			</item>
 		</TERM>

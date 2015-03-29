@@ -92,6 +92,67 @@
 		</EDGE>
 	</META>
 		
+	<!-- template::threat:country -->
+	<META>
+		<NODE tag=":location:country"
+			  pid="template::threat:country">
+			<item const="kTAG_ID_SYMBOL">ASSESSMENT_COUNTRY</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iso:3166:1:alpha-3:</item>
+						<item>iso:3166:3:alpha-3:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the ISO code of the country of assessment if level is 3 (= national). Use the three-letter ISO code (Standard ISO 3166-1).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:admin -->
+	<META>
+		<NODE tag=":location:admin"
+			  pid="template::threat:admin">
+			<item const="kTAG_ID_SYMBOL">ASSESSMENT_ADMIN</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iso:3166:1:alpha-3:</item>
+						<item>iso:3166:3:alpha-3:</item>
+						<item>iso:3166:2:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provide the geographical administrative unit related to the assessment this may be a country or a country subdivision. For country codes use the three-letter ISO 3166-1 Alpha-3 code; for region codes use the ISO 3166-2 codes (see: http://en.wikipedia.org/wiki/ISO_3166-1).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
 	<!-- template::threat:iucn:category -->
 	<META>
 		<NODE tag="iucn:category"
@@ -102,6 +163,13 @@
 				<item>:kind:property-node</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iucn:category:</item>
+					</item>
+				</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -123,13 +191,6 @@ LR/lc: Lower risk: least concern]]></item>
 			<item const="kTAG_EXAMPLE">
 				<item>Example: EN</item>
 			</item>
-			<item const="kTAG_TRANSFORM">
-				<item>
-					<item const="kTAG_PREFIX">
-						<item>iucn:category:</item>
-					</item>
-				</item>
-			</item>
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -147,6 +208,13 @@ LR/lc: Lower risk: least concern]]></item>
 				<item>:kind:property-node</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iucn:criteria:</item>
+					</item>
+				</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -160,13 +228,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			</item>
 			<item const="kTAG_EXAMPLE">
 				<item>Example: A</item>
-			</item>
-			<item const="kTAG_TRANSFORM">
-				<item>
-					<item const="kTAG_PREFIX">
-						<item>iucn:criteria:</item>
-					</item>
-				</item>
 			</item>
 		</NODE>
 		<EDGE>
@@ -229,6 +290,13 @@ E: Quantitative analysis of extinction risk]]></item>
 				<item>:kind:property-node</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>iucn:threat:</item>
+					</item>
+				</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -237,13 +305,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			</item>
 			<item const="kTAG_EXAMPLE">
 				<item>Example: 2.1.1 = Shifting agriculture</item>
-			</item>
-			<item const="kTAG_TRANSFORM">
-				<item>
-					<item const="kTAG_PREFIX">
-						<item>iucn:threat:</item>
-					</item>
-				</item>
 			</item>
 		</NODE>
 		<EDGE>
@@ -262,6 +323,13 @@ E: Quantitative analysis of extinction risk]]></item>
 				<item>:kind:property-node</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:threat:period:</item>
+					</item>
+				</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -273,13 +341,6 @@ E: Quantitative analysis of extinction risk]]></item>
 			</item>
 			<item const="kTAG_EXAMPLE">
 				<item>Example: 2</item>
-			</item>
-			<item const="kTAG_TRANSFORM">
-				<item>
-					<item const="kTAG_PREFIX">
-						<item>:taxon:threat:period:</item>
-					</item>
-				</item>
 			</item>
 		</NODE>
 		<EDGE>
@@ -365,6 +426,13 @@ E: Quantitative analysis of extinction risk]]></item>
 				<item>:kind:property-node</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>natserve:threat:</item>
+					</item>
+				</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -379,13 +447,6 @@ G5: Apparently secure and globally secure]]></item>
 			</item>
 			<item const="kTAG_EXAMPLE">
 				<item>Example: G3</item>
-			</item>
-			<item const="kTAG_TRANSFORM">
-				<item>
-					<item const="kTAG_PREFIX">
-						<item>natserve:threat:</item>
-					</item>
-				</item>
 			</item>
 		</NODE>
 		<EDGE>
@@ -517,6 +578,13 @@ G5: Apparently secure and globally secure]]></item>
 				<item>:type:mandatory</item>
 			</item>
 			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:occurrence-status:</item>
+					</item>
+				</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -537,12 +605,44 @@ G5: Apparently secure and globally secure]]></item>
 			<item const="kTAG_EXAMPLE">
 				<item>Example: 120</item>
 			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:threat</item>
+		</EDGE>
+	</META>
+		
+	<!-- template::threat:SAMPSTAT -->
+	<META>
+		<NODE tag="mcpd:SAMPSTAT"
+			  pid="template::threat:SAMPSTAT">
+			<item const="kTAG_ID_SYMBOL">SAMPSTAT</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_TRANSFORM">
 				<item>
 					<item const="kTAG_PREFIX">
-						<item>:taxon:occurrence-status:</item>
+						<item>mcpd:SAMPSTAT:</item>
 					</item>
 				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Biological status of the threatened species.
+
+100. Wild
+  110.  Natural
+  120. Semi-natural
+  130. Natural/sown
+200. Weedy
+300. Traditional cultivar / Landrace]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Example: 120</item>
 			</item>
 		</NODE>
 		<EDGE>

@@ -660,7 +660,216 @@
 			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
 		</EDGE>
 	</META>
-		
+				
+	<!-- template::taxonomy:taxon:repsystem -->
+	<META>
+		<NODE tag=":taxon:repsystem"
+			  pid="template::taxonomy:taxon:repsystem">
+			<item const="kTAG_ID_SYMBOL">REPSYSTEM</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:repsystem:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the reproductive system of the species. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+				
+	<!-- template::taxonomy:taxon:bredsystem -->
+	<META>
+		<NODE tag=":taxon:bredsystem"
+			  pid="template::taxonomy:taxon:bredsystem">
+			<item const="kTAG_ID_SYMBOL">BREDSYSTEM</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:bredsystem:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the breeding system of the species. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+				
+	<!-- template::taxonomy:taxon:sexstructure -->
+	<META>
+		<NODE tag=":taxon:sexstructure"
+			  pid="template::taxonomy:taxon:sexstructure">
+			<item const="kTAG_ID_SYMBOL">SEXSTRUCT</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:sexstructure:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the flower or plant sexual structure of the species. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+				
+	<!-- template::taxonomy:taxon:pollination -->
+	<META>
+		<NODE tag=":taxon:pollination"
+			  pid="template::taxonomy:taxon:pollination">
+			<item const="kTAG_ID_SYMBOL">POLLINATION</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:pollination:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the pollination method of the species. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+				
+	<!-- template::taxonomy:taxon:lifeform -->
+	<META>
+		<NODE tag=":taxon:lifeform"
+			  pid="template::taxonomy:taxon:lifeform">
+			<item const="kTAG_ID_SYMBOL">LIFEFORM</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:lifeform:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the life form of the species. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+				
+	<!-- template::taxonomy:taxon:lifespan -->
+	<META>
+		<NODE tag=":taxon:lifespan"
+			  pid="template::taxonomy:taxon:lifespan">
+			<item const="kTAG_ID_SYMBOL">LIFESPAN</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:lifespan:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the life span of the species.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+				
+	<!-- template::taxonomy:taxon:seed-dispersal -->
+	<META>
+		<NODE tag=":taxon:seed-dispersal"
+			  pid="template::taxonomy:taxon:seed-dispersal">
+			<item const="kTAG_ID_SYMBOL">SEEDDISPERSAL</item>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:template</item>
+				<item>:kind:property-node</item>
+			</item>
+			<item const="kTAG_TOKEN">;</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:seed-dispersal:</item>
+					</item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indicate the seed dispersal method of the species. Multiple values are allowed, separated with a semicolon without space.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::template:taxonomy</item>
+		</EDGE>
+	</META>
+
 	<!-- template::taxonomy:rel-crop:taxa -->
 	<META>
 		<NODE tag=":taxon:rel-crop:taxa"
@@ -693,6 +902,13 @@
 				<item>:type:node:template</item>
 				<item>:kind:property-node</item>
 			</item>
+			<item const="kTAG_TRANSFORM">
+				<item>
+					<item const="kTAG_PREFIX">
+						<item>:taxon:rel-crop:</item>
+					</item>
+				</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -706,13 +922,6 @@
 			</item>
 			<item const="kTAG_EXAMPLE">
 				<item>Example: 30</item>
-			</item>
-			<item const="kTAG_TRANSFORM">
-				<item>
-					<item const="kTAG_PREFIX">
-						<item>:taxon:rel-crop:</item>
-					</item>
-				</item>
 			</item>
 		</NODE>
 		<EDGE>
