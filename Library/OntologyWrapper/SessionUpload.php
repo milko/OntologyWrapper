@@ -1533,12 +1533,19 @@ class SessionUpload extends SessionBatch
 		$this->mIterator = new TemplateWorksheetsIterator( $this->mParser );
 		
 		//
+		// Set root node reference in session.
+		//
+		$this->session()->offsetSet(
+			kTAG_NODE,
+			$this->mParser->getRoot()->offsetGet( kTAG_NID ) );
+	
+		//
 		// Set class name in session.
 		//
 		$this->session()->offsetSet(
 			kTAG_CLASS_NAME,
 			$this->mParser->getRoot()->offsetGet( kTAG_CLASS_NAME ) );
-	
+		
 		//
 		// Close transaction.
 		//

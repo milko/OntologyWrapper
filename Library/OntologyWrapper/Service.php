@@ -287,6 +287,8 @@ class Service extends ContainerObject
 					case kAPI_OP_USER_SESSION:
 					case kAPI_OP_SESSION_PROGRESS:
 					case kAPI_OP_GROUP_TRANSACTIONS:
+					case kAPI_OP_GET_USER_FILES:
+					case kAPI_OP_SAVE_USER_FILE:
 					case kAPI_OP_PUT_DATA:
 					case kAPI_OP_GET_DATA:
 					case kAPI_OP_DEL_DATA:
@@ -532,6 +534,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 *	<li><tt>{@link kAPI_OP_GROUP_TRANSACTIONS}</tt>: Get log by worksheet.
+	 *	<li><tt>{@link kAPI_OP_GET_USER_FILES}</tt>: Get user files metadata.
+	 *	<li><tt>{@link kAPI_OP_SAVE_USER_FILE}</tt>: Get user file.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
 	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
 	 *	<li><tt>{@link kAPI_OP_DEL_DATA}</tt>: Delete data.
@@ -584,6 +588,8 @@ class Service extends ContainerObject
 			case kAPI_OP_USER_SESSION:
 			case kAPI_OP_SESSION_PROGRESS:
 			case kAPI_OP_GROUP_TRANSACTIONS:
+			case kAPI_OP_GET_USER_FILES:
+			case kAPI_OP_SAVE_USER_FILE:
 			case kAPI_OP_PUT_DATA:
 			case kAPI_OP_GET_DATA:
 			case kAPI_OP_DEL_DATA:
@@ -670,6 +676,8 @@ class Service extends ContainerObject
 				case kAPI_OP_USER_SESSION:
 				case kAPI_OP_SESSION_PROGRESS:
 				case kAPI_OP_GROUP_TRANSACTIONS:
+				case kAPI_OP_GET_USER_FILES:
+				case kAPI_OP_SAVE_USER_FILE:
 				case kAPI_OP_PUT_DATA:
 				case kAPI_OP_GET_DATA:
 				case kAPI_OP_DEL_DATA:
@@ -965,6 +973,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_USER_SESSION}</tt>: Get user session.
 	 *	<li><tt>{@link kAPI_OP_SESSION_PROGRESS}</tt>: Get session progress.
 	 *	<li><tt>{@link kAPI_OP_GROUP_TRANSACTIONS}</tt>: Get log by worksheet.
+	 *	<li><tt>{@link kAPI_OP_GET_USER_FILES}</tt>: Get user files metadata.
+	 *	<li><tt>{@link kAPI_OP_SAVE_USER_FILE}</tt>: Get user file.
 	 *	<li><tt>{@link kAPI_OP_PUT_DATA}</tt>: Put data.
 	 *	<li><tt>{@link kAPI_OP_GET_DATA}</tt>: Get data.
 	 *	<li><tt>{@link kAPI_OP_DEL_DATA}</tt>: Delete data.
@@ -1067,7 +1077,12 @@ class Service extends ContainerObject
 				break;
 				
 			case kAPI_OP_USER_SESSION:
+			case kAPI_OP_GET_USER_FILES:
 				$this->validateGetUserSession();
+				break;
+				
+			case kAPI_OP_SAVE_USER_FILE:
+				$this->validateSaveUserFile();
 				break;
 				
 			case kAPI_OP_SESSION_PROGRESS:
@@ -2737,6 +2752,79 @@ class Service extends ContainerObject
 				"Missing requestor." );											// !@! ==>
 		
 	} // validateGetUserSession.
+
+	 
+	/*===================================================================================
+	 *	validateSaveUserFile															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate save user file service.
+	 *
+	 * This method will call the validation process for the save user file service, the
+	 * method will ensure all required data is provided and that the submitter user has the
+	 * required permissions.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateSaveUserFile()
+	{
+		//
+		// Assert submitter.
+		//
+		if( $this->offsetExists( kAPI_REQUEST_USER ) )
+		{
+			//
+			// Check roles.
+			//
+			$user = $this->offsetGet( kAPI_REQUEST_USER );
+			$roles = $user->offsetGet( kTAG_ROLES );
+			if( $roles !== NULL )
+			{
+				//
+				// Check if he can submit templates.
+				//
+				if( in_array( kTYPE_ROLE_UPLOAD, $roles ) )
+				{
+					//
+					// Check session reference.
+					//
+					if( $this->offsetExists( kAPI_PARAM_ID ) )
+					{
+						//
+						// Normalise identifier.
+						//
+						$this->offsetSet(
+							kAPI_PARAM_ID,
+							FileObject::ResolveDatabase( $this->mWrapper, TRUE, TRUE )
+								->getObjectId( $this->offsetGet( kAPI_PARAM_ID ) ) );
+					}
+					
+					else
+						throw new \Exception(
+							"Missing file reference." );						// !@! ==>
+				
+				} // User can upload.
+		
+				else
+					throw new \Exception(
+						"Requestor cannot upload." );							// !@! ==>
+		
+			} // User has roles.
+		
+			else
+				throw new \Exception(
+					"Requestor has no roles." );								// !@! ==>
+		
+		} // Provided submitter.
+		
+		else
+			throw new \Exception(
+				"Missing requestor." );											// !@! ==>
+		
+	} // validateSaveUserFile.
 
 	 
 	/*===================================================================================
@@ -4547,6 +4635,14 @@ class Service extends ContainerObject
 				$this->executeGroupTransactions();
 				break;
 				
+			case kAPI_OP_GET_USER_FILES:
+				$this->executeGetUseFiles();
+				break;
+				
+			case kAPI_OP_SAVE_USER_FILE:
+				$this->executeSaveUserFile();
+				break;
+				
 			case kAPI_OP_PUT_DATA:
 				$this->executePutData();
 				break;
@@ -4691,6 +4787,8 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_USER_SESSION" ] = kAPI_OP_USER_SESSION;
 		$ref[ "kAPI_OP_SESSION_PROGRESS" ] = kAPI_OP_SESSION_PROGRESS;
 		$ref[ "kAPI_OP_GROUP_TRANSACTIONS" ] = kAPI_OP_GROUP_TRANSACTIONS;
+		$ref[ "kAPI_OP_GET_USER_FILES" ] = kAPI_OP_GET_USER_FILES;
+		$ref[ "kAPI_OP_SAVE_USER_FILE" ] = kAPI_OP_SAVE_USER_FILE;
 		$ref[ "kAPI_OP_PUT_DATA" ] = kAPI_OP_PUT_DATA;
 		$ref[ "kAPI_OP_GET_DATA" ] = kAPI_OP_GET_DATA;
 		$ref[ "kAPI_OP_DEL_DATA" ] = kAPI_OP_DEL_DATA;
@@ -6674,6 +6772,8 @@ class Service extends ContainerObject
 								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_FIELD,
 							  kTAG_TRANSACTION_VALUE
 								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_VALUE,
+							  kTAG_TAG
+								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TAG,
 							  kTAG_TRANSACTION_STATUS
 								  => '$'.kTAG_TRANSACTION_LOG.'.'.kTAG_TRANSACTION_STATUS,
 							  kTAG_TRANSACTION_MESSAGE
@@ -6755,16 +6855,16 @@ class Service extends ContainerObject
 			//
 			// Get results.
 			//
-// 			$result
-// 				= Transaction::ResolveCollection(
-// 					Transaction::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
-// 						->aggregate( $pipeline )
-// 							[ 'result' ];
 			$result
 				= Transaction::ResolveCollection(
 					Transaction::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
-						->connection()
-							->aggregateCursor( $pipeline, array( 'allowDiskUse' => TRUE ) );
+						->aggregate( $pipeline )
+							[ 'result' ];
+// 			$result
+// 				= Transaction::ResolveCollection(
+// 					Transaction::ResolveDatabase( $this->mWrapper, TRUE ), TRUE )
+// 						->connection()
+// 							->aggregateCursor( $pipeline, array( 'allowDiskUse' => TRUE ) );
 		
 			//
 			// Format records.
@@ -6787,6 +6887,128 @@ class Service extends ContainerObject
 						[ kAPI_STATUS_CRYPTED ] = TRUE;
 		
 	} // executeGroupTransactions.
+
+	 
+	/*===================================================================================
+	 *	executeGetUseFiles																*
+	 *==================================================================================*/
+
+	/**
+	 * Get user files metadata.
+	 *
+	 * The method will return the user files metadata records.
+	 *
+	 * @access protected
+	 */
+	protected function executeGetUseFiles()
+	{
+		//
+		// Init local storage.
+		//
+		$result = NULL;
+		$encoder = new Encoder();
+		$user = $this->offsetGet( kAPI_REQUEST_USER );
+		
+		//
+		// Select files.
+		//
+		$files
+			= FileObject::ResolveCollection(
+				FileObject::ResolveDatabase( $this->mWrapper, TRUE, TRUE ),
+				TRUE )
+					->matchAll( array( kTAG_USER => $user->offsetGet( kTAG_NID ) ),
+								kQUERY_OBJECT );
+		
+		//
+		// Iterate files.
+		//
+		foreach( $files as $file )
+			$result[] = $this->serialiseFileMetadata( $file );
+		
+		//
+		// Encrypt result.
+		//
+		$data = JsonEncode( $result );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $data );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+	} // executeGetUseFiles.
+
+	 
+	/*===================================================================================
+	 *	executeSaveUserFile																*
+	 *==================================================================================*/
+
+	/**
+	 * Save user files metadata.
+	 *
+	 * The method will save the user file.
+	 *
+	 * @access protected
+	 */
+	protected function executeSaveUserFile()
+	{
+		//
+		// Init local storage.
+		//
+		$result = NULL;
+		$encoder = new Encoder();
+		
+		//
+		// Select file.
+		//
+		$file
+			= FileObject::ResolveCollection(
+				FileObject::ResolveDatabase( $this->mWrapper, TRUE, TRUE ), TRUE )
+					->matchOne( array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) ),
+								kQUERY_OBJECT );
+		
+		//
+		// Handle found file.
+		//
+		if( $file !== NULL )
+		{
+			//
+			// Get path.
+			//
+			$path = ( $this->offsetExists( kAPI_PARAM_FILE_PATH ) )
+				  ? $this->offsetGet( kAPI_PARAM_FILE_PATH )
+				  : NULL;
+			
+			//
+			// Write file.
+			//
+			$file->writeFile( $path );
+			
+			//
+			// Set path.
+			//
+			$result = ( $path === NULL )
+					? $file[ kTAG_FILE_NAME ]
+					: $path;
+		
+		} // Found file.
+		
+		//
+		// Encrypt result.
+		//
+		$data = JsonEncode( $result );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+			= $encoder->encodeData( $data );
+
+		//
+		// Set encrypted state.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_CRYPTED ] = TRUE;
+		
+	} // executeSaveUserFile.
 
 	 
 	/*===================================================================================
@@ -11636,6 +11858,88 @@ $rs_units = & $rs_units[ 'result' ];
 		return $result;																// ==>
 		
 	} // serialiseTransactionLog.
+	
+	
+	/*===================================================================================
+	 *	serialiseFileMetadata															*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise file metadata.
+	 *
+	 * This method will return a serialised version of the provided file metadata object.
+	 *
+	 * @param FileObject			$theFileMetadata	File object.
+	 *
+	 * @access protected
+	 * @return array				The serialised result.
+	 */
+	protected function serialiseFileMetadata( FileObject $theFileMetadata )
+	{
+		//
+		// Init local storage.
+		//
+		$container = Array();
+		
+		//
+		// Set identifier.
+		//
+		$container[ kTAG_NID ]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => "Identifier",
+					 kAPI_PARAM_RESPONSE_FRMT_INFO => "File unique identifier.",
+					 kAPI_PARAM_RESPONSE_FRMT_VALUE
+					 	=> (string) $theFileMetadata[ kTAG_NID ] );
+		
+		//
+		// Set file name.
+		//
+		$container[ kTAG_FILE_NAME ]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => "Name",
+					 kAPI_PARAM_RESPONSE_FRMT_INFO => "File path.",
+					 kAPI_PARAM_RESPONSE_FRMT_VALUE
+					 	=> $theFileMetadata[ kTAG_FILE_NAME ] );
+		
+		//
+		// Set file size.
+		//
+		$container[ kTAG_FILE_LENGTH ]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => "Size",
+					 kAPI_PARAM_RESPONSE_FRMT_INFO => "File size in bytes.",
+					 kAPI_PARAM_RESPONSE_FRMT_VALUE
+					 	=> $theFileMetadata[ kTAG_FILE_LENGTH ] );
+		
+		//
+		// Set content type.
+		//
+		$container[ kTAG_FILE_MIME_TYPE ]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => "Type",
+					 kAPI_PARAM_RESPONSE_FRMT_INFO => "File content type.",
+					 kAPI_PARAM_RESPONSE_FRMT_VALUE
+					 	=> $theFileMetadata[ kTAG_FILE_MIME_TYPE ] );
+		
+		//
+		// Set upload date.
+		//
+		$container[ kTAG_FILE_UPLOAD_DATE ]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => "Upload date",
+					 kAPI_PARAM_RESPONSE_FRMT_INFO => "When the file was uploaded.",
+					 kAPI_PARAM_RESPONSE_FRMT_VALUE
+					 	=> FileObject::ResolveDatabase( $this->mWrapper, TRUE, TRUE )
+					 		->parseTimeStamp(
+					 			$theFileMetadata[ kTAG_FILE_UPLOAD_DATE ] ) );
+		
+		//
+		// Set md5.
+		//
+		$container[ kTAG_FILE_MD5 ]
+			= array( kAPI_PARAM_RESPONSE_FRMT_NAME => "Hash",
+					 kAPI_PARAM_RESPONSE_FRMT_INFO => "File hash.",
+					 kAPI_PARAM_RESPONSE_FRMT_VALUE
+					 	=> $theFileMetadata[ kTAG_FILE_MD5 ] );
+		
+		return $container;															// ==>
+		
+	} // serialiseFileMetadata.
 
 		
 

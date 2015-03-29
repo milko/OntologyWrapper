@@ -1726,7 +1726,7 @@ define( "kAPI_OP_SESSION_PROGRESS",				'getSessionProgress' );
 /**
  * Group transaction logs.
  *
- * This tag defines the froup transaction logs operation.
+ * This tag defines the group transaction logs operation.
  *
  * This operation expects the following parameters:
  *
@@ -1774,6 +1774,54 @@ define( "kAPI_OP_SESSION_PROGRESS",				'getSessionProgress' );
  * The service will return the results in the {@link kAPI_RESPONSE_RESULTS} parameter.
  */
 define( "kAPI_OP_GROUP_TRANSACTIONS",			'groupTransactions' );
+
+/**
+ * Get user files.
+ *
+ * This tag defines the get user files operation.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		the default language code.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user requesting the service, or the user
+ *		code/password combination as an array. If the user is not allowed to submit
+ *		templates, the service will return an error.
+ * </ul>
+ *
+ * The service will return the results in the {@link kAPI_RESPONSE_RESULTS} parameter, these
+ * will be comprised of the files metadata records.
+ */
+define( "kAPI_OP_GET_USER_FILES",				'getUserFiles' );
+
+/**
+ * Save user file.
+ *
+ * This tag defines the save user file operation.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		the default language code.
+ *	<li><tt>{@link kAPI_REQUEST_USER}</tt>: <em>User</em>. The identifier,
+ *		{@link kTAG_IDENTIFIER}, of the user requesting the service, or the user
+ *		code/password combination as an array. If the user is not allowed to submit
+ *		templates, the service will return an error.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>File ID</em>. This required parameter
+ *		holds the file identifier we are probing.
+ *	<li><tt>{@link kAPI_PARAM_FILE_PATH}</tt>; This optional parameter contains the path at
+ *		which the file should be saved; if omitted, the original file path will be used.
+ * </ul>
+ *
+ * The service will save the file and return its path in the {@link kAPI_RESPONSE_RESULTS}
+ * parameter.
+ */
+define( "kAPI_OP_SAVE_USER_FILE",				'saveUserFile' );
 
 /**
  * Put data.
@@ -2958,6 +3006,7 @@ define( "kAPI_SESSION_RUNNING",					'session-running' );
  * of the batch script.
  */
 define( "kAPI_PROCESS_ID",						'process-id' );
+
 
 
 ?>

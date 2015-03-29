@@ -7090,7 +7090,7 @@ MILKO - Need to check.
 							{
 								//
 								// Handle array.
-								// Note that a quantitative value can be at most
+								// Notice that a quantitative value can be at most
 								// one array level.
 								//
 								if( is_array( $element ) )

@@ -98,24 +98,42 @@ try
 	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
 	
+/*
 	//
 	// Resolve collection.
 	//
-	$collection = $wrapper->resolveCollection( OntologyWrapper\UnitObject::kSEQ_NAME );
+	$collection
+		= $wrapper->resolveCollection(
+			OntologyWrapper\UnitObject::kSEQ_NAME )
+				->connection();
 	
 	//
 	// Set pipeline.
 	//
-/*
 	$pipeline = [];
 	$pipeline[] = [ '$match' => [ kTAG_OBJECT_TAGS => [ '$exists' => TRUE ] ] ];
 	$pipeline[] = [ '$unwind' => '$'.kTAG_OBJECT_TAGS ];
 	$pipeline[] = [ '$group' => [ kTAG_NID => ('$'.kTAG_OBJECT_TAGS),
 								 'count' => [ '$sum' => 1 ] ] ];
 	$pipeline[] = [ '$sort' => [ 'count' => -1 ] ];
-	$options = [ 'allowDiskUse' => TRUE, 'maxTimeMS' => 60000 ];
-	$result = $collection->aggregate( $pipeline, $options );
+	$options = [ 'allowDiskUse' => TRUE, 'maxTimeMS' => 360000 ];
+	$cursor = $collection->aggregateCursor( $pipeline, $options );
+	
+	//
+	// Display result.
+	//
+	$result = Array();
+	foreach( $cursor as $record )
+		$result[ $record[ kTAG_NID ] ]
+			= $record[ 'count' ];
+print_r( $result );
+exit;
 */
+	
+	//
+	// Resolve collection.
+	//
+	$collection = $wrapper->resolveCollection( OntologyWrapper\UnitObject::kSEQ_NAME );
 	
 	//
 	// Iterate offsets.

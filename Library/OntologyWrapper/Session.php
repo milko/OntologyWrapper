@@ -179,6 +179,7 @@ class Session extends SessionObject
 			//
 			switch( $theOffset )
 			{
+				case kTAG_NODE:
 				case kTAG_SESSION:
 				case kTAG_CLASS_NAME:
 				case kTAG_SESSION_END:
@@ -240,6 +241,7 @@ class Session extends SessionObject
 			//
 			switch( $theOffset )
 			{
+				case kTAG_NODE:
 				case kTAG_SESSION:
 				case kTAG_CLASS_NAME:
 				case kTAG_CONN_COLLS:
@@ -311,6 +313,7 @@ class Session extends SessionObject
 					//
 					switch( $theOffset )
 					{
+						case kTAG_NODE:
 						case kTAG_SESSION:
 						case kTAG_CLASS_NAME:
 						case kTAG_CONN_COLLS:

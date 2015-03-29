@@ -137,8 +137,8 @@ class MongoFileObject extends FileObject
 	/**
 	 * Write the file to disk
 	 *
-	 * This method should save the file to disk, ither at the path found in the metadata, or
-	 * at the path provided to this method; it is the duty of concrete derived classes to
+	 * This method should save the file to disk, either at the path found in the metadata,
+	 * or at the path provided to this method; it is the duty of concrete derived classes to
 	 * implement this feature.
 	 *
 	 * @param string				$thePath			The file path or <tt>NULL</tt>.
