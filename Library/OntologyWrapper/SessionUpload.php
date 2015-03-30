@@ -1646,7 +1646,7 @@ class SessionUpload extends SessionBatch
 			//
 			// Check required columns.
 			//
-			if( ! $this->mParser->checkRequiredColumns( $this->transaction(), $worksheet ) )
+			if( ! $this->mParser->checkRequiredColumns( $transaction, $worksheet ) )
 				$transaction->offsetSet( kTAG_TRANSACTION_STATUS, kTYPE_STATUS_OK );
 			
 			//
@@ -1724,14 +1724,19 @@ class SessionUpload extends SessionBatch
 			// Create collection.
 			//
 			$name = $this->getCollectionName( $worksheet );
-			$this->mCollections[ $name ]
+			$collection
 				= Session::ResolveDatabase( $this->wrapper(), TRUE )
 					->collection( $name, TRUE );
 			
 			//
 			// Drop collection.
 			//
-			$this->mCollections[ $name ]->drop();
+			$collection->drop();
+			
+			//
+			// Save collection.
+			//
+			$this->mCollections[ $name ] = $collection;
 			
 			//
 			// Add reference indexes.
@@ -3016,9 +3021,9 @@ class SessionUpload extends SessionBatch
 		$errors = 0;
 		
 		//
-		// Skip native identifier.
+		// Skip private properties.
 		//
-		if( $theSymbol == kTAG_NID )
+		if( substr( $theSymbol, 0, 1 ) == '_' )
 			return $errors;															// ==>
 		
 		//

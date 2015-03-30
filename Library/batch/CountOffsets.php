@@ -98,7 +98,6 @@ try
 	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
 	
-/*
 	//
 	// Resolve collection.
 	//
@@ -116,7 +115,7 @@ try
 	$pipeline[] = [ '$group' => [ kTAG_NID => ('$'.kTAG_OBJECT_TAGS),
 								 'count' => [ '$sum' => 1 ] ] ];
 	$pipeline[] = [ '$sort' => [ 'count' => -1 ] ];
-	$options = [ 'allowDiskUse' => TRUE, 'maxTimeMS' => 360000 ];
+	$options = [ 'allowDiskUse' => TRUE ];
 	$cursor = $collection->aggregateCursor( $pipeline, $options );
 	
 	//
@@ -128,12 +127,14 @@ try
 			= $record[ 'count' ];
 print_r( $result );
 exit;
-*/
 	
+/*
 	//
 	// Resolve collection.
 	//
-	$collection = $wrapper->resolveCollection( OntologyWrapper\UnitObject::kSEQ_NAME );
+	$collection
+		= $wrapper->resolveCollection(
+			OntologyWrapper\UnitObject::kSEQ_NAME );
 	
 	//
 	// Iterate offsets.
@@ -170,6 +171,7 @@ exit;
 	arsort( $offsets );
 var_dump( $offsets );
 exit;
+*/
 }
 
 //
