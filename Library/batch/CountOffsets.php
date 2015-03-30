@@ -110,22 +110,36 @@ try
 	// Set pipeline.
 	//
 	$pipeline = [];
-	$pipeline[] = [ '$match' => [ kTAG_OBJECT_TAGS => [ '$exists' => TRUE ] ] ];
-	$pipeline[] = [ '$unwind' => '$'.kTAG_OBJECT_TAGS ];
-	$pipeline[] = [ '$group' => [ kTAG_NID => ('$'.kTAG_OBJECT_TAGS),
-								 'count' => [ '$sum' => 1 ] ] ];
-	$pipeline[] = [ '$sort' => [ 'count' => -1 ] ];
-	$options = [ 'allowDiskUse' => TRUE ];
-	$cursor = $collection->aggregateCursor( $pipeline, $options );
+	$pipeline[] = [ '$project' => [ kTAG_OBJECT_OFFSETS => 1 ] ];
+	$pipeline[] = [ '$unwind' => '$'.kTAG_OBJECT_OFFSETS ];
+	$pipeline[] = [ '$group' => [ kTAG_NID => '$'.kTAG_OBJECT_OFFSETS ] ];
+	$pipeline[] = [ '$sort' => [ kTAG_NID => 1 ] ];
+var_dump( json_encode( $pipeline ) );
+exit;
+	$cursor = $collection->aggregateCursor( $pipeline,
+											array( 'allowDiskUse' => TRUE,
+												   'maxTimeMS' => 360000 ) );
 	
 	//
 	// Display result.
 	//
-	$result = Array();
+	$offsets = Array();
 	foreach( $cursor as $record )
-		$result[ $record[ kTAG_NID ] ]
-			= $record[ 'count' ];
-print_r( $result );
+		$offsets[ $record[ kTAG_NID ] ] = 0;
+	
+	//
+	// Get counts.
+	//
+	foreach( array_keys( $offsets ) as $offset )
+		$offsets[ $offset ]
+			= $collection->find( array( kTAG_OBJECT_OFFSETS => $offset ) )
+				->count();
+	
+	//
+	// Sort results.
+	//
+	arsort( $offsets );
+print_r( $offsets );
 exit;
 	
 /*

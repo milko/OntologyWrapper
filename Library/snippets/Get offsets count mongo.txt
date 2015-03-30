@@ -1,0 +1,9 @@
+var myCursor = db.getCollection('_units').aggregate( [
+	{ "$unwind" : "$@48" },
+	{ "$project" : { "@48" : 1, "count" : { "$literal" : 1 } } },
+	{ "$group" : { "_id" : "$@48", "records" : { "$sum" : "$count" } } },
+	{ "$sort" : { "records" : -1 } } ] );
+
+while (myCursor.hasNext()) {
+   print(tojson(myCursor.next()));
+}

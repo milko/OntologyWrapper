@@ -1,0 +1,1845 @@
+Array
+(
+    [@bc] => Array
+        (
+            [Tag] => :inventory:dataset
+            [Path] => 2579115
+        )
+
+    [@17f] => Array
+        (
+            [Tag] => :germplasm:identifier
+            [Path] => 2536207
+        )
+
+    [@d] => Array
+        (
+            [Tag] => :unit:version
+            [Path] => 2412399
+        )
+
+    [@c1] => Array
+        (
+            [Tag] => :inventory:institute
+            [Path] => 2388516
+        )
+
+    [@690] => Array
+        (
+            [Tag] => mcpd:INSTCODE
+            [Path] => 2375714
+        )
+
+    [@691] => Array
+        (
+            [Tag] => mcpd:ACCENUMB
+            [Path] => 2375714
+        )
+
+    [@873.@c7] => Array
+        (
+            [Tag] => :location:country
+            [Path] => 1958217
+        )
+
+    [@874.@6a2] => Array
+        (
+            [Tag] => mcpd:ACQDATE
+            [Path] => 1874775
+        )
+
+    [@874.@6a3] => Array
+        (
+            [Tag] => mcpd:STORAGE
+            [Path] => 1829835
+        )
+
+    [@13d] => Array
+        (
+            [Tag] => :taxon:epithet
+            [Path] => 1801914
+        )
+
+    [@12f] => Array
+        (
+            [Tag] => :taxon:genus
+            [Path] => 1801383
+        )
+
+    [@13f] => Array
+        (
+            [Tag] => :taxon:species:name
+            [Path] => 1711649
+        )
+
+    [@135] => Array
+        (
+            [Tag] => :taxon:species
+            [Path] => 1711649
+        )
+
+    [@875.@69e] => Array
+        (
+            [Tag] => mcpd:SAMPSTAT
+            [Path] => 1697720
+        )
+
+    [@144] => Array
+        (
+            [Tag] => :taxon:names
+            [Path] => 1658107
+        )
+
+    [@c0] => Array
+        (
+            [Tag] => :inventory:admin
+            [Path] => 1644649
+        )
+
+    [@bf] => Array
+        (
+            [Tag] => :inventory:code
+            [Path] => 1644649
+        )
+
+    [@136] => Array
+        (
+            [Tag] => :taxon:species:author
+            [Path] => 1477667
+        )
+
+    [@692] => Array
+        (
+            [Tag] => mcpd:ACCENAME
+            [Path] => 1448658
+        )
+
+    [@874.@693] => Array
+        (
+            [Tag] => mcpd:OTHERNUMB
+            [Path] => 1185176
+        )
+
+    [@c3] => Array
+        (
+            [Tag] => :inventory:GENESYS
+            [Path] => 1165082
+        )
+
+    [@150] => Array
+        (
+            [Tag] => :taxon:crop
+            [Path] => 1151339
+        )
+
+    [@151] => Array
+        (
+            [Tag] => :taxon:crop:group
+            [Path] => 1143603
+        )
+
+    [@152] => Array
+        (
+            [Tag] => :taxon:crop:category
+            [Path] => 1143603
+        )
+
+    [@876.@6a8] => Array
+        (
+            [Tag] => mcpd:MLSSTAT
+            [Path] => 1117091
+        )
+
+    [@17a] => Array
+        (
+            [Tag] => :taxon:annex-1
+            [Path] => 1114720
+        )
+
+    [@874.@6aa] => Array
+        (
+            [Tag] => mcpd:AVAILABLE
+            [Path] => 981280
+        )
+
+    [@180.@17f] => Array
+        (
+            [Tag] => :germplasm:identifier
+            [Path] => 976848
+        )
+
+    [@873.@cd] => Array
+        (
+            [Tag] => :location:locality
+            [Path] => 771176
+        )
+
+    [@873.@695] => Array
+        (
+            [Tag] => mcpd:COLLNUMB
+            [Path] => 728123
+        )
+
+    [@873.@694] => Array
+        (
+            [Tag] => mcpd:COLLDATE
+            [Path] => 694515
+        )
+
+    [@874.@182.@c2] => Array
+        (
+            [Tag] => :inventory:DUPLSITE
+            [Path] => 687851
+        )
+
+    [@874.@182.@6a5] => Array
+        (
+            [Tag] => mcpd:DUPLSITE
+            [Path] => 687851
+        )
+
+    [@873.@f3] => Array
+        (
+            [Tag] => :location:site:latitude
+            [Path] => 678891
+        )
+
+    [@873.@fa] => Array
+        (
+            [Tag] => :location:site:longitude
+            [Path] => 677526
+        )
+
+    [@158] => Array
+        (
+            [Tag] => :taxon:designation:use
+            [Path] => 628546
+        )
+
+    [@180.@691] => Array
+        (
+            [Tag] => mcpd:ACCENUMB
+            [Path] => 605681
+        )
+
+    [@180.@c1] => Array
+        (
+            [Tag] => :inventory:institute
+            [Path] => 605214
+        )
+
+    [@146] => Array
+        (
+            [Tag] => :taxon:reference
+            [Path] => 592043
+        )
+
+    [@875.@69d] => Array
+        (
+            [Tag] => mcpd:COLLSRC
+            [Path] => 584773
+        )
+
+    [@10e] => Array
+        (
+            [Tag] => :taxon:url
+            [Path] => 580751
+        )
+
+    [@140] => Array
+        (
+            [Tag] => :taxon:infraspecies
+            [Path] => 570687
+        )
+
+    [@873.@e9] => Array
+        (
+            [Tag] => :location:site:elevation
+            [Path] => 530750
+        )
+
+    [@875.@c1] => Array
+        (
+            [Tag] => :inventory:institute
+            [Path] => 526112
+        )
+
+    [@875.@69f] => Array
+        (
+            [Tag] => mcpd:DONORCODE
+            [Path] => 526112
+        )
+
+    [@180.@690] => Array
+        (
+            [Tag] => mcpd:INSTCODE
+            [Path] => 525660
+        )
+
+    [@129] => Array
+        (
+            [Tag] => :taxon:familia
+            [Path] => 523313
+        )
+
+    [@873.@f4] => Array
+        (
+            [Tag] => :location:site:latitude:provided
+            [Path] => 502840
+        )
+
+    [@873.@fb] => Array
+        (
+            [Tag] => :location:site:longitude:provided
+            [Path] => 502392
+        )
+
+    [@873.@1a0.@2e] => Array
+        (
+            [Tag] => :name
+            [Path] => 475436
+        )
+
+    [@875.@6a1] => Array
+        (
+            [Tag] => mcpd:DONORNUMB
+            [Path] => 461880
+        )
+
+    [@873.@101] => Array
+        (
+            [Tag] => :location:site:error
+            [Path] => 453029
+        )
+
+    [@873.@1a0.@c1] => Array
+        (
+            [Tag] => :inventory:institute
+            [Path] => 450204
+        )
+
+    [@873.@1a0.@696] => Array
+        (
+            [Tag] => mcpd:COLLCODE
+            [Path] => 450204
+        )
+
+    [@872.@69c] => Array
+        (
+            [Tag] => mcpd:ANCEST
+            [Path] => 381802
+        )
+
+    [@873.@1a0.@697] => Array
+        (
+            [Tag] => mcpd:COLLDESCR
+            [Path] => 374365
+        )
+
+    [@186.@2e] => Array
+        (
+            [Tag] => :name
+            [Path] => 340478
+        )
+
+    [@186.@18b] => Array
+        (
+            [Tag] => :germplasm:mt:samples-intended
+            [Path] => 340466
+        )
+
+    [@186.@75] => Array
+        (
+            [Tag] => :entity:identifier
+            [Path] => 340424
+        )
+
+    [@186.@188] => Array
+        (
+            [Tag] => :germplasm:mt:date
+            [Path] => 339486
+        )
+
+    [@186.@79] => Array
+        (
+            [Tag] => :type:entity
+            [Path] => 339316
+        )
+
+    [@6ab] => Array
+        (
+            [Tag] => mcpd:REMARKS
+            [Path] => 250480
+        )
+
+    [@141] => Array
+        (
+            [Tag] => :taxon:infraspecies:author
+            [Path] => 247890
+        )
+
+    [@876.@6a9] => Array
+        (
+            [Tag] => mcpd:AEGISSTAT
+            [Path] => 224109
+        )
+
+    [@873.@ca] => Array
+        (
+            [Tag] => :location:admin-1
+            [Path] => 219814
+        )
+
+    [@875.@2e] => Array
+        (
+            [Tag] => :name
+            [Path] => 194629
+        )
+
+    [@186.@c1] => Array
+        (
+            [Tag] => :inventory:institute
+            [Path] => 187043
+        )
+
+    [@875.@6a0] => Array
+        (
+            [Tag] => mcpd:DONORDESCR
+            [Path] => 184916
+        )
+
+    [@c7] => Array
+        (
+            [Tag] => :location:country
+            [Path] => 182732
+        )
+
+    [@186.@7c] => Array
+        (
+            [Tag] => :entity:mail
+            [Path] => 166878
+        )
+
+    [@18f] => Array
+        (
+            [Tag] => :mission:identifier
+            [Path] => 162082
+        )
+
+    [@198] => Array
+        (
+            [Tag] => :mission:collecting:identifier
+            [Path] => 161520
+        )
+
+    [@18e] => Array
+        (
+            [Tag] => :mission
+            [Path] => 161520
+        )
+
+    [@19c] => Array
+        (
+            [Tag] => :mission:collecting:notes
+            [Path] => 160492
+        )
+
+    [@197] => Array
+        (
+            [Tag] => :mission:collecting
+            [Path] => 160492
+        )
+
+    [@1a0.@2e] => Array
+        (
+            [Tag] => :name
+            [Path] => 160191
+        )
+
+    [@1a0.@697] => Array
+        (
+            [Tag] => mcpd:COLLDESCR
+            [Path] => 160189
+        )
+
+    [@873.@f9] => Array
+        (
+            [Tag] => :location:site:latitude:error
+            [Path] => 159732
+        )
+
+    [@fa] => Array
+        (
+            [Tag] => :location:site:longitude
+            [Path] => 155895
+        )
+
+    [@f3] => Array
+        (
+            [Tag] => :location:site:latitude
+            [Path] => 155894
+        )
+
+    [@1a0.@79] => Array
+        (
+            [Tag] => :type:entity
+            [Path] => 150925
+        )
+
+    [@1a0.@c1] => Array
+        (
+            [Tag] => :inventory:institute
+            [Path] => 150499
+        )
+
+    [@1a0.@696] => Array
+        (
+            [Tag] => mcpd:COLLCODE
+            [Path] => 150499
+        )
+
+    [@695] => Array
+        (
+            [Tag] => mcpd:COLLNUMB
+            [Path] => 145044
+        )
+
+    [@69e] => Array
+        (
+            [Tag] => mcpd:SAMPSTAT
+            [Path] => 144721
+        )
+
+    [@694] => Array
+        (
+            [Tag] => mcpd:COLLDATE
+            [Path] => 144586
+        )
+
+    [@874.@181] => Array
+        (
+            [Tag] => :germplasm:last-gen
+            [Path] => 140388
+        )
+
+    [@186.@189] => Array
+        (
+            [Tag] => :germplasm:mt:smta
+            [Path] => 128680
+        )
+
+    [@873.@1a0.@75] => Array
+        (
+            [Tag] => :entity:identifier
+            [Path] => 126135
+        )
+
+    [@873.@1a0.@79] => Array
+        (
+            [Tag] => :type:entity
+            [Path] => 123669
+        )
+
+    [@873.@1a0.@7c] => Array
+        (
+            [Tag] => :entity:mail
+            [Path] => 121815
+        )
+
+    [@cd] => Array
+        (
+            [Tag] => :location:locality
+            [Path] => 120838
+        )
+
+    [@873.@104] => Array
+        (
+            [Tag] => :location:site:georeference-source
+            [Path] => 112918
+        )
+
+    [@873.@108] => Array
+        (
+            [Tag] => :location:site:georeference-longitude
+            [Path] => 112541
+        )
+
+    [@873.@107] => Array
+        (
+            [Tag] => :location:site:georeference-latitude
+            [Path] => 112541
+        )
+
+    [@1a0.@7a] => Array
+        (
+            [Tag] => :kind:entity
+            [Path] => 111040
+        )
+
+    [@874.@6a4] => Array
+        (
+            [Tag] => mcpd:STORAGE:NOTES
+            [Path] => 109189
+        )
+
+    [@874.@182.@6a6] => Array
+        (
+            [Tag] => mcpd:DUPLDESCR
+            [Path] => 104267
+        )
+
+    [@872.@1a4.@2e] => Array
+        (
+            [Tag] => :name
+            [Path] => 99700
+        )
+
+    [@872.@1a4.@69b] => Array
+        (
+            [Tag] => mcpd:BREDDESCR
+            [Path] => 99691
+        )
+
+    [@875.@79] => Array
+        (
+            [Tag] => :type:entity
+            [Path] => 94111
+        )
+
+    [@e9] => Array
+        (
+            [Tag] => :location:site:elevation
+            [Path] => 90731
+        )
+
+    [@872.@c7] => Array
+        (
+            [Tag] => :location:country
+            [Path] => 90691
+        )
+
+    [@873.@103] => Array
+        (
+            [Tag] => :location:site:georeference-contact
+            [Path] => 89422
+        )
+
+    [@873.@102] => Array
+        (
+            [Tag] => :location:site:georeference-date
+            [Path] => 89164
+        )
+
+    [@873.@cb] => Array
+        (
+            [Tag] => :location:admin-2
+            [Path] => 85701
+        )
+
+    [@f4] => Array
+        (
+            [Tag] => :location:site:latitude:provided
+            [Path] => 84914
+        )
+
+    [@fb] => Array
+        (
+            [Tag] => :location:site:longitude:provided
+            [Path] => 83761
+        )
+
+    [@873.@100] => Array
+        (
+            [Tag] => :location:site:longitude:error
+            [Path] => 82586
+        )
+
+    [@873.@109] => Array
+        (
+            [Tag] => :location:site:georeference-error
+            [Path] => 81431
+        )
+
+    [@ca] => Array
+        (
+            [Tag] => :location:admin-1
+            [Path] => 79385
+        )
+
+    [@873.@cc] => Array
+        (
+            [Tag] => :location:admin-3
+            [Path] => 70171
+        )
+
+    [@cb] => Array
+        (
+            [Tag] => :location:admin-2
+            [Path] => 69726
+        )
+
+    [@872.@1a4.@69a] => Array
+        (
+            [Tag] => mcpd:BREDCODE
+            [Path] => 69571
+        )
+
+    [@872.@1a4.@c1] => Array
+        (
+            [Tag] => :inventory:institute
+            [Path] => 69571
+        )
+
+    [@105] => Array
+        (
+            [Tag] => :location:site:georeference-method
+            [Path] => 67423
+        )
+
+    [@106] => Array
+        (
+            [Tag] => :location:site:georeference-tool
+            [Path] => 63313
+        )
+
+    [@cc] => Array
+        (
+            [Tag] => :location:admin-3
+            [Path] => 51844
+        )
+
+    [@69d] => Array
+        (
+            [Tag] => mcpd:COLLSRC
+            [Path] => 48755
+        )
+
+    [@101] => Array
+        (
+            [Tag] => :location:site:error
+            [Path] => 47103
+        )
+
+    [@873.@1a0.@7d] => Array
+        (
+            [Tag] => :entity:email
+            [Path] => 46489
+        )
+
+    [@1a0.@d] => Array
+        (
+            [Tag] => :unit:version
+            [Path] => 26766
+        )
+
+    [@1a0.@83] => Array
+        (
+            [Tag] => :entity:nationality
+            [Path] => 26766
+        )
+
+    [@1a0.@7c] => Array
+        (
+            [Tag] => :entity:mail
+            [Path] => 26766
+        )
+
+    [@875.@7c] => Array
+        (
+            [Tag] => :entity:mail
+            [Path] => 26115
+        )
+
+    [@1a0.@e9] => Array
+        (
+            [Tag] => :location:site:elevation
+            [Path] => 21246
+        )
+
+    [@2e] => Array
+        (
+            [Tag] => :name
+            [Path] => 21220
+        )
+
+    [@7c] => Array
+        (
+            [Tag] => :entity:mail
+            [Path] => 20658
+        )
+
+    [@1a0.@32] => Array
+        (
+            [Tag] => :notes
+            [Path] => 20091
+        )
+
+    [@1a0.@7b] => Array
+        (
+            [Tag] => :entity:acronym
+            [Path] => 17641
+        )
+
+    [@1a0.@7f] => Array
+        (
+            [Tag] => :entity:phone
+            [Path] => 16480
+        )
+
+    [@873.@10b] => Array
+        (
+            [Tag] => :location:site:georeference-notes
+            [Path] => 14956
+        )
+
+    [@79] => Array
+        (
+            [Tag] => :type:entity
+            [Path] => 14569
+        )
+
+    [@7b] => Array
+        (
+            [Tag] => :entity:acronym
+            [Path] => 13064
+        )
+
+    [@6cd] => Array
+        (
+            [Tag] => cwr:ck:CWRCODE
+            [Path] => 12844
+        )
+
+    [@6c6] => Array
+        (
+            [Tag] => cwr:INSTCODE
+            [Path] => 12801
+        )
+
+    [@1a0.@80] => Array
+        (
+            [Tag] => :entity:fax
+            [Path] => 12769
+        )
+
+    [@1a2] => Array
+        (
+            [Tag] => :collecting:notes
+            [Path] => 11078
+        )
+
+    [@7f] => Array
+        (
+            [Tag] => :entity:phone
+            [Path] => 10843
+        )
+
+    [@142] => Array
+        (
+            [Tag] => :taxon:valid
+            [Path] => 8551
+        )
+
+    [@10d] => Array
+        (
+            [Tag] => :location:site:notes
+            [Path] => 8490
+        )
+
+    [@6ce] => Array
+        (
+            [Tag] => cwr:ck:NUMB
+            [Path] => 8212
+        )
+
+    [@6cf] => Array
+        (
+            [Tag] => cwr:ck:TYPE
+            [Path] => 7599
+        )
+
+    [@1a0.@7d] => Array
+        (
+            [Tag] => :entity:email
+            [Path] => 7501
+        )
+
+    [@7a] => Array
+        (
+            [Tag] => :kind:entity
+            [Path] => 7455
+        )
+
+    [@186.@7d] => Array
+        (
+            [Tag] => :entity:email
+            [Path] => 7216
+        )
+
+    [@80] => Array
+        (
+            [Tag] => :entity:fax
+            [Path] => 6892
+        )
+
+    [@7d] => Array
+        (
+            [Tag] => :entity:email
+            [Path] => 4879
+        )
+
+    [@104] => Array
+        (
+            [Tag] => :location:site:georeference-source
+            [Path] => 4595
+        )
+
+    [@6d3] => Array
+        (
+            [Tag] => cwr:in:PRIORITY-LEVEL
+            [Path] => 4589
+        )
+
+    [@155] => Array
+        (
+            [Tag] => :taxon:designation
+            [Path] => 4589
+        )
+
+    [@15a] => Array
+        (
+            [Tag] => :taxon:rel-crop
+            [Path] => 4589
+        )
+
+    [@156] => Array
+        (
+            [Tag] => :taxon:designation:ref
+            [Path] => 4589
+        )
+
+    [@168] => Array
+        (
+            [Tag] => :taxon:occurrence-status
+            [Path] => 4450
+        )
+
+    [@16e.@b2] => Array
+        (
+            [Tag] => natserve:threat:code
+            [Path] => 4024
+        )
+
+    [@7e] => Array
+        (
+            [Tag] => :entity:url
+            [Path] => 3896
+        )
+
+    [@180.@32] => Array
+        (
+            [Tag] => :notes
+            [Path] => 3662
+        )
+
+    [@ea] => Array
+        (
+            [Tag] => :location:site:elevation:min
+            [Path] => 3227
+        )
+
+    [@6b2] => Array
+        (
+            [Tag] => fcu:unit:last-visit
+            [Path] => 3227
+        )
+
+    [@6af] => Array
+        (
+            [Tag] => fcu:unit:ownership
+            [Path] => 3227
+        )
+
+    [@ed] => Array
+        (
+            [Tag] => :location:site:datum
+            [Path] => 3227
+        )
+
+    [@6ad] => Array
+        (
+            [Tag] => fcu:unit:gene-number
+            [Path] => 3227
+        )
+
+    [@6ac] => Array
+        (
+            [Tag] => fcu:unit:number
+            [Path] => 3227
+        )
+
+    [@6ae] => Array
+        (
+            [Tag] => fcu:unit:area
+            [Path] => 3227
+        )
+
+    [@6b1] => Array
+        (
+            [Tag] => fcu:unit:data-collection
+            [Path] => 3227
+        )
+
+    [@10c] => Array
+        (
+            [Tag] => :location:site:coordinates-restricted
+            [Path] => 3227
+        )
+
+    [@6b5] => Array
+        (
+            [Tag] => fcu:unit:species
+            [Path] => 3224
+        )
+
+    [@6b6.@6c4] => Array
+        (
+            [Tag] => fcu:population:share
+            [Path] => 3198
+        )
+
+    [@6b6.@6c0] => Array
+        (
+            [Tag] => fcu:population:reproducing
+            [Path] => 3198
+        )
+
+    [@6b6.@13f] => Array
+        (
+            [Tag] => :taxon:species:name
+            [Path] => 3198
+        )
+
+    [@6b6.@135] => Array
+        (
+            [Tag] => :taxon:species
+            [Path] => 3198
+        )
+
+    [@6b6.@6bb] => Array
+        (
+            [Tag] => fcu:population:situ
+            [Path] => 3198
+        )
+
+    [@6b6.@6bc] => Array
+        (
+            [Tag] => fcu:population:origin
+            [Path] => 3198
+        )
+
+    [@6b6.@6bf] => Array
+        (
+            [Tag] => fcu:population:justification
+            [Path] => 3198
+        )
+
+    [@6b6.@13d] => Array
+        (
+            [Tag] => :taxon:epithet
+            [Path] => 3198
+        )
+
+    [@6b6.@12f] => Array
+        (
+            [Tag] => :taxon:genus
+            [Path] => 3198
+        )
+
+    [@6b6.@6b9] => Array
+        (
+            [Tag] => fcu:population:last-visit
+            [Path] => 3198
+        )
+
+    [@6b0] => Array
+        (
+            [Tag] => fcu:unit:type
+            [Path] => 3194
+        )
+
+    [@eb] => Array
+        (
+            [Tag] => :location:site:elevation:max
+            [Path] => 3182
+        )
+
+    [@1a0.@81] => Array
+        (
+            [Tag] => :entity:tlx
+            [Path] => 3017
+        )
+
+    [@6b6.@6be] => Array
+        (
+            [Tag] => fcu:population:management
+            [Path] => 3012
+        )
+
+    [@fd] => Array
+        (
+            [Tag] => :location:site:longitude:min
+            [Path] => 2625
+        )
+
+    [@ff] => Array
+        (
+            [Tag] => :location:site:longitude:hem
+            [Path] => 2625
+        )
+
+    [@fc] => Array
+        (
+            [Tag] => :location:site:longitude:deg
+            [Path] => 2625
+        )
+
+    [@f6] => Array
+        (
+            [Tag] => :location:site:latitude:min
+            [Path] => 2621
+        )
+
+    [@f5] => Array
+        (
+            [Tag] => :location:site:latitude:deg
+            [Path] => 2621
+        )
+
+    [@f8] => Array
+        (
+            [Tag] => :location:site:latitude:hem
+            [Path] => 2621
+        )
+
+    [@167.@c8] => Array
+        (
+            [Tag] => :location:admin
+            [Path] => 2521
+        )
+
+    [@15b] => Array
+        (
+            [Tag] => :taxon:rel-crop:taxa
+            [Path] => 2488
+        )
+
+    [@15c] => Array
+        (
+            [Tag] => :taxon:rel-crop:names
+            [Path] => 2488
+        )
+
+    [@6b6.@6bd] => Array
+        (
+            [Tag] => fcu:population:system
+            [Path] => 2394
+        )
+
+    [@167.@168] => Array
+        (
+            [Tag] => :taxon:occurrence-status
+            [Path] => 2377
+        )
+
+    [@6b6.@6c3] => Array
+        (
+            [Tag] => fcu:population:distribution
+            [Path] => 2283
+        )
+
+    [@6d1] => Array
+        (
+            [Tag] => cwr:in:CRITPRIORI
+            [Path] => 2122
+        )
+
+    [@16e.@16f] => Array
+        (
+            [Tag] => :taxon:threat:assessment
+            [Path] => 2122
+        )
+
+    [@6b6.@6ba] => Array
+        (
+            [Tag] => fcu:population:status
+            [Path] => 1968
+        )
+
+    [@167.@c9] => Array
+        (
+            [Tag] => :location:region
+            [Path] => 1875
+        )
+
+    [@1a0.@7e] => Array
+        (
+            [Tag] => :entity:url
+            [Path] => 1743
+        )
+
+    [@6b6.@6c2] => Array
+        (
+            [Tag] => fcu:population:regeneration
+            [Path] => 1667
+        )
+
+    [@1a0.@fb] => Array
+        (
+            [Tag] => :location:site:longitude:provided
+            [Path] => 1597
+        )
+
+    [@1a0.@f4] => Array
+        (
+            [Tag] => :location:site:latitude:provided
+            [Path] => 1597
+        )
+
+    [@6b6.@6b8] => Array
+        (
+            [Tag] => fcu:population:establishment
+            [Path] => 1560
+        )
+
+    [@6b6.@6b7] => Array
+        (
+            [Tag] => fcu:population:number
+            [Path] => 1559
+        )
+
+    [@14b] => Array
+        (
+            [Tag] => :taxon:group
+            [Path] => 1552
+        )
+
+    [@148] => Array
+        (
+            [Tag] => :taxon:chromosome-number
+            [Path] => 1509
+        )
+
+    [@12b] => Array
+        (
+            [Tag] => :taxon:subfamilia
+            [Path] => 1449
+        )
+
+    [@12d] => Array
+        (
+            [Tag] => :taxon:tribus
+            [Path] => 1365
+        )
+
+    [@186.@18a] => Array
+        (
+            [Tag] => :germplasm:mt:smta:notes
+            [Path] => 1231
+        )
+
+    [@84] => Array
+        (
+            [Tag] => :entity:valid
+            [Path] => 1122
+        )
+
+    [@6b4] => Array
+        (
+            [Tag] => fcu:unit:remarks
+            [Path] => 1121
+        )
+
+    [@132] => Array
+        (
+            [Tag] => :taxon:sectio
+            [Path] => 1098
+        )
+
+    [@16e.@aa] => Array
+        (
+            [Tag] => iucn:category
+            [Path] => 1042
+        )
+
+    [@19a] => Array
+        (
+            [Tag] => :mission:collecting:end
+            [Path] => 1028
+        )
+
+    [@199] => Array
+        (
+            [Tag] => :mission:collecting:start
+            [Path] => 1028
+        )
+
+    [@c8] => Array
+        (
+            [Tag] => :location:admin
+            [Path] => 1025
+        )
+
+    [@149] => Array
+        (
+            [Tag] => :taxon:genepool
+            [Path] => 1012
+        )
+
+    [@186.@13d] => Array
+        (
+            [Tag] => :taxon:epithet
+            [Path] => 992
+        )
+
+    [@1a0.@77] => Array
+        (
+            [Tag] => :entity:lname
+            [Path] => 979
+        )
+
+    [@1a0.@76] => Array
+        (
+            [Tag] => :entity:fname
+            [Path] => 975
+        )
+
+    [@186.@18d] => Array
+        (
+            [Tag] => :germplasm:mt:samples-received
+            [Path] => 971
+        )
+
+    [@16e.@c9] => Array
+        (
+            [Tag] => :location:region
+            [Path] => 930
+        )
+
+    [@180.@d] => Array
+        (
+            [Tag] => :unit:version
+            [Path] => 878
+        )
+
+    [@180.@7c] => Array
+        (
+            [Tag] => :entity:mail
+            [Path] => 878
+        )
+
+    [@180.@83] => Array
+        (
+            [Tag] => :entity:nationality
+            [Path] => 878
+        )
+
+    [@186.@7a] => Array
+        (
+            [Tag] => :kind:entity
+            [Path] => 877
+        )
+
+    [@12e] => Array
+        (
+            [Tag] => :taxon:subtribus
+            [Path] => 839
+        )
+
+    [@16e.@c7] => Array
+        (
+            [Tag] => :location:country
+            [Path] => 818
+        )
+
+    [@180.@7b] => Array
+        (
+            [Tag] => :entity:acronym
+            [Path] => 711
+        )
+
+    [@167.@c7] => Array
+        (
+            [Tag] => :location:country
+            [Path] => 646
+        )
+
+    [@16e.@173] => Array
+        (
+            [Tag] => :taxon:threat:assessment:ref
+            [Path] => 613
+        )
+
+    [@16e.@172] => Array
+        (
+            [Tag] => :taxon:threat:assessment:url
+            [Path] => 613
+        )
+
+    [@16e.@171] => Array
+        (
+            [Tag] => :taxon:threat:assessment:year
+            [Path] => 613
+        )
+
+    [@1a6.@1a7] => Array
+        (
+            [Tag] => :taxon:cross:species
+            [Path] => 613
+        )
+
+    [@190] => Array
+        (
+            [Tag] => :mission:start
+            [Path] => 562
+        )
+
+    [@191] => Array
+        (
+            [Tag] => :mission:end
+            [Path] => 562
+        )
+
+    [@192] => Array
+        (
+            [Tag] => :mission:documents
+            [Path] => 562
+        )
+
+    [@180.@7f] => Array
+        (
+            [Tag] => :entity:phone
+            [Path] => 553
+        )
+
+    [@14a] => Array
+        (
+            [Tag] => :taxon:genepool-ref
+            [Path] => 548
+        )
+
+    [@6b6.@6c5] => Array
+        (
+            [Tag] => fcu:population:remarks
+            [Path] => 510
+        )
+
+    [@180.@e9] => Array
+        (
+            [Tag] => :location:site:elevation
+            [Path] => 496
+        )
+
+    [@19e.@13d] => Array
+        (
+            [Tag] => :taxon:epithet
+            [Path] => 489
+        )
+
+    [@19e.@13f] => Array
+        (
+            [Tag] => :taxon:species:name
+            [Path] => 488
+        )
+
+    [@19e.@12f] => Array
+        (
+            [Tag] => :taxon:genus
+            [Path] => 488
+        )
+
+    [@6b3] => Array
+        (
+            [Tag] => fcu:unit:remarks-soil
+            [Path] => 418
+        )
+
+    [@873.@c8] => Array
+        (
+            [Tag] => :location:admin
+            [Path] => 391
+        )
+
+    [@194.@c8] => Array
+        (
+            [Tag] => :location:admin
+            [Path] => 300
+        )
+
+    [@194.@19a] => Array
+        (
+            [Tag] => :mission:collecting:end
+            [Path] => 300
+        )
+
+    [@194.@199] => Array
+        (
+            [Tag] => :mission:collecting:start
+            [Path] => 300
+        )
+
+    [@194.@198] => Array
+        (
+            [Tag] => :mission:collecting:identifier
+            [Path] => 300
+        )
+
+    [@194.@197] => Array
+        (
+            [Tag] => :mission:collecting
+            [Path] => 300
+        )
+
+    [@180.@80] => Array
+        (
+            [Tag] => :entity:fax
+            [Path] => 264
+        )
+
+    [@14c] => Array
+        (
+            [Tag] => :taxon:group-ref
+            [Path] => 261
+        )
+
+    [@16e.@174] => Array
+        (
+            [Tag] => :taxon:threat:national
+            [Path] => 254
+        )
+
+    [@186.@83] => Array
+        (
+            [Tag] => :entity:nationality
+            [Path] => 237
+        )
+
+    [@186.@d] => Array
+        (
+            [Tag] => :unit:version
+            [Path] => 237
+        )
+
+    [@159] => Array
+        (
+            [Tag] => :taxon:designation:notes
+            [Path] => 221
+        )
+
+    [@186.@e9] => Array
+        (
+            [Tag] => :location:site:elevation
+            [Path] => 217
+        )
+
+    [@157] => Array
+        (
+            [Tag] => :taxon:designation:national
+            [Path] => 212
+        )
+
+    [@147] => Array
+        (
+            [Tag] => :taxon:synref
+            [Path] => 205
+        )
+
+    [@13e] => Array
+        (
+            [Tag] => :taxon:author
+            [Path] => 201
+        )
+
+    [@167.@169] => Array
+        (
+            [Tag] => :taxon:occurrence-notes
+            [Path] => 178
+        )
+
+    [@180.@81] => Array
+        (
+            [Tag] => :entity:tlx
+            [Path] => 159
+        )
+
+    [@16e.@177] => Array
+        (
+            [Tag] => :taxon:threat:national:uauth
+            [Path] => 148
+        )
+
+    [@16e.@175] => Array
+        (
+            [Tag] => :taxon:threat:national:ucode
+            [Path] => 148
+        )
+
+    [@16e.@176] => Array
+        (
+            [Tag] => :taxon:threat:national:udescr
+            [Path] => 148
+        )
+
+    [@186.@7b] => Array
+        (
+            [Tag] => :entity:acronym
+            [Path] => 147
+        )
+
+    [@186.@7f] => Array
+        (
+            [Tag] => :entity:phone
+            [Path] => 144
+        )
+
+    [@6b6.@6c1] => Array
+        (
+            [Tag] => fcu:population:sex-ratio
+            [Path] => 137
+        )
+
+    [@16e.@ac] => Array
+        (
+            [Tag] => iucn:criteria-citation
+            [Path] => 132
+        )
+
+    [@186.@80] => Array
+        (
+            [Tag] => :entity:fax
+            [Path] => 106
+        )
+
+    [@180.@7d] => Array
+        (
+            [Tag] => :entity:email
+            [Path] => 104
+        )
+
+    [@873.@10a] => Array
+        (
+            [Tag] => :location:site:georeference-old
+            [Path] => 99
+        )
+
+    [@180.@fb] => Array
+        (
+            [Tag] => :location:site:longitude:provided
+            [Path] => 84
+        )
+
+    [@180.@f4] => Array
+        (
+            [Tag] => :location:site:latitude:provided
+            [Path] => 84
+        )
+
+    [@6b6.@152] => Array
+        (
+            [Tag] => :taxon:crop:category
+            [Path] => 84
+        )
+
+    [@6b6.@151] => Array
+        (
+            [Tag] => :taxon:crop:group
+            [Path] => 84
+        )
+
+    [@6b6.@150] => Array
+        (
+            [Tag] => :taxon:crop
+            [Path] => 84
+        )
+
+    [@186.@81] => Array
+        (
+            [Tag] => :entity:tlx
+            [Path] => 82
+        )
+
+    [@167.@16a] => Array
+        (
+            [Tag] => :taxon:distribution:notes
+            [Path] => 58
+        )
+
+    [@16e.@170] => Array
+        (
+            [Tag] => :taxon:threat:other-red-list-criteria
+            [Path] => 53
+        )
+
+    [@14d] => Array
+        (
+            [Tag] => :taxon:gp/tg
+            [Path] => 50
+        )
+
+    [@186.@18c] => Array
+        (
+            [Tag] => :germplasm:mt:samples-verified
+            [Path] => 37
+        )
+
+    [@186.@32] => Array
+        (
+            [Tag] => :notes
+            [Path] => 37
+        )
+
+    [@167.@15d] => Array
+        (
+            [Tag] => :taxon:ecovalue
+            [Path] => 33
+        )
+
+    [@167.@15e] => Array
+        (
+            [Tag] => :taxon:ecovalue:rank
+            [Path] => 33
+        )
+
+    [@186.@fb] => Array
+        (
+            [Tag] => :location:site:longitude:provided
+            [Path] => 29
+        )
+
+    [@186.@f4] => Array
+        (
+            [Tag] => :location:site:latitude:provided
+            [Path] => 29
+        )
+
+    [@6c8] => Array
+        (
+            [Tag] => cwr:URL
+            [Path] => 20
+        )
+
+    [@6b6.@17a] => Array
+        (
+            [Tag] => :taxon:annex-1
+            [Path] => 19
+        )
+
+    [@186.@7e] => Array
+        (
+            [Tag] => :entity:url
+            [Path] => 19
+        )
+
+    [@17b] => Array
+        (
+            [Tag] => :taxon:annex-1:notes
+            [Path] => 7
+        )
+
+    [@851.@852] => Array
+        (
+            [Tag] => qtl:characteristics:remarks
+            [Path] => 2
+        )
+
+    [@851.@84d] => Array
+        (
+            [Tag] => qtl:SNP
+            [Path] => 2
+        )
+
+    [@851.@84c] => Array
+        (
+            [Tag] => qtl:MARKLINK
+            [Path] => 2
+        )
+
+    [@842] => Array
+        (
+            [Tag] => qtl:TRAITNAME
+            [Path] => 2
+        )
+
+    [@851.@84b] => Array
+        (
+            [Tag] => qtl:GENMAPQTLMAP
+            [Path] => 2
+        )
+
+    [@843] => Array
+        (
+            [Tag] => qtl:NAME
+            [Path] => 2
+        )
+
+    [@851.@849] => Array
+        (
+            [Tag] => qtl:PERCVARIATIONQTL
+            [Path] => 2
+        )
+
+    [@1a6.@1ab] => Array
+        (
+            [Tag] => :taxon:cross:population
+            [Path] => 2
+        )
+
+    [@1a6.@1a8] => Array
+        (
+            [Tag] => :taxon:cross:methods
+            [Path] => 2
+        )
+
+    [@1a6.@1a9] => Array
+        (
+            [Tag] => :taxon:cross:references
+            [Path] => 2
+        )
+
+    [@851.@84a] => Array
+        (
+            [Tag] => qtl:LODSCORE
+            [Path] => 2
+        )
+
+    [@841] => Array
+        (
+            [Tag] => qtl:UNID
+            [Path] => 2
+        )
+
+    [@1a6.@1aa] => Array
+        (
+            [Tag] => :taxon:cross:success
+            [Path] => 2
+        )
+
+    [@851.@84e] => Array
+        (
+            [Tag] => qtl:PARENTDESCR
+            [Path] => 2
+        )
+
+    [@851.@848] => Array
+        (
+            [Tag] => qtl:NUMBQTLACCESS
+            [Path] => 2
+        )
+
+    [@845] => Array
+        (
+            [Tag] => qtl:REF
+            [Path] => 1
+        )
+
+)
