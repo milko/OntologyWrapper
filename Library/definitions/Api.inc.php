@@ -799,6 +799,7 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermsByLabel' );
  * <ul>
  *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated value identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_NODE}</tt>: The enumerated value node identifier.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_CODE}</tt>: The enumerated value local code.
  *	<li><tt>{@link kAPI_RESULT_ENUM_VALUE}</tt>: The selection flag or values count.
  *	<li><tt>{@link kAPI_PARAM_RESPONSE_COUNT}</tt>: The enumeration reference count.
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
@@ -859,6 +860,7 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
  * <ul>
  *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated value identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_NODE}</tt>: The enumerated value node identifier.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_CODE}</tt>: The enumerated value local code.
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
  *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
  *	<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
@@ -2548,6 +2550,13 @@ define( "kAPI_RESULT_ENUM_TERM",				'term' );
  * This tag is used when returning an enumeration element, it defines the element's node.
  */
 define( "kAPI_RESULT_ENUM_NODE",				'node' );
+
+/**
+ * Code (string).
+ *
+ * This tag is used when returning an enumeration element, it defines the element's code.
+ */
+define( "kAPI_RESULT_ENUM_CODE",				'code' );
 
 /**
  * Label (string).

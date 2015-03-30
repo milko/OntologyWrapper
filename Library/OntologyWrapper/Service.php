@@ -1658,8 +1658,8 @@ class Service extends ContainerObject
 			//
 			$this->offsetUnset( kAPI_PARAM_SUMMARY );
 			$this->offsetUnset( kAPI_PARAM_DOMAIN );
-			$this->offsetUnset( kAPI_PARAM_DATA );
 			$this->offsetUnset( kAPI_PARAM_STAT );
+			$this->offsetUnset( kAPI_PARAM_DATA );
 	
 			//
 			// Reset limits.
@@ -4144,8 +4144,8 @@ class Service extends ContainerObject
 		if( $tmp
 		 && ($tmp != (count( $group ) - 1)) )
 			throw new \Exception(
-				"Domain must be last group element." );							// !@! ==>
-		
+				"Domain must be last group element." );						// !@! ==>
+	
 		//
 		// Add domain.
 		//
@@ -4858,6 +4858,7 @@ class Service extends ContainerObject
 		//
 		$ref[ "kAPI_RESULT_ENUM_TERM" ] = kAPI_RESULT_ENUM_TERM;
 		$ref[ "kAPI_RESULT_ENUM_NODE" ] = kAPI_RESULT_ENUM_NODE;
+		$ref[ "kAPI_RESULT_ENUM_CODE" ] = kAPI_RESULT_ENUM_CODE;
 		$ref[ "kAPI_RESULT_ENUM_LABEL" ] = kAPI_RESULT_ENUM_LABEL;
 		$ref[ "kAPI_RESULT_ENUM_DESCR" ] = kAPI_RESULT_ENUM_DESCR;
 		$ref[ "kAPI_RESULT_ENUM_VALUE" ] = kAPI_RESULT_ENUM_VALUE;
@@ -7596,7 +7597,8 @@ class Service extends ContainerObject
 		// Init local storage.
 		//
 		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
-		$fields = array( kTAG_LABEL => TRUE,
+		$fields = array( kTAG_ID_LOCAL => TRUE,
+						 kTAG_LABEL => TRUE,
 						 kTAG_DEFINITION => TRUE );
 		$ref_count = $this->getRefCountTag( $this->offsetGet( kAPI_PARAM_REF_COUNT ) );
 		if( is_array( $ref_count )
@@ -7648,6 +7650,11 @@ class Service extends ContainerObject
 		// Load node.
 		//
 		$ref[ kAPI_RESULT_ENUM_NODE ] = $node[ kTAG_NID ];
+		
+		//
+		// Load code.
+		//
+		$ref[ kAPI_RESULT_ENUM_CODE ] = $term[ kTAG_ID_LOCAL ];
 		
 		//
 		// Load label.
@@ -7873,6 +7880,18 @@ class Service extends ContainerObject
 		foreach( array_keys( $groups ) as $element )
 			$tmp[ "_id.$element" ] = 1;
 		$pipeline[] = array( '$sort' => $tmp );
+		
+		//
+		// Set skip.
+		//
+		if( $this->offsetExists( kAPI_PAGING_SKIP ) )
+			$pipeline[] = array( '$skip' => $this->offsetGet( kAPI_PAGING_SKIP ) );
+		
+		//
+		// Set limit.
+		//
+		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
+			$pipeline[] = array( '$limit' => $this->offsetGet( kAPI_PAGING_LIMIT ) );
 
 		//
 		// Aggregate.
@@ -11333,6 +11352,30 @@ $rs_units = & $rs_units[ 'result' ];
 						$theContainer[ $property ]
 							= $data[ $property ];
 				}
+			}
+		
+			//
+			// Select files.
+			//
+			$files
+				= FileObject::ResolveCollection(
+					FileObject::ResolveDatabase( $this->mWrapper, TRUE, TRUE ),
+					TRUE )
+						->matchAll( array( kTAG_SESSION => $object->offsetGet( kTAG_NID ) ),
+									kQUERY_OBJECT );
+			
+			//
+			// Check files.
+			//
+			if( $files->count() )
+			{
+				//
+				// Iterate files.
+				//
+				$theContainer[ kTAG_FILE ] = Array();
+				foreach( $files as $file )
+					$theContainer[ kTAG_FILE ][]
+						= $this->serialiseFileMetadata( $file );
 			}
 		
 		} // Iterating sessions.
