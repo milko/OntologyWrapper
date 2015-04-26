@@ -7177,6 +7177,7 @@ class Service extends ContainerObject
 			$this->executeMatchLabelStringsQuery(
 				$theCollection,
 				array( kTAG_LABEL => TRUE,
+					   kTAG_TERMS => TRUE,
 					   kTAG_UNIT_OFFSETS => TRUE ) ) );
 		
 	} // executeMatchLabelStrings.
@@ -7208,6 +7209,10 @@ class Service extends ContainerObject
 			$this->executeMatchLabelStringsQuery(
 				$theCollection,
 				array( kTAG_LABEL => TRUE,
+					   kTAG_TERMS => TRUE,
+					   kTAG_DATA_TYPE => TRUE,
+					   kTAG_DATA_KIND => TRUE,
+					   kTAG_UNIT_COUNT => TRUE,
 					   kTAG_UNIT_OFFSETS => TRUE ) ) );
 		
 	} // executeMatchLabelObjects.

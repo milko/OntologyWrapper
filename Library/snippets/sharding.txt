@@ -18,3 +18,16 @@ sh.shardCollection( "BIOVERSITY._units", { "_id" : 1 } )
 
 db[":_units"].ensureIndex( { "_id" : "hashed" } )
 sh.shardCollection( "BIOVERSITY._units", { "_id" : "hashed" } )
+
+
+// Shard GEO
+
+use GEO
+db.dropDatabase()
+use GEO
+sh.enableSharding("GEO")
+
+sh.shardCollection( "GEO.LAYERS-30", { "_id" : 1 } )
+
+db["LAYERS-30"].ensureIndex( { "pt" : "2dsphere" }, { name: "LOCATION" } )
+db["LAYERS-30"].ensureIndex( { "elev" : 1 }, { name: "ELEVATION" } )
