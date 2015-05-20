@@ -75,6 +75,7 @@ $base_url = 'http://localhost/gateway/Service.php';
 //
 $template = "/Library/WebServer/Library/OntologyWrapper/Library/test/test_checklist.small.xlsx";
 $template = "/Library/WebServer/Library/OntologyWrapper/Library/test/test_checklist.large.xlsx";
+$template = "/Users/milko/Downloads/CWR_Checklist_Template.test.large.xlsx";
 $template = "/Library/WebServer/Library/OntologyWrapper/Library/test/test_inventory.small.xlsx";
 
 //
@@ -183,7 +184,8 @@ try
 		$decoded = json_decode( $decoded, TRUE );
 		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
 	}
-	var_dump( $result );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+//	var_dump( $result );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -227,7 +229,8 @@ try
 		$decoded = json_decode( $decoded, TRUE );
 		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
 	}
-	var_dump( $result );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+//	var_dump( $result );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -273,7 +276,8 @@ try
 		$decoded = json_decode( $decoded, TRUE );
 		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
 	}
-	var_dump( $result );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+//	var_dump( $result );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -318,7 +322,8 @@ try
 		$decoded = json_decode( $decoded, TRUE );
 		$result[ kAPI_RESPONSE_RESULTS ] = $decoded;
 	}
-	var_dump( $result );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+//	var_dump( $result );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

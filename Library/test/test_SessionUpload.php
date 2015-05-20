@@ -73,7 +73,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 // Init local storage.
 //
 $file = "/Library/WebServer/Library/OntologyWrapper/Library/test/test_inventory.small.xlsx";
-$file = "/Library/WebServer/Library/OntologyWrapper/Library/test/test_checklist.small.xlsx";
+$file = "/Library/WebServer/Library/OntologyWrapper/Library/test/test_checklist.large.xlsx";
 $user = ":domain:individual://ITA406/pgrdiversity.bioversityinternational.org:7C4D3533C21C608B39E8EAB256B4AFB771FA534A;";
 $fingerprint = "7C4D3533C21C608B39E8EAB256B4AFB771FA534A";
 	

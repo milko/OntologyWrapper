@@ -231,7 +231,6 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-exit;
 	
 	//
 	// Invite user.
@@ -323,7 +322,6 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
-exit;
 	
 	//
 	// Build user record.
