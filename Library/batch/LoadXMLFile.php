@@ -54,8 +54,8 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 if( $argc < 3 )
 	exit( "Usage: "
 		 ."script.php "
-		 ."[XML file path] "
-		 ."[mongo database DSN] "	// mongodb://localhost:27017/BIOVERSITY
+		 ."<XML file path> "
+		 ."<mongo database DSN> "	// mongodb://localhost:27017/BIOVERSITY
 		 ."[graph DSN].\n" );		// neo4j://localhost:7474						// ==>
 
 //
